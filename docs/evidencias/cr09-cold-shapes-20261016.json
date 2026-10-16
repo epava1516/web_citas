@@ -1,0 +1,2009 @@
+{
+  "run": "artifacts/local-ci/20261016-112242-c81528ae",
+  "head": "2e2c23976b48c75edba8b0fcd2cbc72d92391b1f",
+  "summary": {
+    "refresh_mode": "normal_worker_beat",
+    "dataset": {
+      "published": 10000,
+      "synthetic": true,
+      "shared_synthetic_photo_fixture": true,
+      "planner_statistics": {
+        "method": "ANALYZE after bulk, before native validation",
+        "tables": [
+          "listings_listing",
+          "listings_revision",
+          "mediafiles_photo",
+          "mediafiles_match",
+          "safety_rightsrectificationexecution"
+        ],
+        "scope": "Owned synthetic preparation only"
+      },
+      "sample_ids": [
+        "a5293abb-9f4a-4e07-9236-3b2fe429cace",
+        "3ea0292e-4c8e-4efa-b881-f05038868d92",
+        "6f842fa9-4322-4523-8e37-2ef241cd179e",
+        "ab0a1b3f-2dbc-463e-bab2-14ba6c59e211",
+        "b0d534b7-2c64-42e8-86b2-9d715ec2050f",
+        "2fddc976-1933-4ac1-ad5c-ba99ce35a0aa",
+        "ed632695-5f73-4486-929b-335bf1cf3665",
+        "b3277554-af3c-43b2-9004-58fd62fced84",
+        "1094d128-bc1b-4dec-a4c9-c83cc48cb9b5",
+        "a059d448-2be0-40d5-92ce-34b9cc239737",
+        "0c35498c-db7c-4b8f-a38c-44a2f0df70d0",
+        "e0fcb95f-4648-4269-9dff-c3ff446024ad",
+        "14a795a5-9438-4071-9211-733a7ba3c8df",
+        "d8652f2f-404d-4d7c-9be0-cdc926a42197",
+        "9329a11e-7992-4865-aac5-077b4ef1ef88",
+        "f8277631-6bbc-44c0-87aa-e6700f7669ee",
+        "6a87e33e-5af7-4b3c-8b30-48ac23b8197c",
+        "f10c585f-6af8-456c-9251-b5d7a15c9a68",
+        "b41a2a82-8f6a-43fd-8bef-134ec1405e0b",
+        "df3c2873-ac66-4382-9cef-80fdbe99e332",
+        "519a13c8-1e1e-4b14-bbd9-42ba93d6f39d"
+      ],
+      "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+      "deployment_step": "Publication state current for rules a4d3642c38f5: 9998 recomputed",
+      "deployment_step_after_fixture": "Publication state current for rules a4d3642c38f5: 1 recomputed"
+    },
+    "resources": {
+      "canonical_kernel": {
+        "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+        "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+        "cache_tag": "cpython-312",
+        "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+        "cython": "3.0.12",
+        "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+        "flags": [
+          "-O3",
+          "-fPIC",
+          "-shared"
+        ],
+        "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+        "machine": "x86_64",
+        "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+        "mode": "native-sealed",
+        "module": "apps.safety._canonical_kernel",
+        "python": "3.12.15",
+        "schema": 1,
+        "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+      },
+      "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+      "cpu_count": 8,
+      "cpu_affinity_count": 4,
+      "postgres_version": "17.11",
+      "gunicorn_version": "23.0.0",
+      "django_version": "5.2.17",
+      "python_version": "3.12.15",
+      "pg_server_shared": true,
+      "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+      "memory_total": "MemTotal:       23760928 kB"
+    },
+    "success": false,
+    "duration_seconds": 60,
+    "arrival_rps": 20,
+    "server": "Gunicorn4 sync workers, 1 threads each, local TCP",
+    "server_topology": {
+      "worker_class": "sync",
+      "workers": 4,
+      "threads": 1
+    },
+    "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker.",
+    "verdict": "FAIL",
+    "invalid_reasons": [],
+    "policy": {
+      "generator_p95_seconds_max": 0.01,
+      "generator_p99_seconds_max": 0.025,
+      "generator_max_seconds_max": 0.1,
+      "not_emitted_fraction_max": 0.0,
+      "request_timeout_seconds": 65.0,
+      "drain_seconds": 70.0,
+      "latency_p95_seconds_strict_max": 0.8,
+      "error_fraction_strict_max": 0.01,
+      "late_emission": "Never emit after the arrival window; count as not emitted",
+      "final_pending": "Classify as failed/timeout at fixed drain deadline",
+      "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+      "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+      "request_timeout_scope": "65s total across connection, headers and body",
+      "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+    },
+    "mix": {
+      "listing": "1/3",
+      "search": "1/3",
+      "detail": "1/3",
+      "languages": "ES/EN alternating",
+      "uploads": "separate1/minute,15 for contractual run"
+    },
+    "not_measured": [
+      "DB connections/waits/locks/IO",
+      "worker/PostgreSQL RSS baseline/peak/final",
+      "allocations/request",
+      "generator process CPU/RSS/scheduling outside observed GC intervals",
+      "causal client GC callback overhead",
+      "DB CPU; whole-app/other-thread CPU; unobserved request CPU",
+      "causal worker observer overhead; exact TCP/socket queue time",
+      "SQL rows_returned/affected/scanned; normalized dominant SQL patterns during load"
+    ],
+    "frozen_manifest": {
+      "refresh_mode": "normal_worker_beat",
+      "diagnostic_static_startup": true,
+      "source_commit": "2e2c23976b48c75edba8b0fcd2cbc72d92391b1f",
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "dataset": {
+        "published": 10000,
+        "synthetic": true,
+        "shared_synthetic_photo_fixture": true,
+        "planner_statistics": {
+          "method": "ANALYZE after bulk, before native validation",
+          "tables": [
+            "listings_listing",
+            "listings_revision",
+            "mediafiles_photo",
+            "mediafiles_match",
+            "safety_rightsrectificationexecution"
+          ],
+          "scope": "Owned synthetic preparation only"
+        },
+        "sample_ids": [
+          "a5293abb-9f4a-4e07-9236-3b2fe429cace",
+          "3ea0292e-4c8e-4efa-b881-f05038868d92",
+          "6f842fa9-4322-4523-8e37-2ef241cd179e",
+          "ab0a1b3f-2dbc-463e-bab2-14ba6c59e211",
+          "b0d534b7-2c64-42e8-86b2-9d715ec2050f",
+          "2fddc976-1933-4ac1-ad5c-ba99ce35a0aa",
+          "ed632695-5f73-4486-929b-335bf1cf3665",
+          "b3277554-af3c-43b2-9004-58fd62fced84",
+          "1094d128-bc1b-4dec-a4c9-c83cc48cb9b5",
+          "a059d448-2be0-40d5-92ce-34b9cc239737",
+          "0c35498c-db7c-4b8f-a38c-44a2f0df70d0",
+          "e0fcb95f-4648-4269-9dff-c3ff446024ad",
+          "14a795a5-9438-4071-9211-733a7ba3c8df",
+          "d8652f2f-404d-4d7c-9be0-cdc926a42197",
+          "9329a11e-7992-4865-aac5-077b4ef1ef88",
+          "f8277631-6bbc-44c0-87aa-e6700f7669ee",
+          "6a87e33e-5af7-4b3c-8b30-48ac23b8197c",
+          "f10c585f-6af8-456c-9251-b5d7a15c9a68",
+          "b41a2a82-8f6a-43fd-8bef-134ec1405e0b",
+          "df3c2873-ac66-4382-9cef-80fdbe99e332",
+          "519a13c8-1e1e-4b14-bbd9-42ba93d6f39d"
+        ],
+        "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+        "deployment_step": "Publication state current for rules a4d3642c38f5: 9998 recomputed",
+        "deployment_step_after_fixture": "Publication state current for rules a4d3642c38f5: 1 recomputed"
+      },
+      "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+      "resources": {
+        "canonical_kernel": {
+          "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+          "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+          "cache_tag": "cpython-312",
+          "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+          "cython": "3.0.12",
+          "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+          "flags": [
+            "-O3",
+            "-fPIC",
+            "-shared"
+          ],
+          "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+          "machine": "x86_64",
+          "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+          "mode": "native-sealed",
+          "module": "apps.safety._canonical_kernel",
+          "python": "3.12.15",
+          "schema": 1,
+          "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+        },
+        "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+        "cpu_count": 8,
+        "cpu_affinity_count": 4,
+        "postgres_version": "17.11",
+        "gunicorn_version": "23.0.0",
+        "django_version": "5.2.17",
+        "python_version": "3.12.15",
+        "pg_server_shared": true,
+        "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+        "memory_total": "MemTotal:       23760928 kB"
+      },
+      "routes": [
+        "/es/",
+        "/en/",
+        "/es/?q=photography",
+        "/en/?q=synthetic",
+        "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+        "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/"
+      ],
+      "mix": {
+        "listing": "1/3",
+        "search": "1/3",
+        "detail": "1/3",
+        "languages": "ES/EN alternating",
+        "uploads": "separate1/minute,15 for contractual run"
+      },
+      "policy": {
+        "generator_p95_seconds_max": 0.01,
+        "generator_p99_seconds_max": 0.025,
+        "generator_max_seconds_max": 0.1,
+        "not_emitted_fraction_max": 0.0,
+        "request_timeout_seconds": 65.0,
+        "drain_seconds": 70.0,
+        "latency_p95_seconds_strict_max": 0.8,
+        "error_fraction_strict_max": 0.01,
+        "late_emission": "Never emit after the arrival window; count as not emitted",
+        "final_pending": "Classify as failed/timeout at fixed drain deadline",
+        "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+        "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+        "request_timeout_scope": "65s total across connection, headers and body",
+        "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+      },
+      "duration_seconds": 60,
+      "arrival_rps": 20,
+      "scheduled_dynamic": 1200,
+      "uploads_separate": 1,
+      "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+      "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
+      "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; opt-in workerGC intervals without policy changes, overlapping stages not additive; no per-request DB CPU/RSS sampling",
+      "scope": "60s concurrent diagnostic only; not contractual capacity",
+      "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+      "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
+      "worker_observer": {
+        "enabled": true,
+        "mode": "ingress_sql_gc_no_handler_imports",
+        "scope": "WSGI entry/end/threadCPU, SQL execute wall/threadCPU and GC only. No eager imports or wrappers of handlers/rules/render; context/validation/render not measured separately. SQL and GC overlap WSGI and each other. Emission\u2192WSGI includes client/TCP/scheduling/admission, not exact socket queue. Observer overhead not measured causally; not a clean p95.",
+        "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+        "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+      },
+      "diagnostic_criteria": {
+        "valid_generator_and_reconciled_accounting": true,
+        "p95_seconds_strict_below": 0.8,
+        "error_ratio_strict_below": 0.01,
+        "uploads_expected_status": 302,
+        "dynamic_pending_at_window_max": 20,
+        "final_pending": 0,
+        "request_timeout_seconds": 65,
+        "drain_seconds_max": 70,
+        "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+        "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+      }
+    },
+    "celery_pids": {
+      "worker": [
+        3693622,
+        3693710,
+        3693731
+      ],
+      "beat": [
+        3693623
+      ]
+    },
+    "cold_probes": [
+      {
+        "path": "/es/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25278,
+        "unexpected": false,
+        "seconds": 0.2812133049592376
+      },
+      {
+        "path": "/en/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 24075,
+        "unexpected": false,
+        "seconds": 0.557338772341609
+      },
+      {
+        "path": "/es/?q=photography",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25118,
+        "unexpected": false,
+        "seconds": 0.45085593638941646
+      },
+      {
+        "path": "/en/?q=synthetic",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 23911,
+        "unexpected": false,
+        "seconds": 0.2390583329834044
+      },
+      {
+        "path": "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3725,
+        "unexpected": false,
+        "seconds": 0.12052437802776694
+      },
+      {
+        "path": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3487,
+        "unexpected": false,
+        "seconds": 0.11291430285200477
+      }
+    ],
+    "cold_latency_seconds": {
+      "p95": 0.557338772341609,
+      "population": 6
+    },
+    "beat_alignment": {
+      "observed_tick_monotonic": 3870509.557631821,
+      "load_start_target": 3870514.557631821,
+      "phase_seconds": 5
+    },
+    "dirty_before_load": 0,
+    "celery_cpu_ticks_before": {
+      "3693622": 192,
+      "3693710": 12,
+      "3693731": 8,
+      "3693623": 173
+    },
+    "client_gc_preparation": {
+      "collected_gc_objects": 48464,
+      "frozen_after_collect": true,
+      "frozen_objects": 188532,
+      "wall_seconds": 0.15878877695649862,
+      "collector_thread_cpu_seconds": 0.1496079040000069,
+      "completed_at_monotonic": 3870514.718660109,
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "scope": "One full collection in test-client preparation after fixture/auth/upload construction, before asyncio arrival clock. No gc.disable or threshold mutation; collector stays active during load. Objects aren't ORM models or SQL rows; source provenance of individual collected objects not_measured. Backend/Gunicorn processes unaffected."
+    },
+    "client_gc": {
+      "events": [
+        {
+          "generation": 0,
+          "wall_seconds": 3.3779069781303406e-05,
+          "collector_thread_cpu_seconds": 3.23000000008733e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870514.719644113,
+          "monotonic_end": 3870514.719673475
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 3.854883834719658e-05,
+          "collector_thread_cpu_seconds": 3.761700000382007e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870514.720899778,
+          "monotonic_end": 3870514.720935322
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00018319813534617424,
+          "collector_thread_cpu_seconds": 0.00018206699999723241,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870515.770789731,
+          "monotonic_end": 3870515.770969905
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0003471630625426769,
+          "collector_thread_cpu_seconds": 0.00034672600000362763,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870517.871100241,
+          "monotonic_end": 3870517.871445774
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00033797742798924446,
+          "collector_thread_cpu_seconds": 0.00032759699999473924,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870533.721751066,
+          "monotonic_end": 3870533.722087749
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0003398098051548004,
+          "collector_thread_cpu_seconds": 0.0003214110000016035,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870541.62091245,
+          "monotonic_end": 3870541.621245
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00018168287351727486,
+          "collector_thread_cpu_seconds": 0.00018031700000165074,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870548.321307143,
+          "monotonic_end": 3870548.321483157
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0002293209545314312,
+          "collector_thread_cpu_seconds": 0.0002282739999941441,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870556.621539191,
+          "monotonic_end": 3870556.621765443
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00018153386190533638,
+          "collector_thread_cpu_seconds": 0.00017146700000125747,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870564.670975126,
+          "monotonic_end": 3870564.671148407
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001901998184621334,
+          "collector_thread_cpu_seconds": 0.00018906900000104088,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870571.822512,
+          "monotonic_end": 3870571.822699467
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00016162684187293053,
+          "collector_thread_cpu_seconds": 0.00016026999999496638,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870574.723149371,
+          "monotonic_end": 3870574.723307693
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0010053669102489948,
+          "collector_thread_cpu_seconds": 0.000989348999993922,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870574.723574892,
+          "monotonic_end": 3870574.724589938
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 7.675960659980774e-05,
+          "collector_thread_cpu_seconds": 7.613100000014583e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870574.725037509,
+          "monotonic_end": 3870574.725111323
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 6.854534149169922e-05,
+          "collector_thread_cpu_seconds": 6.797199999653003e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870574.725563801,
+          "monotonic_end": 3870574.725630106
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 8.262228220701218e-05,
+          "collector_thread_cpu_seconds": 7.422500000586751e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3870574.725962781,
+          "monotonic_end": 3870574.72604337
+        }
+      ],
+      "calls_by_generation": {
+        "0": 14,
+        "1": 1
+      },
+      "wall_seconds": 0.0034581348299980164,
+      "collector_thread_cpu_seconds": 0.003384791999991421,
+      "max_wall_seconds": 0.0010053669102489948,
+      "max_collector_thread_cpu_seconds": 0.000989348999993922,
+      "collections_stats_delta": [
+        14,
+        1,
+        0
+      ],
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "unfinished_events": 0,
+      "scope": "gc.callbacks start/stop intervals of this process; CPU is collector thread only. Includes callback overhead and wall scheduling, not allocations or SQL/ORM rows. Events overlap enclosing rule/request intervals; never add or subtract them as an independent phase. Policy unchanged, no gc.collect/disable/threshold mutation. Causal callback overhead not_measured; no attribution to other processes or earlier runs."
+    },
+    "celery_cpu_ticks_after": {
+      "3693622": 206,
+      "3693710": 54,
+      "3693731": 110,
+      "3693623": 184
+    },
+    "clock_ticks_per_second": 100,
+    "client_gc_emission_overlap": {
+      "emitted_population": 1200,
+      "requests_with_gc_overlap": 0,
+      "largest_delay": {
+        "id": "d-577",
+        "delay_seconds": 0.039800194185225735,
+        "gc_overlap_seconds": 0
+      },
+      "overlapping_delays": [],
+      "scope": "Union of client GC intervals intersected with scheduled-to-emitted delays, same monotonic origin. Overlap measured, not sole causal attribution; CPU/scheduling/network/other processes remain separate. GC events before the arrival clock or during drain do not imply arrival delay. No thresholds or collector policy changed."
+    },
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "generator_delay_seconds": {
+      "p50": 0.000824684835970757,
+      "p90": 0.0014461169950692465,
+      "p95": 0.0019841001369087508,
+      "p99": 0.002768081147223711,
+      "max": 0.039800194185225735,
+      "population": 1200
+    },
+    "observable_latency_seconds": {
+      "p50": 0.2402257490903139,
+      "p90": 0.7890099361538887,
+      "p95": 1.1189852999523282,
+      "p99": 1.363188617862761,
+      "max": 1.4663985269144177,
+      "population": 1200
+    },
+    "total_delay_seconds": {
+      "p50": 0.24123664591461136,
+      "p90": 0.7895398631691934,
+      "p95": 1.1196551429107786,
+      "p99": 1.36352135585621,
+      "max": 1.467674433812499,
+      "population": 1200
+    },
+    "error_fraction_emitted": 0.0,
+    "not_emitted_fraction_scheduled": 0.0,
+    "requested_rps": 20,
+    "emitted_per_window_second": 20.0,
+    "completed_per_window_second": 19.916666666666668,
+    "arrival_second_bins": [
+      {
+        "second": 0,
+        "emitted": 20,
+        "completed": 6
+      },
+      {
+        "second": 1,
+        "emitted": 20,
+        "completed": 13
+      },
+      {
+        "second": 2,
+        "emitted": 20,
+        "completed": 16
+      },
+      {
+        "second": 3,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 4,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 5,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 6,
+        "emitted": 20,
+        "completed": 23
+      },
+      {
+        "second": 7,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 8,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 9,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 10,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 11,
+        "emitted": 20,
+        "completed": 23
+      },
+      {
+        "second": 12,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 13,
+        "emitted": 20,
+        "completed": 25
+      },
+      {
+        "second": 14,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 15,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 16,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 17,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 18,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 19,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 20,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 21,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 22,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 23,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 24,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 25,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 26,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 27,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 28,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 29,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 30,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 31,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 32,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 33,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 34,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 35,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 36,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 37,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 38,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 39,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 40,
+        "emitted": 20,
+        "completed": 23
+      },
+      {
+        "second": 41,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 42,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 43,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 44,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 45,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 46,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 47,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 48,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 49,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 50,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 51,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 52,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 53,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 54,
+        "emitted": 20,
+        "completed": 15
+      },
+      {
+        "second": 55,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 56,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 57,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 58,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 59,
+        "emitted": 20,
+        "completed": 19
+      }
+    ],
+    "percentile_population": "All emitted terminated requests, including errors/timeouts; no successful-only filter",
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1195,
+        "failed": 0,
+        "pending": 5,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.00202667620033
+    },
+    "final_before_deadline_classification": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1200,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      }
+    },
+    "final_upload_counts": {
+      "scheduled": 1,
+      "emitted": 1,
+      "not_emitted": 0,
+      "successful": 1,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "uploads": [
+      {
+        "id": "u-0",
+        "path": "/es/draft/cffa6a55-e0bc-4724-b2ee-8ef5c4a7b712/photos/upload/",
+        "scheduled_at": 0,
+        "emitted_at": 0.0007830099202692509,
+        "ended_at": 0.43393755005672574,
+        "expected": 302,
+        "status": 302,
+        "bytes": 0,
+        "unexpected": false,
+        "timeout": false
+      }
+    ],
+    "actual_elapsed_seconds": 60.09802912687883,
+    "monotonic_origin_seconds": 3870514.720027979,
+    "drain_deadline_seconds": 130.0,
+    "clock": "asyncio loop.time monotonic; all timestamps relative to same start",
+    "emitter": "Async tasks, no pending-request cap; whole-request timeout bounds lifetime",
+    "trial_resource_stopped": false,
+    "request_samples_artifact": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-112242-c81528ae/benchmark-samples.json",
+    "transport_verdict": "FAIL",
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": true,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "diagnostic_continue_contract": false,
+    "gunicorn_stopped": true,
+    "celery_worker_stopped": true,
+    "celery_beat_stopped": true,
+    "celery_pid_absence": {
+      "3693622": true,
+      "3693710": true,
+      "3693731": true,
+      "3693623": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "worker_observer_artifact": "benchmark-worker-events.json",
+    "worker_observer_parse_errors": [],
+    "startup_error_types": [],
+    "gunicorn_service_artifact": "benchmark-server-service.json",
+    "gunicorn_service_parse_errors": [],
+    "gunicorn_dynamic_service_p95_seconds": 0.320689,
+    "gunicorn_dynamic_service_population": 1200,
+    "gunicorn_dynamic_service_limits": "Completed Gunicorn log rows only; interrupted/unlogged/timeouts excluded here, included in observable latency/failed population. Health/cold/uploads excluded."
+  },
+  "paired_dynamic": 1200,
+  "ready": [
+    {
+      "id": "startup",
+      "pid": 3693830,
+      "event": "static_ready",
+      "monotonic": 3870482.274066092,
+      "sql_shapes_active": true
+    },
+    {
+      "id": "startup",
+      "pid": 3693832,
+      "event": "static_ready",
+      "monotonic": 3870482.492676516,
+      "sql_shapes_active": true
+    },
+    {
+      "id": "startup",
+      "pid": 3693833,
+      "event": "static_ready",
+      "monotonic": 3870482.52028893,
+      "sql_shapes_active": true
+    },
+    {
+      "id": "startup",
+      "pid": 3693834,
+      "event": "static_ready",
+      "monotonic": 3870482.469550618,
+      "sql_shapes_active": true
+    }
+  ],
+  "fingerprint_overflow_calls": 0,
+  "mixed_shape_buckets_excluded": 0,
+  "matched_strata": 744,
+  "comparisons": [
+    {
+      "pid": 3693833,
+      "id": "d-0",
+      "route_hash": "b7c878055fe1b13eac1d4d6d1e14fbc15a2f5db2c77c05843fd66a585bf36ac9",
+      "route": "/es/",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.0,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.08840587409213185,
+      "later_mean_sql_seconds": 0.007779416447091434,
+      "later_request_count": 54,
+      "observed_first_extra_seconds": 0.08062645764504042
+    },
+    {
+      "pid": 3693832,
+      "id": "d-1",
+      "route_hash": "df11d16d563e7463d3971df5ec7216455633b797052985cf0f62c2973f7296df",
+      "route": "/en/",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.05,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.07240095920860767,
+      "later_mean_sql_seconds": 0.009229513284351145,
+      "later_request_count": 42,
+      "observed_first_extra_seconds": 0.06317144592425653
+    },
+    {
+      "pid": 3693832,
+      "id": "d-26",
+      "route_hash": "a11b4b7a7a2c5767c1149693f042a0388a3fe3d9a84fa8f718abae6da253d482",
+      "route": "/es/?q=photography",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 1.3,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.04677099920809269,
+      "later_mean_sql_seconds": 0.010657829956875907,
+      "later_request_count": 45,
+      "observed_first_extra_seconds": 0.036113169251216784
+    },
+    {
+      "pid": 3693833,
+      "id": "d-0",
+      "route_hash": "b7c878055fe1b13eac1d4d6d1e14fbc15a2f5db2c77c05843fd66a585bf36ac9",
+      "route": "/es/",
+      "fingerprint": "121abc444dbfc8103ab84647d4316e164b76de9d74312b895b81c7edcd5ade69",
+      "parameter_shape": {
+        "count": 2,
+        "nested_lengths": [
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/publication_state.py:487",
+      "arrival": 0.0,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.037041354924440384,
+      "later_mean_sql_seconds": 0.002368126797524315,
+      "later_request_count": 54,
+      "observed_first_extra_seconds": 0.03467322812691607
+    },
+    {
+      "pid": 3693834,
+      "id": "d-2",
+      "route_hash": "a11b4b7a7a2c5767c1149693f042a0388a3fe3d9a84fa8f718abae6da253d482",
+      "route": "/es/?q=photography",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.1,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.044376558158546686,
+      "later_mean_sql_seconds": 0.012863935210515518,
+      "later_request_count": 37,
+      "observed_first_extra_seconds": 0.03151262294803117
+    },
+    {
+      "pid": 3693832,
+      "id": "d-3",
+      "route_hash": "e11ca67ae56ce63ed69b0f9a4fd884d2457310977eb8845cc99f7dcf9067c0f6",
+      "route": "/en/?q=synthetic",
+      "fingerprint": "4c03ecaa7acf3c169b3cb32eb394f09cd810bd85885dc1b5497f2cad1717430a",
+      "parameter_shape": {
+        "count": 0,
+        "nested_lengths": [],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/discovery.py:44",
+      "arrival": 0.15,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.03427479416131973,
+      "later_mean_sql_seconds": 0.003217964433133602,
+      "later_request_count": 27,
+      "observed_first_extra_seconds": 0.03105682972818613
+    },
+    {
+      "pid": 3693832,
+      "id": "d-23",
+      "route_hash": "608c6e56b8279e5b72f79f98e6708b478e91ecc748e8682ba2c987775aa0735e",
+      "route": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+      "fingerprint": "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+      "parameter_shape": {
+        "count": 23,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 1.15,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.033762767910957336,
+      "later_mean_sql_seconds": 0.0036225984286930826,
+      "later_request_count": 45,
+      "observed_first_extra_seconds": 0.030140169482264254
+    },
+    {
+      "pid": 3693834,
+      "id": "d-27",
+      "route_hash": "e11ca67ae56ce63ed69b0f9a4fd884d2457310977eb8845cc99f7dcf9067c0f6",
+      "route": "/en/?q=synthetic",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 1.35,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.03706916980445385,
+      "later_mean_sql_seconds": 0.008255544827198204,
+      "later_request_count": 46,
+      "observed_first_extra_seconds": 0.028813624977255647
+    },
+    {
+      "pid": 3693834,
+      "id": "d-11",
+      "route_hash": "608c6e56b8279e5b72f79f98e6708b478e91ecc748e8682ba2c987775aa0735e",
+      "route": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+      "fingerprint": "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+      "parameter_shape": {
+        "count": 1,
+        "nested_lengths": [
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.55,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.027458857279270887,
+      "later_mean_sql_seconds": 0.0015658413120094806,
+      "later_request_count": 31,
+      "observed_first_extra_seconds": 0.025893015967261408
+    },
+    {
+      "pid": 3693834,
+      "id": "d-4",
+      "route_hash": "b987453e9044494d96aa9bfac5c60bb9583d5c77d071a60a3c526b5914cf6e0b",
+      "route": "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+      "fingerprint": "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+      "parameter_shape": {
+        "count": 23,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.2,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.028798066079616547,
+      "later_mean_sql_seconds": 0.003780327830463648,
+      "later_request_count": 35,
+      "observed_first_extra_seconds": 0.025017738249152897
+    },
+    {
+      "pid": 3693833,
+      "id": "d-0",
+      "route_hash": "b7c878055fe1b13eac1d4d6d1e14fbc15a2f5db2c77c05843fd66a585bf36ac9",
+      "route": "/es/",
+      "fingerprint": "37daa791c33729d3a8e70dd4c2a6a2fc377fd23a05079f3e6716744488ba38db",
+      "parameter_shape": {
+        "count": 1,
+        "nested_lengths": [
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/submissions.py:18",
+      "arrival": 0.0,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.026006593834608793,
+      "later_mean_sql_seconds": 0.001281105611404335,
+      "later_request_count": 54,
+      "observed_first_extra_seconds": 0.02472548822320446
+    },
+    {
+      "pid": 3693833,
+      "id": "d-0",
+      "route_hash": "b7c878055fe1b13eac1d4d6d1e14fbc15a2f5db2c77c05843fd66a585bf36ac9",
+      "route": "/es/",
+      "fingerprint": "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+      "parameter_shape": {
+        "count": 1,
+        "nested_lengths": [
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/publication_state.py:305",
+      "arrival": 0.0,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.029894675128161907,
+      "later_mean_sql_seconds": 0.008291743290438145,
+      "later_request_count": 54,
+      "observed_first_extra_seconds": 0.021602931837723764
+    },
+    {
+      "pid": 3693830,
+      "id": "d-5",
+      "route_hash": "608c6e56b8279e5b72f79f98e6708b478e91ecc748e8682ba2c987775aa0735e",
+      "route": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+      "fingerprint": "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+      "parameter_shape": {
+        "count": 23,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.25,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.024937964044511318,
+      "later_mean_sql_seconds": 0.0038224270683713257,
+      "later_request_count": 40,
+      "observed_first_extra_seconds": 0.021115536976139992
+    },
+    {
+      "pid": 3693830,
+      "id": "d-5",
+      "route_hash": "608c6e56b8279e5b72f79f98e6708b478e91ecc748e8682ba2c987775aa0735e",
+      "route": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+      "fingerprint": "9d17bbb661fed7911b1bd95384925cd16bdf6576f1782a1698d094f8e2bb9827",
+      "parameter_shape": {
+        "count": 1,
+        "nested_lengths": [
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.25,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.022454943973571062,
+      "later_mean_sql_seconds": 0.0016075310413725674,
+      "later_request_count": 40,
+      "observed_first_extra_seconds": 0.020847412932198495
+    },
+    {
+      "pid": 3693830,
+      "id": "d-8",
+      "route_hash": "a11b4b7a7a2c5767c1149693f042a0388a3fe3d9a84fa8f718abae6da253d482",
+      "route": "/es/?q=photography",
+      "fingerprint": "68c53eeaac0f52f9e03bc69bc4f6f4737d6e83da0fe6e24efb9cc9061b063b49",
+      "parameter_shape": {
+        "count": 26,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/presentation_reads.py:36",
+      "arrival": 0.4,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.023624273017048836,
+      "later_mean_sql_seconds": 0.0030158295606573424,
+      "later_request_count": 39,
+      "observed_first_extra_seconds": 0.020608443456391495
+    },
+    {
+      "pid": 3693833,
+      "id": "d-10",
+      "route_hash": "b987453e9044494d96aa9bfac5c60bb9583d5c77d071a60a3c526b5914cf6e0b",
+      "route": "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+      "fingerprint": "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+      "parameter_shape": {
+        "count": 23,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.5,
+      "seen_same_structure_shape_on_worker": false,
+      "first_mean_sql_seconds": 0.020336662884801626,
+      "later_mean_sql_seconds": 0.0026116349920630457,
+      "later_request_count": 50,
+      "observed_first_extra_seconds": 0.017725027892738582
+    },
+    {
+      "pid": 3693832,
+      "id": "d-33",
+      "route_hash": "e11ca67ae56ce63ed69b0f9a4fd884d2457310977eb8845cc99f7dcf9067c0f6",
+      "route": "/en/?q=synthetic",
+      "fingerprint": "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+      "parameter_shape": {
+        "count": 43,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 1.65,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.023343739099800587,
+      "later_mean_sql_seconds": 0.006770073850121763,
+      "later_request_count": 27,
+      "observed_first_extra_seconds": 0.016573665249678824
+    },
+    {
+      "pid": 3693834,
+      "id": "d-4",
+      "route_hash": "b987453e9044494d96aa9bfac5c60bb9583d5c77d071a60a3c526b5914cf6e0b",
+      "route": "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+      "fingerprint": "85e8a3815051c7b89b93e47cf27d11007a5bb1181dc068d184dbc5a62c33e97f",
+      "parameter_shape": {
+        "count": 1,
+        "nested_lengths": [
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 0.2,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.01638498716056347,
+      "later_mean_sql_seconds": 0.0010219774075916836,
+      "later_request_count": 35,
+      "observed_first_extra_seconds": 0.015363009752971786
+    },
+    {
+      "pid": 3693834,
+      "id": "d-21",
+      "route_hash": "e11ca67ae56ce63ed69b0f9a4fd884d2457310977eb8845cc99f7dcf9067c0f6",
+      "route": "/en/?q=synthetic",
+      "fingerprint": "d3556128e66b8d6dfd2a5799795450c9737a805312cdddbf942016975d1b632e",
+      "parameter_shape": {
+        "count": 25,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/presentation_reads.py:43",
+      "arrival": 1.05,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.01791788311675191,
+      "later_mean_sql_seconds": 0.0030288706513364677,
+      "later_request_count": 46,
+      "observed_first_extra_seconds": 0.014889012465415442
+    },
+    {
+      "pid": 3693830,
+      "id": "d-30",
+      "route_hash": "b7c878055fe1b13eac1d4d6d1e14fbc15a2f5db2c77c05843fd66a585bf36ac9",
+      "route": "/es/",
+      "fingerprint": "af631d1eba4a308983688d9d51ea279a28b30df3545b5983a2821df7fa5ff73d",
+      "parameter_shape": {
+        "count": 24,
+        "nested_lengths": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "truncated": false
+      },
+      "calls": 1,
+      "caller": "apps/listings/public_validation.py:263",
+      "arrival": 1.5,
+      "seen_same_structure_shape_on_worker": true,
+      "first_mean_sql_seconds": 0.0156845529563725,
+      "later_mean_sql_seconds": 0.001632490163219386,
+      "later_request_count": 29,
+      "observed_first_extra_seconds": 0.014052062793153113
+    }
+  ],
+  "prelude_routes": [
+    {
+      "pid": 3693830,
+      "id": "p-1",
+      "route": "/health/",
+      "wall": 0.02374743716791272,
+      "sql_calls": 1
+    },
+    {
+      "pid": 3693830,
+      "id": "p-2",
+      "route": "/health/",
+      "wall": 0.0018317727372050285,
+      "sql_calls": 1
+    },
+    {
+      "pid": 3693830,
+      "id": "p-3",
+      "route": "/es/",
+      "wall": 0.27131664426997304,
+      "sql_calls": 39
+    },
+    {
+      "pid": 3693832,
+      "id": "p-1",
+      "route": "/es/?q=photography",
+      "wall": 0.4483935758471489,
+      "sql_calls": 39
+    },
+    {
+      "pid": 3693834,
+      "id": "p-1",
+      "route": "/en/",
+      "wall": 0.547874300274998,
+      "sql_calls": 39
+    },
+    {
+      "pid": 3693834,
+      "id": "p-2",
+      "route": "/en/?q=synthetic",
+      "wall": 0.2281297780573368,
+      "sql_calls": 39
+    },
+    {
+      "pid": 3693834,
+      "id": "p-3",
+      "route": "/es/listing/a5293abb-9f4a-4e07-9236-3b2fe429cace/",
+      "wall": 0.09475627029314637,
+      "sql_calls": 27
+    },
+    {
+      "pid": 3693834,
+      "id": "p-4",
+      "route": "/en/listing/519a13c8-1e1e-4b14-bbd9-42ba93d6f39d/",
+      "wall": 0.09533443069085479,
+      "sql_calls": 27
+    },
+    {
+      "pid": 3693834,
+      "id": "p-5",
+      "route": "/es/account/login/",
+      "wall": 0.00709128100425005,
+      "sql_calls": 0
+    }
+  ],
+  "limits": "Instrumented only. Same PID/route/SQL fingerprint/cardinality does not imply same values, plan, dirty state or randomized treatment. Bucket means are not individual call traces. SQL wall is not PostgreSQL CPU. Excludes mixed-shape buckets. No clean p95, new candidate acceptance, global N3 or CR09 closure.",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "comparison_population": 744,
+  "retained_comparisons_limit": "Top20by observed first extra time only; all744 in ignored artifact. Not an exhaustive ranking of request cost."
+}

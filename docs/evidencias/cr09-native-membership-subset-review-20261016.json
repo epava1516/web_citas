@@ -1,0 +1,55 @@
+{
+  "CONTRACT_VERSION": 1,
+  "TASK_ID": "cr09-native-membership-subset-review",
+  "STATUS": "reported_complete_not_accepted",
+  "SUMMARY": "The conditional transformation is algebraically equivalent under the stated same-snapshot membership check and non-null UUID sets. It is distinct from the rejected UNION and dirty projection transformations. Correctness does not establish a different or cheaper PostgreSQL plan; likely benefit is bounded and no speed or acceptance claim is justified.",
+  "FILES_CHANGED": ["docs/evidencias/cr09-native-membership-subset-review-20261016.json"],
+  "IMPLEMENTATION_NOTES": {
+    "source_cut": "e625870",
+    "source_locations": [
+      "apps/listings/publication_state.py:395-491",
+      "apps/listings/discovery.py:191-264",
+      "apps/listings/models.py:178-194",
+      "docs/evidencias/cr09-detail-dirty-plans-20261016.json",
+      "docs/evidencias/cr09-population-union-20261016.md",
+      "docs/evidencias/cr09-dirty-projection-roi-20261016.md"
+    ],
+    "sets": "Let P be the exact original population-query bag with filters and ordering; E eligible_ids using eligible=True, current rules version and exact existing OR-based checked predicate; D dirty UUID set; N IDs already accepted by native validation and checked matching. Original membership S=(E\\D) union N. Proposed membership T=E\\(D\\N).",
+    "proof": "T=(E\\D) union (E intersection N). Hence S=T if N is a subset of E. This identity does not require N subset D, although trusted coverage normally gives it. Intersecting either equivalent predicate with unchanged P preserves all rows and multiplicities; retaining DISTINCT decision, ordered projection, Paginator and final guards preserves IDs, ordering, count and page boundaries.",
+    "verification_requirement": "Confirm exactly set(E filtered by listing_id in N)==set(N), or equivalent equality of cardinalities only because state.listing_id is unique/non-null and N is deduplicated. Filter by listing_id, not an assumed surrogate state pk. Reuse the exact eligible/rules/check queryset; checking existence of state rows or eligible=True alone is insufficient. Keep original native-list membership for fallback. All reads must be in the same actual outer trusted RR snapshot.",
+    "counterexample_without_subset": "D={a}, N={a}, E={} gives original {a} and transformed empty. This occurs naturally after an ineligible-to-eligible transition while state is stale. Missing state, old rule version or checked mismatch must therefore preserve original query.",
+    "empty_native": "N={} makes the algebra true without any membership SELECT. Use the original E-and-not-D predicate directly, or leave existing code; do not add a database round trip for the vacuous condition. PostgreSQL may already simplify the ORM's empty OR automatically.",
+    "dirty_outside_population": "D entries outside P do not matter. Removing only N from D does not import rows outside P. Preserve all remaining D entries, including natively rejected dirty rows which happen to remain eligible in stale state.",
+    "checked": "The E test must preserve current check_filter semantics (OR across requested checks), and N continues to come from native matches checks. A native-valid row whose stale state lacks the required check belongs in fallback even if eligibility is true. Do not add or change AND/OR semantics.",
+    "stale_missing_state": "Coverage/rules census does not assert eligibility/check freshness for dirty rows. The positive subset check is a request-local syntactic membership proof, not authority to trust dirty state semantics. Missing/old/ineligible/check-mismatching state rejects the rewrite. Dirty rows still require native validation even on the positive branch.",
+    "inherited_transactions": "Do not enable for inherited RC or inherited RR merely because they happen to use RR; restrict to the existing trusted own-transaction domain. In RC, E can change between subset check and population execution, invalidating the proof. Existing own RR plus coverage flag is a conservative domain.",
+    "malformed_fk": "The rewrite neither repairs nor widens malformed approved_revision ownership. N must remain the actual output of the existing corrected native context and final guards; never reconstruct N from state or another revision join. For unchanged E,D,N,P the algebra remains exact even for malformed data. State-listing FK constraints/non-null unique key support cardinality checking; deferred caller-write FK anomalies stay outside the own-read-only domain.",
+    "live_ranking": "Keep the exact population_query including live Listing/Revision dates, expiry predicates, search vectors/rank and original timestamp capture. Do not substitute maintained state search_document or published_at for dirty rows, even when N subset E. The equivalence proof only rewrites membership."
+  },
+  "TESTS_RUN": [],
+  "TEST_RESULTS": "Static proof and adversarial cases only. No commands against DB, Docker, network, test suite, load or production. No code patch or commit.",
+  "ASSUMPTIONS": [
+    "Root's proposal is membership-only and is not yet implemented.",
+    "UUID primary keys and PublicationState.listing_id are non-null and listing_id unique, as current model declares.",
+    "Existing trusted own RR flag corresponds to an actual coherent read-only snapshot, not an arbitrary caller assertion.",
+    "No new data/result caching, writes, triggers or shared state are introduced."
+  ],
+  "RISKS": [
+    "Adds one membership SELECT to positive and negative nonempty-native cases. Negative cases necessarily perform extra work before falling back; record hit/miss frequency rather than measure only positive fixtures.",
+    "Removing an OR permits but does not force semijoin pullup or a faster join algorithm. PostgreSQL can still scan/hash all 10000 eligible rows or choose a more expensive plan.",
+    "Retained /es/ count and page subplans spend about 6.534 ms and 4.686 ms building the 10000-row state set. Removing only that work is roughly 11 ms before extra-check cost, about 5% of the 216 ms current ROI request baseline, below the existing 10% integration threshold. Whole-plan effects are unknown and this cross-run rough bound is not a measured effect or strict maximum.",
+    "The dirty branch exists only during part of the real scenario; constant-dirty isolated ROI can overstate end-to-end contribution.",
+    "Shared SQL query objects must not accidentally be narrowed in place for later population membership. Django queryset filtering is clone-based; preserve the full E subquery separately."
+  ],
+  "UNRESOLVED_ISSUES": [
+    "No actual candidate SQL, plan, membership-check cost, subset hit frequency or first-arrival causal effect has been measured.",
+    "Parent worktree may contain evidence later than this isolated e625870 cut; report must be reconciled by root.",
+    "Native agent token consumption is not independently measured; no Claude V1 invocation."
+  ],
+  "RECOMMENDATIONS": [
+    "Logically suitable for a single bounded query-plan diagnostic if root chooses to pursue it; not suitable for immediate integration, clean-load attempt or ROI sweep.",
+    "First compare exact original and transformed SQL plus extra subset SELECT on the same owned snapshot outside accepted measurements. Include positive subset, empty N and negative subset. If the positive plan retains the same scans/hash work or realistic savings cannot approach the preregistered ROI threshold after extra-check cost, stop without an ROI run.",
+    "If plans provide materially different evidence, preregister functional parity for stale eligibility both directions, state check mismatch, missing/old state, native empty/rejected, multiple dirty IDs inside/outside population, search/date mutation, duplicated filter joins, page boundaries, malformed revision ownership and inherited-transaction fallback; then measure total request A/A/C without changing thresholds.",
+    "Distinctness: rejected membership UNION constructed a compound membership subquery and changed its materialization/deduplication; dirty projection changed the outer population source and built disjoint clean/native rows; COUNT window fused count and page. This proposal conditionally proves OR redundancy and retains original population source, not a retest of those exact algorithms. It still targets the same state-membership bottleneck, so novelty alone is not evidence of benefit."
+  ]
+}
