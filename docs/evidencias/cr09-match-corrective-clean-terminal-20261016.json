@@ -1,0 +1,159 @@
+{
+  "run": "20261016-020854-c2b568f1",
+  "sha": "fca1af035289a255e4d38df03bed9106ecf0b832",
+  "verdict": "FAIL",
+  "pytest_seconds": 184.69,
+  "validity": {
+    "validity": true,
+    "latency_and_errors": false,
+    "pending_at_window": true,
+    "final_pending": true,
+    "upload": true,
+    "timeout_policy": true,
+    "drain": true
+  },
+  "latency": {
+    "p50": 0.2325873151421547,
+    "p90": 0.9479418620467186,
+    "p95": 1.173553837928921,
+    "p99": 1.357117225881666,
+    "max": 1.474276572931558,
+    "population": 1200
+  },
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "generator_delay": {
+    "p50": 0.0008521858602765775,
+    "p90": 0.0014391107484712506,
+    "p95": 0.0019972490146749067,
+    "p99": 0.002898451685904746,
+    "max": 0.0081556749530165,
+    "population": 1200
+  },
+  "cases": {
+    "listing": {
+      "n": 400,
+      "p95_s": 1.188380264211446
+    },
+    "search": {
+      "n": 400,
+      "p95_s": 1.1921335998922586
+    },
+    "detail": {
+      "n": 400,
+      "p95_s": 1.081087531056255
+    }
+  },
+  "cohorts": [
+    {
+      "from": 0,
+      "to": 5,
+      "n": 100,
+      "p95_s": 1.412958052009344,
+      "slow_ge_0_8": 92
+    },
+    {
+      "from": 5,
+      "to": 10,
+      "n": 100,
+      "p95_s": 1.111202271655202,
+      "slow_ge_0_8": 52
+    },
+    {
+      "from": 10,
+      "to": 15,
+      "n": 100,
+      "p95_s": 0.48532524006441236,
+      "slow_ge_0_8": 0
+    },
+    {
+      "from": 15,
+      "to": 60,
+      "n": 900,
+      "p95_s": 0.3554713889025152,
+      "slow_ge_0_8": 0
+    }
+  ],
+  "upload_counts": {
+    "scheduled": 1,
+    "emitted": 1,
+    "not_emitted": 0,
+    "successful": 1,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "upload_statuses": [
+    302
+  ],
+  "window_close": {
+    "dynamic": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1196,
+      "failed": 0,
+      "pending": 4,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "uploads": {
+      "scheduled": 1,
+      "emitted": 1,
+      "not_emitted": 0,
+      "successful": 1,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "observed_at_seconds": 60.00121390493587
+  },
+  "service_p95_s": 0.305278,
+  "canonical_kernel": {
+    "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "source_freeze_independent": true,
+  "cleanup_independent": true,
+  "unit_mainpid": 0,
+  "unit_controlgroup": "",
+  "limitations": [
+    "One clean run per version, no reproducibility or causal regression established.",
+    "This is the host VPS harness, not packaged Docker runtime performance.",
+    "Legacy raw pg_server_shared/limits fields are wrong; adapter created bounded own PostgreSQL/Redis containers; originals preserved.",
+    "trial_resource_stopped was recorded before final stop; final flags, PID checks and empty unit cgroup verified.",
+    "No profiler or worker observer; individual Gunicorn worker PID list not independently retained; unit cgroup empty and Gunicorn final stop asserted."
+  ],
+  "acceptance": false
+}

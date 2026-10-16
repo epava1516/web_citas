@@ -415,3 +415,6 @@ Actualización posterior: la [imagenv2](evidencias/cr09-docker-pg-journeys-20261
 
 
 2026-10-16, posterior a0020: Dockerfile ajusta el timeout Gunicorn a60s, como el arnés actual (cliente65s), conservando4sync. No cambia el umbral p95. Construcción e imagen anteriores conservan sus valores; la imagen nueva requiere identidad y smoke propios antes de medir.
+
+
+Posterior: [imagenv3](evidencias/cr09-docker-native-v3-20261016.md) reconstruida con0020/4sync60s ysmokePGreal válido. [Corto host corregido](evidencias/cr09-match-corrective-clean-20261016.md) FAILp951,173553838s,1200completas0errores;noaceptaN3 ni capacidadDocker, no repetirFAIL/900s.
