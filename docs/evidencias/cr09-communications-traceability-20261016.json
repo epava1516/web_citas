@@ -1,0 +1,338 @@
+{
+  "current_source_cut": "102cb47",
+  "scope": "Semantic mapping of four account-notice requirements to assertions and terminal phase receipts, plus source identity reconciliation only for prior rights index. Not full imported-dependency applicability or N3.",
+  "requirements": [
+    {
+      "id": "COM-ACCOUNT-SCOPE",
+      "requirement": "Use the exact account subject as the sole recipient, with no profile scope inferred from agency ownership.",
+      "proof": "delivered_account asserts account_subject/person absence, unique notice recipient and authorization_version account; exact execution is read positively before revocation."
+    },
+    {
+      "id": "COM-ACCOUNT-FRESH-AUTHORITY",
+      "requirement": "Recheck recipient session, MFA and account availability after the account-row lock wait.",
+      "proof": "Actual User FOR UPDATE hold, worker loads stale User before observed pg_blocking_pids wait; five independent updates for both kinds and both operations require denied."
+    },
+    {
+      "id": "COM-ACCOUNT-MINIMUM-DATA",
+      "requirement": "Deny revoked recipient before decrypting the notice.",
+      "proof": "checked_body replaced after positive read with forbidden_decrypt raising AssertionError, which is not caught as an expected denial."
+    },
+    {
+      "id": "COM-ACCOUNT-NO-EFFECT",
+      "requirement": "A denied read or ack must not create read/ack audit, set acknowledgement or change ciphertext.",
+      "proof": "Final exact ciphertext comparison, empty acknowledged_at and unchanged RightsAction read/ack count."
+    }
+  ],
+  "source": "tests/test_account_recipient_notice_revocation_races.py",
+  "source_sha256": "4185e37a322354fcdfad6f9fbd1983642235383d2f47496927e953572c3ffaef",
+  "assertions": [
+    {
+      "line": 38,
+      "expression": "case.account_subject_id == subject.pk and case.person_id is None"
+    },
+    {
+      "line": 59,
+      "expression": "source['kind'] == kind"
+    },
+    {
+      "line": 67,
+      "expression": "notice.recipient_id == subject.pk and notice.authorization_version == 'account'"
+    },
+    {
+      "line": 71,
+      "expression": "payload['execution'] == notice.execution_key"
+    },
+    {
+      "line": 121,
+      "expression": "not notice.acknowledged_at and notice.encrypted_payload == encrypted"
+    },
+    {
+      "line": 122,
+      "expression": "RightsAction.objects.filter(request=case, operation__in=['rights_notice_read', 'rights_notice_ack']).count() == before"
+    },
+    {
+      "line": 119,
+      "expression": "future.result(timeout=15) == 'denied'"
+    },
+    {
+      "line": 112,
+      "expression": "pid != holder"
+    }
+  ],
+  "run": "20261016-053617-156708a7",
+  "base_run_head": "92e7a039de6c86f85ae91564a1a281aa3231d190",
+  "phases": {
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-restriction]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    },
+    "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-object]": {
+      "setup": "passed",
+      "call": "passed",
+      "teardown": "passed"
+    }
+  },
+  "prior_index": "docs/evidencias/cr09-derechos-recibos-version-comun-20261015.json",
+  "prior_source_records": [
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "prior_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "same": true
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "prior_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "same": true
+    },
+    {
+      "right": "access",
+      "source": "tests/test_access_close_localization.py",
+      "prior_sha256": "ebc0a7d3e41c225d2b110c72ca313846a8ecb039bab0446965a7a5f571fd9e68",
+      "current_sha256": "ebc0a7d3e41c225d2b110c72ca313846a8ecb039bab0446965a7a5f571fd9e68",
+      "same": true
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close.py",
+      "prior_sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+      "current_sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+      "same": true
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close_races.py",
+      "prior_sha256": "4381472cd63a3da1c47bafa1aca2d39217a0f7e44e18ed4dc0dbbdc95eee38cb",
+      "current_sha256": "4381472cd63a3da1c47bafa1aca2d39217a0f7e44e18ed4dc0dbbdc95eee38cb",
+      "same": true
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_portability_close_localization.py",
+      "prior_sha256": "ebde505dd8200b8459f0698bce405ad4350dcc286bc2876fe31f65ff5beab85c",
+      "current_sha256": "ebde505dd8200b8459f0698bce405ad4350dcc286bc2876fe31f65ff5beab85c",
+      "same": true
+    },
+    {
+      "right": "rectification",
+      "source": "tests/test_rectification_final_localization.py",
+      "prior_sha256": "21ec9ba601161e21dba737b11c1ac7ebd65b317a1fa6b3bb4c44a5822b68a471",
+      "current_sha256": "21ec9ba601161e21dba737b11c1ac7ebd65b317a1fa6b3bb4c44a5822b68a471",
+      "same": true
+    },
+    {
+      "right": "rectification",
+      "source": "tests/test_rectification_final_denial_localization.py",
+      "prior_sha256": "1a30679c64592648fc6cdc9fd9b1101ae86a7296c6a12f8cb276fcf76d4f6d06",
+      "current_sha256": "1a30679c64592648fc6cdc9fd9b1101ae86a7296c6a12f8cb276fcf76d4f6d06",
+      "same": true
+    },
+    {
+      "right": "erasure",
+      "source": "tests/test_account_erasure_execution.py",
+      "prior_sha256": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+      "current_sha256": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+      "same": true
+    },
+    {
+      "right": "erasure",
+      "source": "tests/test_partial_response_localization.py",
+      "prior_sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+      "current_sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+      "same": true
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution.py",
+      "prior_sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+      "current_sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+      "same": true
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_races.py",
+      "prior_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "current_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "same": true
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_mobile.py",
+      "prior_sha256": "a56318402bb919ec89d9642e288c02350de409d56c56f954d9be736a926a4c6e",
+      "current_sha256": "a56318402bb919ec89d9642e288c02350de409d56c56f954d9be736a926a4c6e",
+      "same": true
+    },
+    {
+      "right": "opposition",
+      "source": "tests/test_purpose_exception_opposition.py",
+      "prior_sha256": "33931127d53c7bc307dffd15fdc37dbdc4a7857206a1275d24429bce46fd2fd6",
+      "current_sha256": "33931127d53c7bc307dffd15fdc37dbdc4a7857206a1275d24429bce46fd2fd6",
+      "same": true
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_response_acknowledgement.py",
+      "prior_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "current_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "same": true
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_communications.py",
+      "prior_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "current_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "same": true
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_responses_revocation_races.py",
+      "prior_sha256": "08aade35be6de738fcedad620db93563860d0cda03b788220d410fec6bc4227d",
+      "current_sha256": "08aade35be6de738fcedad620db93563860d0cda03b788220d410fec6bc4227d",
+      "same": true
+    },
+    {
+      "right": "representation",
+      "source": "tests/test_rights_withdrawal.py",
+      "prior_sha256": "86ba21055610e565a7037fd1d92c71fde6916008ebab5f1730c28858833edb2a",
+      "current_sha256": "86ba21055610e565a7037fd1d92c71fde6916008ebab5f1730c28858833edb2a",
+      "same": true
+    },
+    {
+      "right": "representation",
+      "source": "tests/test_representation_erasure.py",
+      "prior_sha256": "b873fd2688d191ae34d93235f44784a97e058f6b75b7343e7293f02e7369ed21",
+      "current_sha256": "b873fd2688d191ae34d93235f44784a97e058f6b75b7343e7293f02e7369ed21",
+      "same": true
+    },
+    {
+      "right": "representation",
+      "source": "tests/test_rights_responses.py",
+      "prior_sha256": "db45152ab5b0b6f42a9cc1d6b050e8ab15ffec367582701c4d227075a5e4a613",
+      "current_sha256": "db45152ab5b0b6f42a9cc1d6b050e8ab15ffec367582701c4d227075a5e4a613",
+      "same": true
+    },
+    {
+      "right": "progress_partial_nonaction",
+      "source": "tests/test_rights_responses.py",
+      "prior_sha256": "db45152ab5b0b6f42a9cc1d6b050e8ab15ffec367582701c4d227075a5e4a613",
+      "current_sha256": "db45152ab5b0b6f42a9cc1d6b050e8ab15ffec367582701c4d227075a5e4a613",
+      "same": true
+    },
+    {
+      "right": "progress_partial_nonaction",
+      "source": "tests/test_partial_response_localization.py",
+      "prior_sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+      "current_sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+      "same": true
+    },
+    {
+      "right": "progress_partial_nonaction",
+      "source": "tests/test_partial_response_denial_localization.py",
+      "prior_sha256": "8a5440d58e4f954369888efecaacba040e1e3caf57b3103f7aa4ee47203f4c7b",
+      "current_sha256": "8a5440d58e4f954369888efecaacba040e1e3caf57b3103f7aa4ee47203f4c7b",
+      "same": true
+    }
+  ],
+  "unique_prior_sources": 21,
+  "remaining": [
+    "Profile restriction/opposition lock-wait scope not proved by account tests",
+    "External communication and all-channel receipt not proved by local inbox",
+    "Final integrated version and common N3, imported dependency applicability",
+    "Other rights and historical source association in matrix83 remain scoped pending"
+  ],
+  "acceptance": false
+}

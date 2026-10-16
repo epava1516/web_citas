@@ -1290,3 +1290,5 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: preparado control20casos rama cuenta de comunicación local traswaitUser, limitación/oposición×lectura/acuse×5revocaciones. Requisitofaltantematriz83/no reejecuciónrutina, fixtureejecución/revisión/entregarealesPGpropio. SinClaude/consumopreviointacto;sinaceptaciónCR09/N3.
 
 2026-10-16:20PASS266,49s accountrecipientrevocation053617-156708a7, frozen/JUnit/cleanup independiente verificados; evidencia ymatrices83/88actualizadas. Cobertura rama Usercuenta, nocierreCR09/N3 ni métricaHTTP nueva. SinClaude/consumopreviointacto.
+
+2026-10-16: graphASTparcial102cb47/15Python yreclusteringdeterminista sinLLM0tokensmodeloestaoperación, históricosnoreportadosintactos. Conciliados4requisitoscuenta conasserts/20reciboscompletos;23registrosde21fuentespreviasidénticas,noN3. SinClaude/proveedores/aceptaciónglobal.
