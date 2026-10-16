@@ -1282,3 +1282,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: N2c12PASS175,28s SHA1367ad3, frozen/cleanup verificados. Preparaciónimagen propia v5 conrestauración0022 ySQLactual, sinpublicar;paridadnativeporidentidadbinariareal. SinClaude/consumopreviointacto.
 
 2026-10-16: imagenv5 propia4692bf5 y118paridades kernelbinario16dcc1…verificadas, limpieza propiaindependiente. Análisisoffline temporal captura031208sinloadnuevo, marcaslimpias2,084snoexcluyencolaarrastrada. Evidencia/canonicaldocsactualizados, noclaimSLO/N3. SinClaude/consumopreviointacto.
+
+2026-10-16: preparado contraste finito geo catálogo3consultasredundantes con constructor onlytest/48readsABBA y paridadexacta; noappcambiada. GateRR/qsdesconocidas/concurrenciapendiente, noaceptación aunque ROIpositivo. SinClaude ni consumo de terceros, historialintacto.
+
+2026-10-16: contrastegeo053127-c533843b termina1PASS106,25s funcional/48reads, varianteREJECTEDporROIinconsistente/listadocleanregresa. Frozen/cleanupverificados,evidenciaconservada,noapp/loadnuevo. SinClaude/consumopreviointacto;goalabierto.
