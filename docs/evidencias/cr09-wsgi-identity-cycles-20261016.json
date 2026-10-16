@@ -1,0 +1,681 @@
+{
+  "run": "20261016-065607-76840d27",
+  "base_head": "69d7089435b730eb1fe2c363311c984fe835b102",
+  "passed": 1,
+  "seconds": 88.26,
+  "frozen_sources_verified": true,
+  "independent_cleanup_verified": true,
+  "results": [
+    {
+      "route": "/es/",
+      "native_wsgi_without_test_client": true,
+      "identity_cycles": [
+        {
+          "parent_kind": "revision",
+          "relation": "categories",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "services",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "travel_areas",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "rates",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "rates",
+          "path": "prefetch_cache -> QuerySet._result_cache -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "_pv_photos",
+          "path": "list -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "_pv_rates",
+          "path": "list -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        }
+      ],
+      "tracked_alive_before_gc": {
+        "listing": 24,
+        "revision": 24
+      },
+      "tracked_alive_after_saveall_gc": {},
+      "collected_total": 3399,
+      "saved_objects": 3399,
+      "types": [
+        [
+          "builtins.dict",
+          1054
+        ],
+        [
+          "builtins.list",
+          621
+        ],
+        [
+          "uuid.UUID",
+          411
+        ],
+        [
+          "django.db.models.base.ModelState",
+          229
+        ],
+        [
+          "builtins.tuple",
+          178
+        ],
+        [
+          "builtins.set",
+          123
+        ],
+        [
+          "django.db.models.sql.query.Query",
+          120
+        ],
+        [
+          "django.db.models.sql.where.WhereNode",
+          120
+        ],
+        [
+          "django.db.models.query.QuerySet",
+          120
+        ],
+        [
+          "apps.mediafiles.models.Photo",
+          48
+        ],
+        [
+          "builtins.cell",
+          25
+        ],
+        [
+          "apps.catalog.models.Category",
+          25
+        ],
+        [
+          "apps.catalog.models.Service",
+          25
+        ],
+        [
+          "apps.listings.models.Listing",
+          24
+        ],
+        [
+          "apps.core.models.Person",
+          24
+        ],
+        [
+          "apps.core.models.PhoneClaim",
+          24
+        ],
+        [
+          "apps.listings.models.Revision",
+          24
+        ],
+        [
+          "apps.listings.models.Rate",
+          24
+        ],
+        [
+          "django.forms.boundfield.BoundField",
+          22
+        ],
+        [
+          "builtins.function",
+          16
+        ],
+        [
+          "django.forms.models.ModelChoiceIterator",
+          13
+        ],
+        [
+          "django.forms.widgets.FastSelectMultiple",
+          9
+        ],
+        [
+          "django.db.models.sql.where.NothingNode",
+          8
+        ],
+        [
+          "django.forms.fields.MultipleChoiceField",
+          6
+        ],
+        [
+          "apps.listings.public_validation.SnapshotMultipleChoice",
+          6
+        ]
+      ],
+      "internal_type_edges": [
+        {
+          "source": "builtins.dict",
+          "target": "builtins.list",
+          "count": 497
+        },
+        {
+          "source": "builtins.dict",
+          "target": "uuid.UUID",
+          "count": 483
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.listings.models.Revision",
+          "count": 240
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.base.ModelState",
+          "count": 203
+        },
+        {
+          "source": "builtins.dict",
+          "target": "builtins.dict",
+          "count": 148
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.query.QuerySet",
+          "count": 123
+        },
+        {
+          "source": "django.db.models.base.ModelState",
+          "target": "builtins.dict",
+          "count": 123
+        },
+        {
+          "source": "builtins.dict",
+          "target": "builtins.set",
+          "count": 122
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.dict",
+          "count": 122
+        },
+        {
+          "source": "django.db.models.sql.query.Query",
+          "target": "builtins.dict",
+          "count": 120
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.sql.where.WhereNode",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.sql.where.WhereNode",
+          "target": "builtins.dict",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "django.db.models.sql.query.Query",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.list",
+          "count": 106
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.tuple",
+          "count": 99
+        },
+        {
+          "source": "builtins.tuple",
+          "target": "builtins.dict",
+          "count": 96
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.listings.models.Rate",
+          "count": 72
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.catalog.models.Category",
+          "count": 49
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.catalog.models.Service",
+          "count": 49
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.listings.models.Listing",
+          "count": 48
+        },
+        {
+          "source": "apps.mediafiles.models.Photo",
+          "target": "builtins.dict",
+          "count": 48
+        },
+        {
+          "source": "builtins.list",
+          "target": "builtins.tuple",
+          "count": 30
+        },
+        {
+          "source": "builtins.tuple",
+          "target": "builtins.cell",
+          "count": 25
+        },
+        {
+          "source": "apps.catalog.models.Category",
+          "target": "django.db.models.base.ModelState",
+          "count": 25
+        },
+        {
+          "source": "apps.catalog.models.Service",
+          "target": "builtins.dict",
+          "count": 25
+        },
+        {
+          "source": "apps.listings.models.Listing",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "apps.core.models.Person",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "apps.core.models.PhoneClaim",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.PhoneClaim",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.Agency",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.Person",
+          "count": 24
+        },
+        {
+          "source": "apps.listings.models.Revision",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.LegalAcceptance",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.catalog.models.Municipality",
+          "count": 24
+        },
+        {
+          "source": "apps.catalog.models.Category",
+          "target": "uuid.UUID",
+          "count": 24
+        }
+      ],
+      "limits": "DEBUG_SAVEALL deliberately retains unreachable objects, so weakrefs and saved-object counts must not be treated as persistent leaks. Type edges are not SCC proof. No values/SQL/params exported; no timings."
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "native_wsgi_without_test_client": true,
+      "identity_cycles": [
+        {
+          "parent_kind": "revision",
+          "relation": "categories",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "services",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "travel_areas",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "rates",
+          "path": "prefetch_cache -> QuerySet._hints.instance -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "rates",
+          "path": "prefetch_cache -> QuerySet._result_cache -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "_pv_photos",
+          "path": "list -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        },
+        {
+          "parent_kind": "revision",
+          "relation": "_pv_rates",
+          "path": "list -> child.fields_cache.revision -> same_parent",
+          "count": 24
+        }
+      ],
+      "tracked_alive_before_gc": {
+        "listing": 24,
+        "revision": 24
+      },
+      "tracked_alive_after_saveall_gc": {},
+      "collected_total": 3524,
+      "saved_objects": 3524,
+      "types": [
+        [
+          "builtins.dict",
+          1084
+        ],
+        [
+          "builtins.list",
+          634
+        ],
+        [
+          "uuid.UUID",
+          411
+        ],
+        [
+          "django.db.models.base.ModelState",
+          229
+        ],
+        [
+          "builtins.tuple",
+          226
+        ],
+        [
+          "builtins.set",
+          123
+        ],
+        [
+          "django.db.models.sql.query.Query",
+          120
+        ],
+        [
+          "django.db.models.sql.where.WhereNode",
+          120
+        ],
+        [
+          "django.db.models.query.QuerySet",
+          120
+        ],
+        [
+          "apps.mediafiles.models.Photo",
+          48
+        ],
+        [
+          "builtins.cell",
+          25
+        ],
+        [
+          "apps.catalog.models.Category",
+          25
+        ],
+        [
+          "apps.catalog.models.Service",
+          25
+        ],
+        [
+          "apps.listings.models.Listing",
+          24
+        ],
+        [
+          "apps.core.models.Person",
+          24
+        ],
+        [
+          "apps.core.models.PhoneClaim",
+          24
+        ],
+        [
+          "apps.listings.models.Revision",
+          24
+        ],
+        [
+          "apps.listings.models.Rate",
+          24
+        ],
+        [
+          "django.forms.boundfield.BoundField",
+          22
+        ],
+        [
+          "builtins.function",
+          16
+        ],
+        [
+          "django.forms.models.ModelChoiceIterator",
+          13
+        ],
+        [
+          "django.db.models.expressions.Value",
+          12
+        ],
+        [
+          "django.forms.widgets.FastSelectMultiple",
+          9
+        ],
+        [
+          "django.db.models.sql.where.NothingNode",
+          8
+        ],
+        [
+          "django.forms.fields.MultipleChoiceField",
+          6
+        ]
+      ],
+      "internal_type_edges": [
+        {
+          "source": "builtins.dict",
+          "target": "builtins.list",
+          "count": 505
+        },
+        {
+          "source": "builtins.dict",
+          "target": "uuid.UUID",
+          "count": 483
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.listings.models.Revision",
+          "count": 240
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.base.ModelState",
+          "count": 203
+        },
+        {
+          "source": "builtins.dict",
+          "target": "builtins.dict",
+          "count": 149
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.query.QuerySet",
+          "count": 123
+        },
+        {
+          "source": "django.db.models.base.ModelState",
+          "target": "builtins.dict",
+          "count": 123
+        },
+        {
+          "source": "builtins.dict",
+          "target": "builtins.set",
+          "count": 122
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.dict",
+          "count": 122
+        },
+        {
+          "source": "django.db.models.sql.query.Query",
+          "target": "builtins.dict",
+          "count": 120
+        },
+        {
+          "source": "builtins.dict",
+          "target": "django.db.models.sql.where.WhereNode",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.sql.where.WhereNode",
+          "target": "builtins.dict",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "django.db.models.sql.query.Query",
+          "count": 120
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.list",
+          "count": 106
+        },
+        {
+          "source": "django.db.models.query.QuerySet",
+          "target": "builtins.tuple",
+          "count": 99
+        },
+        {
+          "source": "builtins.tuple",
+          "target": "builtins.dict",
+          "count": 96
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.listings.models.Rate",
+          "count": 72
+        },
+        {
+          "source": "builtins.tuple",
+          "target": "builtins.tuple",
+          "count": 49
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.catalog.models.Category",
+          "count": 49
+        },
+        {
+          "source": "builtins.list",
+          "target": "apps.catalog.models.Service",
+          "count": 49
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.listings.models.Listing",
+          "count": 48
+        },
+        {
+          "source": "apps.mediafiles.models.Photo",
+          "target": "builtins.dict",
+          "count": 48
+        },
+        {
+          "source": "builtins.dict",
+          "target": "builtins.tuple",
+          "count": 46
+        },
+        {
+          "source": "builtins.list",
+          "target": "builtins.tuple",
+          "count": 28
+        },
+        {
+          "source": "builtins.tuple",
+          "target": "builtins.cell",
+          "count": 25
+        },
+        {
+          "source": "apps.catalog.models.Category",
+          "target": "django.db.models.base.ModelState",
+          "count": 25
+        },
+        {
+          "source": "apps.catalog.models.Service",
+          "target": "builtins.dict",
+          "count": 25
+        },
+        {
+          "source": "apps.listings.models.Listing",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "apps.core.models.Person",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "apps.core.models.PhoneClaim",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.PhoneClaim",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.Agency",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.Person",
+          "count": 24
+        },
+        {
+          "source": "apps.listings.models.Revision",
+          "target": "builtins.dict",
+          "count": 24
+        },
+        {
+          "source": "builtins.dict",
+          "target": "apps.core.models.LegalAcceptance",
+          "count": 24
+        }
+      ],
+      "limits": "DEBUG_SAVEALL deliberately retains unreachable objects, so weakrefs and saved-object counts must not be treated as persistent leaks. Type edges are not SCC proof. No values/SQL/params exported; no timings."
+    }
+  ],
+  "acceptance": false
+}

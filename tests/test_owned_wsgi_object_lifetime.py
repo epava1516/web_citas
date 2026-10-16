@@ -66,6 +66,28 @@ def test_owned_wsgi_object_lifetime(request, monkeypatch):
             gc.disable()
             gc.set_debug(flags | gc.DEBUG_SAVEALL)
             assert call(route) == expected
+            def inspect_cycles():
+                paths = Counter()
+                for kind, ref in observed:
+                    parent = ref()
+                    if parent is None:
+                        continue
+                    for relation, queryset in getattr(parent, '_prefetched_objects_cache', {}).items():
+                        if getattr(queryset, '_hints', {}).get('instance') is parent:
+                            paths[(kind, relation, 'prefetch_cache -> QuerySet._hints.instance -> same_parent')] += 1
+                        for child in getattr(queryset, '_result_cache', None) or []:
+                            for field, target in child._state.fields_cache.items():
+                                if target is parent:
+                                    paths[(kind, relation, 'prefetch_cache -> QuerySet._result_cache -> child.fields_cache.'+field+' -> same_parent')] += 1
+                    for relation in ['_pv_photos', '_pv_rates']:
+                        for child in getattr(parent, relation, []):
+                            for field, target in child._state.fields_cache.items():
+                                if target is parent:
+                                    paths[(kind, relation, 'list -> child.fields_cache.'+field+' -> same_parent')] += 1
+                return [{'parent_kind':kind,'relation':relation,'path':path,'count':count}
+                        for (kind,relation,path),count in paths.items()]
+            identity_cycles = inspect_cycles()
+            assert identity_cycles, 'No identity cycle demonstrated'
             before = Counter(kind for kind, ref in observed if ref() is not None)
             collected = gc.collect()
             after = Counter(kind for kind, ref in observed if ref() is not None)
@@ -80,7 +102,7 @@ def test_owned_wsgi_object_lifetime(request, monkeypatch):
                     if id(other) in ids:
                         edges[(typename(obj), typename(other))] += 1
             output.append({'route':route,'native_wsgi_without_test_client':True,
-                'tracked_alive_before_gc':dict(before),'tracked_alive_after_saveall_gc':dict(after),
+                'identity_cycles':identity_cycles,'tracked_alive_before_gc':dict(before),'tracked_alive_after_saveall_gc':dict(after),
                 'collected_total':collected,'saved_objects':len(objects),
                 'types':types.most_common(25),
                 'internal_type_edges':[{'source':a,'target':b,'count':n} for (a,b),n in edges.most_common(35)],
