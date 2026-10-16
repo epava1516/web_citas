@@ -1,0 +1,63 @@
+{
+  "result": "PASS",
+  "base_sha": "3874bab02f65dab9aeab615b6c58fe8091bc1853",
+  "working_changes": [
+    "Dockerfile",
+    ".dockerignore"
+  ],
+  "source_hashes": {
+    "Dockerfile": "97fe3f6caea4e57fc820cf84cbfe80c5ab08035360d17158ba7d9a2d43538bf1",
+    ".dockerignore": "7d18233cc8f42b440498980bf0d7adcc883d0db31dd666515beff2e7a7c1df2b",
+    "pyproject.toml": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
+    "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+    "scripts/build_canonical_kernel.py": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "scripts/canonical_artifacts.py": "819c7641c9465dc6a672bff161280d55aa72af2e58c22b628cef8cbe818bc0cf",
+    "apps/safety/_canonical_kernel.pyx": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9",
+    "apps/safety/canonical_kernel_loader.py": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6"
+  },
+  "image_id": "sha256:bb8bc8e5497cee1df2c5931d33caf171b848fbf1ec7fae1d18578d161fe4b697",
+  "image_bytes": 902443487,
+  "python_base_id": "sha256:4f228bc1cbcfc794e4878312cfc241d368eff55a21c08d1e2bb263116c4ef524",
+  "python_base_digests": [
+    "python@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258"
+  ],
+  "runtime": {
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "2caa578c045a4d47d2b58646b762c05628bc08e93546518f5be40b652463741e",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "e4e880b779752310cb6360b0b0ec5362b6a0823fca38d3d0e5c04d7f29cf6c41",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "workers_booted": 4,
+  "pg_version": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "cleanup_independent": true,
+  "image_retained_for_review": true,
+  "acceptance": false,
+  "limits": "Smoke only; Docker image has a new native binary identity and no capacity measurement. Image revision label is base SHA; modified Dockerfile hashes identify candidate."
+}

@@ -2423,3 +2423,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: revalidación conservación005352-06e9c88e,SHA7934622,8PASS96,69s/0omisiones. Calendario por finalidad, seguimiento independiente sin extender plan/plazos, alteración/replay/historial y carreras PG revocación/idempotencia. Motivo: fixtures de supresión cambiados tras base común. Fuentes/runner/hijo/temp/contenedores verificados independientemente, unidad terminal vacía. Evidencia cr09-retention-current-20261016.md. Sin cambioapp/p95/Claude/proveedores; consumo anterior intacto. No aceptación integral conservación/CR09/N3.
+
+
+2026-10-16: corregida entrega Docker: Python3.12.15/lock intacto, compilación kernel Cython3.0.12 separada, exclusión artefacto host, native-sealed exigido en build,4sync65s. Imagen propia cr09-native:20261016 IDbb8bc8e5497c, sin reemplazar imágenes normales. Buildexit0 y smoke real PG/migraciones/health200/4workers/UID10001/11paridades PASS; contenedores/red/PIDs propios e intermediarios ausentes, fuentehashes verificados. Evidencia cr09-docker-native-20261016.md. Etiqueta revision base3874bab+2archivosmodificados expresos; no p95 dentroimagen/N3/aceptaciónCR09. SinClaude/proveedores/publicación,consumo previo intacto.

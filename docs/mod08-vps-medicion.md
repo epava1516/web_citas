@@ -404,3 +404,8 @@ ni se cambian umbrales del runner. Diagnose153711-7794fc07 interrumpido por nuev
 prioridad, ERROR1FAIL997.548s preservado yretirada verificada. No más rondas de
 optimización por rutina; objetivos originales quedan como mejora futura según
 [contrato1.9](16-contrato-ejecucion-desarrollo.md). No N3/global ni producción.
+
+
+### Imagen nativa actual, 2026-10-16
+
+El Dockerfile compila el kernel en una etapa aislada con Python3.12.15/Cython3.0.12 y rechaza una imagen final sin `native-sealed`; no copia el artefacto nativo del host. El arranque predeterminado se alinea con4sync/65s del escenario reciente. [Construcción y smoke PostgreSQL propios](evidencias/cr09-docker-native-20261016.md) verificados con etiqueta aislada, sin sustituir imágenes normales. La nueva identidad binaria queda registrada; no se atribuyen a la imagen los tiempos medidos fuera de ella ni se declara capacidad/N3.
