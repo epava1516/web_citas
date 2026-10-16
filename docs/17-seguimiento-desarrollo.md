@@ -2398,3 +2398,8 @@ Run000418-429fdc14,1PASS49,11s con PG/RustFS reales. Test7fa3c61 comprueba día 
 ### 2026-10-16 — defecto de copia restaurada corregido
 
 Reproducción000756-47bfe58b:1FAIL/1PASS;recovery_apply dejaba texto/fechas enPublicationState alreaplicar supresiónpublication. RECOVERY_MODE bloqueabaHTTP,noexposiciónpúblicademostrada. Corrección9f92f94 eliminacopiasólodelsujetoyfinalidadseleccionados enmisma transacción. Verificación000952-d23d1fae:9PASS120,27s,incluye restauraciónrealPG/medios,negativo sinpublication ypares/replay. Fuentes/cleanupindependientes. Evidenciacr09-recovery-projection-20261016.md. No nuevop95 niaceptaciónCR09/N3.
+
+
+### 2026-10-16 — comprobación final de publicación corregida
+
+Reproducción001455-644b1704:1FAIL47,53s;materialfinal omitía la copiaPublicationState reintroducida y daba publicationcompletada. Fix9254ce5 exige proyección ausente/vacía. Correctiva001657-9f1ed261:11PASS160,13s con revisión/respuesta/móvil existentes;fuentes ycleanupindependientes. Evidencia cr09-final-projection-20261016.md. Grafo actualizado al corteaba6cb4(11269/44655/485,0dangling),5docs21nodos23aristas poragente nativo existente,usono reportado. No nueva medición/rendimiento niaceptaciónCR09/N3.

@@ -1,0 +1,70 @@
+{
+  "run": "20261016-001657-9f1ed261",
+  "head_at_execution": "aba6cb49ef1f4351ec7cbac83dceb33d91ea2081",
+  "result": "11 PASS /160.13s",
+  "cases": [
+    {
+      "classname": "tests.test_erasure_final_publication_projection",
+      "name": "test_final_material_marks_restored_publication_projection_pending"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_material_preserves_pending_and_detects_reintroduced_credentials"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_material_rejects_foreign_receipt_and_modified_plan"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_draft_requires_independent_read_and_current_execution"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_http_issues_partial_response_once_with_private_receipt[False]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_http_issues_partial_response_once_with_private_receipt[True]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_account_erasure_uses_original_proof_after_execution[False]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_account_erasure_uses_original_proof_after_execution[True]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_mobile_erasure_response_review_issue_and_acknowledgement[es]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_mobile_erasure_response_review_issue_and_acknowledgement[en]"
+    },
+    {
+      "classname": "tests.test_erasure_final",
+      "name": "test_final_media_requires_actual_file_absence_even_after_completed_job"
+    }
+  ],
+  "source_frozen_independent": true,
+  "cleanup": {
+    "controller_child_absent": true,
+    "runner_temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "baseline": {
+    "run": "20261016-001455-644b1704",
+    "result": "1 FAIL /47.53s",
+    "source_frozen_independent": true,
+    "cleanup_independent": true
+  },
+  "source_hashes": {
+    "apps/safety/erasure_final.py": "88756040ce9dbfbea51df82239c485772488c29e94b881b2e4412be380f37f5f",
+    "tests/test_erasure_final_publication_projection.py": "4e2e8f8f77fabd4fc149a9b8e7496bcf5701e5cea20f2ab9476af5914dd69e82"
+  },
+  "limits": "Selected outcome/response tests only; no global CR09/N3 or performance claim."
+}

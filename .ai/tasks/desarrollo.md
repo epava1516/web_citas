@@ -1108,3 +1108,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16:fallorealrecuperaciónPublicationState,repro000756-47bfe58b1FAIL1PASS56,47s;fix9f92f94eliminasólocopiadelsujetoconpublicationdentrotransacción. Verificación000952-d23d1fae9PASS120,27sincluyePGdump/restoreymediosreales,terceros/ámbito/replay. Fuentesycleanupindependientes;falloconservado. NoexposiciónHTTPafirmada,nuevop95noobtenido. SinClaude/proveedores,consumopreviointacto. Goalabierto.
+
+
+2026-10-16: grafoAST+5docs al corteaba6cb4,11269nodos44655aristas485comunidades0dangling;agente existentegraph_update_docs_1 escribiósólolote21nodos23aristas,consumonativonoreportado,null,sinClaudeV1/proveedores. Revisión posterior reprodujo materialfinalsinPublicationState:001455-644b17041FAIL47,53s;fix9254ce5,correctiva001657-9f1ed26111PASS160,13s(PGpropio);fuentesycleanupindependientes. Documentadocr09-final-projection-20261016.md,grafoanterioralfixexpreso. GoalCR09ysiguientesabierto.
