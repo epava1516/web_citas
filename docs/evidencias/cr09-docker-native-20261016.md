@@ -13,3 +13,6 @@ Runtime Python3.12.15/Django5.2.17/Gunicorn23.0.0/psycopg3.3.6/Celery5.6.3. Kern
 Fuentes seleccionadas iguales antes/después; contenedores/red y PIDs init propios ausentes, intermediarios de construcción ausentes, unidad terminalMainPID0. Logs de construcción/migraciones/Gunicorn, inspecciones y verificador en `artifacts/cr09-docker-native-20261016/`. Ruff completo y comprobación documental pasaron. No servicios normales tocados.
 
 **Pendiente:** probar recorridos pertinentes dentro de esta imagen y medir su capacidad antes de atribuirle el p95 del host; directorio limpio/repetición/carga larga y N3 común siguen abiertos. Este smoke no cierra CR09 ni el contrato completo.
+
+
+Errata posterior: los4workers sí coinciden, pero el timeout del arnés es60s, con cliente65s. Las imágenesv1/v2 construidas aquí usan65s; la afirmación anterior de mismos4/65s era incorrecta. Se conserva la identidad real de esas imágenes y queda pendiente alinear/probar la configuración de entrega. Además0020posterior exige reconstrucción.

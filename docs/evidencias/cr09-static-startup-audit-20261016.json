@@ -1,0 +1,128 @@
+{
+  "runs": [
+    {
+      "stages": [
+        {
+          "stage": "wsgi_import",
+          "wall_ms": 944.5952628739178,
+          "cpu_ms": 865.7686669999999
+        },
+        {
+          "stage": "routes_0",
+          "wall_ms": 364.97822497040033,
+          "cpu_ms": 350.140286
+        },
+        {
+          "stage": "templates_0",
+          "wall_ms": 18.31108285114169,
+          "cpu_ms": 18.07655499999994
+        },
+        {
+          "stage": "routes_1",
+          "wall_ms": 1.3300920836627483,
+          "cpu_ms": 1.3146840000000104
+        },
+        {
+          "stage": "templates_1",
+          "wall_ms": 0.03505498170852661,
+          "cpu_ms": 0.03583599999990028
+        }
+      ],
+      "socket_attempts": 0,
+      "open_db_connections": 0,
+      "threads": 1,
+      "limits": "Static route resolution and template compilation only, not rendering, request preparation or capacity. No code changed."
+    },
+    {
+      "stages": [
+        {
+          "stage": "wsgi_import",
+          "wall_ms": 812.3914431780577,
+          "cpu_ms": 731.4421849999999
+        },
+        {
+          "stage": "routes_0",
+          "wall_ms": 263.8967321254313,
+          "cpu_ms": 255.61700099999996
+        },
+        {
+          "stage": "templates_0",
+          "wall_ms": 12.535769026726484,
+          "cpu_ms": 12.274644999999973
+        },
+        {
+          "stage": "routes_1",
+          "wall_ms": 0.729043036699295,
+          "cpu_ms": 0.7246020000000186
+        },
+        {
+          "stage": "templates_1",
+          "wall_ms": 0.021918676793575287,
+          "cpu_ms": 0.02229799999997617
+        }
+      ],
+      "socket_attempts": 0,
+      "open_db_connections": 0,
+      "threads": 1,
+      "limits": "Static route resolution and template compilation only, not rendering, request preparation or capacity. No code changed."
+    },
+    {
+      "stages": [
+        {
+          "stage": "wsgi_import",
+          "wall_ms": 740.4798967763782,
+          "cpu_ms": 648.5504010000001
+        },
+        {
+          "stage": "routes_0",
+          "wall_ms": 322.6064029149711,
+          "cpu_ms": 314.7486490000001
+        },
+        {
+          "stage": "templates_0",
+          "wall_ms": 16.63489220663905,
+          "cpu_ms": 16.47306600000009
+        },
+        {
+          "stage": "routes_1",
+          "wall_ms": 1.1815577745437622,
+          "cpu_ms": 1.1712520000000115
+        },
+        {
+          "stage": "templates_1",
+          "wall_ms": 0.02943398430943489,
+          "cpu_ms": 0.029734999999808664
+        }
+      ],
+      "socket_attempts": 0,
+      "open_db_connections": 0,
+      "threads": 1,
+      "limits": "Static route resolution and template compilation only, not rendering, request preparation or capacity. No code changed."
+    }
+  ],
+  "medians": {
+    "wsgi_import": {
+      "wall_ms": 812.3914431780577,
+      "cpu_ms": 731.4421849999999
+    },
+    "routes_0": {
+      "wall_ms": 322.6064029149711,
+      "cpu_ms": 314.7486490000001
+    },
+    "templates_0": {
+      "wall_ms": 16.63489220663905,
+      "cpu_ms": 16.47306600000009
+    },
+    "routes_1": {
+      "wall_ms": 1.1815577745437622,
+      "cpu_ms": 1.1712520000000115
+    },
+    "templates_1": {
+      "wall_ms": 0.02943398430943489,
+      "cpu_ms": 0.029734999999808664
+    }
+  },
+  "application_changed": false,
+  "acceptance": false,
+  "limits": "No network connects, open Django connection or extra thread. Static resolution/compile only, not rendering/capacity; six HTTP cold probes already precede benchmark arrivals. No preload change justified."
+}

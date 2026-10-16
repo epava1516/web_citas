@@ -3,7 +3,9 @@
 **Estado vigente de continuación2026-10-15:** objetivo activo, dirigido por Codex;
 el texto de pausa del corte2026-10-09 de abajo es histórico. CR09 sigue abierto.
 Esta conciliación actualiza la lectura de la matriz; no cambia pesos ni acepta
-la suma de selecciones como N3. La [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md)
+la suma de selecciones como N3.
+
+**Actualización posterior2026-10-16:** [dependencia Match indirecta corregida](evidencias/cr09-match-counterpart-invalidation-20261016.md), con fallo reproducido y controles de generación/upgrade. Último p95 limpio0,904873942sFAIL es anterior a esa migración; no hay capacidad nueva aceptada. Imagenv2 aún no incluye0020; reconstrucción y versión común/N3 pendientes. Las métricas del corte2026-10-15 de abajo son antecedentes. La [cola consolidada](evidencias/cr09-cola-cierre-consolidada-20261014.md)
 y seguimiento17 conservan el detalle de ejecuciones/correctivas.
 
 | Fila contractual | Evidencia actual y pendiente concreto |

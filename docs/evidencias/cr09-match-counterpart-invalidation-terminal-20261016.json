@@ -1,0 +1,525 @@
+{
+  "base_sha": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+  "working_change_files": {
+    "apps/listings/migrations/0020_publication_match_counterparts.py": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "tests/test_publication_match_photo_dependency.py": "e8784850c7849626961dfb044c9b437e0e0f459d4c947d5aa2d9866d86209a8b",
+    "tests/test_publication_match_dependency_edges.py": "d7b0d82ee708f389666bea461a2f84a2b9520c8ae274874039748e426669bad3"
+  },
+  "runs": [
+    {
+      "run": "20261016-013910-8797a518",
+      "head": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+      "result": "ERROR",
+      "meaning": "Baseline: indirect Photo mutation omitted the native-visible counterpart",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "2",
+          "time": "50.939",
+          "timestamp": "2026-10-16T03:39:29.845968+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cases": [
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[photo]",
+          "when": "call",
+          "outcome": "failed",
+          "duration": 6.43857396626845,
+          "longrepr": "tests/test_publication_match_photo_dependency.py:51: in test_removed_conflict_photo_restores_other_listing_without_refresher\n    assert stored.content == native.content\nE   AssertionError: assert b'<!doctype h...ody></html>\\n' == b'<!doctype h...ody></html>\\n'\nE     \nE     At index 6698 diff: b'0' != b'1'\nE     Use -v to get more diff"
+        },
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[candidate]",
+          "when": "call",
+          "outcome": "failed",
+          "duration": 5.771196071989834,
+          "longrepr": "tests/test_publication_match_photo_dependency.py:51: in test_removed_conflict_photo_restores_other_listing_without_refresher\n    assert stored.content == native.content\nE   AssertionError: assert b'<!doctype h...ody></html>\\n' == b'<!doctype h...ody></html>\\n'\nE     \nE     At index 6703 diff: b'0' != b'1'\nE     Use -v to get more diff"
+        }
+      ],
+      "source_freeze_independent": true,
+      "cleanup_independent": true
+    },
+    {
+      "run": "20261016-014353-34c196fa",
+      "head": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+      "result": "PASS",
+      "meaning": "Fix: four regression cases plus existing publication/refresh locks and rollback",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "47",
+          "time": "496.535",
+          "timestamp": "2026-10-16T03:44:11.997386+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cases": [
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[photo-photo_removed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.69959363900125
+        },
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[photo-revision_rights_stage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.954150594305247
+        },
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[candidate-photo_removed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.287082242779434
+        },
+        {
+          "nodeid": "tests/test_publication_match_photo_dependency.py::test_removed_conflict_photo_restores_other_listing_without_refresher[candidate-revision_rights_stage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.174260135740042
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_state_route_matches_native_before_and_after_refresh[normal]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.968316867947578
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_state_route_matches_native_before_and_after_refresh[production]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.65383993042633
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[age_failed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.033729336224496
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[agency_pending]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.513731189072132
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[blob_failed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.834347947966307
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[category_inactive]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 11.82989584421739
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[category_removed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.974210986867547
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[check_failed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.709943077992648
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[city_inactive]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.810658778995275
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[consent_revoked]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.411089164204895
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[expired]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.199592859949917
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[grant_removed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.476684878114611
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[invalid_rate]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.925682540982962
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[listing_paused]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.365487989038229
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[phone_unverified]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 14.276970264967531
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[photo_removed]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 14.327421888709068
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[publishing_terms_replaced]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 12.170273531693965
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[text_with_url]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 13.194971643853933
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_every_table_read_by_the_native_rule_has_an_invalidation_trigger",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.219138444866985
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_safety_dependency_rows_mark_the_affected_listing",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.519513498060405
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_concurrent_change_during_refresh_keeps_listing_dirty",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 15.566937076859176
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_signal_tables_match_installed_triggers",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.325698153115809
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_rules_version_hashes_source_and_configuration",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.004104483872652054
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_rules_version_tracks_configuration_without_manual_invalidation[PRODUCTION-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.010425581131130457
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_rules_version_tracks_configuration_without_manual_invalidation[VERIFICATION_PROVIDER-changed-provider]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.008962190710008144
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_rules_version_tracks_configuration_without_manual_invalidation[SECRET_KEY-synthetic-rotated-key]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.005932903848588467
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_command_and_task_recompute_everything",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 5.284387920983136
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_geography_import_switches_state_atomically",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 9.93464137520641
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_every_project_source_executed_by_the_native_rule_is_versioned",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.34772047586739
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_sweep_marks_divergent_state_and_reads_stay_exact",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 10.76319709001109
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_read_repair_only_acts_when_marks_age",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 6.316314505878836
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership[revision_obsolete]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.308909430168569
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership[revision_missing]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.963627164717764
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership[listing_paused]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.817203030921519
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_trusted_population_omitted_join_keeps_native_membership[expired]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.368608118034899
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.263016456738114
+        },
+        {
+          "nodeid": "tests/test_publication_state.py::test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.657463110983372
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_lock_order.py::test_locked_reference_defers_refresh_without_losing_dirty_generation[listing]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 6.116706226021051
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_lock_order.py::test_locked_reference_defers_refresh_without_losing_dirty_generation[revision]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 6.289789373986423
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_rollback.py::test_rollback_does_not_suppress_later_committed_refresh[False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.019052840769290924
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_rollback.py::test_rollback_does_not_suppress_later_committed_refresh[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.028455626219511032
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_rollback.py::test_nested_committed_writes_schedule_one_refresh",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.017515199724584818
+        },
+        {
+          "nodeid": "tests/test_publication_refresh_rollback.py::test_rolled_back_savepoint_preserves_outer_refresh",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.032752804923802614
+        }
+      ],
+      "source_freeze_independent": true,
+      "cleanup_independent": true
+    },
+    {
+      "run": "20261016-015314-70e862e8",
+      "head": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+      "result": "PASS",
+      "meaning": "Fix: ten edge/history/generation/upgrade controls",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "10",
+          "time": "131.498",
+          "timestamp": "2026-10-16T03:53:32.704626+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cases": [
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_photo_delete_marks_surviving_match_reader[0]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.984349855221808
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_photo_delete_marks_surviving_match_reader[1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.323816772084683
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_photo_move_marks_old_new_and_opposite_owners[0]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.822308647911996
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_photo_move_marks_old_new_and_opposite_owners[1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.547816832084209
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_match_endpoint_move_keeps_old_and_new_readers_exact",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.874090861994773
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_fanout_is_one_hop_preserves_age_rolls_back_and_drains",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.395395122934133
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_history_create_change_delete_invalidates_opposite_reader",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 10.253190082963556
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_rights_upload_relation_invalidates_opposite_reader",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.483535057399422
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_counterpart_generation_survives_observed_refresh_wait",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.879790737293661
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_upgrade_invalidates_preexisting_negative_counterpart_state",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.266004843637347
+        }
+      ],
+      "source_freeze_independent": true,
+      "cleanup_independent": true
+    },
+    {
+      "run": "20261016-015724-0956e142",
+      "head": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+      "result": "ERROR",
+      "meaning": "Two PASS (move, concurrent writes); two test-setup FAIL because approved revision correctly protected",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "4",
+          "time": "71.306",
+          "timestamp": "2026-10-16T03:57:44.250853+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cases": [
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_revision_delete_marks_surviving_match_reader[0]",
+          "when": "call",
+          "outcome": "failed",
+          "duration": 6.800978980027139,
+          "longrepr": "tests/test_publication_match_dependency_edges.py:251: in test_revision_delete_marks_surviving_match_reader\n    Revision.objects.get(pk=rows[0].approved_revision_id).delete()\n.venv/lib/python3.12/site-packages/django/db/models/base.py:1280: in delete\n    collector.collect([self], keep_parents=keep_parents)\n.venv/lib/python3.12/site-packages/django/db/models/deletion.py:350: in collect\n    raise ProtectedError(\nE   django.db.models.deletion.ProtectedError: (\"Cannot delete some instances of model 'Revision' because they are referenced through protected foreign keys: 'Submission.revision', 'ModerationDecision.revision'.\", {<Submission: Submission object (2)>, <ModerationDecision: ModerationDecision object (2)>})"
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_revision_delete_marks_surviving_match_reader[1]",
+          "when": "call",
+          "outcome": "failed",
+          "duration": 6.294365480076522,
+          "longrepr": "tests/test_publication_match_dependency_edges.py:251: in test_revision_delete_marks_surviving_match_reader\n    Revision.objects.get(pk=rows[0].approved_revision_id).delete()\n.venv/lib/python3.12/site-packages/django/db/models/base.py:1280: in delete\n    collector.collect([self], keep_parents=keep_parents)\n.venv/lib/python3.12/site-packages/django/db/models/deletion.py:350: in collect\n    raise ProtectedError(\nE   django.db.models.deletion.ProtectedError: (\"Cannot delete some instances of model 'Revision' because they are referenced through protected foreign keys: 'Submission.revision', 'ModerationDecision.revision'.\", {<ModerationDecision: ModerationDecision object (4)>, <Submission: Submission object (5)>})"
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_revision_move_invalidates_history_reader_and_both_owners",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.155491722747684
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_concurrent_opposite_photo_writes_drain_without_losing_marks",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 6.602315521333367
+        }
+      ],
+      "source_freeze_independent": true,
+      "cleanup_independent": true
+    },
+    {
+      "run": "20261016-020003-dbfc825f",
+      "head": "431bccc24d6ca38da93a9c0015d838389714f1b0",
+      "result": "PASS",
+      "meaning": "Corrected deletion cases: protected approved revision plus legal draft cascade",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "55.445",
+          "timestamp": "2026-10-16T04:00:22.426839+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "cases": [
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_revision_delete_marks_surviving_match_reader[0]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 7.851017341949046
+        },
+        {
+          "nodeid": "tests/test_publication_match_dependency_edges.py::test_revision_delete_marks_surviving_match_reader[1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 8.058043114840984
+        }
+      ],
+      "source_freeze_independent": true,
+      "cleanup_independent": true
+    }
+  ],
+  "application_rule_changed": false,
+  "database_invalidation_changed": true,
+  "scope": "One Match edge in both directions added to existing dirty marks, direct IDs and first marked_at retained; no recursive eligibility dependency",
+  "new_p95": null,
+  "acceptance": "Scoped corrective accepted; CR09/global capacity/N3 not accepted",
+  "limits": [
+    "Runs are separate selections, not one N3 execution.",
+    "Synthetic persisted rights ledger proves SQL classification only, not human/provider authorization.",
+    "Fanout cost and directory p95 after this migration remain unmeasured.",
+    "Docker image v2 predates migration0020; packaged delivery must be rebuilt and checked before common-version acceptance."
+  ]
+}

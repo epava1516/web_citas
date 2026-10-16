@@ -408,7 +408,7 @@ optimización por rutina; objetivos originales quedan como mejora futura según
 
 ### Imagen nativa actual, 2026-10-16
 
-El Dockerfile compila el kernel en una etapa aislada con Python3.12.15/Cython3.0.12 y rechaza una imagen final sin `native-sealed`; no copia el artefacto nativo del host. El arranque predeterminado se alinea con4sync/65s del escenario reciente. [Construcción y smoke PostgreSQL propios](evidencias/cr09-docker-native-20261016.md) verificados con etiqueta aislada, sin sustituir imágenes normales. La nueva identidad binaria queda registrada; no se atribuyen a la imagen los tiempos medidos fuera de ella ni se declara capacidad/N3.
+El Dockerfile compila el kernel en una etapa aislada con Python3.12.15/Cython3.0.12 y rechaza una imagen final sin `native-sealed`; no copia el artefacto nativo del host. El arranque predeterminado usa4sync/65s; el arnés actual usa timeout60s (cliente65s), así que aún no hay identidad completa de configuración. La comparación anterior que los daba por iguales era incorrecta. [Construcción y smoke PostgreSQL propios](evidencias/cr09-docker-native-20261016.md) verificados con etiqueta aislada, sin sustituir imágenes normales. La nueva identidad binaria queda registrada; no se atribuyen a la imagen los tiempos medidos fuera de ella ni se declara capacidad/N3.
 
 
 Actualización posterior: la [imagenv2](evidencias/cr09-docker-pg-journeys-20261016.md) excluye cachés/bytecode del host de forma recursiva. Verificados19casos PostgreSQL y118delkernel, sin omisiones. La primera imagen se conserva como antecedente; no usar sus cachés como evidencia de versión común. Todavía no hay capacidad del runtime empaquetado ni aceptación N3.
