@@ -1,0 +1,35 @@
+{
+  "scope": "Unit controls only; no application, PG, HTTP load or performance acceptance",
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "3",
+    "time": "0.503",
+    "timestamp": "2026-10-16T15:42:33.853876+00:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "junit_sha256": "627893f4e175542b263c1fa7f4d9397407e59aa3869e8869641560bb012ecde9",
+  "source_sha256": {
+    "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+    "tests/test_owned_generator_schedule.py": "f48ae8c73e807fc68935abf0738612232e14b1487bbb8147fb050ba085270e17"
+  },
+  "controls": [
+    "Normal await timer does not become callback CPU",
+    "40ms thread-CPU callback detected with callbackCPU>=35ms",
+    "40ms blocking sleep detected as callbackWall>=35ms and callbackCPU<20ms"
+  ],
+  "limits": [
+    "Original113.55ms anomaly not reproduced or explained",
+    "Runqueue stats are per observer thread; wall and CPU/queue deltas overlap",
+    "CPython private _run_once instrumentation explicit diagnostic only, Python3.12.15",
+    "Observer overhead unmeasured; at most256significant intervals retained; no callback repr or request content",
+    "pytest config /dev/null intentionally no Django/DB; benign cache permission warning preserved"
+  ],
+  "references": [
+    "https://docs.kernel.org/6.13/scheduler/sched-stats.html",
+    "https://docs.python.org/3.12/library/asyncio-runner.html",
+    "https://docs.python.org/3.12/library/asyncio-eventloop.html"
+  ]
+}
