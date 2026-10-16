@@ -1156,3 +1156,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: perfilsubida023827-9f139f01,1PASS93,23s;Ruffprevio023718conservado. cProfileCPU incluye URLConf/imports/regex frío;ingest102,82ms/decode4,35ms instrumentados,no comparablesclean. Retirada inferencia382msCPU=ingest;arnésHTTPya6sondas. Siguiente calentamientoequivalente/perworker, no precarga especulativa. Fuente/cleanupverificados. Evidencia cr09-upload-cpu-profile-20261016.md. Sinproducto/Claude/proveedores,consumopreviointacto;CR09/N3/contratoabiertos.
+
+
+2026-10-16: warmprofile024218-36c98f77,1PASS89,66s;6rutas+loginGET200. HelperCPUcProfilefrío2019,84→262,376ms,ingest102,82→140,232ms,decode5,011ms: arranquefrío expuesto,no mejora producto/causalidadclean. Campo externo incluye exportstats,limitación explicada también023827. Siguiente observar calentamientoporPIDGunicorn. Fuente/cleanup/cgroupverificados,evidencia cr09-upload-warm-profile-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/contratoenterosabiertos.
