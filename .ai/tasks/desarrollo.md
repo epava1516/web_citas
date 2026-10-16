@@ -1201,3 +1201,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: portabilidadactual033436-d7ebe010,SHAba4a624,24PASS379,39s/0fallos/errores/skips:6cierre/entrega/12racesPGobservados/6localizaciónChromiumESEN+valores. Fuentecongelada/runner/hijo/temp/contenedores/cgroupvacío verificadosindependientes. Evidenciacr09-portability-current-20261016.md/terminalJSON,matrix83enlazada. Alcanceparcialpertinentea0020/erasure/recovery,nosumaN3/aceptaciónportabilidadintegral. Sinp95nuevo/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: headroomfijo4/6sync034454-b82b1f50,1PASS121,50s/144HTTPbytesiguales/6servidoresreadyantesrequests. Mismo4CPU/memoria/PG;lotemejora4,2–5,5%,p95ráfagainconsistente(bloque2empeora),NOadoptarproducto/nocarga20rps/Celery/dirty/N2. Fuente/cleanup/cgroup/todosPIDverificados. Registroprevioseguimientoomitido,reconocidoen evidencia(noinventado). Evidenciacr09-sync-headroom-20261016.md. SinClaude/proveedores,consumopreviointacto;últimoclean1,013029795FAIL/CR09/N3/goalenterosabiertos.
