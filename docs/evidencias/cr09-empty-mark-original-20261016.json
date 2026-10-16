@@ -1,0 +1,10 @@
+{
+  "run": "artifacts/local-ci/20261016-114404-171b47f0",
+  "result": "1 FAIL84.12s",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "failure": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_________________________ test_owned_empty_mark_guard __________________________\ntests/test_owned_empty_mark_guard.py:70: in test_owned_empty_mark_guard\n    assert outcomes[0]['error'] == '23503'\nE   AssertionError: assert None == '23503'\n=========================== short test summary info ============================\nFAILED tests/test_owned_empty_mark_guard.py::test_owned_empty_mark_guard - As...\n1 failed in 84.12s (0:01:24)\n",
+  "cause": "Harness incorrectly assumed PublicationDirty.listing_id was a foreign key. It is UUIDField and permits absent listing marks by design. Both clone outcomes matched before erroneous SQLSTATE expectation. No performance samples executed.",
+  "preserved_source": "artifacts/cr09-empty-mark-original-20261016/original.py",
+  "correction": "Fix absent-ID expected behavior; add malformed UUID22P02 and repeat mark timestamp control. Candidate/native function bodies unchanged."
+}

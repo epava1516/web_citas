@@ -7,7 +7,7 @@ import uuid
 from pathlib import Path
 
 import pytest
-from django.db import IntegrityError, connection, transaction
+from django.db import DatabaseError, connection, transaction
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -44,7 +44,9 @@ def test_owned_empty_mark_guard(request, record_property):
         for case, ids in [('null', None), ('empty', []), ('null_element', [None]),
                           ('valid', [data['sample_ids'][0]]),
                           ('duplicate_null', [data['sample_ids'][0], None, data['sample_ids'][0]]),
-                          ('foreign_key_error', [str(uuid.uuid4())])]:
+                          ('absent_listing', [str(uuid.uuid4())]),
+                          ('malformed_uuid', ['synthetic-invalid-uuid']),
+                          ('valid_twice', [data['sample_ids'][0]])]:
             outcomes = []
             for arm, name in functions.items():
                 PublicationDirty.objects.all().delete()
@@ -56,7 +58,12 @@ def test_owned_empty_mark_guard(request, record_property):
                     with transaction.atomic():
                         with connection.cursor() as cursor:
                             cursor.execute('SELECT '+name+'(%s::uuid[])', [ids])
-                except IntegrityError as exc:
+                        if case == 'valid_twice':
+                            timestamps = dict(PublicationDirty.objects.values_list('listing_id', 'marked_at'))
+                            with connection.cursor() as cursor:
+                                cursor.execute('SELECT '+name+'(%s::uuid[])', [ids])
+                            assert dict(PublicationDirty.objects.values_list('listing_id', 'marked_at')) == timestamps
+                except DatabaseError as exc:
                     error = exc.__cause__.sqlstate
                 rows = sorted(str(x) for x in PublicationDirty.objects.values_list('listing_id', flat=True))
                 with connection.cursor() as cursor:
@@ -66,8 +73,10 @@ def test_owned_empty_mark_guard(request, record_property):
             assert outcomes[0] == outcomes[1]
             if case in ('null', 'empty', 'null_element'):
                 assert outcomes[0] == dict(rows=[], generation_delta=0, error=None)
-            if case == 'foreign_key_error':
-                assert outcomes[0]['error'] == '23503'
+            if case == 'absent_listing':
+                assert outcomes[0] == dict(rows=ids, generation_delta=1, error=None)
+            if case == 'malformed_uuid':
+                assert outcomes[0] == dict(rows=[], generation_delta=0, error='22P02')
             controls.append(dict(case=case, outcome=outcomes[0]))
         PublicationDirty.objects.all().delete()
         with connection.cursor() as cursor:
