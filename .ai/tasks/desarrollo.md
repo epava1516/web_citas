@@ -1117,3 +1117,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16:agente nativo existentecoverage_bottleneck_review:dosrevisionesúnicamentelectura,ocupaciónofflineyrevisióncensoRR;sinarchivos/cargas/ClaudeV1/proveedores,usonoreportado,null. Offline3runs98–98,7%esperacoincidetodosocupados. Contrastecenso002739-852c62f5:108lecturas1PASS106,25s,dirty3bloquespositivos;noapp/HTTP/p95nuevo. Fuentecongeladaycleanupindependientes. InstrumentoaisladoprobadosejecutóúnicamenteRRpropio;inheritedRCnoesválidoysepreservaráoriginal. Evidenciasocupación/censoactualizadas. Goalabierto.
+
+
+2026-10-16: censo dirty6daa170,sóloRRpropio;paridad003139-54108bb516PASS224,83s ylímites003644-93458c9a2PASS51,67s,fuentes/cleanupindependientes. Clean003849-cc3fd173FAIL182,88s,p950,904873942s,1200completas0errores,71lentas0–5s,subida302/generadorválido. Observado−25,762%vs1,218890056s,sincausalidad/reproducibilidadprobadas. Mantenerbeneficioaisladoyperocompuertaabierta;norepetirciego/900s. Fuente/kernelmetadata/cleanupdocumentados. SinClaude/proveedores,consumopreviointacto. Goalabierto.

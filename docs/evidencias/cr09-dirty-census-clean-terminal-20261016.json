@@ -1,0 +1,127 @@
+{
+  "run": "20261016-003849-cc3fd173",
+  "sha": "6daa17049fe45779d63de391a98a284725963246",
+  "verdict": "FAIL",
+  "validity": {
+    "validity": true,
+    "latency_and_errors": false,
+    "pending_at_window": true,
+    "final_pending": true,
+    "upload": true,
+    "timeout_policy": true,
+    "drain": true
+  },
+  "latency": {
+    "p50": 0.22019952815026045,
+    "p90": 0.5112620587460697,
+    "p95": 0.9048739420250058,
+    "p99": 1.2147253416478634,
+    "max": 1.304145888891071,
+    "population": 1200
+  },
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "generator_delay": {
+    "p50": 0.0008124451152973222,
+    "p90": 0.0014325037598581503,
+    "p95": 0.0018244278617203236,
+    "p99": 0.0027448159642517456,
+    "max": 0.02891308097168732,
+    "population": 1200
+  },
+  "cases": {
+    "listing": {
+      "n": 400,
+      "p95_s": 0.9464833782985806
+    },
+    "search": {
+      "n": 400,
+      "p95_s": 0.9664224167354405
+    },
+    "detail": {
+      "n": 400,
+      "p95_s": 0.8034735643304884
+    }
+  },
+  "cohorts": [
+    {
+      "from": 0,
+      "to": 5,
+      "n": 100,
+      "p95_s": 1.2424009693786502,
+      "slow_ge_0_8": 71
+    },
+    {
+      "from": 5,
+      "to": 10,
+      "n": 100,
+      "p95_s": 0.6360669867135584,
+      "slow_ge_0_8": 0
+    },
+    {
+      "from": 10,
+      "to": 15,
+      "n": 100,
+      "p95_s": 0.2791045606136322,
+      "slow_ge_0_8": 0
+    },
+    {
+      "from": 15,
+      "to": 60,
+      "n": 900,
+      "p95_s": 0.3757830783724785,
+      "slow_ge_0_8": 0
+    }
+  ],
+  "service_p95_s": 0.303094,
+  "kernel": {
+    "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "uploads": {
+    "scheduled": 1,
+    "emitted": 1,
+    "not_emitted": 0,
+    "successful": 1,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "cleanup": {
+    "source_frozen_independent": true,
+    "controller_child_celery_absent": true,
+    "runner_temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "limits": "Single short clean run; no reproducibility, causal improvement or global acceptance. Legacy pg_server_shared is inaccurate for bounded owned containers."
+}

@@ -2411,3 +2411,9 @@ Reproducción001455-644b1704:1FAIL47,53s;materialfinal omitía la copiaPublicati
 ### 2026-10-16 — espera compatible con ocupación y candidato acotado
 
 Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos losworkersocupados, sin prueba decola kernel/causaexclusiva. Censo/unknown dirty aislado002739-852c62f5:1PASS106,25s,108lecturas;dirtylistado310→264ms/búsqueda408→320ms,3bloquesdirtypositivos;sincambiodepoblación. NoHTTP/p95nuevo,nocandidatoimplementadoaún. Revisión nativa exige restringirlo aRRpropio;inheritedRCmantieneantijoinoriginal. Fuente/cleanupverificados. Evidenciascr09-occupancy-offline-20261016.md ycr09-dirty-census-contrast-20261016.md. Siguienteparidadfuncional antesdecarga.
+
+
+2026-10-16: candidato censo dirty implementado6daa170 sóloRRpropio;heredadasconservanoriginal,coverageincompletaantijoin. Paridad003139-54108bb5:16PASS224,83s;límites003644-93458c9a:2PASS51,67s;fuentes/cleanupindependientes. MediciónHTTPclean4syncnativoiniciada,unidadcr09-dirty-census-clean-20261016,resultadopendiente. Vercr09-dirty-census-implementation-20261016.md. SinaceptaciónCR09/N3.
+
+
+2026-10-16: censo acotado6daa170,clean003849-cc3fd173FAIL182,88s,p950,904873942s(vsreferencia4sync1,218890056s;reducciónobservada25,762%,sinreproducibilidad/causalidadprobadas).1200completas0errores,generadorválido,subida302;71lentasemitidasprimeros5s. Fuentesycleanupverificados. No repetirFAIL/900s;diagnósticoseparadosiguientepaso. Evidenciacr09-dirty-census-clean-20261016.md. CR09/N3abiertos.

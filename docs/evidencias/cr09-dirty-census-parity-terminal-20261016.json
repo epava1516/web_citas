@@ -1,0 +1,73 @@
+{
+  "run": "20261016-003139-54108bb5",
+  "head": "eb81c89c2fa2f87d2ecb854a6bb3f2272193986a",
+  "result": "16 PASS /224.83s",
+  "cases": [
+    {
+      "classname": "tests.test_publication_dirty_census",
+      "name": "test_dirty_census_keeps_native_page_and_inherited_read_semantics[current]"
+    },
+    {
+      "classname": "tests.test_publication_dirty_census",
+      "name": "test_dirty_census_keeps_native_page_and_inherited_read_semantics[missing]"
+    },
+    {
+      "classname": "tests.test_publication_dirty_census",
+      "name": "test_dirty_census_keeps_native_page_and_inherited_read_semantics[old_version]"
+    },
+    {
+      "classname": "tests.test_publication_dirty_census",
+      "name": "test_dirty_census_keeps_native_page_and_inherited_read_semantics[inherited]"
+    },
+    {
+      "classname": "tests.test_publication_state_membership",
+      "name": "test_membership_preserves_native_population_at_trust_boundary[missing]"
+    },
+    {
+      "classname": "tests.test_publication_state_membership",
+      "name": "test_membership_preserves_native_population_at_trust_boundary[old_version]"
+    },
+    {
+      "classname": "tests.test_publication_state_membership",
+      "name": "test_membership_preserves_native_population_at_trust_boundary[dirty_eligible]"
+    },
+    {
+      "classname": "tests.test_publication_state_membership",
+      "name": "test_membership_preserves_native_population_at_trust_boundary[dirty_revoked]"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[none-True]"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[ineligible-True]"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[missing-False]"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_committed_coverage_matches_original_join[stale-False]"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_empty_committed_population_has_complete_coverage"
+    },
+    {
+      "classname": "tests.test_publication_state_coverage",
+      "name": "test_deferred_orphan_cannot_cancel_missing_state_in_inherited_transaction"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[False]"
+    },
+    {
+      "classname": "tests.test_publication_state",
+      "name": "test_revision_status_race_preserves_approval_predicate_outside_owned_snapshot[True]"
+    }
+  ],
+  "source_frozen_independent": true,
+  "cleanup_independent": true
+}
