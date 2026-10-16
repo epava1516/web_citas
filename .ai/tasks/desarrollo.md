@@ -1306,3 +1306,5 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16:AA96reads0639411PASS131,75sfuncional/estabilidadINCONCLUSO9/12celdas>10%, frozen/cleanupverificados. PreferenciausuariocomunidadStackOverflowincluidaenfuentes; no envíomensajesexternos. SinClaude/consumopreviointacto;CR09/N3abiertos.
 
 2026-10-16:AAatribución96reads0646361PASS136,04s,GCasociadoconcolaslentasperoSQL/CPUsolapan,nocausalidadSLO. FalloprecheckRuff064520preservado/sourcecleanupverificadosenambos. Sinapp/Claude/proveedores,consumopreviointacto;goalabierto.
+
+2026-10-16:WSGIlifetime0652291PASS89,39s,sinClient/templatecapture:24Listing24RevisionhastaGC/120QSinalcanzables/contextliberado,noleakpermanenteocicloexactodemostrado. Frozen/cleanupverificados/GCrestaurado. SinClaude/consumopreviointacto/noaceptaciónglobal.
