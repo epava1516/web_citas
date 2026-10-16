@@ -1159,3 +1159,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: warmprofile024218-36c98f77,1PASS89,66s;6rutas+loginGET200. HelperCPUcProfilefrío2019,84→262,376ms,ingest102,82→140,232ms,decode5,011ms: arranquefrío expuesto,no mejora producto/causalidadclean. Campo externo incluye exportstats,limitación explicada también023827. Siguiente observar calentamientoporPIDGunicorn. Fuente/cleanup/cgroupverificados,evidencia cr09-upload-warm-profile-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/contratoenterosabiertos.
+
+
+2026-10-16: ingressprelude024716-c64da86d,SHA431ddd0,1FAIL187,54s,p95instrumentado1,198622245s(no clean),1200éxitos0errores/generadorválido. Workerspreludes1/0/6/2;PID403951sinpreludio,d-0WSGI1164,937ms/CPU626,562ms. Demostrado calentamientodesigual,no causaexclusiva/aceptación. Siguiente contrastepreparaciónestáticaporworkerantesdeproducto. Fuente/cleanup/cgroupverificados. Evidenciacr09-prelude-ingress-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.

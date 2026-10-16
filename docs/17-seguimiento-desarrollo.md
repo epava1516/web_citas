@@ -2459,3 +2459,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: observador ingress ampliado sólodiagnóstico: primeras32peticiones sinID porPID,IDs p-N separados, sinmodificar environ ni guardarURI/cookies. Controles024608-c87b0e2a PASS,fuente/cleanupverificados. Próximo diagnóstico60s porworker, no aceptaciónp95;CR09/N3/goalabiertos.
+
+
+2026-10-16: ingressprelude024716-c64da86d,SHA431ddd0,1FAIL187,54s,p95instrumentado1,198622245s(no clean),1200éxitos0errores/generadorválido. Workerspreludes1/0/6/2;PID403951sinpreludio,d-0WSGI1164,937ms/CPU626,562ms. Demostrado calentamientodesigual,no causaexclusiva/aceptación. Siguiente contrastepreparaciónestáticaporworkerantesdeproducto. Fuente/cleanup/cgroupverificados. Evidenciacr09-prelude-ingress-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
