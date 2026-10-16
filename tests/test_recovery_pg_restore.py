@@ -133,6 +133,7 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     person.refresh_from_db();subject.refresh_from_db()
     assert not person.alias and person.listing.status=='withdrawn'
     assert not Revision.objects.filter(listing__person=person).exclude(description='').exists()
+    assert not PublicationState.objects.filter(listing_id=person.listing.pk).exists()
     assert subject.session_version>=config['minimum_session']
     assert destroy_due(store,start)>=1
     for paths in config['paths']:
@@ -154,6 +155,8 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     call_command("refresh_publication_state", all=True)
     assert not PublicationDirty.objects.exists() and all_state_current()
     assert PublicationState.objects.get(listing_id=person.listing.pk).eligible is False
+    rebuilt=PublicationState.objects.get(listing_id=person.listing.pk)
+    assert rebuilt.search_document is rebuilt.published_at is rebuilt.expires_at is None
     with override_settings(RECOVERY_MODE=False):
         client=Client();client.cookies[settings.SESSION_COOKIE_NAME]=config['old_session']
         response=client.get('/en/')

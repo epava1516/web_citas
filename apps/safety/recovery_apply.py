@@ -17,7 +17,7 @@ from apps.core.models import (
     RepresentationInvitation,
     User,
 )
-from apps.listings.models import Favorite, Listing, Rate, Revision
+from apps.listings.models import Favorite, Listing, PublicationState, Rate, Revision
 from apps.mediafiles.models import Blob, Photo
 from scripts.recovery_ledger import LedgerIntegrityError, digest
 from scripts.recovery_receipts import validate_receipt
@@ -192,6 +192,9 @@ def apply_database(receipt):
                 expires_at=None,
                 lifecycle_version=models.F("lifecycle_version") + 1,
             )
+            # Restored projections also contain publication text and dates.
+            # Reapply the selected erasure before any asynchronous refresh.
+            PublicationState.objects.filter(listing__person=person).delete()
             person.publication_erased_at = now
         if "profile" in selected:
             person.alias, person.assigned_editor = "", None
