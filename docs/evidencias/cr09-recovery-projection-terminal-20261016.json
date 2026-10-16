@@ -1,0 +1,96 @@
+{
+  "run": "20261016-000952-d23d1fae",
+  "head": "8b6eb11347a85f9a84a582f1a5c3aca04764b7c9",
+  "result": "9 PASS /120.27s",
+  "cases": [
+    {
+      "classname": "tests.test_recovery_publication_projection",
+      "name": "test_recovery_clears_only_selected_restored_publication_without_refresher[True]",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_publication_projection",
+      "name": "test_recovery_clears_only_selected_restored_publication_without_refresher[False]",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_reintroduced_credentials_preferences_and_copy_removed_with_replay",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_foreign_scope_rolls_back_whole_application",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_media_recovery_requeues_even_if_old_job_claims_completed",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_restored_contact_and_consent_are_revoked_without_changing_peer",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_restored_account_erasure_obeys_selected_scope[False]",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_apply",
+      "name": "test_restored_account_erasure_obeys_selected_scope[True]",
+      "properties": {}
+    },
+    {
+      "classname": "tests.test_recovery_pg_restore",
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+      "properties": {
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "backup_bytes": "1052520",
+        "backup_sha256": "14cee59ad3196b7eaaece6362445a402dddbb52ad0e76fe4441eb937b8753185",
+        "backup_cutoff_unix": "1792109524.3962383",
+        "backup_media_manifest": "{\"derivatives/72f5adcb-8022-4334-a074-ba09a0d2038d.webp\": \"744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378\", \"derivatives/a06008bd-c810-48a8-8e9a-aad953656cd9.webp\": \"a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96\", \"derivatives/a99f643b-9ce4-4a65-955e-6bb5b3e9d6f9.webp\": \"a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d\", \"derivatives/e7cb8a2a-c194-42a2-b137-fc876c23c6a1.webp\": \"31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05\", \"originals/1b313af3-c27e-4d00-8d08-19a0caa0b821\": \"1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee\", \"originals/2fc80f33-6e73-4ec4-918d-29f339c0719a\": \"99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f\", \"originals/427f0977-44fc-4083-baf9-54c8b1dfb31d\": \"17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31\", \"originals/658dd005-e748-49f1-bd79-52084f742a59\": \"b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643\"}",
+        "media_manifest_sha256": "eb9ed2b334001aa2ecde8f0593ad16a924789f7ec679638b0af94d207ade7b33",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.8729029330424964",
+        "restore_and_reconcile_seconds": "5.090638407040387",
+        "backup_age_upper_bound_seconds": "6.717184066772461",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_name": "recovery_restore_8e08177182ed",
+        "restored_database_removed": "True"
+      }
+    }
+  ],
+  "source_frozen_independent": true,
+  "cleanup": {
+    "controller_child_absent": true,
+    "runner_temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "baseline": {
+    "run": "20261016-000756-47bfe58b",
+    "result": "1 FAIL /1 PASS /56.47s",
+    "source_frozen_independent": true,
+    "owned_cleanup_independent": true
+  },
+  "source_hashes": {
+    "apps/safety/recovery_apply.py": "9e1106ebb682b04f49759bb3d5f36603a86f3834286c3bd09545dce4e92ed347",
+    "tests/test_recovery_publication_projection.py": "ce0e68444cf23e1351a8c5a20e39412eb41e782a465f26e8295ef75c1417bdc8",
+    "tests/test_recovery_pg_restore.py": "042fa4da7af01532306954abe2bf394fac17358959612fb5c119999f4cc8ce50"
+  },
+  "limits": "Targeted actual recovery regression, including PG dump/restore; not complete common N3/CR09 or performance acceptance."
+}

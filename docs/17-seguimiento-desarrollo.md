@@ -2393,3 +2393,8 @@ Run `20261015-235821-3978e752`: 1 PASS/110,77 s. Registro efectivo de18 tareas;1
 ### 2026-10-16 — protección y eliminación de objetos huérfanos
 
 Run000418-429fdc14,1PASS49,11s con PG/RustFS reales. Test7fa3c61 comprueba día de gracia con reloj explícito, protección de referencia viva, recuperación/deshabilitación, borrado físico HEAD404 e idempotencia; no cambia aplicación ni acredita despacho horario. Fallo Ruff inicial conservado; fuentes/limpieza verificadas. Evidencia cr09-orphan-retention-20261016.md y conciliación de tareas/reports. Pendientes política/backups/aplicabilidad común/rendimiento intactos.
+
+
+### 2026-10-16 — defecto de copia restaurada corregido
+
+Reproducción000756-47bfe58b:1FAIL/1PASS;recovery_apply dejaba texto/fechas enPublicationState alreaplicar supresiónpublication. RECOVERY_MODE bloqueabaHTTP,noexposiciónpúblicademostrada. Corrección9f92f94 eliminacopiasólodelsujetoyfinalidadseleccionados enmisma transacción. Verificación000952-d23d1fae:9PASS120,27s,incluye restauraciónrealPG/medios,negativo sinpublication ypares/replay. Fuentes/cleanupindependientes. Evidenciacr09-recovery-projection-20261016.md. No nuevop95 niaceptaciónCR09/N3.

@@ -1105,3 +1105,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16:7fa3c61testhuérfanos,000418-429fdc141PASS49,11s;PG/RustFSreales,reloj+2d explícito,referenciapreservada/desencriptable,huérfanoHEAD404,idempotencia. FalloRuff000356-ba72c0a9conservado;fuentes/cleanupverificados. Crosswalk18taskASTiguales/12reportsdirectosprevios/17Beat,limitacionesexpresas. Sinapp/cadencias/proveedores/nuevasllamadasClaude. Goalabierto.
+
+
+2026-10-16:fallorealrecuperaciónPublicationState,repro000756-47bfe58b1FAIL1PASS56,47s;fix9f92f94eliminasólocopiadelsujetoconpublicationdentrotransacción. Verificación000952-d23d1fae9PASS120,27sincluyePGdump/restoreymediosreales,terceros/ámbito/replay. Fuentesycleanupindependientes;falloconservado. NoexposiciónHTTPafirmada,nuevop95noobtenido. SinClaude/proveedores,consumopreviointacto. Goalabierto.
