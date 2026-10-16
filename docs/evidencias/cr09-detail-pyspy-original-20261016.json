@@ -1,0 +1,45 @@
+{
+  "run": "20261016-122807-cd2e4004",
+  "status": "FAIL",
+  "reason": "py-spy exit1 ECHILD after writing trace; child inherited DJANGO_DEBUG=1 unlike HTTP DEBUG=0",
+  "child": {
+    "completed": 240,
+    "error_type": null,
+    "python": "3.12.15",
+    "kernel": {
+      "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "source_sha256": "67083bcd854133a0b33b3fe28b78cc4cee580123218f9e4ba900522b4b172987",
+    "profile_loop_monotonic": [
+      3874403.697842132,
+      3874420.488257569
+    ],
+    "body_signatures": {
+      "/es/listing/ec6631c2-f5f9-4c72-88f1-9836e2b98564/": "ddd3ca781634c43f4fa4628647f2cf98649c7270d0df2653d3d6abd6b02a2d6a",
+      "/en/listing/84c897c7-2802-442f-b8ec-54fbbc289f92/": "71819f44b214167136bf4a1e5f3d7225f8da4749d2eea4ce161b848be383061c"
+    }
+  },
+  "cleanup_and_source_freeze": "independently verified",
+  "trace_sha256": "d4744d3cca9b74b2e608080520331db09cacd6718fef275eda725faf971e11d2",
+  "acceptance": false,
+  "external_similar_report": "https://github.com/benfred/py-spy/issues/759",
+  "next": "One corrected DEBUG=0 capture; retain strict tool return-code check, unchanged resources/product"
+}

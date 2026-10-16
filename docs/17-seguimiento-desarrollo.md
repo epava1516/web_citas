@@ -2809,3 +2809,31 @@ Criterios fijados antes de medir: discrepancia A/A ≤10% en wall, CPU de aplica
 Prerregistro de `test_owned_detail_pyspy.py`: diagnóstico único del producto actual, sin la política genérica descartada. Herramienta aislada existente py-spy 0.4.2, ejecutando un hijo Python 3.12.15 propio y WSGI real sobre 10.000 anuncios sintéticos. Dos lecturas de preparación y 240 lecturas de detalle ES/EN de agencia/clon; firma real con componente temporal fijo para verificar cuerpos. Kernel native-sealed y hash del detalle contrastados; comprobación de alias original y plan_cache_mode auto. GC normal, sin observadores SQL/GC/PG, Memray, spans o cProfile superpuestos.
 
 Muestreo a 100 Hz, sólo trazas con GIL, formato speedscope. Exigir muestras dentro de `profile_detail_requests` y registrar stdout/stderr, salida del hijo y artefacto incluso ante fallos. El GIL es un filtro de observación, no una medición exacta de CPU; excluye esperas y código nativo que lo libera. No extrapolar las muestras a porcentaje exacto del request ni usar tiempos perfilados como aceptación. Mismas cuotas del CI propio; sin producción, nueva carga limpia o ensayo de 900 s. Objetivo: atribuir CPU de aplicación restante antes de otro candidato.
+
+
+Perfil detalle `122807-cd2e4004`: FAIL, 240 lecturas del hijo correctas pero py-spy salió1/ECHILD tras escribir traza (1356 muestras, un error). Freeze y limpieza comprobados independientemente. Además heredó DJANGO_DEBUG=1 del CI: no corresponde al HTTP DEBUG=0; no usar sus porcentajes para elegir cambios. Recibo cr09-detail-pyspy-original-20261016.json. Hay reporte upstream semejante #759, sin demostrar causa local. Corrección limitada al instrumento: runtime settings desde config.settings, MEDIA_ROOT de fixture, DB propia explícita, DEBUG=0 con aserciones de settings y force_debug_cursor; una captura correctiva, sin política candidata ni observadores superpuestos. Se mantiene check_returncode estricto, sin transformar ECHILD en PASS. Ruff pasa.
+
+
+Captura correctiva py-spy `123725-881576b7`: **1 PASS/103,44s**, DEBUG=False y force_debug_cursor=False contrastados, 240 lecturas completas, 1040 muestras dentro del bucle. Herramienta terminó0; fuentes y limpieza verificadas independientemente. Recibo [cr09-detail-pyspy-corrected-20261016.json](evidencias/cr09-detail-pyspy-corrected-20261016.json).
+
+| Marco inclusivo | Muestras del bucle |
+|---|---:|
+| PublicationContext.__init__ | 68,56% |
+| read_publication_values | 43,17% |
+| SQLCompiler.as_sql | 31,63% |
+| publication_query | 11,35% |
+| _bound_validation | 5,10% |
+
+Porcentajes inclusivos solapados, no sumables ni porcentajes de CPU/latencia HTTP. Perfil limitado a dos detalles de agencia, WSGI sin TCP/concurrencia, GIL y buffers compartidos previamente usados. Orienta el siguiente análisis a construcción/compilación ORM repetida del detalle; no prueba que explique el arranque del listado/búsqueda ni autoriza cachear datos/autoridad. Ningún cambio productivo o nuevo p95: siguen 0,675688s PASS y 0,880357s FAIL. Siguiente paso: revisar viabilidad de reutilizar exclusivamente estructura de consulta con parámetros frescos y aislamiento conservado, antes de proponer prototipo. No reabrir política genérica descartada.
+
+
+Prototipo sólo tests `owned_detail_query_template.py`: plantilla ORM sin evaluar, LRU8 por versión escalar del documento, copia nativa filter() con UUID y reloj nuevos. Documento activo sigue leyéndose dentro del contexto RR. Sólo detalle propio; fallback heredado conserva ruta original. No se almacenan documentos, resultados, personas ni decisiones. Se copia el constructor actual con sustitución exacta de una llamada; se rechaza deriva de fuente. Primera puerta: paridad frente al producto RR actual (19 comparaciones HTTP), caché de resultados siempre vacía y Query independiente, construcción sin SQL. No producto ni ROI todavía; no confundir caché de estructura resuelta con ahorro de compilación SQL ya demostrado. Fuentes Django5.2: https://docs.djangoproject.com/en/5.2/ref/models/querysets/ y código local QuerySet.filter/_clone, Query.clone.
+
+
+Plantilla detalle N1 inicial `124237-2e1506ed`:1PASS48,40s,19comparaciones frente productoRR,clone/query/annotations independientes,construcciónsinSQL y result_cachevacía. Freeze/cleanupverificados. Se amplía la misma puerta a dos transiciones concurrentes reales PG,cuatro ámbitos transaccionales y documentoactivo/expiración mutados entre peticiones. No ROI ni producto aún.
+
+
+Plantilla N1 ampliada `124448-af840307`:7PASS/1FAIL101,34s. Paridad19,cuatroámbitosydostransicionesPG pasan. Fallo de fixture al restaurar sólo un documento tras desactivar todos los idiomas: nativo y candidato404 ante esperado200. Se preserva recibo cr09-detail-template-n1-original-20261016.json; freeze/cleanupverificados. Corrección sólo del arnés: retener IDs activos iniciales y restaurar todos; repetir ocho controles sin ROI/producto.
+
+
+Plantilla N1 correctiva `124744-d1ddd524`: **8PASS103,27s**. Paridad19HTTP,cuatroámbitos transaccionales,dostransicionesconcurrentesPG,documentoactivo/restauraciónbilingüe,expiración/revivificación,cachésinvaciarautoridad y clones independientes. Freeze/PID/temporales/contenedores comprobados independientemente. Recibo cr09-detail-template-n1-20261016.json. Prototipo no integrado; siguiente preregistrar ROI A/A/C equilibrado con cuotas normales y decisión por ahorro real. No nuevo p95; CR09/N3 abiertos.

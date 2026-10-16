@@ -1,0 +1,199 @@
+{
+  "run": "20261016-123725-881576b7",
+  "status": "PASS",
+  "tests": 1,
+  "test_seconds": 103.44,
+  "summary": {
+    "completed": 240,
+    "error_type": null,
+    "python": "3.12.15",
+    "kernel": {
+      "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "debug": false,
+    "force_debug_cursor": false,
+    "source_sha256": "67083bcd854133a0b33b3fe28b78cc4cee580123218f9e4ba900522b4b172987",
+    "profile_loop_monotonic": [
+      3874959.437637371,
+      3874976.146988536
+    ],
+    "body_signatures": {
+      "/es/listing/925f5b60-6cc6-4163-a54d-6786467fa35d/": "27fa880ceb5a86945c23e1e879b58b7a33706bbb739ab97c44b1f35dfd72dcf4",
+      "/en/listing/284c44cc-bf98-46f5-8035-8b2dfe5e95bf/": "99a41ddea94d07e2967c79ac2f8b2c7b1d3be42474600bdd640139d518d3b343"
+    }
+  },
+  "loop_samples": 1040,
+  "selected_inclusive_frames": [
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "__init__",
+      "inclusive_samples": 713,
+      "percent": 68.56
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "execute_sql",
+      "inclusive_samples": 481,
+      "percent": 46.25
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "read_publication_values",
+      "inclusive_samples": 449,
+      "percent": 43.17
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "as_sql",
+      "inclusive_samples": 329,
+      "percent": 31.63
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "compile",
+      "inclusive_samples": 249,
+      "percent": 23.94
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "pre_sql_setup",
+      "inclusive_samples": 248,
+      "percent": 23.85
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "setup_query",
+      "inclusive_samples": 213,
+      "percent": 20.48
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "get_select",
+      "inclusive_samples": 211,
+      "percent": 20.29
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation_views.py",
+      "function": "_public_detail_response",
+      "inclusive_samples": 176,
+      "percent": 16.92
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "publication_query",
+      "inclusive_samples": 118,
+      "percent": 11.35
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "execute",
+      "inclusive_samples": 73,
+      "percent": 7.02
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "_bound_validation",
+      "inclusive_samples": 53,
+      "percent": 5.1
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "cursor_iter",
+      "inclusive_samples": 53,
+      "percent": 5.1
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "get_from_clause",
+      "inclusive_samples": 52,
+      "percent": 5.0
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "rate_valid",
+      "inclusive_samples": 50,
+      "percent": 4.81
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "<lambda>",
+      "inclusive_samples": 50,
+      "percent": 4.81
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "details_valid",
+      "inclusive_samples": 46,
+      "percent": 4.42
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "get_order_by",
+      "inclusive_samples": 27,
+      "percent": 2.6
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/backends/postgresql/compiler.py",
+      "function": "quote_name_unless_alias",
+      "inclusive_samples": 26,
+      "percent": 2.5
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "validate_publication_binding",
+      "inclusive_samples": 26,
+      "percent": 2.5
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+      "function": "details",
+      "inclusive_samples": 23,
+      "percent": 2.21
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "results_iter",
+      "inclusive_samples": 21,
+      "percent": 2.02
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "quote_name_unless_alias",
+      "inclusive_samples": 16,
+      "percent": 1.54
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "_order_by_pairs",
+      "inclusive_samples": 16,
+      "percent": 1.54
+    },
+    {
+      "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+      "function": "get_converters",
+      "inclusive_samples": 16,
+      "percent": 1.54
+    }
+  ],
+  "trace_sha256": "df687ecf6e5742b6b703296465aac85dfe21f72770c5d23902776b0d65d3834b",
+  "cleanup_and_source_freeze": "independently verified",
+  "limits": "GIL samples, inclusive overlapping frames; not CPU percentages or acceptance latency. Two agency routes, synthetic10k, no TCP/concurrency."
+}

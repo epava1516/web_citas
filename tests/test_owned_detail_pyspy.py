@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from django.conf import settings
 from django.db import connection
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
@@ -23,6 +24,7 @@ payload = json.loads(Path(sys.argv[1]).read_text())
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings')
 import django
 django.setup()
+from django.conf import settings
 from django.core import signing
 from django.core.handlers.wsgi import WSGIHandler
 from django.db import connection
@@ -30,6 +32,9 @@ from django.test import RequestFactory
 from apps.listings import moderation_views, public_validation
 from apps.safety.canonical_kernel_loader import kernel_identity
 from config.worker_startup import prepare_static_structures
+assert settings.DEBUG is False
+assert connection.force_debug_cursor is False
+assert str(settings.MEDIA_ROOT)==payload['media_root']
 assert connection.settings_dict['NAME'].startswith('test_promotion_gate_')
 assert moderation_views.PublicationContext is public_validation.PublicationContext
 identity = kernel_identity()
@@ -41,6 +46,7 @@ handler, factory = WSGIHandler(), RequestFactory()
 flags = gc.isenabled(), gc.get_threshold(), gc.get_debug()
 assert flags[0] and flags[2]==0
 result = dict(completed=0,error_type=None,python=platform.python_version(),kernel=identity,
+              debug=settings.DEBUG,force_debug_cursor=connection.force_debug_cursor,
               source_sha256=hashlib.sha256(Path('apps/listings/moderation_views.py').read_bytes()).hexdigest())
 def read(route):
     statuses=[]
@@ -98,8 +104,18 @@ def test_owned_detail_pyspy(request, record_property):
     payload.write_text(json.dumps({'routes':[
         '/es/listing/'+data['sample_ids'][0]+'/',
         '/en/listing/'+data['sample_ids'][-1]+'/',
-    ], 'summary':str(out/'profile-detail-child-summary.json')}))
-    environment = {**os.environ,'POSTGRES_DB':connection.settings_dict['NAME']}
+    ], 'summary':str(out/'profile-detail-child-summary.json'),
+        'media_root':str(settings.MEDIA_ROOT)}))
+    (out/'profile_runtime_settings.py').write_text(
+        'from config.settings import *\nMEDIA_ROOT = '+repr(str(settings.MEDIA_ROOT))+'\n')
+    db = connection.settings_dict
+    environment = {**os.environ, 'POSTGRES_DB':db['NAME'],
+                   'POSTGRES_USER':db['USER'], 'POSTGRES_PASSWORD':db['PASSWORD'],
+                   'DB_HOST':db['HOST'], 'DB_PORT':str(db['PORT']),
+                   'APP_ENV':'development', 'DJANGO_DEBUG':'0',
+                   'DJANGO_SETTINGS_MODULE':'profile_runtime_settings',
+                   'PYTHONPATH':str(out.resolve())+os.pathsep+str(Path.cwd()),
+                   'REDIS_URL':'memory://'}
     command = [str(tool),'record','--rate','100','--gil','--full-filenames',
                '--format','speedscope','--output',str(out/'detail-speedscope.json'),
                '--',sys.executable,str(child),str(payload)]
