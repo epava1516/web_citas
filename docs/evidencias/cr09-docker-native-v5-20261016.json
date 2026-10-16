@@ -1,0 +1,69 @@
+{
+  "image": "sha256:c6ed29f2be7724d811f78ef05c70af1c5d86f2343c7435171f737d65b972d662",
+  "tag": "web-modelos-cr09-native:20261016-v5",
+  "source_sha": "4692bf5d1735245ed92dbf10bdcf61f07f70869b",
+  "runtime": {
+    "startup_sha256": {
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+    },
+    "migration_0020_sha256": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "migration_0022_applied": true,
+    "rejected_helpers_absent": true,
+    "three_dependency_triggers_restored": true,
+    "no_host_bytecode": true,
+    "pg_function_matches_migration": true,
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "16dcc1cfd4bc452b0fc737104ad5b81194a7b31e42fa79db5aa2ebc2179c06af",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "0f3819e5fae03003ffd728329d18e74e81a647783ba6b223d3c809566668cb70",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "pg_version": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "static_ready_before_explicit_probe": [
+    13,
+    14,
+    15,
+    16
+  ],
+  "cleanup": {
+    "cr09-native-v5-image-app-20261016": true,
+    "cr09-native-v5-image-pg-20261016": true,
+    "cr09-native-v5-image-net-20261016": true
+  },
+  "independent_cleanup_verified": true,
+  "kernel_parity": {
+    "cases": 118,
+    "failed": 0,
+    "seconds": 11.35,
+    "image": "sha256:c6ed29f2be7724d811f78ef05c70af1c5d86f2343c7435171f737d65b972d662",
+    "container_absent": true
+  },
+  "acceptance": false
+}
