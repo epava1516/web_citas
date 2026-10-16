@@ -374,6 +374,24 @@ def state_page(query, number, *, checked=(), observation=None):
     return page
 
 
+def _first_page_clean_preview(query, dirty):
+    """Bounded ID preview in the caller's own trusted snapshot, never a population."""
+    expires_after, text = query._publication_projection
+    clean = PublicationState.objects.filter(
+        eligible=True, rules_version=rules_version(), expires_at__gt=expires_after,
+    ).exclude(listing_id__in=dirty)
+    if text:
+        search = SearchQuery(text, config="spanish", search_type="websearch") | SearchQuery(
+            text, config="english", search_type="websearch",
+        )
+        clean = clean.filter(search_document=search).annotate(
+            relevance=SearchRank(F("search_document"), search),
+        ).order_by("-relevance", "-published_at", "listing_id")
+    else:
+        clean = clean.order_by("-published_at", "listing_id")
+    return list(clean.values_list("listing_id", flat=True)[:24])
+
+
 def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=False):
     # The dirty set is small; read it once instead of a correlated anti-join per candidate,
     # whose plan degrades with the dead tuples a high-churn table accumulates.
@@ -402,13 +420,27 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
         if observation is not None:
             observation.update(route="fallback", reason="state_unknown_over_limit")
         return None
+    batch_context = None
+    if (unknown and trusted_snapshot and coverage_current and number == 1 and not checked
+            and getattr(query, "_publication_projection", None) is not None):
+        from .public_validation import _prepared_page_binding
+
+        # Every selected clean row lies in the clean prefix24; every selected
+        # unknown is already in unknown. Selection/count remain native below.
+        # This may hydrate off-page clean relations; it never caches across requests.
+        preview = _first_page_clean_preview(query, dirty)
+        batch_ids = set(unknown) | set(preview)
+        with _prepared_page_binding(enabled=True):
+            batch_context = PublicationContext(
+                Listing.objects.filter(pk__in=batch_ids), page_read=True, prepared_page=True,
+            )
     native = []
     if unknown:
-        context = PublicationContext(query.filter(pk__in=unknown), page_read=True)
+        context = batch_context or PublicationContext(query.filter(pk__in=unknown), page_read=True)
         native = [
             row.pk
             for row in context.rows
-            if publicly_visible(row, context=context) and matches(row.person, checked)
+            if row.pk in unknown and publicly_visible(row, context=context) and matches(row.person, checked)
         ]
     check_filter = Q()
     for name in checked:
@@ -459,10 +491,15 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
 
     # Include this page's fresh catalog reads, not only its initial hydration.
     # The inner hydration scope nests/restores the same physical configuration.
-    with _prepared_page_binding(enabled=True):
-        context = PublicationContext(
-            Listing.objects.filter(pk__in=selected), page_read=True, prepared_page=True,
-        )
+    if batch_context is not None and set(selected) <= {row.pk for row in batch_context.rows}:
+        context = batch_context
+    else:
+        # Retain native hydration if future ordering/protocol changes invalidate
+        # prefix containment. The final guard still checks every selected row.
+        with _prepared_page_binding(enabled=True):
+            context = PublicationContext(
+                Listing.objects.filter(pk__in=selected), page_read=True, prepared_page=True,
+            )
     rows = {row.pk: row for row in context.rows}
     stale.extend(
         pk for pk in selected if pk not in rows or not publicly_visible(rows[pk], context=context)

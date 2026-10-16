@@ -1,0 +1,25 @@
+{
+  "run": "artifacts/local-ci/20261016-090613-d2b145a2",
+  "base_head": "bbb8fc65581ff5182dd6ec2bea757b0ab13514ba",
+  "result": "32 PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "32",
+      "time": "353.410",
+      "timestamp": "2026-10-16T11:06:31.716265+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources": {
+    "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+    "apps/listings/public_validation.py": "eb5394bbbc35e1d75eb38ef474fb6fe2fcc07577e996b306fc696178aa471727",
+    "tests/owned_state_page_before_batch.py": "a56e180871f286ccba5d11a13e9238147bb2560b44dbfd65dc7ae6c9bd0869cf"
+  },
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "scope": "Integrated first-page batch; native reference, parity, boundaries, scope, concurrent snapshots, ordering, fanout, expiry, revision ownership and discovery. No p95 or N3 acceptance."
+}

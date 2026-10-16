@@ -16,6 +16,7 @@ from django.test import RequestFactory
 from django.test.utils import _TestState
 from django.utils import timezone
 from owned_first_page_batch import build_first_page_batch_prototype
+from owned_state_page_before_batch import build_native_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -74,7 +75,7 @@ def test_owned_first_page_batch_roi(request, monkeypatch, record_property, scena
     monkeypatch.setattr(Template, '_render', _TestState.saved_data.template_render)
     assert gc.isenabled() and gc.get_debug() == 0 and not gc.garbage
     gc_flags = gc.isenabled(), gc.get_debug(), gc.get_threshold()
-    native_state_page = publication_state._state_page
+    native_state_page = build_native_reference()
     batch_counts = dict(batch_contexts=0, batch_sizes=[], page_reuses=0, missing_selected_fallbacks=0)
     proposed_state_page = build_first_page_batch_prototype(batch_counts)
     observed_modes = dict.fromkeys(['A', 'B', 'C'], 0)

@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 import pytest
 from django.db import connections, transaction
 from owned_first_page_batch import build_first_page_batch_prototype
+from owned_state_page_before_batch import build_native_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -18,9 +19,6 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 @pytest.fixture
 def batch_case(request):
-    if not any(str(x).split('::')[0] == 'tests/test_owned_first_page_batch_edges.py'
-               for x in request.config.args):
-        pytest.skip('Explicit own first-page batch edge verification only')
     client = request.getfixturevalue('directory')
     dataset = populate(80)
     target = Listing.objects.select_related('approved_revision', 'person').get(pk=dataset['sample_ids'][1])
@@ -28,7 +26,7 @@ def batch_case(request):
     assert not PublicationDirty.objects.exists()
     counts = dict(batch_contexts=0, batch_sizes=[], page_reuses=0, missing_selected_fallbacks=0)
     proposed = build_first_page_batch_prototype(counts)
-    return client, target, publication_state._state_page, proposed, counts, dataset
+    return client, target, build_native_reference(), proposed, counts, dataset
 
 
 def pair(client, native, proposed, monkeypatch, params=None):

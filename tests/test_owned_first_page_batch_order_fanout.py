@@ -4,6 +4,7 @@ from datetime import timedelta
 import pytest
 from django.utils import timezone
 from owned_first_page_batch import build_first_page_batch_prototype
+from owned_state_page_before_batch import build_native_reference
 from test_discovery import directory  # noqa: F401
 from test_owned_first_page_batch_edges import pair
 from test_photos import photo_environment  # noqa: F401
@@ -18,9 +19,6 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 @pytest.fixture
 def ordered_case(request):
-    if not any(str(x).split('::')[0] == 'tests/test_owned_first_page_batch_order_fanout.py'
-               for x in request.config.args):
-        pytest.skip('Explicit own ordering/fanout control only')
     client = request.getfixturevalue('directory')
     populate(80)
     ids = list(Listing.objects.filter(status='published').order_by('pk').values_list('pk', flat=True))
@@ -44,13 +42,17 @@ def test_clean_prefix_boundary_order(ordered_case, monkeypatch, record_property,
     counts = dict(batch_contexts=0, batch_sizes=[], page_reuses=0, missing_selected_fallbacks=0)
     proposed = build_first_page_batch_prototype(counts)
     params = {'q': 'boundaryneedle'} if scenario == 'rank_ties' else {}
-    _, candidate = pair(client, publication_state._state_page, proposed, monkeypatch, params)
+    _, candidate = pair(client, build_native_reference(), proposed, monkeypatch, params)
     selected = [row.pk for row in candidate.context['page']]
     expected = ([ids[25], ids[26]] + [pk for pk in ids if pk not in ids[25:27]])[:24] \
         if scenario == 'clean_null' else ids[:24]
     assert selected == expected
     assert counts['batch_contexts'] == counts['page_reuses'] == 1
     assert counts['missing_selected_fallbacks'] == 0
+    # Also execute the uninstrumented product entrypoint under normal collection.
+    actual = client.get('/es/', params)
+    assert actual.status_code == 200
+    assert actual.content == candidate.content
     assert list(PublicationDirty.objects.order_by('pk').values_list('pk', 'generation')) == marks
     record_property('directed_order', dict(scenario=scenario, selected=[str(pk) for pk in selected], counters=counts))
 
@@ -85,7 +87,7 @@ def test_offpage_clean_fanout_is_observed(ordered_case, monkeypatch, record_prop
         })
 
     monkeypatch.setattr(public_validation.PublicationContext, '__init__', observed)
-    _, candidate = pair(client, publication_state._state_page, proposed, monkeypatch)
+    _, candidate = pair(client, build_native_reference(), proposed, monkeypatch)
     assert {row.pk for row in candidate.context['page']} == set(pending)
     assert counts['batch_contexts'] == counts['page_reuses'] == 1
     # Native has separate pending/page contexts; the batch adds off-page parents.

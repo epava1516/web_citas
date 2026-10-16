@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 
 import pytest
 from owned_first_page_batch import build_first_page_batch_prototype
+from owned_state_page_before_batch import build_native_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -22,7 +23,7 @@ def test_owned_first_page_batch_parity(request, monkeypatch, record_property):
     client = request.getfixturevalue('directory')
     dataset = populate(80)
     listing = Listing.objects.select_related('approved_revision').get(pk=dataset['sample_ids'][0])
-    native = publication_state._state_page
+    native = build_native_reference()
     counters = dict(batch_contexts=0, batch_sizes=[], page_reuses=0, missing_selected_fallbacks=0)
     proposed = build_first_page_batch_prototype(counters)
     cases = []
