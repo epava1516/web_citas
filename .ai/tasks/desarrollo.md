@@ -1334,3 +1334,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local: diagnóstico frío py-spyoriginalFAIL/ECHILD preservado; ciclo de vida duración limitada validado primero en proceso real mínimo y luego72lecturas propias1PASS132,70s. Tool0 yteardownSIGKILL tras trabajo/DBcerrada con subreaperaislado/PIDexactorecogido. No nuevas invocaciones Claude ni cambiosdeconsumo. Próxima auditoría finita de conservación, sinaceptar p95FAIL/CR09/N3.
+
+
+2026-10-16 Codex local: conciliación finita18tareas deconservación conjournalsv3/suplementos yhashesexactos;2PASS83,77s actualizancoberturapurga deaccesoperfil/cuenta. Errorpreviodocumental134112-fcd7c975antesdetests preservado/limpio. Sin cambiosdeproducto ni invocacionesClaude;consumoanteriorpreservado. Siguiente respaldo/restauración pertinente;CR09/N3/p95FAILnoaceptados.

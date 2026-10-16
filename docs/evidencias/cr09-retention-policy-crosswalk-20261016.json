@@ -594,5 +594,501 @@
     "Index predates new expiry/orphan tests and excludes indirect helper coverage; six missing direct references are not six untested tasks."
   ],
   "acceptance": false,
-  "new_evidence": "cr09-orphan-retention-terminal-20261016.json"
+  "new_evidence": "cr09-orphan-retention-terminal-20261016.json",
+  "continuation_20261016": {
+    "current_head": "1ebd2a884ad696e99e2ab986211ce64fcb333da9",
+    "method": "18 finite tasks from original effective schedule; current direct/helper calls linked to actual raw setup/call/teardown PASS with exact unchanged whole test source and task module hashes. Branch execution/effect is reviewed separately, not inferred from call-name counts.",
+    "rows": [
+      {
+        "task": "apps.safety.tasks.purge_expired_access_field_decision",
+        "source": "apps/safety/tasks.py",
+        "line": 230,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[False]",
+            "test_source_sha256": "d8c0482cba68cee462291dd55ea8ae63462ef38bc4587fa141e7754e61b6939e",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[True]",
+            "test_source_sha256": "d8c0482cba68cee462291dd55ea8ae63462ef38bc4587fa141e7754e61b6939e",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.reconcile_retention_reviews",
+        "source": "apps/safety/tasks.py",
+        "line": 57,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+            "test_source_sha256": "7693b80a778dec47199e4a76ede07368ba0df5413af16a15e17fb0af0b2d19de",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+            "test_source_sha256": "7693b80a778dec47199e4a76ede07368ba0df5413af16a15e17fb0af0b2d19de",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup",
+            "test_source_sha256": "7693b80a778dec47199e4a76ede07368ba0df5413af16a15e17fb0af0b2d19de",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+        "source": "apps/mediafiles/tasks.py",
+        "line": 41,
+        "source_sha256": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_expired_exclusive_files_purged_and_same_bytes_can_be_uploaded_again",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_shared_historical_reference_and_active_sibling_prevent_cleanup",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_shared_storage_path_preserved_even_without_shared_photo",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_proposal_evidence_is_retained_without_worker_decryption",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[False]",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[True]",
+            "test_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.mediafiles.tasks.erase_media_files",
+        "source": "apps/mediafiles/tasks.py",
+        "line": 34,
+        "source_sha256": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104",
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_erasure_final.py::test_final_media_requires_actual_file_absence_even_after_completed_job",
+            "test_source_sha256": "215e4b608edf44f4027e1d800a280e43e63abf4a45fc74b66785f1a8f1621d9c",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_media_erasure.py::test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+            "test_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_media_erasure.py::test_inflight_processing_cannot_write_derivative_after_erasure",
+            "test_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "node": "tests/test_recovery_outbox.py::test_media_receipt_keeps_recovery_paths_after_physical_deletion",
+            "test_source_sha256": "f77ec7163dba6452e9de33a64d0d979061b87a77aea820ca32ccfa70d9ca1857",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_shared_media_redaction.py::test_detach_shared_references_preserves_peer_files_and_audit_ids",
+            "test_source_sha256": "6c4abf54be153c8f52a8d8ff34517a15ba0bf092d1d48826459619d76f34ec2b",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_shared_media_redaction.py::test_mixed_scope_can_then_erase_exclusive_file_with_fresh_identity_and_plan",
+            "test_source_sha256": "6c4abf54be153c8f52a8d8ff34517a15ba0bf092d1d48826459619d76f34ec2b",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+        "source": "apps/safety/tasks.py",
+        "line": 50,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_account_email_confirmation.py::test_expired_confirmation_delivery_is_purged_without_erasing_audit",
+            "test_source_sha256": "c6488e35d8b98c0c12937612c1cf7f29b48ac29367217999ddd54899fbbd93e0",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+        "source": "apps/safety/tasks.py",
+        "line": 212,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[False]",
+            "test_source_sha256": "58ed0c1cdd7ccac2dcd9f69c5305bff43fcf8fd246e9d118c4c8ef53fe4273c2",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[True]",
+            "test_source_sha256": "58ed0c1cdd7ccac2dcd9f69c5305bff43fcf8fd246e9d118c4c8ef53fe4273c2",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_access_coverage",
+        "source": "apps/safety/tasks.py",
+        "line": 194,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261016-134146-b263e91b",
+            "node": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+            "test_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261016-134146-b263e91b",
+            "node": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]",
+            "test_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+        "source": "apps/safety/tasks.py",
+        "line": 172,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[False]",
+            "test_source_sha256": "0c8b58f7f42bc6ab087c0232060598fd84204b03e197c7857bbfecaaaa733ed4",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[True]",
+            "test_source_sha256": "0c8b58f7f42bc6ab087c0232060598fd84204b03e197c7857bbfecaaaa733ed4",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]",
+            "test_source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]",
+            "test_source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]",
+            "test_source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run",
+            "test_source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+        "source": "apps/safety/tasks.py",
+        "line": 154,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-False]",
+            "test_source_sha256": "958041344c146e327e72a7370a886f68b88a6fd64c2db979d2c1f1330ec30a56",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-True]",
+            "test_source_sha256": "958041344c146e327e72a7370a886f68b88a6fd64c2db979d2c1f1330ec30a56",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-False]",
+            "test_source_sha256": "958041344c146e327e72a7370a886f68b88a6fd64c2db979d2c1f1330ec30a56",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-True]",
+            "test_source_sha256": "958041344c146e327e72a7370a886f68b88a6fd64c2db979d2c1f1330ec30a56",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_portability_coverage",
+        "source": "apps/safety/tasks.py",
+        "line": 136,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[False]",
+            "test_source_sha256": "6d2a1bde0a7b2ababacc867e6d72119c6b1b0dd518dfde6e14d5fe6b4f64e53f",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[True]",
+            "test_source_sha256": "6d2a1bde0a7b2ababacc867e6d72119c6b1b0dd518dfde6e14d5fe6b4f64e53f",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_portability_selections",
+        "source": "apps/safety/tasks.py",
+        "line": 118,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_portability_page_selection.py::test_page_selection_preserves_other_pages_and_rejects_stale_or_foreign_forms",
+            "test_source_sha256": "e28cd80906a44b0f3a12c2266d2e8e9c8335e02f4ab54deac269fcb95968d1b6",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "node": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[False]",
+            "test_source_sha256": "e321411449729d4f477d0cb4f636e8cad7b6c2d6ff71ca831f58c4ce08685a15",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "node": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[True]",
+            "test_source_sha256": "e321411449729d4f477d0cb4f636e8cad7b6c2d6ff71ca831f58c4ce08685a15",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_portability_assessments",
+        "source": "apps/safety/tasks.py",
+        "line": 100,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_rights_portability.py::test_expired_assessment_purge_preserves_audit_and_blocks_read",
+            "test_source_sha256": "5f72cd7bffc1150b9d4270ab0f311d69f92fb62a94add8838a207c7e93abe016",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_copy_information",
+        "source": "apps/safety/tasks.py",
+        "line": 82,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_copy_information.py::test_information_drafts_are_encrypted_versioned_replayable_and_purged",
+            "test_source_sha256": "78e64e1439663618ed385659858aead256fe39ae75aa65c0c7d4808a7cf17076",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+        "source": "apps/safety/tasks.py",
+        "line": 64,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_copy_page_review.py::test_encrypted_page_decisions_version_replay_and_purge_do_not_approve_copy",
+            "test_source_sha256": "daa4033a0465d6c9253bd9fef966797a60fbe3eb1f6d3ccab61cc9b383829f74",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_copy_page_review.py::test_erasure_inventory_tracks_page_content_and_purge_without_disclosing_it",
+            "test_source_sha256": "daa4033a0465d6c9253bd9fef966797a60fbe3eb1f6d3ccab61cc9b383829f74",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.tasks.purge_expired_exports",
+        "source": "apps/safety/tasks.py",
+        "line": 31,
+        "source_sha256": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+        "reports": [
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-access]",
+            "test_source_sha256": "7a937886b05227c8234354288d37fe45c152ef30fa1bf3308f7f91f1b0c8b475",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-portability]",
+            "test_source_sha256": "7a937886b05227c8234354288d37fe45c152ef30fa1bf3308f7f91f1b0c8b475",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-access]",
+            "test_source_sha256": "7a937886b05227c8234354288d37fe45c152ef30fa1bf3308f7f91f1b0c8b475",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-010758-a635c22e",
+            "node": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-portability]",
+            "test_source_sha256": "7a937886b05227c8234354288d37fe45c152ef30fa1bf3308f7f91f1b0c8b475",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_data_parts.py::test_reviewed_large_copy_manifest_receipt_download_and_purge",
+            "test_source_sha256": "470defaf58230eb1ec18e6da7282b07e29728d45d3d49dcabd2cb258604910c8",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit",
+            "test_source_sha256": "062cc0abe91b2ca7b6df8e2a5d20ce65bdb6907d3b5dd1b04287d3d33291b2bc",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan",
+            "test_source_sha256": "062cc0abe91b2ca7b6df8e2a5d20ce65bdb6907d3b5dd1b04287d3d33291b2bc",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-081053-9720829d",
+            "node": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+            "test_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-064606-07f98b78",
+            "node": "tests/test_rights_part_delivery.py::test_reviewed_part_download_is_scoped_audited_and_purged",
+            "test_source_sha256": "2c86afd86e60ab4608cfbabca942d311fa2e66955b595c092f4a5634a1cec82c",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[False]",
+            "test_source_sha256": "1c7705bb106a85cfe02a46ac20e3aa7b3dbea718e1a66b75281eb4913f7bd79e",
+            "task_module_source_identical": true
+          },
+          {
+            "run": "20261015-024508-162c33cd",
+            "node": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[True]",
+            "test_source_sha256": "1c7705bb106a85cfe02a46ac20e3aa7b3dbea718e1a66b75281eb4913f7bd79e",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.listings.tasks.expire_listings",
+        "source": "apps/listings/tasks.py",
+        "line": 41,
+        "source_sha256": "bd5f71dfd4ac81e5c6a56216d3e1d1475b19821300381d845bf8460e5274f121",
+        "reports": [
+          {
+            "run": "20261015-235228-0735477e",
+            "node": "tests/test_listing_expiry_dispatch.py::test_periodic_expiry_preserves_unexpired_and_paused_and_is_idempotent",
+            "test_source_sha256": "ac7fc9c4e5323b3a543f991bbeaa61667b3784c29bb8fe6059e3bdbf8f389128",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "source": "apps/safety/rights_object_delivery.py",
+        "line": 313,
+        "source_sha256": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+        "reports": [
+          {
+            "run": "20261015-081053-9720829d",
+            "node": "tests/test_rights_object_delivery.py::test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+            "test_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+            "task_module_source_identical": true
+          }
+        ]
+      },
+      {
+        "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+        "source": "apps/safety/rights_object_content.py",
+        "line": 185,
+        "source_sha256": "39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+        "reports": [
+          {
+            "run": "20261016-000418-429fdc14",
+            "node": "tests/test_rights_orphan_objects_retention.py::test_orphan_object_grace_live_reference_and_idempotent_physical_removal",
+            "test_source_sha256": "7695bdf6ad8747f24167bdb983c17ecc524d199d893d889ac9ddea420c9d36f8",
+            "task_module_source_identical": true
+          }
+        ]
+      }
+    ],
+    "preserved_43_test_archive": {
+      "archive": "docs/evidencias/conservacion-finalidad-ci-propio-20261009-artefactos.tar.gz",
+      "archive_sha256_verified": true,
+      "43_pass_0_fail_error_skip_verified": true,
+      "10_selected_test_files_unchanged": true,
+      "limitation": "This old run predates physical object purge change; current-v3 task module evidence and later physical-object tests are separate."
+    },
+    "new_execution": "cr09-retention-access-coverage-20261016.json",
+    "limits": "Finite18-task inventory from preserved effective schedule and current AST. Text/name matching is discovery only; no execution or acceptance claimed, indirect helper coverage may be missing. Matching journals and hashes supports scoped reuse only. Function names/call counts do not prove policy exceptions or all transitive dependencies. No new tests run or global acceptance.",
+    "acceptance": false
+  }
 }

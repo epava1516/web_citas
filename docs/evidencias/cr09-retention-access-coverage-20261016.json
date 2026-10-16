@@ -1,0 +1,25 @@
+{
+  "run": "20261016-134146-b263e91b",
+  "source_head": "1ebd2a884ad696e99e2ab986211ce64fcb333da9",
+  "status": "PASS",
+  "tests": 2,
+  "seconds": 83.77,
+  "selection": [
+    "artifacts/vps-preparation/cr09-detail-clean-20261016/run.py",
+    "--profile",
+    "focused",
+    "--test",
+    "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+    "--test",
+    "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]",
+    "--native-source",
+    "/tmp/web-modelos-librdb-v2.4.0",
+    "--workers",
+    "1",
+    "--timeout",
+    "900"
+  ],
+  "scope": "reference_page=True/profile and account paths reaching expired access coverage purge, encrypted_coverage blank/purged_at set/idempotence assertions in existing test. Other broad guards also exercised, no general right or N3 acceptance.",
+  "cleanup_and_source_freeze": "independently verified",
+  "preserved_pretest_failure": "20261016-134112-fcd7c975 Markdown documentation check before tests"
+}
