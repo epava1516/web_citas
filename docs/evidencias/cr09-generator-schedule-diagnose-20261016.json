@@ -1,0 +1,497 @@
+{
+  "run": "20261016-155052-580f4c0c",
+  "source_sha": "2ed5cae75a6fb3dd6cbcca4ef9b90296499394f2",
+  "diagnostic": "COMPLETE",
+  "clean_acceptance": false,
+  "reproduced_original_113ms": false,
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "1",
+    "time": "1034.591",
+    "timestamp": "2026-10-16T17:51:11.619029+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "load": {
+    "verdict": "PASS",
+    "invalid_reasons": [],
+    "counts": {
+      "scheduled": 18000,
+      "emitted": 18000,
+      "not_emitted": 0,
+      "successful": 18000,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "final_upload_counts": {
+      "scheduled": 15,
+      "emitted": 15,
+      "not_emitted": 0,
+      "successful": 15,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "generator_delay_seconds": {
+      "p50": 0.0016224128194153309,
+      "p90": 0.002434266917362038,
+      "p95": 0.0027821000664971507,
+      "p99": 0.004141455143667372,
+      "max": 0.03283760482440812,
+      "population": 18000
+    },
+    "observable_latency_seconds": {
+      "p50": 0.20255707018077374,
+      "p90": 0.3160322052426636,
+      "p95": 0.3841979340650141,
+      "p99": 0.6736296783201396,
+      "max": 1.2952437829226255,
+      "population": 18000
+    },
+    "window_close": {
+      "dynamic": {
+        "scheduled": 18000,
+        "emitted": 18000,
+        "not_emitted": 0,
+        "successful": 17994,
+        "failed": 0,
+        "pending": 6,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 15,
+        "emitted": 15,
+        "not_emitted": 0,
+        "successful": 15,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 900.0230892319232
+    }
+  },
+  "observer": {
+    "iterations": 184388,
+    "maxima": {
+      "wall": 5.387597399763763,
+      "cpu": 5.341106319999994,
+      "runqueue_wait": 0.024500228,
+      "selector_overshoot": 0.03212678758427501
+    },
+    "events": [
+      {
+        "start": 3887504.918429567,
+        "end": 3887510.306026967,
+        "wall": 5.387597399763763,
+        "cpu": 5.341106319999994,
+        "runtime": 5.340154139,
+        "runqueue_wait": 0.009924265,
+        "selector": {
+          "start": 3887504.918476679,
+          "end": 3887504.918524871,
+          "wall": 4.819221794605255e-05,
+          "cpu": 4.816899999582347e-05,
+          "runtime": 4.7166e-05,
+          "runqueue_wait": 0.0,
+          "timeout": 0,
+          "events": 0
+        },
+        "selector_overshoot": 4.819221794605255e-05,
+        "callback_wall": 5.387549207545817,
+        "callback_cpu": 5.341058150999999
+      },
+      {
+        "start": 3887504.784460825,
+        "end": 3887504.842324118,
+        "wall": 0.05786329321563244,
+        "cpu": 0.05275585500001512,
+        "runtime": 0.052551315,
+        "runqueue_wait": 0.004568512,
+        "selector": {
+          "start": 3887504.784546713,
+          "end": 3887504.784630275,
+          "wall": 8.35619866847992e-05,
+          "cpu": 8.358099998417856e-05,
+          "runtime": 8.5739e-05,
+          "runqueue_wait": 0.0,
+          "timeout": 0,
+          "events": 0
+        },
+        "selector_overshoot": 8.35619866847992e-05,
+        "callback_wall": 0.05777973122894764,
+        "callback_cpu": 0.05267227400003094
+      },
+      {
+        "start": 3886650.93425918,
+        "end": 3886650.971440261,
+        "wall": 0.037181081250309944,
+        "cpu": 0.017550482999993733,
+        "runtime": 0.017452409,
+        "runqueue_wait": 0.019283821,
+        "selector": {
+          "start": 3886650.934311779,
+          "end": 3886650.934380554,
+          "wall": 6.877491250634193e-05,
+          "cpu": 6.952100000034989e-05,
+          "runtime": 5.2175e-05,
+          "runqueue_wait": 0.0,
+          "timeout": 0,
+          "events": 0
+        },
+        "selector_overshoot": 6.877491250634193e-05,
+        "callback_wall": 0.0371123063378036,
+        "callback_cpu": 0.017480961999993383
+      },
+      {
+        "start": 3887267.936058835,
+        "end": 3887268.015379886,
+        "wall": 0.07932105101644993,
+        "cpu": 0.00037241500000106953,
+        "runtime": 0.000315158,
+        "runqueue_wait": 0.000675235,
+        "selector": {
+          "start": 3887267.93610163,
+          "end": 3887268.015272298,
+          "wall": 0.07917066803202033,
+          "cpu": 0.00022326500000247052,
+          "runtime": 4.9866e-05,
+          "runqueue_wait": 0.000675235,
+          "timeout": 0.04704388044774532,
+          "events": 0
+        },
+        "selector_overshoot": 0.03212678758427501,
+        "callback_wall": 0.00015038298442959785,
+        "callback_cpu": 0.00014914999999859901
+      },
+      {
+        "start": 3887382.636259344,
+        "end": 3887382.711257843,
+        "wall": 0.07499849889427423,
+        "cpu": 0.0005766900000025998,
+        "runtime": 0.000456094,
+        "runqueue_wait": 4.7888e-05,
+        "selector": {
+          "start": 3887382.63630782,
+          "end": 3887382.711078796,
+          "wall": 0.0747709758579731,
+          "cpu": 0.00034983799997689857,
+          "runtime": 0.000330429,
+          "runqueue_wait": 4.7888e-05,
+          "timeout": 0.046844737604260445,
+          "events": 0
+        },
+        "selector_overshoot": 0.027926238253712654,
+        "callback_wall": 0.00022752303630113602,
+        "callback_cpu": 0.00022685200002570127
+      },
+      {
+        "start": 3887059.930046918,
+        "end": 3887059.956899269,
+        "wall": 0.026852351147681475,
+        "cpu": 0.01547495399999832,
+        "runtime": 0.015161878,
+        "runqueue_wait": 0.011154279,
+        "selector": {
+          "start": 3887059.955453506,
+          "end": 3887059.955545967,
+          "wall": 9.246077388525009e-05,
+          "cpu": 9.036200000878125e-05,
+          "runtime": 0.000273551,
+          "runqueue_wait": 0.0,
+          "timeout": 0,
+          "events": 1
+        },
+        "selector_overshoot": 9.246077388525009e-05,
+        "callback_wall": 0.026759890373796225,
+        "callback_cpu": 0.015384591999989539
+      },
+      {
+        "start": 3887343.006079572,
+        "end": 3887343.022732009,
+        "wall": 0.016652437392622232,
+        "cpu": 0.0008282809999968777,
+        "runtime": 0.00084386,
+        "runqueue_wait": 0.024500228,
+        "selector": {
+          "start": 3887343.022278747,
+          "end": 3887343.02247701,
+          "wall": 0.0001982627436518669,
+          "cpu": 0.00019643499999233427,
+          "runtime": 0.00026064,
+          "runqueue_wait": 0.0,
+          "timeout": 0.026660169940441847,
+          "events": 1
+        },
+        "selector_overshoot": 0.0,
+        "callback_wall": 0.016454174648970366,
+        "callback_cpu": 0.0006318460000045434
+      },
+      {
+        "start": 3887406.365636414,
+        "end": 3887406.407528703,
+        "wall": 0.04189228918403387,
+        "cpu": 0.0005087289999892164,
+        "runtime": 0.000426717,
+        "runqueue_wait": 0.022315955,
+        "selector": {
+          "start": 3887406.36570136,
+          "end": 3887406.407371133,
+          "wall": 0.04166977293789387,
+          "cpu": 0.00028789600000322935,
+          "runtime": 7.4871e-05,
+          "runqueue_wait": 0.022315955,
+          "timeout": 0.01746470434591174,
+          "events": 0
+        },
+        "selector_overshoot": 0.024205068591982126,
+        "callback_wall": 0.0002225162461400032,
+        "callback_cpu": 0.00022083299998598704
+      },
+      {
+        "start": 3887404.434473157,
+        "end": 3887404.458355005,
+        "wall": 0.023881847970187664,
+        "cpu": 0.019160077999998748,
+        "runtime": 0.018948442,
+        "runqueue_wait": 0.004452756,
+        "selector": {
+          "start": 3887404.434512104,
+          "end": 3887404.434552961,
+          "wall": 4.085712134838104e-05,
+          "cpu": 4.085899999495268e-05,
+          "runtime": 3.8902e-05,
+          "runqueue_wait": 0.0,
+          "timeout": 0,
+          "events": 0
+        },
+        "selector_overshoot": 4.085712134838104e-05,
+        "callback_wall": 0.023840990848839283,
+        "callback_cpu": 0.019119219000003795
+      },
+      {
+        "start": 3887299.757208346,
+        "end": 3887299.80626411,
+        "wall": 0.049055763985961676,
+        "cpu": 0.0006823800000006486,
+        "runtime": 0.000596182,
+        "runqueue_wait": 0.000846409,
+        "selector": {
+          "start": 3887299.757288016,
+          "end": 3887299.806079411,
+          "wall": 0.04879139503464103,
+          "cpu": 0.00041949399999907655,
+          "runtime": 0.000429312,
+          "runqueue_wait": 0.000846409,
+          "timeout": 0.025889648124575615,
+          "events": 0
+        },
+        "selector_overshoot": 0.022901746910065413,
+        "callback_wall": 0.0002643689513206482,
+        "callback_cpu": 0.00026288600000157203
+      },
+      {
+        "start": 3887378.499104442,
+        "end": 3887378.521876657,
+        "wall": 0.022772214841097593,
+        "cpu": 0.01608629099999348,
+        "runtime": 0.016005021,
+        "runqueue_wait": 0.006416602,
+        "selector": {
+          "start": 3887378.521550256,
+          "end": 3887378.52170555,
+          "wall": 0.00015529431402683258,
+          "cpu": 0.00015346000000704407,
+          "runtime": 0.00022241,
+          "runqueue_wait": 0.0,
+          "timeout": 0.03397801797837019,
+          "events": 1
+        },
+        "selector_overshoot": 0.0,
+        "callback_wall": 0.02261692052707076,
+        "callback_cpu": 0.015932830999986436
+      },
+      {
+        "start": 3887282.778062743,
+        "end": 3887282.804837653,
+        "wall": 0.02677490981295705,
+        "cpu": 0.000427643999998395,
+        "runtime": 0.000315913,
+        "runqueue_wait": 0.020080676,
+        "selector": {
+          "start": 3887282.778242386,
+          "end": 3887282.804674368,
+          "wall": 0.026431981939822435,
+          "cpu": 8.643400001062673e-05,
+          "runtime": 0.00020455,
+          "runqueue_wait": 0.020080676,
+          "timeout": 0.005029090214520693,
+          "events": 0
+        },
+        "selector_overshoot": 0.021402891725301743,
+        "callback_wall": 0.00034292787313461304,
+        "callback_cpu": 0.00034120999998776824
+      },
+      {
+        "start": 3887168.44026045,
+        "end": 3887168.504406737,
+        "wall": 0.0641462872736156,
+        "cpu": 0.020952040000011607,
+        "runtime": 0.020608594,
+        "runqueue_wait": 0.0,
+        "selector": {
+          "start": 3887168.440321201,
+          "end": 3887168.48403574,
+          "wall": 0.043714539147913456,
+          "cpu": 0.000624045999998657,
+          "runtime": 6.8851e-05,
+          "runqueue_wait": 0.0,
+          "timeout": 0.04283894319087267,
+          "events": 0
+        },
+        "selector_overshoot": 0.0008755959570407867,
+        "callback_wall": 0.020431748125702143,
+        "callback_cpu": 0.02032799400001295
+      }
+    ],
+    "limits": "Diagnostic per-thread /proc schedstat and clocks; inclusive deltas overlap. No exact cause assigned to unmatched off-CPU wall time. Selector requested timeout is an upper bound before I/O readiness. Observer overhead not causally measured; not clean acceptance timing.",
+    "load": {
+      "monotonic_origin_seconds": 3886604.783097703,
+      "counts": {
+        "scheduled": 18000,
+        "emitted": 18000,
+        "not_emitted": 0,
+        "successful": 18000,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "generator_delay_seconds": {
+        "p50": 0.0016224128194153309,
+        "p90": 0.002434266917362038,
+        "p95": 0.0027821000664971507,
+        "p99": 0.004141455143667372,
+        "max": 0.03283760482440812,
+        "population": 18000
+      },
+      "observable_latency_seconds": {
+        "p50": 0.20255707018077374,
+        "p90": 0.3160322052426636,
+        "p95": 0.3841979340650141,
+        "p99": 0.6736296783201396,
+        "max": 1.2952437829226255,
+        "population": 18000
+      },
+      "verdict": "PASS",
+      "invalid_reasons": []
+    },
+    "scope": "DIAGNOSTIC ONLY: unchanged emitter with observed loop; not acceptance timing",
+    "sources_sha256": {
+      "/home/felidae/proyectos/web_modelos_mod08_vps/scripts/benchmark_generator_diagnostic.py": "4d55103e3a9c0d812a1c52951e6028648a6644451b9c6bf5d3d10a2ba9ca7c10",
+      "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+      "scripts/benchmark_async_transport.py": "e79cf9ebf5e918071a61d465b05c0b98e1655e67f6158549cf458d232776065a"
+    }
+  },
+  "worst_emission": {
+    "id": "d-13264",
+    "path": "/es/listing/cbdcf212-377f-4833-94c5-fb66fc7e6205/",
+    "scheduled_at": 663.2,
+    "emitted_at": 663.2328376048245,
+    "ended_at": 663.5654457127675,
+    "expected": 200,
+    "status": 200,
+    "bytes": 3725,
+    "unexpected": false,
+    "timeout": false
+  },
+  "worst_overlap": [
+    {
+      "start": 3887267.936058835,
+      "end": 3887268.015379886,
+      "wall": 0.07932105101644993,
+      "cpu": 0.00037241500000106953,
+      "runtime": 0.000315158,
+      "runqueue_wait": 0.000675235,
+      "selector": {
+        "start": 3887267.93610163,
+        "end": 3887268.015272298,
+        "wall": 0.07917066803202033,
+        "cpu": 0.00022326500000247052,
+        "runtime": 4.9866e-05,
+        "runqueue_wait": 0.000675235,
+        "timeout": 0.04704388044774532,
+        "events": 0
+      },
+      "selector_overshoot": 0.03212678758427501,
+      "callback_wall": 0.00015038298442959785,
+      "callback_cpu": 0.00014914999999859901
+    }
+  ],
+  "significant_intervals_during_arrivals": 11,
+  "significant_intervals_after_arrivals": 2,
+  "freeze_cleanup_independently_verified": true,
+  "artifact_sha256": {
+    "generator-schedule.json": "c818495b2a6bf7ef238dd326026e28418e33ed9d9689502188fd32200f4e7678",
+    "benchmark-samples.json": "7aa8558e0abd313450117c16e72d05d9d9e732cb671f5d54b6aa97998abd42ac",
+    "benchmark-manifest.json": "aaba4ec46db2abe06c6c671110cdc7538bbc358a6cadfc314204989022c972d9",
+    "source-hashes.json": "909270872b4189c41152c02c77a93ff19225e93f9d7ff59b8ba019ae271e16a4",
+    "pytest.xml": "ccc857bd8fed4650a014a2b94d714a853b72aba9f8f7a646236ad44dfc4090d0"
+  },
+  "limits": [
+    "No original anomaly reproduction or unique cause",
+    "Measured loop stats inclusive and sampled at sequential read/clock boundaries: not exact exclusive CPU/queue attribution",
+    "Maximum5.34CPU interval occurs after900seconds, not during emissions",
+    "Instrumented PASS cannot replace clean contractual INVALID",
+    "No repeated diagnosis or parameter changes justified from nonreproduction"
+  ],
+  "per_case": [
+    {
+      "path": "/en/",
+      "count": 3000,
+      "p95_observable_seconds": 0.38441223464906216,
+      "failed": 0
+    },
+    {
+      "path": "/en/?q=synthetic",
+      "count": 3000,
+      "p95_observable_seconds": 0.45055678207427263,
+      "failed": 0
+    },
+    {
+      "path": "/en/listing/d7e0fa6e-a3ac-42e5-b4c5-e6578520e72c/",
+      "count": 3000,
+      "p95_observable_seconds": 0.26153103867545724,
+      "failed": 0
+    },
+    {
+      "path": "/es/",
+      "count": 3000,
+      "p95_observable_seconds": 0.4085280359722674,
+      "failed": 0
+    },
+    {
+      "path": "/es/?q=photography",
+      "count": 3000,
+      "p95_observable_seconds": 0.4233686188235879,
+      "failed": 0
+    },
+    {
+      "path": "/es/listing/cbdcf212-377f-4833-94c5-fb66fc7e6205/",
+      "count": 3000,
+      "p95_observable_seconds": 0.272973554674536,
+      "failed": 0
+    }
+  ]
+}
