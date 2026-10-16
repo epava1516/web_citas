@@ -2480,3 +2480,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: captura030723-4573e1c9NOvalida warm:0static_ready,runnerfiltróvariable;1FAIL188,76s/p95instrumentado0,929214190s/1200éxitosconservados,no causalidadstartup. Fuente/cleanup/cgroupverificados. AñadidoCLIprepare-staticvalidado/envexplícito,nocriterioscambiados. Evidenciacr09-warm-ingress-invalid-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: warmingressválido031208-ec0fd4c3,SHA9c9dead,1FAIL190,62s/4static_readypreorigen/1200paresWSGIéxitos0errores. p95instrumentado1,101181666s no clean;preWSGImean0–5s829,518msvsWSGI229,978ms;98,71%esperasumadacoincide4workersocupados. Asociaciónno colaexacta/causaexclusiva. Fuente/cleanup/cgroupverificados,evidenciacr09-warm-ingress-valid-20261016.md. SiguienteatruibuirocupantesSQL/CPU,nobarridoworkers. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
