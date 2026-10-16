@@ -1,0 +1,199 @@
+{
+  "preparation": [
+    {
+      "route": "/es/",
+      "block": 0,
+      "arm": "A",
+      "backend_pid": 94,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 0,
+      "arm": "B",
+      "backend_pid": 96,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 0,
+      "arm": "C",
+      "backend_pid": 97,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 1,
+      "arm": "B",
+      "backend_pid": 98,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 1,
+      "arm": "C",
+      "backend_pid": 100,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 1,
+      "arm": "A",
+      "backend_pid": 101,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 2,
+      "arm": "C",
+      "backend_pid": 102,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 2,
+      "arm": "A",
+      "backend_pid": 104,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/es/",
+      "block": 2,
+      "arm": "B",
+      "backend_pid": 105,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "arm": "A",
+      "backend_pid": 106,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "arm": "B",
+      "backend_pid": 108,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "arm": "C",
+      "backend_pid": 109,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "arm": "B",
+      "backend_pid": 110,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "arm": "C",
+      "backend_pid": 112,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "arm": "A",
+      "backend_pid": 113,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "arm": "C",
+      "backend_pid": 114,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "arm": "A",
+      "backend_pid": 116,
+      "prepared_statements": 19
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "arm": "B",
+      "backend_pid": 117,
+      "prepared_statements": 19
+    }
+  ],
+  "comparisons": [
+    {
+      "route": "/es/",
+      "means": {
+        "A": {
+          "wall": 0.2059491393932452,
+          "cpu": 0.1321698138750008
+        },
+        "B": {
+          "wall": 0.20525048084285422,
+          "cpu": 0.13038265433333418
+        },
+        "C": {
+          "wall": 0.19603203529065164,
+          "cpu": 0.1240512298750011
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "wall": 0.9534640872386774,
+        "cpu": 0.9449633493947323
+      },
+      "cpu_nonregression_blocks": [
+        true,
+        false,
+        true
+      ],
+      "eligible_for_integration": false
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "means": {
+        "A": {
+          "wall": 0.20940711154253222,
+          "cpu": 0.12627604256249914
+        },
+        "B": {
+          "wall": 0.2077971640198181,
+          "cpu": 0.12489148422916625
+        },
+        "C": {
+          "wall": 0.21155009859163934,
+          "cpu": 0.12395691489583378
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "wall": 1.0141319779452913,
+        "cpu": 0.9870457099229367
+      },
+      "cpu_nonregression_blocks": [
+        false,
+        true,
+        true
+      ],
+      "eligible_for_integration": false
+    }
+  ],
+  "eligible_for_integration": false,
+  "limits": "Test-only WSGI, no TCP/Gunicorn/concurrency/dirty writes or SLO acceptance. A/B identical native code; C owned render plus model-close release. Normal GC inside requests; explicit collection before warmup only. Control <=10% wall/CPU disagreement each route; candidate >=10% mean CPU and >=5% mean wall savings both routes, CPU nonregression >=2/3 blocks. PASS means functional parity and diagnostic completion, not demonstrated ROI.",
+  "run": "20261016-073631-1cb15cff",
+  "base_head": "a18d5586563fda0f70f208175e39e41b071283e3",
+  "source_frozen_verified": true,
+  "independent_cleanup_verified": true,
+  "passed": 1,
+  "pytest_seconds": 176.95,
+  "measured_requests": 288,
+  "decision": "Do not integrate test-only render/model release: insufficient preregistered ROI.",
+  "acceptance": false
+}
