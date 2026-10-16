@@ -178,6 +178,8 @@ def main():
         "--benchmark-observe-workers", action="store_true",
         help="Enable existing worker instrumentation only for the explicit short HTTP diagnostic",
     )
+    parser.add_argument("--benchmark-prepare-static", action="store_true",
+                        help="Compose product worker startup with ingress observation")
     parser.add_argument(
         "--benchmark-ingress-only", action="store_true",
         help="Observe WSGI/SQL/GC without pre-importing application handlers; diagnostic only",
@@ -214,6 +216,8 @@ def main():
         "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
     ]:
         parser.error("Worker observer requires the explicit short HTTP diagnostic")
+    if args.benchmark_prepare_static and not args.benchmark_ingress_only:
+        parser.error("Static startup observation requires ingress-only diagnostic")
     if args.benchmark_ingress_only and not args.benchmark_observe_workers:
         parser.error("Ingress-only requires the explicit short worker diagnostic")
     if args.recover:
@@ -253,6 +257,7 @@ def main():
         "fixture_snapshots": args.fixture_snapshots,
         "benchmark_observe_workers": args.benchmark_observe_workers,
         "benchmark_ingress_only": args.benchmark_ingress_only,
+        "benchmark_prepare_static": args.benchmark_prepare_static,
         "benchmark_normal_refresh": args.benchmark_normal_refresh,
         "benchmark_generator_freeze": args.benchmark_generator_freeze,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
@@ -385,6 +390,8 @@ def main():
                     env["WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS"] = "1"
                 if args.benchmark_ingress_only:
                     env["WEB_MODELOS_BENCHMARK_INGRESS_ONLY"] = "1"
+                if args.benchmark_prepare_static:
+                    env["WEB_MODELOS_BENCHMARK_PREPARE_STATIC"] = "1"
                 if args.benchmark_generator_freeze:
                     env["WEB_MODELOS_GENERATOR_GC_FREEZE"] = "1"
                 probe = (

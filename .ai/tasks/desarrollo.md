@@ -1177,3 +1177,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: composiciónhookproducto+ingresscondicionalPREPARE_STATIC=1,controles030616-d1e70da7 PASS;fuentes/cleanupverificados. Añadidamarca static_ready porPIDtrascontroles,diagnósticorealverificará4marcas. Manifestdeclaraopción. Siguientediagnóstico60snoaceptación,norepeticióncleanFAIL. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: captura030723-4573e1c9NOvalida warm:0static_ready,runnerfiltróvariable;1FAIL188,76s/p95instrumentado0,929214190s/1200éxitosconservados,no causalidadstartup. Fuente/cleanup/cgroupverificados. AñadidoCLIprepare-staticvalidado/envexplícito,nocriterioscambiados. Evidenciacr09-warm-ingress-invalid-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
