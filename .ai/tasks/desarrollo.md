@@ -1261,3 +1261,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: fencedconcurrency044334-e425122c,7PASS90,67s/0errores/skips:2FKrefresheraplaza/generationwait/oppositewrites/RR+Serializablefallback/nuevoMatchesperaPhotoTx;sin deadlock observadoenalcance,nopruebageneral. Fuente/cleanup/cgroupverificados,evidenciacr09-private-draft-fenced-concurrency-20261016.json. SiguienteROI3bloquesABBAconmismosseed+6readsanónimos/tareasreales,providerfencedactivadoúnicocambio;incluyecosteescritura,noCelery/Beat/concurrencia/SLO. BaselineDirty6readsposibleexageraciónvigente,esperadoparidad0Dirty/totalwallCPUporarm/sourcefreeze/cleanup. Noapp/migración/Claude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: fencedROI044611-b9dccd73,SHA5c3e171,1PASS104,31s;totalwall3bloques2,2936→1,9748/2,4880→1,8291/2,3966→1,8380s(13,9–26,5%secuencial),CPUmenor/escrituramáslenta. Dirty6readssinBeatpuedeexagerarROI/no p95. Fuente/cleanup/cgroupverificados,evidenciacr09-private-draft-fenced-roi-20261016.md. Siguiente migraciónSQLnormalizadoidéntico+N2realantesclean;conservarunfencedFAILyfallosinstrumentos. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
