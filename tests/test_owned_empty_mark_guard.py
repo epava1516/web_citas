@@ -1,6 +1,8 @@
 """Owned-only empty-mark control; no migration or production function replacement."""
 import importlib
 import json
+import os
+import subprocess
 import statistics
 import time
 import uuid
@@ -18,7 +20,8 @@ from scripts.synthetic_load_dataset import populate
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_owned_empty_mark_guard(request, record_property):
+@pytest.mark.parametrize("protocol", ["as_recorded", "quiescent_cold"])
+def test_owned_empty_mark_guard(request, record_property, protocol):
     if not any(str(x).split('::')[0] == 'tests/test_owned_empty_mark_guard.py'
                for x in request.config.args):
         pytest.skip('Explicit owned empty-mark diagnostic only')
@@ -26,6 +29,16 @@ def test_owned_empty_mark_guard(request, record_property):
     data = populate(10000)
     publication_state.refresh_all()
     assert connection.settings_dict['NAME'].startswith('test_promotion_gate_')
+    pg_group = None
+    if protocol == 'quiescent_cold':
+        from scripts.benchmark_owned_cpu_observer import cpu_delta, group_path, owned_pg_pid, read_group
+
+        out = Path(request.config.getoption('--gate-timings-output')).parent
+        run = json.loads((out/'runner.json').read_text())
+        name = os.environ['LOCAL_CI_POSTGRES_CONTAINER']
+        inspection = json.loads(subprocess.check_output(['docker', 'inspect', name], text=True))[0]
+        pg_group = group_path(owned_pg_pid(run, inspection))
+        assert inspection['Id'] in str(pg_group)
     source = importlib.import_module('apps.listings.migrations.0020_publication_match_counterparts').MARK
     functions = {'original': 'owned_cr09_mark_original', 'guard': 'owned_cr09_mark_guard'}
     with connection.cursor() as cursor:
@@ -86,6 +99,7 @@ def test_owned_empty_mark_guard(request, record_property):
         for scope in ['direct_empty', 'complete_mark_stale']:
             for block, order in enumerate(['ABC', 'BCA', 'CAB']):
                 for arm in order:
+                    arm_started = time.perf_counter()
                     connection.close()
                     connection.ensure_connection()
                     name = functions['guard' if arm == 'C' else 'original']
@@ -98,10 +112,14 @@ def test_owned_empty_mark_guard(request, record_property):
                         cursor.execute("SET statement_timeout='5s'")
                         cursor.execute('SELECT pg_backend_pid()')
                         pid = cursor.fetchone()[0]
+                        if pg_group:
+                            time.sleep(.150)  # Fixed diagnostic separation; identical in every arm.
+                            group_before = read_group(pg_group)
                         wall, cpu = time.perf_counter(), time.thread_time()
                         cursor.execute(sql, params)
                         cursor.fetchone()
                         first_wall, first_cpu = time.perf_counter()-wall, time.thread_time()-cpu
+                        group_cost = cpu_delta(group_before, read_group(pg_group)) if pg_group else None
                         warm = []
                         for _ in range(12):
                             begin = time.perf_counter()
@@ -110,7 +128,8 @@ def test_owned_empty_mark_guard(request, record_property):
                             warm.append(time.perf_counter()-begin)
                     samples.append(dict(scope=scope, block=block, arm=arm, backend_pid=pid,
                                         first_wall=first_wall, first_app_cpu=first_cpu,
-                                        warm_wall=warm))
+                                        warm_wall=warm, pg_group_cost=group_cost,
+                                        arm_total_seconds=time.perf_counter()-arm_started))
         assert len({x['backend_pid'] for x in samples}) == 18
         comparisons = []
         for scope in ['direct_empty', 'complete_mark_stale']:
@@ -130,13 +149,17 @@ def test_owned_empty_mark_guard(request, record_property):
         with connection.cursor() as cursor:
             cursor.execute("SELECT prosrc FROM pg_proc WHERE oid='listings_publication_mark(uuid[])'::regprocedure")
             assert cursor.fetchone()[0] == original_body
-        result = dict(controls=controls, samples=samples, comparisons=comparisons,
+        result = dict(protocol=protocol, controls=controls, samples=samples, comparisons=comparisons,
+                      diagnostic_separation_seconds=.150 if pg_group else 0,
                       limits='Own synthetic10k, temporary clone functions, native function unchanged. '
                              '18 fresh physical backends, first operation includes exterior scan in '
                              'complete scope;12 warm repeats separate. No concurrency/worker/HTTP or '
-                             'PostgreSQL CPU claim; client CPU is not backend CPU. No automatic adoption.')
+                             'PostgreSQL per-query CPU claim; client CPU is not backend CPU. Quiescent '
+                             'protocol adds fixed150ms outside first-call clock, included in arm total; '
+                             'own PG cgroup counters include background and collector fencing. '
+                             'Not an operational policy or exclusion of HTTP arrivals. No automatic adoption.')
         out = Path(request.config.getoption('--gate-timings-output')).parent
-        (out/'empty-mark-guard.json').write_text(json.dumps(result, indent=2)+'\n')
+        (out/('empty-mark-guard-'+protocol+'.json')).write_text(json.dumps(result, indent=2)+'\n')
         record_property('empty_mark_guard', json.dumps(comparisons))
     finally:
         for name in functions.values():
