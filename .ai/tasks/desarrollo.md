@@ -1186,3 +1186,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: directoryCPU031726-7f274922,1PASS94,45s/8requests cProfilewarmsintético10k. Context284,648ms/render199,959ms instrumentadosanidados,norealclean. SQL031208disperso/noúnicodominante. Candidatoto_attr4prefetchcontextpropuesto,noappedit;contrastarsinperfiladorantesdecidir. Fuente/cleanup/cgroupverificados,evidenciacr09-directory-cpu-profile-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: to_attr032045-30f1a6ae,1PASS108,87s/72lecturasparidadexacta,pero3bloquesmáslentos(REJECTED). Cleanlist230,050→358,130ms/dirty318,194→451,403ms,CPUpeor. Sinproducto/p95nuevo;consumidoresgestorposiblereconsulta,noSQLconteodemostrado. Fuente/cleanup/cgroupverificados,evidenciacr09-context-to-attr-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
