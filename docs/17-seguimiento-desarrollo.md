@@ -2516,3 +2516,9 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: recipientrevocationreforzada035615-b6d4e2ac,SHA65bfa04,10PASS149,68s/0errores/skips;2operaciones×5revocacionesPGwaitobservado,checked_bodyforbiddenpruebanodescifrartrasrevocación/sinauditoría/acuse/payloadcambio. Primera10PASS152,30conservada,no20únicos. Fuente/cleanup/cgroupverificados,matrix83enlazada. Evidenciacr09-recipient-revocation-20261016.md/terminalJSON. Sinapp/p95nuevo/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: preparaciónauditdraftupload:baseeb0e8c9+testnuevohashcongelado,10kPGpropio/nativebeforeafterownerduranteingest/processseed782134;despachoregistrado/procesadorealsecuencialsinCelery. Hipótesisfalseinvalidaciónconservadorafrentevisibilidadnativainvariable/0Match;medirfuncionesPLpgSQLporfase,noquitartriggersantesdeprueba. PG1CPU/controlador4/memoriahabitual/serial/timeout900,esperadoestadoíntacro/functionstats/cleanup,conservarfallos. Sinproducto/producción/proveedores/Claude/N3aceptación.
+
+
+2026-10-16: draftdependency040358-0c5d659d,1PASS89,01s;ingest/processcadauno1Dirtyowner/0Match/nativeeligibleTrueinvariable,6markcalls(1,833/2,617ms). ProcessPhoto.comparison_complete+Blobwritesinvalidan;indirectoHTTP/p95no medido. Fuente/cleanup/cgroupverificados. Diseñoacotadoborradoresindependientespendienteprototipo+clausuradependencias,noeliminartriggers/Match0020. Evidenciacr09-draft-upload-dependency-20261016.md. Sinapp/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
