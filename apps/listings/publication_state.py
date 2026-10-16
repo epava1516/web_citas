@@ -383,13 +383,21 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
             observation.update(route="fallback", reason="state_dirty_over_limit")
         return None
     unknown = []
-    complete = not dirty and all_state_current(trusted_snapshot=trusted_snapshot)
+    # Only our own repeatable-read snapshot can reuse a complete census for
+    # the next statement. In inherited READ COMMITTED, rows may change between
+    # statements: retain the original global unknown query and its cost there.
+    coverage_current = (
+        all_state_current(trusted_snapshot=trusted_snapshot)
+        if trusted_snapshot or not dirty else False
+    )
+    complete = not dirty and coverage_current
     if not complete:
-        unknown = list(
-            query.filter(~Exists(trusted_state()) | Q(pk__in=dirty)).values_list("pk", flat=True)[
-                : NATIVE_UNKNOWN_LIMIT + 1
-            ]
+        unknown_query = (
+            query.filter(pk__in=dirty)
+            if trusted_snapshot and coverage_current
+            else query.filter(~Exists(trusted_state()) | Q(pk__in=dirty))
         )
+        unknown = list(unknown_query.values_list("pk", flat=True)[: NATIVE_UNKNOWN_LIMIT + 1])
     if len(unknown) > NATIVE_UNKNOWN_LIMIT:
         if observation is not None:
             observation.update(route="fallback", reason="state_unknown_over_limit")

@@ -130,7 +130,10 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     with connection.cursor() as cursor:
         cursor.execute("SHOW server_version")
         postgres_version = cursor.fetchone()[0]
+    from apps.safety.canonical_kernel_loader import kernel_identity
+
     resources = {
+        "canonical_kernel": kernel_identity(),
         "os": platform.platform(),
         "cpu_count": os.cpu_count(),
         "cpu_affinity_count": len(os.sched_getaffinity(0)),
