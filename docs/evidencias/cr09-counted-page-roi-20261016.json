@@ -1,0 +1,69 @@
+{
+  "run": "artifacts/local-ci/20261016-110813-05a92cd3",
+  "head": "af07872aa740dd5fab9a61f8000dbb35fad717ae",
+  "result": "1 PASS196.88s",
+  "measured_reads": 288,
+  "warm_reads": 108,
+  "comparisons": [
+    {
+      "route": "/es/",
+      "means": {
+        "A": {
+          "wall": 0.21721537481062114,
+          "cpu": 0.1306623696666671
+        },
+        "B": {
+          "wall": 0.2154128877155017,
+          "cpu": 0.12877497983333117
+        },
+        "C": {
+          "wall": 0.22148142032286464,
+          "cpu": 0.13466135439583424
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "wall": 1.023887894099342,
+        "cpu": 1.0381030692408852
+      },
+      "wall_nonregression_blocks": [
+        false,
+        false,
+        true
+      ],
+      "eligible_for_integration": false
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "means": {
+        "A": {
+          "wall": 0.27529123963904567,
+          "cpu": 0.14421906281250033
+        },
+        "B": {
+          "wall": 0.26835750268461805,
+          "cpu": 0.14182984672916601
+        },
+        "C": {
+          "wall": 0.26859764486046817,
+          "cpu": 0.14523993697916757
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "wall": 0.9881293708596766,
+        "cpu": 1.0154902335540048
+      },
+      "wall_nonregression_blocks": [
+        false,
+        false,
+        true
+      ],
+      "eligible_for_integration": false
+    }
+  ],
+  "eligible_for_integration": false,
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "scope": "Test-only WSGI, no TCP/Gunicorn/concurrency/dirty writes or SLO acceptance. A/B identical native code; C exact COUNT OVER first page on same population. Normal GC inside requests; explicit collection before warmup only. Controlled dirty1 throughout, no real writer/refresh schedule. Control <=10% wall/CPU disagreement each route; candidate >=10% mean wall savings both routes, CPU regression <=5%, wall nonregression >=2/3 blocks. PASS means functional parity and diagnostic completion, not demonstrated ROI."
+}
