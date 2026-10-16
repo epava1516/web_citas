@@ -1331,3 +1331,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local: py-spy corregido DEBUG=0 PASS; plantilla ORM detalle ROI apto(−5,63/10,18%wall,−10,62/15,56%CPUapp),13 controles prototipo,22 integración y24 lecturas/8hilos verificadas PostgreSQL propio. Fallos de arnés conservados. Próximo matrizTCP DEBUG0; CR09/N3 abiertos. Sin nuevas invocaciones Claude/proveedores ni cambio de consumo previo.
+
+
+2026-10-16 Codex local: diagnóstico frío py-spyoriginalFAIL/ECHILD preservado; ciclo de vida duración limitada validado primero en proceso real mínimo y luego72lecturas propias1PASS132,70s. Tool0 yteardownSIGKILL tras trabajo/DBcerrada con subreaperaislado/PIDexactorecogido. No nuevas invocaciones Claude ni cambiosdeconsumo. Próxima auditoría finita de conservación, sinaceptar p95FAIL/CR09/N3.

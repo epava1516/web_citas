@@ -24,6 +24,8 @@ CHILD = r'''
 import gc, hashlib, json, os, platform, sys, time
 from pathlib import Path
 payload = json.loads(Path(sys.argv[1]).read_text())
+identity_stat=Path('/proc/self/stat').read_text().split(') ',1)[1].split()
+Path(payload['identity']).write_text(json.dumps({'pid':os.getpid(),'start_ticks':int(identity_stat[19])}))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings')
 import django
 django.setup()
@@ -95,6 +97,46 @@ except BaseException as error:
 finally:
     connection.close()
     Path(payload['summary']).write_text(json.dumps(result,indent=2)+'\n')
+# Work is complete, summary durable and DB closed before profiler ends its window.
+time.sleep(120)
+'''
+
+
+SUPERVISOR = r'''
+import ctypes,json,os,signal,subprocess,sys,time
+from pathlib import Path
+child,payload,out=map(Path,sys.argv[1:])
+assert ctypes.CDLL(None,use_errno=True).prctl(36,1,0,0,0)==0
+configuration=json.loads(payload.read_text())
+tool=Path.home()/'.local/share/web-citas-diagnostics/venv/bin/py-spy'
+completed=None
+try:
+    completed=subprocess.run([str(tool),'record','--duration','45','--rate','100','--gil',
+        '--full-filenames','--format','speedscope','--output',str(out/'cold-mix-speedscope.json'),
+        '--',sys.executable,str(child),str(payload)],capture_output=True,text=True,timeout=120)
+    (out/'pyspy.stdout.log').write_text(completed.stdout)
+    (out/'pyspy.stderr.log').write_text(completed.stderr)
+finally:
+    identity=json.loads(Path(configuration['identity']).read_text())
+    pid=identity['pid'];stat=Path(f'/proc/{pid}/stat')
+    if stat.exists():
+        assert int(stat.read_text().split(') ',1)[1].split()[19])==identity['start_ticks']
+        # py-spy normally already killed its completed idle child. Timeout/error cleanup
+        # targets only the identified child of this isolated subreaper.
+        if stat.read_text().split(') ',1)[1].split()[0]!='Z': os.kill(pid,signal.SIGKILL)
+    deadline=time.monotonic()+5
+    while True:
+        reaped,status=os.waitpid(pid,os.WNOHANG)
+        if reaped:break
+        assert time.monotonic()<deadline
+        time.sleep(.05)
+    assert not stat.exists()
+    receipt={'tool_exit':completed.returncode if completed else None,'pid':pid,
+        'start_ticks':identity['start_ticks'],'wait_status':status,'pid_absent':True,
+        'expected_teardown':'py-spy duration ends and kills completed idle child; isolated supervisor reaps it'}
+    (out/'profiler-lifecycle.json').write_text(json.dumps(receipt,indent=2)+'\n')
+assert completed.returncode==0
+assert os.WIFSIGNALED(status) and os.WTERMSIG(status)==signal.SIGKILL
 '''
 
 
@@ -135,7 +177,7 @@ def test_owned_cold_mix_pyspy(request, monkeypatch, record_property):
             response.close()
         assert statuses[0][0].startswith('200 ') and statuses[0][1]['Cache-Control']=='no-store'
         signatures[route] = hashlib.sha256(body).hexdigest()
-    payload.write_text(json.dumps({'routes':routes, 'signatures':signatures, 'stamp':stamp, 'summary':str(out/'profile-cold-mix-child-summary.json'),
+    payload.write_text(json.dumps({'routes':routes, 'signatures':signatures, 'stamp':stamp, 'identity':str(out/'profile-child-identity.json'), 'summary':str(out/'profile-cold-mix-child-summary.json'),
         'media_root':str(settings.MEDIA_ROOT)}))
     (out/'profile_runtime_settings.py').write_text(
         'from config.settings import *\nMEDIA_ROOT = '+repr(str(settings.MEDIA_ROOT))+'\n')
@@ -147,13 +189,15 @@ def test_owned_cold_mix_pyspy(request, monkeypatch, record_property):
                    'DJANGO_SETTINGS_MODULE':'profile_runtime_settings',
                    'PYTHONPATH':str(out.resolve())+os.pathsep+str(Path.cwd()),
                    'REDIS_URL':'memory://'}
-    command = [str(tool),'record','--rate','100','--gil','--full-filenames',
-               '--format','speedscope','--output',str(out/'cold-mix-speedscope.json'),
-               '--',sys.executable,str(child),str(payload)]
-    completed = subprocess.run(command,env=environment,capture_output=True,text=True,timeout=180)
-    (out/'pyspy.stdout.log').write_text(completed.stdout)
-    (out/'pyspy.stderr.log').write_text(completed.stderr)
+    supervisor = out/'profile-supervisor.py'
+    supervisor.write_text(SUPERVISOR)
+    completed = subprocess.run([sys.executable,str(supervisor),str(child),str(payload),str(out)],
+                               env=environment,capture_output=True,text=True,timeout=180)
+    (out/'supervisor.stdout.log').write_text(completed.stdout)
+    (out/'supervisor.stderr.log').write_text(completed.stderr)
     completed.check_returncode()
+    lifecycle = json.loads((out/'profiler-lifecycle.json').read_text())
+    assert lifecycle['tool_exit']==0 and lifecycle['pid_absent']
     summary = json.loads((out/'profile-cold-mix-child-summary.json').read_text())
     assert summary['completed']==72 and summary['error_type'] is None
     assert summary['source_sha256']==hashlib.sha256(Path('apps/listings/moderation_views.py').read_bytes()).hexdigest()
@@ -167,7 +211,7 @@ def test_owned_cold_mix_pyspy(request, monkeypatch, record_property):
     count = sum(bool(marked.intersection(stack)) for profile in trace['profiles']
                 for stack in profile.get('samples',[]))
     assert count>=25, 'Profile must actually sample the request loop'
-    record_property('cold_mix_pyspy',json.dumps({'version':version,'completed':72,'loop_samples':count,'first_samples':first_count,
+    record_property('cold_mix_pyspy',json.dumps({'version':version,'completed':72,'loop_samples':count,'first_samples':first_count,'lifecycle':lifecycle,
                     'tool_sha256':hashlib.sha256(tool.read_bytes()).hexdigest(),
                     'limits':'Current product only, own synthetic10k, six routes, fresh WSGI child. '
                              'Child performs no reference requests or DB reads before first request. Static worker preparation retained. '

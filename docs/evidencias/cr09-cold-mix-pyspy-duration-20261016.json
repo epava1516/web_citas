@@ -1,0 +1,867 @@
+{
+  "run": "20261016-133015-e228758c",
+  "status": "PASS",
+  "tests": 1,
+  "seconds": 132.7,
+  "head": "aac5024ab6377f8dc77b22b2eaeccecd52d9711b",
+  "lifecycle": {
+    "tool_exit": 0,
+    "pid": 277620,
+    "start_ticks": 387812933,
+    "wait_status": 9,
+    "pid_absent": true,
+    "expected_teardown": "py-spy duration ends and kills completed idle child; isolated supervisor reaps it"
+  },
+  "summary": {
+    "completed": 72,
+    "error_type": null,
+    "python": "3.12.15",
+    "kernel": {
+      "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "debug": false,
+    "force_debug_cursor": false,
+    "source_sha256": "b96e782c245f7cf3191c405f1855633ddfdb2f7287053e869ab4d08f75a6db70",
+    "reads": [
+      {
+        "route": "/es/",
+        "wall": 0.3494141730479896,
+        "cpu": 0.17389038999999995
+      },
+      {
+        "route": "/en/",
+        "wall": 0.1879883580841124,
+        "cpu": 0.10169730700000001
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.18580373795703053,
+        "cpu": 0.10292005600000009
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.20310443500056863,
+        "cpu": 0.11648086699999993
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.07744669308885932,
+        "cpu": 0.04208535400000013
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.10294499807059765,
+        "cpu": 0.03028909599999996
+      },
+      {
+        "route": "/es/",
+        "wall": 0.2794856559485197,
+        "cpu": 0.1766933030000002
+      },
+      {
+        "route": "/en/",
+        "wall": 0.21275608520954847,
+        "cpu": 0.11739510900000028
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.1741107446141541,
+        "cpu": 0.0852497969999999
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.2644202481023967,
+        "cpu": 0.12638032100000007
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.06964572286233306,
+        "cpu": 0.041450251000000105
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.0681495750322938,
+        "cpu": 0.03749733599999994
+      },
+      {
+        "route": "/es/",
+        "wall": 0.2013195650652051,
+        "cpu": 0.11643446300000004
+      },
+      {
+        "route": "/en/",
+        "wall": 0.2641555261798203,
+        "cpu": 0.13613264899999988
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.1943982383236289,
+        "cpu": 0.09869270499999994
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.2288200818002224,
+        "cpu": 0.10153266500000013
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.10921029187738895,
+        "cpu": 0.03731006700000039
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.07732869405299425,
+        "cpu": 0.03775633699999981
+      },
+      {
+        "route": "/es/",
+        "wall": 0.1737667671404779,
+        "cpu": 0.1006594940000003
+      },
+      {
+        "route": "/en/",
+        "wall": 0.18673682026565075,
+        "cpu": 0.11722444499999973
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.19422016479074955,
+        "cpu": 0.1109379399999999
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.20948502095416188,
+        "cpu": 0.12082804700000027
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.06587288621813059,
+        "cpu": 0.03503744799999975
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.05288046970963478,
+        "cpu": 0.030710329999999786
+      },
+      {
+        "route": "/es/",
+        "wall": 0.1823524059727788,
+        "cpu": 0.1041563980000002
+      },
+      {
+        "route": "/en/",
+        "wall": 0.17144057620316744,
+        "cpu": 0.08444075599999978
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.2894218438304961,
+        "cpu": 0.1484308310000002
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.250673389993608,
+        "cpu": 0.12153962199999979
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.18076292192563415,
+        "cpu": 0.14328128500000004
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.04553897771984339,
+        "cpu": 0.028058442999999933
+      },
+      {
+        "route": "/es/",
+        "wall": 0.14026041189208627,
+        "cpu": 0.08784727700000072
+      },
+      {
+        "route": "/en/",
+        "wall": 0.16463737189769745,
+        "cpu": 0.09111504899999989
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.2245570719242096,
+        "cpu": 0.10471031899999961
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.18574640899896622,
+        "cpu": 0.09541849499999966
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.05474973004311323,
+        "cpu": 0.02871750999999989
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.043570243287831545,
+        "cpu": 0.026277451999999535
+      },
+      {
+        "route": "/es/",
+        "wall": 0.18176998337730765,
+        "cpu": 0.09425087600000026
+      },
+      {
+        "route": "/en/",
+        "wall": 0.2118071443401277,
+        "cpu": 0.118758111
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.19964482309296727,
+        "cpu": 0.1131882880000008
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.17632759595289826,
+        "cpu": 0.09184568800000026
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.06745352083817124,
+        "cpu": 0.030675749999999447
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.05125241819769144,
+        "cpu": 0.03433352900000042
+      },
+      {
+        "route": "/es/",
+        "wall": 0.14734881278127432,
+        "cpu": 0.09049854400000079
+      },
+      {
+        "route": "/en/",
+        "wall": 0.18880384135991335,
+        "cpu": 0.1019676089999999
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.18585459375754,
+        "cpu": 0.10296513800000007
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.24444334208965302,
+        "cpu": 0.10820426300000019
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.06090605724602938,
+        "cpu": 0.02846197300000064
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.04956049006432295,
+        "cpu": 0.02864140199999987
+      },
+      {
+        "route": "/es/",
+        "wall": 0.19121302897110581,
+        "cpu": 0.10040663299999952
+      },
+      {
+        "route": "/en/",
+        "wall": 0.38276245119050145,
+        "cpu": 0.2282359240000007
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.17502678418532014,
+        "cpu": 0.10272316000000004
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.17573597189038992,
+        "cpu": 0.1001860670000001
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.043282854836434126,
+        "cpu": 0.02829292500000058
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.07458803104236722,
+        "cpu": 0.037094930000000303
+      },
+      {
+        "route": "/es/",
+        "wall": 0.1718659708276391,
+        "cpu": 0.10414508599999994
+      },
+      {
+        "route": "/en/",
+        "wall": 0.15067827003076673,
+        "cpu": 0.09144267200000034
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.16732473811134696,
+        "cpu": 0.09635579100000058
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.18437978671863675,
+        "cpu": 0.10339783900000032
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.041080952156335115,
+        "cpu": 0.02754426399999943
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.03861040808260441,
+        "cpu": 0.026554463000000084
+      },
+      {
+        "route": "/es/",
+        "wall": 0.14377676276490092,
+        "cpu": 0.08552201300000029
+      },
+      {
+        "route": "/en/",
+        "wall": 0.16059548314660788,
+        "cpu": 0.10494187599999982
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.17535028420388699,
+        "cpu": 0.10481636499999958
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.2336546340957284,
+        "cpu": 0.12391211400000035
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.07035436294972897,
+        "cpu": 0.04288623400000002
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.04807664314284921,
+        "cpu": 0.03175864799999939
+      },
+      {
+        "route": "/es/",
+        "wall": 0.20106662902981043,
+        "cpu": 0.10236905799999985
+      },
+      {
+        "route": "/en/",
+        "wall": 0.2752949418500066,
+        "cpu": 0.1373431939999996
+      },
+      {
+        "route": "/es/?q=photography",
+        "wall": 0.35318713588640094,
+        "cpu": 0.18996424400000045
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "wall": 0.4236520370468497,
+        "cpu": 0.21770728100000003
+      },
+      {
+        "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+        "wall": 0.0664638108573854,
+        "cpu": 0.03629992599999987
+      },
+      {
+        "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+        "wall": 0.06699725799262524,
+        "cpu": 0.034058543999999635
+      }
+    ],
+    "profile_intervals": {
+      "first": [
+        3878130.9399372,
+        3878131.289363264
+      ],
+      "tail": [
+        3878131.289363264,
+        3878132.046707009
+      ],
+      "later": [
+        3878132.046707009,
+        3878142.788079279
+      ]
+    },
+    "body_signatures": {
+      "/es/": "cdaaaa0480cce75a823ea69bb0a30d2dd8f579738b1d6fbf6b9951f69f928c5f",
+      "/en/": "5d6b9ccac8042792eb05a6359629ccc24a30238fa44160d8f0616077801a4af3",
+      "/es/?q=photography": "b07aeac686e0fc69e68e785786e3d4fdd3468ba26d56d83c732adf002b57de33",
+      "/en/?q=synthetic": "08f453502244790fa6eec1eba972d3a9f46ae133c970b67c7efd0776e69b67c9",
+      "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/": "077450bc49f4e94e231b06038c63d725336cfa46e5383f1b3cd527ffafb0a899",
+      "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/": "03c6379fed009a8d2d346f5a0c40fea89b718959e4a8232244f79065e49734fa"
+    }
+  },
+  "comparisons_instrumented": [
+    {
+      "route": "/es/",
+      "first_wall": 0.3494141730479896,
+      "first_app_cpu": 0.17389038999999995,
+      "later_mean_wall": 0.18311145397919146,
+      "later_mean_app_cpu": 0.10572574045454565
+    },
+    {
+      "route": "/en/",
+      "first_wall": 0.1879883580841124,
+      "first_app_cpu": 0.10169730700000001,
+      "later_mean_wall": 0.21542441015216438,
+      "later_mean_app_cpu": 0.12081794490909091
+    },
+    {
+      "route": "/es/?q=photography",
+      "first_wall": 0.18580373795703053,
+      "first_app_cpu": 0.10292005600000009,
+      "later_mean_wall": 0.21209967479279096,
+      "later_mean_app_cpu": 0.11436677981818191
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "first_wall": 0.20310443500056863,
+      "first_app_cpu": 0.11648086699999993,
+      "later_mean_wall": 0.23430350160395558,
+      "later_mean_app_cpu": 0.1191774910909092
+    },
+    {
+      "route": "/es/listing/52007a2c-0874-448d-9dfd-401ab9788c35/",
+      "first_wall": 0.07744669308885932,
+      "first_app_cpu": 0.04208535400000013,
+      "later_mean_wall": 0.07543482834642584,
+      "later_mean_app_cpu": 0.043632512090909105
+    },
+    {
+      "route": "/en/listing/f7c5bbfe-851f-4196-9543-4d6977a06139/",
+      "first_wall": 0.10294499807059765,
+      "first_app_cpu": 0.03028909599999996,
+      "later_mean_wall": 0.05605029166591438,
+      "later_mean_app_cpu": 0.032067401272727156
+    }
+  ],
+  "phases": {
+    "profile_first_request": {
+      "samples": 15,
+      "selected_inclusive_frames": [
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+          "function": "home",
+          "samples": 15
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+          "function": "__call__",
+          "samples": 15
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "results",
+          "samples": 15
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "state_page",
+          "samples": 11
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "_state_page",
+          "samples": 11
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "__init__",
+          "samples": 7
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "execute_sql",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "details_valid",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "validate_publication_binding",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "_bound_validation",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/submissions.py",
+          "function": "validate_submission",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "<genexpr>",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation.py",
+          "function": "publicly_visible",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "read_publication_values",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "as_sql",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "publication_query",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "_publication_annotations",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "pre_sql_setup",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/renderers.py",
+          "function": "render",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/history.py",
+          "function": "ordinary_matches",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "get_order_by",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "compile",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "find_ordering_name",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "_order_by_pairs",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "get_select",
+          "samples": 1
+        }
+      ]
+    },
+    "profile_first_cycle_tail": {
+      "samples": 33,
+      "selected_inclusive_frames": [
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+          "function": "__call__",
+          "samples": 33
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "results",
+          "samples": 26
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+          "function": "home",
+          "samples": 26
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "state_page",
+          "samples": 16
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "_state_page",
+          "samples": 15
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "__init__",
+          "samples": 15
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "read_publication_values",
+          "samples": 11
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "execute_sql",
+          "samples": 9
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation_views.py",
+          "function": "public_detail",
+          "samples": 7
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "as_sql",
+          "samples": 6
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/submissions.py",
+          "function": "validate_submission",
+          "samples": 5
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation.py",
+          "function": "publicly_visible",
+          "samples": 5
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "_bound_validation",
+          "samples": 4
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "validate_publication_binding",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "<genexpr>",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "<lambda>",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "cursor_iter",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "details_valid",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/renderers.py",
+          "function": "render",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "render",
+          "samples": 3
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "clean",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "compile",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/presentation.py",
+          "function": "describe",
+          "samples": 2
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "clean",
+          "samples": 1
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "publication_query",
+          "samples": 1
+        }
+      ]
+    },
+    "profile_later_requests": {
+      "samples": 668,
+      "selected_inclusive_frames": [
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/middleware.py",
+          "function": "__call__",
+          "samples": 667
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/core/views.py",
+          "function": "home",
+          "samples": 566
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "results",
+          "samples": 565
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "state_page",
+          "samples": 359
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "_state_page",
+          "samples": 357
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "__init__",
+          "samples": 282
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "read_publication_values",
+          "samples": 197
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "execute_sql",
+          "samples": 169
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation.py",
+          "function": "publicly_visible",
+          "samples": 138
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/submissions.py",
+          "function": "validate_submission",
+          "samples": 133
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "_bound_validation",
+          "samples": 118
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "as_sql",
+          "samples": 115
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/publication_state.py",
+          "function": "<genexpr>",
+          "samples": 112
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/moderation_views.py",
+          "function": "public_detail",
+          "samples": 98
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "details_valid",
+          "samples": 86
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "compile",
+          "samples": 82
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "validate_publication_binding",
+          "samples": 81
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/forms/renderers.py",
+          "function": "render",
+          "samples": 76
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "pre_sql_setup",
+          "samples": 67
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "get_select",
+          "samples": 58
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "setup_query",
+          "samples": 58
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/discovery.py",
+          "function": "render",
+          "samples": 36
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/public_validation.py",
+          "function": "contacts_valid",
+          "samples": 32
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/apps/listings/presentation_reads.py",
+          "function": "__init__",
+          "samples": 30
+        },
+        {
+          "file": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "function": "get_from_clause",
+          "samples": 24
+        }
+      ]
+    }
+  },
+  "trace_sha256": "e3cca56c16c649c48b54f76fe0c813113328bf989488d133e8687111f6e5e021",
+  "cleanup_and_source_freeze": "independently verified",
+  "limits": "Fresh WSGI child, static preparation, shared PG buffers already used; six routes/72reads. GIL-only, inclusive samples not additive or exact CPU shares. SIGKILL after completed requests/DB close is intentional py-spy teardown, not normal child exit. No TCP/4workers/Beat/upload or p95 acceptance."
+}
