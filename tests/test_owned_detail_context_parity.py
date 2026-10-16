@@ -1,9 +1,10 @@
-"""Focused parity before evaluating detail-context performance or concurrency."""
+"""Actual RR detail parity against the frozen pre-context native endpoint."""
 import uuid
 
 import pytest
 from django.core import signing
 from owned_detail_context import build_detail_context_prototype, patch_detail_view
+from owned_detail_native_reference import build_native_detail_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -15,9 +16,6 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 
 def test_owned_detail_context_parity(request, monkeypatch, record_property):
-    if not any(str(x).split('::')[0] == 'tests/test_owned_detail_context_parity.py'
-               for x in request.config.args):
-        pytest.skip('Explicit own detail-context diagnostic only')
     client = request.getfixturevalue('directory')
     data = populate(80)
     listing = Listing.objects.select_related('approved_revision', 'person').get(pk=data['sample_ids'][1])
@@ -26,6 +24,7 @@ def test_owned_detail_context_parity(request, monkeypatch, record_property):
     rate = revision.rates.first()
     manager, concept = listing.person.manager_version, rate.concept
     prototype = build_detail_context_prototype()
+    native = build_native_detail_reference()
     # Fix only the signing timestamp component; native signature/payload stay real.
     stamp = signing.TimestampSigner().timestamp()
     monkeypatch.setattr(signing.TimestampSigner, 'timestamp', lambda self: stamp)
@@ -54,7 +53,9 @@ def test_owned_detail_context_parity(request, monkeypatch, record_property):
             Listing.objects.filter(pk=listing.pk).update(status='paused')
         for language in ['es','en']:
             path = f'/{language}/listing/{listing.pk}/'
-            reference = client.get(path)
+            with monkeypatch.context() as patch:
+                patch_detail_view(patch, native)
+                reference = client.get(path)
             with monkeypatch.context() as patch:
                 patch_detail_view(patch, prototype)
                 candidate = client.get(path)
@@ -66,12 +67,14 @@ def test_owned_detail_context_parity(request, monkeypatch, record_property):
         if identity == 'missing':
             continue  # UUID converter intentionally rejects non-UUID paths before this view.
         path=f'/es/listing/{identity}/'
-        reference=client.get(path)
+        with monkeypatch.context() as patch:
+            patch_detail_view(patch,native)
+            reference=client.get(path)
         with monkeypatch.context() as patch:
             patch_detail_view(patch,prototype)
             candidate=client.get(path)
         assert reference.status_code == candidate.status_code == 404
         assert reference.content == candidate.content
     record_property('detail_context_parity', cases)
-    record_property('limits','Native guard retained, READ COMMITTED unchanged; sequential parity only. '
-                    'No concurrency or performance claim, no production integration.')
+    record_property('limits','Native guard retained, own RR and inherited native fallback; sequential parity only. '
+                    'No concurrency or performance claim from this file alone.')

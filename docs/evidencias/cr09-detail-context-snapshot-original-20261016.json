@@ -1,0 +1,14 @@
+{
+  "run": "artifacts/local-ci/20261016-095816-44a566da",
+  "result": "1 FAIL confirmed RC exposure counterexample",
+  "properties": [
+    {
+      "name": "detail_snapshot_transition",
+      "value": "{'native_A': 404, 'native_B': 404, 'candidate': 200, 'atomic_writer_committed': True, 'old_conflict_new_photo': True}"
+    }
+  ],
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "product_affected": false,
+  "scope": "Synthetic atomic writer; state A and B native404, RC candidate200. No production exposure claimed."
+}

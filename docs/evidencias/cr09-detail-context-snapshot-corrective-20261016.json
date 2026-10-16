@@ -1,0 +1,47 @@
+{
+  "run": "artifacts/local-ci/20261016-100321-f83e2d54",
+  "head": "e3fdb0ea06b0b1372e65d265b390f5b90a71e696",
+  "result": "9 PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "9",
+      "time": "110.302",
+      "timestamp": "2026-10-16T12:03:40.463132+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "properties": [
+    {
+      "name": "detail_snapshot_transition",
+      "value": "{'native_A': 404, 'native_B': 404, 'candidate': 200, 'atomic_writer_committed': True, 'scenario': 'conflict_photo', 'policy': 'legacy_rc_negative_control'}"
+    },
+    {
+      "name": "detail_snapshot_transition",
+      "value": "{'native_A': 404, 'native_B': 404, 'candidate': 404, 'atomic_writer_committed': True, 'scenario': 'conflict_photo', 'policy': 'trusted_rr'}"
+    },
+    {
+      "name": "detail_snapshot_transition",
+      "value": "{'native_A': 404, 'native_B': 404, 'candidate': 200, 'atomic_writer_committed': True, 'scenario': 'grant_acceptance', 'policy': 'legacy_rc_negative_control'}"
+    },
+    {
+      "name": "detail_snapshot_transition",
+      "value": "{'native_A': 404, 'native_B': 404, 'candidate': 404, 'atomic_writer_committed': True, 'scenario': 'grant_acceptance', 'policy': 'trusted_rr'}"
+    },
+    {
+      "name": "detail_context_parity",
+      "value": "[{'scenario': 'valid', 'language': 'es', 'status': 200}, {'scenario': 'valid', 'language': 'en', 'status': 200}, {'scenario': 'phone', 'language': 'es', 'status': 404}, {'scenario': 'phone', 'language': 'en', 'status': 404}, {'scenario': 'content', 'language': 'es', 'status': 404}, {'scenario': 'content', 'language': 'en', 'status': 404}, {'scenario': 'consent', 'language': 'es', 'status': 404}, {'scenario': 'consent', 'language': 'en', 'status': 404}, {'scenario': 'rate', 'language': 'es', 'status': 404}, {'scenario': 'rate', 'language': 'en', 'status': 404}, {'scenario': 'manager', 'language': 'es', 'status': 404}, {'scenario': 'manager', 'language': 'en', 'status': 404}, {'scenario': 'normalization', 'language': 'es', 'status': 200}, {'scenario': 'normalization', 'language': 'en', 'status': 200}, {'scenario': 'foreign_revision', 'language': 'es', 'status': 404}, {'scenario': 'foreign_revision', 'language': 'en', 'status': 404}, {'scenario': 'paused', 'language': 'es', 'status': 404}, {'scenario': 'paused', 'language': 'en', 'status': 404}]"
+    },
+    {
+      "name": "limits",
+      "value": "Native guard retained, READ COMMITTED unchanged; sequential parity only. No concurrency or performance claim, no production integration."
+    }
+  ],
+  "negative_controls": "Legacy RC returns200 in two never-valid-state transitions; native endpoints404. Both RR candidates404.",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "scope": "Two RC negative controls, two RR corrections, four transaction/settings scope controls and sequential parity. Test-only, no new ROI/p95."
+}

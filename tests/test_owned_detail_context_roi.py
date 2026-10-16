@@ -1,4 +1,4 @@
-"""Owned A/A/C WSGI evaluation for a test-only single-detail context."""
+"""Owned A/A/C WSGI evaluation for integrated RR detail versus frozen native."""
 import gc
 import hashlib
 import json
@@ -14,10 +14,11 @@ from django.template import Template
 from django.test import RequestFactory
 from django.test.utils import _TestState
 from owned_detail_context import build_detail_context_prototype, patch_detail_view
+from owned_detail_native_reference import build_native_detail_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
-from apps.listings import moderation_views, publication_state
+from apps.listings import publication_state
 from apps.listings.models import PublicationDirty
 from config.worker_startup import prepare_static_structures
 from scripts.synthetic_load_dataset import populate
@@ -41,7 +42,7 @@ def test_owned_detail_context_roi(request, monkeypatch, record_property):
     monkeypatch.setattr(signing.TimestampSigner, 'timestamp', lambda self:stamp)
     assert gc.isenabled() and gc.get_debug()==0
     flags=gc.isenabled(),gc.get_debug(),gc.get_threshold()
-    native, candidate=moderation_views.public_detail,build_detail_context_prototype()
+    native, candidate=build_native_detail_reference(),build_detail_context_prototype()
     handler,factory=WSGIHandler(),RequestFactory()
 
     def call(route):
@@ -115,7 +116,7 @@ def test_owned_detail_context_roi(request, monkeypatch, record_property):
     out=Path(request.config.getoption('--gate-timings-output')).parent
     result=dict(samples=samples,preparation=preparation,comparisons=comparisons,
                 eligible_for_next_controls=all(c['eligible_for_next_controls'] for c in comparisons),
-                limits='Actual WSGI/Django with synthetic own PG10k, test-only callback. '
+                limits='Actual WSGI/Django with synthetic own PG10k, integrated RR callback. '
                        'Fixed signing timestamp only, real signature/payload and exact body. '
                        'Normal GC; collection before warmup only. A/B identical native code. '
                        'No TCP/Gunicorn/concurrency/Beat/upload; DB CPU/RSS unmeasured. '

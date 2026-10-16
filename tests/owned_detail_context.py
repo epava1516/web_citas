@@ -1,18 +1,20 @@
-"""Test-only fresh native context for public detail; no application changes."""
-import inspect
+"""Actual product RR entrypoint and frozen legacy RC negative control."""
 import textwrap
 
 from django.db import connection
 from django.db.models import F
 from django.urls import URLResolver, get_resolver
 from django.utils import timezone
+from owned_detail_native_reference import SOURCE
 
 from apps.listings import moderation_views
 from apps.listings.public_validation import PublicationContext
 
 
-def build_detail_context_prototype():
-    source = textwrap.dedent(inspect.getsource(moderation_views.public_detail))
+def build_detail_context_prototype(*, trusted_snapshot=True):
+    if trusted_snapshot:
+        return moderation_views.public_detail
+    source = textwrap.dedent(SOURCE)
     before = '''    listing = get_object_or_404(
         Listing.objects.select_related("person__agency", "approved_revision"), pk=listing_id
     )
@@ -37,9 +39,11 @@ def build_detail_context_prototype():
             raise Http404
 '''
     assert source.count(before) == 1
+    source = source.replace(before, after)
     namespace = vars(moderation_views).copy()
-    namespace.update(connection=connection, F=F, timezone=timezone, PublicationContext=PublicationContext)
-    exec(compile(source.replace(before, after), '<owned-detail-context>', 'exec'), namespace)
+    namespace.update(connection=connection, F=F, timezone=timezone,
+                     PublicationContext=PublicationContext)
+    exec(compile(source, '<owned-detail-context>', 'exec'), namespace)
     return namespace['public_detail']
 
 

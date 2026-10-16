@@ -1,0 +1,15 @@
+{
+  "run": "artifacts/local-ci/20261016-102300-eb7cb6af",
+  "result": "ERROR/partial interrupted with SIGINT after demonstrated harness contamination",
+  "reason": "Both setattr(module.render) and setitem(same module dict render) caused monkeypatch undo to leave injected render-error wrapper installed. First failing inherited_rc trace re-enters prior error wrapper.",
+  "first_failure": {
+    "nodeid": "tests/test_owned_detail_context_scope.py::test_detail_transaction_ownership_and_restore[inherited_rc]",
+    "when": "call",
+    "outcome": "failed",
+    "duration": 5.099717752076685,
+    "longrepr": "tests/test_owned_detail_context_scope.py:70: in test_detail_transaction_ownership_and_restore\n    assert client.get(f'/es/listing/{listing.pk}/').status_code==200\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/test/client.py:1127: in get\n    response = super().get(\n.venv/lib/python3.12/site-packages/django/test/client.py:475: in get\n    return self.generic(\n.venv/lib/python3.12/site-packages/django/test/client.py:671: in generic\n    return self.request(**r)\n           ^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/test/client.py:1090: in request\n    self.check_exception(response)\n.venv/lib/python3.12/site-packages/django/test/client.py:805: in check_exception\n    raise exc_value\n.venv/lib/python3.12/site-packages/django/core/handlers/exception.py:55: in inner\n    response = get_response(request)\n               ^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/django/core/handlers/base.py:197: in _get_response\n    response = wrapped_callback(request, *callback_args, **callback_kwargs)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\napps/listings/moderation_views.py:165: in public_detail\n    return _native_public_detail(request, listing_id)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_owned_detail_context_scope.py:45: in native_fallback\n    return native(*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^\napps/listings/moderation_views.py:195: in _native_public_detail\n    return _public_detail_response(request, listing)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\napps/listings/moderation_views.py:201: in _public_detail_response\n    response = render(\ntests/test_owned_detail_context_scope.py:41: in observed_render\n    return render(*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^\ntests/test_owned_detail_context_scope.py:40: in observed_render\n    raise RuntimeError('owned-render-error')\nE   RuntimeError: owned-render-error"
+  },
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "limits": "No acceptance or reusable full-regression verdict; secondary pytest tmp_path teardown KeyError after interruption preserved."
+}

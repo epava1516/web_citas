@@ -1,0 +1,26 @@
+{
+  "run": "artifacts/local-ci/20261016-102816-814fe5d0",
+  "head": "e3fdb0ea06b0b1372e65d265b390f5b90a71e696",
+  "result": "46 PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "46",
+      "time": "443.597",
+      "timestamp": "2026-10-16T12:28:34.882918+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources": {
+    "apps/listings/moderation_views.py": "67083bcd854133a0b33b3fe28b78cc4cee580123218f9e4ba900522b4b172987",
+    "apps/listings/public_validation.py": "eb5394bbbc35e1d75eb38ef474fb6fe2fcc07577e996b306fc696178aa471727",
+    "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+    "tests/owned_detail_native_reference.py": "c5e925f2f6ed873987de977807306172e7e0fce8e200f597d0e834186271252e"
+  },
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "scope": "Actual integrated RR detail, native frozen reference, two RC negative controls, concurrency/scope/parity/user guards/shared context/discovery/batching/ownership/planner controls. Not full N3 or p95 acceptance."
+}

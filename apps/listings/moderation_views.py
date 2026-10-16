@@ -2,10 +2,11 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.core import signing
 from django.core.exceptions import ValidationError
-from django.db import transaction
-from django.db.models import Q
+from django.db import connection, transaction
+from django.db.models import F, Q
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
 from apps.core.models import Agency, Person
@@ -21,6 +22,7 @@ from .moderation import (
     unresolved_matches,
 )
 from .presentation import describe
+from .public_validation import PublicationContext, _prepared_page_binding
 
 
 class DecisionForm(forms.Form):
@@ -157,9 +159,31 @@ def review_photo(request, photo_id):
 
 
 def public_detail(request, listing_id):
-    from .public_validation import _prepared_page_binding
-    from .seo import listing_metadata
+    # A savepoint cannot give an inherited READ COMMITTED transaction a common
+    # snapshot. Keep its caller's original read path and isolation unchanged.
+    if connection.in_atomic_block:
+        return _native_public_detail(request, listing_id)
+    with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
+        with _prepared_page_binding(enabled=True):
+            context = PublicationContext(
+                Listing.objects.filter(
+                    pk=listing_id, status="published", expires_at__gt=timezone.now(),
+                    approved_revision__status="approved", approved_revision__listing_id=F("pk"),
+                ), page_read=True, prepared_page=True,
+            )
+            if not context.rows:
+                raise Http404
+            listing = context.rows[0]
+            if not publicly_visible(listing, context=context):
+                raise Http404
+        # Render eagerly in the same snapshot: prefetch/guard/presentation must
+        # never combine committed versions that were individually ineligible.
+        return _public_detail_response(request, listing)
 
+
+def _native_public_detail(request, listing_id):
     listing = get_object_or_404(
         Listing.objects.select_related("person__agency", "approved_revision"), pk=listing_id
     )
@@ -168,6 +192,12 @@ def public_detail(request, listing_id):
     with _prepared_page_binding(enabled=True):
         if not publicly_visible(listing):
             raise Http404
+    return _public_detail_response(request, listing)
+
+
+def _public_detail_response(request, listing):
+    from .seo import listing_metadata
+
     response = render(
         request,
         "listings/public_detail.html",
