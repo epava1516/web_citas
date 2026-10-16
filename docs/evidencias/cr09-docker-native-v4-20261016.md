@@ -1,0 +1,11 @@
+# CR09: imagen v4 con preparación por worker
+
+Imagen propia web-modelos-cr09-native:20261016-v4,ID77a77b081f8e9927da168e31f95d911264d45a799edc3c2a5f7d1fbea57dfd77,882380199bytes,revisionexacta08495d3. Buildexit0 unidadcr09-docker-native-build-v4-20261016terminal. Dockerfile/lock/basePython3.12.15 sinmodificar;incluyegunicorn.conf.py/config.worker_startup. No sustitución imágenes normales ni publicación.
+
+Verificaciónreal:PG17.11propio/migracionescompletas/función0020prosrcigualfuente. CuatroPID14/15/16/17 anuncianpreparaciónantesdelhealth200,hashesruntimehookyconfigigualeshost. UID10001,raízro,capdropALL,no-new-privileges,tmpfs64MiB,app2CPU/1536MiB yPG1CPU/1536MiB/tmpfs512MiB,pids128,redinterna sinpuertos publicados. Config4workers60s,11paridadesválidas/negativas,native-sealed. Cero bytecodehostenapps/config/scripts/tests.
+
+Kernelv4binaryb03633f5618afd4c8ee08f09d430606b11d26d851935cb2f569a513edb398c0c distinto2caa578cdev3,sourcemisma9cecbd34/Cython3.0.12/GCC12.2. Porartefactonuevoejecutadabateríacompleta:118PASS11,75s enimagenv4,rednone/raízro/UID10001,test-toolsreadonlyseparadossinappdepsreemplazadas,XMLexportado. Noatribuirhashdistintoacambiosemánticodemostrado. Tresarchivostestseleccionadossinmodificación.
+
+Fuentescríticashashiguales/revisionlabeligual;containersapp/PG/paridad/redpropiosausentesindependiente;initPIDapp/PGausentes. Imagenretenidapararevisión. Artifactscr09-docker-native-v4-20261016/{build.log,source.json,verify.py,result.json,gunicorn.log,migrations.log} ycr09-docker-kernel-parity-v4-20261016/{pytest.xml,pytest.log,result.json,run.py}. Sinproducción/datosreales/proveedores/Claude,consumopreviointacto.
+
+Cierra desfase deentregadelhookenDocker,NOcapacidadpaquetizada. Lastp95hostclean1,013029795FAIL;instrumentadocorrecto1,101181666FAIL. SinmedicióndecargaDocker/N3/aceptaciónCR09. Pendientesrendimiento/reproducibilidad/900ssegúnprerrequisitos,regresiónversióncomúnyrestocontrato.

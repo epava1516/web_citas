@@ -1192,3 +1192,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: listconsumers032525-4449b17c,1PASS117,51s/72lecturas/paridadexacta. SQLclean39→114listassolas→42consumidoresadaptados;dirty64→142→70. Completo2/3bloquesmáslentos/CPUinconsistente,REJECTED sinapp/load. Fuente/cleanup/cgroupverificados,evidenciacr09-context-list-consumers-20261016.md. SiguientecerrardesfaseDockerhookstartupvalidado;rendimiento1,013029795FAIL/CR09/N3/goalenterosabiertos. SinClaude/proveedores,consumopreviointacto.
+
+
+2026-10-16: Dockerpropio v4revision08495d3/ID77a77b081f8e,buildexit0,PGrealmigraciones/0020prosrc/health200/4PIDreadyanteshealth/hookhashesiguales/UID10001 PASS. Kernelbinarynuevo b03633f5 mismafuente,paridadimagen118PASS11,75s/11smoke;noinferircargaDocker. Fuente/containers/red/initPIDcleanupindependientes. Evidenciacr09-docker-native-v4-20261016.md/terminalJSON. SinClaude/proveedores/publicación,consumopreviointacto;rendimiento1,013029795FAIL/CR09/N3/contratoenterosabiertos.
