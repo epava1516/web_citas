@@ -2860,3 +2860,6 @@ Commitproductivo plantilla af914b9. Grafo AST actualizado para public_validation
 
 
 [MatrizTCP plantilla](evidencias/cr09-detail-template-tcp-matrix-20261016.md):130840-c816996c,6PASS287,00s;180lecturasmedidas/6rutas×5×6casos,repeated/diverse×100/1000/10000,DEBUG0. Freeze/cleanupverificados;no inferir speedupcontraDEBUG1. Aplicabilidaddeesta matriz funcional actualizada. Ejecutar único corto limpio actual con protocolo idéntico al104400/104826; repetiruna vezsiPASS,sin perfiladores ni cambiosdecuota.
+
+
+[Corto plantilla integrado](evidencias/cr09-detail-template-clean-20261016.md):131431-d072699a,1FAIL186,05s,p950,862172866s;1200completadas0errores,generadorválido,subidaconforme,freeze/cleanupverificados. No repetición ni900. 69lentas todascohorte0–5s. Py-spy anterior arrancaba bucle después de dosreferencias en hijo: faltacapturarprimera lectura real de proceso nuevo. Siguiente diagnóstico separado de arranque, sin nuevas políticas especulativas. MatrizTCP6PASS no equivaleSLO; imagenv7no actualizadaalproductoaf914b9.
