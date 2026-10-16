@@ -1349,3 +1349,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 [Docker v9 integrado](evidencias/cr09-docker-native-v9-20261016.md): fuente f4125c9, build/runtime PG PASS; módulo privado corregido con huella exacta host/imagen y anónimo302login. Ocho rutas200/no-store, cuatro firmas, health200/ausente404, esquema0022 y funciones conservadoras, once paridades nativas. Cuatro workers preparados, DEBUG0 y cuotas/aislamiento comprobados; unidad terminal0, fuentes congeladas y limpieza independientes. Replay completo acreditado sólo por los siete casos CI separados. Imágenes v8/v9 retenidas sin publicación. No nueva métrica ni aceptación N3/CR09; último p95 limpio0,862172866FAIL.
+
+
+[Comunicaciones: fuentes y fases conciliadas](evidencias/cr09-communications-applicability-20261016.md): nueve archivos actuales idénticos a sus ejecuciones aplicables directas, con setup/call/teardown PASS; seis módulos directos de producto coinciden. No nueva ejecución ni cobertura transitiva/N3. Se usa correctiva69b50022 para comunicaciones, no archivo antiguo de bloque4. Precisión de estado: bloques3/4 originales ERROR con selecciones afectadas posteriores PASS; no cuatro bloques íntegros PASS. Rendimiento0,862172866FAIL y CR09 abiertos.

@@ -1,0 +1,444 @@
+{
+  "scope": "Finite communication test selection; direct source equality only, not transitive applicability or N3",
+  "modules": {
+    "apps/safety/communication_notices.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    },
+    "apps/safety/communication_notice_views.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    },
+    "apps/safety/rights_communications.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    },
+    "apps/safety/rights_communication_views.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    },
+    "apps/safety/notice_delivery.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    },
+    "apps/safety/notice_operations.py": {
+      "20261015-010758-a635c22e": true,
+      "20261015-024508-162c33cd": true,
+      "20261015-064606-07f98b78": true,
+      "20261015-081053-9720829d": true,
+      "20261016-035242-1d332040": true,
+      "20261016-035615-b6d4e2ac": true,
+      "20261016-053617-156708a7": true,
+      "20261016-054713-fd15186b": true,
+      "20261015-092133-69b50022": true
+    }
+  },
+  "tests": {
+    "tests/test_notice_operations.py": {
+      "run": "20261015-010758-a635c22e",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_notice_operations.py::test_recovery_preserves_history_replays_and_case_decision": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_permission_mfa_expiry_and_conflict_are_revalidated": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_complaint_recovery_requires_own_scope_and_preserves_resolution": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_two_connections_recover_only_once": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_mobile_queue_recovery_and_reload": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_scoped_pagination_invalid_identifiers_and_global_key_conflict": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_operations.py::test_complete_recovery_history_and_csrf_input_guards": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_historical_communication_candidates.py": {
+      "run": "20261015-010758-a635c22e",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_historical_communication_candidates.py::test_previous_manager_is_reviewed_candidate_but_not_authorized_delivery": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_rights_communications_localization.py": {
+      "run": "20261015-010758-a635c22e",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[es]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[en]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_rights_notice_inventory.py": {
+      "run": "20261015-024508-162c33cd",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[profile]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[account]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_rights_communications.py": {
+      "run": "20261015-092133-69b50022",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_notice_delivery.py": {
+      "run": "20261015-081053-9720829d",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_notice_delivery.py::test_due_outbox_exactly_once_private_receipt_and_production_disabled": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_delivery.py::test_retry_backoff_dead_state_and_no_exception_details_persisted": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_delivery.py::test_two_workers_claim_one_notice_without_duplicate_simulation": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_delivery.py::test_locked_notice_is_skipped_then_recovered_and_backend_disabled_is_inert": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_delivery.py::test_report_and_complaint_outboxes_share_bounded_processing_without_duplicates": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_notice_delivery.py::test_mobile_receipt_status_changes_only_to_explicit_simulation": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_recipient_notice_revocation_races.py": {
+      "run": "20261016-035615-b6d4e2ac",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[session-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[session-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[disabled-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[disabled-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[erased-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[erased-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_account_recipient_notice_revocation_races.py": {
+      "run": "20261016-053617-156708a7",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-restriction]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-object]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    },
+    "tests/test_editor_recipient_notice_revocation_races.py": {
+      "run": "20261016-054713-fd15186b",
+      "source_identical": true,
+      "nodes": {
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[unassigned-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[unassigned-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[membership-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[membership-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[manager_version-inspect]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        },
+        "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[manager_version-acknowledge]": {
+          "setup": "passed",
+          "call": "passed",
+          "teardown": "passed"
+        }
+      },
+      "all_three_phases_pass": true
+    }
+  },
+  "source_cut": "e5cc7e3",
+  "script_sha256": "b1fd1974568ee3a94bcf4cb68b64c25d06ddaf142b9335585527b1286feec5a7",
+  "limits": [
+    "Six direct app modules unchanged across reviewed manifests; transitive dependencies not established by this check",
+    "Existing tests and all three phases checked, not new executions",
+    "Original blocks3/4 ERROR preserved; targeted corrections do not turn full blocks into PASS",
+    "No external transport, current N3, p95 or CR09 acceptance"
+  ]
+}
