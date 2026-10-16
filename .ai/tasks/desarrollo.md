@@ -1162,3 +1162,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: ingressprelude024716-c64da86d,SHA431ddd0,1FAIL187,54s,p95instrumentado1,198622245s(no clean),1200éxitos0errores/generadorválido. Workerspreludes1/0/6/2;PID403951sinpreludio,d-0WSGI1164,937ms/CPU626,562ms. Demostrado calentamientodesigual,no causaexclusiva/aceptación. Siguiente contrastepreparaciónestáticaporworkerantesdeproducto. Fuente/cleanup/cgroupverificados. Evidenciacr09-prelude-ingress-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: contrastestaticwarmup025248-2d8dc2bb,1PASS125,96s/180requests/6procesos,3bloquespositivos. Primerwallmediana763,852→327,132ms/CPU531,953→167,234;preparación333,226msmediana0red/DB/hilosnuevos,paridadlist/search. SinHTTPconcurrente/p95,medianaestable160,571→163,002ms no mejora global. Candidatojustificahookporworker,verificarruntimeantesclean. Fuente/cleanupverificados,evidenciacr09-static-warmup-contrast-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
