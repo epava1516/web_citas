@@ -1153,3 +1153,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: subida aislada023338-0173334a,1PASS87,94s. Wall462,970ms/CPUhilo381,549ms;6invalidacionesPG7,284ms(1,57%wall). Endpointreal/10k/sinworkers,despachoregistrado;noHTTP/p95/causalidadconcurrente. Fuente/cleanupverificados. Siguiente atribuir CPUsubida. Evidencia cr09-upload-mark-cost-20261016.md. SinClaude/proveedores,consumo previo intacto;CR09/N3/contratoentero abiertos.
+
+
+2026-10-16: perfilsubida023827-9f139f01,1PASS93,23s;Ruffprevio023718conservado. cProfileCPU incluye URLConf/imports/regex frío;ingest102,82ms/decode4,35ms instrumentados,no comparablesclean. Retirada inferencia382msCPU=ingest;arnésHTTPya6sondas. Siguiente calentamientoequivalente/perworker, no precarga especulativa. Fuente/cleanupverificados. Evidencia cr09-upload-cpu-profile-20261016.md. Sinproducto/Claude/proveedores,consumopreviointacto;CR09/N3/contratoabiertos.
