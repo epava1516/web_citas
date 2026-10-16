@@ -4,6 +4,7 @@ import test_owned_detail_context_parity as existing
 from django.db import connection
 from django.test.utils import CaptureQueriesContext
 from owned_detail_query_template import build_detail_template_view
+from owned_detail_rr_reference import build_previous_rr_detail
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -23,11 +24,12 @@ def test_owned_detail_query_template(request, monkeypatch, record_property):
     with CaptureQueriesContext(connection) as captured:
         candidate, template, retained = build_detail_template_view()
     assert not captured
-    native = moderation_views.public_detail
-    monkeypatch.setattr(existing, 'build_detail_context_prototype', lambda: candidate)
+    native = build_previous_rr_detail()
+    monkeypatch.setattr(existing, 'build_detail_context_prototype', lambda: moderation_views.public_detail)
     monkeypatch.setattr(existing, 'build_native_detail_reference', lambda: native)
     existing.test_owned_detail_context_parity(request, monkeypatch, record_property)
-    assert template.cache_info().hits > 0 and retained
+    from apps.listings.public_validation import _detail_query_template
+    assert _detail_query_template.cache_info().hits > 0
     assert all(q._result_cache is None for q in retained)
     with CaptureQueriesContext(connection) as captured:
         first = template('synthetic-version-a')
@@ -72,7 +74,8 @@ def test_template_fresh_document_and_expiry(request, monkeypatch):
     client = request.getfixturevalue('directory')
     listing = Listing.objects.filter(status='published').first()
     candidate, template, retained = build_detail_template_view()
-    native = moderation_views.public_detail
+    candidate = moderation_views.public_detail
+    native = build_previous_rr_detail()
     path = f'/es/listing/{listing.pk}/'
 
     def compare(expected):
@@ -102,5 +105,52 @@ def test_template_fresh_document_and_expiry(request, monkeypatch):
     compare(404)
     Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now()+timedelta(days=1))
     compare(200)
-    assert template.cache_info().currsize == 2
+    from apps.listings.public_validation import _detail_query_template
+    assert _detail_query_template.cache_info().currsize >= 2
     assert all(q._result_cache is None for q in retained)
+
+
+@pytest.mark.parametrize('scenario', ['localization_catalog', 'production_provenance', 'privacy_hold'])
+def test_template_existing_controls(request, monkeypatch, settings, scenario):
+    import test_owned_detail_context_existing_guards as guards
+    candidate, _, _ = build_detail_template_view()
+    monkeypatch.setattr(guards, 'build_detail_context_prototype', lambda: candidate)
+    guards.test_existing_controls_under_rr_detail(request, monkeypatch, settings, scenario)
+
+
+def test_template_fresh_expiry_during_request(request, monkeypatch):
+    import test_owned_detail_context_existing_guards as guards
+    candidate, _, _ = build_detail_template_view()
+    monkeypatch.setattr(guards, 'build_detail_context_prototype', lambda: candidate)
+    guards.test_expiry_clock_not_frozen_by_rr(request, monkeypatch)
+
+
+def test_template_both_actors_languages(request, monkeypatch, record_property):
+    from django.core import signing
+    from owned_detail_context import patch_detail_view
+
+    from apps.core.models import Person
+
+    client = request.getfixturevalue('directory')
+    candidate, template, retained = build_detail_template_view()
+    stamp = signing.TimestampSigner().timestamp()
+    monkeypatch.setattr(signing.TimestampSigner, 'timestamp', lambda self: stamp)
+    cases = []
+    for lookup in [{'individual__username':'fixture-v1-individual'},
+                   {'subject__username':'fixture-v1-model-a'}]:
+        person = Person.objects.get(**lookup)
+        for language in ['es', 'en']:
+            path = f'/{language}/listing/{person.listing.pk}/'
+            with monkeypatch.context() as patch:
+                patch_detail_view(patch, build_previous_rr_detail())
+                reference = client.get(path)
+            with monkeypatch.context() as patch:
+                patch_detail_view(patch, candidate)
+                proposed = client.get(path)
+            assert reference.status_code == proposed.status_code == 200
+            assert reference.content == proposed.content
+            assert reference.headers['Cache-Control'] == proposed.headers['Cache-Control'] == 'no-store'
+            cases.append((next(iter(lookup)), language))
+    assert template.cache_info().hits >= 3
+    assert all(q._result_cache is None for q in retained)
+    record_property('actor_language_parity', str(cases))

@@ -1328,3 +1328,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-16 revisión nativa cold_cost_review_20261016, worktreeaisladoe625870, propiedad exclusiva informecr09-cold-cost-review-agent-20261016.json. SinDB/tests/Docker/red/commits;contratoexterno leído completo antesinvocación. Informe recibido formato propio (no wirecanónico), no aceptaciónformal; Codex contrasta hallazgos acotados yreconciliación24estratos/14comparables/10sinpares. No candidato nuevo aceptado. SinClaudeV1/contador8yconsumopreviointactos;tokensnativos no medidos.
 
 2026-10-16 followupnativo cold_cost_review: propietarioúnico adicional cr09-native-membership-subset-review-20261016.json, sin recursos/tests/commits; informeestático reportado. Codex verifica identidadcondicionalconjuntos, no acepta rendimiento/implementación. La revisión no aporta nuevamedición. SQLshapes propiocorrectivo744grupos/0overflow integra sóloevidencia, no candidato. ConsumoClaude8preservado/tokensnativosdesconocidos.
+
+
+2026-10-16 Codex local: py-spy corregido DEBUG=0 PASS; plantilla ORM detalle ROI apto(−5,63/10,18%wall,−10,62/15,56%CPUapp),13 controles prototipo,22 integración y24 lecturas/8hilos verificadas PostgreSQL propio. Fallos de arnés conservados. Próximo matrizTCP DEBUG0; CR09/N3 abiertos. Sin nuevas invocaciones Claude/proveedores ni cambio de consumo previo.

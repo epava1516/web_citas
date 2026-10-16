@@ -61,6 +61,7 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
     ]
     (tmp_path / "tcp_runtime_settings.py").write_text(
         "from config.settings import *\n"
+        "assert DEBUG is False, 'TCP matrix requires the same DEBUG=0 as clean HTTP load'\n"
         f"MEDIA_ROOT = Path({str(settings.MEDIA_ROOT)!r})\n"
         "PUBLICATION_STATE_READ_REPAIR = False\n"
         'MIDDLEWARE = MIDDLEWARE + ["scripts.publication_tcp_observer.RouteMiddleware"]\n'
@@ -74,10 +75,17 @@ def test_current_matrix_tcp(request, tmp_path, record_property, count, fixture):
     env = os.environ.copy()
     env.update(
         POSTGRES_DB=connection.settings_dict["NAME"],
+        POSTGRES_USER=connection.settings_dict["USER"],
+        POSTGRES_PASSWORD=connection.settings_dict["PASSWORD"],
+        DB_HOST=connection.settings_dict["HOST"],
+        DB_PORT=str(connection.settings_dict["PORT"]),
+        APP_ENV="development",
+        DJANGO_DEBUG="0",
         DJANGO_SETTINGS_MODULE="tcp_runtime_settings",
         PYTHONPATH=str(tmp_path) + ":" + str(settings.BASE_DIR),
         PUBLICATION_TCP_EVENTS=str(tmp_path),
     )
+    record_property("runtime_debug", "False; explicitly aligned with clean HTTP load")
     samples = []
     process = None
     try:

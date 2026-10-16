@@ -2,6 +2,7 @@
 
 from contextlib import contextmanager
 from copy import copy
+from dataclasses import dataclass
 from functools import lru_cache
 from weakref import WeakMethod
 
@@ -9,7 +10,18 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.db import connection, transaction
 from django.db.backends.postgresql.base import ServerBindingCursor
-from django.db.models import Case, CharField, Exists, OuterRef, Prefetch, Q, Subquery, Value, When
+from django.db.models import (
+    Case,
+    CharField,
+    Exists,
+    F,
+    OuterRef,
+    Prefetch,
+    Q,
+    Subquery,
+    Value,
+    When,
+)
 from django.db.models.functions import Cast
 from django.forms.models import model_to_dict
 from django.utils.translation import get_language
@@ -22,7 +34,7 @@ from apps.safety.models import PrivacyPublicationHold, Restriction, RightsPhotoR
 
 from .forms import ContactsForm, DetailsForm, RateForm
 from .history import ordinary_matches, rectification_history_ids
-from .models import Revision
+from .models import Listing, Revision
 from .submissions import current_publishing_document
 
 
@@ -111,9 +123,30 @@ class SnapshotDetails(DetailsForm):
         return city.pk in postal._publication_cities
 
 
+@dataclass(frozen=True)
+class DetailQuery:
+    """Fresh request inputs for the fixed public-detail query shape."""
+    listing_id: object
+    now: object
+
+
+@lru_cache(maxsize=8)
+def _detail_query_template(document_version):
+    """Resolved structure only; filter() clones it before any row is read."""
+    return Listing.objects.filter(
+        status="published", approved_revision__status="approved",
+        approved_revision__listing_id=F("pk"),
+    ).annotate(**_publication_annotations(document_version))
+
+
 def publication_query(query, document):
     """Read fresh authority/history values using reusable query structure only."""
-    return query.annotate(**_publication_annotations(document.version if document else ""))
+    version = document.version if document else ""
+    if isinstance(query, DetailQuery):
+        return _detail_query_template(version).filter(
+            pk=query.listing_id, expires_at__gt=query.now,
+        )
+    return query.annotate(**_publication_annotations(version))
 
 
 @lru_cache(maxsize=8)

@@ -1,0 +1,195 @@
+{
+  "run": "20261016-125113-ab047032",
+  "status": "PASS",
+  "seconds": 193.9,
+  "reads": 1296,
+  "backends": 72,
+  "comparisons": [
+    {
+      "route": "/es/listing/7c9cb53b-01e3-4373-bc92-43a8ba723032/",
+      "metrics": {
+        "first6": {
+          "A": {
+            "wall": 0.09088718033550928,
+            "cpu": 0.04476823830555629,
+            "backend_runtime": 0.029705646125000002
+          },
+          "B": {
+            "wall": 0.0930859409337346,
+            "cpu": 0.049328852472222136,
+            "backend_runtime": 0.03040389622222222
+          },
+          "C": {
+            "wall": 0.08958353439164865,
+            "cpu": 0.042765941013888115,
+            "backend_runtime": 0.03063286570833333
+          }
+        },
+        "warm12": {
+          "A": {
+            "wall": 0.06215890959396751,
+            "cpu": 0.041562042180556605,
+            "backend_runtime": 0.008242554062499999
+          },
+          "B": {
+            "wall": 0.05829606132465415,
+            "cpu": 0.03961537465972271,
+            "backend_runtime": 0.007458169756944444
+          },
+          "C": {
+            "wall": 0.05544771868800227,
+            "cpu": 0.03592091335416657,
+            "backend_runtime": 0.008350780694444445
+          }
+        },
+        "all18": {
+          "A": {
+            "wall": 0.0717349998411481,
+            "cpu": 0.04263077422222317,
+            "backend_runtime": 0.015396918083333334
+          },
+          "B": {
+            "wall": 0.0698926878610143,
+            "cpu": 0.042853200597222516,
+            "backend_runtime": 0.01510674524537037
+          },
+          "C": {
+            "wall": 0.06682632392255107,
+            "cpu": 0.038202589240740416,
+            "backend_runtime": 0.01577814236574074
+          }
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "first6": {
+          "wall": 0.973876333386153,
+          "cpu": 0.9089747761678418,
+          "backend_runtime": 1.0192347009192937
+        },
+        "warm12": {
+          "wall": 0.9206381150589837,
+          "cpu": 0.8849976939976493,
+          "backend_runtime": 1.063744677057816
+        },
+        "all18": {
+          "wall": 0.9436901075880625,
+          "cpu": 0.8937953416749682,
+          "backend_runtime": 1.0345080324102343
+        }
+      },
+      "total_control_stable": true,
+      "nonregression_blocks": [
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "high_resolution_runtime": true,
+      "eligible_for_followup": true
+    },
+    {
+      "route": "/en/listing/85455fd7-448f-4950-954e-ed08b4520a85/",
+      "metrics": {
+        "first6": {
+          "A": {
+            "wall": 0.09978706211808862,
+            "cpu": 0.05046990276388996,
+            "backend_runtime": 0.03199415969444444
+          },
+          "B": {
+            "wall": 0.0977274044093469,
+            "cpu": 0.050677933666667445,
+            "backend_runtime": 0.03019157440277778
+          },
+          "C": {
+            "wall": 0.08709227122340558,
+            "cpu": 0.0422392548055544,
+            "backend_runtime": 0.030022258569444446
+          }
+        },
+        "warm12": {
+          "A": {
+            "wall": 0.06080379743879247,
+            "cpu": 0.04042537737500032,
+            "backend_runtime": 0.007563357979166667
+          },
+          "B": {
+            "wall": 0.06128781162098878,
+            "cpu": 0.0415939933055557,
+            "backend_runtime": 0.007480857368055555
+          },
+          "C": {
+            "wall": 0.055637250984242805,
+            "cpu": 0.03486393507638871,
+            "backend_runtime": 0.007652729229166667
+          }
+        },
+        "all18": {
+          "A": {
+            "wall": 0.07379821899855786,
+            "cpu": 0.0437735525046302,
+            "backend_runtime": 0.015706958550925926
+          },
+          "B": {
+            "wall": 0.07343434255044148,
+            "cpu": 0.04462197342592628,
+            "backend_runtime": 0.015051096379629628
+          },
+          "C": {
+            "wall": 0.0661222577306304,
+            "cpu": 0.0373223749861106,
+            "backend_runtime": 0.015109239009259258
+          }
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "first6": {
+          "wall": 0.881882454025798,
+          "cpu": 0.8351983847831203,
+          "backend_runtime": 0.9655673927562596
+        },
+        "warm12": {
+          "wall": 0.911401715690395,
+          "cpu": 0.8501390534237236,
+          "backend_runtime": 1.0173650207127185
+        },
+        "all18": {
+          "wall": 0.8982015531751073,
+          "cpu": 0.8444403626362506,
+          "backend_runtime": 0.9824573786198354
+        }
+      },
+      "total_control_stable": true,
+      "nonregression_blocks": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true
+      ],
+      "high_resolution_runtime": true,
+      "eligible_for_followup": true
+    }
+  ],
+  "eligible_for_followup": true,
+  "template_cache": "CacheInfo(hits=431, misses=1, maxsize=8, currsize=1)",
+  "limits": "Owned synthetic10k, actual WSGI without TCP/workers/upload/Beat. Both routes agency/agency clone.12balanced blocks/route, A/B same current product,C resolved unevaluated detail query template.6first+12warm,72fresh backends, Python and shared PG buffers already warm. GC normal, collect only before first request per arm. Timestamp component fixed equally, real signing. Own exact backend schedstat runtime, not cgroup CPU; parallel workers excluded if any. Tick counters retained with coarse resolution. Preparation separately recorded, no operational warmup or p95 acceptance.",
+  "cleanup_and_source_freeze": "independently verified"
+}

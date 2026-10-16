@@ -1,10 +1,10 @@
 """Opt-in detail-only resolved annotation template; no cached rows or authority."""
-import inspect
 import textwrap
 from dataclasses import dataclass
 from functools import lru_cache
 
 from django.db.models import F
+from owned_detail_rr_reference import INITIALIZER, VIEW
 
 from apps.listings import moderation_views, public_validation
 from apps.listings.models import Listing
@@ -43,7 +43,7 @@ def build_detail_template_view():
         # filter() clones the unevaluated QuerySet. Current ID/clock are not retained.
         return base.filter(pk=seed.listing_id, expires_at__gt=seed.now)
 
-    initializer = textwrap.dedent(inspect.getsource(public_validation.PublicationContext.__init__))
+    initializer = textwrap.dedent(INITIALIZER)
     before = 'publication_query(query, self.document)'
     assert initializer.count(before) == 1
     initializer = initializer.replace(before, 'resolved(query, self.document)')
@@ -51,13 +51,13 @@ def build_detail_template_view():
     exec(compile(initializer, '<owned-detail-query-template-context>', 'exec'), namespace)
     context = type('TemplateContext', (public_validation.PublicationContext,),
                    {'__init__': namespace['__init__']})
-    source = textwrap.dedent(inspect.getsource(moderation_views.public_detail))
+    source = textwrap.dedent(VIEW)
     before = '''Listing.objects.filter(
                     pk=listing_id, status="published", expires_at__gt=timezone.now(),
                     approved_revision__status="approved", approved_revision__listing_id=F("pk"),
                 )'''
     assert source.count(before) == 1
     source = source.replace(before, 'DetailSeed(listing_id, timezone.now())')
-    namespace = {**vars(moderation_views), 'PublicationContext': context, 'DetailSeed': DetailSeed}
+    namespace = {**vars(moderation_views), 'PublicationContext': context, 'DetailSeed': DetailSeed, 'F': F}
     exec(compile(source, '<owned-detail-query-template-view>', 'exec'), namespace)
     return namespace['public_detail'], template, retained

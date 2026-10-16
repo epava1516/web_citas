@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import signing
 from django.core.exceptions import ValidationError
 from django.db import connection, transaction
-from django.db.models import F, Q
+from django.db.models import Q
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -22,7 +22,7 @@ from .moderation import (
     unresolved_matches,
 )
 from .presentation import describe
-from .public_validation import PublicationContext, _prepared_page_binding
+from .public_validation import DetailQuery, PublicationContext, _prepared_page_binding
 
 
 class DecisionForm(forms.Form):
@@ -168,10 +168,7 @@ def public_detail(request, listing_id):
             cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
         with _prepared_page_binding(enabled=True):
             context = PublicationContext(
-                Listing.objects.filter(
-                    pk=listing_id, status="published", expires_at__gt=timezone.now(),
-                    approved_revision__status="approved", approved_revision__listing_id=F("pk"),
-                ), page_read=True, prepared_page=True,
+                DetailQuery(listing_id, timezone.now()), page_read=True, prepared_page=True,
             )
             if not context.rows:
                 raise Http404
