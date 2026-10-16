@@ -1,0 +1,28 @@
+{
+  "run": "20261016-000418-429fdc14",
+  "sha": "e5d2956df424e8173619328bcd276b8bc1b0cfa7",
+  "result": "1 PASS /49.11s",
+  "source_sha256": "7695bdf6ad8747f24167bdb983c17ecc524d199d893d889ac9ddea420c9d36f8",
+  "source_frozen_independent": true,
+  "cleanup": {
+    "controller_child_absent": true,
+    "runner_temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "no_remaining_object_test_labeled_containers": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "proved": [
+    "Young unreferenced object survives",
+    "Recovery mode and disabled storage prevent purge",
+    "Old orphan physically absent with S3 HEAD404",
+    "Referenced old object survives and decrypts to original bytes",
+    "Repeated purge returns0"
+  ],
+  "limits": [
+    "Synthetic clock advanced2days, not elapsed24hours",
+    "Real PG and RustFS through existing bounded fixture; repository factory injected with real repository",
+    "No hourly Beat dispatch or comprehensive retention acceptance"
+  ],
+  "preserved_failure": "20261016-000356-ba72c0a9: Ruff rejected fixture import; no functional tests, source freeze and cleanup independently checked"
+}

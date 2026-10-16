@@ -1102,3 +1102,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: test de transporte de conservación0b597ec,run235821-3978e752,1PASS110,77s.18registradas/17Beat→workerSUCCESSno-eager;huérfanoshorariosnoobservados. Efecto anuncio caducado/auditoría. Rutas hijo ybroker propios verificados, fuentes congeladas ycleanup independientes. FallosCLIprevio ymanifiesto235621-dcdcd4b1conservados;correccióninstrumento sinapp/cadencias. Evidenciacr09-retention-worker-beat-20261016.md. SinClaude/proveedores,consumo anterior intacto;CR09/N3abiertos.
+
+
+2026-10-16:7fa3c61testhuérfanos,000418-429fdc141PASS49,11s;PG/RustFSreales,reloj+2d explícito,referenciapreservada/desencriptable,huérfanoHEAD404,idempotencia. FalloRuff000356-ba72c0a9conservado;fuentes/cleanupverificados. Crosswalk18taskASTiguales/12reportsdirectosprevios/17Beat,limitacionesexpresas. Sinapp/cadencias/proveedores/nuevasllamadasClaude. Goalabierto.

@@ -1,0 +1,598 @@
+{
+  "sha": "e5d2956df424e8173619328bcd276b8bc1b0cfa7",
+  "rows": [
+    {
+      "task": "apps.safety.tasks.purge_expired_access_field_decision",
+      "implementation": "apps/safety/tasks.py",
+      "line": 230,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 242,
+          "fields": {
+            "encrypted_body": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "4424775f-04b2-4002-ab3f-24fd88d1085b"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.reconcile_retention_reviews",
+      "implementation": "apps/safety/tasks.py",
+      "line": 57,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "f8b19f24-02dc-4bab-b754-41fce1faa138"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "implementation": "apps/mediafiles/tasks.py",
+      "line": 41,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [],
+      "real_beat_success_ids": [
+        "8ebac96c-b37b-4339-8e31-fe281d480f9c"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.mediafiles.tasks.erase_media_files",
+      "implementation": "apps/mediafiles/tasks.py",
+      "line": 34,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [],
+      "real_beat_success_ids": [
+        "b9bb47b3-0e36-4ccf-adad-c4143647289f"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "implementation": "apps/safety/tasks.py",
+      "line": 50,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_account_email_confirmation.py::test_expired_confirmation_delivery_is_purged_without_erasing_audit",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "b317a7c9-bc4c-45a1-83c8-82231e21523f"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "implementation": "apps/safety/tasks.py",
+      "line": 212,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 224,
+          "fields": {
+            "encrypted_inventory": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "f7f3a7cc-14f3-4855-9fb8-c9a497bcb89f"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_coverage",
+      "implementation": "apps/safety/tasks.py",
+      "line": 194,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 206,
+          "fields": {
+            "encrypted_coverage": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+          "current_test_source_matches": false,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+          "current_test_source_matches": false,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+          "current_test_source_matches": false,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]",
+          "current_test_source_matches": false,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "f422e730-3a7f-4dd9-b0f0-63d6753bf5b7"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "implementation": "apps/safety/tasks.py",
+      "line": 172,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 184,
+          "fields": {
+            "encrypted_response": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "da0e6830-b642-4ae6-abbd-6f35befffe06"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "implementation": "apps/safety/tasks.py",
+      "line": 154,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 166,
+          "fields": {
+            "encrypted_response": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "fad12986-cc60-41ad-bca2-ea81f574a05f"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_coverage",
+      "implementation": "apps/safety/tasks.py",
+      "line": 136,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 148,
+          "fields": {
+            "encrypted_coverage": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "80eaa839-774b-4cd8-b93c-3aaa58903d66"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_selections",
+      "implementation": "apps/safety/tasks.py",
+      "line": 118,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 130,
+          "fields": {
+            "encrypted_selection": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_page_selection.py::test_page_selection_preserves_other_pages_and_rejects_stale_or_foreign_forms",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "4957a2c9-633b-4a92-b393-0ab68edf25dd"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_assessments",
+      "implementation": "apps/safety/tasks.py",
+      "line": 100,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 112,
+          "fields": {
+            "encrypted_assessment": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_rights_portability.py::test_expired_assessment_purge_preserves_audit_and_blocks_read",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "6497e117-7e7c-45d8-966e-28834d2ba38d"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_information",
+      "implementation": "apps/safety/tasks.py",
+      "line": 82,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 94,
+          "fields": {
+            "encrypted_information": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_copy_information.py::test_information_drafts_are_encrypted_versioned_replayable_and_purged",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "fb018110-ff48-4f1d-890b-3cb7630b3392"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "implementation": "apps/safety/tasks.py",
+      "line": 64,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 76,
+          "fields": {
+            "encrypted_entries": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_copy_page_review.py::test_encrypted_page_decisions_version_replay_and_purge_do_not_approve_copy",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_copy_page_review.py::test_erasure_inventory_tracks_page_content_and_purge_without_disclosing_it",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "f29fde61-aa90-4101-a3b6-af15228033f5"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_exports",
+      "implementation": "apps/safety/tasks.py",
+      "line": 31,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [
+        {
+          "line": 44,
+          "fields": {
+            "encrypted_content": "''"
+          }
+        },
+        {
+          "line": 45,
+          "fields": {
+            "encrypted_content": "''"
+          }
+        },
+        {
+          "line": 46,
+          "fields": {
+            "encrypted_payload": "''",
+            "purged_at": "now"
+          }
+        }
+      ],
+      "verified_direct_reports": [
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-access]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-portability]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-access]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-010758-a635c22e",
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-portability]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_data_parts.py::test_reviewed_large_copy_manifest_receipt_download_and_purge",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-081053-9720829d",
+          "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-064606-07f98b78",
+          "nodeid": "tests/test_rights_part_delivery.py::test_reviewed_part_download_is_scoped_audited_and_purged",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[False]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        },
+        {
+          "run": "20261015-024508-162c33cd",
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[True]",
+          "current_test_source_matches": true,
+          "raw_journal_pass_verified": true
+        }
+      ],
+      "real_beat_success_ids": [
+        "db45cd25-0351-483a-b533-18f2647c7151"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.listings.tasks.expire_listings",
+      "implementation": "apps/listings/tasks.py",
+      "line": 41,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [],
+      "real_beat_success_ids": [
+        "a9f7c4d4-9045-43a7-a2cc-a10de06ec4bc"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "implementation": "apps/safety/rights_object_delivery.py",
+      "line": 313,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [],
+      "real_beat_success_ids": [
+        "e6d95a4c-4c6e-4bee-a61e-9fdf2bf5e0c6",
+        "42737305-96bb-41d0-8490-331cd781899f",
+        "992641ae-02bd-4dea-ba06-2b631258304e",
+        "c54a932e-e010-442a-a7ca-2efe353fa41e",
+        "31e516b6-1ee6-4589-89cc-a1b1bc191363",
+        "38b1c72f-5a53-4fbc-941d-323ffc5a04f3"
+      ],
+      "hourly_not_observed": false
+    },
+    {
+      "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "implementation": "apps/safety/rights_object_content.py",
+      "line": 185,
+      "own_function_ast_equal_to_v3": true,
+      "inline_updates": [],
+      "verified_direct_reports": [],
+      "real_beat_success_ids": [],
+      "hourly_not_observed": true
+    }
+  ],
+  "limits": [
+    "Task-body equality does not prove transitive helper identity or whole criterion applicability.",
+    "Raw passed call does not prove every policy/exception/branch.",
+    "Empty task success proves transport, not populated deletion.",
+    "Inline field updates are code facts, not legal retention authorizations.",
+    "Index predates new expiry/orphan tests and excludes indirect helper coverage; six missing direct references are not six untested tasks."
+  ],
+  "acceptance": false,
+  "new_evidence": "cr09-orphan-retention-terminal-20261016.json"
+}

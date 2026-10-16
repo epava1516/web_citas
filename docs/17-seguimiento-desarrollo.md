@@ -2388,3 +2388,8 @@ Conservación:mapaestático18tareas/18implementacionesshared_task,sinconfigefect
 ### 2026-10-16 — conservación mediante Beat y worker propios
 
 Run `20261015-235821-3978e752`: 1 PASS/110,77 s. Registro efectivo de18 tareas;17 con cadencia hasta60s publicadas porBeat y terminadas SUCCESS/no-eager porworker, con IDs emparejados. Cadencias intactas; efecto real de anuncio sintético caducado y auditoría única. Huérfanos horario sólo registrado, sin despacho observado. Otras tareas sin contenido preparado: no inferir eficacia integral de purgas. Test0b597ec, evidencia `cr09-retention-worker-beat-20261016.md`, fuentes y limpieza independientes verificadas. Fallos de preparación conservados. Rendimiento, política de conservación integral yN3 pendientes.
+
+
+### 2026-10-16 — protección y eliminación de objetos huérfanos
+
+Run000418-429fdc14,1PASS49,11s con PG/RustFS reales. Test7fa3c61 comprueba día de gracia con reloj explícito, protección de referencia viva, recuperación/deshabilitación, borrado físico HEAD404 e idempotencia; no cambia aplicación ni acredita despacho horario. Fallo Ruff inicial conservado; fuentes/limpieza verificadas. Evidencia cr09-orphan-retention-20261016.md y conciliación de tareas/reports. Pendientes política/backups/aplicabilidad común/rendimiento intactos.
