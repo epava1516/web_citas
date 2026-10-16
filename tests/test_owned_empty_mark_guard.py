@@ -2,8 +2,8 @@
 import importlib
 import json
 import os
-import subprocess
 import statistics
+import subprocess
 import time
 import uuid
 from pathlib import Path
@@ -31,7 +31,12 @@ def test_owned_empty_mark_guard(request, record_property, protocol):
     assert connection.settings_dict['NAME'].startswith('test_promotion_gate_')
     pg_group = None
     if protocol == 'quiescent_cold':
-        from scripts.benchmark_owned_cpu_observer import cpu_delta, group_path, owned_pg_pid, read_group
+        from scripts.benchmark_owned_cpu_observer import (
+            cpu_delta,
+            group_path,
+            owned_pg_pid,
+            read_group,
+        )
 
         out = Path(request.config.getoption('--gate-timings-output')).parent
         run = json.loads((out/'runner.json').read_text())
