@@ -1171,3 +1171,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: clean025813-e0755597,SHA c0b6645,1FAIL184,72s;p951,173553838→1,013029795s(13,68%observado,no causal/reproducible),1200éxitos0errores/generadorválido. Logprivado no conservado,4readyPIDpendientes:no afirmarverificación. Fuente/cleanup/cgroupverificados;FAILnorepetir/900s,siguiente runtimecheckseparado+diagnósticoresidual. Evidenciacr09-worker-startup-clean-20261016.md/terminalJSON. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: runtimehook030340-1eb04223,1PASS41,62s;4PIDreadycoincidentesconbootantesprimerhealth200,logpreservado/masterexit0/hijosausentes. Cierra cableadoactual,no recuperalog025813. Fuente/cleanup/cgroupverificados. Siguiente diagnósticoingresscomponerhookproductoantesobservador(--configreemplaza default),nop95nuevo. Evidenciacr09-startup-runtime-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
