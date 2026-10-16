@@ -1231,3 +1231,12 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: privateDraftcontroles041511-8c2c87d2,2PASS51,68s;Rightsrefconservadora/bulkmezcla/rollback/DDLoriginalrestaurado/helperausente. Primer8testsASTcuerposintactosverificados,guardexplicitglobalañadido(SQLcandidatointacto). Fuentes/cleanup/cgroupverificadosambos. Prototipo0DirtysinMatch/nativeigual;escrituramáscostosa/ROIlecturaspendiente,noproducto/migración/p95. Evidenciacr09-private-draft-prototype-20261016.md+2terminalJSON. SiguientecontrasteROIantesdedependenciasfaltantes/N2. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: preparaciónROIprivatedraftbase3cdd0fa+testnuevohashcongelado:3bloquesAB/BA,ingest+processrealesseed782134+6lecturassecuencialeslist/search,10kPGpropio/4CPUcontrolador/PG1/memorialímiteshabituales/serial/timeout900. Incluyecosteescritura,stackimagenwarmprevio/cleanupdraftBlob/refreshafuera;esperadocuerposexactos/dirty1vs0/totalwallCPUporarm. SinCelery/Beat,persistedirty6readsnoescalendarioreal(posibleROIexagerado),noperfilador/noHTTPp95/N3. Siinconsistente/nobeneficiodescartarantesproducto;conservarfallos/cleanup. Sinproducción/Claude/proveedores,consumopreviointacto.
+
+
+2026-10-16: ROI041851-c193c98f1FAIL90,20santesdecompletarprimerarm:instrumentoreutilizópublicanteautenticado,CacheControlprivate,no-storecorrecto vsassertexactono-store. NoROIresultado/falloapp. Fuente/cleanup/cgroupverificados/originalcopiado. CorregidolectoranónimoClientseparadodeuploadcomocargacontractual,sinrelajarasserthash/header. Siguienterepetirsolonodoafectadoconmismoslímites/ABBA,guardarnegativo. SinClaude/proveedores/producción,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: ROIcorregido042145-9cacada5,1PASS103,25s;totalwall3bloques2,5972→1,9518/2,0265→1,8407/2,4994→1,9371s,CPUmejora,escrituralenta. Fuente/cleanup/cgroupverificados. SinHTTPp95/Celery;dirty6readsforzadopuedeexagerarROI. Evidenciacr09-private-draft-roi-20261016.md;primerinstrumentFAILconservado. AntesproductocontrolarpublicaciónconcurrentedraftmientrasBlobprivadouncommitted yrefreshnegativo. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
