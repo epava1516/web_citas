@@ -1,0 +1,80 @@
+{
+  "run": "artifacts/local-ci/20261016-091632-958b115a",
+  "matched": 1200,
+  "bins": [
+    {
+      "arrival_window": [
+        0,
+        1
+      ],
+      "count": 20,
+      "http_mean_seconds": 0.8320327439112589,
+      "service_mean_seconds": 0.3483502,
+      "outside_service_mean_seconds": 0.48368254391125887,
+      "offered_service_worker_seconds": 6.967004
+    },
+    {
+      "arrival_window": [
+        1,
+        2
+      ],
+      "count": 20,
+      "http_mean_seconds": 1.155849722889252,
+      "service_mean_seconds": 0.22751615,
+      "outside_service_mean_seconds": 0.928333572889252,
+      "offered_service_worker_seconds": 4.550323
+    },
+    {
+      "arrival_window": [
+        2,
+        5
+      ],
+      "count": 60,
+      "http_mean_seconds": 1.1165268478138992,
+      "service_mean_seconds": 0.18413615,
+      "outside_service_mean_seconds": 0.9323906978138993,
+      "offered_service_worker_seconds": 11.048169
+    },
+    {
+      "arrival_window": [
+        5,
+        10
+      ],
+      "count": 100,
+      "http_mean_seconds": 0.7664421130064875,
+      "service_mean_seconds": 0.18231050000000001,
+      "outside_service_mean_seconds": 0.5841316130064875,
+      "offered_service_worker_seconds": 18.23105
+    },
+    {
+      "arrival_window": [
+        10,
+        15
+      ],
+      "count": 100,
+      "http_mean_seconds": 0.3019658244727179,
+      "service_mean_seconds": 0.1739461,
+      "outside_service_mean_seconds": 0.12801972447271795,
+      "offered_service_worker_seconds": 17.39461
+    },
+    {
+      "arrival_window": [
+        15,
+        60
+      ],
+      "count": 900,
+      "http_mean_seconds": 0.20698939889721157,
+      "service_mean_seconds": 0.17913123333333333,
+      "outside_service_mean_seconds": 0.02785816556387825,
+      "offered_service_worker_seconds": 161.21811
+    }
+  ],
+  "files": {
+    "benchmark-samples.json": "07453b4b38ebb32556f50b07e372cf17286dfdf8bf28a2b4abadf9290520ea51",
+    "benchmark-server-service.json": "4b1a4685b492d661e9618024a81ea0197551f25df282295e76139c436cb91cc2",
+    "publication-samples.jsonl": "c1302803396086a71368fd0cd585f3d4d640a002f59cf76d07fee0056cfb8c68",
+    "celery-worker.log": "d1d2ff4e4e1e7b0c8bb95bb13fda81e11af1f2362158555d930e47086d540869"
+  },
+  "script_sha256": "bf75c9d0a1325f27f9d6e8b6028765972b4fd2a36eb9640918689385ffe00779",
+  "scope": "Offline per-ID subtraction; residual includes admission/parsing/network/client work, not exact socket queue. Gunicorn service includes response write, excludes admission/parsing. No causal attribution, new load, source mutation or profiler."
+}
