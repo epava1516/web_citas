@@ -2483,3 +2483,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: warmingressválido031208-ec0fd4c3,SHA9c9dead,1FAIL190,62s/4static_readypreorigen/1200paresWSGIéxitos0errores. p95instrumentado1,101181666s no clean;preWSGImean0–5s829,518msvsWSGI229,978ms;98,71%esperasumadacoincide4workersocupados. Asociaciónno colaexacta/causaexclusiva. Fuente/cleanup/cgroupverificados,evidenciacr09-warm-ingress-valid-20261016.md. SiguienteatruibuirocupantesSQL/CPU,nobarridoworkers. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: directoryCPU031726-7f274922,1PASS94,45s/8requests cProfilewarmsintético10k. Context284,648ms/render199,959ms instrumentadosanidados,norealclean. SQL031208disperso/noúnicodominante. Candidatoto_attr4prefetchcontextpropuesto,noappedit;contrastarsinperfiladorantesdecidir. Fuente/cleanup/cgroupverificados,evidenciacr09-directory-cpu-profile-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
