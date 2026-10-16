@@ -57,18 +57,25 @@ def test_owned_wsgi_close_release(request, monkeypatch):
             response.close()
     original_render = discovery.render
     closed = []
+    reverse_cycles = []
     def render_with_release(*args, **kwargs):
         response = original_render(*args, **kwargs)
         page = args[2]['page']
         rows = list(page.object_list)
         def release():
             # Prototype only: drop outgoing cache/list references after full response consumption.
+            count = 0
             for row in rows:
+                person = row._state.fields_cache.get('person')
+                if person is not None and person._state.fields_cache.get('listing') is row:
+                    count += 1
+                    del person._state.fields_cache['listing']
                 revision = row.approved_revision
                 if revision is not None:
                     getattr(revision, '_prefetched_objects_cache', {}).clear()
                     for name in ['categories', 'services', 'travel_areas', 'rates', 'photos']:
                         revision.__dict__.pop('_pv_' + name, None)
+            reverse_cycles.append(count)
             rows.clear()
             closed.append(True)
         response._resource_closers.append(release)
@@ -146,5 +153,6 @@ def test_owned_wsgi_close_release(request, monkeypatch):
             gc.disable()
     assert gc.get_debug()==flags and gc.isenabled()==enabled
     assert len(closed)==4
+    assert reverse_cycles == [24, 24, 24, 24], reverse_cycles
     out=Path(request.config.getoption('--gate-timings-output')).parent
-    (out/'wsgi-close-release.json').write_text(json.dumps(output,indent=2)+'\n')
+    (out/'wsgi-close-release.json').write_text(json.dumps({'routes':output,'reverse_identity_cycles_before_removal':reverse_cycles},indent=2)+'\n')
