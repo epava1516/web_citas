@@ -1240,3 +1240,12 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: ROIcorregido042145-9cacada5,1PASS103,25s;totalwall3bloques2,5972→1,9518/2,0265→1,8407/2,4994→1,9371s,CPUmejora,escrituralenta. Fuente/cleanup/cgroupverificados. SinHTTPp95/Celery;dirty6readsforzadopuedeexagerarROI. Evidenciacr09-private-draft-roi-20261016.md;primerinstrumentFAILconservado. AntesproductocontrolarpublicaciónconcurrentedraftmientrasBlobprivadouncommitted yrefreshnegativo. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: preparadocontrolprivate→publicracebase295e2a6+testnuevo:current/candidate,BlobreadyUPDATEabierto sobreDraftcompletoclonado/otraTxRevisionapproved+Listingpointer+refresh. Currentdebeobservarpublisherbloqueadoporwriter;protointentaesperarrefreshnegativoconwriterabierto,libera ycompara native/stored/dirty. Si falla protoconservar ycorregir/descartar,noappintegrada. SintéticoFKválido/directDB,nopruebadeaprobaciónhumana;PGpropio/4CPU/PG1/memorialímiteshabituales/serial/timeout900. Sourcefreeze/cleanup,conservarfallos. SinClaude/proveedores/producción,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: race042732-9dc1b45b2FAIL52,96sFieldErrorinstrumentoPublicationDirtylisting_idUUIDconsultadocomolistingFK;noresultadofinalrace. Fuente/cleanup/cgroupverificados/originalcopiado. Corregidoa listing_id=owner.pk,sinrelajassertefectos;repetirsólo2variantesconmismoslímites. Sinapp/Claude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: racecorregido042942-2efd668e1PASSactual1FAILproto53,09s. Proto trasA/Bcommits/refresco:nativoTrue/storedFalse/DirtyFalse;actualTrue/True/False,PGblockobservado. Source/cleanup/cgroupverificados/SQLoriginalesconservados. PrototiponointegrablepeseROI;pendienteserializaciónsinDirty+clausuradependencias/N2/ROIrevalidado. Evidenciacr09-private-publication-race-20261016.md/terminalJSON,FieldErrorprevio2FAIL52,96conservado. Sinapp/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
