@@ -1204,3 +1204,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: headroomfijo4/6sync034454-b82b1f50,1PASS121,50s/144HTTPbytesiguales/6servidoresreadyantesrequests. Mismo4CPU/memoria/PG;lotemejora4,2–5,5%,p95ráfagainconsistente(bloque2empeora),NOadoptarproducto/nocarga20rps/Celery/dirty/N2. Fuente/cleanup/cgroup/todosPIDverificados. Registroprevioseguimientoomitido,reconocidoen evidencia(noinventado). Evidenciacr09-sync-headroom-20261016.md. SinClaude/proveedores,consumopreviointacto;últimoclean1,013029795FAIL/CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: grafoASTparcial23Pythonal309607e,11396nodos45110aristas655comunidades0dangling131selfloops;resolucióncruzada/mergeguardnormal/clusteringterminal,backup/hashesconservados. AST0tokensmodelo,histórico/nativonoreportado(null),noproveedores/Claude. Docssemánticas/Dockerfilependientes/etiquetashubs,noahorrotimingdemostrado. BFScomunicacionestruncado,fuentesconfirmadas:nopruebacoberturacontrato. Evidenciacr09-graph-code-refresh-309607e-20261016.md/JSON;sinp95nuevo/aceptaciónCR09/N3/goalenterosabiertos.

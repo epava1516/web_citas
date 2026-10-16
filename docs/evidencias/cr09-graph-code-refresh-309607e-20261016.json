@@ -1,0 +1,51 @@
+{
+  "receipt": {
+    "code_cut": "309607e",
+    "prior_cut": "baeb062",
+    "files": {
+      "apps/listings/migrations/0020_publication_match_counterparts.py": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a",
+      "scripts/benchmark_ingress_observer.py": "db356708e10c7137331d1c0f62dc46bfe82b335e02d7d8a01280fdb8ceba5ce1",
+      "scripts/benchmark_worker_observer.py": "1f2a2d4e5d7a27ab3b8fe07fe3507fafa41d51fb3d01ee80c8d9c8e721e1380a",
+      "scripts/run_local_ci.py": "f0a14e51c57b35e9adfc9eadb448deba57619a134f730f715259a13a26b56a55",
+      "tests/test_benchmark_ingress_observer.py": "794a16aff70ba58ab06a1aec211e783457b5132fd718838b5d5de800bad63d68",
+      "tests/test_benchmark_worker_observer.py": "021bd604d756fc9a846d247b29a5bcccbe7e5fe96f6f9705e6aa2ff6f4814c99",
+      "tests/test_contract_http_load.py": "c1866bc0e53546e0a9c56746c7aad00a6cdb245716d4e0cb05c6563e976ccd75",
+      "tests/test_owned_context_list_consumers.py": "629b719eede52e597428b2e05a06140c4ac6af325762fabc35a89209af97d74f",
+      "tests/test_owned_context_to_attr.py": "db86aa3cf8ccf2fd3bab6ad06f95747aa1298ae258bc564c2adfa2f924c15300",
+      "tests/test_owned_count_partition.py": "fe1ca7cad41f1292932162698b13796409c82306fc6a9065799e7019ee558b33",
+      "tests/test_owned_directory_cpu_profile.py": "03fb2dd85da326e62176d429d3746cd3fc8c9d8e076aa838ed07a7f8c92c2727",
+      "tests/test_owned_publication_mark_cost.py": "b2863f83e289db86d422189677fc94af2c81c69dfcd39f0119a445a8218a92b5",
+      "tests/test_owned_static_warmup.py": "02c4fc34c8a14af6163d850ed3366b06717dccd59d4727700c764c4f071b834c",
+      "tests/test_owned_sync_headroom.py": "13acea133600fe4fbb134b8ba3a3e1245826d555e569996ae2e9a76480bffa8c",
+      "tests/test_owned_upload_cpu_profile.py": "6ee41bfb83ac9420c2edb2437f8a877c1e56f49d6d81670bacfee82c79feb3e3",
+      "tests/test_owned_upload_mark_cost.py": "cbf7c8afbba3b9568459184d59a53c78be79b995cbca175fbdeecc084a79f30c",
+      "tests/test_owned_upload_warm_profile.py": "e2e62ccde1da7beab1551d947ad4b64dbc51cf29b9a8d90d107d285bdb99b1a4",
+      "tests/test_owned_worker_startup_runtime.py": "8e00a35ae153dd798194f7b76523aef375df1c9ae042973e561d7f43f8fce330",
+      "tests/test_publication_match_dependency_edges.py": "d7b0d82ee708f389666bea461a2f84a2b9520c8ae274874039748e426669bad3",
+      "tests/test_publication_match_photo_dependency.py": "e8784850c7849626961dfb044c9b437e0e0f459d4c947d5aa2d9866d86209a8b",
+      "tests/test_worker_startup.py": "fc871b43fcd6c22d4b2f5103d5a9942ab42c5b36b94ad4d96afe14320bc06c03"
+    },
+    "nodes": 11396,
+    "edges": 45110,
+    "scope": "Targeted AST refresh only. Recent semantic documentation and Dockerfile are not refreshed. Tracked Python changes since baeb062 only; new tests and worker startup included. Not a full corpus update.",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "token_scope": "Deterministic AST only; no LLM invoked; previous semantic/native usage preserved."
+  },
+  "health": {
+    "nodes": 11396,
+    "edges": 45110,
+    "dangling": 0,
+    "self_loops": 131,
+    "communities": 655,
+    "ast_model_tokens": 0,
+    "historical_semantic_tokens": null,
+    "native_review_tokens": null,
+    "scope": "23 tracked Python files to309607e only; prior semantics unchanged. Hub labels after clustering, no new LLM naming."
+  },
+  "graph_sha256": "507d82e3833325b9c182182e7003f0fcfcce0cdf22dee2bfc237a1cf59c8e0f1",
+  "report_sha256": "3e9944ce2db9819948f7f4dc55a5f1455d458be9ad662fc669397f1db149cd57",
+  "acceptance": false
+}
