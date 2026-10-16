@@ -1174,3 +1174,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: runtimehook030340-1eb04223,1PASS41,62s;4PIDreadycoincidentesconbootantesprimerhealth200,logpreservado/masterexit0/hijosausentes. Cierra cableadoactual,no recuperalog025813. Fuente/cleanup/cgroupverificados. Siguiente diagnósticoingresscomponerhookproductoantesobservador(--configreemplaza default),nop95nuevo. Evidenciacr09-startup-runtime-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: composiciónhookproducto+ingresscondicionalPREPARE_STATIC=1,controles030616-d1e70da7 PASS;fuentes/cleanupverificados. Añadidamarca static_ready porPIDtrascontroles,diagnósticorealverificará4marcas. Manifestdeclaraopción. Siguientediagnóstico60snoaceptación,norepeticióncleanFAIL. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.

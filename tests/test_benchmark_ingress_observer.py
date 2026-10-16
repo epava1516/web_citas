@@ -44,3 +44,23 @@ def test_service_ledger_preserves_ids_and_rejects_duplicates_nonfinite_without_p
                                  dict(id='d-5', status=200, service_seconds=.21)]
     assert len(result['parse_errors']) == 4
     assert 'secret' not in str(result)
+
+
+def test_ingress_composes_product_startup_before_observer(tmp_path, monkeypatch):
+    monkeypatch.setenv('WEB_MODELOS_BENCHMARK_OBSERVER_DIR', str(tmp_path))
+    monkeypatch.setenv('WEB_MODELOS_BENCHMARK_PREPARE_STATIC', '1')
+    monkeypatch.setitem(connection.settings_dict, 'NAME', 'test_promotion_gate_own_control')
+    calls = []
+    worker = SimpleNamespace(wsgi=lambda *args: [])
+    def prepare(target):
+        assert target is worker and not hasattr(target, '_benchmark_observer')
+        calls.append('prepared')
+    monkeypatch.setattr('config.worker_startup.post_worker_init', prepare)
+    before = list(connection.execute_wrappers)
+    try:
+        post_worker_init(worker)
+        assert calls == ['prepared'] and hasattr(worker, '_benchmark_observer')
+    finally:
+        if hasattr(worker, '_benchmark_observer'):
+            worker_exit(None, worker)
+        connection.execute_wrappers[:] = before

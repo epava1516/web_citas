@@ -213,6 +213,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         observer_args = ["--config", "python:" + module]
     manifest = {
         "refresh_mode": refresh_mode,
+        "diagnostic_static_startup": ingress_only and os.environ.get("WEB_MODELOS_BENCHMARK_PREPARE_STATIC") == "1",
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "server_topology": topology,
         "dataset": dataset,
