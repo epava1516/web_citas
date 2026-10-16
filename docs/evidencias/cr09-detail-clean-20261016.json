@@ -1051,6 +1051,44 @@
     {
       "route": "/es/",
       "count": 200,
+      "p95_seconds": 0.6994989891536534
+    },
+    {
+      "route": "/en/",
+      "count": 200,
+      "p95_seconds": 0.688689602073282
+    },
+    {
+      "route": "/es/?q=photography",
+      "count": 200,
+      "p95_seconds": 0.6756881410256028
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "count": 200,
+      "p95_seconds": 0.8137647421099246
+    },
+    {
+      "route": "/es/listing/2165af82-9924-4324-9604-d0127e6d8b63/",
+      "count": 200,
+      "p95_seconds": 0.6076818942092359
+    },
+    {
+      "route": "/en/listing/90cb9f92-45e1-4fb8-888d-3c5220dce34b/",
+      "count": 200,
+      "p95_seconds": 0.5757026602514088
+    }
+  ],
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "previous_clean_p95_seconds": 1.052089654840529,
+  "current_clean_p95_seconds": 0.6756881410256028,
+  "observed_reduction_percent": 35.77656258505644,
+  "limits": "One clean short PASS. Reproducibility, long run, common final regression and CR09/N3 acceptance remain unproven. Difference is observational, no single-cause claim.",
+  "original_cases_included_generator_delay": [
+    {
+      "route": "/es/",
+      "count": 200,
       "p95_seconds": 0.7012755860574543
     },
     {
@@ -1079,10 +1117,5 @@
       "p95_seconds": 0.5767993171699342
     }
   ],
-  "freeze_verified": true,
-  "cleanup_independently_verified": true,
-  "previous_clean_p95_seconds": 1.052089654840529,
-  "current_clean_p95_seconds": 0.6756881410256028,
-  "observed_reduction_percent": 35.77656258505644,
-  "limits": "One clean short PASS. Reproducibility, long run, common final regression and CR09/N3 acceptance remain unproven. Difference is observational, no single-cause claim."
+  "case_metric_correction": "Route p95 now ended_at minus emitted_at, matching benchmark_accounting observable metric. Original scheduled_at-based route values retained; global p95 and verdict unchanged."
 }

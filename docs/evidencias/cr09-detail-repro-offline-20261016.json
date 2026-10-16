@@ -1,0 +1,163 @@
+{
+  "runs": [
+    {
+      "run": "20261016-104400-dcd7db55",
+      "paired_ids": 1200,
+      "bins": [
+        {
+          "arrival_window": [
+            0,
+            1
+          ],
+          "count": 20,
+          "mean_http_seconds": 0.5490443413611501,
+          "mean_service_seconds": 0.2984617,
+          "mean_paired_residual_seconds": 0.25058264136115016,
+          "slow_800ms": 2,
+          "service_worker_seconds": 5.969233999999999
+        },
+        {
+          "arrival_window": [
+            1,
+            2
+          ],
+          "count": 20,
+          "mean_http_seconds": 0.8365744722541422,
+          "mean_service_seconds": 0.2268704,
+          "mean_paired_residual_seconds": 0.6097040722541421,
+          "slow_800ms": 12,
+          "service_worker_seconds": 4.537408
+        },
+        {
+          "arrival_window": [
+            2,
+            5
+          ],
+          "count": 60,
+          "mean_http_seconds": 0.7206579544814303,
+          "mean_service_seconds": 0.1757463,
+          "mean_paired_residual_seconds": 0.5449116544814303,
+          "slow_800ms": 19,
+          "service_worker_seconds": 10.544778
+        },
+        {
+          "arrival_window": [
+            5,
+            10
+          ],
+          "count": 100,
+          "mean_http_seconds": 0.24999690434895455,
+          "mean_service_seconds": 0.16471483,
+          "mean_paired_residual_seconds": 0.08528207434895456,
+          "slow_800ms": 0,
+          "service_worker_seconds": 16.471483
+        },
+        {
+          "arrival_window": [
+            10,
+            15
+          ],
+          "count": 100,
+          "mean_http_seconds": 0.2245549803134054,
+          "mean_service_seconds": 0.18304017,
+          "mean_paired_residual_seconds": 0.0415148103134054,
+          "slow_800ms": 0,
+          "service_worker_seconds": 18.30401699999999
+        },
+        {
+          "arrival_window": [
+            15,
+            60
+          ],
+          "count": 900,
+          "mean_http_seconds": 0.18603034005914298,
+          "mean_service_seconds": 0.1716661711111111,
+          "mean_paired_residual_seconds": 0.014364168948031863,
+          "slow_800ms": 0,
+          "service_worker_seconds": 154.49955400000002
+        }
+      ]
+    },
+    {
+      "run": "20261016-104826-a7511148",
+      "paired_ids": 1200,
+      "bins": [
+        {
+          "arrival_window": [
+            0,
+            1
+          ],
+          "count": 20,
+          "mean_http_seconds": 0.6875651622191071,
+          "mean_service_seconds": 0.3219468,
+          "mean_paired_residual_seconds": 0.36561836221910715,
+          "slow_800ms": 5,
+          "service_worker_seconds": 6.438936
+        },
+        {
+          "arrival_window": [
+            1,
+            2
+          ],
+          "count": 20,
+          "mean_http_seconds": 1.080540820537135,
+          "mean_service_seconds": 0.24277175,
+          "mean_paired_residual_seconds": 0.837769070537135,
+          "slow_800ms": 20,
+          "service_worker_seconds": 4.855435
+        },
+        {
+          "arrival_window": [
+            2,
+            5
+          ],
+          "count": 60,
+          "mean_http_seconds": 0.9252703812982266,
+          "mean_service_seconds": 0.17497856666666667,
+          "mean_paired_residual_seconds": 0.7502918146315599,
+          "slow_800ms": 48,
+          "service_worker_seconds": 10.498714000000003
+        },
+        {
+          "arrival_window": [
+            5,
+            10
+          ],
+          "count": 100,
+          "mean_http_seconds": 0.3062867657188326,
+          "mean_service_seconds": 0.16102986,
+          "mean_paired_residual_seconds": 0.1452569057188326,
+          "slow_800ms": 0,
+          "service_worker_seconds": 16.102986000000005
+        },
+        {
+          "arrival_window": [
+            10,
+            15
+          ],
+          "count": 100,
+          "mean_http_seconds": 0.21611432896461338,
+          "mean_service_seconds": 0.17880012,
+          "mean_paired_residual_seconds": 0.03731420896461338,
+          "slow_800ms": 0,
+          "service_worker_seconds": 17.880011999999997
+        },
+        {
+          "arrival_window": [
+            15,
+            60
+          ],
+          "count": 900,
+          "mean_http_seconds": 0.18752525569353667,
+          "mean_service_seconds": 0.17193533444444445,
+          "mean_paired_residual_seconds": 0.015589921249092222,
+          "slow_800ms": 0,
+          "service_worker_seconds": 154.74180099999992
+        }
+      ]
+    }
+  ],
+  "method": "Pair each completed dynamic by exact request ID; arithmetic means of HTTP, service and per-ID residual. Cohorts selected by scheduled arrival. Never subtract percentiles.",
+  "limits": "Residual combines admission/parsing/network/client timing and is not an exact socket queue. Service timing omits some pre-WSGI work. Cohorts are requests by arrival time, not CPU measured in that interval. No profiler or new load.",
+  "conclusion": "Reproduction failure is concentrated in first five seconds. Later steady-state cohorts are below target in this fixture. Does not establish a unique cause or permit excluding early arrivals."
+}
