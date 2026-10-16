@@ -95,3 +95,6 @@ Reutilizar controles cerrados y reabrir solo por defecto, regresión o criterio 
 ## Historial de auditoría
 
 [Corte previo a consolidación](17-historial/2026-10-09-83-auditoria-pendientes-cr09-antes-consolidacion-contrato.md) y [copia previa a organización](17-historial/2026-10-09-83-auditoria-pendientes-cr09-antes-organizacion.md), preservadas con SHA-256 en el [manifest](historial-documentacion.json). Conservan los antiguos bloqueos, resultados y criterios tal como se registraron; el contrato vigente determina cómo se ejecuta y acepta ahora.
+
+
+[Docker v9 integrado](evidencias/cr09-docker-native-v9-20261016.md): fuente f4125c9, build/runtime PG PASS; módulo privado corregido con huella exacta host/imagen y anónimo302login. Ocho rutas200/no-store, cuatro firmas, health200/ausente404, esquema0022 y funciones conservadoras, once paridades nativas. Cuatro workers preparados, DEBUG0 y cuotas/aislamiento comprobados; unidad terminal0, fuentes congeladas y limpieza independientes. Replay completo acreditado sólo por los siete casos CI separados. Imágenes v8/v9 retenidas sin publicación. No nueva métrica ni aceptación N3/CR09; último p95 limpio0,862172866FAIL.

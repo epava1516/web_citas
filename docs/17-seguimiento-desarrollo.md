@@ -2929,3 +2929,11 @@ Fallo funcional reproducido142429-80ba3641(1FAIL45,99s):primerPOSTrepresentation
 [CorrecciónreplayHTTP](evidencias/cr09-representation-http-replay-fixed-20261016.md):142911-39b4adeb,7PASS93,97s,freeze/cleanupverificados. NuevoFKsubjectNone completa retirada+cierre302/replay302 yavisocontactocaso,noowner;clave nueva/malformada400 ypayloadcambiadomismaclave409sin duplicaciones. Seiscontrolesexistentesrespuestas conformes. Defectooriginal400conservado,no app/provider simcomoverificaciónrealidentidad. [Cuatroescenariosacceso](evidencias/cr09-rights-scenario-applicability-20261016.md)reutilizablesensualcanceconhashes/journals/ASTdebranchpositiva,noN3ni lecturageneralarchivos.
 
 Colasiguientedeintegración:actualizargrafoASTde rights_responses/testhelpers y reconstruir runtimeDocker(v8precedeesteúnicomóduloprivadocorregido),incluyendohuellaexplícita delmódulo. No volveracorto/900:últimopúblico0,862172866FAILyesta correcciónnoexplicaSLO. Continuar matrizpor derechos/finalidad/comunicaciones/N3 sin afirmarcompletitudporselecciones.
+
+
+GrafoAST f4125c9:actualizados rights_responses.py ydosmódulosdetest;11757nodos/46384aristas,0referenciashuérfanas,0tokensLLM;backup/recibo artifacts/cr09-replay-graph-20261016. Alcanceparcial,nodocssemánticosotrosdiagnósticos,consumopreviopreservado.
+
+PrerregistroDockerv9:fuente f4125c9 privado replayfix,conservarv8;igualesconstructor,cuotas,DEBUG0,redinterna,PGreal0022,nativos/11casos,8rutaspositivasESEN4firmas+health200/UUID404. Añadirhuellareal demóduloprivadohost/imagenypruebaruta responseanónima302login sinseguirredirect. No simular replayscomopruebacontainer:flujoauténticoprobadopor7casosCIseparados,nopresentarlogin302comoverificaciónidempotencia. Sinp95nuevo niN3/push/despliegue.
+
+
+[Docker v9 integrado](evidencias/cr09-docker-native-v9-20261016.md): fuente f4125c9, build/runtime PG PASS; módulo privado corregido con huella exacta host/imagen y anónimo302login. Ocho rutas200/no-store, cuatro firmas, health200/ausente404, esquema0022 y funciones conservadoras, once paridades nativas. Cuatro workers preparados, DEBUG0 y cuotas/aislamiento comprobados; unidad terminal0, fuentes congeladas y limpieza independientes. Replay completo acreditado sólo por los siete casos CI separados. Imágenes v8/v9 retenidas sin publicación. No nueva métrica ni aceptación N3/CR09; último p95 limpio0,862172866FAIL.

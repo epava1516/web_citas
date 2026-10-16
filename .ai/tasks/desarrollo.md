@@ -1346,3 +1346,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local:4escenariosaccesorawPASS/hashes/ASTbranchpositivaconciliados;8controlesretiradaactualPASS. NuevavariantePerson.subjectNone pasóretirada ydescubrióreplayHTTPcerrado400;fallopreservado,correcciónvistamantieneopciónsóloclaveexistentescopada/actorconbackend revalidando.7PASS93,97s versióncorrectiva,owner no prestado/aviso alcontactodelcaso. Nuevoshelpersdetest/sinmigración. Próximografo/runtimeactual;noinvocacionesClaude ni cambio deconsumoanterior. P95FAIL/CR09/N3 abiertos.
+
+
+[Docker v9 integrado](evidencias/cr09-docker-native-v9-20261016.md): fuente f4125c9, build/runtime PG PASS; módulo privado corregido con huella exacta host/imagen y anónimo302login. Ocho rutas200/no-store, cuatro firmas, health200/ausente404, esquema0022 y funciones conservadoras, once paridades nativas. Cuatro workers preparados, DEBUG0 y cuotas/aislamiento comprobados; unidad terminal0, fuentes congeladas y limpieza independientes. Replay completo acreditado sólo por los siete casos CI separados. Imágenes v8/v9 retenidas sin publicación. No nueva métrica ni aceptación N3/CR09; último p95 limpio0,862172866FAIL.
