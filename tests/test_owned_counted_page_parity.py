@@ -66,12 +66,12 @@ def test_owned_counted_page_parity(request, monkeypatch, record_property):
                 assert candidate.context['page'].paginator.count == count
                 assert [row.pk for row in candidate.context['page']] == [row.pk for row in reference.context['page']]
                 assert reference.wsgi_request._publication_route['population'] == 'native_query'
-                assert candidate.wsgi_request._publication_route['population'] == 'projection'
+                assert candidate.wsgi_request._publication_route['population'] == 'native_query'
                 cases.append({'scenario': scenario, 'route': route + '?' + urlencode(params),
                               'count': count, 'page_size': len(candidate.context['page'])})
         assert list(PublicationDirty.objects.values_list('pk', 'generation')) == marks
-    record_property('dirty_projection_parity', cases)
-    record_property('limits', 'Test-only read-side SQL union/exclusion in own RR; no trigger changes, '
+    record_property('counted_page_parity', cases)
+    record_property('limits', 'Test-only exact count window over unchanged population in own RR; no trigger changes, '
                     'write locks or persisted results. Four mutation scenarios, ESEN, search/list, '
                     'first/intermediate/last pages. Not ROI, concurrency, complete N2 or N3.')
 

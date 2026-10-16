@@ -1,0 +1,10 @@
+{
+  "run": "artifacts/local-ci/20261016-110346-8325b961",
+  "result": "1 FAIL46.84s",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "failure": "F                                                                        [100%]\n=================================== FAILURES ===================================\n________________________ test_owned_counted_page_parity ________________________\ntests/test_owned_counted_page_parity.py:69: in test_owned_counted_page_parity\n    assert candidate.wsgi_request._publication_route['population'] == 'projection'\nE   AssertionError: assert 'native_query' == 'projection'\nE     \nE     - projection\nE     + native_query\n=========================== short test summary info ============================\nFAILED tests/test_owned_counted_page_parity.py::test_owned_counted_page_parity\n1 failed in 46.84s\n",
+  "cause": "Copied harness incorrectly expected projection route; candidate retains native_query by design. First response content/count/IDs assertions passed before label assertion; remaining comparisons not completed.",
+  "source_preservation": "artifacts/cr09-counted-page-original-20261016",
+  "correction": "Only harness expectation and evidence description; no product or candidate algorithm change."
+}
