@@ -1222,3 +1222,12 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: draftdependency040358-0c5d659d,1PASS89,01s;ingest/processcadauno1Dirtyowner/0Match/nativeeligibleTrueinvariable,6markcalls(1,833/2,617ms). ProcessPhoto.comparison_complete+Blobwritesinvalidan;indirectoHTTP/p95no medido. Fuente/cleanup/cgroupverificados. Diseñoacotadoborradoresindependientespendienteprototipo+clausuradependencias,noeliminartriggers/Match0020. Evidenciacr09-draft-upload-dependency-20261016.md. Sinapp/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: preparadoprototipoPGprivatedraft(helpersólotests,noapp/migración),basea8571b2+2fuentesnuevashashcongelado. HelperVOLATILEparaversnapshotAFTERstatement;3funcionesoriginalesguardadas/restauradas,DELETE/TRUNCATEconservadores. ExcepciónsóloDraftnoapproved/noMatch/noRefsDerechos;RevisionUPDATEmetadataedit_version/updated_atsolamente,otroscamposoriginal. 8controles:upload/process10knodirtynativeigual+5escriturassignificativas/unknown+2Matchorientaciones. PGpropio/4CPUcontrolador/PG1/límiteshabituales/serial/timeout900;esperadonoDirtyindependiente/Dirtydependenciasreales/nativeparidad/restauración/cleanup. SinSQLexterno/producto/SLOmodificado,noaceptaciónN3. RufffalloinicialF841helpercorregidoantesdeejecutar.
+
+
+2026-10-16: prototipo041048-d8f5922f,8PASS140,05s;ingest/process0Dirty/nativeigual/0Match,5fallbacksignificativas+2MatchorientacionesretienenDirty. Noapp/migración/p95. Fuente/cleanup/cgroupverificados,fuentesoriginalescopiadas. CostePGhelperaumenta(escrituras),ROIlecturaspendiente. Añadidos2controlesderechos/bulkrollback yverificaciónDDLrestaurado/guardexplicittodasnodes;selecciónsiguiente2nuevos sólo,notestcuerposanteriorescambiados. Esperado refsconservadoras/OLDNEWbulk/rollback/sourcecleanup. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: privateDraftcontroles041511-8c2c87d2,2PASS51,68s;Rightsrefconservadora/bulkmezcla/rollback/DDLoriginalrestaurado/helperausente. Primer8testsASTcuerposintactosverificados,guardexplicitglobalañadido(SQLcandidatointacto). Fuentes/cleanup/cgroupverificadosambos. Prototipo0DirtysinMatch/nativeigual;escrituramáscostosa/ROIlecturaspendiente,noproducto/migración/p95. Evidenciacr09-private-draft-prototype-20261016.md+2terminalJSON. SiguientecontrasteROIantesdedependenciasfaltantes/N2. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
