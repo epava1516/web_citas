@@ -1,0 +1,133 @@
+{
+  "run": "20261016-033436-d7ebe010",
+  "sha": "ba4a624a50010017ed4a0d45a49fc89e145566d4",
+  "passed": 24,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "cases": [
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-False]",
+      "seconds": "59.378"
+    },
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-True]",
+      "seconds": "15.741"
+    },
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-False]",
+      "seconds": "19.596"
+    },
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-True]",
+      "seconds": "13.686"
+    },
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_final_response_does_not_change_historical_fifty_response_read_boundary",
+      "seconds": "15.102"
+    },
+    {
+      "class": "tests.test_rights_portability_close",
+      "name": "test_closed_portability_delivers_exact_image_and_package_and_rolls_back_tampering",
+      "seconds": "27.400"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[replay]",
+      "seconds": "15.387"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[author_permission]",
+      "seconds": "13.504"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[author_session]",
+      "seconds": "12.887"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[author_mfa]",
+      "seconds": "14.374"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[reviewer_permission]",
+      "seconds": "13.228"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[reviewer_session]",
+      "seconds": "14.213"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[reviewer_mfa]",
+      "seconds": "14.595"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[proof]",
+      "seconds": "12.805"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[source]",
+      "seconds": "14.498"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[ciphertext]",
+      "seconds": "13.822"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[expiry]",
+      "seconds": "12.816"
+    },
+    {
+      "class": "tests.test_rights_portability_close_races",
+      "name": "test_closure_revalidates_after_observed_lock_wait[decision]",
+      "seconds": "14.405"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_labels_invalid_partial_and_revocation[False-es]",
+      "seconds": "16.583"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_labels_invalid_partial_and_revocation[False-en]",
+      "seconds": "15.187"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_labels_invalid_partial_and_revocation[True-es]",
+      "seconds": "12.785"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_labels_invalid_partial_and_revocation[True-en]",
+      "seconds": "13.767"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_form_values_legacy[es]",
+      "seconds": "1.182"
+    },
+    {
+      "class": "tests.test_access_close_localization",
+      "name": "test_close_form_values_legacy[en]",
+      "seconds": "1.538"
+    }
+  ],
+  "sources_frozen": true,
+  "cleanup_independent": true,
+  "acceptance": false
+}

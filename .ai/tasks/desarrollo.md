@@ -1198,3 +1198,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: reconciliadas referencias vigentes83/88(p95clean1,013029795FAIL/imagenv4/noN3). Siguiente selección pertinente portabilidadclose/races/accesslocalization sobre48736e9+docs: motivo0020globalmark y erasure/recovery posteriores a base8fb4cf1. Esperado exactapproval/idempotencia/contentdelivery/manipulación/PGobservedwaitrevocación/ESEN;PGpropio/recursoslimitados/unaejecución. No aceptaciónintegral/repeticiónporrutina ni cargaHTTPnueva. Fuentescongelar hasta terminal,conservarfallos/cleanup. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: portabilidadactual033436-d7ebe010,SHAba4a624,24PASS379,39s/0fallos/errores/skips:6cierre/entrega/12racesPGobservados/6localizaciónChromiumESEN+valores. Fuentecongelada/runner/hijo/temp/contenedores/cgroupvacío verificadosindependientes. Evidenciacr09-portability-current-20261016.md/terminalJSON,matrix83enlazada. Alcanceparcialpertinentea0020/erasure/recovery,nosumaN3/aceptaciónportabilidadintegral. Sinp95nuevo/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
