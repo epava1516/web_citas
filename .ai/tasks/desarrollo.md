@@ -1355,3 +1355,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 [Diagnóstico py-spy de carga fallido](evidencias/cr09-load-worker-pyspy-original-20261016.md): selector de descendientes devuelve cero masters; cero attach/capturas, controlador1 conservado, causa no demostrada. CI145039-c676f65f termina1PASS185,13s/p95observable0,738744505/1200sinerror, sin perfilador realmente adjuntado; fuentes/limpieza independientes conformes. No aceptación por esta muestra aislada ni causa atribuida; anterior limpio0,862172866FAIL. Próximo paso selector en árbol Gunicorn sintético propio sin carga contractual, no repetición ciega.
+
+
+[Captura cuatro workers bajo carga](evidencias/cr09-load-worker-pyspy-20261016.md): correctiva145637-953c2407, ocho trazas tool0/identidadworker viva,2735muestrasiniciales/2882intermedias; unidad0/freeze/cleanup independientes. CI1FAIL/p95instrumentado0,938076341/1200sinerror, conservado y no aceptación. CompiladorSQL35,2%/32,7%,formas33,8%/30,3%,PublicationContext42,5%/45,4% inclusivosGILsolapados, no cuotasCPU/p95; distribucionesparecidas,no causaexclusivafría. Selectorallthreadchildrencontrolado, causalidaddefalloanterior no demostrada. Siguiente paso: revisar costes concretos contra candidatos ORM/formularios previamente descartados; no cambiar ni repetir carga por coincidencias generales. CR09/N3 abiertos.
