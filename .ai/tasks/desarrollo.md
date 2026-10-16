@@ -1340,3 +1340,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local: restorePG actual0022 revalidado3PASS72,59s;extensióncopiatemporalrealrestaurada1PASS54,54s,carga/imágenes/partesvacías ymetadataauditpreservada. FalloUUIDdearnés anterior preservado/corregido,fuentes/cleanupDB/PID/contenedoresverificados. Sinappcambiada/nuevasinvocacionesClaude;consumoanterior intacto. PróximoruntimeDockeractual;CR09/N3/p95FAILabiertos.
+
+
+2026-10-16 Codex local:Docker v8fuente9d122b0/productoaf914b9build/runtimerealPGPASS;finalDEBUG0/8rutas200/firmas/negativo404,esquema0022/nativos,cuotas/cleanupcomprobados. Pasadadev inicialpreservada;imagencab33d24…retenida,ningúnpush/despliegue/proveedor. SininvocacionesClaude,consumoanteriorintacto. CR09/N3/p95FAILabiertos;próximaconciliaciónescenariosderechos/finalidad.
