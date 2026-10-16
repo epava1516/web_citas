@@ -1,0 +1,9 @@
+# CR09: destinatario revocado durante bloqueo observado
+
+Ejecuciónreforzada035615-b6d4e2ac,SHA65bfa04,**10PASS149,68s/0FAIL/0ERROR/0SKIP**. Primera035242-1d332040:10PASS152,30s,sinasercióndirectadedescifrado;ambasconservadas,no20casosúnicos. No defecto de aplicación observado ni cambio deproducto.
+
+Matriz2operaciones(inspect/acknowledge)×5revocaciones(session_version,mfa_version,is_active,mfa_enabled,account_erased_at). Fixturespreparan ejecuciónrealdesupresión y revisiónindependiente/deliver,habilitanMFArealfixtureydescifranválidamenteunavisopositivo. El worker obtiene usuarioantesderevocación,sebloqueaporPerson.select_for_update;parentobservapg_blocking_pids,revocaUserenBDylibera. Operacióndebenegar. checked_bodydelmóduloavisossustituidoporfaildespuésdefixturepositiva:pruebaquenoseintenta descifrar ni leerevidencia deavisos trasrevocación. Noauditoríaread/ackadicional,acuseausente,payloadcifradointacto.
+
+PG17.11/Redispropios/Python3.12.15/nativehostca3c,4CPUcontrolador3584MiBswap0pids512/PG1CPU1536MiB/Redis0,2CPU128MiB,serial. Fuentesigualesantesdeeditar;runner/hijo/temp/contenedoresausentesindependientes;unidadinactive/MainPID0/ControlGroupvacío. JUnit/reportsporcaso/source-hashes/resulten artifacts/local-ci/20261016-035615-b6d4e2ac. RegistroporcasoenJSONadjunto.
+
+Cubre espera yrevocacióndestinatarioenbuzónlocaldelperfil,concreta loscontrolesanteriores sobreautoridadyarevocada. Noevidenciadetodosderechos/roles/canales/transportes,nideentregaexterna. NoN3/versióncomúnycoberturaintegralporcombinaciones. Últimop95clean1,013029795FAIL,ningunamétricanueva/rendimientoaceptado. Sinproducción/datosreales/proveedores/Claude,consumopreviointacto. CR09/N3/contratoenterosabiertos.

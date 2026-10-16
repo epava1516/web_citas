@@ -1213,3 +1213,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: destinatarioraces035242-1d332040,10PASS152,30s/0errores/skips;PGwaitobservado→revocación→denegación/sinauditoría/acuse/payloadmutado. Fuente/cleanup/cgroupverificados,testoriginalcopiadohashconservado. Sinspydecryptenprimeraversión;añadidafunciónforbiddenchecked_bodytrasfixturepositiva paraobservardirectamenterechazoantesdedescifrar. Siguiente repetir10afectadasporaserciónnueva,nomáscasosúnicos. Sinproducto/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: recipientrevocationreforzada035615-b6d4e2ac,SHA65bfa04,10PASS149,68s/0errores/skips;2operaciones×5revocacionesPGwaitobservado,checked_bodyforbiddenpruebanodescifrartrasrevocación/sinauditoría/acuse/payloadcambio. Primera10PASS152,30conservada,no20únicos. Fuente/cleanup/cgroupverificados,matrix83enlazada. Evidenciacr09-recipient-revocation-20261016.md/terminalJSON. Sinapp/p95nuevo/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.

@@ -1,0 +1,24 @@
+{
+  "run": "20261016-035615-b6d4e2ac",
+  "sha": "65bfa042d252cf5c5d0f69a781e8f5effdcdb1ec",
+  "passed": 10,
+  "seconds": 149.68,
+  "skips": 0,
+  "test_sha256": "a2910e7d25d883ef298c3541e1dfc9f99e603d3dff64b69bbd87451acdd6fcdb",
+  "cases": [
+    "test_recipient_rechecks_authority_after_observed_wait[session-inspect]",
+    "test_recipient_rechecks_authority_after_observed_wait[session-acknowledge]",
+    "test_recipient_rechecks_authority_after_observed_wait[mfa-inspect]",
+    "test_recipient_rechecks_authority_after_observed_wait[mfa-acknowledge]",
+    "test_recipient_rechecks_authority_after_observed_wait[disabled-inspect]",
+    "test_recipient_rechecks_authority_after_observed_wait[disabled-acknowledge]",
+    "test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-inspect]",
+    "test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-acknowledge]",
+    "test_recipient_rechecks_authority_after_observed_wait[erased-inspect]",
+    "test_recipient_rechecks_authority_after_observed_wait[erased-acknowledge]"
+  ],
+  "source_frozen_verified": true,
+  "cleanup_independent": true,
+  "scope": "Ten unique variants strengthened, not20unique cases. Positive actual delivered/inspected notice, observed PG lock then recipient revocation; checked_body forbidden during negative operation, denial/no read or ack effects. No product change, no full-right acceptance.",
+  "acceptance": false
+}
