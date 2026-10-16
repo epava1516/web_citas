@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 from django.db import connection
-from private_draft_invalidation_candidate import installed
+from private_draft_invalidation_candidate import fenced_installed as installed
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment, raw_image, upload  # noqa: F401
 

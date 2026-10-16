@@ -9,7 +9,7 @@ from uuid import uuid4
 
 import pytest
 from django.db import connection, connections, transaction
-from private_draft_invalidation_candidate import installed
+from private_draft_invalidation_candidate import fenced_installed as installed
 from test_discovery import directory  # noqa: F401
 from test_photo_reuse_races import observe_blocked
 from test_photos import photo_environment  # noqa: F401
@@ -79,11 +79,7 @@ def test_private_write_concurrent_publication_keeps_negative_state_exact(request
                 assert updated.wait(10)
                 publish_future = pool.submit(publish_and_refresh)
                 workers = dict(pids.get(timeout=5) for _ in range(2))
-                if variant == 'current':
-                    observe_blocked(workers['publisher'], workers['writer'])
-                else:
-                    assert refreshed.wait(10), 'Prototype publisher did not refresh while private write pending'
-                    assert not PublicationState.objects.get(listing=owner).eligible
+                observe_blocked(workers['publisher'], workers['writer'])
             finally:
                 release.set()
             write_future.result(timeout=20)

@@ -1,0 +1,30 @@
+{
+  "run": "20261016-043809-86b198c1",
+  "sha": "f9f96dab8273a19570ae457269ce2eddd4f1d3fe",
+  "passed": 12,
+  "seconds": 174.28,
+  "publication_races": [
+    {
+      "variant": "current",
+      "native": true,
+      "stored": true,
+      "dirty": false,
+      "writer_released": true,
+      "refreshed": true,
+      "scope": "Synthetic valid FK clone, direct DB publication for trigger contract, not moderation approval evidence."
+    },
+    {
+      "variant": "candidate",
+      "native": true,
+      "stored": true,
+      "dirty": false,
+      "writer_released": true,
+      "refreshed": true,
+      "scope": "Synthetic valid FK clone, direct DB publication for trigger contract, not moderation approval evidence."
+    }
+  ],
+  "source_frozen_verified": true,
+  "cleanup_independent": true,
+  "scope": "Ten candidate regressions plus current/fenced concurrency controls. Fenced publisher wait observed, native/storedTrue, DirtyFalse. No app migration, ROI with locks or general deadlock proof.",
+  "acceptance": false
+}

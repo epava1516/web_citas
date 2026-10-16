@@ -103,3 +103,61 @@ def installed():
             cursor.execute('DROP FUNCTION cr09_private_draft_revision(uuid)')
             cursor.execute("SELECT to_regprocedure('cr09_private_draft_revision(uuid)')")
             assert cursor.fetchone()[0] is None
+
+
+def lock_body():
+    mark = import_module('apps.listings.migrations.0020_publication_match_counterparts').MARK
+    start = '    WITH direct AS'
+    stop = '    SELECT id FROM affected WHERE id IS NOT NULL ORDER BY id'
+    assert mark.count(start) == mark.count(stop) == 1
+    cte = 'WITH direct AS' + mark.split(start, 1)[1].split(stop, 1)[0]
+    return f"""
+CREATE FUNCTION cr09_lock_publication(ids uuid[]) RETURNS void AS $$
+BEGIN
+ PERFORM l.id FROM listings_listing l WHERE l.id IN (
+  {cte} SELECT id FROM affected WHERE id IS NOT NULL
+ ) ORDER BY l.id FOR NO KEY UPDATE OF l;
+END $$ LANGUAGE plpgsql VOLATILE;
+"""
+
+
+def fenced_body(table):
+    def mapped(rows):
+        return ' UNION '.join(sql.format(rows=rows) for sql in base.DEPENDENCIES[table])
+    fence = f"""
+ IF TG_OP='INSERT' THEN
+  PERFORM cr09_lock_publication(ARRAY({mapped('new_rows')}));
+ ELSIF TG_OP='UPDATE' THEN
+  PERFORM cr09_lock_publication(ARRAY({mapped('new_rows')} UNION {mapped('old_rows')}));
+ ELSE
+  PERFORM cr09_lock_publication(ARRAY({mapped('old_rows')}));
+ END IF;
+"""
+    return body(table).replace('BEGIN\n', 'BEGIN\n' + fence, 1)
+
+
+@contextmanager
+def fenced_installed():
+    """Retain ordered domain write locks even when no dirty result is needed."""
+    with installed():
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT pg_get_functiondef('listings_publication_mark(uuid[])'::regprocedure)")
+            original_mark = cursor.fetchone()[0]
+        try:
+            mark = import_module('apps.listings.migrations.0020_publication_match_counterparts').MARK
+            with connection.cursor() as cursor:
+                cursor.execute(lock_body())
+                cursor.execute(SAFE.replace('CREATE FUNCTION', 'CREATE OR REPLACE FUNCTION', 1).replace(
+                    'WHERE v.id=revision_id', "WHERE current_setting('transaction_isolation')='read committed' AND v.id=revision_id"))
+                cursor.execute(mark.replace('BEGIN\n', 'BEGIN\n  PERFORM cr09_lock_publication(ids);\n', 1))
+                for table in TABLES:
+                    cursor.execute(fenced_body(table))
+            yield
+        finally:
+            with connection.cursor() as cursor:
+                cursor.execute(original_mark)
+                for table in TABLES:
+                    cursor.execute(body(table))
+                cursor.execute("SELECT pg_get_functiondef('listings_publication_mark(uuid[])'::regprocedure)")
+                assert cursor.fetchone()[0] == original_mark
+                cursor.execute('DROP FUNCTION IF EXISTS cr09_lock_publication(uuid[])')

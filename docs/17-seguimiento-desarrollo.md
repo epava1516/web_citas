@@ -2549,3 +2549,9 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: racecorregido042942-2efd668e1PASSactual1FAILproto53,09s. Proto trasA/Bcommits/refresco:nativoTrue/storedFalse/DirtyFalse;actualTrue/True/False,PGblockobservado. Source/cleanup/cgroupverificados/SQLoriginalesconservados. PrototiponointegrablepeseROI;pendienteserializaciónsinDirty+clausuradependencias/N2/ROIrevalidado. Evidenciacr09-private-publication-race-20261016.md/terminalJSON,FieldErrorprevio2FAIL52,96conservado. Sinapp/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: preparaciónprotofencedbasef9f96da+3fuentesmodhashcongelado. LockListingFORNOKEYUPDATEordenadoUUID incluyeMatch1aristaantesdeclasificar3triggersyencadacentralmark,tambiéncuandoexcepciónnoDirty;noadvisory/newtable/fencepersistente. ExcepciónsóloRC,RR/Serializableconservadores.12nodes(10proto+2racecontrol/candidato),ambosraceahoraexigenPGwaitrealpublisher→writer yestadonativo/storedcorrecto,assertefectofinalintacta;unfencedfailurepreviofuentesconservadas. PGpropio4CPU/PG1/memorialímiteshabituales/serial/timeout900. Revisardeadlocks/refresherlockorderdespués;noapp/migración/SLOalterados. Conservarfallos/fuente/cleanup. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: fencedproto043809-86b198c1,12PASS174,28s;10controles+barreraactual/fencedPGwaitrealpublisher→writerambosnativeTrue/storedTrue/DirtyFalse. Source/cleanup/cgroupverificados,regresiónunfencedFAILpreviaintacta. HelperListingNoKeyUpdateordered1hop+centralmark,excepciónRCsólo. Noapp/migración/ROIrevalidado/deadlockuniversal. Siguienterefresher/revlock/Matchnuevo/escriturasopuestas/RRfallbackantesproducto. Evidenciacr09-private-draft-fenced-terminal-20261016.json. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
