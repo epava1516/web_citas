@@ -286,24 +286,26 @@ def test_revision_move_invalidates_history_reader_and_both_owners(request, monke
     equivalent(client, monkeypatch, rows[1], False)
 
 
-def test_concurrent_opposite_photo_writes_drain_without_losing_marks(request, monkeypatch):
+def _opposite_photo_writes(request, monkeypatch, *, prelocked):
     from threading import Barrier
 
     _, rows, photos, _ = setup(request, monkeypatch)
     start = Barrier(2)
 
-    def write(photo_id):
+    def write(listing_id, photo_id):
         try:
             with transaction.atomic():
                 with connections["default"].cursor() as cursor:
                     cursor.execute("SET LOCAL lock_timeout = '5s'")
+                if prelocked:
+                    Listing.objects.select_for_update().get(pk=listing_id)
                 start.wait(timeout=5)
                 return Photo.objects.filter(pk=photo_id).update(removed_at=timezone.now())
         finally:
             connections.close_all()
 
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futures = [pool.submit(write, photo.pk) for photo in photos]
+        futures = [pool.submit(write, row.pk, photo.pk) for row, photo in zip(rows, photos, strict=True)]
         assert [future.result(timeout=15) for future in futures] == [1, 1]
     assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) >= {
         row.pk for row in rows
@@ -312,3 +314,11 @@ def test_concurrent_opposite_photo_writes_drain_without_losing_marks(request, mo
     assert not PublicationDirty.objects.exists()
     assert all(not publicly_visible(Listing.objects.get(pk=row.pk)) for row in rows)
     assert not PublicationState.objects.filter(listing_id__in=[r.pk for r in rows], eligible=True).exists()
+
+
+def test_concurrent_opposite_photo_writes_drain_without_losing_marks(request, monkeypatch):
+    _opposite_photo_writes(request, monkeypatch, prelocked=False)
+
+
+def test_prelocked_listing_photo_writers_complete_without_losing_marks(request, monkeypatch):
+    _opposite_photo_writes(request, monkeypatch, prelocked=True)

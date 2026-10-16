@@ -1274,3 +1274,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: N2b f17b060 55PASS643,58s (20261016-045858-2482ce29), fuentes/cleanup verificados. Preparado control 0020/0021 de escritores con Listing ya bloqueado antes de Photo, 2 casos acotados PG propio; conservar fallo y diagnosticar separado si ocurre. Sin invocaciones Claude ni cambios al consumo previo; sin aceptación CR09/N3.
 
 2026-10-16: control prelocked termina1PASS0020/1FAIL0021 deadlock56,02s, run051054-7133ceaf; evidencia y originales conservados, frozen/cleanup verificados. Candidato0021 rechazado en su forma actual; pendiente corrección de protocolo antes de carga. Sin Claude/proveedores, consumo anterior preservado.
+
+2026-10-16: preparado retiro rollforward0022 con baselineSQL exacto; originales y FAIL0021 intactos, pruebas históricas retiradas de colección automática sin borrar. Verificación10casos correctiva/races/Match/refresh antes de nuevas métricas; no repetir candidato fallido. SinClaude ni consumo adicional de terceros.
+
+2026-10-16:0022 correctiva10PASS123,23s run051506-ee981916, frozen/cleanup verificados; evidencia conservada. Añadido control permanenteprelocked normal, siguiente12casos N2c antes imagen/rendimiento. NoClaude/consumopreviointacto; CR09/N3abiertos.

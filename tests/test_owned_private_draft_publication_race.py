@@ -9,7 +9,7 @@ from uuid import uuid4
 
 import pytest
 from django.db import connection, connections, transaction
-from private_draft_invalidation_candidate import baseline_installed
+from private_draft_invalidation_candidate import baseline_installed, fenced_installed
 from test_discovery import directory  # noqa: F401
 from test_photo_reuse_races import observe_blocked
 from test_photos import photo_environment  # noqa: F401
@@ -24,7 +24,7 @@ from scripts.synthetic_load_dataset import clone
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-@pytest.mark.parametrize('variant', ['current', 'candidate'])
+@pytest.mark.parametrize('variant', ['current', 'candidate', 'restored0022'])
 def test_private_write_concurrent_publication_keeps_negative_state_exact(request, monkeypatch, record_property, variant):
     if not any(str(x).split('::')[0] == 'tests/test_owned_private_draft_publication_race.py' for x in request.config.args):
         pytest.skip('Explicit owned prototype concurrency diagnostic only')
@@ -72,7 +72,7 @@ def test_private_write_concurrent_publication_keeps_negative_state_exact(request
             refreshed.set()
         finally:
             connections.close_all()
-    with baseline_installed() if variant == 'current' else nullcontext():
+    with (baseline_installed() if variant == 'current' else fenced_installed() if variant == 'candidate' else nullcontext()):
         with ThreadPoolExecutor(max_workers=2) as pool:
             write_future = pool.submit(writer)
             try:

@@ -8,7 +8,7 @@ import pytest
 import test_publication_match_dependency_edges as controls
 from django.db import connections, transaction
 from django.utils import timezone
-from private_draft_invalidation_candidate import baseline_installed
+from private_draft_invalidation_candidate import baseline_installed, fenced_installed
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
@@ -27,9 +27,9 @@ def owned_explicit(request):
     assert os.environ.get('LOCAL_CI_POSTGRES_CONTAINER', '').startswith('web-modelos-ci-pg-')
 
 
-@pytest.mark.parametrize('schema', ['baseline0020', 'candidate0021'])
+@pytest.mark.parametrize('schema', ['baseline0020', 'candidate0021', 'restored0022'])
 def test_prelocked_opposite_photo_writers_complete(request, monkeypatch, schema):
-    provider = baseline_installed if schema == 'baseline0020' else nullcontext
+    provider = baseline_installed if schema == 'baseline0020' else fenced_installed if schema == 'candidate0021' else nullcontext
     with provider():
         _, rows, photos, _ = controls.setup(request, monkeypatch)
         start = Barrier(2)
