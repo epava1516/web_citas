@@ -1300,3 +1300,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: preparado48readsfinito direct_fields conservandonative _post_clean/modelvalidation;sinproducto, N2pendientesiahorroestable. Admisióngthreadrechazadaconfuentefijada23sinbarrido. SinClaude/consumopreviointacto.
 
 2026-10-16:directbinding055219-a26ee1ad1PASS106,81s48reads,REJECTEDpormejora noinconsistente(corrección: ROIinconsistente,2/3bloquesempeoran). Frozen/contador/cleanupverificados;sinproducto/carga/Claude,consumopreviointacto.
+
+2026-10-16:prerregistrado AA96reads códigoidéntico frío/persistenteconbackendPID/planescount, tolerancia10%medianasporcelda; sinappchange niClaude/consumopreviointacto. SinaceptaciónN3/p95nuevo.
+
+2026-10-16:AA96reads0639411PASS131,75sfuncional/estabilidadINCONCLUSO9/12celdas>10%, frozen/cleanupverificados. PreferenciausuariocomunidadStackOverflowincluidaenfuentes; no envíomensajesexternos. SinClaude/consumopreviointacto;CR09/N3abiertos.

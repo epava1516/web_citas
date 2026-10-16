@@ -1,0 +1,243 @@
+{
+  "run": "20261016-063941-4a423442",
+  "base_head": "0e47c5355e7b5a3b8590516948e2195a51504b64",
+  "passed": 1,
+  "seconds": 131.75,
+  "reads": 96,
+  "comparisons": [
+    {
+      "mode": "new_connection",
+      "route": "/es/",
+      "block": 0,
+      "medians": {
+        "A": 0.3544216917362064,
+        "B": 0.2852129500824958
+      },
+      "relative_difference": 0.2164008548909304,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "new_connection",
+      "route": "/es/",
+      "block": 1,
+      "medians": {
+        "A": 0.3231407895218581,
+        "B": 0.4371759365312755
+      },
+      "relative_difference": 0.29996748223962716,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "new_connection",
+      "route": "/es/",
+      "block": 2,
+      "medians": {
+        "A": 0.31118480069562793,
+        "B": 0.40409005433321
+      },
+      "relative_difference": 0.2597749745692832,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "new_connection",
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "medians": {
+        "A": 0.3228639743756503,
+        "B": 0.3674294895026833
+      },
+      "relative_difference": 0.12912048993379374,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "new_connection",
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "medians": {
+        "A": 0.3164068015757948,
+        "B": 0.3342544345650822
+      },
+      "relative_difference": 0.054859985497654945,
+      "within_ten_percent": true
+    },
+    {
+      "mode": "new_connection",
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "medians": {
+        "A": 0.39762999303638935,
+        "B": 0.3716080274898559
+      },
+      "relative_difference": 0.0676564726447908,
+      "within_ten_percent": true
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 0,
+      "medians": {
+        "A": 0.18647460802458227,
+        "B": 0.19704621192067862
+      },
+      "relative_difference": 0.05512923078129219,
+      "within_ten_percent": true
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 1,
+      "medians": {
+        "A": 0.21855222200974822,
+        "B": 0.18463712511584163
+      },
+      "relative_difference": 0.1682340921737813,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 2,
+      "medians": {
+        "A": 0.2032693000510335,
+        "B": 0.15956324408762157
+      },
+      "relative_difference": 0.24091585316398645,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "medians": {
+        "A": 0.231010528979823,
+        "B": 0.25979764969088137
+      },
+      "relative_difference": 0.11730497559769633,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "medians": {
+        "A": 0.2011592104099691,
+        "B": 0.17896921909414232
+      },
+      "relative_difference": 0.11674996971299549,
+      "within_ten_percent": false
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "medians": {
+        "A": 0.2490583504550159,
+        "B": 0.18879136303439736
+      },
+      "relative_difference": 0.2752861795446886,
+      "within_ten_percent": false
+    }
+  ],
+  "preparation": [
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 0,
+      "arm": "A",
+      "backend_pid": 143,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 0,
+      "arm": "B",
+      "backend_pid": 145,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 1,
+      "arm": "B",
+      "backend_pid": 146,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 1,
+      "arm": "A",
+      "backend_pid": 147,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 2,
+      "arm": "A",
+      "backend_pid": 148,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/es/",
+      "block": 2,
+      "arm": "B",
+      "backend_pid": 149,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "arm": "A",
+      "backend_pid": 150,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 0,
+      "arm": "B",
+      "backend_pid": 151,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "arm": "B",
+      "backend_pid": 153,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 1,
+      "arm": "A",
+      "backend_pid": 154,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "arm": "A",
+      "backend_pid": 155,
+      "prepared_statements": 19
+    },
+    {
+      "mode": "persistent_warmed",
+      "route": "/en/?q=synthetic",
+      "block": 2,
+      "arm": "B",
+      "backend_pid": 156,
+      "prepared_statements": 19
+    }
+  ],
+  "stable_for_ten_percent_effect": false,
+  "frozen_sources_verified": true,
+  "independent_cleanup_verified": true,
+  "acceptance": false
+}
