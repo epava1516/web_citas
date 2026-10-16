@@ -1,0 +1,183 @@
+{
+  "run": "20261016-082259-5714a263",
+  "base_head": "903070b9e4980af7189ddb267bae6c903d42bd65",
+  "passed": 9,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_seconds": 127.83,
+  "cases": [
+    {
+      "name": "test_negative_authority_content_rate_and_normalization_keep_native_guard",
+      "seconds": 49.014,
+      "properties": {
+        "batch_negative_native_guards": [
+          {
+            "case": "phone",
+            "native_guard_calls": 25,
+            "page_count": 79
+          },
+          {
+            "case": "description",
+            "native_guard_calls": 25,
+            "page_count": 79
+          },
+          {
+            "case": "contact_consent",
+            "native_guard_calls": 25,
+            "page_count": 79
+          },
+          {
+            "case": "rate_text",
+            "native_guard_calls": 25,
+            "page_count": 79
+          },
+          {
+            "case": "authority",
+            "native_guard_calls": 25,
+            "page_count": 79
+          },
+          {
+            "case": "telegram_normalization",
+            "native_guard_calls": 25,
+            "page_count": 80
+          }
+        ]
+      }
+    },
+    {
+      "name": "test_batch_bound_and_native_unknown_limit[1]",
+      "seconds": 9.202,
+      "properties": {
+        "pending_boundary": {
+          "pending": 1,
+          "counters": {
+            "batch_contexts": 1,
+            "batch_sizes": [
+              25
+            ],
+            "page_reuses": 1,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_batch_bound_and_native_unknown_limit[24]",
+      "seconds": 8.656,
+      "properties": {
+        "pending_boundary": {
+          "pending": 24,
+          "counters": {
+            "batch_contexts": 1,
+            "batch_sizes": [
+              48
+            ],
+            "page_reuses": 1,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_batch_bound_and_native_unknown_limit[48]",
+      "seconds": 9.275,
+      "properties": {
+        "pending_boundary": {
+          "pending": 48,
+          "counters": {
+            "batch_contexts": 1,
+            "batch_sizes": [
+              72
+            ],
+            "page_reuses": 1,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_batch_bound_and_native_unknown_limit[49]",
+      "seconds": 8.69,
+      "properties": {
+        "pending_boundary": {
+          "pending": 49,
+          "counters": {
+            "batch_contexts": 0,
+            "batch_sizes": [],
+            "page_reuses": 0,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_scope_bypasses_and_missing_preview_fallback",
+      "seconds": 13.922,
+      "properties": {
+        "scope_and_fallback": {
+          "batch_contexts": 1,
+          "batch_sizes": [
+            1
+          ],
+          "page_reuses": 0,
+          "missing_selected_fallbacks": 1
+        }
+      }
+    },
+    {
+      "name": "test_committed_change_after_preview_keeps_snapshot_then_denies_fresh_request[pending]",
+      "seconds": 9.546,
+      "properties": {
+        "snapshot_change": {
+          "victim_kind": "pending",
+          "counters": {
+            "batch_contexts": 2,
+            "batch_sizes": [
+              25,
+              25
+            ],
+            "page_reuses": 2,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_committed_change_after_preview_keeps_snapshot_then_denies_fresh_request[clean_preview]",
+      "seconds": 9.492,
+      "properties": {
+        "snapshot_change": {
+          "victim_kind": "clean_preview",
+          "counters": {
+            "batch_contexts": 2,
+            "batch_sizes": [
+              25,
+              26
+            ],
+            "page_reuses": 2,
+            "missing_selected_fallbacks": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "test_stale_clean_state_still_fails_native_page_guard",
+      "seconds": 9.6,
+      "properties": {
+        "stale_guard": {
+          "batch_contexts": 1,
+          "batch_sizes": [
+            25
+          ],
+          "page_reuses": 1,
+          "missing_selected_fallbacks": 0
+        }
+      }
+    }
+  ],
+  "source_frozen_verified": true,
+  "independent_cleanup_verified": true,
+  "scope": "Test-only prototype negatives, bounds, fallback, repeated native guards and actual concurrent PostgreSQL commits. Not integrated product or N3.",
+  "acceptance": false
+}
