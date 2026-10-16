@@ -1,0 +1,163 @@
+{
+  "runs": [
+    {
+      "run": "20261016-012245-4af75967",
+      "base_sha": "baeb062364d3c8b20c325cd8e969248758e2fd3f",
+      "functional": "1 PASS, 0 errors/failures/skips",
+      "pytest_seconds": 108.19,
+      "reads": 108,
+      "graph_activity_overlap": true,
+      "sources_frozen_independent": true,
+      "runner_child_temp_containers_absent_independent": true,
+      "summary": [
+        {
+          "dirty": false,
+          "text": "",
+          "native_wall_ms": 197.5245511987143,
+          "native_cpu_ms": 97.87395622221912,
+          "partition_wall_ms": 181.05107670029005,
+          "partition_cpu_ms": 91.9396261111116
+        },
+        {
+          "dirty": false,
+          "text": "photography",
+          "native_wall_ms": 232.77706026823986,
+          "native_cpu_ms": 113.78920399999653,
+          "partition_wall_ms": 215.24913236498833,
+          "partition_cpu_ms": 92.94440477777893
+        },
+        {
+          "dirty": false,
+          "text": "zzznomatchproof",
+          "native_wall_ms": 62.387346341792075,
+          "native_cpu_ms": 35.22922044444638,
+          "partition_wall_ms": 71.45305071026087,
+          "partition_cpu_ms": 37.07099655555465
+        },
+        {
+          "dirty": true,
+          "text": "",
+          "native_wall_ms": 256.797736355414,
+          "native_cpu_ms": 134.47861533332807,
+          "partition_wall_ms": 303.4965797948341,
+          "partition_cpu_ms": 163.67937755555792
+        },
+        {
+          "dirty": true,
+          "text": "photography",
+          "native_wall_ms": 327.73050034625663,
+          "native_cpu_ms": 150.3636513333346,
+          "partition_wall_ms": 389.32768555565013,
+          "partition_cpu_ms": 199.43205166666664
+        },
+        {
+          "dirty": true,
+          "text": "zzznomatchproof",
+          "native_wall_ms": 99.41169759258628,
+          "native_cpu_ms": 46.011707333331884,
+          "partition_wall_ms": 94.22786280305849,
+          "partition_cpu_ms": 44.65483122221928
+        }
+      ],
+      "dirty_blocks": [
+        {
+          "block": 0,
+          "native_wall_ms": 228.979900582797,
+          "partition_wall_ms": 280.86709831323884
+        },
+        {
+          "block": 1,
+          "native_wall_ms": 221.8445179363092,
+          "partition_wall_ms": 252.99156291617285
+        },
+        {
+          "block": 2,
+          "native_wall_ms": 233.11551577515073,
+          "partition_wall_ms": 253.19346692413092
+        }
+      ]
+    },
+    {
+      "run": "20261016-012540-47dda797",
+      "base_sha": "baeb062364d3c8b20c325cd8e969248758e2fd3f",
+      "functional": "1 PASS, 0 errors/failures/skips",
+      "pytest_seconds": 108.13,
+      "reads": 108,
+      "graph_activity_overlap": false,
+      "sources_frozen_independent": true,
+      "runner_child_temp_containers_absent_independent": true,
+      "summary": [
+        {
+          "dirty": false,
+          "text": "",
+          "native_wall_ms": 194.26395050767394,
+          "native_cpu_ms": 93.71370722222218,
+          "partition_wall_ms": 247.28781590238214,
+          "partition_cpu_ms": 129.212262222222
+        },
+        {
+          "dirty": false,
+          "text": "photography",
+          "native_wall_ms": 198.5927176558309,
+          "native_cpu_ms": 92.73049266666551,
+          "partition_wall_ms": 235.9020181207193,
+          "partition_cpu_ms": 114.46793677778071
+        },
+        {
+          "dirty": false,
+          "text": "zzznomatchproof",
+          "native_wall_ms": 58.287155555768145,
+          "native_cpu_ms": 30.51915555555398,
+          "partition_wall_ms": 53.29191876161429,
+          "partition_cpu_ms": 28.628488111108496
+        },
+        {
+          "dirty": true,
+          "text": "",
+          "native_wall_ms": 283.59649345899624,
+          "native_cpu_ms": 139.77747122222362,
+          "partition_wall_ms": 305.62215029365484,
+          "partition_cpu_ms": 157.99039877777764
+        },
+        {
+          "dirty": true,
+          "text": "photography",
+          "native_wall_ms": 338.76908751618527,
+          "native_cpu_ms": 155.20597677777755,
+          "partition_wall_ms": 366.9456403909458,
+          "partition_cpu_ms": 173.48149422222215
+        },
+        {
+          "dirty": true,
+          "text": "zzznomatchproof",
+          "native_wall_ms": 72.92232527914975,
+          "native_cpu_ms": 34.44446633333421,
+          "partition_wall_ms": 70.19923886077271,
+          "partition_cpu_ms": 34.228340777777554
+        }
+      ],
+      "dirty_blocks": [
+        {
+          "block": 0,
+          "native_wall_ms": 269.7144601390594,
+          "partition_wall_ms": 249.2346874334746
+        },
+        {
+          "block": 1,
+          "native_wall_ms": 229.59652610330116,
+          "partition_wall_ms": 260.1782676970793
+        },
+        {
+          "block": 2,
+          "native_wall_ms": 195.97692001197072,
+          "partition_wall_ms": 233.35407441481948
+        }
+      ]
+    }
+  ],
+  "decision": "REJECTED: isolated confirmation has worse dirty listing/search wall and CPU; block benefit inconsistent",
+  "application_changed": false,
+  "new_http_load": false,
+  "acceptance": false,
+  "limits": "Full state_page sequential diagnostic, not p95/HTTP or proof of all functional boundaries. First run timing conditioned by our overlapping graph AST/clustering; preserved and not used alone. One isolated confirmation, same code/limits. No speculative parameter sweep."
+}
