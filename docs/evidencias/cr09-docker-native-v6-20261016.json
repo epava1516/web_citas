@@ -1,0 +1,102 @@
+{
+  "image": "sha256:621e0209f989d69a18da7c28843694dac749d41bc4dd93e272cccfac2eeb0c4b",
+  "tag": "web-modelos-cr09-native:20261016-v6",
+  "source": {
+    "base_sha": "7ec6f51b9dbd30a0ebe1908d90078f0c5bfafb61",
+    "files": {
+      "Dockerfile": "6cc6d27bf3dfe8ad6a6be05938aa706101486cff1bbb007134cb0a58f23d8177",
+      ".dockerignore": "7035b58fb55b1eb0a971df8df308b1ffc9e5b6d2e7ddff64fd6d14d7b782895a",
+      "pyproject.toml": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
+      "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+      "scripts/build_canonical_kernel.py": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "scripts/canonical_artifacts.py": "819c7641c9465dc6a672bff161280d55aa72af2e58c22b628cef8cbe818bc0cf",
+      "apps/safety/_canonical_kernel.pyx": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9",
+      "apps/safety/canonical_kernel_loader.py": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6",
+      "apps/listings/migrations/0020_publication_match_counterparts.py": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a",
+      "apps/listings/migrations/0021_private_draft_publication_dependencies.py": "d566ce6cbd320d14f4c5f9200b7de82dc25a75a184c9ee0b656850f9c096c66e",
+      "apps/listings/migrations/0022_restore_conservative_publication_invalidation.py": "93a7c718903297d3adeec220720cc9e7a705bea605f17b8d27a651d25ff083fa",
+      "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+      "apps/listings/public_validation.py": "eb5394bbbc35e1d75eb38ef474fb6fe2fcc07577e996b306fc696178aa471727"
+    }
+  },
+  "runtime": {
+    "integrated_sources_sha256": {
+      "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+      "apps/listings/public_validation.py": "eb5394bbbc35e1d75eb38ef474fb6fe2fcc07577e996b306fc696178aa471727"
+    },
+    "startup_sha256": {
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+    },
+    "migration_0020_sha256": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "migration_0022_applied": true,
+    "rejected_helpers_absent": true,
+    "three_dependency_triggers_restored": true,
+    "no_host_bytecode": true,
+    "pg_function_matches_migration": true,
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "16dcc1cfd4bc452b0fc737104ad5b81194a7b31e42fa79db5aa2ebc2179c06af",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "0f3819e5fae03003ffd728329d18e74e81a647783ba6b223d3c809566668cb70",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "pg_version": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "static_ready_before_health": [
+    14,
+    15,
+    16,
+    17
+  ],
+  "effective_command": [
+    "gunicorn",
+    "config.wsgi:application",
+    "--bind",
+    "0.0.0.0:8000",
+    "--workers",
+    "4",
+    "--timeout",
+    "60",
+    "--access-logfile",
+    "-",
+    "--logger-class",
+    "config.gunicorn_logging.SafeAccessLogger"
+  ],
+  "cleanup_independently_verified": true,
+  "kernel_parity": {
+    "tests": 118,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "image_id": "sha256:621e0209f989d69a18da7c28843694dac749d41bc4dd93e272cccfac2eeb0c4b",
+    "container_absent": true
+  },
+  "scope": "Docker build/runtime identity and native parity; no p95/N3 acceptance"
+}
