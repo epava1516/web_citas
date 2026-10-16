@@ -2507,3 +2507,9 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: grafoASTparcial23Pythonal309607e,11396nodos45110aristas655comunidades0dangling131selfloops;resolucióncruzada/mergeguardnormal/clusteringterminal,backup/hashesconservados. AST0tokensmodelo,histórico/nativonoreportado(null),noproveedores/Claude. Docssemánticas/Dockerfilependientes/etiquetashubs,noahorrotimingdemostrado. BFScomunicacionestruncado,fuentesconfirmadas:nopruebacoberturacontrato. Evidenciacr09-graph-code-refresh-309607e-20261016.md/JSON;sinp95nuevo/aceptaciónCR09/N3/goalenterosabiertos.
+
+
+2026-10-16: preparación controlesdestinatarioavisos: nuevo test10variantes inspect/ack×session/MFA/disabled/MFAdisabled/erased, revocacióntraspg_blocking_pidsobservado. Motivo: selecciónprevia sóloautoridadyarevocada,secompletaesperareal sininventardefecto. Fuente1a78cbc+testnuevohashcongelado,PGpropio4CPU/PG1/memorialímiteshabituales,serial,timeout900. Esperado denegacióntraswait/sinauditoría/acuse/payloadmutado. Noenvíosexternos/noproducción;conservarfallos/limpieza. NoN3/aceptaciónglobal.
+
+
+2026-10-16: destinatarioraces035242-1d332040,10PASS152,30s/0errores/skips;PGwaitobservado→revocación→denegación/sinauditoría/acuse/payloadmutado. Fuente/cleanup/cgroupverificados,testoriginalcopiadohashconservado. Sinspydecryptenprimeraversión;añadidafunciónforbiddenchecked_bodytrasfixturepositiva paraobservardirectamenterechazoantesdedescifrar. Siguiente repetir10afectadasporaserciónnueva,nomáscasosúnicos. Sinproducto/Claude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
