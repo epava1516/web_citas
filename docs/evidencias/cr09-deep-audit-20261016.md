@@ -75,3 +75,18 @@ Los tres informes independientes adjuntos son entradas de revisión, no aceptaci
 Orden de trabajo: terminar controles de fanout/orden/expiración; decidir la política con esos resultados; integrar sólo la variante justificada, promoviendo regresiones a suite normal; verificar aplicabilidad funcional de la versión común; preparar imagen con las fuentes reales y ejecutar el corto limpio sin perfiladores. Si cumple, repetir una vez antes del recorrido largo; si falla, conservarlo y diagnosticar por separado.
 
 La matriz83 mantiene nueve familias de cierre y exige N3 sobre una versión integrada común. Los cuatro bloques históricos y estas pruebas focales no se suman para declarar N3. La exportación grande provisionalmente aceptada por el usuario no elimina el criterio del directorio. CR10, GS01, BF/BB y C conservan su alcance posterior. Las variaciones del portátil con cargador no se atribuyen al código.
+
+## Ampliación: orden y relaciones fuera de página comprobados
+
+Run `20261016-085117-b3e1def5`, base `fb4c490`, **4PASS/0fallos/0errores/0omisiones**. Fuentes congeladas, procesos por PID/start_ticks, temporales y contenedores propios verificados al cierre. Recibo `cr09-first-page-batch-order-fanout-20261016.json`.
+
+Tres casos dirigidos preservan cuerpo, total e IDs exactos y exigen reutilización sin fallback: empate de fecha con UUID, empate de relevancia/fecha con UUID y dos fechas NULL limpias que deben preceder a las fechas no nulas. Los Dirty se sitúan expresamente alrededor de la frontera24/25 y conservan su generación.
+
+El cuarto caso fuerza24unknown válidos seleccionados y un limpio desplazado con128municipios legítimos sintéticos. Se observa lo siguiente; son cardinalidades, no tiempos ni bytes:
+
+| Brazo | Contextos y padres materializados | Municipios del limpio desplazado |
+|---|---|---:|
+| Nativo | 24pending +24seleccionados | 0 |
+| Agrupado | 48padres en un contexto | 128 |
+
+Esto confirma LOGIC-02 como expansión real del trabajo, sin demostrar regresión temporal ni consumo desproporcionado de memoria. La paridad funcional no decide el ROI: antes de adoptar hay que medir este escenario heterogéneo con el mismo control A/A y orden rotado, manteniendo recursos y GC. No se impone una cota arbitraria a relaciones del producto para rescatar el resultado. El caso cubre rank igual, no todos los ranks distintos ni expiración durante petición; esos alcances siguen diferenciados.
