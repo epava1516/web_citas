@@ -184,6 +184,8 @@ def main():
         "--benchmark-ingress-only", action="store_true",
         help="Observe WSGI/SQL/GC without pre-importing application handlers; diagnostic only",
     )
+    parser.add_argument("--benchmark-pg-statements", action="store_true",
+                        help="Owned server planning/execution diagnosis; requires dedicated preload adapter")
     parser.add_argument("--benchmark-sql-shapes", action="store_true",
                         help="Bounded SQL cardinalities in the owned ingress diagnostic only")
     parser.add_argument(
@@ -222,6 +224,8 @@ def main():
         parser.error("Static startup observation requires ingress-only diagnostic")
     if args.benchmark_ingress_only and not args.benchmark_observe_workers:
         parser.error("Ingress-only requires the explicit short worker diagnostic")
+    if args.benchmark_pg_statements and not args.benchmark_sql_shapes:
+        parser.error("Server statement diagnosis requires explicit SQL shapes diagnostic")
     if args.benchmark_sql_shapes and not args.benchmark_ingress_only:
         parser.error("SQL shapes require the explicit ingress-only diagnostic")
     if args.recover:
@@ -263,6 +267,7 @@ def main():
         "benchmark_ingress_only": args.benchmark_ingress_only,
         "benchmark_prepare_static": args.benchmark_prepare_static,
         "benchmark_sql_shapes": args.benchmark_sql_shapes,
+        "benchmark_pg_statements": args.benchmark_pg_statements,
         "benchmark_normal_refresh": args.benchmark_normal_refresh,
         "benchmark_generator_freeze": args.benchmark_generator_freeze,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
@@ -395,6 +400,8 @@ def main():
                     env["WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS"] = "1"
                 if args.benchmark_ingress_only:
                     env["WEB_MODELOS_BENCHMARK_INGRESS_ONLY"] = "1"
+                if args.benchmark_pg_statements:
+                    env["WEB_MODELOS_BENCHMARK_PG_STATEMENTS"] = "1"
                 if args.benchmark_sql_shapes:
                     env["WEB_MODELOS_BENCHMARK_SQL_SHAPES"] = "1"
                 if args.benchmark_prepare_static:

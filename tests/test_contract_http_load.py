@@ -154,6 +154,7 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             resources[name] = value.splitlines()[0] if name == "memory_total" else value.strip()
     process = None
     celery_processes, sampler = {}, None
+    pg_statement_sampler = None
     summary = {
         "refresh_mode": refresh_mode,
         "dataset": dataset,
@@ -442,6 +443,27 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             }
             for minute, draft in enumerate(draft_rows[:upload_count])
         ]
+        if os.environ.get("WEB_MODELOS_BENCHMARK_PG_STATEMENTS") == "1":
+            from scripts.benchmark_pg_statements import PGStatementSampler
+
+            own_run = json.loads((artifact_folder / "runner.json").read_text())
+            own_name = os.environ["LOCAL_CI_POSTGRES_CONTAINER"]
+            assert own_name == "web-modelos-ci-pg-" + own_run["id"]
+            inspection = json.loads(subprocess.check_output(["docker", "inspect", own_name], text=True))[0]
+            from scripts.benchmark_owned_cpu_observer import owned_pg_pid
+
+            owned_pg_pid(own_run, inspection)
+            assert connection.settings_dict["NAME"].startswith("test_promotion_gate_")
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW shared_preload_libraries")
+                assert 'pg_stat_statements' in cursor.fetchone()[0]
+                cursor.execute("SHOW pg_stat_statements.track_planning")
+                assert cursor.fetchone()[0] == 'on'
+                cursor.execute("CREATE EXTENSION IF NOT EXISTS pg_stat_statements")
+            pg_statement_sampler = PGStatementSampler(
+                artifact_folder / "pg-statements.jsonl", own_run, inspection, connection.settings_dict,
+            )
+            summary["pg_stat_statements_active"] = True
         if refresh_mode == NORMAL:
             from test_worker_capacity_comparison import BEAT_PHASE_SECONDS, beat_refresh_publishes
 
@@ -466,6 +488,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             summary["celery_cpu_ticks_before"] = cpu_ticks(
                 [pid for pids in summary["celery_pids"].values() for pid in pids])
             sampler.phase = "arrivals_and_drain"
+        if pg_statement_sampler:
+            pg_statement_sampler.start()
         summary["client_gc_preparation"] = prepare_generator_gc()
         assert summary["client_gc_preparation"]["policy_before"] == summary["client_gc_preparation"]["policy_after"]
         with GCObserver(monotonic_clock=time.monotonic) as client_gc:
@@ -541,6 +565,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait(timeout=5)
         summary["gunicorn_stopped"] = process is None or process.poll() is not None
+        if pg_statement_sampler:
+            pg_statement_sampler.close()
         if sampler:
             sampler.close()
         for role, owned in celery_processes.items():
