@@ -5,6 +5,7 @@ import json
 import os
 import statistics
 import time
+from datetime import timedelta
 from pathlib import Path
 
 import pytest
@@ -13,10 +14,12 @@ from django.db import connection
 from django.template import Template
 from django.test import RequestFactory
 from django.test.utils import _TestState
+from django.utils import timezone
 from owned_first_page_batch import build_first_page_batch_prototype
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
+from apps.catalog.models import Municipality
 from apps.listings import publication_state
 from apps.listings.models import Listing, PublicationDirty, Revision
 from config.worker_startup import prepare_static_structures
@@ -25,21 +28,48 @@ from scripts.synthetic_load_dataset import populate
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def test_owned_first_page_batch_roi(request, monkeypatch, record_property):
+@pytest.mark.parametrize('scenario', ['dirty1', 'offpage_fanout'])
+def test_owned_first_page_batch_roi(request, monkeypatch, record_property, scenario):
     if not any(str(x).split('::')[0] == 'tests/test_owned_first_page_batch_roi.py'
                for x in request.config.args):
         pytest.skip('Explicit owned WSGI diagnostic only')
     out = Path(request.config.getoption('--gate-timings-output')).parent
     run = json.loads((out / 'runner.json').read_text())
     assert os.environ['LOCAL_CI_POSTGRES_CONTAINER'] == 'web-modelos-ci-pg-' + run['id']
-    request.getfixturevalue('directory')
+    client = request.getfixturevalue('directory')
     dataset = populate(10000)
-    target = Listing.objects.select_related('approved_revision').get(pk=dataset['sample_ids'][0])
-    Revision.objects.create(listing=target, manager_version=target.approved_revision.manager_version)
+    fixture_details = {'scenario': scenario}
+    if scenario == 'dirty1':
+        target = Listing.objects.select_related('approved_revision').get(pk=dataset['sample_ids'][0])
+        Revision.objects.create(listing=target, manager_version=target.approved_revision.manager_version)
+        pending = [target.pk]
+    else:
+        ids = list(Listing.objects.filter(status='published').exclude(pk=dataset['sample_ids'][0])
+                   .order_by('pk').values_list('pk', flat=True)[:25])
+        assert len(ids) == 25
+        pending, victim = ids[:24], ids[24]
+        now = timezone.now()
+        Listing.objects.filter(pk__in=pending).update(published_at=now + timedelta(days=2))
+        Listing.objects.filter(pk=victim).update(published_at=now + timedelta(days=1))
+        revision = Listing.objects.select_related('approved_revision').get(pk=victim).approved_revision
+        city = Municipality.objects.first()
+        cities = Municipality.objects.bulk_create([
+            Municipality(code=f'owned-roi-fanout-{n}', name=f'Synthetic ROI fanout {n}',
+                         province_id=city.province_id, source_id=city.source_id)
+            for n in range(128)
+        ])
+        revision.travel_areas.add(*cities)
+        fixture_details.update(pending_count=24, displaced_clean=str(victim), extra_municipalities=128)
     publication_state.refresh_all()
-    publication_state.mark([target.pk])  # Controlled pending marker, no writer optimization.
+    publication_state.mark(pending)  # Controlled pending markers, no writer optimization.
     marks = list(PublicationDirty.objects.values_list('pk', 'generation'))
-    assert len(marks) == 1
+    assert len(marks) == len(pending)
+    if scenario == 'offpage_fanout':
+        for route in ['/es/', '/en/?q=synthetic']:
+            response = client.get(route)
+            assert response.status_code == 200
+            assert {row.pk for row in response.context['page']} == set(pending)
+            assert victim not in {row.pk for row in response.context['page']}
     prepare_static_structures()
     monkeypatch.setattr(Template, '_render', _TestState.saved_data.template_render)
     assert gc.isenabled() and gc.get_debug() == 0 and not gc.garbage
@@ -140,12 +170,13 @@ def test_owned_first_page_batch_roi(request, monkeypatch, record_property):
         comparisons.append(dict(route=route, means=means, control_stable=stable,
                                 candidate_to_reference=relative, wall_nonregression_blocks=wall_block_gains,
                                 eligible_for_integration=eligible))
-    result = dict(samples=samples, preparation=preparation, comparisons=comparisons, batch_counts=batch_counts,
+    result = dict(fixture=fixture_details, samples=samples, preparation=preparation,
+                  comparisons=comparisons, batch_counts=batch_counts,
                   eligible_for_integration=all(row['eligible_for_integration'] for row in comparisons),
                   limits='Test-only WSGI, no TCP/Gunicorn/concurrency/dirty writes or SLO acceptance. '
                          'A/B identical native code; C bounded first-page data batching, native count/selection/guards unchanged. '
                          'Normal GC inside requests; explicit collection before warmup only. '
-                         'Controlled dirty1 throughout, no real writer/refresh schedule. '
+                         'Controlled pending markers throughout, no real writer/refresh schedule. '
                          'Control <=10% wall/CPU disagreement each route; candidate >=10% mean wall '
                          'savings both routes, CPU regression <=5%, wall nonregression >=2/3 blocks. '
                          'PASS means functional parity and diagnostic completion, not demonstrated ROI.')
