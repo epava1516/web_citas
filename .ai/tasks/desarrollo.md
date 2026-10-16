@@ -1352,3 +1352,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 [Comunicaciones: fuentes y fases conciliadas](evidencias/cr09-communications-applicability-20261016.md): nueve archivos actuales idénticos a sus ejecuciones aplicables directas, con setup/call/teardown PASS; seis módulos directos de producto coinciden. No nueva ejecución ni cobertura transitiva/N3. Se usa correctiva69b50022 para comunicaciones, no archivo antiguo de bloque4. Precisión de estado: bloques3/4 originales ERROR con selecciones afectadas posteriores PASS; no cuatro bloques íntegros PASS. Rendimiento0,862172866FAIL y CR09 abiertos.
+
+
+[Diagnóstico py-spy de carga fallido](evidencias/cr09-load-worker-pyspy-original-20261016.md): selector de descendientes devuelve cero masters; cero attach/capturas, controlador1 conservado, causa no demostrada. CI145039-c676f65f termina1PASS185,13s/p95observable0,738744505/1200sinerror, sin perfilador realmente adjuntado; fuentes/limpieza independientes conformes. No aceptación por esta muestra aislada ni causa atribuida; anterior limpio0,862172866FAIL. Próximo paso selector en árbol Gunicorn sintético propio sin carga contractual, no repetición ciega.
