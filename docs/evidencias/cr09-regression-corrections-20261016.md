@@ -1,0 +1,9 @@
+# Correcciones tras regresión común interrumpida
+
+Original: [ERROR conservado](cr09-common-current-regression-original-20261016.md). No convertir esa ejecución en PASS por correcciones posteriores.
+
+- Tarifas: [26 controles PASS](cr09-rate-meta-fixed-20261016.md), tras reproducir mutación compartida de Meta.fields; declaración inmutable.
+- Captura privada: control40 sobrescrituras de igual tamaño dejó28sinrechazo, exactamente28conmetadataidéntica. Segunda lectura acotada del mismo descriptor contrasta SHA256/conteo antes de fstat final en include_content. Test fuerza además metadataidéntica; archivo completo17PASS0,52s, artifacts/cr09-file-guard-fixed-20261016/pytest.log. No garantiza atomicidad frente a escritor adversario ni estabilidad posterior a observación.
+- Membership: diagnóstico181357-c4f237e8 conserva2FAIL2PASS132,53s. SQL capturado demuestra dos previews directos de PublicationState en dirty, no membership final; cuerpos/conteos equivalentes ya pasaban. Prueba corregida exige exactamente esos dos previews acotados/search/exclusión dirty, INSELECT en membership y ausencia de OuterRef en todas. Correctiva181748-3a81664e4PASS134,29s, terminal0/fuentes/temporal/runner/hijo/contenedores verificados independientemente. Ningún cambio SQL de producto.
+
+Los ocho casos fallidos tienen correctivas específicas comprobadas. Esto no acepta N3 ni completa121casos nunca observados/tresincompletos/67omisiones. El OOM original sigue sin atribución a un proceso: estaban concurrentes dos diagnósticos capacity_chain con populate de1500revisiones cadauno y un inventario; aislar consumo antes de reanudar, sin aumentar límites ni repetir batería ciegamente. Producto RateForm cambiado requiere conciliación de consumidores/runtime y aceptación integrada. Contractual limpio sigue INVALID por generador.

@@ -224,7 +224,9 @@ class ContactsForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
-        fields = ["concept", "mode", "amount", "duration_minutes"]
+        # Inline formsets append their FK to _meta.fields. Keep the public
+        # declaration immutable so that mutation cannot reach our rate readers.
+        fields = ("concept", "mode", "amount", "duration_minutes")
 
     def clean_concept(self):
         return validate_listing_text(self.cleaned_data["concept"])

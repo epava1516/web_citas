@@ -127,9 +127,13 @@ def test_private_content_uses_the_same_bounded_descriptor_as_its_hash(tmp_path):
         inventory.hash_regular_file(tmp_path, "private", len(private) - 1, include_content=True)
 
 
-def test_private_content_rejects_post_read_mutation(tmp_path, monkeypatch):
+@pytest.mark.parametrize("unchanged_metadata", [False, True])
+def test_private_content_rejects_post_read_mutation(tmp_path, monkeypatch, unchanged_metadata):
     target = tmp_path / "private"
     target.write_bytes(b"synthetic-original")
+    if unchanged_metadata:
+        observed = target.stat()
+        monkeypatch.setattr(inventory.os, "fstat", lambda descriptor: observed)
     read = inventory.os.read
     changed = False
 

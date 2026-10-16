@@ -6,7 +6,7 @@ from decimal import Decimal
 import pytest
 
 from apps.listings import public_validation
-from apps.listings.forms import RateForm
+from apps.listings.forms import RateForm, RateFormSet
 from apps.listings.models import Rate, Revision
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -26,6 +26,9 @@ def context():
     {'concept':'Synthetic session','mode':'consult','amount':None,'duration_minutes':10081},
 ])
 def test_private_rate_form_matches_native_and_releases_cycle(monkeypatch, values):
+    # Exercise the same process ordering as private editing followed by public reads.
+    RateFormSet(instance=Revision())
+    assert tuple(RateForm.Meta.fields) == ('concept', 'mode', 'amount', 'duration_minutes')
     native = RateForm(values, instance=Rate(revision=Revision()))
     expected = native.is_valid()
     assert native._bound_fields_cache

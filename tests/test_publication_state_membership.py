@@ -67,7 +67,18 @@ def test_membership_preserves_native_population_at_trust_boundary(
                     reports.append({"language": language, "page": page,
                                     "count": actual.context["page"].paginator.count,
                                     "native_unknown": actual.wsgi_request._publication_route["native_unknown"]})
-    assert queries and all('IN (SELECT' in sql for sql in queries)
+    record_property("membership_sql_shapes", queries)
+    # Dirty first pages also preview clean state IDs before native hydration.
+    # That direct bounded state read is not the final Listing membership query.
+    preview_prefix = ('SELECT "listings_publicationstate"."listing_id" AS "listing_id" '
+                      'FROM "listings_publicationstate" WHERE ')
+    previews = [sql for sql in queries if sql.startswith(preview_prefix)]
+    membership = [sql for sql in queries if not sql.startswith(preview_prefix)]
+    assert len(previews) == (2 if boundary.startswith("dirty") else 0)
+    assert all('LIMIT 24' in sql and '"search_document" @@' in sql
+               and 'NOT ("listings_publicationstate"."listing_id" IN (' in sql
+               for sql in previews)
+    assert membership and all('IN (SELECT' in sql for sql in membership)
     # An OuterRef in the final eligible-state subquery would reintroduce the mechanism.
     assert all('U0."listing_id" = ("listings_listing"."id")' not in sql for sql in queries)
     record_property("membership_equivalence", {"boundary": boundary, "reports": reports,

@@ -244,6 +244,20 @@ def hash_regular_file(root, relative, budget, *, include_content=False, require_
             digest.update(chunk)
             if chunks is not None:
                 chunks.append(chunk)
+        if include_content:
+            # Equal-length writes can share filesystem timestamps. Verify the
+            # captured private bytes against a second bounded descriptor read;
+            # metadata equality alone does not establish content stability.
+            os.lseek(descriptor, 0, os.SEEK_SET)
+            verified_count = 0
+            verified_digest = hashlib.sha256()
+            while chunk := os.read(descriptor, 65536):
+                verified_count += len(chunk)
+                if verified_count > budget:
+                    raise RuntimeError("Bounded scenario inventory exceeded")
+                verified_digest.update(chunk)
+            if verified_count != count or verified_digest.digest() != digest.digest():
+                raise RuntimeError("Inventory file changed during observation")
         after = os.fstat(descriptor)
         def identity(value):
             return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
