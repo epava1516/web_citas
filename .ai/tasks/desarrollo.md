@@ -1270,3 +1270,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16:0021N2a045243-39a913ec24PASS260,37s/0errores/skips,SQLactualprosrcyupdownverificados/11producto+7concurrency+2race0020control/0021actual+4MatchPhoto. Fuente/cleanup/cgroupverificados,migrationhashguardado. Evidenciacr09-private-draft-migration-n2a-20261016.md/terminalJSON. SiguienteN2bcorePublicationState+MatchEdges+signalrollbackmismocódigo,luegoN2cproyección/lifecycle/condicionalantesclean. PGpropio4CPU/PG1/memoriahabitual/serial/timeout900;esperadoparidadactualnative/Triggers/movimientos/delete/history/FKgeneration/sourcecleanup,conservarfallos. Imagenv4no0021/noaceptaciónN3/CR09/SLO. SinClaude/proveedores,consumopreviointacto;goalenteroabierto.
+
+2026-10-16: N2b f17b060 55PASS643,58s (20261016-045858-2482ce29), fuentes/cleanup verificados. Preparado control 0020/0021 de escritores con Listing ya bloqueado antes de Photo, 2 casos acotados PG propio; conservar fallo y diagnosticar separado si ocurre. Sin invocaciones Claude ni cambios al consumo previo; sin aceptación CR09/N3.
+
+2026-10-16: control prelocked termina1PASS0020/1FAIL0021 deadlock56,02s, run051054-7133ceaf; evidencia y originales conservados, frozen/cleanup verificados. Candidato0021 rechazado en su forma actual; pendiente corrección de protocolo antes de carga. Sin Claude/proveedores, consumo anterior preservado.
