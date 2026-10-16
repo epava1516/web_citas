@@ -1,0 +1,4104 @@
+{
+  "run": "20261016-130840-c816996c",
+  "source_head": "af914b921a7d513ff5ca8d89829afe4840836125",
+  "status": "PASS",
+  "tests": 6,
+  "seconds": 287.0,
+  "runtime_debug": false,
+  "cases": [
+    {
+      "count": 100,
+      "fixture": "repeated",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.1742234218865633,
+          "wsgi_mean_seconds": 0.1727200226858258,
+          "pre_wsgi_mean_seconds": 0.0009635291993618011
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.18233456760644912,
+          "wsgi_mean_seconds": 0.18098441576585172,
+          "pre_wsgi_mean_seconds": 0.0009631358087062835
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.17581975823268295,
+          "wsgi_mean_seconds": 0.1745955971069634,
+          "pre_wsgi_mean_seconds": 0.0009215840138494969
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.16218021428212523,
+          "wsgi_mean_seconds": 0.1610235884785652,
+          "pre_wsgi_mean_seconds": 0.0008011935278773308
+        },
+        {
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.0793049561791122,
+          "wsgi_mean_seconds": 0.07799697956070303,
+          "pre_wsgi_mean_seconds": 0.0008220932446420193
+        },
+        {
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.06704760883003473,
+          "wsgi_mean_seconds": 0.06559708276763558,
+          "pre_wsgi_mean_seconds": 0.0010443594306707381
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3876797.974234667,
+          "end": 3876798.178147696,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3876798.178440042,
+          "end": 3876798.413221107,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3876798.413358395,
+          "end": 3876798.595101273,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3876798.595247215,
+          "end": 3876798.800332064,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "emission": 3876798.80042003,
+          "end": 3876798.915202214,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "emission": 3876798.917610446,
+          "end": 3876798.994225164,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3876798.996631582,
+          "end": 3876799.191618203,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3876799.191816374,
+          "end": 3876799.390480677,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3876799.390672193,
+          "end": 3876799.692764174,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3876799.692866645,
+          "end": 3876799.85415453,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "emission": 3876799.854326071,
+          "end": 3876799.939287745,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "emission": 3876799.943195519,
+          "end": 3876800.041587154,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3876800.045279276,
+          "end": 3876800.21378751,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3876800.213988271,
+          "end": 3876800.37287695,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3876800.373232835,
+          "end": 3876800.506045343,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3876800.50624174,
+          "end": 3876800.688733519,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "emission": 3876800.688849163,
+          "end": 3876800.775232535,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "emission": 3876800.777722868,
+          "end": 3876800.84243429,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3876800.844659209,
+          "end": 3876801.01438526,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3876801.014667596,
+          "end": 3876801.164844096,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3876801.164989645,
+          "end": 3876801.300277207,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3876801.30036487,
+          "end": 3876801.440334139,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "emission": 3876801.440483994,
+          "end": 3876801.504605993,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "emission": 3876801.508379773,
+          "end": 3876801.556733867,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3876801.559209348,
+          "end": 3876801.693192522,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3876801.693285314,
+          "end": 3876801.862447605,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3876801.862528643,
+          "end": 3876801.989692505,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3876801.989777085,
+          "end": 3876802.111844375,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/42bea9de-1621-408f-b38c-dc9ef282a647/",
+          "emission": 3876802.111980786,
+          "end": 3876802.158256338,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/705de1f9-b7ef-46c3-be4b-16f5441176ef/",
+          "emission": 3876802.161030008,
+          "end": 3876802.208196183,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-1",
+          "pid": 145777,
+          "entry": 3876798.179333104,
+          "exit": 3876798.41301923,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-2",
+          "pid": 145777,
+          "entry": 3876798.414117756,
+          "exit": 3876798.594790619,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 145776,
+          "entry": 3876798.596181653,
+          "exit": 3876798.800056795,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 145776,
+          "entry": 3876798.80117636,
+          "exit": 3876798.914957286,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 145776,
+          "entry": 3876798.918343052,
+          "exit": 3876798.993799319,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 145776,
+          "entry": 3876798.997462174,
+          "exit": 3876799.19091891,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 145776,
+          "entry": 3876799.192910245,
+          "exit": 3876799.389912253,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 145776,
+          "entry": 3876799.391767488,
+          "exit": 3876799.692515693,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 145776,
+          "entry": 3876799.693674808,
+          "exit": 3876799.853711048,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 145776,
+          "entry": 3876799.855375739,
+          "exit": 3876799.938666111,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-11",
+          "pid": 145776,
+          "entry": 3876799.944584025,
+          "exit": 3876800.040974546,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 145776,
+          "entry": 3876800.046712812,
+          "exit": 3876800.21320504,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 145776,
+          "entry": 3876800.215078254,
+          "exit": 3876800.372296335,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 145776,
+          "entry": 3876800.374552355,
+          "exit": 3876800.505480642,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 145776,
+          "entry": 3876800.507216277,
+          "exit": 3876800.688418882,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 145776,
+          "entry": 3876800.689572193,
+          "exit": 3876800.774953734,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 145776,
+          "entry": 3876800.778576011,
+          "exit": 3876800.842255993,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 145776,
+          "entry": 3876800.845550949,
+          "exit": 3876801.013745911,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 145776,
+          "entry": 3876801.015795575,
+          "exit": 3876801.164466662,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 145776,
+          "entry": 3876801.165797579,
+          "exit": 3876801.300105672,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 145776,
+          "entry": 3876801.301049299,
+          "exit": 3876801.439928256,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 145776,
+          "entry": 3876801.441340906,
+          "exit": 3876801.50391233,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 145776,
+          "entry": 3876801.509625919,
+          "exit": 3876801.556461847,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 145776,
+          "entry": 3876801.560049499,
+          "exit": 3876801.692941494,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 145776,
+          "entry": 3876801.693896098,
+          "exit": 3876801.862240875,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 145776,
+          "entry": 3876801.863154453,
+          "exit": 3876801.989474991,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 145776,
+          "entry": 3876801.990381486,
+          "exit": 3876802.111506484,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 145776,
+          "entry": 3876802.112705312,
+          "exit": 3876802.157665947,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 145776,
+          "entry": 3876802.162031404,
+          "exit": 3876802.20765412,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-0",
+          "pid": 145778,
+          "entry": 3876797.975056294,
+          "exit": 3876798.177620487,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    },
+    {
+      "count": 1000,
+      "fixture": "repeated",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.24464391507208347,
+          "wsgi_mean_seconds": 0.24389311857521534,
+          "pre_wsgi_mean_seconds": 0.0009795964695513248
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.20367639902979134,
+          "wsgi_mean_seconds": 0.2020853528752923,
+          "pre_wsgi_mean_seconds": 0.0010927531868219376
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.2288681037724018,
+          "wsgi_mean_seconds": 0.22747794557362794,
+          "pre_wsgi_mean_seconds": 0.0009262464940547943
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.1983145867474377,
+          "wsgi_mean_seconds": 0.19689098978415132,
+          "pre_wsgi_mean_seconds": 0.000888125877827406
+        },
+        {
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.07238117400556802,
+          "wsgi_mean_seconds": 0.07104580448940397,
+          "pre_wsgi_mean_seconds": 0.0008902025409042835
+        },
+        {
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.06950064413249493,
+          "wsgi_mean_seconds": 0.0687603228725493,
+          "pre_wsgi_mean_seconds": 0.0008579370565712452
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3876820.103458683,
+          "end": 3876820.275151112,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3876820.275296091,
+          "end": 3876820.442509634,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3876820.442703669,
+          "end": 3876820.675613671,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3876820.675761938,
+          "end": 3876820.89812075,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "emission": 3876820.898291744,
+          "end": 3876820.995864267,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "emission": 3876820.99778443,
+          "end": 3876821.083439965,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3876821.088500784,
+          "end": 3876821.402962949,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3876821.403168847,
+          "end": 3876821.668508554,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3876821.668696351,
+          "end": 3876821.932047232,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3876821.932261338,
+          "end": 3876822.095153679,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "emission": 3876822.095373784,
+          "end": 3876822.165719977,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "emission": 3876822.168713208,
+          "end": 3876822.230588358,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3876822.233366883,
+          "end": 3876822.437643687,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3876822.437731702,
+          "end": 3876822.635527893,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3876822.635716459,
+          "end": 3876822.960314235,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3876822.960459501,
+          "end": 3876823.19943339,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "emission": 3876823.199534747,
+          "end": 3876823.280561873,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "emission": 3876823.286974008,
+          "end": 3876823.36707126,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3876823.36923358,
+          "end": 3876823.714529729,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3876823.71472632,
+          "end": 3876823.939308302,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3876823.939500413,
+          "end": 3876824.113149201,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3876824.113300469,
+          "end": 3876824.295274001,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "emission": 3876824.295406614,
+          "end": 3876824.357650154,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "emission": 3876824.36051391,
+          "end": 3876824.431568729,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3876824.4334598,
+          "end": 3876824.620951828,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3876824.621179842,
+          "end": 3876824.784630414,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3876824.784819078,
+          "end": 3876824.934652149,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3876824.934817231,
+          "end": 3876825.12019159,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/97e160e8-8dd2-4b68-a6b1-9c02a5872aed/",
+          "emission": 3876825.120364,
+          "end": 3876825.171080488,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/341d860f-b413-4d49-9bc4-55013f719b60/",
+          "emission": 3876825.173559742,
+          "end": 3876825.222380207,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-0",
+          "pid": 148433,
+          "entry": 3876820.104373114,
+          "exit": 3876820.276196208,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 148433,
+          "entry": 3876820.6765595,
+          "exit": 3876820.897655209,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 148433,
+          "entry": 3876822.961412224,
+          "exit": 3876823.198592939,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 148433,
+          "entry": 3876823.288121489,
+          "exit": 3876823.366759348,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 148433,
+          "entry": 3876823.369906942,
+          "exit": 3876823.713849458,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 148433,
+          "entry": 3876824.434202774,
+          "exit": 3876824.620408662,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 148433,
+          "entry": 3876824.622247095,
+          "exit": 3876824.784279244,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 148433,
+          "entry": 3876824.785572327,
+          "exit": 3876824.934072982,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 148433,
+          "entry": 3876824.935677135,
+          "exit": 3876825.119740909,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-1",
+          "pid": 148492,
+          "entry": 3876820.276736666,
+          "exit": 3876820.441845048,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-2",
+          "pid": 148492,
+          "entry": 3876820.44368743,
+          "exit": 3876820.675284817,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 148492,
+          "entry": 3876820.899140202,
+          "exit": 3876820.995284283,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 148492,
+          "entry": 3876820.998419962,
+          "exit": 3876821.085207514,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 148492,
+          "entry": 3876822.234293873,
+          "exit": 3876822.43825493,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 148436,
+          "entry": 3876821.090141009,
+          "exit": 3876821.403674047,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 148436,
+          "entry": 3876821.669915545,
+          "exit": 3876821.931442351,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 148436,
+          "entry": 3876821.933220549,
+          "exit": 3876822.094582512,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 148436,
+          "entry": 3876822.096596623,
+          "exit": 3876822.165221404,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-11",
+          "pid": 148436,
+          "entry": 3876822.169833583,
+          "exit": 3876822.230259207,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 148436,
+          "entry": 3876822.43849827,
+          "exit": 3876822.634962675,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 148436,
+          "entry": 3876822.636635962,
+          "exit": 3876822.959955021,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 148436,
+          "entry": 3876823.200289909,
+          "exit": 3876823.280145631,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 148436,
+          "entry": 3876823.715658285,
+          "exit": 3876823.938918742,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 148436,
+          "entry": 3876823.940255938,
+          "exit": 3876824.112701759,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 148436,
+          "entry": 3876824.114171698,
+          "exit": 3876824.294924486,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 148436,
+          "entry": 3876824.296153088,
+          "exit": 3876824.357198475,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 148436,
+          "entry": 3876824.361268707,
+          "exit": 3876824.431325011,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 148436,
+          "entry": 3876825.12124208,
+          "exit": 3876825.170801131,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 148436,
+          "entry": 3876825.174191243,
+          "exit": 3876825.222085518,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 148529,
+          "entry": 3876821.404426251,
+          "exit": 3876821.667987623,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    },
+    {
+      "count": 10000,
+      "fixture": "repeated",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.24320783987641334,
+          "wsgi_mean_seconds": 0.24193004686385394,
+          "pre_wsgi_mean_seconds": 0.0009624084457755088
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.19572018375620245,
+          "wsgi_mean_seconds": 0.19478334560990335,
+          "pre_wsgi_mean_seconds": 0.0008598585613071918
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.23656797399744392,
+          "wsgi_mean_seconds": 0.23510792162269353,
+          "pre_wsgi_mean_seconds": 0.0008151765912771225
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.22476709624752403,
+          "wsgi_mean_seconds": 0.22321292189881206,
+          "pre_wsgi_mean_seconds": 0.0010853097774088383
+        },
+        {
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.08993568662554026,
+          "wsgi_mean_seconds": 0.08863559560850262,
+          "pre_wsgi_mean_seconds": 0.0008842450566589833
+        },
+        {
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.0803638762794435,
+          "wsgi_mean_seconds": 0.07927695820108056,
+          "pre_wsgi_mean_seconds": 0.0009265532717108727
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3876898.060272316,
+          "end": 3876898.319258839,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3876898.319352821,
+          "end": 3876898.568584336,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3876898.568695357,
+          "end": 3876898.80239582,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3876898.802599089,
+          "end": 3876899.025142981,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "emission": 3876899.025332265,
+          "end": 3876899.127953371,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "emission": 3876899.132106871,
+          "end": 3876899.211657552,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3876899.214150201,
+          "end": 3876899.515973185,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3876899.516171796,
+          "end": 3876899.667303923,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3876899.667391005,
+          "end": 3876899.843257216,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3876899.843630179,
+          "end": 3876900.030559962,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "emission": 3876900.030660536,
+          "end": 3876900.093485472,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "emission": 3876900.095686057,
+          "end": 3876900.159704892,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3876900.162059425,
+          "end": 3876900.342824053,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3876900.342913086,
+          "end": 3876900.50957624,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3876900.509663727,
+          "end": 3876900.73587383,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3876900.736105425,
+          "end": 3876900.987387382,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "emission": 3876900.987565487,
+          "end": 3876901.111933571,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "emission": 3876901.114350767,
+          "end": 3876901.203833647,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3876901.206143912,
+          "end": 3876901.409769368,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3876901.409971562,
+          "end": 3876901.619146057,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3876901.619235585,
+          "end": 3876901.902886607,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3876901.903114022,
+          "end": 3876902.116699402,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "emission": 3876902.116890688,
+          "end": 3876902.205632816,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "emission": 3876902.209061984,
+          "end": 3876902.310357669,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3876902.313834632,
+          "end": 3876902.58467424,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3876902.584810226,
+          "end": 3876902.787209854,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3876902.787297032,
+          "end": 3876903.050709103,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3876903.050894331,
+          "end": 3876903.3003888,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/adb46350-7c98-48fd-9972-0df1a6b9b258/",
+          "emission": 3876903.300486932,
+          "end": 3876903.371609112,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/aba14322-9a54-40b6-850f-7778b7c6a147/",
+          "emission": 3876903.373671068,
+          "end": 3876903.441142368,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-1",
+          "pid": 156006,
+          "entry": 3876898.320152034,
+          "exit": 3876898.568366779,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 156006,
+          "entry": 3876901.115334244,
+          "exit": 3876901.204905426,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 156006,
+          "entry": 3876902.585782017,
+          "exit": 3876902.787837422,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 156016,
+          "entry": 3876902.788235548,
+          "exit": 3876903.050188046,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 156016,
+          "entry": 3876903.05178244,
+          "exit": 3876903.300102981,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 156016,
+          "entry": 3876903.301147581,
+          "exit": 3876903.371329166,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 156016,
+          "entry": 3876903.374311447,
+          "exit": 3876903.440489887,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-0",
+          "pid": 156007,
+          "entry": 3876898.061475446,
+          "exit": 3876898.318927139,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 156007,
+          "entry": 3876900.737227671,
+          "exit": 3876900.986846136,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 156007,
+          "entry": 3876900.988589852,
+          "exit": 3876901.11157497,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 156007,
+          "entry": 3876901.207020067,
+          "exit": 3876901.409379434,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 156007,
+          "entry": 3876901.410845392,
+          "exit": 3876901.618989007,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 156007,
+          "entry": 3876901.619933938,
+          "exit": 3876901.902309427,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 156007,
+          "entry": 3876901.904032849,
+          "exit": 3876902.116187258,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 156007,
+          "entry": 3876902.11779771,
+          "exit": 3876902.205127415,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 156007,
+          "entry": 3876902.210227171,
+          "exit": 3876902.309854888,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 156007,
+          "entry": 3876902.314935397,
+          "exit": 3876902.584508188,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-2",
+          "pid": 156033,
+          "entry": 3876898.569763999,
+          "exit": 3876898.801794534,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 156033,
+          "entry": 3876898.803569413,
+          "exit": 3876899.024517616,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 156033,
+          "entry": 3876899.026439226,
+          "exit": 3876899.127270255,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 156033,
+          "entry": 3876899.133303486,
+          "exit": 3876899.211277685,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 156033,
+          "entry": 3876899.214912164,
+          "exit": 3876899.515449569,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 156033,
+          "entry": 3876899.517134007,
+          "exit": 3876899.666997942,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 156033,
+          "entry": 3876899.66809972,
+          "exit": 3876899.842365948,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 156033,
+          "entry": 3876899.845157223,
+          "exit": 3876900.030180214,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 156033,
+          "entry": 3876900.031382764,
+          "exit": 3876900.093233306,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-11",
+          "pid": 156033,
+          "entry": 3876900.096333165,
+          "exit": 3876900.159366418,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 156033,
+          "entry": 3876900.162929454,
+          "exit": 3876900.342658432,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 156033,
+          "entry": 3876900.343605334,
+          "exit": 3876900.509244362,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 156033,
+          "entry": 3876900.510325384,
+          "exit": 3876900.735240242,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    },
+    {
+      "count": 100,
+      "fixture": "diverse",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.18018830865621566,
+          "wsgi_mean_seconds": 0.1786509479396045,
+          "pre_wsgi_mean_seconds": 0.0009409166872501373
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.20101760411635042,
+          "wsgi_mean_seconds": 0.19972934406250714,
+          "pre_wsgi_mean_seconds": 0.000960913859307766
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.19295014534145594,
+          "wsgi_mean_seconds": 0.19129472952336074,
+          "pre_wsgi_mean_seconds": 0.0009142328985035419
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.18718890706077218,
+          "wsgi_mean_seconds": 0.18572451239451765,
+          "pre_wsgi_mean_seconds": 0.0008345399983227253
+        },
+        {
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.08388182958588004,
+          "wsgi_mean_seconds": 0.08260656474158168,
+          "pre_wsgi_mean_seconds": 0.0010568114928901195
+        },
+        {
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.07692928714677691,
+          "wsgi_mean_seconds": 0.07587466640397907,
+          "pre_wsgi_mean_seconds": 0.0009598747827112674
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3876917.227601239,
+          "end": 3876917.375223134,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3876917.375403396,
+          "end": 3876917.571739064,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3876917.571827473,
+          "end": 3876917.785186006,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3876917.785358798,
+          "end": 3876917.992680468,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "emission": 3876917.992836442,
+          "end": 3876918.074768684,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "emission": 3876918.077224245,
+          "end": 3876918.160813491,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3876918.162801166,
+          "end": 3876918.392065883,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3876918.392262765,
+          "end": 3876918.683745672,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3876918.683870098,
+          "end": 3876918.961050472,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3876918.961139162,
+          "end": 3876919.135513027,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "emission": 3876919.13564989,
+          "end": 3876919.240852507,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "emission": 3876919.243881071,
+          "end": 3876919.349419436,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3876919.352286037,
+          "end": 3876919.586326766,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3876919.586531653,
+          "end": 3876919.739184086,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3876919.739372488,
+          "end": 3876919.906637585,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3876919.906831463,
+          "end": 3876920.174270704,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "emission": 3876920.174595833,
+          "end": 3876920.25444323,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "emission": 3876920.257071913,
+          "end": 3876920.316656821,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3876920.321658378,
+          "end": 3876920.47296182,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3876920.473126908,
+          "end": 3876920.688877862,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3876920.688960709,
+          "end": 3876920.854415618,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3876920.854510515,
+          "end": 3876920.98643236,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "emission": 3876920.98661698,
+          "end": 3876921.073642342,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "emission": 3876921.076765892,
+          "end": 3876921.147071761,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3876921.150443566,
+          "end": 3876921.289154326,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3876921.289350981,
+          "end": 3876921.438217039,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3876921.438550152,
+          "end": 3876921.580041966,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3876921.580268494,
+          "end": 3876921.735156408,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/38103114-8c19-49b4-b14f-57074487ed66/",
+          "emission": 3876921.735512501,
+          "end": 3876921.800914031,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/4b836c37-ef25-4294-863a-ec4ec58815f2/",
+          "emission": 3876921.804880417,
+          "end": 3876921.870508465,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-11",
+          "pid": 158347,
+          "entry": 3876919.245103493,
+          "exit": 3876919.350804173,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 158347,
+          "entry": 3876920.474100794,
+          "exit": 3876920.689657192,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-0",
+          "pid": 158348,
+          "entry": 3876917.228580205,
+          "exit": 3876917.37471147,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-1",
+          "pid": 158348,
+          "entry": 3876917.376306257,
+          "exit": 3876917.571436576,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-2",
+          "pid": 158348,
+          "entry": 3876917.572545788,
+          "exit": 3876917.784673203,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 158348,
+          "entry": 3876917.786294573,
+          "exit": 3876917.992244668,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 158348,
+          "entry": 3876918.684881091,
+          "exit": 3876918.960764049,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 158348,
+          "entry": 3876918.961801614,
+          "exit": 3876919.135142246,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 158348,
+          "entry": 3876919.136570454,
+          "exit": 3876919.240503165,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 158348,
+          "entry": 3876920.322459899,
+          "exit": 3876920.472593772,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 158348,
+          "entry": 3876920.855191699,
+          "exit": 3876920.985796151,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 158348,
+          "entry": 3876920.987513668,
+          "exit": 3876921.073110531,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 158348,
+          "entry": 3876921.077653198,
+          "exit": 3876921.146512874,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 158348,
+          "entry": 3876921.151359128,
+          "exit": 3876921.288497198,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 158348,
+          "entry": 3876921.290171446,
+          "exit": 3876921.437332544,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 158348,
+          "entry": 3876921.439611274,
+          "exit": 3876921.579353058,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 158348,
+          "entry": 3876921.581246461,
+          "exit": 3876921.734344991,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 158348,
+          "entry": 3876921.736685484,
+          "exit": 3876921.80016793,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 158348,
+          "entry": 3876921.806097058,
+          "exit": 3876921.869913033,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 158349,
+          "entry": 3876918.393266967,
+          "exit": 3876918.683236877,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 158350,
+          "entry": 3876917.994056859,
+          "exit": 3876918.075726109,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 158350,
+          "entry": 3876918.077927523,
+          "exit": 3876918.160499782,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 158350,
+          "entry": 3876918.163678428,
+          "exit": 3876918.391461411,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 158350,
+          "entry": 3876919.35341731,
+          "exit": 3876919.585485858,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 158350,
+          "entry": 3876919.587634808,
+          "exit": 3876919.738463803,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 158350,
+          "entry": 3876919.740312805,
+          "exit": 3876919.904707566,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 158350,
+          "entry": 3876919.907746785,
+          "exit": 3876920.173375638,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 158350,
+          "entry": 3876920.175669238,
+          "exit": 3876920.254020792,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 158350,
+          "entry": 3876920.25784164,
+          "exit": 3876920.316266382,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 158350,
+          "entry": 3876920.689801127,
+          "exit": 3876920.854127857,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    },
+    {
+      "count": 1000,
+      "fixture": "diverse",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.17310659876093268,
+          "wsgi_mean_seconds": 0.17197228567674755,
+          "pre_wsgi_mean_seconds": 0.0008126737549901009
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.18505785800516605,
+          "wsgi_mean_seconds": 0.1838125042617321,
+          "pre_wsgi_mean_seconds": 0.0007297661155462265
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.16899470873177053,
+          "wsgi_mean_seconds": 0.1677704079076648,
+          "pre_wsgi_mean_seconds": 0.0008537433110177517
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.15843213610351087,
+          "wsgi_mean_seconds": 0.1564476358704269,
+          "pre_wsgi_mean_seconds": 0.001430963259190321
+        },
+        {
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.06574067696928979,
+          "wsgi_mean_seconds": 0.06452075364068151,
+          "pre_wsgi_mean_seconds": 0.0008531419560313224
+        },
+        {
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.06774643287062646,
+          "wsgi_mean_seconds": 0.06651960983872414,
+          "pre_wsgi_mean_seconds": 0.000805001612752676
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3876941.464051165,
+          "end": 3876941.627098753,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3876941.627225857,
+          "end": 3876941.811460674,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3876941.811555246,
+          "end": 3876941.963637612,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3876941.963770561,
+          "end": 3876942.095861589,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "emission": 3876942.095993731,
+          "end": 3876942.178254909,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "emission": 3876942.180921925,
+          "end": 3876942.256428313,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3876942.259399684,
+          "end": 3876942.46035886,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3876942.460447294,
+          "end": 3876942.71075329,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3876942.710948825,
+          "end": 3876942.875837355,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3876942.876072615,
+          "end": 3876943.043142558,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "emission": 3876943.04339518,
+          "end": 3876943.098464415,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "emission": 3876943.100658261,
+          "end": 3876943.159546562,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3876943.162078314,
+          "end": 3876943.316850349,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3876943.316993723,
+          "end": 3876943.467765041,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3876943.467918019,
+          "end": 3876943.656082581,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3876943.65618815,
+          "end": 3876943.827553482,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "emission": 3876943.827689141,
+          "end": 3876943.88862576,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "emission": 3876943.89347706,
+          "end": 3876943.956115255,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3876943.959071951,
+          "end": 3876944.152352663,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3876944.152516437,
+          "end": 3876944.325556649,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3876944.325776193,
+          "end": 3876944.490969023,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3876944.491126151,
+          "end": 3876944.64078868,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "emission": 3876944.641426318,
+          "end": 3876944.696984383,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "emission": 3876944.698947342,
+          "end": 3876944.773124617,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3876944.775618848,
+          "end": 3876944.929092331,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3876944.929211884,
+          "end": 3876945.096148832,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3876945.096292414,
+          "end": 3876945.270937669,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3876945.271097542,
+          "end": 3876945.44306939,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/f309eee7-678d-47a7-9e7d-0eec8926bfe4/",
+          "emission": 3876945.443213144,
+          "end": 3876945.518091432,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/ae69eee7-8f87-4c09-89f6-8c1d3e12ae03/",
+          "emission": 3876945.521414873,
+          "end": 3876945.588936879,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-2",
+          "pid": 160767,
+          "entry": 3876941.812439133,
+          "exit": 3876941.963361835,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 160767,
+          "entry": 3876941.964469881,
+          "exit": 3876942.095420258,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 160767,
+          "entry": 3876942.096668015,
+          "exit": 3876942.177860491,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 160767,
+          "entry": 3876942.181703404,
+          "exit": 3876942.256197326,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 160767,
+          "entry": 3876942.260215365,
+          "exit": 3876942.460074573,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 160767,
+          "entry": 3876942.461050705,
+          "exit": 3876942.710333412,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 160767,
+          "entry": 3876942.711810504,
+          "exit": 3876942.875290859,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 160767,
+          "entry": 3876942.879567436,
+          "exit": 3876943.042371464,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 160767,
+          "entry": 3876943.044407799,
+          "exit": 3876943.098223475,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-11",
+          "pid": 160767,
+          "entry": 3876943.101387011,
+          "exit": 3876943.159146224,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 160767,
+          "entry": 3876943.162847578,
+          "exit": 3876943.316560535,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 160767,
+          "entry": 3876943.317752295,
+          "exit": 3876943.467174271,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 160767,
+          "entry": 3876943.468737865,
+          "exit": 3876943.655732083,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 160767,
+          "entry": 3876944.15346955,
+          "exit": 3876944.324807565,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 160767,
+          "entry": 3876944.326689433,
+          "exit": 3876944.490681123,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 160767,
+          "entry": 3876944.492550264,
+          "exit": 3876944.63999224,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 160767,
+          "entry": 3876944.642588865,
+          "exit": 3876944.696710628,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 160767,
+          "entry": 3876944.699546738,
+          "exit": 3876944.772778723,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 160767,
+          "entry": 3876944.776303918,
+          "exit": 3876944.928749097,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 160767,
+          "entry": 3876944.929838242,
+          "exit": 3876945.095687697,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 160767,
+          "entry": 3876945.097082478,
+          "exit": 3876945.270545552,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 160767,
+          "entry": 3876945.271824392,
+          "exit": 3876945.442679044,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 160767,
+          "entry": 3876945.443923384,
+          "exit": 3876945.517728212,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 160767,
+          "entry": 3876945.522231008,
+          "exit": 3876945.588367301,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-0",
+          "pid": 160789,
+          "entry": 3876941.464965538,
+          "exit": 3876941.626742692,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-1",
+          "pid": 160789,
+          "entry": 3876941.627933234,
+          "exit": 3876941.811103602,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 160787,
+          "entry": 3876943.656997862,
+          "exit": 3876943.827185008,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 160787,
+          "entry": 3876943.828395161,
+          "exit": 3876943.888064186,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 160787,
+          "entry": 3876943.894576309,
+          "exit": 3876943.955552945,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 160787,
+          "entry": 3876943.959950932,
+          "exit": 3876944.152017862,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    },
+    {
+      "count": 10000,
+      "fixture": "diverse",
+      "routes": [
+        {
+          "path": "/es/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.21636641612276436,
+          "wsgi_mean_seconds": 0.21544943619519472,
+          "pre_wsgi_mean_seconds": 0.0008262237533926964
+        },
+        {
+          "path": "/en/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.17143415212631224,
+          "wsgi_mean_seconds": 0.17033463967964052,
+          "pre_wsgi_mean_seconds": 0.0007420983165502548
+        },
+        {
+          "path": "/es/?q=photography",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.20637081721797584,
+          "wsgi_mean_seconds": 0.20532723041251302,
+          "pre_wsgi_mean_seconds": 0.0007090004161000252
+        },
+        {
+          "path": "/en/?q=synthetic",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.1852334356866777,
+          "wsgi_mean_seconds": 0.1842382876202464,
+          "pre_wsgi_mean_seconds": 0.0007303817197680474
+        },
+        {
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.07218325110152364,
+          "wsgi_mean_seconds": 0.07145980698987842,
+          "pre_wsgi_mean_seconds": 0.0007689809426665306
+        },
+        {
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "phase": "clean",
+          "population": 5,
+          "http_mean_seconds": 0.08130657859146595,
+          "wsgi_mean_seconds": 0.0804979968816042,
+          "pre_wsgi_mean_seconds": 0.0008389451541006565
+        }
+      ],
+      "samples": [
+        {
+          "id": "d-0",
+          "path": "/es/",
+          "emission": 3877028.894347162,
+          "end": 3877029.071887052,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-1",
+          "path": "/en/",
+          "emission": 3877029.072143106,
+          "end": 3877029.237280217,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-2",
+          "path": "/es/?q=photography",
+          "emission": 3877029.237400142,
+          "end": 3877029.439540697,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-3",
+          "path": "/en/?q=synthetic",
+          "emission": 3877029.439658201,
+          "end": 3877029.648059758,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-4",
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "emission": 3877029.648147888,
+          "end": 3877029.732052976,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-5",
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "emission": 3877029.73424073,
+          "end": 3877029.800219653,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-6",
+          "path": "/es/",
+          "emission": 3877029.802152533,
+          "end": 3877029.967159126,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-7",
+          "path": "/en/",
+          "emission": 3877029.967306568,
+          "end": 3877030.11892021,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-8",
+          "path": "/es/?q=photography",
+          "emission": 3877030.119148097,
+          "end": 3877030.3803366,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-9",
+          "path": "/en/?q=synthetic",
+          "emission": 3877030.38053166,
+          "end": 3877030.595165578,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-10",
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "emission": 3877030.595246217,
+          "end": 3877030.662902122,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-11",
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "emission": 3877030.664933389,
+          "end": 3877030.754719298,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-12",
+          "path": "/es/",
+          "emission": 3877030.756788731,
+          "end": 3877031.117348187,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-13",
+          "path": "/en/",
+          "emission": 3877031.117455648,
+          "end": 3877031.323601008,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-14",
+          "path": "/es/?q=photography",
+          "emission": 3877031.323685445,
+          "end": 3877031.528885067,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-15",
+          "path": "/en/?q=synthetic",
+          "emission": 3877031.528972108,
+          "end": 3877031.694293158,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-16",
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "emission": 3877031.69445732,
+          "end": 3877031.777574125,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-17",
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "emission": 3877031.782293749,
+          "end": 3877031.884804937,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-18",
+          "path": "/es/",
+          "emission": 3877031.887721351,
+          "end": 3877032.063335471,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-19",
+          "path": "/en/",
+          "emission": 3877032.063526372,
+          "end": 3877032.22004192,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-20",
+          "path": "/es/?q=photography",
+          "emission": 3877032.220203276,
+          "end": 3877032.414605792,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-21",
+          "path": "/en/?q=synthetic",
+          "emission": 3877032.414691953,
+          "end": 3877032.575168375,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-22",
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "emission": 3877032.575251501,
+          "end": 3877032.634396396,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-23",
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "emission": 3877032.636434845,
+          "end": 3877032.723678936,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-24",
+          "path": "/es/",
+          "emission": 3877032.727721466,
+          "end": 3877032.930833488,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-25",
+          "path": "/en/",
+          "emission": 3877032.930923028,
+          "end": 3877033.108682127,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-26",
+          "path": "/es/?q=photography",
+          "emission": 3877033.108765902,
+          "end": 3877033.277688792,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-27",
+          "path": "/en/?q=synthetic",
+          "emission": 3877033.277775476,
+          "end": 3877033.455109707,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-28",
+          "path": "/es/listing/9ccad043-32d2-4002-ade0-4f945b485dae/",
+          "emission": 3877033.455194172,
+          "end": 3877033.522287735,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        },
+        {
+          "id": "d-29",
+          "path": "/en/listing/f8370a4b-eafb-4a07-8145-b306ab7bd2b4/",
+          "emission": 3877033.52416896,
+          "end": 3877033.585181742,
+          "status": 200,
+          "phase": "clean",
+          "block": 0
+        }
+      ],
+      "wsgi_events": [
+        {
+          "id": "d-0",
+          "pid": 169207,
+          "entry": 3877028.895183661,
+          "exit": 3877029.072869388,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-6",
+          "pid": 169207,
+          "entry": 3877029.802843484,
+          "exit": 3877029.966743665,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-7",
+          "pid": 169207,
+          "entry": 3877029.967987774,
+          "exit": 3877030.118384825,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-8",
+          "pid": 169207,
+          "entry": 3877030.119986729,
+          "exit": 3877030.379675803,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-9",
+          "pid": 169207,
+          "entry": 3877030.38141801,
+          "exit": 3877030.594916403,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-27",
+          "pid": 169207,
+          "entry": 3877033.278542117,
+          "exit": 3877033.454937217,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-17",
+          "pid": 169206,
+          "entry": 3877031.783684901,
+          "exit": 3877031.886135692,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-28",
+          "pid": 169206,
+          "entry": 3877033.456136052,
+          "exit": 3877033.523273963,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-23",
+          "pid": 169205,
+          "entry": 3877032.637148231,
+          "exit": 3877032.723300419,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-29",
+          "pid": 169205,
+          "entry": 3877033.524828503,
+          "exit": 3877033.584922185,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-1",
+          "pid": 169209,
+          "entry": 3877029.073063077,
+          "exit": 3877029.237142617,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-2",
+          "pid": 169209,
+          "entry": 3877029.238066056,
+          "exit": 3877029.439230199,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-3",
+          "pid": 169209,
+          "entry": 3877029.440459359,
+          "exit": 3877029.647878625,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-4",
+          "pid": 169209,
+          "entry": 3877029.648853073,
+          "exit": 3877029.73180869,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-5",
+          "pid": 169209,
+          "entry": 3877029.734965527,
+          "exit": 3877029.799894566,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-10",
+          "pid": 169209,
+          "entry": 3877030.595953231,
+          "exit": 3877030.662737575,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-11",
+          "pid": 169209,
+          "entry": 3877030.665639237,
+          "exit": 3877030.754503521,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-12",
+          "pid": 169209,
+          "entry": 3877030.757557591,
+          "exit": 3877031.117073752,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-13",
+          "pid": 169209,
+          "entry": 3877031.118136594,
+          "exit": 3877031.323326398,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-14",
+          "pid": 169209,
+          "entry": 3877031.324315311,
+          "exit": 3877031.528659632,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-15",
+          "pid": 169209,
+          "entry": 3877031.529593911,
+          "exit": 3877031.693831189,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-16",
+          "pid": 169209,
+          "entry": 3877031.695385284,
+          "exit": 3877031.777486667,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-18",
+          "pid": 169209,
+          "entry": 3877031.888476868,
+          "exit": 3877032.062832834,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-19",
+          "pid": 169209,
+          "entry": 3877032.064271256,
+          "exit": 3877032.219460052,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-20",
+          "pid": 169209,
+          "entry": 3877032.220931992,
+          "exit": 3877032.414365244,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-21",
+          "pid": 169209,
+          "entry": 3877032.415267909,
+          "exit": 3877032.574909311,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-22",
+          "pid": 169209,
+          "entry": 3877032.575814363,
+          "exit": 3877032.634134143,
+          "route": null,
+          "order_variant": null
+        },
+        {
+          "id": "d-24",
+          "pid": 169209,
+          "entry": 3877032.728800758,
+          "exit": 3877032.930589904,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-25",
+          "pid": 169209,
+          "entry": 3877032.931606512,
+          "exit": 3877033.108424519,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        },
+        {
+          "id": "d-26",
+          "pid": 169209,
+          "entry": 3877033.109447776,
+          "exit": 3877033.277453138,
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          },
+          "order_variant": null
+        }
+      ],
+      "workers": 4,
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "concurrent_client_limit": 1,
+      "dirty_contrast": false,
+      "order_contrast": false,
+      "membership_contrast": false,
+      "controls_per_route_per_block": 5,
+      "blocks": [
+        "clean"
+      ]
+    }
+  ],
+  "cleanup_and_source_freeze": "independently verified",
+  "limits": "Sequential TCP with light WSGI/route metadata; five samples per route/case after warmup, not contractual p95/concurrency. Historical DEBUG1 matrix not comparable as code speedup."
+}

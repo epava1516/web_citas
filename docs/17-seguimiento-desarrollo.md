@@ -2854,3 +2854,9 @@ Integración plantilla `130101-b207e9d9`:22PASS207,89s,freeze/cleanupverificados
 
 
 Plantilla compartida entre hilos `130550-49051eb7`:1PASS46,13s/24lecturas/8hilos/individual+agencia/ESEN,200/no-store/hashigual,cachéfríacompartida yplantillaparametrizadainmutable/sinresultados. Freeze/cleanupverificados; recibo cr09-detail-template-threads-20261016.json. No perfilador ni aceptación de capacidad. Preparar ahora matrizTCP corregida DEBUG=0, seis controles repeated/diverse×100/1000/10000, secuencial en mismo CI, misma fuente. Sólo tras matriz conforme ejecutar corto20rps60s y repetiruna vez siPASS; anteFAIL conservar ydiagnosticar por separado.
+
+
+Commitproductivo plantilla af914b9. Grafo AST actualizado para public_validation.py y moderation_views.py:11754nodos/46413aristas,0extremoshuérfanos,0tokensLLM; respaldoprevio yrecibo artifacts/cr09-template-graph-20261016. No se refrescaron semántica/docs/testsdiagnósticos; consumo previo preservado. No ejecutar grafo durante matriz/carga.
+
+
+[MatrizTCP plantilla](evidencias/cr09-detail-template-tcp-matrix-20261016.md):130840-c816996c,6PASS287,00s;180lecturasmedidas/6rutas×5×6casos,repeated/diverse×100/1000/10000,DEBUG0. Freeze/cleanupverificados;no inferir speedupcontraDEBUG1. Aplicabilidaddeesta matriz funcional actualizada. Ejecutar único corto limpio actual con protocolo idéntico al104400/104826; repetiruna vezsiPASS,sin perfiladores ni cambiosdecuota.
