@@ -1,0 +1,6 @@
+{
+  "result": "Pre-work guard stopped probe; no performance samples",
+  "reason": "User cgroup has no cpu.max exposed; do not claim hard CFS quota. One process pinned to CPU4 bounds CPU use to one logical CPU. Memory/swap/task checks retained; no parent-cgroup changes.",
+  "original_unit": "cr09-cpu-control-20261016",
+  "correction": "Record unavailable quota interface explicitly and use single-CPU affinity, no CPUQuota setting or increased parallelism."
+}
