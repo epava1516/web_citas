@@ -2447,3 +2447,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: diagnóstico aislado publication mark 022358-07bacd96,1PASS74,25s/108llamadas. Mediana individual0,672→3,221ms;traslote0,810→0,925ms;lote10k468,382→443,519ms. Copias pg_temp/global intacta,sinMatch,no sustitución de corrección. No atribución causal p95; siguiente contar invalidaciones subida real. Fuente/cleanup/cgroup verificados. Evidencia cr09-publication-mark-cost-20261016.md. SinClaude/proveedores,consumo previo intacto;CR09/N3/goal completo abiertos.
+
+
+2026-10-16: subida aislada023338-0173334a,1PASS87,94s. Wall462,970ms/CPUhilo381,549ms;6invalidacionesPG7,284ms(1,57%wall). Endpointreal/10k/sinworkers,despachoregistrado;noHTTP/p95/causalidadconcurrente. Fuente/cleanupverificados. Siguiente atribuir CPUsubida. Evidencia cr09-upload-mark-cost-20261016.md. SinClaude/proveedores,consumo previo intacto;CR09/N3/contratoentero abiertos.
