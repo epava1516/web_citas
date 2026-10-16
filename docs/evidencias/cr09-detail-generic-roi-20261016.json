@@ -1,0 +1,194 @@
+{
+  "comparisons": [
+    {
+      "route": "/es/listing/efb2b8d8-6e6c-4ff9-968b-27653c63a722/",
+      "metrics": {
+        "first6": {
+          "A": {
+            "wall": 0.09620529419044033,
+            "cpu": 0.0495530912638886,
+            "backend_runtime": 0.029629708972222224
+          },
+          "B": {
+            "wall": 0.09719504069329964,
+            "cpu": 0.04927648252777771,
+            "backend_runtime": 0.030767516055555555
+          },
+          "C": {
+            "wall": 0.08302543001223563,
+            "cpu": 0.04548517615277762,
+            "backend_runtime": 0.021340569041666667
+          }
+        },
+        "warm12": {
+          "A": {
+            "wall": 0.058338635736921184,
+            "cpu": 0.03920735397222271,
+            "backend_runtime": 0.007873058388888889
+          },
+          "B": {
+            "wall": 0.0614847159498216,
+            "cpu": 0.04116167421527786,
+            "backend_runtime": 0.007965758291666666
+          },
+          "C": {
+            "wall": 0.061044768258903384,
+            "cpu": 0.041157091381944594,
+            "backend_runtime": 0.0074410194375
+          }
+        },
+        "all18": {
+          "A": {
+            "wall": 0.07096085522142756,
+            "cpu": 0.04265593306944467,
+            "backend_runtime": 0.01512527525
+          },
+          "B": {
+            "wall": 0.07338815753098095,
+            "cpu": 0.04386661031944447,
+            "backend_runtime": 0.015566344212962964
+          },
+          "C": {
+            "wall": 0.06837165551001413,
+            "cpu": 0.0425997863055556,
+            "backend_runtime": 0.012074202638888889
+          }
+        }
+      },
+      "control_stable": true,
+      "candidate_to_reference": {
+        "first6": {
+          "wall": 0.8585862073314946,
+          "cpu": 0.92047702742624,
+          "backend_runtime": 0.7066738258869262
+        },
+        "warm12": {
+          "wall": 1.018912714418042,
+          "cpu": 1.0242027883160485,
+          "backend_runtime": 0.9395928480736734
+        },
+        "all18": {
+          "wall": 0.9473103307923153,
+          "cpu": 0.9847095251022425,
+          "backend_runtime": 0.7868077898893151
+        }
+      },
+      "nonregression_blocks": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "high_resolution_runtime": true,
+      "eligible_for_followup": false
+    },
+    {
+      "route": "/en/listing/00288347-daa8-4077-94d7-b5151f3cb547/",
+      "metrics": {
+        "first6": {
+          "A": {
+            "wall": 0.10330011505478372,
+            "cpu": 0.05340550298611034,
+            "backend_runtime": 0.030519185291666664
+          },
+          "B": {
+            "wall": 0.09456213632236338,
+            "cpu": 0.045708378416665515,
+            "backend_runtime": 0.030678606763888887
+          },
+          "C": {
+            "wall": 0.08136898198992842,
+            "cpu": 0.04549438762499866,
+            "backend_runtime": 0.02038303623611111
+          }
+        },
+        "warm12": {
+          "A": {
+            "wall": 0.06266036406870829,
+            "cpu": 0.04113047640972183,
+            "backend_runtime": 0.0075976589375
+          },
+          "B": {
+            "wall": 0.06146669163071136,
+            "cpu": 0.04069324796527783,
+            "backend_runtime": 0.007879062354166667
+          },
+          "C": {
+            "wall": 0.06358718807395133,
+            "cpu": 0.04175749493055461,
+            "backend_runtime": 0.008076389506944445
+          }
+        },
+        "all18": {
+          "A": {
+            "wall": 0.07620694773073343,
+            "cpu": 0.04522215193518467,
+            "backend_runtime": 0.015238167722222222
+          },
+          "B": {
+            "wall": 0.0724985065279287,
+            "cpu": 0.0423649581157404,
+            "backend_runtime": 0.01547891049074074
+          },
+          "C": {
+            "wall": 0.06951445271261036,
+            "cpu": 0.04300312582870263,
+            "backend_runtime": 0.012178605083333334
+          }
+        }
+      },
+      "control_stable": false,
+      "candidate_to_reference": {
+        "first6": {
+          "wall": 0.8224811091917705,
+          "cpu": 0.9180225207833403,
+          "backend_runtime": 0.6661363278468388
+        },
+        "warm12": {
+          "wall": 1.0245500099177594,
+          "cpu": 1.0206696223989813,
+          "backend_runtime": 1.0436822314934522
+        },
+        "all18": {
+          "wall": 0.9349280839651667,
+          "cpu": 0.981951015479325,
+          "backend_runtime": 0.7929533531085533
+        }
+      },
+      "nonregression_blocks": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "high_resolution_runtime": true,
+      "eligible_for_followup": false
+    }
+  ],
+  "eligible_for_followup": false,
+  "limits": "Owned synthetic10k, actual WSGI without TCP/workers/upload/Beat. Both routes agency/agency clone.12balanced blocks/route, A/B same current product,C scoped generic hydration.6first+12warm,72fresh backends, Python and shared PG buffers already warm. GC normal, collect only before first request per arm. Timestamp component fixed equally, real signing. Own exact backend schedstat runtime, not cgroup CPU; parallel workers excluded if any. Tick counters retained with coarse resolution. Preparation separately recorded, no operational warmup or p95 acceptance.",
+  "run": "artifacts/local-ci/20261016-121637-13c66df7",
+  "head": "4735d3b389289cf0d32fa2d9cf81f6854427e391",
+  "result": "1 PASS196.13s parity/diagnostic only",
+  "read_count": 1296,
+  "backend_count": 72,
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "decision": "Do not integrate: first6 savings14.14/17.75percent below20, all18 savings5.27/6.51 below10; ENfirst6appCPUcontrol exceeds10. No new clean load or900."
+}
