@@ -1,0 +1,23 @@
+{
+  "result": "6 PASS",
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "6",
+    "time": "0.956",
+    "timestamp": "2026-10-16T15:50:10.090014+00:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "junit_sha256": "5be711627c8035108e052963840d5f7d20a442a36af652a65bf856b0056c0a4d",
+  "sources_sha256": {
+    "scripts/benchmark_generator_diagnostic.py": "4d55103e3a9c0d812a1c52951e6028648a6644451b9c6bf5d3d10a2ba9ca7c10",
+    "tests/test_owned_generator_schedule.py": "5d5707c3a01ee1db70fc8a82264a78c36d011edb351bd1a7137ecc0d6075716b",
+    "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+    "scripts/benchmark_async_transport.py": "e79cf9ebf5e918071a61d465b05c0b98e1655e67f6158549cf458d232776065a"
+  },
+  "fixed": "Observer forwards the exact original POLICY default when caller omits policy; closes its loop on pre-run exceptions",
+  "checks": "Original5controls plus explicit/default policy variants, accounting identical",
+  "scope": "Unit controls only; no DB/HTTP, diagnostic retry pending; original failure preserved"
+}

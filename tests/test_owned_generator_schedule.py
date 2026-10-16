@@ -2,6 +2,7 @@
 import asyncio
 import time
 
+import pytest
 from owned_generator_schedule import ObservedLoop
 
 
@@ -40,7 +41,8 @@ def test_blocking_callback_is_observed_without_inventing_cpu():
     assert len(report['events']) <= 256
 
 
-def test_observed_transport_preserves_original_accounting(tmp_path):
+@pytest.mark.parametrize('explicit_policy', [False, True])
+def test_observed_transport_preserves_original_accounting(tmp_path, explicit_policy):
     import json
 
     from scripts.benchmark_async_transport import POLICY
@@ -50,8 +52,9 @@ def test_observed_transport_preserves_original_accounting(tmp_path):
         await asyncio.sleep(.001)
         return dict(status=200, unexpected=False, timeout=False, bytes=2)
     output = tmp_path/'observer.json'
+    options = {'policy': POLICY} if explicit_policy else {}
     report = observed_transport(fetch, ['/synthetic/'], output=output,
-                                duration=.2, rps=20, upload_specs=[], policy=POLICY)
+                                duration=.2, rps=20, upload_specs=[], **options)
     assert report['counts']['scheduled'] == report['counts']['successful'] == 4
     assert report['counts']['not_emitted'] == report['counts']['pending'] == 0
     observed = json.loads(output.read_text())

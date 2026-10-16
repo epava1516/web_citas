@@ -1,0 +1,39 @@
+{
+  "run": "20261016-154618-552116c8",
+  "source_sha": "d8a0745ca4842ffa757bf498f09174d5ea0e82fb",
+  "result": "FAIL instrumentation TypeError before _run coroutine creation: missing required policy argument",
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "1",
+    "skipped": "0",
+    "tests": "1",
+    "time": "126.190",
+    "timestamp": "2026-10-16T17:46:37.751364+02:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "observer": {
+    "iterations": 0,
+    "maxima": {
+      "wall": 0.0,
+      "cpu": 0.0,
+      "runqueue_wait": 0.0,
+      "selector_overshoot": 0.0
+    },
+    "events": [],
+    "limits": "Diagnostic per-thread /proc schedstat and clocks; inclusive deltas overlap. No exact cause assigned to unmatched off-CPU wall time. Selector requested timeout is an upper bound before I/O readiness. Observer overhead not causally measured; not clean acceptance timing.",
+    "scope": "DIAGNOSTIC ONLY: unchanged emitter with observed loop; not acceptance timing",
+    "sources_sha256": {
+      "/home/felidae/proyectos/web_modelos_mod08_vps/scripts/benchmark_generator_diagnostic.py": "4df9a2a787011ec94b55bf123c54330e15153ee1dc8854304fa6c87fc6d93560",
+      "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+      "scripts/benchmark_async_transport.py": "e79cf9ebf5e918071a61d465b05c0b98e1655e67f6158549cf458d232776065a"
+    }
+  },
+  "freeze_cleanup_independently_verified": true,
+  "source_sha256": {
+    "scripts/benchmark_generator_diagnostic.py": "4df9a2a787011ec94b55bf123c54330e15153ee1dc8854304fa6c87fc6d93560",
+    "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+    "scripts/benchmark_async_transport.py": "e79cf9ebf5e918071a61d465b05c0b98e1655e67f6158549cf458d232776065a"
+  },
+  "scope": "No arrivals/no scheduling evidence; not application failure or valid diagnosis. Original contractual INVALID preserved."
+}

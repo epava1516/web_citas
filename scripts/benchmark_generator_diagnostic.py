@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+from scripts.benchmark_async_transport import POLICY
+
 TARGET = 'tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]'
 
 
@@ -14,7 +16,7 @@ def pytest_collection_modifyitems(items):
         raise pytest.UsageError('Generator observer requires exactly the explicit measured HTTP node')
 
 
-def observed_transport(fetch, routes, *, output, **kwargs):
+def observed_transport(fetch, routes, *, output, policy=POLICY, **kwargs):
     from owned_generator_schedule import ObservedLoop
 
     from scripts.benchmark_async_transport import _run
@@ -27,9 +29,11 @@ def observed_transport(fetch, routes, *, output, **kwargs):
         return loop
 
     try:
-        result = asyncio.run(_run(fetch, routes, **kwargs), loop_factory=factory)
+        result = asyncio.run(_run(fetch, routes, policy=policy, **kwargs), loop_factory=factory)
         return result
     finally:
+        if not loop.is_closed():
+            loop.close()
         report = loop.report()
         if result is not None:
             report['load'] = {key: result[key] for key in
