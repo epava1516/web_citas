@@ -1296,3 +1296,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: preparado6casosrevocacióneditoractivo trasPersonwait,3causasestructuralesauthorized_targets×readack; sinmodificarfixtureoriginal. NoCartesianporrightkindguardsinrama; sinClaude/consumopreviointacto/noaceptaciónN3.
 
 2026-10-16:6PASS106,99s editorrecipientrevocation054713-fd15186b, frozen/JUnit/cleanup verificados; matrices/evidencia registradas. Productoigual, guardaplicableporramas sinCartesianinventado; sinClaude/consumopreviointacto/aceptaciónglobal.
+
+2026-10-16: preparado48readsfinito direct_fields conservandonative _post_clean/modelvalidation;sinproducto, N2pendientesiahorroestable. Admisióngthreadrechazadaconfuentefijada23sinbarrido. SinClaude/consumopreviointacto.
+
+2026-10-16:directbinding055219-a26ee1ad1PASS106,81s48reads,REJECTEDpormejora noinconsistente(corrección: ROIinconsistente,2/3bloquesempeoran). Frozen/contador/cleanupverificados;sinproducto/carga/Claude,consumopreviointacto.
