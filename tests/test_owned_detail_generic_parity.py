@@ -4,13 +4,13 @@ import uuid
 import pytest
 from django.core import signing
 from owned_detail_context import build_detail_context_prototype, patch_detail_view
-from owned_detail_generic import build_scoped_generic_context
+from owned_detail_generic import build_generic_reader, build_scoped_generic_context
 from owned_detail_native_reference import build_native_detail_reference
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
 from apps.core.models import Person
-from apps.listings import moderation_views
+from apps.listings import moderation_views, public_validation
 from apps.listings.models import Listing, Rate, Revision
 from scripts.synthetic_load_dataset import populate
 
@@ -23,6 +23,7 @@ def test_owned_detail_generic_parity(request, monkeypatch, record_property):
         pytest.skip('Explicit new-detail generic planning parity only')
     counters = {'calls': 0}
     monkeypatch.setattr(moderation_views, 'PublicationContext', build_scoped_generic_context(counters))
+    monkeypatch.setattr(public_validation, 'read_publication_values', build_generic_reader())
     client = request.getfixturevalue('directory')
     data = populate(80)
     listing = Listing.objects.select_related('approved_revision', 'person').get(pk=data['sample_ids'][1])

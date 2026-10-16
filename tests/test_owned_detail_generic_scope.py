@@ -3,11 +3,11 @@ from contextlib import nullcontext
 
 import pytest
 from django.db import DataError, connection, transaction
-from owned_detail_generic import build_scoped_generic_context
+from owned_detail_generic import build_generic_reader, build_scoped_generic_context, generic_active
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 
-from apps.listings import moderation_views
+from apps.listings import moderation_views, public_validation
 from apps.listings.models import Listing
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -35,12 +35,9 @@ def test_detail_generic_scope(request, monkeypatch, mode):
     counters, hydration_modes, render_modes = {'calls': 0}, [], []
 
     def observed_context(*args, **kwargs):
-        assert plan_mode() == 'force_generic_plan'
+        assert plan_mode() == 'force_custom_plan'
         if mode == 'context_error':
             raise RuntimeError('owned-context-error')
-        if mode == 'sql_error':
-            with connection.cursor() as cursor:
-                cursor.execute('SELECT 1/0')
         return original_context(*args, **kwargs)
 
     def observed_render(*args, **kwargs):
@@ -52,6 +49,8 @@ def test_detail_generic_scope(request, monkeypatch, mode):
     def observe_sql(execute, sql, params, many, context):
         if '_pv_history' in str(sql):
             hydration_modes.append(plan_mode())
+            if mode == 'sql_error':
+                return execute('SELECT 1/0', None, many, context)
         return execute(sql, params, many, context)
 
     inherited = mode.startswith('inherited_')
@@ -66,6 +65,7 @@ def test_detail_generic_scope(request, monkeypatch, mode):
                 patch.setattr(moderation_views, 'PublicationContext',
                               build_scoped_generic_context(counters, observed_context))
                 patch.setattr(moderation_views, 'render', observed_render)
+                patch.setattr(public_validation, 'read_publication_values', build_generic_reader())
                 if mode in ['context_error', 'render_error']:
                     with pytest.raises(RuntimeError, match='owned-.*-error'):
                         client.get(f'/es/listing/{listing.pk}/')
@@ -84,6 +84,7 @@ def test_detail_generic_scope(request, monkeypatch, mode):
     finally:
         with connection.cursor() as cursor:
             cursor.execute("SELECT set_config('plan_cache_mode', %s, false)", [before])
+    assert not generic_active()
     assert plan_mode() == before
     assert moderation_views.PublicationContext is original_context
     assert moderation_views.render is original_render
