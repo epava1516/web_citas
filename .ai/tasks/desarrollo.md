@@ -1132,3 +1132,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: imagen bb8bc8e5497c,paridad/integridad kernel dentroDocker118PASS11,60s/0omisiones. Tres tests existentes sin cambios, hashes host/imagen iguales,native-sealed confirmado;herramientas pytest separadas sin reemplazar depsapp,rednone/UID10001/raízro. Fallos preparación permisos y exportaciónXML inicial conservados (118PASS11,61s sinXML no contados como nueva cobertura); corregido instrumento y receipt porcaso final. Contenedores propios ausentes verificados. Evidencia cr09-docker-kernel-parity-20261016.md. Sin app/p95/Claude/proveedores; consumo anterior intacto. CR09/N3 y contrato completo abiertos.
+
+
+2026-10-16: Docker primera selección17PASS2FAIL252,11s: generador rechazó nombretest_ci, fallo conservado. Detectados583pyc dehost enimagen; corregida .dockerignore recursiva y nuevaimagen1c4a9aca45f3/tag20261016-v2. Adaptador usaPGpropiopromotion_gate_ci (sin relajar guardia). Selecciónv2:19PASS258,56s/0omisiones;kernelv2:118PASS11,61s/0omisiones, mismoartifactnative2caa578c; testigo0pyc/apps/tests yfuenteshashiguales. Cleanup/red/intermediarios verificados. Evidencia cr09-docker-pg-journeys-20261016.md. No cambiosfuncionales/p95/N3/Claude/proveedores; consumo previo intacto. CR09 ycontrato entero siguenabiertos.
