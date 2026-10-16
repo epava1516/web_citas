@@ -1,0 +1,36 @@
+{
+  "run": "20261016-072912-273cb6ef",
+  "base_head": "1c7abb2c5ef8ec745b4aebb5974c913c3e592484",
+  "result": "PASS",
+  "passed": 7,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_seconds": 107.36,
+  "source_frozen_verified": true,
+  "independent_cleanup_verified": true,
+  "production_changed": false,
+  "acceptance": false,
+  "new_p95": null,
+  "prior_negative_runs": [
+    "20261016-071945-3e3d8876",
+    "20261016-072242-e90e4699"
+  ],
+  "source_sha256": {
+    "apps/listings/public_validation.py": "0a060e1e34d2f1016cdb740c37753744c8d54972c5accc10fc7f76dc48494f5c",
+    "tests/test_public_validation_rate_lifetime.py": "72da27022bb9b56ed0c63ef56135852f8531a90c98ec8309cbb9bc365233f8af"
+  },
+  "wsgi_prototype_routes": [
+    {
+      "route": "/es/",
+      "alive_before_gc": {},
+      "saved_objects": 659
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "alive_before_gc": {},
+      "saved_objects": 660
+    }
+  ],
+  "scope": "RateForm cleanup is product code. Model and template-context release remain test-only prototypes."
+}

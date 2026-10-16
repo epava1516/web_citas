@@ -571,7 +571,20 @@ class PublicationContext:
         # The existing rate constraint/form depends only on these primitive values.
         values = tuple(getattr(rate, name) for name in RateForm.Meta.fields)
         if values not in self.rate_checks:
-            self.rate_checks[values] = RateForm(
+            form = RateForm(
                 dict(zip(RateForm.Meta.fields, values, strict=True)), instance=rate
-            ).is_valid()
+            )
+            try:
+                self.rate_checks[values] = form.is_valid()
+            finally:
+                # This private form returns only a boolean, never BoundFields.
+                # Release form -> bound field -> form without waiting for GC.
+                form._bound_fields_cache.clear()
+                # ValidationError.error_list can point back to the error itself.
+                # Its traceback then retains this private form until cyclic GC.
+                # Only the boolean escapes; leave propagated exceptions intact.
+                if form._errors:
+                    for errors in form._errors.values():
+                        for error in errors.as_data():
+                            error.__traceback__ = None
         return self.rate_checks[values]
