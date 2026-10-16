@@ -2465,3 +2465,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: contrastestaticwarmup025248-2d8dc2bb,1PASS125,96s/180requests/6procesos,3bloquespositivos. Primerwallmediana763,852→327,132ms/CPU531,953→167,234;preparación333,226msmediana0red/DB/hilosnuevos,paridadlist/search. SinHTTPconcurrente/p95,medianaestable160,571→163,002ms no mejora global. Candidatojustificahookporworker,verificarruntimeantesclean. Fuente/cleanupverificados,evidenciacr09-static-warmup-contrast-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.
+
+
+2026-10-16: startupestáticoimplementadoconhookpost_worker_init/gunicorn.conf.py;controles025706-7b90b637,2PASS,sinred/SQL/hilos/restauraciónidioma/fallopropagado. Fuente/cleanupverificados. SiguientecleanGunicornreal4logsready;imagenv3noactualizada/diagnósticos--configreemplazanhook,noafirmarparidad. Evidenciacr09-worker-startup-implementation-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
