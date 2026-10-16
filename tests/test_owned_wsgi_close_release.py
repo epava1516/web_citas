@@ -4,7 +4,7 @@ import hashlib
 import json
 import os
 import weakref
-from collections import Counter
+from collections import Counter, deque
 from pathlib import Path
 
 import pytest
@@ -115,6 +115,30 @@ def test_owned_wsgi_close_release(request, monkeypatch):
             identity_cycles = inspect_cycles()
             assert not identity_cycles, identity_cycles
             before = Counter(kind for kind, ref in observed if ref() is not None)
+            def residual_path():
+                root = next((ref() for kind, ref in observed if kind=='listing' and ref() is not None), None)
+                if root is None:
+                    return {'found':False,'reason':'root already released'}
+                def label(obj):
+                    return type(obj).__module__+'.'+type(obj).__qualname__
+                queue = deque([(root,[label(root)])])
+                seen = {id(root)}
+                while queue and len(seen)<20000:
+                    obj, path = queue.popleft()
+                    if len(path)>14:
+                        continue
+                    for child in gc.get_referents(obj):
+                        if child is root:
+                            return {'found':True,'types':path+[label(root)],'visited':len(seen)}
+                        allowed = isinstance(child,(dict,list,tuple,set,frozenset)) or label(child).startswith(('apps.','django.db.models.'))
+                        if allowed and not isinstance(child,type) and id(child) not in seen:
+                            seen.add(id(child))
+                            queue.append((child,path+[label(child)]))
+                return {'found':False,'visited':len(seen),'truncated':bool(queue)}
+            out = Path(request.config.getoption('--gate-timings-output')).parent
+            (out/'residual-before-assert.json').write_text(json.dumps({
+                'route':route,'alive':dict(before),'closed_callbacks':len(closed),
+                'reverse_identity_counts':reverse_cycles,'cycle':residual_path()},indent=2)+'\n')
             assert not before, before
             collected = gc.collect()
             after = Counter(kind for kind, ref in observed if ref() is not None)
