@@ -2420,3 +2420,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: diagnóstico004422-7ee64fc7 preservado (instrumentado, no mejora causal). Contraste UNION004909-87f1581a:1PASS106,68s/108lecturas, pero candidato RECHAZADO: dirty listado226,667→275,497ms y búsqueda344,859→371,979ms. Sin cambioapp/nueva cargaHTTP. Hashes originales y controlador/hijo/temp/contenedores ausentes verificados independientemente. Evidencia cr09-population-union-20261016.md. Revisión previa agente nativo existente coverage_bottleneck_review sólo lectura, consumo no reportado/null; sin ClaudeV1/proveedores y consumo previo intacto. Pendientes CR09/N3 y contrato completo conservados.
+
+
+2026-10-16: revalidación conservación005352-06e9c88e,SHA7934622,8PASS96,69s/0omisiones. Calendario por finalidad, seguimiento independiente sin extender plan/plazos, alteración/replay/historial y carreras PG revocación/idempotencia. Motivo: fixtures de supresión cambiados tras base común. Fuentes/runner/hijo/temp/contenedores verificados independientemente, unidad terminal vacía. Evidencia cr09-retention-current-20261016.md. Sin cambioapp/p95/Claude/proveedores; consumo anterior intacto. No aceptación integral conservación/CR09/N3.

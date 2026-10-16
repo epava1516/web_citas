@@ -1,0 +1,61 @@
+{
+  "run": "20261016-005352-06e9c88e",
+  "sha": "79346227da66221274ec6263b6d6de3a72e7aecd",
+  "result": "8 PASS, 0 failures/errors/skips",
+  "pytest_seconds": 96.69,
+  "source_freeze_independent": true,
+  "runner_child_temporary_containers_absent": true,
+  "unit_mainpid": 0,
+  "unit_controlgroup": "",
+  "calls": [
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 7.237182516139001
+    },
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_private_audited_independent_followup_preserves_original_plan_and_deadlines",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 7.116255869157612
+    },
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_calendar_and_followup_survive_erased_account_without_mutating_data",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 7.4749028342776
+    },
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 6.839688640087843
+    },
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_history_pages_are_required_and_inspection_replay_keeps_its_original_snapshot",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 7.398354603908956
+    },
+    {
+      "nodeid": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 6.621646537911147
+    },
+    {
+      "nodeid": "tests/test_retention_review_races.py::test_permission_revoked_during_observed_wait_prevents_disclosure",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 6.095455136150122
+    },
+    {
+      "nodeid": "tests/test_retention_review_races.py::test_followup_same_key_waits_and_updates_once",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 5.788655892945826
+    }
+  ],
+  "acceptance": false
+}
