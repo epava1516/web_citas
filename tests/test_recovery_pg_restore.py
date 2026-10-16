@@ -78,12 +78,28 @@ from django.core.management import call_command
 from django.db import connection
 from apps.mediafiles.models import Blob
 from apps.safety.erasure_inventory import canonical
-from apps.safety.models import RecoveryApplication
+from apps.safety.models import RecoveryApplication,RightsExport,RightsExportImage,RightsExportPart
 from apps.safety.recovery_apply import reconcile
 from apps.safety.recovery_media import destroy_due
 from scripts.recovery_ledger import Checkpoint,RecoveryLedger,LedgerIntegrityError
 from scripts.recovery_store import RecoveryStore
 config=json.loads(sys.argv[1])
+# A dump/restore after corrective0022 must preserve the current conservative
+# invalidation definitions, not just django_migrations rows or trigger names.
+from importlib import import_module
+base=import_module('apps.listings.migrations.0015_publication_state')
+current=import_module('apps.listings.migrations.0020_publication_match_counterparts')
+rejected=import_module('apps.listings.migrations.0021_private_draft_publication_dependencies')
+with connection.cursor() as cursor:
+    cursor.execute("SELECT EXISTS(SELECT 1 FROM django_migrations WHERE app='listings' AND name='0022_restore_conservative_publication_invalidation')")
+    assert cursor.fetchone()[0]
+    cursor.execute("SELECT to_regprocedure('listings_publication_private_draft(uuid)'),to_regprocedure('listings_publication_lock(uuid[])')")
+    assert cursor.fetchone()==(None,None)
+    definitions={'listings_publication_mark(uuid[])':current.MARK}
+    definitions.update({f'lpd_{table}()':base.trigger_sql(table,base.DEPENDENCIES[table])[0] for table in rejected.TRIGGERS})
+    for name,source in definitions.items():
+        cursor.execute('SELECT prosrc FROM pg_proc WHERE oid=%s::regprocedure',[name])
+        assert cursor.fetchone()[0]==source.split('$$')[1]
 codec=RecoveryLedger(os.environ['RECOVERY_ENCRYPTION_KEY'].encode(),bytes.fromhex(os.environ['TEST_RECOVERY_SIGNING_HEX']))
 start=Checkpoint(**config['start'])
 expected=Checkpoint(**config['expected'])
@@ -94,6 +110,14 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     person=Person.objects.get(pk=config['person'])
     assert AccountToken.objects.filter(user=subject).exists()
     assert not RecoveryApplication.objects.exists()
+    restored_export=RightsExport.objects.get(pk=config['export'])
+    export_audit=(restored_export.action_id,restored_export.proof_id)
+    assert restored_export.encrypted_payload and restored_export.purged_at is None
+    restored_images=list(RightsExportImage.objects.filter(export=restored_export).values_list('pk',flat=True))
+    restored_parts=list(RightsExportPart.objects.filter(export=restored_export).values_list('pk',flat=True))
+    assert restored_images and restored_parts
+    assert all(RightsExportImage.objects.get(pk=pk).encrypted_content for pk in restored_images)
+    assert all(RightsExportPart.objects.get(pk=pk).encrypted_content for pk in restored_parts)
     for paths in config['paths']:
         assert Blob._meta.get_field('original').storage.exists(paths['original'])
         assert Blob._meta.get_field('derivative').storage.exists(paths['derivative'])
@@ -134,6 +158,13 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     assert not person.alias and person.listing.status=='withdrawn'
     assert not Revision.objects.filter(listing__person=person).exclude(description='').exists()
     assert not PublicationState.objects.filter(listing_id=person.listing.pk).exists()
+    restored_export.refresh_from_db()
+    assert not restored_export.encrypted_payload and restored_export.purged_at is not None
+    assert (restored_export.action_id,restored_export.proof_id)==export_audit
+    assert set(RightsExportImage.objects.filter(export=restored_export).values_list('pk',flat=True))==set(restored_images)
+    assert set(RightsExportPart.objects.filter(export=restored_export).values_list('pk',flat=True))==set(restored_parts)
+    assert not RightsExportImage.objects.filter(pk__in=restored_images).exclude(encrypted_content='').exists()
+    assert not RightsExportPart.objects.filter(pk__in=restored_parts).exclude(encrypted_content='').exists()
     assert subject.session_version>=config['minimum_session']
     assert destroy_due(store,start)>=1
     for paths in config['paths']:
@@ -162,7 +193,7 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
         response=client.get('/en/')
         assert not response.wsgi_request.user.is_authenticated
         assert client.get('/en/listing/'+str(person.listing.pk)+'/').status_code==404
-    print(json.dumps({'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
+    print(json.dumps({'restored_transient_copy_cleared_audit_retained':True,'conservative_schema_restored':True,'rejected_helpers_absent':True,'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
 """
 
 
@@ -263,6 +294,7 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             "media": str(restored_media),
             "media_manifest": media_manifest,
             "subject": subject.pk,
+            "export": str(export.pk),
             "person": str(person.pk),
             "peer": str(peer.pk),
             "peer_digest": hashlib.sha256(canonical(peer_rows).encode()).hexdigest(),
@@ -295,6 +327,8 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         assert result.returncode == 0, result.stderr[-4000:]
         proof = json.loads(result.stdout.strip().splitlines()[-1])
         assert proof["real_restore"] and not proof["publication_authorized"]
+        assert proof["conservative_schema_restored"] and proof["rejected_helpers_absent"]
+        assert proof["restored_transient_copy_cleared_audit_retained"]
         assert proof["independent_authority_verified"]
         assert proof["wrong_authority_rejected_without_effects"]
         proof.update(

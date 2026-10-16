@@ -1337,3 +1337,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local: conciliación finita18tareas deconservación conjournalsv3/suplementos yhashesexactos;2PASS83,77s actualizancoberturapurga deaccesoperfil/cuenta. Errorpreviodocumental134112-fcd7c975antesdetests preservado/limpio. Sin cambiosdeproducto ni invocacionesClaude;consumoanteriorpreservado. Siguiente respaldo/restauración pertinente;CR09/N3/p95FAILnoaceptados.
+
+
+2026-10-16 Codex local: restorePG actual0022 revalidado3PASS72,59s;extensióncopiatemporalrealrestaurada1PASS54,54s,carga/imágenes/partesvacías ymetadataauditpreservada. FalloUUIDdearnés anterior preservado/corregido,fuentes/cleanupDB/PID/contenedoresverificados. Sinappcambiada/nuevasinvocacionesClaude;consumoanterior intacto. PróximoruntimeDockeractual;CR09/N3/p95FAILabiertos.

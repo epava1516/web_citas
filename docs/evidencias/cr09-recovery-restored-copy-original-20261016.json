@@ -1,0 +1,9 @@
+{
+  "run": "20261016-135343-3326cf83",
+  "status": "FAIL",
+  "seconds": 53.25,
+  "failure": "Test passed RightsExport UUID directly to json.dumps; child verification not started",
+  "restored_db_cleanup": "test finally asserts own restored database removed",
+  "cleanup_and_source_freeze": "independently verified",
+  "correction": "Serialize export identifier as str, matching existing UUID fields in child payload; no application change"
+}

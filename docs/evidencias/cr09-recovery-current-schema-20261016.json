@@ -1,0 +1,70 @@
+{
+  "run": "20261016-134915-8495c346",
+  "head": "bcdd9b4d34e581ea0a2fe62ff598fc1fc5058f84",
+  "status": "PASS",
+  "tests": 3,
+  "seconds": 72.59,
+  "cases": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+      "time": "53.718",
+      "properties": {
+        "conservative_schema_restored": "True",
+        "rejected_helpers_absent": "True",
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "backup_bytes": "1053336",
+        "backup_sha256": "422701099f117632bc74d53a24ca9bbf29993a82579603392e1865bb34f96139",
+        "backup_cutoff_unix": "1792158620.679352",
+        "backup_media_manifest": "{\"derivatives/0e0e2330-e3b3-4c94-8546-7a506373b439.webp\": \"31dea8c1587924f55303abc1b4f3d3978c67f6bbfafe134676958882749e0a05\", \"derivatives/99f6e877-9c05-49db-af54-96a4638c4071.webp\": \"a7ba345d1ddfe5d27ade364d06c5c3c39e23686d5a744884b469c53a65b73e96\", \"derivatives/a29b3d5b-2260-41df-8412-7d538ce535bb.webp\": \"744ac63ffbeb143e0b5d6667fc14bdc8cdae1e6bb86b70090305ce8751c41378\", \"derivatives/be584e77-7cfa-46f3-9ea8-88502019e754.webp\": \"a4f1b3f1086459031d4d0daafdbb9264db80d1e3e98405ea0af4e9f17a7e815d\", \"originals/5624272c-9b24-44ac-ab55-6503b4240dcb\": \"1e9b109bd191439b857cf384289fe793aab7d8ec7eb05caf3cd76430144123ee\", \"originals/9b10cd02-4b31-42a3-ac04-ec5211de420d\": \"b9d0b13ebd00ff42fc3a6ca7115e95321ee32484ebb160b55da9e5a519678643\", \"originals/b24c0729-c584-41d7-8462-f74ca6a817b3\": \"99f42197f51775a899f8d24f58b4dbf78193b3985fe8850a047b4666ee9f394f\", \"originals/ba92e1a7-6631-4f14-bcf2-d8fc4177a771\": \"17e64d886d47ab17b4b05f5129c203fe5f6ab0d8f1bae4096eba1a9df1834d31\"}",
+        "media_manifest_sha256": "6a241e93b17acd42f039d3b167e89dd7aadcdc87846255759296ed657519bd04",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.7848283187486231",
+        "restore_and_reconcile_seconds": "5.076869938988239",
+        "backup_age_upper_bound_seconds": "6.601109504699707",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_name": "recovery_restore_51ba3702fe45",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_recovery_clears_only_selected_restored_publication_without_refresher[True]",
+      "time": "9.718",
+      "properties": {}
+    },
+    {
+      "name": "test_recovery_clears_only_selected_restored_publication_without_refresher[False]",
+      "time": "8.410",
+      "properties": {}
+    }
+  ],
+  "comparative_fixture_metrics": {
+    "backup_seconds": {
+      "previous": 0.8729029330424964,
+      "current": 0.7848283187486231
+    },
+    "restore_and_reconcile_seconds": {
+      "previous": 5.090638407040387,
+      "current": 5.076869938988239
+    },
+    "backup_age_upper_bound_seconds": {
+      "previous": 6.717184066772461,
+      "current": 6.601109504699707
+    },
+    "backup_bytes": {
+      "previous": 1052520.0,
+      "current": 1053336.0
+    }
+  },
+  "cleanup_and_source_freeze": "independently verified",
+  "scope": "Current0022 schema verified after real pg_dump/pg_restore, four exact function definitions and rejected helper absence; selected erasure, private media, independent checkpoint rejection/replay/peers/refresh command and two publication-purpose variants. Synthetic tiny local fixture; not production cadence/custody/capacity/N3 or directory p95."
+}
