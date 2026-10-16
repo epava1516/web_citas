@@ -12,7 +12,7 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_variables
 
 from apps.core.models import AccountToken, PhoneChallenge, RecoveryCode, RepresentationInvitation
-from apps.listings.models import Favorite, Rate
+from apps.listings.models import Favorite, PublicationState, Rate
 from apps.mediafiles.models import Blob, Photo
 from scripts.recovery_ledger import LedgerIntegrityError
 from scripts.recovery_receipts import validate_receipt
@@ -162,6 +162,10 @@ def snapshot(case, person, listing, execution_id):
                 and not listing.available_until
                 and not listing.published_at
                 and not listing.expires_at
+                and not PublicationState.objects.filter(listing=listing).exclude(
+                    eligible=False, revision_id__isnull=True, search_document__isnull=True,
+                    published_at__isnull=True, expires_at__isnull=True,
+                ).exists()
                 and not revisions.exclude(
                     status="withdrawn",
                     title="",
