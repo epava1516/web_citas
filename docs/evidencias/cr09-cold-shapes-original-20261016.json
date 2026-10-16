@@ -1,0 +1,12 @@
+{
+  "run": "artifacts/local-ci/20261016-111748-af632b35",
+  "result": "FAILinstrumented1.090816049s/186.10s",
+  "intended_instrumentation": "SQL shapes",
+  "sql_shapes_active": false,
+  "cause": "systemd environment flag was removed by run_local_ci environment whitelist; original observer32fingerprints ran instead. No parameter-shape evidence obtained.",
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "prior_instrumented_p95_seconds": 0.8970764791592956,
+  "attempt_instrumented_p95_seconds": 1.0908160493709147,
+  "limits": "Not clean latency. Preserve failed instrumentation attempt; no inference of new product regression or cold-cardinality result."
+}

@@ -20,7 +20,7 @@ def post_worker_init(worker):
     observer = WorkerObserver(folder, observe_gc=True, observe_prelude=True,
                               observe_sql_shapes=os.environ.get("WEB_MODELOS_BENCHMARK_SQL_SHAPES") == "1")
     if os.environ.get('WEB_MODELOS_BENCHMARK_PREPARE_STATIC') == '1':
-        observer.write({"id": "startup"}, "static_ready")
+        observer.write({"id": "startup"}, "static_ready", sql_shapes_active=observer.observe_sql_shapes)
     worker._benchmark_observer = observer
     connection.execute_wrappers.append(observer.sql)
     worker.wsgi = observer.wsgi(worker.wsgi)
