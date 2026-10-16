@@ -1,0 +1,27 @@
+{
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "5",
+    "time": "0.728",
+    "timestamp": "2026-10-16T15:45:07.425101+00:00",
+    "hostname": "almasrv.thehomelesssherlock.com"
+  },
+  "junit_sha256": "39b2df5797320f088d26372bca9a7894c7bed3d89e8e99fdd1c287788178818a",
+  "source_sha256": {
+    "scripts/benchmark_generator_diagnostic.py": "4df9a2a787011ec94b55bf123c54330e15153ee1dc8854304fa6c87fc6d93560",
+    "tests/owned_generator_schedule.py": "0d86a5cc3b1d1081aed5eaa25d936453f37c9f67d5d92cd1d15b3de88e8e09e7",
+    "tests/test_owned_generator_schedule.py": "7286f9f769f754a0b695fdf93acdd784eeebd11e321ae1b5b7b2f98a01db8ad3"
+  },
+  "original_emitter_identical_to_invalid_contractual": true,
+  "scope": "Five unit controls only, no Django/DB/real HTTP; actual diagnostic load pending",
+  "checks": [
+    "normal timer",
+    "known CPU callback",
+    "known blocking callback",
+    "same original emitter accounting through loop factory",
+    "plugin rejects foreign selection and restores original function"
+  ]
+}

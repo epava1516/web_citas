@@ -38,3 +38,43 @@ def test_blocking_callback_is_observed_without_inventing_cpu():
     assert any(e['callback_wall'] >= .035 and e['callback_cpu'] < .02
                for e in report['events'])
     assert len(report['events']) <= 256
+
+
+def test_observed_transport_preserves_original_accounting(tmp_path):
+    import json
+
+    from scripts.benchmark_async_transport import POLICY
+    from scripts.benchmark_generator_diagnostic import observed_transport
+
+    async def fetch(path, **kwargs):
+        await asyncio.sleep(.001)
+        return dict(status=200, unexpected=False, timeout=False, bytes=2)
+    output = tmp_path/'observer.json'
+    report = observed_transport(fetch, ['/synthetic/'], output=output,
+                                duration=.2, rps=20, upload_specs=[], policy=POLICY)
+    assert report['counts']['scheduled'] == report['counts']['successful'] == 4
+    assert report['counts']['not_emitted'] == report['counts']['pending'] == 0
+    observed = json.loads(output.read_text())
+    assert observed['iterations'] > 0
+    assert observed['load']['counts'] == report['counts']
+    assert observed['scope'].startswith('DIAGNOSTIC ONLY')
+
+
+def test_plugin_rejects_unrelated_selection_and_restores_function(tmp_path):
+    from types import SimpleNamespace
+
+    import pytest
+
+    from scripts import benchmark_generator_diagnostic as plugin
+
+    original = object()
+    module = SimpleNamespace(run_async_open_loop=original)
+    item = SimpleNamespace(nodeid=plugin.TARGET, module=module,
+                           config=SimpleNamespace(getoption=lambda _: str(tmp_path/'timings.json')))
+    with pytest.raises(pytest.UsageError):
+        plugin.pytest_collection_modifyitems([SimpleNamespace(nodeid='unrelated')])
+    plugin.pytest_collection_modifyitems([item])
+    plugin.pytest_runtest_setup(item)
+    assert module.run_async_open_loop is not original
+    plugin.pytest_runtest_teardown(item)
+    assert module.run_async_open_loop is original
