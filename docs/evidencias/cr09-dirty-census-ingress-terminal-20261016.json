@@ -1,0 +1,534 @@
+{
+  "run": "20261016-004422-7ee64fc7",
+  "n_matched": 1200,
+  "parse_errors": 0,
+  "slow": 81,
+  "cohorts": {
+    "0_5": {
+      "n": 100,
+      "slow": 81,
+      "http_p95": 1.1439284360967577,
+      "http_mean": 0.9019866238487885,
+      "pre_mean": 0.680819743797183,
+      "post_mean": -0.00025098185520619156,
+      "wsgi_mean": 0.22140776459593325,
+      "cpu_mean": 0.11063806133,
+      "sql_mean": 0.09951358753722161,
+      "sql_cpu_mean": 0.008926747549999723,
+      "gc_mean": 0.010206427951343357,
+      "gc_cpu_mean": 0.008459124430000065,
+      "service_mean": 0.22106785,
+      "sql_calls_mean": 39.96
+    },
+    "5_10": {
+      "n": 100,
+      "slow": 0,
+      "http_p95": 0.7423928161151707,
+      "http_mean": 0.5241016957303509,
+      "pre_mean": 0.34621921061072497,
+      "post_mean": -0.0001533261639997363,
+      "wsgi_mean": 0.17802610787563025,
+      "cpu_mean": 0.09490284553999996,
+      "sql_mean": 0.07197502189781517,
+      "sql_cpu_mean": 0.006978351549999875,
+      "gc_mean": 0.007315090228803456,
+      "gc_cpu_mean": 0.006762576169999996,
+      "service_mean": 0.17772566,
+      "sql_calls_mean": 37.98
+    },
+    "10_15": {
+      "n": 100,
+      "slow": 0,
+      "http_p95": 0.30415159184485674,
+      "http_mean": 0.2058947444567457,
+      "pre_mean": 0.02888712131883949,
+      "post_mean": -0.00017151533160358667,
+      "wsgi_mean": 0.17716972465626896,
+      "cpu_mean": 0.09842632113000005,
+      "sql_mean": 0.06877093463204802,
+      "sql_cpu_mean": 0.007441377090000163,
+      "gc_mean": 0.006428456301800906,
+      "gc_cpu_mean": 0.005802021479999926,
+      "service_mean": 0.17686849,
+      "sql_calls_mean": 37.98
+    },
+    "15_60": {
+      "n": 900,
+      "slow": 0,
+      "http_p95": 0.3987655849196017,
+      "http_mean": 0.2293877584223325,
+      "pre_mean": 0.04402235777169052,
+      "post_mean": -0.00019829618796292277,
+      "wsgi_mean": 0.18555364628632864,
+      "cpu_mean": 0.10135747054555558,
+      "sql_mean": 0.07433930055755708,
+      "sql_cpu_mean": 0.0075456208488890834,
+      "gc_mean": 0.007144598900340498,
+      "gc_cpu_mean": 0.006655740483333421,
+      "service_mean": 0.1852342711111111,
+      "sql_calls_mean": 38
+    },
+    "slow": {
+      "n": 81,
+      "slow": 81,
+      "http_p95": 1.1727044056169689,
+      "http_mean": 0.9635223246834896,
+      "pre_mean": 0.74820539833012,
+      "post_mean": -0.0002119315811145453,
+      "wsgi_mean": 0.21551879748909009,
+      "cpu_mean": 0.10962133977777777,
+      "sql_mean": 0.09521425344095921,
+      "sql_cpu_mean": 0.008888903790123177,
+      "gc_mean": 0.010147382717947533,
+      "gc_cpu_mean": 0.008671613370370444,
+      "service_mean": 0.21521320987654322,
+      "sql_calls_mean": 39.629629629629626
+    }
+  },
+  "cpu_groups": {
+    "0_5": {
+      "postgres": {
+        "samples": 5,
+        "cpu_cores": 0.6192431261885838,
+        "periods": 50,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 5,
+        "cpu_cores": 2.201642354942123,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    },
+    "5_10": {
+      "postgres": {
+        "samples": 5,
+        "cpu_cores": 0.4632692843808152,
+        "periods": 51,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 5,
+        "cpu_cores": 2.200338923299655,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    },
+    "15_60": {
+      "postgres": {
+        "samples": 45,
+        "cpu_cores": 0.47202068221674526,
+        "periods": 450,
+        "throttled_periods": 0
+      },
+      "controller": {
+        "samples": 45,
+        "cpu_cores": 2.0751196212296055,
+        "periods": 0,
+        "throttled_periods": 0
+      }
+    }
+  },
+  "sql_families": {
+    "0_5": [
+      {
+        "caller": "apps/listings/public_validation.py:263",
+        "wall_per_request": 0.027789745265617966,
+        "cpu_per_request": 0.0020108982599999535,
+        "calls_per_request": 7.12
+      },
+      {
+        "caller": "apps/listings/publication_state.py:455",
+        "wall_per_request": 0.0109794597979635,
+        "cpu_per_request": 0.00018328446999999582,
+        "calls_per_request": 0.68
+      },
+      {
+        "caller": "overflow_or_unknown",
+        "wall_per_request": 0.010846783840097487,
+        "cpu_per_request": 0.002039877849999956,
+        "calls_per_request": 5.64
+      },
+      {
+        "caller": "apps/listings/publication_state.py:305",
+        "wall_per_request": 0.005589431449770928,
+        "cpu_per_request": 0.00011677789999998246,
+        "calls_per_request": 0.68
+      },
+      {
+        "caller": "apps/listings/public_validation.py:509",
+        "wall_per_request": 0.004583582761697471,
+        "cpu_per_request": 0.0006195171299999824,
+        "calls_per_request": 3.8
+      },
+      {
+        "caller": "apps/listings/publication_state.py:452",
+        "wall_per_request": 0.003899795995093882,
+        "cpu_per_request": 0.00016491153999999232,
+        "calls_per_request": 0.6
+      },
+      {
+        "caller": "apps/listings/publication_state.py:454",
+        "wall_per_request": 0.0035638634860515593,
+        "cpu_per_request": 2.8044019999995395e-05,
+        "calls_per_request": 0.08
+      },
+      {
+        "caller": "apps/listings/submissions.py:18",
+        "wall_per_request": 0.0024630694650113584,
+        "cpu_per_request": 0.00021931481999998948,
+        "calls_per_request": 1.08
+      },
+      {
+        "caller": "apps/listings/moderation.py:141",
+        "wall_per_request": 0.0021707928273826836,
+        "cpu_per_request": 7.678248000000831e-05,
+        "calls_per_request": 0.32
+      },
+      {
+        "caller": "apps/listings/public_validation.py:252",
+        "wall_per_request": 0.0019338353164494039,
+        "cpu_per_request": 0.00021395647000000962,
+        "calls_per_request": 1.44
+      }
+    ],
+    "15_60": [
+      {
+        "caller": "apps/listings/public_validation.py:263",
+        "wall_per_request": 0.017966934298165142,
+        "cpu_per_request": 0.0018170992300000953,
+        "calls_per_request": 6.666666666666667
+      },
+      {
+        "caller": "overflow_or_unknown",
+        "wall_per_request": 0.008715121149499383,
+        "cpu_per_request": 0.0010215020011110829,
+        "calls_per_request": 4.666666666666667
+      },
+      {
+        "caller": "apps/listings/publication_state.py:455",
+        "wall_per_request": 0.005822801768469314,
+        "cpu_per_request": 0.00016826689111110898,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/publication_state.py:305",
+        "wall_per_request": 0.0047659958278139436,
+        "cpu_per_request": 0.00012085927888889675,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/publication_state.py:452",
+        "wall_per_request": 0.004706068936631912,
+        "cpu_per_request": 0.00018610952777769658,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/public_validation.py:509",
+        "wall_per_request": 0.0038680330431088805,
+        "cpu_per_request": 0.0005322951644445813,
+        "calls_per_request": 3.3333333333333335
+      },
+      {
+        "caller": "apps/listings/public_validation.py:576",
+        "wall_per_request": 0.002164807252378927,
+        "cpu_per_request": 0.0002841926900000481,
+        "calls_per_request": 2.0
+      },
+      {
+        "caller": "apps/listings/presentation_reads.py:36",
+        "wall_per_request": 0.00210867697890434,
+        "cpu_per_request": 0.000209515441111109,
+        "calls_per_request": 0.6666666666666666
+      },
+      {
+        "caller": "apps/listings/forms.py:170",
+        "wall_per_request": 0.001969420923334029,
+        "cpu_per_request": 0.0002522616766666492,
+        "calls_per_request": 1.6666666666666667
+      },
+      {
+        "caller": "apps/listings/presentation_reads.py:43",
+        "wall_per_request": 0.0019456089898529979,
+        "cpu_per_request": 0.00017673999111117073,
+        "calls_per_request": 0.6666666666666666
+      }
+    ]
+  },
+  "workers": {
+    "3837235": {
+      "requests": 298,
+      "first_wsgi": 0.10214727185666561,
+      "first6_cpu_mean": 0.1417023928333333
+    },
+    "3837236": {
+      "requests": 304,
+      "first_wsgi": 0.0015945709310472012,
+      "first6_cpu_mean": 0.15987248500000004
+    },
+    "3837237": {
+      "requests": 303,
+      "first_wsgi": 0.0017718058079481125,
+      "first6_cpu_mean": 0.13449068666666672
+    },
+    "3837215": {
+      "requests": 295,
+      "first_wsgi": 0.05182536086067557,
+      "first6_cpu_mean": 0.13463156433333323
+    }
+  },
+  "negative_pre": 0,
+  "negative_post": 1101,
+  "post_min": -0.007627333980053663,
+  "diagnostic_p95": 0.8806578847579658,
+  "scope": "Same diagnostic only; inclusive WSGI/SQL/GC are not additive; post may be negative because WSGI response.close occurs after body reception. Controller includes generator/Celery/observer. SQL wall not backend CPU.",
+  "sha": "ced95b1be57807053af61996d1df709689e6ab3c",
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "validity": {
+    "validity": true,
+    "latency_and_errors": false,
+    "pending_at_window": true,
+    "final_pending": true,
+    "upload": true,
+    "timeout_policy": true,
+    "drain": true
+  },
+  "canonical_kernel": {
+    "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "occupancy": {
+    "runs": [
+      {
+        "run": "20261016-004422-7ee64fc7",
+        "workers": 4,
+        "matched": 1200,
+        "observed_tagged_wsgi_intervals": 1201,
+        "cohorts": {
+          "initial": {
+            "n": 100,
+            "pre_wsgi_mean_s": 0.680819743797183,
+            "all_observed_busy_mean_s": 0.6717452321387828,
+            "not_all_observed_busy_mean_s": 0.009074511658400296,
+            "all_busy_fraction_of_summed_wait": 0.9866711978595268
+          },
+          "slow": {
+            "n": 81,
+            "pre_wsgi_mean_s": 0.74820539833012,
+            "all_observed_busy_mean_s": 0.7381709996714361,
+            "not_all_observed_busy_mean_s": 0.010034398658684007,
+            "all_busy_fraction_of_summed_wait": 0.9865887112267845
+          },
+          "steady": {
+            "n": 900,
+            "pre_wsgi_mean_s": 0.04402235777169052,
+            "all_observed_busy_mean_s": 0.042730086411142516,
+            "not_all_observed_busy_mean_s": 0.0012922713605480062,
+            "all_busy_fraction_of_summed_wait": 0.9706451124846606
+          }
+        },
+        "initial10_all_busy_wall_s": 9.769176326226443,
+        "longest_initial_occupants": [
+          {
+            "id": "d-3",
+            "pid": 3837236,
+            "start": 0.28998984582722187,
+            "end": 0.9605559189803898,
+            "cpu": 0.17615335099999996,
+            "sql": 0.44824693724513054
+          },
+          {
+            "id": "d-20",
+            "pid": 3837235,
+            "start": 1.6420832448638976,
+            "end": 2.311090328730643,
+            "cpu": 0.24173020099999998,
+            "sql": 0.4676652946509421
+          },
+          {
+            "id": "d-21",
+            "pid": 3837236,
+            "start": 1.6535708396695554,
+            "end": 2.275569007731974,
+            "cpu": 0.2030513030000003,
+            "sql": 0.40449497755616903
+          },
+          {
+            "id": "d-8",
+            "pid": 3837237,
+            "start": 0.5544837447814643,
+            "end": 1.1579470760188997,
+            "cpu": 0.22052681000000018,
+            "sql": 0.35580926993861794
+          },
+          {
+            "id": "d-6",
+            "pid": 3837235,
+            "start": 0.4716449389234185,
+            "end": 1.0705514559522271,
+            "cpu": 0.20485768799999993,
+            "sql": 0.32126856595277786
+          },
+          {
+            "id": "d-7",
+            "pid": 3837215,
+            "start": 0.5244958037510514,
+            "end": 1.0975282220169902,
+            "cpu": 0.257445312,
+            "sql": 0.2455233014188707
+          },
+          {
+            "id": "d-19",
+            "pid": 3837237,
+            "start": 1.6312220296822488,
+            "end": 2.0541420890949667,
+            "cpu": 0.15777285099999983,
+            "sql": 0.23830215260386467
+          },
+          {
+            "id": "d-15",
+            "pid": 3837236,
+            "start": 1.2412742259912193,
+            "end": 1.6529913949780166,
+            "cpu": 0.20971847700000001,
+            "sql": 0.12393915466964245
+          },
+          {
+            "id": "d-18",
+            "pid": 3837215,
+            "start": 1.5182329998351634,
+            "end": 1.906192793045193,
+            "cpu": 0.13744673399999963,
+            "sql": 0.23369960067793727
+          },
+          {
+            "id": "u-0",
+            "pid": 3837237,
+            "start": 0.0017718058079481125,
+            "end": 0.37773315608501434,
+            "cpu": 0.20346273999999998,
+            "sql": 0.1446972293779254
+          },
+          {
+            "id": "d-2",
+            "pid": 3837235,
+            "start": 0.10214727185666561,
+            "end": 0.47093342896550894,
+            "cpu": 0.17508056299999986,
+            "sql": 0.17395904287695885
+          },
+          {
+            "id": "d-12",
+            "pid": 3837237,
+            "start": 1.1585571230389178,
+            "end": 1.5063503859564662,
+            "cpu": 0.2010869340000001,
+            "sql": 0.13757671136409044
+          }
+        ],
+        "longest_waits": [
+          {
+            "id": "d-30",
+            "emitted": 1.500473618041724,
+            "http": 1.1370746507309377,
+            "pre_wsgi": 0.9485099879093468,
+            "all_observed_busy": 0.9384489767253399,
+            "not_all_observed_busy": 0.01006101118400693
+          },
+          {
+            "id": "d-34",
+            "emitted": 1.70117351366207,
+            "http": 1.0298549812287092,
+            "pre_wsgi": 0.9370976383797824,
+            "all_observed_busy": 0.9284423030912876,
+            "not_all_observed_busy": 0.008655335288494825
+          },
+          {
+            "id": "d-33",
+            "emitted": 1.6512265717610717,
+            "http": 1.2134025101549923,
+            "pre_wsgi": 0.9361897502094507,
+            "all_observed_busy": 0.9275157833471894,
+            "not_all_observed_busy": 0.008673966862261295
+          },
+          {
+            "id": "d-27",
+            "emitted": 1.3505813898518682,
+            "http": 1.2357519040815532,
+            "pre_wsgi": 0.916442939080298,
+            "all_observed_busy": 0.9081015093252063,
+            "not_all_observed_busy": 0.008341429755091667
+          },
+          {
+            "id": "d-31",
+            "emitted": 1.550693251658231,
+            "http": 1.1439284360967577,
+            "pre_wsgi": 0.916158449370414,
+            "all_observed_busy": 0.9065887308679521,
+            "not_all_observed_busy": 0.00956971850246191
+          },
+          {
+            "id": "d-40",
+            "emitted": 2.0013163308613002,
+            "http": 1.0112736262381077,
+            "pre_wsgi": 0.9150796919129789,
+            "all_observed_busy": 0.9038834758102894,
+            "not_all_observed_busy": 0.011196216102689505
+          },
+          {
+            "id": "d-39",
+            "emitted": 1.951020197942853,
+            "http": 1.1362528461031616,
+            "pre_wsgi": 0.9143125708214939,
+            "all_observed_busy": 0.9032383714802563,
+            "not_all_observed_busy": 0.011074199341237545
+          },
+          {
+            "id": "d-26",
+            "emitted": 1.3007879611104727,
+            "http": 1.1727044056169689,
+            "pre_wsgi": 0.8992301989346743,
+            "all_observed_busy": 0.8915005424059927,
+            "not_all_observed_busy": 0.007729656528681517
+          }
+        ]
+      }
+    ],
+    "scope": "Offline timing compatibility only, same-host clocks and tagged WSGI intervals. All-busy spans support occupation/backlog compatibility; not exclusive causal attribution or socket accept measurement. Not-all-busy does not prove free process: parsing/sending/untagged work/OS scheduling unobserved. No new load or p95."
+  },
+  "cleanup": {
+    "source_frozen_independent": true,
+    "controller_child_workers_celery_absent": true,
+    "runner_temporary_absent": true,
+    "owned_pg_redis_absent": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  }
+}

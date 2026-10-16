@@ -2417,3 +2417,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: censo acotado6daa170,clean003849-cc3fd173FAIL182,88s,p950,904873942s(vsreferencia4sync1,218890056s;reducciónobservada25,762%,sinreproducibilidad/causalidadprobadas).1200completas0errores,generadorválido,subida302;71lentasemitidasprimeros5s. Fuentesycleanupverificados. No repetirFAIL/900s;diagnósticoseparadosiguientepaso. Evidenciacr09-dirty-census-clean-20261016.md. CR09/N3abiertos.
+
+
+2026-10-16: diagnóstico004422-7ee64fc7 preservado (instrumentado, no mejora causal). Contraste UNION004909-87f1581a:1PASS106,68s/108lecturas, pero candidato RECHAZADO: dirty listado226,667→275,497ms y búsqueda344,859→371,979ms. Sin cambioapp/nueva cargaHTTP. Hashes originales y controlador/hijo/temp/contenedores ausentes verificados independientemente. Evidencia cr09-population-union-20261016.md. Revisión previa agente nativo existente coverage_bottleneck_review sólo lectura, consumo no reportado/null; sin ClaudeV1/proveedores y consumo previo intacto. Pendientes CR09/N3 y contrato completo conservados.

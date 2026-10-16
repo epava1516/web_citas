@@ -1120,3 +1120,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: censo dirty6daa170,sóloRRpropio;paridad003139-54108bb516PASS224,83s ylímites003644-93458c9a2PASS51,67s,fuentes/cleanupindependientes. Clean003849-cc3fd173FAIL182,88s,p950,904873942s,1200completas0errores,71lentas0–5s,subida302/generadorválido. Observado−25,762%vs1,218890056s,sincausalidad/reproducibilidadprobadas. Mantenerbeneficioaisladoyperocompuertaabierta;norepetirciego/900s. Fuente/kernelmetadata/cleanupdocumentados. SinClaude/proveedores,consumopreviointacto. Goalabierto.
+
+
+2026-10-16: diagnóstico004422-7ee64fc7 preservado (instrumentado, no mejora causal). Contraste UNION004909-87f1581a:1PASS106,68s/108lecturas, pero candidato RECHAZADO: dirty listado226,667→275,497ms y búsqueda344,859→371,979ms. Sin cambioapp/nueva cargaHTTP. Hashes originales y controlador/hijo/temp/contenedores ausentes verificados independientemente. Evidencia cr09-population-union-20261016.md. Revisión previa agente nativo existente coverage_bottleneck_review sólo lectura, consumo no reportado/null; sin ClaudeV1/proveedores y consumo previo intacto. Pendientes CR09/N3 y contrato completo conservados.
