@@ -2406,3 +2406,8 @@ Reproducción001455-644b1704:1FAIL47,53s;materialfinal omitía la copiaPublicati
 
 
 2026-10-16: evaluación preload sin carga especulativa. ProbeWSGIsinred:0intentos/0DB/1thread;URLConf/discovery no cargados. Gunicorn23 carga WSGI antesdeaccept incluso sinpreload. Beneficio paraatascoinicialnodemostrado,nocambioruntime/nuevop95. DesajusteDocker2/45s vsbenchmark4/65s pendiente. Evidencia cr09-preload-source-audit-20261016.md. CR09/N3abiertos.
+
+
+### 2026-10-16 — espera compatible con ocupación y candidato acotado
+
+Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos losworkersocupados, sin prueba decola kernel/causaexclusiva. Censo/unknown dirty aislado002739-852c62f5:1PASS106,25s,108lecturas;dirtylistado310→264ms/búsqueda408→320ms,3bloquesdirtypositivos;sincambiodepoblación. NoHTTP/p95nuevo,nocandidatoimplementadoaún. Revisión nativa exige restringirlo aRRpropio;inheritedRCmantieneantijoinoriginal. Fuente/cleanupverificados. Evidenciascr09-occupancy-offline-20261016.md ycr09-dirty-census-contrast-20261016.md. Siguienteparidadfuncional antesdecarga.

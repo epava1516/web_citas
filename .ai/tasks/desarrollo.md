@@ -1114,3 +1114,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: probeWSGIsinred0intentos0DB1thread yfuenteGunicorn23;preloadsimple sinbeneficiodemostrado,nocargaHTTP/nocambioruntime. Primera escritura documental conpython sistema fallóporimportgunicorn,noescribiónada;rehechaconvenvcongelado. DesajusteDocker/benchmarkconservado. Sinmodelosexternos/proveedores. Goalabierto.
+
+
+2026-10-16:agente nativo existentecoverage_bottleneck_review:dosrevisionesúnicamentelectura,ocupaciónofflineyrevisióncensoRR;sinarchivos/cargas/ClaudeV1/proveedores,usonoreportado,null. Offline3runs98–98,7%esperacoincidetodosocupados. Contrastecenso002739-852c62f5:108lecturas1PASS106,25s,dirty3bloquespositivos;noapp/HTTP/p95nuevo. Fuentecongeladaycleanupindependientes. InstrumentoaisladoprobadosejecutóúnicamenteRRpropio;inheritedRCnoesválidoysepreservaráoriginal. Evidenciasocupación/censoactualizadas. Goalabierto.
