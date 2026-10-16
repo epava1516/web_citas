@@ -1,0 +1,19 @@
+{
+  "run": "20261016-044334-e425122c",
+  "sha": "fe86c158ff6b7c14ee2fd54ae2d91691e8f28a20",
+  "passed": 7,
+  "seconds": 90.67,
+  "cases": [
+    "test_fenced_locked_reference_still_defers_refresh[listing]",
+    "test_fenced_locked_reference_still_defers_refresh[revision]",
+    "test_fenced_refresher_wait_preserves_new_generation",
+    "test_fenced_opposite_photo_writes_complete",
+    "test_fenced_stronger_isolation_keeps_conservative_dirty[REPEATABLE READ]",
+    "test_fenced_stronger_isolation_keeps_conservative_dirty[SERIALIZABLE]",
+    "test_fenced_new_match_waits_for_private_photo_commit"
+  ],
+  "source_frozen_verified": true,
+  "cleanup_independent": true,
+  "scope": "Real ownPG refresh/FK locks, post-wait generation, opposite photo writes, RR/Serializable conservative fallback and future Match serialization. No universal deadlock proof or app migration.",
+  "acceptance": false
+}

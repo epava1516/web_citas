@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 from django.test import Client
-from private_draft_invalidation_candidate import installed
+from private_draft_invalidation_candidate import fenced_installed as installed
 from test_discovery import directory  # noqa: F401
 from test_photos import photo_environment, raw_image, upload  # noqa: F401
 
@@ -92,4 +92,4 @@ def test_owned_private_draft_roi(request, monkeypatch, record_property):
                                 'total_wall_s':write_wall+sum(r['wall_s'] for r in reads),
                                 'total_cpu_s':write_cpu+sum(r['cpu_s'] for r in reads)})
             (out / 'private-draft-roi.json').write_text(json.dumps(records, indent=2))
-    record_property('scope', 'Six ownPG10k AB/BA arms, same seed782134 and actual ingest/process plus six sequential list/search reads; private rows/blobs deleted and state refreshed outside timed arm, image stack warmed first. No profiler/Celery/Beat/socket/concurrency. Current dirty deliberately persists for six reads, not actual refresh cadence. This can overestimate benefit; no p95/capacity or N3 acceptance. Exact bodies/status/no-store parity.')
+    record_property('scope', 'Six ownPG10k AB/BA arms, same seed782134 and actual ingest/process plus six sequential list/search reads; private rows/blobs deleted and state refreshed outside timed arm, image stack warmed first. No profiler/Celery/Beat/socket/concurrency. Current dirty deliberately persists for six reads, not actual refresh cadence. Ordered listing row locks active for candidate. This can overestimate benefit; no p95/capacity or N3 acceptance. Exact bodies/status/no-store parity.')
