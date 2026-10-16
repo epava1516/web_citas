@@ -13,7 +13,7 @@ def post_worker_init(worker):
     if (not folder or not Path(folder).is_dir() or connection.vendor != 'postgresql'
             or not connection.settings_dict['NAME'].startswith('test_promotion_gate_')):
         raise RuntimeError('Ingress observer requires owned synthetic PostgreSQL runner')
-    observer = WorkerObserver(folder, observe_gc=True)
+    observer = WorkerObserver(folder, observe_gc=True, observe_prelude=True)
     worker._benchmark_observer = observer
     connection.execute_wrappers.append(observer.sql)
     worker.wsgi = observer.wsgi(worker.wsgi)

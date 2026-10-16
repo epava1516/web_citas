@@ -185,3 +185,27 @@ def test_opt_in_gc_records_real_collection_and_removes_callback(tmp_path):
     assert measured['wall_seconds'] >= measured['thread_cpu_seconds'] * 0.5
     assert any(e['generation'] == 2 for e in measured['largest_events'])
     assert _CURRENT.get() is None
+
+
+def test_prelude_is_bounded_private_and_does_not_modify_request(tmp_path):
+    observer = WorkerObserver(tmp_path, observe_prelude=True)
+    seen = []
+    def native(environ, start_response):
+        seen.append(dict(environ))
+        start_response('200 OK', [])
+        return [b'ok']
+    env = {'PATH_INFO': '/secret-path', 'HTTP_COOKIE': 'secret-cookie'}
+    try:
+        for _ in range(34):
+            response = observer.wsgi(native)(env, lambda *args: None)
+            assert list(response) == [b'ok']
+            if hasattr(response, 'close'):
+                response.close()
+    finally:
+        observer.close()
+    events = collect_events(tmp_path)['events']
+    starts = [e for e in events if e['event'] == 'wsgi_start']
+    assert len(starts) == 32 and all(e['prelude'] for e in starts)
+    assert len({e['id'] for e in starts}) == 32
+    assert seen == [env] * 34 and 'secret' not in json.dumps(events)
+    assert _CURRENT.get() is None

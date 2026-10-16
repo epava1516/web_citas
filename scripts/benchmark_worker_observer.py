@@ -15,7 +15,8 @@ _ID = re.compile(r"[du]-[0-9]+\Z")
 
 
 class WorkerObserver:
-    def __init__(self, folder, *, observe_gc=False):
+    def __init__(self, folder, *, observe_gc=False, observe_prelude=False):
+        self.prelude_remaining = 32 if observe_prelude else 0
         self.pid = os.getpid()
         self.fd = os.open(
             Path(folder) / f"worker-{self.pid}.jsonl",
@@ -112,8 +113,13 @@ class WorkerObserver:
     def wsgi(self, original):
         def application(environ, start_response):
             identity = environ.get("HTTP_X_BENCHMARK_ID", "")
+            prelude = False
             if not _ID.fullmatch(identity):
-                return original(environ, start_response)
+                if identity or self.prelude_remaining <= 0:
+                    return original(environ, start_response)
+                self.prelude_remaining -= 1
+                identity = "p-" + str(32 - self.prelude_remaining)
+                prelude = True
             state = {
                 "id": identity,
                 "started": time.monotonic(),
@@ -125,7 +131,7 @@ class WorkerObserver:
             if self.gc_observer is not None:
                 state["gc_start"] = len(self.gc_observer.events)
             token = _CURRENT.set(state)
-            self.write(state, "wsgi_start", started=state["started"])
+            self.write(state, "wsgi_start", started=state["started"], prelude=prelude)
 
             def status(response_status, headers, exc_info=None):
                 state["status"] = int(response_status.split()[0])

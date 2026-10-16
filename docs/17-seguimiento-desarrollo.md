@@ -2456,3 +2456,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: warmprofile024218-36c98f77,1PASS89,66s;6rutas+loginGET200. HelperCPUcProfilefrío2019,84→262,376ms,ingest102,82→140,232ms,decode5,011ms: arranquefrío expuesto,no mejora producto/causalidadclean. Campo externo incluye exportstats,limitación explicada también023827. Siguiente observar calentamientoporPIDGunicorn. Fuente/cleanup/cgroupverificados,evidencia cr09-upload-warm-profile-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/contratoenterosabiertos.
+
+
+2026-10-16: observador ingress ampliado sólodiagnóstico: primeras32peticiones sinID porPID,IDs p-N separados, sinmodificar environ ni guardarURI/cookies. Controles024608-c87b0e2a PASS,fuente/cleanupverificados. Próximo diagnóstico60s porworker, no aceptaciónp95;CR09/N3/goalabiertos.
