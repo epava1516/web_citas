@@ -1168,3 +1168,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: startupestáticoimplementadoconhookpost_worker_init/gunicorn.conf.py;controles025706-7b90b637,2PASS,sinred/SQL/hilos/restauraciónidioma/fallopropagado. Fuente/cleanupverificados. SiguientecleanGunicornreal4logsready;imagenv3noactualizada/diagnósticos--configreemplazanhook,noafirmarparidad. Evidenciacr09-worker-startup-implementation-20261016.md. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: clean025813-e0755597,SHA c0b6645,1FAIL184,72s;p951,173553838→1,013029795s(13,68%observado,no causal/reproducible),1200éxitos0errores/generadorválido. Logprivado no conservado,4readyPIDpendientes:no afirmarverificación. Fuente/cleanup/cgroupverificados;FAILnorepetir/900s,siguiente runtimecheckseparado+diagnósticoresidual. Evidenciacr09-worker-startup-clean-20261016.md/terminalJSON. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalenterosabiertos.

@@ -1,0 +1,52 @@
+{
+  "run": "20261016-025813-e0755597",
+  "head": "c0b6645adf9a787643b9a4fcc08af9ff81fc3709",
+  "cases": {
+    "listing": {
+      "n": 400,
+      "p95": 1.0254403212107719
+    },
+    "search": {
+      "n": 400,
+      "p95": 1.0584896772168575
+    },
+    "detail": {
+      "n": 400,
+      "p95": 0.9363528613932433
+    }
+  },
+  "cohorts": [
+    {
+      "start": 0,
+      "end": 5,
+      "n": 100,
+      "p95": 1.2044270302169027,
+      "slow": 87
+    },
+    {
+      "start": 5,
+      "end": 10,
+      "n": 100,
+      "p95": 0.9474691530689601,
+      "slow": 32
+    },
+    {
+      "start": 10,
+      "end": 15,
+      "n": 100,
+      "p95": 0.503277390170842,
+      "slow": 0
+    },
+    {
+      "start": 15,
+      "end": 60,
+      "n": 900,
+      "p95": 0.47128387717530273,
+      "slow": 0
+    }
+  ],
+  "source_hashes_equal": true,
+  "runner_child_temp_containers_absent": true,
+  "unit_mainpid_zero_cgroup_empty": true,
+  "startup_private_log_not_retained": true
+}
