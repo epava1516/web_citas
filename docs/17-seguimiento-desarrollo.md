@@ -2383,3 +2383,8 @@ Revalidación pertinente por cambio posterior de erasure_execution/publicación 
 
 
 Conservación:mapaestático18tareas/18implementacionesshared_task,sinconfigefectiva/transporteinferidos. Huecoconcretoexpire_listingscubierto:test3a6e1a6,run235228-0735477e,1PASS43,73s(PGpropio),selecciónpublicadovencido/preservaciónpausadoynovencido/auditoríaidempotente. Fuente/limpiezaverificadas. Vercr09-retention-task-map-20261015.md. Pendientefinalidades/excepciones/registroydespacho/N3,norendimientonuevo.
+
+
+### 2026-10-16 — conservación mediante Beat y worker propios
+
+Run `20261015-235821-3978e752`: 1 PASS/110,77 s. Registro efectivo de18 tareas;17 con cadencia hasta60s publicadas porBeat y terminadas SUCCESS/no-eager porworker, con IDs emparejados. Cadencias intactas; efecto real de anuncio sintético caducado y auditoría única. Huérfanos horario sólo registrado, sin despacho observado. Otras tareas sin contenido preparado: no inferir eficacia integral de purgas. Test0b597ec, evidencia `cr09-retention-worker-beat-20261016.md`, fuentes y limpieza independientes verificadas. Fallos de preparación conservados. Rendimiento, política de conservación integral yN3 pendientes.

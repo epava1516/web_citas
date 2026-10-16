@@ -1,0 +1,848 @@
+{
+  "recorded_utc": "2026-10-16",
+  "run": "20261015-235821-3978e752",
+  "head": "00171963252730eb7844f885bb10c426e4016a52",
+  "result": "1 PASS /110.77s",
+  "wiring": {
+    "generation": "t56e832af81874d379eddcf8ab6ce550",
+    "pids": {
+      "worker": [
+        3535380,
+        3535525,
+        3535538
+      ],
+      "beat": [
+        3535384
+      ]
+    },
+    "scheduled_success": [
+      "apps.listings.tasks.expire_listings",
+      "apps.mediafiles.tasks.cleanup_prepared_media",
+      "apps.mediafiles.tasks.erase_media_files",
+      "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "apps.safety.tasks.purge_expired_access_coverage",
+      "apps.safety.tasks.purge_expired_access_field_decision",
+      "apps.safety.tasks.purge_expired_access_response_drafts",
+      "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "apps.safety.tasks.purge_expired_copy_information",
+      "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "apps.safety.tasks.purge_expired_exports",
+      "apps.safety.tasks.purge_expired_portability_assessments",
+      "apps.safety.tasks.purge_expired_portability_coverage",
+      "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "apps.safety.tasks.purge_expired_portability_selections",
+      "apps.safety.tasks.reconcile_retention_reviews"
+    ],
+    "registered": [
+      "apps.listings.tasks.expire_listings",
+      "apps.mediafiles.tasks.cleanup_prepared_media",
+      "apps.mediafiles.tasks.erase_media_files",
+      "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "apps.safety.tasks.purge_expired_access_coverage",
+      "apps.safety.tasks.purge_expired_access_field_decision",
+      "apps.safety.tasks.purge_expired_access_response_drafts",
+      "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "apps.safety.tasks.purge_expired_copy_information",
+      "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "apps.safety.tasks.purge_expired_exports",
+      "apps.safety.tasks.purge_expired_portability_assessments",
+      "apps.safety.tasks.purge_expired_portability_coverage",
+      "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "apps.safety.tasks.purge_expired_portability_selections",
+      "apps.safety.tasks.reconcile_retention_reviews"
+    ],
+    "not_observed_hourly": [
+      "apps.safety.rights_object_content.purge_orphan_export_objects"
+    ],
+    "pid_absence": {
+      "3535380": true,
+      "3535525": true,
+      "3535538": true,
+      "3535384": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "observer": [
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "e6d95a4c-4c6e-4bee-a61e-9fdf2bf5e0c6",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829385.334702556
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "42737305-96bb-41d0-8490-331cd781899f",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829395.312546979
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "b460ace7-9440-461a-9691-f56e832f8f22",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829405.312243266
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "31e516b6-1ee6-4589-89cc-a1b1bc191363",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829405.319194537
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "992641ae-02bd-4dea-ba06-2b631258304e",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829415.318944421
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "c54a932e-e010-442a-a7ca-2efe353fa41e",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829425.319425228
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.reconcile_retention_reviews",
+        "id": "f8b19f24-02dc-4bab-b754-41fce1faa138",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.31126803
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+        "id": "b317a7c9-bc4c-45a1-83c8-82231e21523f",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.313299897
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.reconcile_urgent_report_alerts",
+        "id": "807c9439-a6f1-47cd-b7b9-218dd224a517",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.314556973
+      },
+      {
+        "event": "publish",
+        "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+        "id": "8ebac96c-b37b-4339-8e31-fe281d480f9c",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.31575904
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_copy_information",
+        "id": "fb018110-ff48-4f1d-890b-3cb7630b3392",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.316984283
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_access_coverage",
+        "id": "f422e730-3a7f-4dd9-b0f0-63d6753bf5b7",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.318336002
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.reconcile_portability_export_jobs",
+        "id": "4d98824a-1b46-49ae-af2c-a72ed890b317",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.319575703
+      },
+      {
+        "event": "publish",
+        "task": "apps.mediafiles.tasks.recover_media_jobs",
+        "id": "3135124c-ced4-40d9-a15d-6403dff4225a",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.320928134
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.deliver_safety_notices",
+        "id": "aa284207-13e0-4fd7-955f-b6d8dcfd0cb4",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.3225677
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_portability_selections",
+        "id": "4957a2c9-633b-4a92-b393-0ab68edf25dd",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.324291793
+      },
+      {
+        "event": "publish",
+        "task": "apps.mediafiles.tasks.erase_media_files",
+        "id": "b9bb47b3-0e36-4ccf-adad-c4143647289f",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.325560114
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_exports",
+        "id": "db45cd25-0351-483a-b533-18f2647c7151",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.326836658
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+        "id": "f29fde61-aa90-4101-a3b6-af15228033f5",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.32808056
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.expire_listings",
+        "id": "a9f7c4d4-9045-43a7-a2cc-a10de06ec4bc",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.329260067
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+        "id": "f7f3a7cc-14f3-4855-9fb8-c9a497bcb89f",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.330456076
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_access_field_decision",
+        "id": "4424775f-04b2-4002-ab3f-24fd88d1085b",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.331922653
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+        "id": "da0e6830-b642-4ae6-abbd-6f35befffe06",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.333148882
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+        "id": "fad12986-cc60-41ad-bca2-ea81f574a05f",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.334388749
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_portability_coverage",
+        "id": "80eaa839-774b-4cd8-b93c-3aaa58903d66",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.335609983
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.tasks.purge_expired_portability_assessments",
+        "id": "6497e117-7e7c-45d8-966e-28834d2ba38d",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.3368567
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "671a1c5d-6eb1-4fd4-8d74-dad5e86fe4ca",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.339107116
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "38b1c72f-5a53-4fbc-941d-323ffc5a04f3",
+        "role": "beat",
+        "pid": 3535384,
+        "monotonic": 3829435.340350422
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "e6d95a4c-4c6e-4bee-a61e-9fdf2bf5e0c6",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829385.352934867,
+        "end_monotonic": 3829385.463442406,
+        "wall": 0.11050753900781274,
+        "thread_cpu": 0.05264685299999999,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "42737305-96bb-41d0-8490-331cd781899f",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829395.318760997,
+        "end_monotonic": 3829395.371103916,
+        "wall": 0.0523429187014699,
+        "thread_cpu": 0.025906986000000007,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "b460ace7-9440-461a-9691-f56e832f8f22",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829405.316453847,
+        "end_monotonic": 3829405.651780571,
+        "wall": 0.335326723754406,
+        "thread_cpu": 0.127247718,
+        "result": 1,
+        "dirty_before": 1,
+        "dirty_after": 0,
+        "cleared": 1,
+        "db_wall": 0.2828860282897949,
+        "mark_to_clear_seconds": [
+          33.25412702560425
+        ]
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "992641ae-02bd-4dea-ba06-2b631258304e",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829415.322760155,
+        "end_monotonic": 3829415.353992358,
+        "wall": 0.031232202891260386,
+        "thread_cpu": 0.010840165999999984,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "c54a932e-e010-442a-a7ca-2efe353fa41e",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829425.323337947,
+        "end_monotonic": 3829425.41083603,
+        "wall": 0.0874980827793479,
+        "thread_cpu": 0.02421325200000002,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.reconcile_retention_reviews",
+        "id": "f8b19f24-02dc-4bab-b754-41fce1faa138",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.315514883,
+        "end_monotonic": 3829435.381844529,
+        "wall": 0.06632964592427015,
+        "thread_cpu": 0.01631305400000005,
+        "result": "not_numeric"
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.reconcile_urgent_report_alerts",
+        "id": "807c9439-a6f1-47cd-b7b9-218dd224a517",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.383585174,
+        "end_monotonic": 3829435.439223785,
+        "wall": 0.05563861085101962,
+        "thread_cpu": 0.011862001999999983,
+        "result": "not_numeric"
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_copy_information",
+        "id": "fb018110-ff48-4f1d-890b-3cb7630b3392",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.440844307,
+        "end_monotonic": 3829435.492091325,
+        "wall": 0.05124701792374253,
+        "thread_cpu": 0.013977682999999963,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.reconcile_portability_export_jobs",
+        "id": "4d98824a-1b46-49ae-af2c-a72ed890b317",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.493868147,
+        "end_monotonic": 3829435.557592023,
+        "wall": 0.06372387614101171,
+        "thread_cpu": 0.026805047000000026,
+        "result": null
+      },
+      {
+        "event": "execution",
+        "task": "apps.mediafiles.tasks.erase_media_files",
+        "id": "b9bb47b3-0e36-4ccf-adad-c4143647289f",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.559566473,
+        "end_monotonic": 3829435.595293696,
+        "wall": 0.03572722291573882,
+        "thread_cpu": 0.021870355000000008,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+        "id": "f29fde61-aa90-4101-a3b6-af15228033f5",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.597187201,
+        "end_monotonic": 3829435.632573649,
+        "wall": 0.03538644779473543,
+        "thread_cpu": 0.019378695,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+        "id": "f7f3a7cc-14f3-4855-9fb8-c9a497bcb89f",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.634466757,
+        "end_monotonic": 3829435.686470881,
+        "wall": 0.05200412403792143,
+        "thread_cpu": 0.024697055999999995,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_access_field_decision",
+        "id": "4424775f-04b2-4002-ab3f-24fd88d1085b",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.688467305,
+        "end_monotonic": 3829435.74779363,
+        "wall": 0.059326325077563524,
+        "thread_cpu": 0.02345918600000002,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+        "id": "fad12986-cc60-41ad-bca2-ea81f574a05f",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.749472002,
+        "end_monotonic": 3829435.812555852,
+        "wall": 0.06308384984731674,
+        "thread_cpu": 0.015411810999999997,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_portability_assessments",
+        "id": "6497e117-7e7c-45d8-966e-28834d2ba38d",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.814043654,
+        "end_monotonic": 3829435.862674604,
+        "wall": 0.048630950041115284,
+        "thread_cpu": 0.015428310999999972,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "671a1c5d-6eb1-4fd4-8d74-dad5e86fe4ca",
+        "role": "worker",
+        "pid": 3535525,
+        "eager": false,
+        "state": null,
+        "start_monotonic": 3829435.864142157,
+        "end_monotonic": 3829435.987577826,
+        "wall": 0.12343566864728928,
+        "thread_cpu": 0.027160411999999967,
+        "result": null,
+        "dirty_before": 1,
+        "dirty_after": 1,
+        "cleared": 0,
+        "db_wall": 0.08842992782592773,
+        "mark_to_clear_seconds": []
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "31e516b6-1ee6-4589-89cc-a1b1bc191363",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829405.323511913,
+        "end_monotonic": 3829405.419361464,
+        "wall": 0.09584955126047134,
+        "thread_cpu": 0.027161722000000006,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+        "id": "b317a7c9-bc4c-45a1-83c8-82231e21523f",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.319129133,
+        "end_monotonic": 3829435.384328696,
+        "wall": 0.06519956281408668,
+        "thread_cpu": 0.013243723000000013,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+        "id": "8ebac96c-b37b-4339-8e31-fe281d480f9c",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.387238227,
+        "end_monotonic": 3829435.454101415,
+        "wall": 0.0668631880544126,
+        "thread_cpu": 0.014781580000000002,
+        "result": "not_numeric"
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_access_coverage",
+        "id": "f422e730-3a7f-4dd9-b0f0-63d6753bf5b7",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.455575658,
+        "end_monotonic": 3829435.504781947,
+        "wall": 0.0492062889970839,
+        "thread_cpu": 0.011096560000000005,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.mediafiles.tasks.recover_media_jobs",
+        "id": "3135124c-ced4-40d9-a15d-6403dff4225a",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.505960311,
+        "end_monotonic": 3829435.539026577,
+        "wall": 0.03306626621633768,
+        "thread_cpu": 0.010789982000000004,
+        "result": null
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.deliver_safety_notices",
+        "id": "aa284207-13e0-4fd7-955f-b6d8dcfd0cb4",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.540326033,
+        "end_monotonic": 3829435.541137529,
+        "wall": 0.0008114962838590145,
+        "thread_cpu": 0.0008073680000000028,
+        "result": "not_numeric"
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_portability_selections",
+        "id": "4957a2c9-633b-4a92-b393-0ab68edf25dd",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.543495818,
+        "end_monotonic": 3829435.57232353,
+        "wall": 0.028827711939811707,
+        "thread_cpu": 0.010356555999999989,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_exports",
+        "id": "db45cd25-0351-483a-b533-18f2647c7151",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.573441687,
+        "end_monotonic": 3829435.608529498,
+        "wall": 0.03508781082928181,
+        "thread_cpu": 0.013646118000000013,
+        "result": 0
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "519ee9b8-79f0-442b-9235-503288e4a3ab",
+        "role": "worker",
+        "pid": 3535538,
+        "monotonic": 3829435.714962773
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.expire_listings",
+        "id": "a9f7c4d4-9045-43a7-a2cc-a10de06ec4bc",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.60970492,
+        "end_monotonic": 3829435.736696735,
+        "wall": 0.12699181493371725,
+        "thread_cpu": 0.036824547999999985,
+        "result": 1
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+        "id": "da0e6830-b642-4ae6-abbd-6f35befffe06",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.738759504,
+        "end_monotonic": 3829435.805840536,
+        "wall": 0.06708103185519576,
+        "thread_cpu": 0.014972567999999992,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.tasks.purge_expired_portability_coverage",
+        "id": "80eaa839-774b-4cd8-b93c-3aaa58903d66",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.808071541,
+        "end_monotonic": 3829435.865497468,
+        "wall": 0.05742592690512538,
+        "thread_cpu": 0.014047654999999992,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "38b1c72f-5a53-4fbc-941d-323ffc5a04f3",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 3829435.86744995,
+        "end_monotonic": 3829435.914543081,
+        "wall": 0.047093131113797426,
+        "thread_cpu": 0.013276971999999998,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "519ee9b8-79f0-442b-9235-503288e4a3ab",
+        "role": "worker",
+        "pid": 3535538,
+        "eager": false,
+        "state": null,
+        "start_monotonic": 3829435.916917256,
+        "end_monotonic": 3829435.976086991,
+        "wall": 0.059169734828174114,
+        "thread_cpu": 0.023589022999999987,
+        "result": null,
+        "dirty_before": 1,
+        "dirty_after": 1,
+        "cleared": 0,
+        "db_wall": 0.05145907402038574,
+        "mark_to_clear_seconds": []
+      }
+    ]
+  },
+  "effective_settings": {
+    "schedule": {
+      "purge-access-field-decisions": {
+        "task": "apps.safety.tasks.purge_expired_access_field_decision",
+        "schedule": 60.0
+      },
+      "reconcile-retention-reviews": {
+        "task": "apps.safety.tasks.reconcile_retention_reviews",
+        "schedule": 60.0
+      },
+      "cleanup-prepared-private-media": {
+        "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+        "schedule": 60.0
+      },
+      "erase-private-media": {
+        "task": "apps.mediafiles.tasks.erase_media_files",
+        "schedule": 60.0
+      },
+      "purge-expired-account-confirmation-delivery": {
+        "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+        "schedule": 60.0
+      },
+      "purge-expired-access-scope-inventory": {
+        "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+        "schedule": 60.0
+      },
+      "purge-expired-access-coverage": {
+        "task": "apps.safety.tasks.purge_expired_access_coverage",
+        "schedule": 60.0
+      },
+      "purge-expired-access-response-drafts": {
+        "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+        "schedule": 60.0
+      },
+      "purge-expired-portability-response-drafts": {
+        "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+        "schedule": 60.0
+      },
+      "purge-expired-portability-coverage": {
+        "task": "apps.safety.tasks.purge_expired_portability_coverage",
+        "schedule": 60.0
+      },
+      "purge-expired-portability-selections": {
+        "task": "apps.safety.tasks.purge_expired_portability_selections",
+        "schedule": 60.0
+      },
+      "purge-expired-portability-assessments": {
+        "task": "apps.safety.tasks.purge_expired_portability_assessments",
+        "schedule": 60.0
+      },
+      "purge-expired-copy-information": {
+        "task": "apps.safety.tasks.purge_expired_copy_information",
+        "schedule": 60.0
+      },
+      "purge-expired-copy-page-reviews": {
+        "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+        "schedule": 60.0
+      },
+      "purge-expired-private-copies": {
+        "task": "apps.safety.tasks.purge_expired_exports",
+        "schedule": 60.0
+      },
+      "expire-public-listings": {
+        "task": "apps.listings.tasks.expire_listings",
+        "schedule": 60.0
+      },
+      "purge-rights-object-deliveries": {
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "schedule": 10.0
+      },
+      "purge-orphan-export-objects": {
+        "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+        "schedule": 3600.0
+      }
+    },
+    "registered": [
+      "apps.listings.tasks.expire_listings",
+      "apps.mediafiles.tasks.cleanup_prepared_media",
+      "apps.mediafiles.tasks.erase_media_files",
+      "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "apps.safety.tasks.purge_expired_access_coverage",
+      "apps.safety.tasks.purge_expired_access_field_decision",
+      "apps.safety.tasks.purge_expired_access_response_drafts",
+      "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "apps.safety.tasks.purge_expired_copy_information",
+      "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "apps.safety.tasks.purge_expired_exports",
+      "apps.safety.tasks.purge_expired_portability_assessments",
+      "apps.safety.tasks.purge_expired_portability_coverage",
+      "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "apps.safety.tasks.purge_expired_portability_selections",
+      "apps.safety.tasks.reconcile_retention_reviews"
+    ],
+    "eager": false
+  },
+  "source_frozen_independent": true,
+  "cleanup": {
+    "controller_child_worker_beat_pids_absent": true,
+    "temporary_absent": true,
+    "owned_containers_absent": true,
+    "redis_empty_before_removal": true,
+    "systemd_MainPID": 0,
+    "systemd_ControlGroup": ""
+  },
+  "test_sha256": "ff6d0d2a051709f520f122ae280ef4e1f443e6daf892b3c633c50814c9a1efad",
+  "artifact_hashes": {
+    "source-hashes.json": "8100afebe4bf60def298059531c6091fd64991db2d94d01b23eda1b09284f838",
+    "pytest.xml": "295ee50a2db4b02b9664579d284ed6bb47f2352c47eade08846e73c1ded8cea4",
+    "retention-effective-settings.json": "041352c51893ddd4a47abdaccbbd4961d52ffd5de0913e69fef5b6170c8ace4b",
+    "retention-wiring.json": "411101cdc9ebd93ae8393327a6a68269307a3943f528f70b97818d537b02979e"
+  },
+  "preserved_failures": [
+    "cr09-retention-wiring-20261015: CLI rejected before resources",
+    "20261015-235621-dcdcd4b1: test manifest AttributeError before worker; source freeze and cleanup independently verified"
+  ],
+  "limits": [
+    "No hourly orphan task dispatch observed",
+    "Only listing expiry has a populated-domain functional effect assertion",
+    "Other success deliveries may be empty work; no complete retention policy/CR09/N3 acceptance"
+  ]
+}

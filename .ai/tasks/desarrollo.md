@@ -1099,3 +1099,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-15:auditoríaestática18tareasconservación,coberturacandidata18/18noaceptada comoejecución. Controlfaltanteexpire_listingsañadido3a6e1a6:235228-0735477e1PASS43,73s,caducidad/negativos/idempotenciaenPGpropio;fuentesyrecursosretiradosverificados. Noproveedores/nollamadasClaude,nocambiodeapp. Evidenciacr09-retention-task-map-20261015.md. Goalabierto.
+
+
+2026-10-16: test de transporte de conservación0b597ec,run235821-3978e752,1PASS110,77s.18registradas/17Beat→workerSUCCESSno-eager;huérfanoshorariosnoobservados. Efecto anuncio caducado/auditoría. Rutas hijo ybroker propios verificados, fuentes congeladas ycleanup independientes. FallosCLIprevio ymanifiesto235621-dcdcd4b1conservados;correccióninstrumento sinapp/cadencias. Evidenciacr09-retention-worker-beat-20261016.md. SinClaude/proveedores,consumo anterior intacto;CR09/N3abiertos.
