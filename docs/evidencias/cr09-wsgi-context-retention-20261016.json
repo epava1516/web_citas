@@ -1,0 +1,59 @@
+{
+  "run": "20261016-071108-eb14be80",
+  "base_head": "c35c2c2cc1ec553c074da76b0fbb9440912f63af",
+  "passed": 1,
+  "seconds": 89.42,
+  "scope": "Diagnostic reproduces retained24Listing/Revision, not positive release test",
+  "frozen_sources_verified": true,
+  "independent_cleanup_verified": true,
+  "analysis": [
+    {
+      "route": "/es/",
+      "nodes": 1868,
+      "edges": 2126,
+      "listing_nodes": 24,
+      "cyclic_ancestor_components": [
+        {
+          "size": 6,
+          "types": {
+            "builtins.list": 1,
+            "django.template.context.ContextDict": 2,
+            "builtins.dict": 2,
+            "django.template.context.RequestContext": 1
+          },
+          "path_to_listing": [
+            "builtins.list",
+            "django.template.context.ContextDict",
+            "django.core.paginator.Page",
+            "builtins.list",
+            "apps.listings.models.Listing"
+          ]
+        }
+      ]
+    },
+    {
+      "route": "/en/?q=synthetic",
+      "nodes": 1993,
+      "edges": 2287,
+      "listing_nodes": 24,
+      "cyclic_ancestor_components": [
+        {
+          "size": 6,
+          "types": {
+            "django.template.context.ContextDict": 2,
+            "builtins.dict": 2,
+            "django.template.context.RequestContext": 1,
+            "builtins.list": 1
+          },
+          "path_to_listing": [
+            "django.template.context.ContextDict",
+            "django.core.paginator.Page",
+            "builtins.list",
+            "apps.listings.models.Listing"
+          ]
+        }
+      ]
+    }
+  ],
+  "acceptance": false
+}

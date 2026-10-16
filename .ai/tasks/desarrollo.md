@@ -1314,3 +1314,5 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16:closeprototype1FAILinstrumento87,34s+1FAILcorregido89,34sinsuficiente:24ListingRevisionvivos,frozen/cleanupverificados,assert0refsintacto. Sinappintegrada/Claude/consumopreviointacto;diagnósticoOneToOnependiente.
 
 2026-10-16:residual0707481FAIL89,32sconartefactodiagnóstico útil:callback2/24inverseciclosretirados,rootBFS38sincamino propioinspeccionado,refsentrantespendientes. Frozen/cleanupverificados;sinClaude/consumopreviointacto/aceptaciónglobal.
+
+2026-10-16:incomingretention0711081PASS89,42sreproducenegativa/SCC6contextoexternoidentificadoconcaminoPageListing,fuentescleanupverificados; noappchange/p95/Claude,consumopreviointacto/CR09abierto.

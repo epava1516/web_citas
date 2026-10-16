@@ -1,0 +1,17 @@
+# Ciclo externo identificado: RequestContext y ContextDict
+
+Run071108-eb14be80,HEADc35c2c2 másdiagnósticoprerregistrado.1PASS89,42s significa **reproducción correcta delestadofallidoprototipo**, no liberaciónaprobada. DosrutasWSGIHandlerDjangoreal sinClient/templatecapturatest,PG17.11propio10ksintéticos/Python3.12.15/native-sealed ylímites habituales. Prototipolimpiaprefetch/backrefOneToOne pero24Listing/24RevisioncontinúanhastaGC; tests originales0refs siguenFAILpreservados.
+
+GrafosDEBUG_SAVEALLporidentidadentrelosobjetosinalcanzables,tipos/ordinaleslocalessinvalores/keys/addresses/IDsDB. Despuésdeterminarensayoterminal,seanalizaronSCCconNetworkXdelentornographify, no dependenciaañadidaapp. Primerografo1868nodos2126aristas/segundo1993nodos2287aristas. Amboscontienen24Listing.
+
+ParaelprimerListing, únicoSCCcíclicoancestro enelgrafoguardado:6nodos (RequestContext1/ContextDict2/dict2/list1). CaminorealdesdecomponentehastaListing:
+
+`RequestContext ↔ ContextDict → Page → list → Listing`
+
+La etiqueta abrevia enlacesintermediosdict/list, conservadosenJSON; aristasagregadas anterioresnohabríandemostradoesto. ObjetosguardadossontodosinalcanzablesbajoSAVEALL; noSCCdelheapcompletoni fugapermanente. Este ciclono pasa porListing, explica queBFSdesdeListingnofuera suficiente.
+
+FuenteDjango5.2.17instalada:template/context.py ContextDict.__init__añadeself acontext.dictsyguardaself.context;make_context(dict,request)creaRequestContextycontext.push(original_context) para mantenerprioridadsobrecontextprocessors. backenddjango.Template.renderllamamake_contextyluegotemplate.render. EsepushpermanentecreaunarelacióncíclicaválidaqueGCgestiona; no declararbugDjangosinreporte/contratoverificado.
+
+Implicación: seguirlimpiandorelacionesORMnoatacaelcontenedorexternoque retienepágina. Siguiente diseñoacotadointerceptarciclodevida decontextopropiosólodurante render síncrono yliberar después, preservandoprecedencia/contextprocessors/includes/escaping/excepciones. NoparcheglobalDjango ni cacheautorización niGCfreeze. Cualquierprototipodebecomprobarque losciclosORMtambiénse resuelven; no asumirunaúnica limpieza suficiente. SinimplementaciónproductoniROI/p95nuevo.
+
+Fuentescongeladasidénticas yrunner/hijo/temporal/contenedoresausentesindependientemente;unidadinactive/MainPID0/cgroupvacío. GCflagsrestaurados. Artefactosrun/incoming-graph-0.json/incoming-graph-1.json/incoming-scc-analysis.json,reciboJSONadjunto. Sinprod/Claude/proveedores,últimoclean1,013029795FAIL,CR09/N3/goalenterosabiertos.
