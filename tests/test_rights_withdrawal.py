@@ -22,8 +22,8 @@ from apps.safety.rights_verification import receive_event, simulate_event, start
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def approved(request, settings):
-    case, user, staff, person, verifier, other = prepared(request, settings)
+def approved(request, settings, *, subject_linked=True):
+    case, user, staff, person, verifier, other = prepared(request, settings, subject_linked=subject_linked)
     proof = start(
         user, case.pk, uuid.uuid4(), case.version, "Synthetic proportional rights procedure"
     )
@@ -223,3 +223,64 @@ def test_mobile_reviewer_withdraws_scoped_anonymous_representation(
         finally:
             browser.close()
     assert RightsWithdrawal.objects.count() == 1
+
+
+def test_subject_without_linked_account_can_withdraw_without_borrowing_agency_owner(request, settings):
+    case, actor, staff, person = approved(request, settings, subject_linked=False)
+    assert case.actor_id is None and case.account_subject_id is None
+    assert person.subject_id is None and case.reported_subject_id is None
+    owner = person.agency.owner
+    owner_before = (owner.email, owner.session_version, owner.mfa_version)
+    proof = case.proofs.get(status="passed")
+    assert proof.person_id == person.pk and not proof.account_subject_id
+    assert proof.subject_id_snapshot == ""
+    manager_before = person.manager_version
+    listing_before = person.listing.lifecycle_version
+    dates = case.received_at, case.initial_due_at
+    path, submitted = action(staff, case, "withdraw")
+    assert staff.post(path, submitted).status_code == 302
+    assert staff.post(path, submitted).status_code == 302
+    case.refresh_from_db()
+    person.refresh_from_db()
+    owner.refresh_from_db()
+    withdrawal = RightsWithdrawal.objects.get(action__request=case)
+    assert withdrawal.proof_id == proof.pk and withdrawal.person_id == person.pk
+    assert person.subject_id is None and person.manager_version == manager_before + 1
+    assert person.consent_revoked_at and person.phone_claim_id is None
+    assert person.listing.status == "withdrawn" and person.listing.lifecycle_version == listing_before + 1
+    assert case.status == "withdrawn" and (case.received_at,case.initial_due_at) == dates
+    assert (owner.email,owner.session_version,owner.mfa_version) == owner_before
+    assert case.reported_subject_id is None and case.account_subject_id is None
+    assert Client().get(f"/en/listing/{person.listing.pk}/").status_code == 404
+
+    # Complete the same account-unlinked variant through the actual response view.
+    from test_rights_responses import values
+    from test_rights_verification import read
+
+    from apps.safety.crypto import unseal
+    from apps.safety.models import RightsNotice, RightsResponse
+
+    actor.user_permissions.add(Permission.objects.get(codename="respond_rights_request"))
+    read(staff, case)
+    response_path = f"/en/moderation/rights/{case.pk}/response/"
+    assert staff.get(response_path).status_code == 200
+    response_data = values(case, kind="representation_complete")
+    assert staff.post(response_path, response_data).status_code == 302
+    assert staff.post(response_path, response_data).status_code == 302
+    changed = response_data | {"response": response_data["response"] + " Additional reviewed statement."}
+    assert staff.post(response_path, changed).status_code == 409
+    assert staff.post(response_path, response_data | {"key": uuid.uuid4()}).status_code == 400
+    assert staff.post(response_path, response_data | {"key": "not-a-uuid"}).status_code == 400
+    case.refresh_from_db()
+    person.refresh_from_db()
+    response = RightsResponse.objects.get(request=case)
+    assert response.withdrawal_id == withdrawal.pk
+    assert unseal(response.encrypted_response)["simulation"] is True
+    assert case.status == "resolved" and case.response_version == 1
+    notice = RightsNotice.objects.get(response=response)
+    contact = unseal(case.encrypted_payload)["email"]
+    assert unseal(notice.encrypted_payload)["recipient"] == contact
+    assert contact != owner.email
+    assert person.subject_id is None and person.listing.status == "withdrawn"
+    assert case.actor_id is None and case.account_subject_id is None and case.reported_subject_id is None
+    assert (case.received_at,case.initial_due_at) == dates

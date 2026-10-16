@@ -18,10 +18,13 @@ from apps.safety.rights_verification import authorized_proof, receive_event, sim
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def prepared(request, settings):
+def prepared(request, settings, *, subject_linked=True):
     settings.RIGHTS_VERIFICATION_BACKEND = "simulator"
     case, user, staff = ready(request)
     person = Person.objects.get(subject__username="fixture-v1-model-a")
+    if not subject_linked:
+        person.subject = None
+        person.save(update_fields=["subject"])
     path, linked = link(staff, case, person)
     assert staff.post(path, linked).status_code == 302
     staff.post(

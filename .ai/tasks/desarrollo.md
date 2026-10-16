@@ -1343,3 +1343,6 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 
 
 2026-10-16 Codex local:Docker v8fuente9d122b0/productoaf914b9build/runtimerealPGPASS;finalDEBUG0/8rutas200/firmas/negativo404,esquema0022/nativos,cuotas/cleanupcomprobados. Pasadadev inicialpreservada;imagencab33d24…retenida,ningúnpush/despliegue/proveedor. SininvocacionesClaude,consumoanteriorintacto. CR09/N3/p95FAILabiertos;próximaconciliaciónescenariosderechos/finalidad.
+
+
+2026-10-16 Codex local:4escenariosaccesorawPASS/hashes/ASTbranchpositivaconciliados;8controlesretiradaactualPASS. NuevavariantePerson.subjectNone pasóretirada ydescubrióreplayHTTPcerrado400;fallopreservado,correcciónvistamantieneopciónsóloclaveexistentescopada/actorconbackend revalidando.7PASS93,97s versióncorrectiva,owner no prestado/aviso alcontactodelcaso. Nuevoshelpersdetest/sinmigración. Próximografo/runtimeactual;noinvocacionesClaude ni cambio deconsumoanterior. P95FAIL/CR09/N3 abiertos.

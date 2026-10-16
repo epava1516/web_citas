@@ -279,7 +279,20 @@ def respond(request, case_id):
             "response_version": case.response_version,
         },
     )
-    if case.kind != "representation" or case.status != "withdrawn":
+    closed_representation_replay = False
+    if (request.method == "POST" and case.kind == "representation"
+            and case.status == "resolved" and request.POST.get("kind") == "representation_complete"):
+        try:
+            replay_key = form.fields["key"].clean(request.POST.get("key"))
+        except ValidationError:
+            pass  # The native form reports invalid keys without querying a UUID column.
+        else:
+            # This only preserves the form choice. issue() still locks/revalidates
+            # the exact payload, versions and current actor authority on every replay.
+            closed_representation_replay = RightsResponse.objects.filter(
+                request=case, actor=request.user, key=replay_key, kind="representation_complete",
+            ).exists()
+    if (case.kind != "representation" or case.status != "withdrawn") and not closed_representation_replay:
         form.fields["kind"].choices = [
             (
                 "progress",

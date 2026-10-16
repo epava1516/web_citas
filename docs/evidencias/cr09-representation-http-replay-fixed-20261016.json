@@ -1,0 +1,21 @@
+{
+  "run": "20261016-142911-39b4adeb",
+  "head": "73bcb0433f39d56f4510584d6d562a6d151a3707",
+  "status": "PASS",
+  "tests": 7,
+  "seconds": 93.97,
+  "cases": [
+    "test_subject_without_linked_account_can_withdraw_without_borrowing_agency_owner",
+    "test_progress_keeps_existing_copy_and_evidence_dates_private",
+    "test_representation_close_requires_actual_current_withdrawal_and_hides_source_notes",
+    "test_two_connections_and_permissions_cannot_duplicate_or_inject_identity",
+    "test_new_response_requires_audited_outgoing_history_and_rights_notice_recovery",
+    "test_mobile_response_history_and_receipt_without_account",
+    "test_all_outgoing_pages_are_required_and_receipt_has_complete_history"
+  ],
+  "coverage": "Representation HTTP exact closure replay302 after resolved, changed payload same key409, fresh key400, malformed UUID400; account-unlinked claimant/proof/owner invariants and typed final notice to request contact. Six existing rights_responses controls include history/current authority/replay/concurrency/mobile.",
+  "correction": "Form choice retained only for valid same-case/same-actor existing representation_complete key on resolved representation POST. issue() still revalidates current authority and exact payload/version under locks; GET and new/malformed keys retain original choices.",
+  "cleanup_and_source_freeze": "independently verified",
+  "preserved_failure": "cr09-representation-http-replay-original-20261016.json",
+  "limits": "Identity verification simulated explicitly; Django Client and real PG, existing mobile browser test. No external notice receipt, current whole N3 or p95 acceptance."
+}
