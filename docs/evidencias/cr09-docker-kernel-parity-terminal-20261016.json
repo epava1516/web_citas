@@ -1,0 +1,649 @@
+{
+  "tools": {
+    "pytest": "9.1.1",
+    "pluggy": "1.6.0",
+    "iniconfig": "2.3.0",
+    "packaging": "26.3",
+    "pygments": "2.21.0"
+  },
+  "selected": [
+    "tests/test_canonical_kernel_loader.py",
+    "tests/test_rights_native_canonical_equivalence.py",
+    "tests/test_canonical_stack_gate.py"
+  ],
+  "source_hashes": {
+    "tests/test_canonical_kernel_loader.py": "4ed2fa8549c2bb4397e3cb89976922363cd1c5be6aed1d8324aaf7e86af559be",
+    "tests/test_rights_native_canonical_equivalence.py": "d5ce395777520ad703b7f3006354b2168ea44b35c40a868d1bb8ab4e1c6480dc",
+    "tests/test_canonical_stack_gate.py": "20fe558ee583613faf456860bef298e27d525e1a499aad52eee80dfb83d80847"
+  },
+  "image_id": "sha256:bb8bc8e5497cee1df2c5931d33caf171b848fbf1ec7fae1d18578d161fe4b697",
+  "acceptance": false,
+  "exit": 0,
+  "junit_copied": true,
+  "container_absent": true,
+  "result": "118 PASS, 0 errors/failures/skips",
+  "seconds": 11.6,
+  "runtime_witness": {
+    "hashes": {
+      "tests/test_canonical_kernel_loader.py": "4ed2fa8549c2bb4397e3cb89976922363cd1c5be6aed1d8324aaf7e86af559be",
+      "tests/test_rights_native_canonical_equivalence.py": "d5ce395777520ad703b7f3006354b2168ea44b35c40a868d1bb8ab4e1c6480dc",
+      "tests/test_canonical_stack_gate.py": "20fe558ee583613faf456860bef298e27d525e1a499aad52eee80dfb83d80847"
+    },
+    "kernel": {
+      "binary_sha256": "2caa578c045a4d47d2b58646b762c05628bc08e93546518f5be40b652463741e",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "e4e880b779752310cb6360b0b0ec5362b6a0823fca38d3d0e5c04d7f29cf6c41",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    }
+  },
+  "test_sources_match_host_and_image": true,
+  "cleanup_independent": true,
+  "cases": [
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_absent_build_uses_reference"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_present_incomplete_build_fails_closed"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[schema-2]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[schema-True]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[module-wrong.kernel]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[python-0.0.0]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[cache_tag-wrong]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[extension_suffix-../wrong.so]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[machine-wrong]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[cython-wrong]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[flags-value8]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[source_sha256-0000000000000000000000000000000000000000000000000000000000000000]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[generated_c_sha256-0000000000000000000000000000000000000000000000000000000000000000]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[binary_sha256-0000000000000000000000000000000000000000000000000000000000000000]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[build_script_sha256-0000000000000000000000000000000000000000000000000000000000000000]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_manifest_drift_is_rejected[compiler_version-]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_symlinks_are_not_artifact_files[manifest]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_symlinks_are_not_artifact_files[binary]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_symlinks_are_not_artifact_files[generated]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_symlinks_are_not_artifact_files[directory]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_symlinks_are_not_artifact_files[dangling]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_changed_binary_at_same_path_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_matching_digest_of_non_extension_still_fails_closed"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_unknown_artifact_entry_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_oversized_artifact_is_rejected_before_read"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_invalid_manifest_json_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_duplicate_manifest_fields_are_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_loaded_native_identity_is_part_of_rule_version"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_fifo_is_rejected_without_blocking[manifest.json]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_fifo_is_rejected_without_blocking[_canonical_kernel.c]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_fifo_is_rejected_without_blocking[binary]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_preexisting_unverified_module_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_concurrent_load_is_single_and_sealed"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_loaded_bytes_survive_disk_replacement_and_freeze_detects_it"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_loaded_callable_replacement_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_loaded_fast_path_replacement_is_rejected"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_failed_initialization_never_retries_or_reuses_an_old_mapping"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_fork_preserves_verified_binary_and_reinitializes_lock"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_fork_waits_for_initial_load_in_another_thread"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[none]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[true]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[false]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[zero]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[negative]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[minint]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[maxint]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[belowmin]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[abovemax]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[hugeint]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[floatzero]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[negzero]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[subnormal]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[maxfloat]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[emptystr]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[unicode]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[combining]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[emoji]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[highsurrogate]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[lowsurrogate]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[surrogatepair]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[list]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[tuple]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[dict]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_matches_validation_and_encoder_stage_exactly[nested]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[nan]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[inf]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[neginf]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[intkey]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[strsubkey]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[strsub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[intsub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[floatsub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[dictsub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[listsub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[tuplesub]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[enum]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[decimal]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[uuid]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[datetime]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[dataclass]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[set]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[iterator]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[nestednan]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_rejected_values_keep_exception_class_message_and_order[latekey]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_depth_check_precedes_terminal_leaf[199]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_depth_check_precedes_terminal_leaf[200]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_depth_check_precedes_terminal_leaf[201]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_cycles_stop_at_depth_201_without_crash[False]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_cycles_stop_at_depth_201_without_crash[True]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_public_depth_keeps_reference_behavior[True]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_public_depth_keeps_reference_behavior[1.5]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_public_depth_keeps_reference_behavior[-1]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_public_depth_keeps_reference_behavior[201]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_public_depth_keeps_reference_behavior[19950631168807583848837421626835850838234968318861924548520089498529438830221946631919961684036194597899331129423209124271556491349413781117593785932096323957855730046793794526765246551266059895520550086918193311542508608460618104685509074866089624888090489894838009253941633257850621568309473902556912388065225096643874441046759871626985453222868538161694315775629640762836880760732228535091641476183956381458969463899410840960536267821064621427333394036525565649530603142680234969400335934316651459297773279665775606172582031407994198179607378245683762280037302885487251900834464581454650557929601414833921615734588139257095379769119277800826957735674444123062018757836325502728323789270710373802866393031428133241401624195671690574061419654342324638801248856147305207431992259611796250130992860241708340807605932320161268492288496255841312844061536738951487114256315111089745514203313820202931640957596464756010405845841566072044962867016515061920631004186422275908670900574606417856951911456055068251250406007519842261898059237118054444788072906395242548339221982707404473162376760846613033778706039803413197133493654622700563169937455508241780972810983291314403571877524768509857276937926433221599399876886660808368837838027643282775172273657572744784112294389733810861607423253291974813120197604178281965697475898164531258434135959862784130128185406283476649088690521047580882615823961985770122407044330583075869039319604603404973156583208672105913300903752823415539745394397715257455290510212310947321610753474825740775273986348298498340756937955646638621874569499279016572103701364433135817214311791398222983845847334440270964182851005072927748364550578634501100852987812389473928699540834346158807043959118985815145779177143619698728131459483783202081474982171858011389071228250905826817436220577475921417653715687725614904582904992461028630081535583308130101987675856234343538955409175623400844887526162643568648833519463720377293240094456246923254350400678027273837755376406726898636241037491410966718557050759098100246789880178271925953381282421954028302759408448955014676668389697996886241636313376393903373455801407636741877711055384225739499110186468219696581651485130494222369947714763069155468217682876200362777257723781365331611196811280792669481887201298643660768551639860534602297871557517947385246369446923087894265948217008051120322365496288169035739121368338393591756418733850510970271613915439590991598154654417336311656936031122249937969999226781732358023111862644575299135758175008199839236284615249881088960232244362173771618086357015468484058622329792853875623486556440536962622018963571028812361567512543338303270029097668650568557157505516727518899194129711337690149916181315171544007728650573189557450920330185304847113818315407324053319038462084036421763703911550639789000742853672196280903477974533320468368795868580237952218629120080742819551317948157624448298518461509704888027274721574688131594750409732115080498190455803416826949787141316063210686391511681774304792596709376]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_revalidates_mutable_inputs_every_call_and_never_coerces"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_dictionary_insertion_orders_and_unicode_are_unmodified"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_hook_uses_only_validated_loader_and_falls_back_when_unavailable"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_hook_does_not_swallow_integrity_or_nested_loader_import_errors"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_custom_depth_comparison_and_addition_use_reference_fallback"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_dictionary_mutation_during_float_check_keeps_iterator_error"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_depth_boundary_rejects_before_bad_leaf_or_container_keys"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_first_failure_follows_original_dictionary_insertion_order"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_original_caller_recursion_budget_in_subprocess[check]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_original_caller_recursion_budget_in_subprocess[canonical]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_native_direct_recursion_budget_in_subprocess"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_custom_metaclass_comparison_callbacks_match"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[511-100]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[512-100]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[513-1]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[513-2]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[515-2]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[515-3]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[515-100]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_gate_matches_original_criterion_and_bounds_walk[1000-20]"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_frame_not_retained_in_argument_error_traceback"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_eligible_loader_integrity_error_preserved_and_frames_released"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_nonzero_depth_does_not_walk_or_dispatch"
+    },
+    {
+      "file": null,
+      "classname": "",
+      "name": "test_f_back_error_does_not_retain_current_frame"
+    }
+  ],
+  "limits": "Canonical kernel parity/integrity only; no DB integration, application journey, p95 or N3. Test-only pytest distributions mounted separately, plugin autoload disabled. No application dependencies replaced. Setup permission failure and initial missing XML export retained."
+}

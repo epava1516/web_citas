@@ -1129,3 +1129,6 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 
 
 2026-10-16: corregida entrega Docker: Python3.12.15/lock intacto, compilación kernel Cython3.0.12 separada, exclusión artefacto host, native-sealed exigido en build,4sync65s. Imagen propia cr09-native:20261016 IDbb8bc8e5497c, sin reemplazar imágenes normales. Buildexit0 y smoke real PG/migraciones/health200/4workers/UID10001/11paridades PASS; contenedores/red/PIDs propios e intermediarios ausentes, fuentehashes verificados. Evidencia cr09-docker-native-20261016.md. Etiqueta revision base3874bab+2archivosmodificados expresos; no p95 dentroimagen/N3/aceptaciónCR09. SinClaude/proveedores/publicación,consumo previo intacto.
+
+
+2026-10-16: imagen bb8bc8e5497c,paridad/integridad kernel dentroDocker118PASS11,60s/0omisiones. Tres tests existentes sin cambios, hashes host/imagen iguales,native-sealed confirmado;herramientas pytest separadas sin reemplazar depsapp,rednone/UID10001/raízro. Fallos preparación permisos y exportaciónXML inicial conservados (118PASS11,61s sinXML no contados como nueva cobertura); corregido instrumento y receipt porcaso final. Contenedores propios ausentes verificados. Evidencia cr09-docker-kernel-parity-20261016.md. Sin app/p95/Claude/proveedores; consumo anterior intacto. CR09/N3 y contrato completo abiertos.
