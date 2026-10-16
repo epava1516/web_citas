@@ -1292,3 +1292,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16:20PASS266,49s accountrecipientrevocation053617-156708a7, frozen/JUnit/cleanup independiente verificados; evidencia ymatrices83/88actualizadas. Cobertura rama Usercuenta, nocierreCR09/N3 ni métricaHTTP nueva. SinClaude/consumopreviointacto.
 
 2026-10-16: graphASTparcial102cb47/15Python yreclusteringdeterminista sinLLM0tokensmodeloestaoperación, históricosnoreportadosintactos. Conciliados4requisitoscuenta conasserts/20reciboscompletos;23registrosde21fuentespreviasidénticas,noN3. SinClaude/proveedores/aceptaciónglobal.
+
+2026-10-16: preparado6casosrevocacióneditoractivo trasPersonwait,3causasestructuralesauthorized_targets×readack; sinmodificarfixtureoriginal. NoCartesianporrightkindguardsinrama; sinClaude/consumopreviointacto/noaceptaciónN3.
+
+2026-10-16:6PASS106,99s editorrecipientrevocation054713-fd15186b, frozen/JUnit/cleanup verificados; matrices/evidencia registradas. Productoigual, guardaplicableporramas sinCartesianinventado; sinClaude/consumopreviointacto/aceptaciónglobal.

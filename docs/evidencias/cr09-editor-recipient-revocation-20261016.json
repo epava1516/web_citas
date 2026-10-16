@@ -1,0 +1,27 @@
+{
+  "run": "20261016-054713-fd15186b",
+  "base_head": "8c5517e1ae8d05060435efa541dc4d8d98df80bb",
+  "source_working_tree": "new test and pre-registration recorded in source-hashes.json",
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "seconds": 106.99,
+  "cases": [
+    "test_live_editor_loses_notice_authority_after_observed_wait[unassigned-inspect]",
+    "test_live_editor_loses_notice_authority_after_observed_wait[unassigned-acknowledge]",
+    "test_live_editor_loses_notice_authority_after_observed_wait[membership-inspect]",
+    "test_live_editor_loses_notice_authority_after_observed_wait[membership-acknowledge]",
+    "test_live_editor_loses_notice_authority_after_observed_wait[manager_version-inspect]",
+    "test_live_editor_loses_notice_authority_after_observed_wait[manager_version-acknowledge]"
+  ],
+  "source_hashes": {
+    "tests/test_editor_recipient_notice_revocation_races.py": "1b4b61d272aafd441853df36527ad86a19e0ff4e928c1c0ef99077c908b02cfd",
+    "tests/test_recipient_notice_revocation_races.py": "a2910e7d25d883ef298c3541e1dfc9f99e603d3dff64b69bbd87451acdd6fcdb",
+    "apps/safety/communication_notices.py": "3ce0bc564fd36e5b60fda3aee761fa4e44919826add1e08d2cd791b4b8a5937d",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a"
+  },
+  "frozen_sources_verified": true,
+  "independent_cleanup_verified": true,
+  "scope": "Local profile notice inspect/ack after observed Person wait, active editor loses assignment/membership/manager_version, credentials unchanged; manager change may deny in locked_case before recipient_authority. Not external receipt/HTTP concurrency/N3.",
+  "acceptance": false
+}
