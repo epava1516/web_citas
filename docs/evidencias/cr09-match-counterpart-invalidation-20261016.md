@@ -21,7 +21,7 @@ La migración marca todos los anuncios existentes para reparar negativos que pod
 | 014353-34c196fa | 47PASS496,70s | Cuatro regresiones nuevas, publicación existente, concurrencia, locks y rollback |
 | 015314-70e862e8 | 10PASS131,61s | Borrado/movimiento de foto, extremos Match, historia, preparación, generación, rollback y upgrade |
 | 015724-0956e142 | 2PASS/2FAIL71,45s | Pasan movimiento de revisión y escrituras opuestas; fallan dos supuestos de borrado de revisión publicada |
-| 020003-dbfc825f | 2PASS55,58s | Supuestos de borrado corregidos: publicada protegida y cascada de borrador permitido |
+| 020003-dbfc825f | 2PASS55,55s | Supuestos de borrado corregidos: publicada protegida y cascada de borrador permitido |
 
 Los dos fallos de015724 son errores del test: Submission yModerationDecision impiden eliminar la revisión publicada conPROTECT. No se retira esa protección ni se borra evidencia para pasar. El test corregido exige ProtectedError y comprueba que la referencia publicada sigue intacta; después mueve el extremo Match a una foto de un borrador nuevo sin expediente y prueba su borrado/cascada. Se repiten sólo los dos casos afectados.
 
