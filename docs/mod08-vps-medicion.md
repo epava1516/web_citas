@@ -412,3 +412,6 @@ El Dockerfile compila el kernel en una etapa aislada con Python3.12.15/Cython3.0
 
 
 Actualización posterior: la [imagenv2](evidencias/cr09-docker-pg-journeys-20261016.md) excluye cachés/bytecode del host de forma recursiva. Verificados19casos PostgreSQL y118delkernel, sin omisiones. La primera imagen se conserva como antecedente; no usar sus cachés como evidencia de versión común. Todavía no hay capacidad del runtime empaquetado ni aceptación N3.
+
+
+2026-10-16, posterior a0020: Dockerfile ajusta el timeout Gunicorn a60s, como el arnés actual (cliente65s), conservando4sync. No cambia el umbral p95. Construcción e imagen anteriores conservan sus valores; la imagen nueva requiere identidad y smoke propios antes de medir.

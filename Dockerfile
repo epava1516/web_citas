@@ -22,4 +22,4 @@ RUN mkdir -p /app/media/private /app/media/delivery /app/staticfiles && chown -R
 USER app
 RUN python manage.py collectstatic --noinput
 EXPOSE 8000
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "65", "--access-logfile", "-", "--logger-class", "config.gunicorn_logging.SafeAccessLogger"]
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "60", "--access-logfile", "-", "--logger-class", "config.gunicorn_logging.SafeAccessLogger"]
