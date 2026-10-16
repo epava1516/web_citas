@@ -1,0 +1,18 @@
+{
+  "run": "artifacts/local-ci/20261016-094738-3d159a2a",
+  "head": "b19d8753c65ab24728fc4e1ec6ee17808bf2e74f",
+  "result": "1 PASS,18 ESEN scenario comparisons and missing UUID control",
+  "properties": [
+    {
+      "name": "detail_context_parity",
+      "value": "[{'scenario': 'valid', 'language': 'es', 'status': 200}, {'scenario': 'valid', 'language': 'en', 'status': 200}, {'scenario': 'phone', 'language': 'es', 'status': 404}, {'scenario': 'phone', 'language': 'en', 'status': 404}, {'scenario': 'content', 'language': 'es', 'status': 404}, {'scenario': 'content', 'language': 'en', 'status': 404}, {'scenario': 'consent', 'language': 'es', 'status': 404}, {'scenario': 'consent', 'language': 'en', 'status': 404}, {'scenario': 'rate', 'language': 'es', 'status': 404}, {'scenario': 'rate', 'language': 'en', 'status': 404}, {'scenario': 'manager', 'language': 'es', 'status': 404}, {'scenario': 'manager', 'language': 'en', 'status': 404}, {'scenario': 'normalization', 'language': 'es', 'status': 200}, {'scenario': 'normalization', 'language': 'en', 'status': 200}, {'scenario': 'foreign_revision', 'language': 'es', 'status': 404}, {'scenario': 'foreign_revision', 'language': 'en', 'status': 404}, {'scenario': 'paused', 'language': 'es', 'status': 404}, {'scenario': 'paused', 'language': 'en', 'status': 404}]"
+    },
+    {
+      "name": "limits",
+      "value": "Native guard retained, READ COMMITTED unchanged; sequential parity only. No concurrency or performance claim, no production integration."
+    }
+  ],
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "limits": "Sequential native guard/body parity; no concurrency, ROI or production integration"
+}
