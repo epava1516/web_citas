@@ -2403,3 +2403,6 @@ Reproducción000756-47bfe58b:1FAIL/1PASS;recovery_apply dejaba texto/fechas enPu
 ### 2026-10-16 — comprobación final de publicación corregida
 
 Reproducción001455-644b1704:1FAIL47,53s;materialfinal omitía la copiaPublicationState reintroducida y daba publicationcompletada. Fix9254ce5 exige proyección ausente/vacía. Correctiva001657-9f1ed261:11PASS160,13s con revisión/respuesta/móvil existentes;fuentes ycleanupindependientes. Evidencia cr09-final-projection-20261016.md. Grafo actualizado al corteaba6cb4(11269/44655/485,0dangling),5docs21nodos23aristas poragente nativo existente,usono reportado. No nueva medición/rendimiento niaceptaciónCR09/N3.
+
+
+2026-10-16: evaluación preload sin carga especulativa. ProbeWSGIsinred:0intentos/0DB/1thread;URLConf/discovery no cargados. Gunicorn23 carga WSGI antesdeaccept incluso sinpreload. Beneficio paraatascoinicialnodemostrado,nocambioruntime/nuevop95. DesajusteDocker2/45s vsbenchmark4/65s pendiente. Evidencia cr09-preload-source-audit-20261016.md. CR09/N3abiertos.

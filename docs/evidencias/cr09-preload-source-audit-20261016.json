@@ -1,0 +1,19 @@
+{
+  "mode": "fresh interpreter WSGI import, network connects forbidden",
+  "network_connect_attempts": 0,
+  "open_django_connections": 0,
+  "threads": 1,
+  "modules": {
+    "config.urls": false,
+    "apps.listings.discovery": false,
+    "apps.listings.forms": true,
+    "apps.listings.public_validation": true,
+    "apps.safety.canonical_kernel_loader": false
+  },
+  "limits": "No HTTP request, route resolution or template rendering. No cold-arrival improvement or fork/thread extension safety proven.",
+  "sha": "e55b282052c43787f568585e64db038c72d68c8a",
+  "probe_sha256": "2893f6def32857ab7406b2114e6b7a6039929437bda7850242f142881b144e7f",
+  "gunicorn_version": "23.0.0",
+  "worker_load_wsgi_precedes_run": true,
+  "decision": "No runtime change or HTTP load: plain preload has no demonstrated benefit against the observed startup work."
+}
