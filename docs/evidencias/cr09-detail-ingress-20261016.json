@@ -1,0 +1,1574 @@
+{
+  "run": "artifacts/local-ci/20261016-105425-e54cee8a",
+  "head": "e63becb6f032d19da915d5973de377c5d4d9e9cd",
+  "summary": {
+    "refresh_mode": "normal_worker_beat",
+    "dataset": {
+      "published": 10000,
+      "synthetic": true,
+      "shared_synthetic_photo_fixture": true,
+      "planner_statistics": {
+        "method": "ANALYZE after bulk, before native validation",
+        "tables": [
+          "listings_listing",
+          "listings_revision",
+          "mediafiles_photo",
+          "mediafiles_match",
+          "safety_rightsrectificationexecution"
+        ],
+        "scope": "Owned synthetic preparation only"
+      },
+      "sample_ids": [
+        "440edd05-c2a0-48b9-b0b6-2820fbc0f2f3",
+        "afa662fd-fcee-462b-89e6-173a7fd32642",
+        "de30dd23-aae6-4366-8653-6566183da31c",
+        "fe72b746-75a0-4656-a4f2-a2a7a73972ed",
+        "e0f21b67-25e7-4122-aa09-dfca950cf55b",
+        "8587a8b2-a4fb-448d-8f41-559f044cb1f0",
+        "04c5bf9d-cddc-4036-bb90-afd1ef5116d6",
+        "77ebd350-1453-4eec-a398-f657b086f818",
+        "a6e1f1e3-f341-4d99-bac8-c6eb74c4c35d",
+        "93eae64c-b02f-4a21-97e0-9aaf68957cd2",
+        "85ac0823-0cd8-4e1f-b459-20c4d1e74911",
+        "40a1c562-54c3-4fe1-8424-fad3dfd4e9ad",
+        "b0b46ca1-4c01-4825-ad01-70dc8c6b30fd",
+        "38cceb19-6924-41a4-aee4-622e4cad0c12",
+        "e8abf254-e589-463a-94af-c13b8569b2a6",
+        "7df12c1f-7979-409d-aa00-8d0ea25c0f42",
+        "99254355-700b-402d-accb-814700c162f9",
+        "165e14c4-48b6-42b8-8c15-454fcec025e9",
+        "b3d34862-9536-43b6-8027-b795e7b85cc9",
+        "cad642cd-84cb-438d-b530-6381e4cd2bc3",
+        "e4640367-8518-481e-95c5-da0672004728"
+      ],
+      "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+      "deployment_step": "Publication state current for rules a4d3642c38f5: 9998 recomputed",
+      "deployment_step_after_fixture": "Publication state current for rules a4d3642c38f5: 1 recomputed"
+    },
+    "resources": {
+      "canonical_kernel": {
+        "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+        "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+        "cache_tag": "cpython-312",
+        "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+        "cython": "3.0.12",
+        "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+        "flags": [
+          "-O3",
+          "-fPIC",
+          "-shared"
+        ],
+        "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+        "machine": "x86_64",
+        "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+        "mode": "native-sealed",
+        "module": "apps.safety._canonical_kernel",
+        "python": "3.12.15",
+        "schema": 1,
+        "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+      },
+      "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+      "cpu_count": 8,
+      "cpu_affinity_count": 4,
+      "postgres_version": "17.11",
+      "gunicorn_version": "23.0.0",
+      "django_version": "5.2.17",
+      "python_version": "3.12.15",
+      "pg_server_shared": true,
+      "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+      "memory_total": "MemTotal:       23760928 kB"
+    },
+    "success": false,
+    "duration_seconds": 60,
+    "arrival_rps": 20,
+    "server": "Gunicorn4 sync workers, 1 threads each, local TCP",
+    "server_topology": {
+      "worker_class": "sync",
+      "workers": 4,
+      "threads": 1
+    },
+    "scope": "Synthetic local server capacity; external production/identity/CDN excluded. Owned Celery worker (concurrency 2) and Beat as deployed; upload processing and MOD05 refresh in the worker.",
+    "verdict": "FAIL",
+    "invalid_reasons": [],
+    "policy": {
+      "generator_p95_seconds_max": 0.01,
+      "generator_p99_seconds_max": 0.025,
+      "generator_max_seconds_max": 0.1,
+      "not_emitted_fraction_max": 0.0,
+      "request_timeout_seconds": 65.0,
+      "drain_seconds": 70.0,
+      "latency_p95_seconds_strict_max": 0.8,
+      "error_fraction_strict_max": 0.01,
+      "late_emission": "Never emit after the arrival window; count as not emitted",
+      "final_pending": "Classify as failed/timeout at fixed drain deadline",
+      "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+      "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+      "request_timeout_scope": "65s total across connection, headers and body",
+      "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+    },
+    "mix": {
+      "listing": "1/3",
+      "search": "1/3",
+      "detail": "1/3",
+      "languages": "ES/EN alternating",
+      "uploads": "separate1/minute,15 for contractual run"
+    },
+    "not_measured": [
+      "DB connections/waits/locks/IO",
+      "worker/PostgreSQL RSS baseline/peak/final",
+      "allocations/request",
+      "generator process CPU/RSS/scheduling outside observed GC intervals",
+      "causal client GC callback overhead",
+      "DB CPU; whole-app/other-thread CPU; unobserved request CPU",
+      "causal worker observer overhead; exact TCP/socket queue time",
+      "SQL rows_returned/affected/scanned; normalized dominant SQL patterns during load"
+    ],
+    "frozen_manifest": {
+      "refresh_mode": "normal_worker_beat",
+      "diagnostic_static_startup": true,
+      "source_commit": "e63becb6f032d19da915d5973de377c5d4d9e9cd",
+      "server_topology": {
+        "worker_class": "sync",
+        "workers": 4,
+        "threads": 1
+      },
+      "dataset": {
+        "published": 10000,
+        "synthetic": true,
+        "shared_synthetic_photo_fixture": true,
+        "planner_statistics": {
+          "method": "ANALYZE after bulk, before native validation",
+          "tables": [
+            "listings_listing",
+            "listings_revision",
+            "mediafiles_photo",
+            "mediafiles_match",
+            "safety_rightsrectificationexecution"
+          ],
+          "scope": "Owned synthetic preparation only"
+        },
+        "sample_ids": [
+          "440edd05-c2a0-48b9-b0b6-2820fbc0f2f3",
+          "afa662fd-fcee-462b-89e6-173a7fd32642",
+          "de30dd23-aae6-4366-8653-6566183da31c",
+          "fe72b746-75a0-4656-a4f2-a2a7a73972ed",
+          "e0f21b67-25e7-4122-aa09-dfca950cf55b",
+          "8587a8b2-a4fb-448d-8f41-559f044cb1f0",
+          "04c5bf9d-cddc-4036-bb90-afd1ef5116d6",
+          "77ebd350-1453-4eec-a398-f657b086f818",
+          "a6e1f1e3-f341-4d99-bac8-c6eb74c4c35d",
+          "93eae64c-b02f-4a21-97e0-9aaf68957cd2",
+          "85ac0823-0cd8-4e1f-b459-20c4d1e74911",
+          "40a1c562-54c3-4fe1-8424-fad3dfd4e9ad",
+          "b0b46ca1-4c01-4825-ad01-70dc8c6b30fd",
+          "38cceb19-6924-41a4-aee4-622e4cad0c12",
+          "e8abf254-e589-463a-94af-c13b8569b2a6",
+          "7df12c1f-7979-409d-aa00-8d0ea25c0f42",
+          "99254355-700b-402d-accb-814700c162f9",
+          "165e14c4-48b6-42b8-8c15-454fcec025e9",
+          "b3d34862-9536-43b6-8027-b795e7b85cc9",
+          "cad642cd-84cb-438d-b530-6381e4cd2bc3",
+          "e4640367-8518-481e-95c5-da0672004728"
+        ],
+        "limits": "State fixtures cloned from native seed_demo publication; shared synthetic media, no claim of10k native moderation or duplicate calibration.",
+        "deployment_step": "Publication state current for rules a4d3642c38f5: 9998 recomputed",
+        "deployment_step_after_fixture": "Publication state current for rules a4d3642c38f5: 1 recomputed"
+      },
+      "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
+      "resources": {
+        "canonical_kernel": {
+          "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+          "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+          "cache_tag": "cpython-312",
+          "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+          "cython": "3.0.12",
+          "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+          "flags": [
+            "-O3",
+            "-fPIC",
+            "-shared"
+          ],
+          "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+          "machine": "x86_64",
+          "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+          "mode": "native-sealed",
+          "module": "apps.safety._canonical_kernel",
+          "python": "3.12.15",
+          "schema": 1,
+          "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+        },
+        "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+        "cpu_count": 8,
+        "cpu_affinity_count": 4,
+        "postgres_version": "17.11",
+        "gunicorn_version": "23.0.0",
+        "django_version": "5.2.17",
+        "python_version": "3.12.15",
+        "pg_server_shared": true,
+        "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+        "memory_total": "MemTotal:       23760928 kB"
+      },
+      "routes": [
+        "/es/",
+        "/en/",
+        "/es/?q=photography",
+        "/en/?q=synthetic",
+        "/es/listing/440edd05-c2a0-48b9-b0b6-2820fbc0f2f3/",
+        "/en/listing/e4640367-8518-481e-95c5-da0672004728/"
+      ],
+      "mix": {
+        "listing": "1/3",
+        "search": "1/3",
+        "detail": "1/3",
+        "languages": "ES/EN alternating",
+        "uploads": "separate1/minute,15 for contractual run"
+      },
+      "policy": {
+        "generator_p95_seconds_max": 0.01,
+        "generator_p99_seconds_max": 0.025,
+        "generator_max_seconds_max": 0.1,
+        "not_emitted_fraction_max": 0.0,
+        "request_timeout_seconds": 65.0,
+        "drain_seconds": 70.0,
+        "latency_p95_seconds_strict_max": 0.8,
+        "error_fraction_strict_max": 0.01,
+        "late_emission": "Never emit after the arrival window; count as not emitted",
+        "final_pending": "Classify as failed/timeout at fixed drain deadline",
+        "emission": "Async coroutine begins whole HTTP transaction, before connection/open/read; event-loop scheduling wait included in generator delay",
+        "justification": "20rps gives 50ms intervals: p95 jitter 1/5 interval, p99 1/2 interval, max two intervals; zero missing arrivals preserves full18000. Drain70s=timeout65s+5s margin.",
+        "request_timeout_scope": "65s total across connection, headers and body",
+        "client_concurrency": "No pending-request cap; per-request65s timeout bounds outstanding lifetime"
+      },
+      "duration_seconds": 60,
+      "arrival_rps": 20,
+      "scheduled_dynamic": 1200,
+      "uploads_separate": 1,
+      "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+      "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
+      "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling; opt-in isolated worker observer as described in worker_observer, thread CPU scoped to WSGI request; opt-in workerGC intervals without policy changes, overlapping stages not additive; no per-request DB CPU/RSS sampling",
+      "scope": "60s concurrent diagnostic only; not contractual capacity",
+      "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
+      "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
+      "worker_observer": {
+        "enabled": true,
+        "mode": "ingress_sql_gc_no_handler_imports",
+        "scope": "WSGI entry/end/threadCPU, SQL execute wall/threadCPU and GC only. No eager imports or wrappers of handlers/rules/render; context/validation/render not measured separately. SQL and GC overlap WSGI and each other. Emission\u2192WSGI includes client/TCP/scheduling/admission, not exact socket queue. Observer overhead not measured causally; not a clean p95.",
+        "clock": "time.monotonic in local worker processes; client loop.time origin explicitly recorded; same-host clock comparability checked after terminal",
+        "phase_overlap": "SQL may be inside context/validation/render; native lazy evaluation/GC included in caller intervals; no additive phase partition"
+      },
+      "diagnostic_criteria": {
+        "valid_generator_and_reconciled_accounting": true,
+        "p95_seconds_strict_below": 0.8,
+        "error_ratio_strict_below": 0.01,
+        "uploads_expected_status": 302,
+        "dynamic_pending_at_window_max": 20,
+        "final_pending": 0,
+        "request_timeout_seconds": 65,
+        "drain_seconds_max": 70,
+        "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
+        "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance."
+      }
+    },
+    "celery_pids": {
+      "worker": [
+        3519584,
+        3519689,
+        3519701
+      ],
+      "beat": [
+        3519585
+      ]
+    },
+    "cold_probes": [
+      {
+        "path": "/es/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25278,
+        "unexpected": false,
+        "seconds": 0.4192861821502447
+      },
+      {
+        "path": "/en/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 24075,
+        "unexpected": false,
+        "seconds": 0.3284097360447049
+      },
+      {
+        "path": "/es/?q=photography",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 25118,
+        "unexpected": false,
+        "seconds": 0.49324651807546616
+      },
+      {
+        "path": "/en/?q=synthetic",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 23911,
+        "unexpected": false,
+        "seconds": 0.4993358599022031
+      },
+      {
+        "path": "/es/listing/440edd05-c2a0-48b9-b0b6-2820fbc0f2f3/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3725,
+        "unexpected": false,
+        "seconds": 0.11967707937583327
+      },
+      {
+        "path": "/en/listing/e4640367-8518-481e-95c5-da0672004728/",
+        "expected": 200,
+        "scheduled_lag_seconds": 0,
+        "status": 200,
+        "bytes": 3487,
+        "unexpected": false,
+        "seconds": 0.09546121396124363
+      }
+    ],
+    "cold_latency_seconds": {
+      "p95": 0.4993358599022031,
+      "population": 6
+    },
+    "beat_alignment": {
+      "observed_tick_monotonic": 3868811.030115908,
+      "load_start_target": 3868816.030115908,
+      "phase_seconds": 5
+    },
+    "dirty_before_load": 0,
+    "celery_cpu_ticks_before": {
+      "3519584": 197,
+      "3519689": 12,
+      "3519701": 8,
+      "3519585": 165
+    },
+    "client_gc_preparation": {
+      "collected_gc_objects": 48464,
+      "frozen_after_collect": true,
+      "frozen_objects": 188516,
+      "wall_seconds": 0.15479525877162814,
+      "collector_thread_cpu_seconds": 0.14885269699999526,
+      "completed_at_monotonic": 3868816.188646771,
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "scope": "One full collection in test-client preparation after fixture/auth/upload construction, before asyncio arrival clock. No gc.disable or threshold mutation; collector stays active during load. Objects aren't ORM models or SQL rows; source provenance of individual collected objects not_measured. Backend/Gunicorn processes unaffected."
+    },
+    "client_gc": {
+      "events": [
+        {
+          "generation": 0,
+          "wall_seconds": 3.2627955079078674e-05,
+          "collector_thread_cpu_seconds": 3.165399999716101e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868816.189597113,
+          "monotonic_end": 3868816.189625942
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 3.062328323721886e-05,
+          "collector_thread_cpu_seconds": 3.00680000009379e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868816.19055155,
+          "monotonic_end": 3868816.19057979
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015646917745471,
+          "collector_thread_cpu_seconds": 0.00015557700000101704,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868817.590467165,
+          "monotonic_end": 3868817.590620375
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0002691331319510937,
+          "collector_thread_cpu_seconds": 0.0002685500000012553,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868829.491686876,
+          "monotonic_end": 3868829.491953873
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015245703980326653,
+          "collector_thread_cpu_seconds": 0.00015159299999822906,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868836.591478008,
+          "monotonic_end": 3868836.59162818
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0001869448460638523,
+          "collector_thread_cpu_seconds": 0.0001859669999930702,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868844.690698974,
+          "monotonic_end": 3868844.690883226
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00016022613272070885,
+          "collector_thread_cpu_seconds": 0.00015935100000774582,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868852.690764364,
+          "monotonic_end": 3868852.690922178
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00014510005712509155,
+          "collector_thread_cpu_seconds": 0.00014431500000000597,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868860.441665414,
+          "monotonic_end": 3868860.441807843
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00015807198360562325,
+          "collector_thread_cpu_seconds": 0.00015693299999952615,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868868.441117005,
+          "monotonic_end": 3868868.44127227
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.0002227500081062317,
+          "collector_thread_cpu_seconds": 0.00022298199999681856,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.091608078,
+          "monotonic_end": 3868876.091822021
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 0.00010061590000987053,
+          "collector_thread_cpu_seconds": 9.967100000096707e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.193308284,
+          "monotonic_end": 3868876.193406478
+        },
+        {
+          "generation": 1,
+          "wall_seconds": 0.0007855352014303207,
+          "collector_thread_cpu_seconds": 0.0007751920000060863,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.193628932,
+          "monotonic_end": 3868876.194415466
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 4.683714359998703e-05,
+          "collector_thread_cpu_seconds": 4.656299999794555e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.194629911,
+          "monotonic_end": 3868876.194676005
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 4.4261105358600616e-05,
+          "collector_thread_cpu_seconds": 4.424099999766895e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.194872368,
+          "monotonic_end": 3868876.194916212
+        },
+        {
+          "generation": 0,
+          "wall_seconds": 3.903312608599663e-05,
+          "collector_thread_cpu_seconds": 3.872599999965587e-05,
+          "on_observer_thread": true,
+          "active_rule_path": [],
+          "collected": 0,
+          "uncollectable": 0,
+          "monotonic_start": 3868876.195136209,
+          "monotonic_end": 3868876.195174229
+        }
+      ],
+      "calls_by_generation": {
+        "0": 14,
+        "1": 1
+      },
+      "wall_seconds": 0.002530686091631651,
+      "collector_thread_cpu_seconds": 0.0025113829999980908,
+      "max_wall_seconds": 0.0007855352014303207,
+      "max_collector_thread_cpu_seconds": 0.0007751920000060863,
+      "collections_stats_delta": [
+        14,
+        1,
+        0
+      ],
+      "policy_before": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "policy_after": {
+        "enabled": true,
+        "thresholds": [
+          700,
+          10,
+          10
+        ]
+      },
+      "unfinished_events": 0,
+      "scope": "gc.callbacks start/stop intervals of this process; CPU is collector thread only. Includes callback overhead and wall scheduling, not allocations or SQL/ORM rows. Events overlap enclosing rule/request intervals; never add or subtract them as an independent phase. Policy unchanged, no gc.collect/disable/threshold mutation. Causal callback overhead not_measured; no attribution to other processes or earlier runs."
+    },
+    "celery_cpu_ticks_after": {
+      "3519584": 211,
+      "3519689": 48,
+      "3519701": 103,
+      "3519585": 176
+    },
+    "clock_ticks_per_second": 100,
+    "client_gc_emission_overlap": {
+      "emitted_population": 1200,
+      "requests_with_gc_overlap": 0,
+      "largest_delay": {
+        "id": "d-265",
+        "delay_seconds": 0.038181247189641,
+        "gc_overlap_seconds": 0
+      },
+      "overlapping_delays": [],
+      "scope": "Union of client GC intervals intersected with scheduled-to-emitted delays, same monotonic origin. Overlap measured, not sole causal attribution; CPU/scheduling/network/other processes remain separate. GC events before the arrival clock or during drain do not imply arrival delay. No thresholds or collector policy changed."
+    },
+    "counts": {
+      "scheduled": 1200,
+      "emitted": 1200,
+      "not_emitted": 0,
+      "successful": 1200,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "generator_delay_seconds": {
+      "p50": 0.0008372179232551957,
+      "p90": 0.0014812443405389786,
+      "p95": 0.0019706642255190587,
+      "p99": 0.004183263238520141,
+      "max": 0.038181247189641,
+      "population": 1200
+    },
+    "observable_latency_seconds": {
+      "p50": 0.22437446098774672,
+      "p90": 0.5786914229393005,
+      "p95": 0.8970764791592956,
+      "p99": 1.0591119159944355,
+      "max": 1.19212487898767,
+      "population": 1200
+    },
+    "total_delay_seconds": {
+      "p50": 0.22552036317065216,
+      "p90": 0.5796021161600944,
+      "p95": 0.8981507763266565,
+      "p99": 1.0596918132156135,
+      "max": 1.1928031869232654,
+      "population": 1200
+    },
+    "error_fraction_emitted": 0.0,
+    "not_emitted_fraction_scheduled": 0.0,
+    "requested_rps": 20,
+    "emitted_per_window_second": 20.0,
+    "completed_per_window_second": 19.95,
+    "arrival_second_bins": [
+      {
+        "second": 0,
+        "emitted": 20,
+        "completed": 9
+      },
+      {
+        "second": 1,
+        "emitted": 20,
+        "completed": 14
+      },
+      {
+        "second": 2,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 3,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 4,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 5,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 6,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 7,
+        "emitted": 20,
+        "completed": 26
+      },
+      {
+        "second": 8,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 9,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 10,
+        "emitted": 20,
+        "completed": 23
+      },
+      {
+        "second": 11,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 12,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 13,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 14,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 15,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 16,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 17,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 18,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 19,
+        "emitted": 20,
+        "completed": 17
+      },
+      {
+        "second": 20,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 21,
+        "emitted": 20,
+        "completed": 24
+      },
+      {
+        "second": 22,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 23,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 24,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 25,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 26,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 27,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 28,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 29,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 30,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 31,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 32,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 33,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 34,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 35,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 36,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 37,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 38,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 39,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 40,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 41,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 42,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 43,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 44,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 45,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 46,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 47,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 48,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 49,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 50,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 51,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 52,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 53,
+        "emitted": 20,
+        "completed": 21
+      },
+      {
+        "second": 54,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 55,
+        "emitted": 20,
+        "completed": 19
+      },
+      {
+        "second": 56,
+        "emitted": 20,
+        "completed": 18
+      },
+      {
+        "second": 57,
+        "emitted": 20,
+        "completed": 22
+      },
+      {
+        "second": 58,
+        "emitted": 20,
+        "completed": 20
+      },
+      {
+        "second": 59,
+        "emitted": 20,
+        "completed": 21
+      }
+    ],
+    "percentile_population": "All emitted terminated requests, including errors/timeouts; no successful-only filter",
+    "window_close": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1197,
+        "failed": 0,
+        "pending": 3,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 60.00248797610402
+    },
+    "final_before_deadline_classification": {
+      "dynamic": {
+        "scheduled": 1200,
+        "emitted": 1200,
+        "not_emitted": 0,
+        "successful": 1200,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 1,
+        "emitted": 1,
+        "not_emitted": 0,
+        "successful": 1,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      }
+    },
+    "final_upload_counts": {
+      "scheduled": 1,
+      "emitted": 1,
+      "not_emitted": 0,
+      "successful": 1,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "uploads": [
+      {
+        "id": "u-0",
+        "path": "/es/draft/9be96541-77f9-4f5e-b46e-5ace98e50eae/photos/upload/",
+        "scheduled_at": 0,
+        "emitted_at": 0.0005205413326621056,
+        "ended_at": 0.42874643905088305,
+        "expected": 302,
+        "status": 302,
+        "bytes": 0,
+        "unexpected": false,
+        "timeout": false
+      }
+    ],
+    "actual_elapsed_seconds": 60.06158930901438,
+    "monotonic_origin_seconds": 3868816.189950565,
+    "drain_deadline_seconds": 130.0,
+    "clock": "asyncio loop.time monotonic; all timestamps relative to same start",
+    "emitter": "Async tasks, no pending-request cap; whole-request timeout bounds lifetime",
+    "trial_resource_stopped": false,
+    "request_samples_artifact": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-105425-e54cee8a/benchmark-samples.json",
+    "transport_verdict": "FAIL",
+    "diagnostic_checks": {
+      "validity": true,
+      "latency_and_errors": false,
+      "pending_at_window": true,
+      "final_pending": true,
+      "upload": true,
+      "timeout_policy": true,
+      "drain": true
+    },
+    "diagnostic_continue_contract": false,
+    "gunicorn_stopped": true,
+    "celery_worker_stopped": true,
+    "celery_beat_stopped": true,
+    "celery_pid_absence": {
+      "3519584": true,
+      "3519689": true,
+      "3519701": true,
+      "3519585": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "worker_observer_artifact": "benchmark-worker-events.json",
+    "worker_observer_parse_errors": [],
+    "startup_error_types": [],
+    "gunicorn_service_artifact": "benchmark-server-service.json",
+    "gunicorn_service_parse_errors": [],
+    "gunicorn_dynamic_service_p95_seconds": 0.312578,
+    "gunicorn_dynamic_service_population": 1200,
+    "gunicorn_dynamic_service_limits": "Completed Gunicorn log rows only; interrupted/unlogged/timeouts excluded here, included in observable latency/failed population. Health/cold/uploads excluded."
+  },
+  "paired_dynamic_ids": 1200,
+  "freeze_verified": true,
+  "cleanup_independently_verified": true,
+  "arrival_bins": [
+    {
+      "arrivals": [
+        0,
+        1
+      ],
+      "count": 20,
+      "mean_before_wsgi_seconds": 0.2733937174314633,
+      "mean_wsgi_seconds": 0.3105470665963367,
+      "mean_sql_seconds": 0.16863865016493945,
+      "mean_cpu_seconds": 0.1237189428,
+      "mean_gc_seconds": 0.022442089556716383,
+      "queries": [
+        [
+          "95c3d997be6abb325232bd42d33ccfdb86f7470e331ff5e623dfc7bdd20c3545",
+          {
+            "calls": 4,
+            "wall": 0.4195401081815362,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "overflow",
+          {
+            "calls": 134,
+            "wall": 0.37790905637666583,
+            "caller": null
+          }
+        ],
+        [
+          "c3f3a3458537ee21ed76dfda5b47a0b946acc65ea87b14fc85100540de116c9b",
+          {
+            "calls": 4,
+            "wall": 0.24214227544143796,
+            "caller": "apps/listings/publication_state.py:486"
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 5,
+            "wall": 0.22934981249272823,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "cf64c13cc3260a604d25cd0314e47ccb796bc43c0eb9a41f4ff01cc7de1d400f",
+          {
+            "calls": 9,
+            "wall": 0.20344454050064087,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "70a8d922e663d336ee12af6b1fbfe2d3b76b7bef7d175ff0916979f9586731b3",
+          {
+            "calls": 4,
+            "wall": 0.12315523298457265,
+            "caller": "apps/listings/publication_state.py:392"
+          }
+        ],
+        [
+          "28f8c34933b655acb31c4e60efebd288ea39cfde9ea09fdc47a5ff2c59eb04c3",
+          {
+            "calls": 6,
+            "wall": 0.10103132948279381,
+            "caller": "apps/listings/moderation_views.py:201"
+          }
+        ],
+        [
+          "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+          {
+            "calls": 20,
+            "wall": 0.09696381166577339,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ]
+      ]
+    },
+    {
+      "arrivals": [
+        1,
+        2
+      ],
+      "count": 20,
+      "mean_before_wsgi_seconds": 0.7552652712911367,
+      "mean_wsgi_seconds": 0.25083014997653663,
+      "mean_sql_seconds": 0.13669060207903386,
+      "mean_cpu_seconds": 0.09746807545000005,
+      "mean_gc_seconds": 0.002451599948108196,
+      "queries": [
+        [
+          "95c3d997be6abb325232bd42d33ccfdb86f7470e331ff5e623dfc7bdd20c3545",
+          {
+            "calls": 4,
+            "wall": 0.34610733995214105,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "overflow",
+          {
+            "calls": 122,
+            "wall": 0.2980859614908695,
+            "caller": null
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 8,
+            "wall": 0.20602469658479095,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "c3f3a3458537ee21ed76dfda5b47a0b946acc65ea87b14fc85100540de116c9b",
+          {
+            "calls": 4,
+            "wall": 0.2037707380950451,
+            "caller": "apps/listings/publication_state.py:486"
+          }
+        ],
+        [
+          "cf64c13cc3260a604d25cd0314e47ccb796bc43c0eb9a41f4ff01cc7de1d400f",
+          {
+            "calls": 6,
+            "wall": 0.1611121124587953,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+          {
+            "calls": 20,
+            "wall": 0.11673597106710076,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+          {
+            "calls": 14,
+            "wall": 0.0981011176481843,
+            "caller": "apps/listings/publication_state.py:305"
+          }
+        ],
+        [
+          "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+          {
+            "calls": 6,
+            "wall": 0.08606491982936859,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ]
+      ]
+    },
+    {
+      "arrivals": [
+        2,
+        5
+      ],
+      "count": 60,
+      "mean_before_wsgi_seconds": 0.7535214573067303,
+      "mean_wsgi_seconds": 0.18338129953481258,
+      "mean_sql_seconds": 0.0758475775985668,
+      "mean_cpu_seconds": 0.09583078519999995,
+      "mean_gc_seconds": 0.005475628461378316,
+      "queries": [
+        [
+          "overflow",
+          {
+            "calls": 280,
+            "wall": 0.5677491696551442,
+            "caller": null
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 40,
+            "wall": 0.4734835894778371,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "3cce9d94b8a66e7f7e795bf8d24b2b35ffc4241d16019ccaabe20f8365053762",
+          {
+            "calls": 20,
+            "wall": 0.369232171215117,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+          {
+            "calls": 40,
+            "wall": 0.2934731747955084,
+            "caller": "apps/listings/publication_state.py:305"
+          }
+        ],
+        [
+          "c69fb5d1141d2939c70439fbe35564d07d033311c373b835aa20eeb868e7eef6",
+          {
+            "calls": 20,
+            "wall": 0.1700312434695661,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "60d7b5b93034451de40e00bf909b0f7dfa76406ac192b02f6ef11662e8f9b4c3",
+          {
+            "calls": 20,
+            "wall": 0.15885111456736922,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "2e7313759aa50ab261ab9f2442c52678f593877714bb5357a54d3305aaaa5b1f",
+          {
+            "calls": 20,
+            "wall": 0.14726591343060136,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "68c53eeaac0f52f9e03bc69bc4f6f4737d6e83da0fe6e24efb9cc9061b063b49",
+          {
+            "calls": 40,
+            "wall": 0.14000941533595324,
+            "caller": "apps/listings/presentation_reads.py:36"
+          }
+        ]
+      ]
+    },
+    {
+      "arrivals": [
+        5,
+        10
+      ],
+      "count": 100,
+      "mean_before_wsgi_seconds": 0.2304410861618817,
+      "mean_wsgi_seconds": 0.16686581591144203,
+      "mean_sql_seconds": 0.06334529369138181,
+      "mean_cpu_seconds": 0.09196350833999999,
+      "mean_gc_seconds": 0.008037407733500004,
+      "queries": [
+        [
+          "overflow",
+          {
+            "calls": 462,
+            "wall": 0.8625791450031102,
+            "caller": null
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 66,
+            "wall": 0.5094853732734919,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "3cce9d94b8a66e7f7e795bf8d24b2b35ffc4241d16019ccaabe20f8365053762",
+          {
+            "calls": 32,
+            "wall": 0.4822076759301126,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+          {
+            "calls": 66,
+            "wall": 0.43298644479364157,
+            "caller": "apps/listings/publication_state.py:305"
+          }
+        ],
+        [
+          "2e7313759aa50ab261ab9f2442c52678f593877714bb5357a54d3305aaaa5b1f",
+          {
+            "calls": 34,
+            "wall": 0.23155185161158442,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "68c53eeaac0f52f9e03bc69bc4f6f4737d6e83da0fe6e24efb9cc9061b063b49",
+          {
+            "calls": 66,
+            "wall": 0.23018809966742992,
+            "caller": "apps/listings/presentation_reads.py:36"
+          }
+        ],
+        [
+          "60d7b5b93034451de40e00bf909b0f7dfa76406ac192b02f6ef11662e8f9b4c3",
+          {
+            "calls": 32,
+            "wall": 0.21309595415368676,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+          {
+            "calls": 100,
+            "wall": 0.19750302052125335,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ]
+      ]
+    },
+    {
+      "arrivals": [
+        10,
+        15
+      ],
+      "count": 100,
+      "mean_before_wsgi_seconds": 0.028756919940933587,
+      "mean_wsgi_seconds": 0.17813135222066193,
+      "mean_sql_seconds": 0.06835178663488478,
+      "mean_cpu_seconds": 0.09628613432000002,
+      "mean_gc_seconds": 0.005535236783325672,
+      "queries": [
+        [
+          "overflow",
+          {
+            "calls": 462,
+            "wall": 0.9255236219614744,
+            "caller": null
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 66,
+            "wall": 0.49891328904777765,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "3cce9d94b8a66e7f7e795bf8d24b2b35ffc4241d16019ccaabe20f8365053762",
+          {
+            "calls": 34,
+            "wall": 0.4863075613975525,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+          {
+            "calls": 66,
+            "wall": 0.46654579089954495,
+            "caller": "apps/listings/publication_state.py:305"
+          }
+        ],
+        [
+          "60d7b5b93034451de40e00bf909b0f7dfa76406ac192b02f6ef11662e8f9b4c3",
+          {
+            "calls": 34,
+            "wall": 0.2405949253588915,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+          {
+            "calls": 100,
+            "wall": 0.2261324799619615,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "68c53eeaac0f52f9e03bc69bc4f6f4737d6e83da0fe6e24efb9cc9061b063b49",
+          {
+            "calls": 66,
+            "wall": 0.224330292083323,
+            "caller": "apps/listings/presentation_reads.py:36"
+          }
+        ],
+        [
+          "2e7313759aa50ab261ab9f2442c52678f593877714bb5357a54d3305aaaa5b1f",
+          {
+            "calls": 32,
+            "wall": 0.20444669388234615,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ]
+      ]
+    },
+    {
+      "arrivals": [
+        15,
+        60
+      ],
+      "count": 900,
+      "mean_before_wsgi_seconds": 0.03705141028492815,
+      "mean_wsgi_seconds": 0.17871417445803267,
+      "mean_sql_seconds": 0.07056221903198295,
+      "mean_cpu_seconds": 0.09468206462777773,
+      "mean_gc_seconds": 0.007468875071758197,
+      "queries": [
+        [
+          "overflow",
+          {
+            "calls": 4200,
+            "wall": 8.235524892341346,
+            "caller": null
+          }
+        ],
+        [
+          "31a87e7d0cdc58ef748ce05d0b94047e820b1ad59009661daae806d0a31a4134",
+          {
+            "calls": 600,
+            "wall": 5.3811204303056,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "3cce9d94b8a66e7f7e795bf8d24b2b35ffc4241d16019ccaabe20f8365053762",
+          {
+            "calls": 300,
+            "wall": 4.47935034846887,
+            "caller": "apps/listings/publication_state.py:487"
+          }
+        ],
+        [
+          "6f6ca1c05cd7813eef98b2816058cb68dd002ab3cd833b8fe0f6c1df6ea7f9ea",
+          {
+            "calls": 600,
+            "wall": 4.117017668206245,
+            "caller": "apps/listings/publication_state.py:305"
+          }
+        ],
+        [
+          "60d7b5b93034451de40e00bf909b0f7dfa76406ac192b02f6ef11662e8f9b4c3",
+          {
+            "calls": 300,
+            "wall": 2.2078007510863245,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ],
+        [
+          "68c53eeaac0f52f9e03bc69bc4f6f4737d6e83da0fe6e24efb9cc9061b063b49",
+          {
+            "calls": 600,
+            "wall": 2.0587692223489285,
+            "caller": "apps/listings/presentation_reads.py:36"
+          }
+        ],
+        [
+          "f8b229f0a18e91ee9c1c559136c45ccf996a894f30776760e0ca62785b50fa4a",
+          {
+            "calls": 900,
+            "wall": 1.9940169313922524,
+            "caller": "apps/listings/public_validation.py:263"
+          }
+        ],
+        [
+          "2e7313759aa50ab261ab9f2442c52678f593877714bb5357a54d3305aaaa5b1f",
+          {
+            "calls": 300,
+            "wall": 1.8091758219525218,
+            "caller": "apps/listings/publication_state.py:484"
+          }
+        ]
+      ]
+    }
+  ],
+  "preludes_per_worker": {
+    "3519793": {
+      "calls": 4,
+      "sql": 68,
+      "wall": 0.5676580937579274
+    },
+    "3519794": {
+      "calls": 1,
+      "sql": 39,
+      "wall": 0.4811172541230917
+    },
+    "3519795": {
+      "calls": 2,
+      "sql": 66,
+      "wall": 0.3949347911402583
+    },
+    "3519796": {
+      "calls": 2,
+      "sql": 39,
+      "wall": 0.49600216606631875
+    }
+  },
+  "static_ready": [
+    {
+      "id": "startup",
+      "pid": 3519793,
+      "event": "static_ready",
+      "monotonic": 3868784.142432524
+    },
+    {
+      "id": "startup",
+      "pid": 3519794,
+      "event": "static_ready",
+      "monotonic": 3868784.26778768
+    },
+    {
+      "id": "startup",
+      "pid": 3519795,
+      "event": "static_ready",
+      "monotonic": 3868784.407565927
+    },
+    {
+      "id": "startup",
+      "pid": 3519796,
+      "event": "static_ready",
+      "monotonic": 3868784.472325914
+    }
+  ],
+  "scope": "Instrumented only, not clean latency/N3. SQL/GC/CPU overlap. Cursor time is not PostgreSQL CPU. Before-WSGI is not exact socket queue. Cohorts use generator origin and scheduled arrivals. Upload u-0 excluded from dynamic and prelude counts."
+}
