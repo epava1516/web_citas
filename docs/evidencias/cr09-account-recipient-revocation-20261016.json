@@ -1,0 +1,42 @@
+{
+  "run": "20261016-053617-156708a7",
+  "base_head": "92e7a039de6c86f85ae91564a1a281aa3231d190",
+  "working_tree": "new instrument and pre-registration in source-hashes.json",
+  "passed": 20,
+  "failed": 0,
+  "skipped": 0,
+  "seconds": 266.49,
+  "cases": [
+    "test_account_recipient_rechecks_after_observed_account_wait[session-inspect-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[session-inspect-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-object]",
+    "test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-restriction]",
+    "test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-object]"
+  ],
+  "source_hashes": {
+    "tests/test_account_recipient_notice_revocation_races.py": "4185e37a322354fcdfad6f9fbd1983642235383d2f47496927e953572c3ffaef",
+    "apps/safety/communication_notices.py": "3ce0bc564fd36e5b60fda3aee761fa4e44919826add1e08d2cd791b4b8a5937d",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+    "apps/safety/rights_communications.py": "e66ad8c7b4b879c8b0de56a27c364698016eeb7a6da48baf4aa919c1c34f6cd8",
+    "apps/safety/processing_execution.py": "c97e7ef19c0036b8d9aa8f26280a805cd81b555b1d95e83b2a4e68d10c640cce"
+  },
+  "frozen_sources_verified": true,
+  "own_cleanup_verified": true,
+  "scope": "Service-level local account recipient reads/acks for restriction/object after User lock wait, five recipient revocations. No external delivery or HTTP race verification.",
+  "acceptance": false
+}

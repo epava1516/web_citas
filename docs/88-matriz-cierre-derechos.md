@@ -74,3 +74,5 @@ El recorrido de acceso preserva preparación privada sobre ámbito autorizado, b
 ## Historial de componentes y verificaciones
 
 [Copia íntegra anterior](17-historial/2026-10-09-88-matriz-cierre-derechos-antes-organizacion.md): conserva el diseño detallado de acceso, migraciones0101–0107, contabilidad, revisiones, reproducciones y notas de localización, con las versiones y límites originales. [Copia del seguimiento completo](17-historial/2026-10-09-17-seguimiento-desarrollo-antes-organizacion.md) para entregas independientes posteriores y antecedentes de rendimiento. Copias exactas y huellas en [inventario](historial-documentacion.json).
+
+Actualización2026-10-16, comunicaciones internas: [20controles de autorización de destinatario de cuenta](evidencias/cr09-account-recipient-revocation-20261016.md), limitación/oposición×lectura/acuse×cinco revocaciones traswaitUser observado. Flujo previo ejecución/revisión/entrega local real, denegación antes de descifrar ysin nuevos read/ack/cambio de cifra. Cubre rama de cuenta distinta de Person; no todos los canales, HTTP concurrente, entrega externa ni N3 común. Se conserva alcance anterior y pendientes matriz83.

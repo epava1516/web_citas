@@ -1286,3 +1286,7 @@ Se conserva FAIL `231207-2cdf7e03` p95 0,844573358 s con Python de referencia: n
 2026-10-16: preparado contraste finito geo catálogo3consultasredundantes con constructor onlytest/48readsABBA y paridadexacta; noappcambiada. GateRR/qsdesconocidas/concurrenciapendiente, noaceptación aunque ROIpositivo. SinClaude ni consumo de terceros, historialintacto.
 
 2026-10-16: contrastegeo053127-c533843b termina1PASS106,25s funcional/48reads, varianteREJECTEDporROIinconsistente/listadocleanregresa. Frozen/cleanupverificados,evidenciaconservada,noapp/loadnuevo. SinClaude/consumopreviointacto;goalabierto.
+
+2026-10-16: preparado control20casos rama cuenta de comunicación local traswaitUser, limitación/oposición×lectura/acuse×5revocaciones. Requisitofaltantematriz83/no reejecuciónrutina, fixtureejecución/revisión/entregarealesPGpropio. SinClaude/consumopreviointacto;sinaceptaciónCR09/N3.
+
+2026-10-16:20PASS266,49s accountrecipientrevocation053617-156708a7, frozen/JUnit/cleanup independiente verificados; evidencia ymatrices83/88actualizadas. Cobertura rama Usercuenta, nocierreCR09/N3 ni métricaHTTP nueva. SinClaude/consumopreviointacto.
