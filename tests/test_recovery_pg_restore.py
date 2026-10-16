@@ -193,6 +193,7 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
         response=client.get('/en/')
         assert not response.wsgi_request.user.is_authenticated
         assert client.get('/en/listing/'+str(person.listing.pk)+'/').status_code==404
+    # RECOVERY_EXTENSION_ASSERTIONS
     print(json.dumps({'restored_transient_copy_cleared_audit_retained':True,'conservative_schema_restored':True,'rejected_helpers_absent':True,'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
 """
 

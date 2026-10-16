@@ -1,0 +1,710 @@
+{
+  "scope": "Focused corrective tests only; no N3/CR09 acceptance or new clean capacity metrics",
+  "runs": [
+    {
+      "run": "20261016-210312-31517a3b",
+      "result": {
+        "id": "20261016-210312-31517a3b",
+        "profile": "focused",
+        "result": "PASS",
+        "steps": [
+          {
+            "name": "start-pg",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-pg-20261016-210312-31517a3b",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210312-31517a3b",
+              "-p",
+              "127.0.0.1::5432",
+              "--tmpfs",
+              "/var/lib/postgresql/data",
+              "-e",
+              "POSTGRES_USER=ci",
+              "-e",
+              "POSTGRES_PASSWORD=ci-synthetic",
+              "-e",
+              "POSTGRES_DB=promotion_gate_ci",
+              "postgres:17-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.5673334086313844
+          },
+          {
+            "name": "start-redis",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-redis-20261016-210312-31517a3b",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210312-31517a3b",
+              "-p",
+              "127.0.0.1::6379",
+              "redis:7.4-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.519111983012408
+          },
+          {
+            "name": "dependencies",
+            "command": [
+              "uv",
+              "sync",
+              "--locked",
+              "--offline"
+            ],
+            "exit": 0,
+            "seconds": 0.06667648535221815
+          },
+          {
+            "name": "ruff",
+            "command": [
+              "uv",
+              "run",
+              "ruff",
+              "check",
+              "."
+            ],
+            "exit": 0,
+            "seconds": 0.116112494841218
+          },
+          {
+            "name": "documentation",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/check_docs.py"
+            ],
+            "exit": 0,
+            "seconds": 1.1232942552305758
+          },
+          {
+            "name": "django",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "check"
+            ],
+            "exit": 0,
+            "seconds": 1.4709122590720654
+          },
+          {
+            "name": "migrations",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "makemigrations",
+              "--check",
+              "--dry-run"
+            ],
+            "exit": 0,
+            "seconds": 1.9729024097323418
+          },
+          {
+            "name": "native-build",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/prepare_native_test_tools.py",
+              "--source",
+              "/tmp/web-modelos-local-ci-9drwxaib/native-source",
+              "--output",
+              "/tmp/web-modelos-local-ci-9drwxaib/native-tools",
+              "--env-file",
+              "/tmp/web-modelos-local-ci-9drwxaib/native.env"
+            ],
+            "exit": 0,
+            "seconds": 9.303435800597072
+          },
+          {
+            "name": "pytest",
+            "command": [
+              "uv",
+              "run",
+              "pytest",
+              "-p",
+              "scripts.local_ci_reports",
+              "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210312-31517a3b/pytest-reports.jsonl",
+              "-p",
+              "scripts.catalogue_gate_timings",
+              "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210312-31517a3b/test-timings.json",
+              "-q",
+              "--tb=short",
+              "--basetemp=/tmp/web-modelos-local-ci-9drwxaib/pytest",
+              "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210312-31517a3b/pytest.xml",
+              "-o",
+              "junit_family=xunit1",
+              "tests/test_promotion_recovery.py",
+              "tests/test_recovery_pg_restore.py"
+            ],
+            "exit": 0,
+            "seconds": 68.03092426713556
+          }
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "excluded": [],
+        "selection": [
+          "tests/test_promotion_recovery.py",
+          "tests/test_recovery_pg_restore.py"
+        ],
+        "workers": 1,
+        "fixture_snapshots": true,
+        "benchmark_observe_workers": false,
+        "benchmark_ingress_only": false,
+        "benchmark_prepare_static": false,
+        "benchmark_sql_shapes": false,
+        "benchmark_pg_statements": false,
+        "benchmark_normal_refresh": false,
+        "benchmark_generator_freeze": false,
+        "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+        "cleanup": {
+          "web-modelos-ci-pg-20261016-210312-31517a3b": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          },
+          "web-modelos-ci-redis-20261016-210312-31517a3b": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          }
+        },
+        "sources_unchanged": true,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "2",
+            "time": "65.685",
+            "timestamp": "2026-10-16T23:03:32.220836+02:00",
+            "hostname": "almasrv.thehomelesssherlock.com"
+          }
+        ],
+        "skipped": []
+      },
+      "runner": {
+        "id": "20261016-210312-31517a3b",
+        "pid": 2993348,
+        "start_ticks": 390520229,
+        "command": [
+          "artifacts/vps-preparation/cr09-promotion-restore-fixed-20261016/run.py",
+          "--profile",
+          "focused",
+          "--test",
+          "tests/test_promotion_recovery.py",
+          "--test",
+          "tests/test_recovery_pg_restore.py",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--fixture-snapshots",
+          "--timeout",
+          "1200"
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "containers": [
+          "web-modelos-ci-pg-20261016-210312-31517a3b",
+          "web-modelos-ci-redis-20261016-210312-31517a3b"
+        ],
+        "label": "web-modelos-local-ci-run=20261016-210312-31517a3b",
+        "temporary": "/tmp/web-modelos-local-ci-9drwxaib",
+        "child": {
+          "pid": 2995977,
+          "start_ticks": 390522040,
+          "step": "pytest"
+        }
+      },
+      "artifact_sha256": {
+        "source-hashes.json": "341d7f9818429383714551a18a242e64484b99f292d3866f528465931db14cd4",
+        "runner.json": "85b70f7e55f65b1012b7b2bece72f78aaec60e059a6b4819946bac71c31fd710",
+        "09-pytest.log": "ead609124d8618e153b5d25ccee957e3d4d5fa1cf8f4c2381699277252954074",
+        "pytest.xml": "ce00dc592db66a2e66d555e50a471fdf5a0552dcaae21e5e1a6772043bc057bb",
+        "result.json": "bef540db6bc46d4286a3681aba5782aaea85f27cd678afc7655e9851dc0b1eb8"
+      }
+    },
+    {
+      "run": "20261016-210618-e29117b1",
+      "result": {
+        "id": "20261016-210618-e29117b1",
+        "profile": "focused",
+        "result": "ERROR",
+        "steps": [
+          {
+            "name": "start-pg",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-pg-20261016-210618-e29117b1",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210618-e29117b1",
+              "-p",
+              "127.0.0.1::5432",
+              "--tmpfs",
+              "/var/lib/postgresql/data",
+              "-e",
+              "POSTGRES_USER=ci",
+              "-e",
+              "POSTGRES_PASSWORD=ci-synthetic",
+              "-e",
+              "POSTGRES_DB=promotion_gate_ci",
+              "postgres:17-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.5235377219505608
+          },
+          {
+            "name": "start-redis",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-redis-20261016-210618-e29117b1",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210618-e29117b1",
+              "-p",
+              "127.0.0.1::6379",
+              "redis:7.4-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.5686400490812957
+          },
+          {
+            "name": "dependencies",
+            "command": [
+              "uv",
+              "sync",
+              "--locked",
+              "--offline"
+            ],
+            "exit": 0,
+            "seconds": 0.06902402639389038
+          },
+          {
+            "name": "ruff",
+            "command": [
+              "uv",
+              "run",
+              "ruff",
+              "check",
+              "."
+            ],
+            "exit": 0,
+            "seconds": 0.12127589993178844
+          },
+          {
+            "name": "documentation",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/check_docs.py"
+            ],
+            "exit": 0,
+            "seconds": 1.2193304509855807
+          },
+          {
+            "name": "django",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "check"
+            ],
+            "exit": 0,
+            "seconds": 1.470737096387893
+          },
+          {
+            "name": "migrations",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "makemigrations",
+              "--check",
+              "--dry-run"
+            ],
+            "exit": 0,
+            "seconds": 1.8710178802721202
+          },
+          {
+            "name": "native-build",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/prepare_native_test_tools.py",
+              "--source",
+              "/tmp/web-modelos-local-ci-li9kmt4b/native-source",
+              "--output",
+              "/tmp/web-modelos-local-ci-li9kmt4b/native-tools",
+              "--env-file",
+              "/tmp/web-modelos-local-ci-li9kmt4b/native.env"
+            ],
+            "exit": 0,
+            "seconds": 9.204210835974663
+          },
+          {
+            "name": "pytest",
+            "command": [
+              "uv",
+              "run",
+              "pytest",
+              "-p",
+              "scripts.local_ci_reports",
+              "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210618-e29117b1/pytest-reports.jsonl",
+              "-p",
+              "scripts.catalogue_gate_timings",
+              "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210618-e29117b1/test-timings.json",
+              "-q",
+              "--tb=short",
+              "--basetemp=/tmp/web-modelos-local-ci-li9kmt4b/pytest",
+              "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210618-e29117b1/pytest.xml",
+              "-o",
+              "junit_family=xunit1",
+              "tests/test_public_detail_prepared_guard.py"
+            ],
+            "exit": 1,
+            "seconds": 49.95888156397268
+          }
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "excluded": [],
+        "selection": [
+          "tests/test_public_detail_prepared_guard.py"
+        ],
+        "workers": 1,
+        "fixture_snapshots": true,
+        "benchmark_observe_workers": false,
+        "benchmark_ingress_only": false,
+        "benchmark_prepare_static": false,
+        "benchmark_sql_shapes": false,
+        "benchmark_pg_statements": false,
+        "benchmark_normal_refresh": false,
+        "benchmark_generator_freeze": false,
+        "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+        "error": "pytest failed; inspect its log",
+        "cleanup": {
+          "web-modelos-ci-pg-20261016-210618-e29117b1": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          },
+          "web-modelos-ci-redis-20261016-210618-e29117b1": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          }
+        },
+        "sources_unchanged": true,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "1",
+            "skipped": "0",
+            "tests": "1",
+            "time": "47.867",
+            "timestamp": "2026-10-16T23:06:36.759739+02:00",
+            "hostname": "almasrv.thehomelesssherlock.com"
+          }
+        ],
+        "skipped": []
+      },
+      "runner": {
+        "id": "20261016-210618-e29117b1",
+        "pid": 3012330,
+        "start_ticks": 390538757,
+        "command": [
+          "artifacts/vps-preparation/cr09-detail-guard-fixed-20261016/run.py",
+          "--profile",
+          "focused",
+          "--test",
+          "tests/test_public_detail_prepared_guard.py",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--fixture-snapshots",
+          "--timeout",
+          "900"
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "containers": [
+          "web-modelos-ci-pg-20261016-210618-e29117b1",
+          "web-modelos-ci-redis-20261016-210618-e29117b1"
+        ],
+        "label": "web-modelos-local-ci-run=20261016-210618-e29117b1",
+        "temporary": "/tmp/web-modelos-local-ci-li9kmt4b",
+        "child": {
+          "pid": 3014718,
+          "start_ticks": 390540513,
+          "step": "pytest"
+        }
+      },
+      "artifact_sha256": {
+        "source-hashes.json": "5e86fdd89ced394a071f4c11491c56f1db296ff4a3fc74e53981fdbe8014e6b6",
+        "runner.json": "1a7bd8432c2cc7d0753ac8b5fe05d10eaa6823ee75a9e79ede4ac6c9965877be",
+        "09-pytest.log": "f68fa15673110fb669b00e4815a24f77c2728b58e2b6f82eee670392a372233b",
+        "pytest.xml": "69834081e0b03a6015a5083d1c582d340135e60902ac5e25261601e3ad97a48d",
+        "result.json": "e3bd350337528f8cb30d8596c5cdd2c79f5b7b7eab5434bfa279becd0cd28988"
+      }
+    },
+    {
+      "run": "20261016-210906-8ef00853",
+      "result": {
+        "id": "20261016-210906-8ef00853",
+        "profile": "focused",
+        "result": "PASS",
+        "steps": [
+          {
+            "name": "start-pg",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-pg-20261016-210906-8ef00853",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210906-8ef00853",
+              "-p",
+              "127.0.0.1::5432",
+              "--tmpfs",
+              "/var/lib/postgresql/data",
+              "-e",
+              "POSTGRES_USER=ci",
+              "-e",
+              "POSTGRES_PASSWORD=ci-synthetic",
+              "-e",
+              "POSTGRES_DB=promotion_gate_ci",
+              "postgres:17-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.5165125452913344
+          },
+          {
+            "name": "start-redis",
+            "command": [
+              "docker",
+              "run",
+              "--pull=never",
+              "-d",
+              "--name",
+              "web-modelos-ci-redis-20261016-210906-8ef00853",
+              "--label",
+              "web-modelos-local-ci-run=20261016-210906-8ef00853",
+              "-p",
+              "127.0.0.1::6379",
+              "redis:7.4-alpine"
+            ],
+            "exit": 0,
+            "seconds": 0.5237309052608907
+          },
+          {
+            "name": "dependencies",
+            "command": [
+              "uv",
+              "sync",
+              "--locked",
+              "--offline"
+            ],
+            "exit": 0,
+            "seconds": 0.06714965542778373
+          },
+          {
+            "name": "ruff",
+            "command": [
+              "uv",
+              "run",
+              "ruff",
+              "check",
+              "."
+            ],
+            "exit": 0,
+            "seconds": 0.11725021293386817
+          },
+          {
+            "name": "documentation",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/check_docs.py"
+            ],
+            "exit": 0,
+            "seconds": 1.2729971040971577
+          },
+          {
+            "name": "django",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "check"
+            ],
+            "exit": 0,
+            "seconds": 1.5437367749400437
+          },
+          {
+            "name": "migrations",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "manage.py",
+              "makemigrations",
+              "--check",
+              "--dry-run"
+            ],
+            "exit": 0,
+            "seconds": 1.775081711821258
+          },
+          {
+            "name": "native-build",
+            "command": [
+              "uv",
+              "run",
+              "python",
+              "scripts/prepare_native_test_tools.py",
+              "--source",
+              "/tmp/web-modelos-local-ci-fz64vg3c/native-source",
+              "--output",
+              "/tmp/web-modelos-local-ci-fz64vg3c/native-tools",
+              "--env-file",
+              "/tmp/web-modelos-local-ci-fz64vg3c/native.env"
+            ],
+            "exit": 0,
+            "seconds": 9.571634951978922
+          },
+          {
+            "name": "pytest",
+            "command": [
+              "uv",
+              "run",
+              "pytest",
+              "-p",
+              "scripts.local_ci_reports",
+              "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210906-8ef00853/pytest-reports.jsonl",
+              "-p",
+              "scripts.catalogue_gate_timings",
+              "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210906-8ef00853/test-timings.json",
+              "-q",
+              "--tb=short",
+              "--basetemp=/tmp/web-modelos-local-ci-fz64vg3c/pytest",
+              "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261016-210906-8ef00853/pytest.xml",
+              "-o",
+              "junit_family=xunit1",
+              "tests/test_public_detail_prepared_guard.py"
+            ],
+            "exit": 0,
+            "seconds": 52.618837111629546
+          }
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "excluded": [],
+        "selection": [
+          "tests/test_public_detail_prepared_guard.py"
+        ],
+        "workers": 1,
+        "fixture_snapshots": true,
+        "benchmark_observe_workers": false,
+        "benchmark_ingress_only": false,
+        "benchmark_prepare_static": false,
+        "benchmark_sql_shapes": false,
+        "benchmark_pg_statements": false,
+        "benchmark_normal_refresh": false,
+        "benchmark_generator_freeze": false,
+        "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+        "cleanup": {
+          "web-modelos-ci-pg-20261016-210906-8ef00853": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          },
+          "web-modelos-ci-redis-20261016-210906-8ef00853": {
+            "absent": true,
+            "removal_exit": 0,
+            "inventory_exit": 1
+          }
+        },
+        "sources_unchanged": true,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "1",
+            "time": "50.445",
+            "timestamp": "2026-10-16T23:09:25.730600+02:00",
+            "hostname": "almasrv.thehomelesssherlock.com"
+          }
+        ],
+        "skipped": []
+      },
+      "runner": {
+        "id": "20261016-210906-8ef00853",
+        "pid": 3030628,
+        "start_ticks": 390555620,
+        "command": [
+          "artifacts/vps-preparation/cr09-detail-guard-sql-fixed-20261016/run.py",
+          "--profile",
+          "focused",
+          "--test",
+          "tests/test_public_detail_prepared_guard.py",
+          "--native-source",
+          "/tmp/web-modelos-librdb-v2.4.0",
+          "--workers",
+          "1",
+          "--fixture-snapshots",
+          "--timeout",
+          "900"
+        ],
+        "head": "606850a377168019a691678d83e3c7d4d3d587bb",
+        "containers": [
+          "web-modelos-ci-pg-20261016-210906-8ef00853",
+          "web-modelos-ci-redis-20261016-210906-8ef00853"
+        ],
+        "label": "web-modelos-local-ci-run=20261016-210906-8ef00853",
+        "temporary": "/tmp/web-modelos-local-ci-fz64vg3c",
+        "child": {
+          "pid": 3032826,
+          "start_ticks": 390557401,
+          "step": "pytest"
+        }
+      },
+      "artifact_sha256": {
+        "source-hashes.json": "df005f47664f40c0a151f6895e245a0f36fa053d60e8eaa6d8e986528a931424",
+        "runner.json": "4f02760c8735d013cb67111a36a867f144c81594c5081865d1048a69925a2cb0",
+        "09-pytest.log": "d59b79368c36f9cf1b4e38268561b2b7ae94f4e508e0e9a4b17b8d9fea136c01",
+        "pytest.xml": "1ac948f3d1b16ecc2553719e389efb66c20ba0579b63f3dbf2261e1582a5d48f",
+        "result.json": "00a986527edcaacdb820201787120c0c92b8cf2b6f28a782dc743c185fc93c2d"
+      }
+    }
+  ],
+  "independent_verification": "Terminal/MainPID0, exact source hashes, temporary absent, runner/child start_ticks not live, declared PG/Redis containers absent checked before changes for both successful runs and intervening failure."
+}

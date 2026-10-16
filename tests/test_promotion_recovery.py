@@ -126,10 +126,9 @@ def test_real_restore_preserves_commercial_evidence_without_reactivating_erased_
             injected = check.replace("COMMERCIAL_DIGEST", repr(commercial["digest"])).replace(
                 "COMMERCIAL_ENTITLEMENT", repr(commercial["entitlement"])
             )
-            command[index] = original_child.replace(
-                "    print(json.dumps({'independent_authority_verified'",
-                injected + "    print(json.dumps({'independent_authority_verified'",
-            )
+            marker = "    # RECOVERY_EXTENSION_ASSERTIONS"
+            assert original_child.count(marker) == 1
+            command[index] = original_child.replace(marker, injected + marker)
             assert injected in command[index]
             commercial["child_checked"] = True
             args = (command,) + args[1:]
@@ -140,3 +139,8 @@ def test_real_restore_preserves_commercial_evidence_without_reactivating_erased_
         request, settings, monkeypatch, tmp_path, record_property
     )
     assert commercial.get("child_checked") is True
+    record_property("commercial_restore_checks", {
+        "retained_rows_digest": commercial["digest"],
+        "restored_child_assertions_completed": True,
+        "erased_promotion_not_ranked_or_bumped": True,
+    })

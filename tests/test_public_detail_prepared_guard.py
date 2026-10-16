@@ -2,7 +2,7 @@
 
 import json
 import re
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
 from urllib.parse import quote, unquote
 
 import pytest
@@ -41,31 +41,48 @@ def test_prepared_detail_guard_parity_freshness_and_callsite_scope(request, monk
     connection.ensure_connection()
     raw = connection.connection
     factory, threshold = raw.cursor_factory, raw.prepare_threshold
-    guard_reads, outside_reads = [], []
+    guard_reads, outside_reads, rights_reads = [], [], []
     inside = False
     native_guard = moderation_views.publicly_visible
+    native_binding = moderation_views._prepared_page_binding
+    guarded_contexts = []
 
-    def guard(listing):
+    @contextmanager
+    def binding(**kwargs):
         nonlocal inside
-        inside = True
-        try:
-            return native_guard(listing)
-        finally:
-            inside = False
+        with native_binding(**kwargs):
+            inside = True
+            try:
+                yield
+            finally:
+                inside = False
+
+    def guard(listing, *, context=None):
+        assert inside and context is not None
+        assert listing in context.rows
+        guarded_contexts.append(id(context))
+        return native_guard(listing, context=context)
 
     def observe(execute, sql, params, many, context):
         if sql.lstrip().upper().startswith('SELECT'):
             prepared = isinstance(context['cursor'].cursor, public_validation._PageReadCursor)
+            # Rights EXISTS subqueries are now part of hydration SQL; the
+            # diagnostic family classifier assigns one label per statement.
+            if '"safety_' in sql:
+                rights_reads.append((inside, prepared))
             (guard_reads if inside else outside_reads).append((statement_family(sql), prepared))
         return execute(sql, params, many, context)
 
     monkeypatch.setattr(moderation_views, 'publicly_visible', guard)
+    monkeypatch.setattr(moderation_views, '_prepared_page_binding', binding)
     for index in range(14):
         with connection.execute_wrapper(observe):
             response = client.get(f"/{'es' if index % 2 else 'en'}/listing/{ids[index % 2]}/")
         assert response.status_code == 200
         assert raw.cursor_factory is factory and raw.prepare_threshold == threshold
-    assert {'catalog', 'media', 'rights'} <= {family for family, _ in guard_reads}
+    assert {'catalog', 'media', 'hydration'} <= {family for family, _ in guard_reads}
+    assert rights_reads and all(in_binding and prepared for in_binding, prepared in rights_reads)
+    assert len(guarded_contexts) == 14
     assert guard_reads and all(prepared for _, prepared in guard_reads)
     assert outside_reads and not any(prepared for _, prepared in outside_reads)
     with connection.cursor() as cursor:
@@ -80,7 +97,8 @@ def test_prepared_detail_guard_parity_freshness_and_callsite_scope(request, monk
                 listing = Listing.objects.get(pk=pk)
                 prepared = client.get(path)
                 with monkeypatch.context() as patch:
-                    patch.setattr(public_validation, '_prepared_page_binding', lambda **kwargs: nullcontext())
+                    patch.setattr(moderation_views, '_prepared_page_binding', lambda **kwargs: nullcontext())
+                    patch.setattr(moderation_views, 'publicly_visible', native_guard)
                     native = client.get(path)
                 assert prepared.status_code == native.status_code == expected_status
                 assert canonical_body(prepared, listing) == canonical_body(native, listing)
