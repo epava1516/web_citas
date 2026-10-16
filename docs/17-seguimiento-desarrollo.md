@@ -2564,3 +2564,9 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: fencedROI044611-b9dccd73,SHA5c3e171,1PASS104,31s;totalwall3bloques2,2936→1,9748/2,4880→1,8291/2,3966→1,8380s(13,9–26,5%secuencial),CPUmenor/escrituramáslenta. Dirty6readssinBeatpuedeexagerarROI/no p95. Fuente/cleanup/cgroupverificados,evidenciacr09-private-draft-fenced-roi-20261016.md. Siguiente migraciónSQLnormalizadoidéntico+N2realantesclean;conservarunfencedFAILyfallosinstrumentos. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
+
+
+2026-10-16: preparada0021privateDraft reversibleSQLidénticoaprotofe86c15(normalizandonombreshelpers,assertequalestático). N2etapaA:11producto(actualprosrcverificado/10functional+updown),7concurrenciasactualSQLsinoverride,2racecontrol0020restaurado/candidatoactual,4Matchphotoanteriores. Oldupgrade0020finallyrestauraleavesactuales,sinrelajarassert. Base37619a6+fuentesmodhashcongelado,PGpropio4CPU/PG1/memoriahabitual/serial/timeout900. Esperadomigracionesactuales/paridad/rollback/autoridad/0deadlockobservado/sourcefreeze/cleanup;despuéscorePublicationState/edgesbroadantesclean. Noaceptaciónglobal/N3/carga900s;imagenv4aúnno0021. Conservarfallos. SinClaude/proveedores/producción,consumopreviointacto;goalenteroabierto.
+
+
+2026-10-16:0021N2a045243-39a913ec24PASS260,37s/0errores/skips,SQLactualprosrcyupdownverificados/11producto+7concurrency+2race0020control/0021actual+4MatchPhoto. Fuente/cleanup/cgroupverificados,migrationhashguardado. Evidenciacr09-private-draft-migration-n2a-20261016.md/terminalJSON. SiguienteN2bcorePublicationState+MatchEdges+signalrollbackmismocódigo,luegoN2cproyección/lifecycle/condicionalantesclean. PGpropio4CPU/PG1/memoriahabitual/serial/timeout900;esperadoparidadactualnative/Triggers/movimientos/delete/history/FKgeneration/sourcecleanup,conservarfallos. Imagenv4no0021/noaceptaciónN3/CR09/SLO. SinClaude/proveedores,consumopreviointacto;goalenteroabierto.

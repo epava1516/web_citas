@@ -227,6 +227,7 @@ def test_upgrade_invalidates_preexisting_negative_counterpart_state(request, mon
     client, rows, photos, _ = setup(request, monkeypatch)
     old = [("listings", "0019_publicationstate_public_read_projection")]
     new = [("listings", "0020_publication_match_counterparts")]
+    leaves = MigrationExecutor(connection).loader.graph.leaf_nodes()
     try:
         MigrationExecutor(connection).migrate(old)
         publication_state.refresh_all()
@@ -242,7 +243,7 @@ def test_upgrade_invalidates_preexisting_negative_counterpart_state(request, mon
         assert PublicationState.objects.get(listing_id=rows[1].pk).eligible
         assert not PublicationDirty.objects.exists()
     finally:
-        MigrationExecutor(connection).migrate(new)
+        MigrationExecutor(connection).migrate(leaves)
 
 
 @pytest.mark.parametrize("orientation", [0, 1])

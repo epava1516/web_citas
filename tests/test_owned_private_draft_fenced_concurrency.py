@@ -1,6 +1,7 @@
 """Owned prototype: retain refresh/foreign-key lock order and new dependency safety."""
 import os
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import nullcontext as fenced_installed
 from queue import Queue
 from threading import Event
 
@@ -9,7 +10,6 @@ import test_publication_match_dependency_edges as match_controls
 import test_publication_refresh_lock_order as reference_controls
 from django.db import connection, connections, transaction
 from django.utils import timezone
-from private_draft_invalidation_candidate import fenced_installed
 from test_discovery import directory  # noqa: F401
 from test_photo_reuse_races import observe_blocked
 from test_photos import photo_environment  # noqa: F401

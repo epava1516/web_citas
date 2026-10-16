@@ -9,7 +9,7 @@ from uuid import uuid4
 
 import pytest
 from django.db import connection, connections, transaction
-from private_draft_invalidation_candidate import fenced_installed as installed
+from private_draft_invalidation_candidate import baseline_installed
 from test_discovery import directory  # noqa: F401
 from test_photo_reuse_races import observe_blocked
 from test_photos import photo_environment  # noqa: F401
@@ -72,7 +72,7 @@ def test_private_write_concurrent_publication_keeps_negative_state_exact(request
             refreshed.set()
         finally:
             connections.close_all()
-    with installed() if variant == 'candidate' else nullcontext():
+    with baseline_installed() if variant == 'current' else nullcontext():
         with ThreadPoolExecutor(max_workers=2) as pool:
             write_future = pool.submit(writer)
             try:

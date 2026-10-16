@@ -161,3 +161,27 @@ def fenced_installed():
                 cursor.execute("SELECT pg_get_functiondef('listings_publication_mark(uuid[])'::regprocedure)")
                 assert cursor.fetchone()[0] == original_mark
                 cursor.execute('DROP FUNCTION IF EXISTS cr09_lock_publication(uuid[])')
+
+
+@contextmanager
+def baseline_installed():
+    """Explicit old0020 control under a newer migrated schema; restore exactly."""
+    originals = {}
+    assert connection.settings_dict['NAME'].startswith('test_promotion_gate_')
+    with connection.cursor() as cursor:
+        for name in ['listings_publication_mark(uuid[])', *[f'lpd_{t}()' for t in TABLES]]:
+            cursor.execute('SELECT pg_get_functiondef(%s::regprocedure)', [name])
+            originals[name] = cursor.fetchone()[0]
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(import_module('apps.listings.migrations.0020_publication_match_counterparts').MARK)
+            for table in TABLES:
+                cursor.execute(base.trigger_sql(table, base.DEPENDENCIES[table])[0].split('CREATE TRIGGER', 1)[0])
+        yield
+    finally:
+        with connection.cursor() as cursor:
+            for source in originals.values():
+                cursor.execute(source)
+            for name, source in originals.items():
+                cursor.execute('SELECT pg_get_functiondef(%s::regprocedure)', [name])
+                assert cursor.fetchone()[0] == source
