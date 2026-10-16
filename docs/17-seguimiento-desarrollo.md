@@ -2495,3 +2495,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: Dockerpropio v4revision08495d3/ID77a77b081f8e,buildexit0,PGrealmigraciones/0020prosrc/health200/4PIDreadyanteshealth/hookhashesiguales/UID10001 PASS. Kernelbinarynuevo b03633f5 mismafuente,paridadimagen118PASS11,75s/11smoke;noinferircargaDocker. Fuente/containers/red/initPIDcleanupindependientes. Evidenciacr09-docker-native-v4-20261016.md/terminalJSON. SinClaude/proveedores/publicación,consumopreviointacto;rendimiento1,013029795FAIL/CR09/N3/contratoenterosabiertos.
+
+
+2026-10-16: reconciliadas referencias vigentes83/88(p95clean1,013029795FAIL/imagenv4/noN3). Siguiente selección pertinente portabilidadclose/races/accesslocalization sobre48736e9+docs: motivo0020globalmark y erasure/recovery posteriores a base8fb4cf1. Esperado exactapproval/idempotencia/contentdelivery/manipulación/PGobservedwaitrevocación/ESEN;PGpropio/recursoslimitados/unaejecución. No aceptaciónintegral/repeticiónporrutina ni cargaHTTPnueva. Fuentescongelar hasta terminal,conservarfallos/cleanup. SinClaude/proveedores,consumopreviointacto;CR09/N3/goalabiertos.
