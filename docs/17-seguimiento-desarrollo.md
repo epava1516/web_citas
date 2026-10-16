@@ -2444,3 +2444,6 @@ Análisisoffline de3capturas:98,0–98,7%esperainicialpreWSGIcoincide con todos 
 
 
 2026-10-16: timeoutDocker60s alineado enfca1af0;imagenpropia20261016-v3IDb88bb0517bcf,SHAexacta,smokePG/migración0020/prosrcigual/UID10001/4workers/health200/native2caa578c PASS,fuentes/cleanupindependientes. Cleanhost020854-c2b568f1,SHAfca1af0,1FAIL184,69s,p951,173553838s vs0,904873942s;1200completas0errores/timeouts/omisiones,fasesválidas,subida302,generadorválido;144lentasprimeros10s,steady15–60p950,355471389s. No causalidad de0020atribuida niresultadodecargaDocker;kernelhostca3cidéntico referencia. Fuentes/limpieza/cgroupvacío verificados;leyendasrawlegacy preservadasaclaradas. Evidenciascr09-docker-native-v3-20261016.md/cr09-match-corrective-clean-20261016.md. NorepetirFAIL/900s,siguiente diagnóstico separado;sinClaude/proveedores/publicación,consumo previo intacto. CR09/N3/contratoenteroabiertos.
+
+
+2026-10-16: diagnóstico aislado publication mark 022358-07bacd96,1PASS74,25s/108llamadas. Mediana individual0,672→3,221ms;traslote0,810→0,925ms;lote10k468,382→443,519ms. Copias pg_temp/global intacta,sinMatch,no sustitución de corrección. No atribución causal p95; siguiente contar invalidaciones subida real. Fuente/cleanup/cgroup verificados. Evidencia cr09-publication-mark-cost-20261016.md. SinClaude/proveedores,consumo previo intacto;CR09/N3/goal completo abiertos.
