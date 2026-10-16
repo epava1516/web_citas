@@ -1,0 +1,127 @@
+{
+  "head": "7ea0e266e1ce09fb831e932c083ca8b82af1540b",
+  "original_run": "20261016-183556-91e03d27",
+  "scope": "Static applicability audit; no rerun or acceptance; preserves all original failures",
+  "cases": [
+    {
+      "test": "test_owned_wsgi_close_release.py",
+      "status": "Prototipo negativo conservado",
+      "finding": "El cleanup de modelos no elimina el ciclo ancestro RequestContext/ContextDict. El prototipo posterior sí libera modelos; ROI insuficiente, descartado sin integración.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/cr09-wsgi-context-retention-20261016.json",
+          "sha256": "c6c30b1e1c501e3c10529cc3618e0b6396fc8efef1bc48ba96d3c2e61097f264"
+        },
+        {
+          "path": "docs/evidencias/cr09-wsgi-release-roi-20261016.json",
+          "sha256": "80fdb290bc31e56c0b41a6758c3f978fbfd458d9718f907c0fd5df087be1a802"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_dirty_unknown_census.py",
+      "status": "Experimento superado por implementación",
+      "finding": "Injerta mediante literal una optimización ya presente con cobertura y snapshot; no volver a inyectarla. Conservar contraejemplos y pruebas productivas de paridad/límites.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/cr09-dirty-census-implementation-20261016.md",
+          "sha256": "dc436b5e37cdfdcee1612c2c7c3cb05b237bc153cb68ee6032f98b54146eff90"
+        },
+        {
+          "path": "apps/listings/publication_state.py",
+          "sha256": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_context_duplicate_reads.py",
+      "status": "Expectativa diagnóstica anterior al batching",
+      "finding": "Espera contextos 1+24; versión actual hidrata lote25 para este caso. Requiere adaptar medición a algoritmo actual y comprobar guardas; no asumir regresión funcional ni relajar controles de contenido.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_context_duplicate_reads.py",
+          "sha256": "b781c35108eb010be23c5bf0f18df65a55eed86591f6f0fef87f24370fba6d33"
+        },
+        {
+          "path": "apps/listings/publication_state.py",
+          "sha256": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_backend_cpu_families.py",
+      "status": "Clasificación diagnóstica anterior al detalle RR",
+      "finding": "Prohíbe hidratación en detalle; detalle actual usa PublicationContext/DetailQuery y consulta correlacionada. Requiere actualizar clasificación y preservar identidad backend/atribución acotada.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_backend_cpu_families.py",
+          "sha256": "de6d5c1ea19471ca2c6a92a96d0fbfe8ca0864b70294dcc8f045a80a4bc398e1"
+        },
+        {
+          "path": "apps/listings/moderation_views.py",
+          "sha256": "b96e782c245f7cf3191c405f1855633ddfdb2f7287053e869ab4d08f75a6db70"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_public_projection_cpu.py",
+      "status": "DDL experimental incompatible con esquema actual",
+      "finding": "CREATE TEMP TABLE SELECT s.*, l.expires_at repite columna ya incorporada. No es migración ni tabla productiva fallida; no reactivar diseño experimental sin hipótesis nueva.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_public_projection_cpu.py",
+          "sha256": "b4311c3304002ccbdaae686838304f186ee6f5f11fa0541ef401ca6fed0dc3a4"
+        },
+        {
+          "path": "apps/listings/models.py",
+          "sha256": "3e24fb3f0f2ad23ebc4f9f289491631314f6e2b0b657ffb2d2a3b645bd651b73"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_pg_statement_diagnostic.py",
+      "status": "Controlador de instrumentación ausente",
+      "finding": "Runner común no precarga pg_stat_statements; prueba exige controlador específico. Existen capturas separadas reales. No modificar PostgreSQL normal para hacerla pasar.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_pg_statement_diagnostic.py",
+          "sha256": "d4383b178f8e5b8b91353efa47abec29435c6cda3e2120fe07247f02126d8585"
+        },
+        {
+          "path": "docs/evidencias/cr09-pg-statements-20261016.md",
+          "sha256": "71f492239aea6396135797d6659cc1ba3703400eeac167b12bf2f5d127755f76"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_retention_topology.py",
+      "status": "Wiring explícito de broker ausente",
+      "finding": "Guardia own Redis rechaza override ausente; no fallback externo. Hay evidencia previa Beat/worker real, pero no sustituye validación actual ni política por finalidad.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_retention_topology.py",
+          "sha256": "ff6d0d2a051709f520f122ae280ef4e1f443e6daf892b3c633c50814c9a1efad"
+        },
+        {
+          "path": "docs/evidencias/cr09-retention-worker-beat-20261016.md",
+          "sha256": "c9e2d763746f214ebff72d89b4b6ad3c32396ee9795f50186c9111dffe019db7"
+        }
+      ]
+    },
+    {
+      "test": "test_owned_detail_pyspy.py",
+      "status": "Fallo de lifecycle de herramienta",
+      "finding": "stderr exacto No child process (os error 10); hijo completó240 sinerror y DEBUGfalse. Captura sigue FAIL: no convertir en PASS por datos parciales. Duración controlada/attach ya empleados en otros diagnósticos, sin probar aquí su correctiva.",
+      "evidence": [
+        {
+          "path": "tests/test_owned_detail_pyspy.py",
+          "sha256": "f884b141cc5fc3e82335d85ee9bfb91286a97ea843cc3d0a5c207a74d92ff001"
+        },
+        {
+          "path": "artifacts/local-ci/20261016-183556-91e03d27/pyspy.stderr.log",
+          "sha256": "a53b0e98a98c83dcbdeb77e90ca64ecc099042454439fb2918b885b1072f2dc4"
+        }
+      ]
+    }
+  ]
+}
