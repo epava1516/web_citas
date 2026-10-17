@@ -1,0 +1,199 @@
+{
+  "run": "20261017-025610-dcab715e",
+  "result": {
+    "id": "20261017-025610-dcab715e",
+    "profile": "focused",
+    "result": "PASS",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261017-025610-dcab715e",
+          "--label",
+          "web-modelos-local-ci-run=20261017-025610-dcab715e",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5211927108466625
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261017-025610-dcab715e",
+          "--label",
+          "web-modelos-local-ci-run=20261017-025610-dcab715e",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5696486542001367
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.06668756110593677
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11651911912485957
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.0718797156587243
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.3759711342863739
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.8222097530961037
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-cwiui7c9/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-cwiui7c9/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-cwiui7c9/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.418049864005297
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-025610-dcab715e/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-025610-dcab715e/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-cwiui7c9/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-025610-dcab715e/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "tests/test_owned_broker_accumulation.py"
+        ],
+        "exit": 0,
+        "seconds": 3.526710692793131
+      }
+    ],
+    "head": "cd206c0b6fc509fa52e8a00be5b353f39dcb8f09",
+    "excluded": [],
+    "selection": [
+      "tests/test_owned_broker_accumulation.py"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_ingress_only": false,
+    "benchmark_prepare_static": false,
+    "benchmark_sql_shapes": false,
+    "benchmark_pg_statements": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261017-025610-dcab715e": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261017-025610-dcab715e": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "1.862",
+        "timestamp": "2026-10-17T04:56:28.844574+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_source_and_cleanup_checks": true,
+  "original_omitted_run": "20261017-025448-252afa9d",
+  "causal_control": "1000 real refresh messages unblocked; 1001 blocked bounded_read_limit; no consumption; own namespace cleanup restores unblocked inventory",
+  "limitation": "Proves bounded queue mechanism, not which earlier suite nodes produced the backlog; no full regression correction yet."
+}

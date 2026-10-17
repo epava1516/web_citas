@@ -1,0 +1,1098 @@
+{
+  "run": "20261016-211855-8887f71c",
+  "sha": "cd206c0b6fc509fa52e8a00be5b353f39dcb8f09",
+  "result": "FAIL",
+  "complete_nodeids": 3627,
+  "passed": 3476,
+  "failed": 22,
+  "skipped": 129,
+  "failures": [
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.62683243304491,
+      "longrepr": "tests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 13.420013078022748,
+      "longrepr": "tests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 16.85474850703031,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1050: in test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 13.457551250234246,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1050: in test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.632963900920004,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1050: in test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 13.038831534795463,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1050: in test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 22.816198683343828,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1070: in test_observed_owned_producer_census_keeps_reviewed_access_partial\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.18649819958955,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1070: in test_observed_owned_producer_census_keeps_reviewed_access_partial\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 17.37401357712224,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1080: in test_integrated_access_concurrent_closure_has_one_response_and_notice\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 12.932838652282953,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1080: in test_integrated_access_concurrent_closure_has_one_response_and_notice\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 17.807642366737127,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1097: in test_integrated_access_includes_retained_expired_session_without_capabilities\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 13.397150405682623,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1097: in test_integrated_access_includes_retained_expired_session_without_capabilities\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.02364928787574,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1114: in test_integrated_access_includes_console_mail_without_authentication_link\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 14.21550916088745,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1114: in test_integrated_access_includes_console_mail_without_authentication_link\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 19.51191697176546,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1131: in test_historical_log_selection_uses_audited_package_review_and_blocks_full_close\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 15.589501984417439,
+      "longrepr": "tests/test_rights_access_coverage_store.py:1131: in test_historical_log_selection_uses_audited_package_review_and_blocks_full_close\n    test_audited_coverage_preserves_open_request_and_rejects_stale_replay(\ntests/test_rights_access_coverage_store.py:455: in test_audited_coverage_preserves_open_request_and_rejects_stale_replay\n    assert not original_scope[\"blocked\"], original_scope[\"blocked\"]\nE   AssertionError: [{'resource': 'queues', 'reason': 'bounded_read_limit'}]\nE   assert not [{'resource': 'queues', 'reason': 'bounded_read_limit'}]"
+    },
+    {
+      "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-es]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 19.096494283061475,
+      "longrepr": "tests/test_rights_access_response_mobile.py:363: in test_mobile_historical_logs_use_existing_private_review_and_stay_partial\n    test_mobile_final_response_preparation_and_independent_decision(\ntests/test_rights_access_response_mobile.py:270: in test_mobile_final_response_preparation_and_independent_decision\n    expect(page.get_by_role(\"status\")).to_contain_text(\nE   AssertionError: Locator expected to contain text 'Borrador de respuesta final preparado'\nE   Actual value: None\nE   Error: element(s) not found \nE   Call log:\nE     - Expect \"to_contain_text\" get_by_role(\"status\") with timeout 5000ms\nE     - waiting for get_by_role(\"status\")\nE   \nE   Aria snapshot:\nE   - link \"Saltar al contenido\":\nE     - /url: \"#main\"\nE   - banner:\nE     - link \"Directorio\":\nE       - /url: /es/\nE     - navigation \"Principal\":\nE       - link \"Legal\":\nE         - /url: /es/legal/\nE       - link \"Favoritos\":\nE         - /url: /es/favorites/\nE       - link \"Cuenta\":\nE         - /url: /es/account/\nE       - link \"ES\":\nE         - /url: /es/\nE       - link \"EN\":\nE         - /url: /en/\nE   - complementary: Entorno privado de desarrollo · datos sintéticos · verificación simulada\nE   - main:\nE     - heading \"Preparar respuesta final de acceso\" [level=1]\nE     - paragraph:\nE       - link \"Volver al expediente\":\nE         - /url: /es/moderation/rights/f0fcd4ff-7cc5-43e1-969c-d7fb93797e84/\nE     - paragraph: Completa una nueva comprobación de identidad y alcance después de crear la copia cubierta y consulta el expediente y sus respuestas actuales. Explica el alcance entregado y las exclusiones sin evidencias internas ni datos de terceros. Guardar este borrador no emite una respuesta ni cierra la solicitud; requiere revisión independiente.\nE     - list:\nE       - listitem: Unsupported scoped records require a typed delivery adapter\nE     - paragraph:\nE       - text: \"Motivo interno:\"\nE       - textbox \"Motivo interno:\": Prepare synthetic access explanation bound to approved information\nE     - paragraph:\nE       - text: \"Respuesta privada minimizada:\"\nE       - textbox \"Respuesta privada minimizada:\": Your private access copy contains the reviewed information. The remaining scope requires further review before a final decision can be issued.\nE     - paragraph:\nE       - text: \"He revisado los datos de terceros y el alcance real de lo ejecutado:\"\nE       - checkbox \"He revisado los datos de terceros y el alcance real de lo ejecutado:\" [checked]\nE     - paragraph:\nE       - text: \"Inventario para paquete de acceso:\"\nE       - combobox \"Inventario para paquete de acceso:\":\nE         - option \"---------\"\nE         - option \"RightsAccessScopeInventory object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Decisiones por grupos y recursos:\"\nE       - textbox \"Decisiones por grupos y recursos:\": \"{\\\"models\\\": {\\\"core.Person\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Listing\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.PublicationState\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.PhoneClaim\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Revision\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.Photo\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.UploadAttempt\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.RepresentationAction\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.VerificationCheck\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.VerificationEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Submission\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.ModerationDecision\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.User\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.LegalAcceptance\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.Blob\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"operations.LogEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}, \\\"resources\\\": {\\\"status\\\": \\\"reviewed\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}\"\nE     - paragraph:\nE       - text: \"Contabilidad aprobada:\"\nE       - combobox \"Contabilidad aprobada:\":\nE         - option \"---------\"\nE         - option \"RightsAccessCoverageReview object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Copia con información aprobada:\"\nE       - combobox \"Copia con información aprobada:\":\nE         - option \"---------\"\nE         - option \"RightsExport object (923b9c2d-25ad-4edc-8fb4-64f6e6460bad)\" [selected]\nE     - button \"Consultar paquete de acceso\"\nE     - button \"Guardar borrador de respuesta\"\nE   - contentinfo:\nE     - text: Modelaje · Acompañamiento social · Bienestar no sexual ·\nE     - link \"Solicitar revisión de decisión\":\nE       - /url: /es/safety/complaints/"
+    },
+    {
+      "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-en]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.03307297313586,
+      "longrepr": "tests/test_rights_access_response_mobile.py:363: in test_mobile_historical_logs_use_existing_private_review_and_stay_partial\n    test_mobile_final_response_preparation_and_independent_decision(\ntests/test_rights_access_response_mobile.py:270: in test_mobile_final_response_preparation_and_independent_decision\n    expect(page.get_by_role(\"status\")).to_contain_text(\nE   AssertionError: Locator expected to contain text 'Final response draft prepared'\nE   Actual value: None\nE   Error: element(s) not found \nE   Call log:\nE     - Expect \"to_contain_text\" get_by_role(\"status\") with timeout 5000ms\nE     - waiting for get_by_role(\"status\")\nE   \nE   Aria snapshot:\nE   - link \"Skip to content\":\nE     - /url: \"#main\"\nE   - banner:\nE     - link \"Directorio\":\nE       - /url: /en/\nE     - navigation \"Main\":\nE       - link \"Legal\":\nE         - /url: /en/legal/\nE       - link \"Favorites\":\nE         - /url: /en/favorites/\nE       - link \"Account\":\nE         - /url: /en/account/\nE       - link \"ES\":\nE         - /url: /es/\nE       - link \"EN\":\nE         - /url: /en/\nE   - complementary: Private development environment · synthetic data · simulated verification\nE   - main:\nE     - heading \"Prepare final access response\" [level=1]\nE     - paragraph:\nE       - link \"Return to request\":\nE         - /url: /en/moderation/rights/485180bc-24a9-4142-92c3-77f3c349ba2c/\nE     - paragraph: Complete a new identity and scope check after creating the covered copy, then inspect the current request and responses. Explain the delivered scope and exclusions without private evidence or third-party details. Saving this draft does not issue a response or close the request; independent review is required.\nE     - list:\nE       - listitem: Unsupported scoped records require a typed delivery adapter\nE     - paragraph:\nE       - text: \"Internal reason:\"\nE       - textbox \"Internal reason:\": Prepare synthetic access explanation bound to approved information\nE     - paragraph:\nE       - text: \"Minimized private response:\"\nE       - textbox \"Minimized private response:\": Your private access copy contains the reviewed information. The remaining scope requires further review before a final decision can be issued.\nE     - paragraph:\nE       - text: \"I reviewed third-party data and actual execution scope:\"\nE       - checkbox \"I reviewed third-party data and actual execution scope:\" [checked]\nE     - paragraph:\nE       - text: \"Access package inventory:\"\nE       - combobox \"Access package inventory:\":\nE         - option \"---------\"\nE         - option \"RightsAccessScopeInventory object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Group and resource decisions:\"\nE       - textbox \"Group and resource decisions:\": \"{\\\"models\\\": {\\\"core.Person\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Listing\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.PublicationState\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.PhoneClaim\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Revision\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.Photo\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.UploadAttempt\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.RepresentationAction\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.VerificationCheck\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.VerificationEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.Submission\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"listings.ModerationDecision\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.User\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"core.LegalAcceptance\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"mediafiles.Blob\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"operations.LogEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}, \\\"resources\\\": {\\\"status\\\": \\\"reviewed\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}\"\nE     - paragraph:\nE       - text: \"Approved accounting:\"\nE       - combobox \"Approved accounting:\":\nE         - option \"---------\"\nE         - option \"RightsAccessCoverageReview object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Copy with approved information:\"\nE       - combobox \"Copy with approved information:\":\nE         - option \"---------\"\nE         - option \"RightsExport object (1b37cd0f-39cc-4bb1-aed4-9bbbb1d5a3e7)\" [selected]\nE     - button \"Inspect access package\"\nE     - button \"Save response draft\"\nE   - contentinfo:\nE     - text: Models · Social companionship · Nonsexual wellness ·\nE     - link \"Request decision review\":\nE       - /url: /en/safety/complaints/"
+    },
+    {
+      "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-es]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 15.455593779217452,
+      "longrepr": "tests/test_rights_access_response_mobile.py:363: in test_mobile_historical_logs_use_existing_private_review_and_stay_partial\n    test_mobile_final_response_preparation_and_independent_decision(\ntests/test_rights_access_response_mobile.py:270: in test_mobile_final_response_preparation_and_independent_decision\n    expect(page.get_by_role(\"status\")).to_contain_text(\nE   AssertionError: Locator expected to contain text 'Borrador de respuesta final preparado'\nE   Actual value: None\nE   Error: element(s) not found \nE   Call log:\nE     - Expect \"to_contain_text\" get_by_role(\"status\") with timeout 5000ms\nE     - waiting for get_by_role(\"status\")\nE   \nE   Aria snapshot:\nE   - link \"Saltar al contenido\":\nE     - /url: \"#main\"\nE   - banner:\nE     - link \"Directorio\":\nE       - /url: /es/\nE     - navigation \"Principal\":\nE       - link \"Legal\":\nE         - /url: /es/legal/\nE       - link \"Favoritos\":\nE         - /url: /es/favorites/\nE       - link \"Cuenta\":\nE         - /url: /es/account/\nE       - link \"ES\":\nE         - /url: /es/\nE       - link \"EN\":\nE         - /url: /en/\nE   - complementary: Entorno privado de desarrollo · datos sintéticos · verificación simulada\nE   - main:\nE     - heading \"Preparar respuesta final de acceso\" [level=1]\nE     - paragraph:\nE       - link \"Volver al expediente\":\nE         - /url: /es/moderation/rights/064d72bd-9fd8-4fa8-96ea-0d48cd44032b/\nE     - paragraph: Completa una nueva comprobación de identidad y alcance después de crear la copia cubierta y consulta el expediente y sus respuestas actuales. Explica el alcance entregado y las exclusiones sin evidencias internas ni datos de terceros. Guardar este borrador no emite una respuesta ni cierra la solicitud; requiere revisión independiente.\nE     - list:\nE       - listitem: Unsupported scoped records require a typed delivery adapter\nE     - paragraph:\nE       - text: \"Motivo interno:\"\nE       - textbox \"Motivo interno:\": Prepare synthetic access explanation bound to approved information\nE     - paragraph:\nE       - text: \"Respuesta privada minimizada:\"\nE       - textbox \"Respuesta privada minimizada:\": Your private access copy contains the reviewed information. The remaining scope requires further review before a final decision can be issued.\nE     - paragraph:\nE       - text: \"He revisado los datos de terceros y el alcance real de lo ejecutado:\"\nE       - checkbox \"He revisado los datos de terceros y el alcance real de lo ejecutado:\" [checked]\nE     - paragraph:\nE       - text: \"Inventario para paquete de acceso:\"\nE       - combobox \"Inventario para paquete de acceso:\":\nE         - option \"---------\"\nE         - option \"RightsAccessScopeInventory object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Decisiones por grupos y recursos:\"\nE       - textbox \"Decisiones por grupos y recursos:\": \"{\\\"models\\\": {\\\"core.User\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"operations.LogEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}, \\\"resources\\\": {\\\"status\\\": \\\"reviewed\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}\"\nE     - paragraph:\nE       - text: \"Contabilidad aprobada:\"\nE       - combobox \"Contabilidad aprobada:\":\nE         - option \"---------\"\nE         - option \"RightsAccessCoverageReview object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Copia con información aprobada:\"\nE       - combobox \"Copia con información aprobada:\":\nE         - option \"---------\"\nE         - option \"RightsExport object (a10e7274-6881-48a7-9d88-272153c3a6de)\" [selected]\nE     - button \"Consultar paquete de acceso\"\nE     - button \"Guardar borrador de respuesta\"\nE   - contentinfo:\nE     - text: Modelaje · Acompañamiento social · Bienestar no sexual ·\nE     - link \"Solicitar revisión de decisión\":\nE       - /url: /es/safety/complaints/"
+    },
+    {
+      "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-en]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 15.361717108171433,
+      "longrepr": "tests/test_rights_access_response_mobile.py:363: in test_mobile_historical_logs_use_existing_private_review_and_stay_partial\n    test_mobile_final_response_preparation_and_independent_decision(\ntests/test_rights_access_response_mobile.py:270: in test_mobile_final_response_preparation_and_independent_decision\n    expect(page.get_by_role(\"status\")).to_contain_text(\nE   AssertionError: Locator expected to contain text 'Final response draft prepared'\nE   Actual value: None\nE   Error: element(s) not found \nE   Call log:\nE     - Expect \"to_contain_text\" get_by_role(\"status\") with timeout 5000ms\nE     - waiting for get_by_role(\"status\")\nE   \nE   Aria snapshot:\nE   - link \"Skip to content\":\nE     - /url: \"#main\"\nE   - banner:\nE     - link \"Directorio\":\nE       - /url: /en/\nE     - navigation \"Main\":\nE       - link \"Legal\":\nE         - /url: /en/legal/\nE       - link \"Favorites\":\nE         - /url: /en/favorites/\nE       - link \"Account\":\nE         - /url: /en/account/\nE       - link \"ES\":\nE         - /url: /es/\nE       - link \"EN\":\nE         - /url: /en/\nE   - complementary: Private development environment · synthetic data · simulated verification\nE   - main:\nE     - heading \"Prepare final access response\" [level=1]\nE     - paragraph:\nE       - link \"Return to request\":\nE         - /url: /en/moderation/rights/40e2054e-7100-4fbb-8bca-4ce5daa1e7cc/\nE     - paragraph: Complete a new identity and scope check after creating the covered copy, then inspect the current request and responses. Explain the delivered scope and exclusions without private evidence or third-party details. Saving this draft does not issue a response or close the request; independent review is required.\nE     - list:\nE       - listitem: Unsupported scoped records require a typed delivery adapter\nE     - paragraph:\nE       - text: \"Internal reason:\"\nE       - textbox \"Internal reason:\": Prepare synthetic access explanation bound to approved information\nE     - paragraph:\nE       - text: \"Minimized private response:\"\nE       - textbox \"Minimized private response:\": Your private access copy contains the reviewed information. The remaining scope requires further review before a final decision can be issued.\nE     - paragraph:\nE       - text: \"I reviewed third-party data and actual execution scope:\"\nE       - checkbox \"I reviewed third-party data and actual execution scope:\" [checked]\nE     - paragraph:\nE       - text: \"Access package inventory:\"\nE       - combobox \"Access package inventory:\":\nE         - option \"---------\"\nE         - option \"RightsAccessScopeInventory object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Group and resource decisions:\"\nE       - textbox \"Group and resource decisions:\": \"{\\\"models\\\": {\\\"core.User\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}, \\\"operations.LogEvent\\\": {\\\"status\\\": \\\"omitted\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}, \\\"resources\\\": {\\\"status\\\": \\\"reviewed\\\", \\\"reason\\\": \\\"Prepare synthetic access explanation bound to approved information\\\"}}\"\nE     - paragraph:\nE       - text: \"Approved accounting:\"\nE       - combobox \"Approved accounting:\":\nE         - option \"---------\"\nE         - option \"RightsAccessCoverageReview object (1)\" [selected]\nE     - paragraph:\nE       - text: \"Copy with approved information:\"\nE       - combobox \"Copy with approved information:\":\nE         - option \"---------\"\nE         - option \"RightsExport object (4deee9c8-997e-446a-8900-a216711cb047)\" [selected]\nE     - button \"Inspect access package\"\nE     - button \"Save response draft\"\nE   - contentinfo:\nE     - text: Models · Social companionship · Nonsexual wellness ·\nE     - link \"Request decision review\":\nE       - /url: /en/safety/complaints/"
+    },
+    {
+      "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 3.6867973981425166,
+      "longrepr": "tests/test_rights_portability_jobs.py:464: in test_positive_job_inventory_and_scoped_live_broker\n    assert not result[\"blocked\"] and len(result[\"copy\"]) == 1\nE   AssertionError: assert (not [{'resource': 'queues', 'reason': 'bounded_read_limit'}])"
+    },
+    {
+      "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 2.759441684000194,
+      "longrepr": "tests/test_rights_portability_jobs.py:464: in test_positive_job_inventory_and_scoped_live_broker\n    assert not result[\"blocked\"] and len(result[\"copy\"]) == 1\nE   AssertionError: assert (not [{'resource': 'queues', 'reason': 'bounded_read_limit'}])"
+    }
+  ],
+  "omissions": [
+    {
+      "nodeid": "tests/test_capacity_delivery_complete.py::test_owned_complete_target_delivery",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0004360619932413101,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_delivery_complete.py', 23, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_capacity_delivery_profile.py::test_owned_target_stage_profiles",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00022360915318131447,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_delivery_profile.py', 26, 'Skipped: Requires owned capacity runner diagnostic profile mode')"
+    },
+    {
+      "nodeid": "tests/test_capacity_native_probe.py::test_owned_native_reconnect_probe",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0005403049290180206,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_native_probe.py', 21, 'Skipped: Requires owned native diagnostic controller')"
+    },
+    {
+      "nodeid": "tests/test_capacity_object_preflight.py::test_owned_object_proxy_and_purge_worker_gate",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.000692347064614296,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_object_preflight.py', 37, 'Skipped: Requires owned capacity runner preflight mode')"
+    },
+    {
+      "nodeid": "tests/test_capacity_professional_profile.py::test_owned_professional_probe",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000546666793525219,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_professional_profile.py', 44, 'Skipped: Requires explicit own professional instrument probe')"
+    },
+    {
+      "nodeid": "tests/test_capacity_selection_concurrent_tcp.py::test_two_target_selection_pages_overlapping_tcp",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0003716489300131798,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_selection_concurrent_tcp.py', 32, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_capacity_selection_tcp.py::test_target_selection_page_tcp",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002609710209071636,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_selection_tcp.py', 146, 'Skipped: Requires owned capacity runner with verified kernel limits')"
+    },
+    {
+      "nodeid": "tests/test_capacity_source_profile.py::test_target_source_cost_attribution",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00023390399292111397,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_capacity_source_profile.py', 51, 'Skipped: Requires owned capacity runner diagnostic profile mode')"
+    },
+    {
+      "nodeid": "tests/test_directory_current_rule_profile.py::test_owned_current_page_rule_attribution",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00027432898059487343,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_current_rule_profile.py', 27, 'Skipped: Explicit owned sequential rule diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_directory_current_rule_profile.py::test_owned_detail_rule_attribution",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003097052685916424,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_current_rule_profile.py', 117, 'Skipped: Explicit owned sequential rule diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_directory_query_plans.py::test_owned_directory_count_and_page_plans",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0001955539919435978,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_directory_query_plans.py', 51, 'Skipped: Explicit owned SQL-plan diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_backend_cpu_families.py::test_owned_backend_cpu_by_family",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000257883220911026,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_backend_cpu_families.py', 30, 'Skipped: Explicit owned backend CPU diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_cold_mix_pyspy.py::test_owned_cold_mix_pyspy",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003021610900759697,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_cold_mix_pyspy.py', 146, 'Skipped: Explicit owned current-detail py-spy diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_cold_prepared_cpu.py::test_owned_cold_prepared_cpu[eager_generic]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002758312039077282,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_cold_prepared_cpu.py', 28, 'Skipped: Explicit cold backend diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_cold_prepared_cpu.py::test_owned_cold_prepared_cpu[eager_auto]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002217390574514866,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_cold_prepared_cpu.py', 28, 'Skipped: Explicit cold backend diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_cold_prepared_cpu.py::test_owned_cold_prepared_cpu[hydration_generic]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000410658773034811,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_cold_prepared_cpu.py', 28, 'Skipped: Explicit cold backend diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_context_duplicate_reads.py::test_owned_context_duplicate_reads",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003556199371814728,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_context_duplicate_reads.py', 29, 'Skipped: Explicit own-context duplicate-read diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_context_list_consumers.py::test_owned_context_list_consumers",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00036227190867066383,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_context_list_consumers.py', 25, 'Skipped: Explicit finite hydration contrast only')"
+    },
+    {
+      "nodeid": "tests/test_owned_context_to_attr.py::test_owned_context_to_attr",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00037246523424983025,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_context_to_attr.py', 25, 'Skipped: Explicit finite hydration contrast only')"
+    },
+    {
+      "nodeid": "tests/test_owned_count_partition.py::test_owned_count_partition",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00022413721308112144,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_count_partition.py', 24, 'Skipped: Explicit owned finite comparison only')"
+    },
+    {
+      "nodeid": "tests/test_owned_counted_page_parity.py::test_owned_counted_page_parity",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002405131235718727,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_counted_page_parity.py', 20, 'Skipped: Explicit test-only dirty projection validation')"
+    },
+    {
+      "nodeid": "tests/test_owned_counted_page_roi.py::test_owned_counted_page_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00021952902898192406,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_counted_page_roi.py', 31, 'Skipped: Explicit owned WSGI diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_context_roi.py::test_owned_detail_context_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00032800808548927307,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_context_roi.py', 32, 'Skipped: Explicit own WSGI detail diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_parity.py::test_owned_detail_generic_parity",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00028347084298729897,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_parity.py', 23, 'Skipped: Explicit new-detail generic planning parity only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_roi.py::test_owned_detail_generic_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003217589110136032,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_roi.py', 33, 'Skipped: Explicit owned first-connection detail diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[agency]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00023966096341609955,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[individual]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00021713320165872574,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[render_error]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005511268973350525,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[context_error]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005365372635424137,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[sql_error]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00047789420932531357,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[inherited_rc]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002973428927361965,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_generic_scope.py::test_detail_generic_scope[inherited_rr]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00034018978476524353,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_generic_scope.py', 27, 'Skipped: Explicit new-detail generic planning scope only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_pyspy.py::test_owned_detail_pyspy",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00025742873549461365,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_pyspy.py', 87, 'Skipped: Explicit owned current-detail py-spy diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_owned_detail_query_template",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0026918635703623295,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 23, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_transaction_scope[success]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002123807091265917,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 47, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_transaction_scope[render_error]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0018855719827115536,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 47, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_transaction_scope[inherited_rc]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0023788409307599068,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 47, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_transaction_scope[inherited_rr]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002424641977995634,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 47, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_snapshot_transition[conflict_photo]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0015420718118548393,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 55, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_snapshot_transition[grant_acceptance]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002243409864604473,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 55, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_fresh_document_and_expiry",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0022965651005506516,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 64, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_existing_controls[localization_catalog]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0023646410554647446,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 113, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_existing_controls[production_provenance]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.001555226743221283,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 113, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_existing_controls[privacy_hold]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0016425219364464283,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 113, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_fresh_expiry_during_request",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0028574271127581596,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 121, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_query_template.py::test_template_both_actors_languages",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.004118587356060743,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_query_template.py', 128, 'Skipped: Explicit detail query template prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_template_roi.py::test_owned_detail_template_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005010738968849182,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_template_roi.py', 34, 'Skipped: Explicit owned first-connection detail diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_detail_template_threads.py::test_owned_detail_template_threads",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0008353670127689838,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_detail_template_threads.py', 24, 'Skipped: Explicit shared-process detail template parity only')"
+    },
+    {
+      "nodeid": "tests/test_owned_direct_field_binding.py::test_owned_direct_field_binding",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00042877672240138054,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_direct_field_binding.py', 25, 'Skipped: Explicit finite direct field binding experiment only')"
+    },
+    {
+      "nodeid": "tests/test_owned_directory_cpu_profile.py::test_owned_directory_cpu_profile",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00045474572107195854,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_directory_cpu_profile.py', 23, 'Skipped: Explicit finite CPU diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_dirty_population_plans.py::test_owned_dirty_population_plans",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00024245399981737137,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_dirty_population_plans.py', 19, 'Skipped: Explicit owned plan diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_dirty_projection_parity.py::test_owned_dirty_projection_parity",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00023741694167256355,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_dirty_projection_parity.py', 20, 'Skipped: Explicit test-only dirty projection validation')"
+    },
+    {
+      "nodeid": "tests/test_owned_dirty_projection_roi.py::test_owned_dirty_projection_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00023937225341796875,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_dirty_projection_roi.py', 31, 'Skipped: Explicit owned WSGI diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_dirty_unknown_census.py::test_owned_dirty_unknown_census",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002480880357325077,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_dirty_unknown_census.py', 24, 'Skipped: Explicit owned finite comparison only')"
+    },
+    {
+      "nodeid": "tests/test_owned_draft_upload_dependency.py::test_owned_draft_upload_dependency",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00039261532947421074,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_draft_upload_dependency.py', 26, 'Skipped: Explicit synthetic dependency audit only')"
+    },
+    {
+      "nodeid": "tests/test_owned_empty_mark_guard.py::test_owned_empty_mark_guard[as_recorded]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00023922882974147797,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_empty_mark_guard.py', 27, 'Skipped: Explicit owned empty-mark diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_empty_mark_guard.py::test_owned_empty_mark_guard[quiescent_cold]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00027165794745087624,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_empty_mark_guard.py', 27, 'Skipped: Explicit owned empty-mark diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_first_page_batch_parity.py::test_owned_first_page_batch_parity",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00048510776832699776,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_first_page_batch_parity.py', 21, 'Skipped: Explicit test-only dirty projection validation')"
+    },
+    {
+      "nodeid": "tests/test_owned_first_page_batch_revision_alias.py::test_foreign_revision_pending_row_preserves_clean_owner[pk]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005920790135860443,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_first_page_batch_revision_alias.py', 21, 'Skipped: Explicit own foreign-revision alias regression only')"
+    },
+    {
+      "nodeid": "tests/test_owned_first_page_batch_revision_alias.py::test_foreign_revision_pending_row_preserves_clean_owner[-pk]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00045922212302684784,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_first_page_batch_revision_alias.py', 21, 'Skipped: Explicit own foreign-revision alias regression only')"
+    },
+    {
+      "nodeid": "tests/test_owned_first_page_batch_roi.py::test_owned_first_page_batch_roi[dirty1]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00024066399782896042,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_first_page_batch_roi.py', 36, 'Skipped: Explicit owned WSGI diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_first_page_batch_roi.py::test_owned_first_page_batch_roi[offpage_fanout]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000308232381939888,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_first_page_batch_roi.py', 36, 'Skipped: Explicit owned WSGI diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_geo_catalog_reuse.py::test_owned_geo_catalog_reuse",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005867630243301392,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_geo_catalog_reuse.py', 25, 'Skipped: Explicit finite geographic catalog experiment only')"
+    },
+    {
+      "nodeid": "tests/test_owned_media_candidates_cpu.py::test_owned_media_candidates_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00027864985167980194,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_media_candidates_cpu.py', 29, 'Skipped: Explicit hot selector diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_media_process_cpu.py::test_owned_media_process_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00027294084429740906,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_media_process_cpu.py', 32, 'Skipped: Explicit media-service diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_native_conflict_plan.py::test_native_conflict_plan_after_small_fixture_statistics[True]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0004431791603565216,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_native_conflict_plan.py', 24, 'Skipped: Explicit bounded native conflict-plan diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_native_conflict_plan.py::test_native_conflict_plan_after_small_fixture_statistics[False]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005738520994782448,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_native_conflict_plan.py', 24, 'Skipped: Explicit bounded native conflict-plan diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_owned_page_query_template.py::test_page_template_parity",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0020919721573591232,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_page_query_template.py', 26, 'Skipped: Explicit owned page query structure prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_page_query_template.py::test_page_template_rechecks_dependencies[publishing_terms_replaced]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0016942941583693027,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_page_query_template.py', 72, 'Skipped: Explicit owned page query structure prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_page_query_template.py::test_page_template_rechecks_dependencies[category_inactive]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002021810971200466,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_page_query_template.py', 72, 'Skipped: Explicit owned page query structure prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_page_query_template.py::test_page_template_rechecks_dependencies[expired]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002939102239906788,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_page_query_template.py', 72, 'Skipped: Explicit owned page query structure prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_page_template_roi.py::test_owned_page_template_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003034258261322975,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_page_template_roi.py', 34, 'Skipped: Explicit owned page-template ROI only')"
+    },
+    {
+      "nodeid": "tests/test_owned_pg_statement_diagnostic.py::test_owned_statement_ranking",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00031956005841493607,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_pg_statement_diagnostic.py', 49, 'Skipped: Explicit owned PostgreSQL statement diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_population_union.py::test_owned_population_union",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00023203808814287186,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_population_union.py', 24, 'Skipped: Explicit owned finite comparison only')"
+    },
+    {
+      "nodeid": "tests/test_owned_prepared_guard_reads_cpu.py::test_owned_prepared_guard_reads_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000290438998490572,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_prepared_guard_reads_cpu.py', 30, 'Skipped: Explicit owned guard-read preparation diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_prepared_hydration_cpu.py::test_owned_prepared_hydration_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00029765209183096886,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_prepared_hydration_cpu.py', 26, 'Skipped: Explicit owned prepared-hydration CPU diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_owned_private_draft_candidate",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0025999718345701694,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 31, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_relevant_and_unknown_writes_dirty[approved_photo]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0016195662319660187,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 91, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_relevant_and_unknown_writes_dirty[shared_blob]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0015294048935174942,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 91, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_relevant_and_unknown_writes_dirty[revision_status]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0037105069495737553,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 91, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_relevant_and_unknown_writes_dirty[revision_title]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0026580719277262688,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 91, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_relevant_and_unknown_writes_dirty[revision_delete]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0033419281244277954,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 91, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_retains_match_counterpart_invalidation[photo]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0026527750305831432,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 116, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_retains_match_counterpart_invalidation[candidate]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0028777667321264744,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 116, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_keeps_rights_references_conservative",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0017582019791007042,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 136, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_candidate.py::test_candidate_bulk_filters_only_private_rows_and_rollback_is_atomic",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002787846140563488,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_candidate.py', 155, 'Skipped: Explicit private PG prototype only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_locked_reference_still_defers_refresh[listing]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.002240499947220087,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 35, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_locked_reference_still_defers_refresh[revision]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.001767429057508707,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 35, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_refresher_wait_preserves_new_generation",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.003993158228695393,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 42, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_opposite_photo_writes_complete",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0026352168060839176,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 47, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_stronger_isolation_keeps_conservative_dirty[REPEATABLE READ]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0022237212397158146,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 52, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_stronger_isolation_keeps_conservative_dirty[SERIALIZABLE]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0016145538538694382,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 52, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_fenced_concurrency.py::test_fenced_new_match_waits_for_private_photo_commit",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.003321360796689987,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_fenced_concurrency.py', 65, 'Skipped: Explicit owned prototype concurrency controls only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_prelocked_writers.py::test_prelocked_opposite_photo_writers_complete[baseline0020]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0028876648284494877,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_prelocked_writers.py', 30, 'Skipped: Explicit owned prelocked writer diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_prelocked_writers.py::test_prelocked_opposite_photo_writers_complete[candidate0021]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.001593621913343668,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_prelocked_writers.py', 30, 'Skipped: Explicit owned prelocked writer diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_prelocked_writers.py::test_prelocked_opposite_photo_writers_complete[restored0022]",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0018324609845876694,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_prelocked_writers.py', 30, 'Skipped: Explicit owned prelocked writer diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_publication_race.py::test_private_write_concurrent_publication_keeps_negative_state_exact[current]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00032152002677321434,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_publication_race.py', 30, 'Skipped: Explicit owned prototype concurrency diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_publication_race.py::test_private_write_concurrent_publication_keeps_negative_state_exact[candidate]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00022357190027832985,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_publication_race.py', 30, 'Skipped: Explicit owned prototype concurrency diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_publication_race.py::test_private_write_concurrent_publication_keeps_negative_state_exact[restored0022]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00022122496739029884,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_publication_race.py', 30, 'Skipped: Explicit owned prototype concurrency diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_private_draft_roi.py::test_owned_private_draft_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002193818800151348,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_private_draft_roi.py', 30, 'Skipped: Explicit bounded ROI contrast only')"
+    },
+    {
+      "nodeid": "tests/test_owned_process_preparation.py::test_owned_process_preparation",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00021632621064782143,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_process_preparation.py', 104, 'Skipped: Explicit owned process-lifecycle diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_public_projection_cpu.py::test_owned_public_projection_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00040739215910434723,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_public_projection_cpu.py', 29, 'Skipped: Explicit owned temporary projection diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_publication_mark_cost.py::test_owned_publication_mark_cost",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00030406098812818527,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_publication_mark_cost.py', 25, 'Skipped: Explicit bounded diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_refresh_topology.py::test_owned_worker_beat_refresh_wiring",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002915579825639725,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_refresh_topology.py', 35, 'Skipped: Explicit owned wiring check only')"
+    },
+    {
+      "nodeid": "tests/test_owned_request_aa_stability.py::test_owned_request_aa_stability",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002747559919953346,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_request_aa_stability.py', 24, 'Skipped: Explicit owned identical-code A/A only')"
+    },
+    {
+      "nodeid": "tests/test_owned_retention_topology.py::test_owned_retention_worker_beat_wiring",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003521856851875782,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_retention_topology.py', 37, 'Skipped: Explicit owned retention topology only')"
+    },
+    {
+      "nodeid": "tests/test_owned_search_shared_population_cpu.py::test_owned_shared_search_population_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002728109247982502,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_search_shared_population_cpu.py', 28, 'Skipped: Explicit owned shared-search CPU diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_startup_gc.py::test_owned_startup_gc",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002548340708017349,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_startup_gc.py', 73, 'Skipped: Explicit fresh-process diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_state_aggregate_cpu.py::test_owned_state_coverage_aggregate_cpu",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0002462342381477356,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_state_aggregate_cpu.py', 35, 'Skipped: Explicit owned coverage aggregate diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_static_warmup.py::test_owned_static_warmup",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00030592503026127815,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_static_warmup.py', 98, 'Skipped: Explicit fresh-process diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_sync_headroom.py::test_owned_sync_headroom",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00026662228628993034,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_sync_headroom.py', 29, 'Skipped: Explicit fixed topology diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_upload_cpu_profile.py::test_owned_upload_cpu_profile",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.000567364040762186,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_upload_cpu_profile.py', 27, 'Skipped: Explicit request diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_upload_mark_cost.py::test_owned_upload_mark_cost",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00022415397688746452,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_upload_mark_cost.py', 25, 'Skipped: Explicit request diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_upload_warm_profile.py::test_owned_upload_warm_profile",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003422768786549568,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_upload_warm_profile.py', 27, 'Skipped: Explicit request diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_worker_startup_runtime.py::test_owned_worker_startup_runtime",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0004455018788576126,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_worker_startup_runtime.py', 21, 'Skipped: Explicit owned runtime diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_owned_wsgi_close_release.py::test_owned_wsgi_close_release",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00043769925832748413,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_wsgi_close_release.py', 27, 'Skipped: Explicit owned WSGI lifetime inspection only')"
+    },
+    {
+      "nodeid": "tests/test_owned_wsgi_context_release.py::test_owned_wsgi_context_release",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00027671782299876213,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_wsgi_context_release.py', 28, 'Skipped: Explicit owned WSGI lifetime inspection only')"
+    },
+    {
+      "nodeid": "tests/test_owned_wsgi_incoming_retention.py::test_owned_wsgi_incoming_retention",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00035929959267377853,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_wsgi_incoming_retention.py', 27, 'Skipped: Explicit owned WSGI lifetime inspection only')"
+    },
+    {
+      "nodeid": "tests/test_owned_wsgi_object_lifetime.py::test_owned_wsgi_object_lifetime",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00037659937515854836,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_wsgi_object_lifetime.py', 27, 'Skipped: Explicit owned WSGI lifetime inspection only')"
+    },
+    {
+      "nodeid": "tests/test_owned_wsgi_release_roi.py::test_owned_wsgi_release_roi",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003665490075945854,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_owned_wsgi_release_roi.py', 30, 'Skipped: Explicit owned WSGI diagnostic only')"
+    },
+    {
+      "nodeid": "tests/test_publication_route_coverage.py::test_route_coverage_matrix",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0003094831481575966,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_publication_route_coverage.py', 30, 'Skipped: Explicit coverage run only')"
+    },
+    {
+      "nodeid": "tests/test_resource_service_checkpoint.py::test_resource_checkpoint",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.0002936339005827904,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_resource_service_checkpoint.py', 47, 'Skipped: Explicit owned resource diagnosis only')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-False]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0005567488260567188,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1150, 'Skipped: Explicit isolated operator review required; no coverage acceptance from this skip')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[es-True]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0003212997689843178,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1150, 'Skipped: Explicit isolated operator review required; no coverage acceptance from this skip')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-False]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.0004241303540766239,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1150, 'Skipped: Explicit isolated operator review required; no coverage acceptance from this skip')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_external_review_closes_and_downloads_exact_payload[en-True]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00026910798624157906,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1150, 'Skipped: Explicit isolated operator review required; no coverage acceptance from this skip')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_omitted_source_never_creates_final_response[False]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00024480558931827545,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1167, 'Skipped: Explicit isolated actual-content negative scenario required')"
+    },
+    {
+      "nodeid": "tests/test_rights_access_coverage_store.py::test_owned_content_omitted_source_never_creates_final_response[True]",
+      "when": "call",
+      "outcome": "skipped",
+      "duration": 0.00042367586866021156,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_rights_access_coverage_store.py', 1167, 'Skipped: Explicit isolated actual-content negative scenario required')"
+    },
+    {
+      "nodeid": "tests/test_worker_capacity_comparison.py::test_worker_capacity_comparison",
+      "when": "setup",
+      "outcome": "skipped",
+      "duration": 0.00038977013900876045,
+      "longrepr": "('/home/felidae/proyectos/web_modelos_mod08_vps/tests/test_worker_capacity_comparison.py', 131, 'Skipped: Explicit authorized owned experiment only')"
+    }
+  ],
+  "pytest_seconds": 19718.88913150318,
+  "source_hashes_independently_equal": true,
+  "temporary_independently_absent": true,
+  "runner_and_child_original_pids_absent": true,
+  "declared_containers_independently_absent": true,
+  "unit_main_pid": 0,
+  "junit_tests_attribute": 3631,
+  "junit_testcase_elements": 3627,
+  "count_discrepancy": "Resolved: RoomControls.test_invalid_room_paths has four successful unittest subTest reports plus its parent call report. 3627 distinct tests / 3476 passed tests; JUnit statistics count four extra successful subtests (3631 / 3480). No missing cases.",
+  "artifacts": {
+    "result.json": "71da533870d6f5675bc61285877d1a6e4a1dd7df4e56f4b90b46eaec1b986adf",
+    "runner.json": "cc11d6ae4f8e240e3b8a433035282b495a44557b4d230cd11a851ff9b18e7552",
+    "source-hashes.json": "df005f47664f40c0a151f6895e245a0f36fa053d60e8eaa6d8e986528a931424",
+    "pytest.xml": "809dbbf61b851621764f486399a5a0e47a840b5d0709b8a25358b40d60a59123",
+    "pytest-reports.jsonl": "9d61c1b0292dad72682af88feaf5ee41e13d73fcae71da7e538a8d2b6027e528"
+  },
+  "queue_observation": {
+    "container": "web-modelos-ci-redis-20261016-211855-8887f71c",
+    "key": "clasificados:v1:clasificados",
+    "length_observed": 1911,
+    "sample_size": 1000,
+    "sample_tasks": {
+      "apps.listings.tasks.refresh_publication_state": 1000
+    },
+    "read_only": true
+  },
+  "acceptance": "CR09 remains open; no N3 or performance acceptance.",
+  "successful_call_reports_including_subtests": 3480
+}

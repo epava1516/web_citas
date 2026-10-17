@@ -166,6 +166,8 @@ def main():
         "--test", action="append", help="Explicit test file/node for focused profile"
     )
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
+    parser.add_argument("--isolate-test-broker", action="store_true",
+                        help="Use a fresh owned broker generation for each pytest case")
     parser.add_argument(
         "--benchmark-normal-refresh", action="store_true",
         help="Use actual worker/Beat with this run's owned Redis for an explicit focused HTTP gate",
@@ -443,8 +445,9 @@ def main():
                 "# validation requires; isolation comes from the per-worker generation prefix.\n"
                 "_WORKER = os.environ.get('PYTEST_XDIST_WORKER', '')\n"
                 f"MEDIA_ROOT = Path({str(work / 'media')!r}) / (_WORKER or 'main')\n"
-                "if _WORKER:\n"
-                "    TASK_QUEUE_GENERATION = 'ci' + _WORKER\n"
+                "_CASE_QUEUE = os.environ.get('LOCAL_CI_TEST_QUEUE_GENERATION', '')\n"
+                "if _WORKER or _CASE_QUEUE:\n"
+                "    TASK_QUEUE_GENERATION = _CASE_QUEUE or ('ci' + _WORKER)\n"
                 "    os.environ['TASK_QUEUE_GENERATION'] = TASK_QUEUE_GENERATION\n"
                 "    CELERY_BROKER_TRANSPORT_OPTIONS = {\n"
                 "        'global_keyprefix': f'clasificados:{TASK_QUEUE_GENERATION}:'\n"
@@ -497,6 +500,9 @@ def main():
                     "junit_family=xunit1",
                     *(["-n", str(args.workers), "--dist", "loadfile"] if args.workers > 1 else []),
                 ]
+                if args.isolate_test_broker:
+                    env["LOCAL_CI_ISOLATED_BROKER_RUN"] = run_id
+                    command.extend(["-p", "scripts.local_ci_broker"])
                 if args.profile == "smoke":
                     command.extend(SMOKE)
                 elif args.profile == "rights":

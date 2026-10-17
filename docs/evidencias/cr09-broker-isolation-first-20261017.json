@@ -1,0 +1,242 @@
+{
+  "run": "20261017-030003-d2d6e91a",
+  "result": {
+    "id": "20261017-030003-d2d6e91a",
+    "profile": "focused",
+    "result": "ERROR",
+    "steps": [
+      {
+        "name": "start-pg",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-pg-20261017-030003-d2d6e91a",
+          "--label",
+          "web-modelos-local-ci-run=20261017-030003-d2d6e91a",
+          "-p",
+          "127.0.0.1::5432",
+          "--tmpfs",
+          "/var/lib/postgresql/data",
+          "-e",
+          "POSTGRES_USER=ci",
+          "-e",
+          "POSTGRES_PASSWORD=ci-synthetic",
+          "-e",
+          "POSTGRES_DB=promotion_gate_ci",
+          "postgres:17-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5205424479208887
+      },
+      {
+        "name": "start-redis",
+        "command": [
+          "docker",
+          "run",
+          "--pull=never",
+          "-d",
+          "--name",
+          "web-modelos-ci-redis-20261017-030003-d2d6e91a",
+          "--label",
+          "web-modelos-local-ci-run=20261017-030003-d2d6e91a",
+          "-p",
+          "127.0.0.1::6379",
+          "redis:7.4-alpine"
+        ],
+        "exit": 0,
+        "seconds": 0.5685880272649229
+      },
+      {
+        "name": "dependencies",
+        "command": [
+          "uv",
+          "sync",
+          "--locked",
+          "--offline"
+        ],
+        "exit": 0,
+        "seconds": 0.03443431295454502
+      },
+      {
+        "name": "ruff",
+        "command": [
+          "uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.11596900224685669
+      },
+      {
+        "name": "documentation",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/check_docs.py"
+        ],
+        "exit": 0,
+        "seconds": 1.2261927211657166
+      },
+      {
+        "name": "django",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "check"
+        ],
+        "exit": 0,
+        "seconds": 1.5715861730277538
+      },
+      {
+        "name": "migrations",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run"
+        ],
+        "exit": 0,
+        "seconds": 1.7292576148174703
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "uv",
+          "run",
+          "python",
+          "scripts/prepare_native_test_tools.py",
+          "--source",
+          "/tmp/web-modelos-local-ci-o4cazz3u/native-source",
+          "--output",
+          "/tmp/web-modelos-local-ci-o4cazz3u/native-tools",
+          "--env-file",
+          "/tmp/web-modelos-local-ci-o4cazz3u/native.env"
+        ],
+        "exit": 0,
+        "seconds": 9.431697566993535
+      },
+      {
+        "name": "pytest",
+        "command": [
+          "uv",
+          "run",
+          "pytest",
+          "-p",
+          "scripts.local_ci_reports",
+          "--local-ci-report-journal=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-030003-d2d6e91a/pytest-reports.jsonl",
+          "-p",
+          "scripts.catalogue_gate_timings",
+          "--gate-timings-output=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-030003-d2d6e91a/test-timings.json",
+          "-q",
+          "--tb=short",
+          "--basetemp=/tmp/web-modelos-local-ci-o4cazz3u/pytest",
+          "--junitxml=/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/local-ci/20261017-030003-d2d6e91a/pytest.xml",
+          "-o",
+          "junit_family=xunit1",
+          "-p",
+          "scripts.local_ci_broker",
+          "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+          "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-False]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-True]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-False]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-True]",
+          "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[False]",
+          "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[True]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[False]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[True]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[False]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[True]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+          "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]",
+          "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[False]",
+          "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[True]",
+          "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-es]",
+          "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-en]",
+          "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-es]",
+          "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-en]",
+          "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[False]",
+          "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[True]"
+        ],
+        "exit": 1,
+        "seconds": 1031.5310793309473
+      }
+    ],
+    "head": "cd206c0b6fc509fa52e8a00be5b353f39dcb8f09",
+    "excluded": [],
+    "selection": [
+      "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+      "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-False]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-True]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-False]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-True]",
+      "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[False]",
+      "tests/test_rights_access_coverage_store.py::test_observed_owned_producer_census_keeps_reviewed_access_partial[True]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[False]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[True]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[False]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[True]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+      "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]",
+      "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[False]",
+      "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[True]",
+      "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-es]",
+      "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-en]",
+      "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-es]",
+      "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-en]",
+      "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[False]",
+      "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[True]"
+    ],
+    "workers": 1,
+    "fixture_snapshots": true,
+    "benchmark_observe_workers": false,
+    "benchmark_ingress_only": false,
+    "benchmark_prepare_static": false,
+    "benchmark_sql_shapes": false,
+    "benchmark_pg_statements": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "error": "pytest failed; inspect its log",
+    "cleanup": {
+      "web-modelos-ci-pg-20261017-030003-d2d6e91a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261017-030003-d2d6e91a": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "2",
+        "skipped": "0",
+        "tests": "22",
+        "time": "1027.906",
+        "timestamp": "2026-10-17T05:00:22.245047+02:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "independent_source_and_cleanup_checks": true,
+  "outcome": "20PASS/2FAIL; two portability jobs fail because message absent from configured queue; not accepted isolation fix."
+}
