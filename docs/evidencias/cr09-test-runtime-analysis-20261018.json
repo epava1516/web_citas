@@ -1,0 +1,114 @@
+{
+  "baseline_run": "20261018-104857-f945ff5e",
+  "baseline_pytest_seconds": 19999.940458419267,
+  "summed_case_phase_seconds": 19982.62251960952,
+  "capacity_case_phase_seconds": 3034.6669301576912,
+  "functional_case_phase_seconds": 16947.955589451827,
+  "capacity_share_percent": 15.186529832006213,
+  "phase_seconds": {
+    "setup": 335.86746190628037,
+    "call": 17279.435315566137,
+    "teardown": 2367.3197421371005
+  },
+  "slowest_files": [
+    [
+      "tests/test_portability_large_closed_flow.py",
+      1635.3429276449606
+    ],
+    [
+      "tests/test_rights_access_coverage_store.py",
+      905.5310384505428
+    ],
+    [
+      "tests/test_rights_copy_scope.py",
+      429.3410319252871
+    ],
+    [
+      "tests/test_rights_access_field_decision.py",
+      332.39644494466484
+    ],
+    [
+      "tests/test_capacity_paths_http.py",
+      331.55211930023506
+    ],
+    [
+      "tests/test_capacity_chain_inline_http.py",
+      330.21329093910754
+    ],
+    [
+      "tests/test_capacity_revision_http.py",
+      326.10171624971554
+    ],
+    [
+      "tests/test_rights_portability_covered_export_races.py",
+      274.18947891611606
+    ],
+    [
+      "tests/test_portability_large_closed_json_transport.py",
+      273.5612354166806
+    ],
+    [
+      "tests/test_capacity_stability_http.py",
+      268.09436433622614
+    ],
+    [
+      "tests/test_rectification_review.py",
+      265.14200864499435
+    ],
+    [
+      "tests/test_capacity_full_wait_http.py",
+      237.6585389249958
+    ],
+    [
+      "tests/test_capacity_chain_growth.py",
+      235.1204914827831
+    ],
+    [
+      "tests/test_capacity_scalar_consumers_http.py",
+      234.60329628782347
+    ],
+    [
+      "tests/test_capacity_wait_http.py",
+      233.5495155788958
+    ],
+    [
+      "tests/test_rights_portability_selection_mobile.py",
+      231.41595186153427
+    ],
+    [
+      "tests/test_capacity_source_construction_profile.py",
+      229.20819190191105
+    ],
+    [
+      "tests/test_rights_access_response_mobile.py",
+      219.38793793320656
+    ],
+    [
+      "tests/test_publication_state.py",
+      217.0670808837749
+    ],
+    [
+      "tests/test_capacity_chain_explain.py",
+      216.71887376904488
+    ]
+  ],
+  "interpretation": "Historical attribution only. Split lanes do not reduce full acceptance work. Functional subset excludes capacity only; other diagnostic prototypes remain. No measured new wall-time or parallel speedup claimed.",
+  "collection_parity": {
+    "all": 3631,
+    "functional": 3333,
+    "capacity": 298,
+    "disjoint_exact_union": true
+  },
+  "parallel_control": {
+    "run": "20261018-165701-2e40c69e",
+    "workers": 2,
+    "passed": 42,
+    "errors": 0,
+    "skipped": 0,
+    "memory_peak_bytes": 473772032,
+    "oom_events": 0,
+    "source_hashes_unchanged": true,
+    "cleanup_verified": true,
+    "scope": "Two modules only; not proof of whole functional lane memory or acceleration"
+  }
+}

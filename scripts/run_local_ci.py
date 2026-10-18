@@ -21,6 +21,15 @@ LONG_CASES = [
     "tests/test_rights_portability_large_history.py",
     "tests/test_publication_state_tcp.py",
 ]
+
+def regression_lane_files(lane):
+    """Disjoint file lanes; their union retains the ordinary regression scope."""
+    files = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "tests").rglob("test_*.py"))
+    if lane == "all":
+        return files
+    return [name for name in files if name.startswith("tests/test_capacity_") == (lane == "capacity")]
+
+
 SMOKE = [
     "tests/test_broker_envelope_schema.py",
     "tests/test_publication_state.py",
@@ -165,6 +174,8 @@ def main():
     parser.add_argument(
         "--test", action="append", help="Explicit test file/node for focused profile"
     )
+    parser.add_argument("--regression-lane", choices=["all", "functional", "capacity"], default="all",
+                        help="Optional disjoint regression lanes; both lanes required for complete regression")
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
     parser.add_argument("--isolate-test-broker", action="store_true",
                         help="Use a fresh owned broker generation for each pytest case")
@@ -249,6 +260,10 @@ def main():
         parser.error("--timeout must be positive")
     if not 1 <= args.workers <= 15:
         parser.error("--workers must be between 1 and 15 (one Redis database each)")
+    if args.regression_lane != "all" and args.profile != "regression":
+        parser.error("--regression-lane requires --profile regression")
+    if args.regression_lane == "capacity" and args.workers != 1:
+        parser.error("Capacity lane requires --workers 1 for isolated observations")
     for program in ["docker", "uv", "git"]:
         if not shutil.which(program):
             parser.error(f"Missing prerequisite: {program}")
@@ -263,6 +278,10 @@ def main():
         "head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "excluded": LONG_CASES if args.profile == "regression" else [],
         "selection": {"smoke": SMOKE, "rights": RIGHTS, "focused": args.test}.get(args.profile, []),
+        "regression_lane": args.regression_lane,
+        "lane_excluded_files": (sorted(set(regression_lane_files("all"))
+                                      - set(regression_lane_files(args.regression_lane)))
+                                if args.profile == "regression" else []),
         "workers": args.workers,
         "fixture_snapshots": args.fixture_snapshots,
         "benchmark_observe_workers": args.benchmark_observe_workers,
@@ -510,6 +529,10 @@ def main():
                 elif args.profile == "focused":
                     command.extend(args.test)
                 elif args.profile == "regression":
+                    if args.regression_lane != "all":
+                        selected = set(regression_lane_files(args.regression_lane))
+                        command.extend("--ignore=" + name for name in regression_lane_files("all")
+                                       if name not in selected)
                     for case in LONG_CASES:
                         command.extend(
                             ["--ignore=" + case] if "::" not in case else ["--deselect=" + case]
