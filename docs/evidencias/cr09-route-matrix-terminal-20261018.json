@@ -1,0 +1,217 @@
+{
+  "run": "20261018-214959-ddb9050d",
+  "head": "ab60547b62547b24ceb626cd5ecd072a9c0f1226",
+  "result": "PASS",
+  "pytest_wall_seconds": 379.26989777293056,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "373.037",
+      "timestamp": "2026-10-18T23:50:18.258849+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "rows": {
+    "rows": [
+      {
+        "mode": "normal",
+        "path": "/es/",
+        "params": {},
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "projection"
+        },
+        "count": 10000,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.2151484997011721,
+          0.227969650644809
+        ],
+        "control_mean_seconds": 0.22155907517299056,
+        "native_seconds": 13.204408001154661
+      },
+      {
+        "mode": "normal",
+        "path": "/en/",
+        "params": {
+          "q": "photography"
+        },
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "projection"
+        },
+        "count": 10000,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.2603133427910507,
+          0.2378579480573535
+        ],
+        "control_mean_seconds": 0.24908564542420208,
+        "native_seconds": 15.308049043640494
+      },
+      {
+        "mode": "normal",
+        "path": "/es/",
+        "params": {
+          "checked": [
+            "age"
+          ]
+        },
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "native_query"
+        },
+        "count": null,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.09526707138866186,
+          0.12033863691613078
+        ],
+        "control_mean_seconds": 0.10780285415239632,
+        "native_seconds": 37.53276521619409
+      },
+      {
+        "mode": "normal",
+        "path": "/es/",
+        "params": {
+          "checked": [
+            "contact",
+            "agency"
+          ]
+        },
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "native_query"
+        },
+        "count": null,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.07258178293704987,
+          0.08563031209632754
+        ],
+        "control_mean_seconds": 0.0791060475166887,
+        "native_seconds": 36.16663104481995
+      },
+      {
+        "mode": "normal",
+        "path": "/es/",
+        "params": {
+          "page": "3"
+        },
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "projection"
+        },
+        "count": 10000,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.13476001797243953,
+          0.16467818804085255
+        ],
+        "control_mean_seconds": 0.14971910300664604,
+        "native_seconds": 13.439017145894468
+      },
+      {
+        "mode": "production",
+        "path": "/es/",
+        "params": {},
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "projection"
+        },
+        "count": null,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.13516767043620348,
+          0.12097230227664113
+        ],
+        "control_mean_seconds": 0.1280699863564223,
+        "native_seconds": 27.297741560731083
+      },
+      {
+        "mode": "production",
+        "path": "/en/",
+        "params": {
+          "q": "photography",
+          "checked": [
+            "age"
+          ]
+        },
+        "status": 200,
+        "route": {
+          "route": "state",
+          "reason": "trusted_state",
+          "native_unknown": 0,
+          "population": "native_query"
+        },
+        "count": null,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          0.08401308907195926,
+          0.09265166986733675
+        ],
+        "control_mean_seconds": 0.088332379469648,
+        "native_seconds": 29.12518014665693
+      },
+      {
+        "mode": "promotions",
+        "path": "/es/",
+        "params": {},
+        "status": 200,
+        "route": {
+          "route": "fallback",
+          "reason": "synthetic_promotions"
+        },
+        "count": 10000,
+        "equivalent_to_native": true,
+        "controls_seconds": [
+          15.540086387656629
+        ],
+        "control_mean_seconds": 15.540086387656629,
+        "native_seconds": 14.873546882066876
+      }
+    ],
+    "scope": "Client in-process, PostgreSQL synthetic 10.000 repeated; 2 controls (1 for promotions) after warmup; not TCP/WSGI/capacity; native comparison forces the native path in the same process. PRODUCTION rejects the synthetic simulator verification, so its population is not publishable."
+  },
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "label_inventory_empty": true,
+    "temporary_absent": true,
+    "runner_and_child_absent": true
+  },
+  "documentation_freeze_count": 2848,
+  "documentation_freeze_changes": [],
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "artifact_hashes": {
+    "artifacts/local-ci/20261018-214959-ddb9050d/result.json": "de26a39a1a4b687978b50535ccbfabac52d29ff6dd700b40d3e17228630b804e",
+    "artifacts/local-ci/20261018-214959-ddb9050d/pytest.xml": "1cc087137ceda82c034f990efe75b57f0e211f031a24977485d00f4bc91bcb23",
+    "artifacts/vps-preparation/cr09-route-coverage-20261018/route-coverage.json": "b476f7dbed930f573731655c4468d171da201beb328561ea78f19d61a81daae4"
+  },
+  "limits": "Functional equivalence only. In-process control timings are not HTTP p95 or capacity. Synthetic PRODUCTION population is not publishable; promotions fallback retained. Original CLI preparation failure preserved; no tests executed in rejected launch."
+}
