@@ -1,0 +1,91 @@
+{
+  "recorded_at_utc": "2026-10-18T20:46:23.251466+00:00",
+  "previous_goal_turn_classification": "progress: terminal functional battery provides new validated evidence; capacity partition remains unexecuted on this test-head",
+  "run_id": "20261018-173221-2870ec78",
+  "head": "8efcf9f1af5d7dcbdb75b18a925d4caf42a3945b",
+  "result": "PASS",
+  "scope": "Functional partition only; capacity partition and existing contractual exclusions are not accepted here.",
+  "counts": {
+    "node_cases": 3336,
+    "passed": 3214,
+    "skipped": 122,
+    "failed": 0,
+    "errors": 0,
+    "junit_tests_including_subtests": 3340,
+    "subtests_passed": 4
+  },
+  "pytest_wall_seconds": 10156.86456286814,
+  "workers": 2,
+  "fixture_snapshots": true,
+  "limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-functional-parallel-20261018.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "3624529920"
+  },
+  "peak_memory_gib": 3.3756065368652344,
+  "peak_share_percent": 96.44590105329242,
+  "oom_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "reported_source_freeze": true,
+  "current_post_terminal_hash_differences": [
+    "AGENTS.md"
+  ],
+  "technical_sources_unchanged_since_run": true,
+  "cleanup_independent": {
+    "web-modelos-ci-pg-20261018-173221-2870ec78": {
+      "absent_independently_checked": true
+    },
+    "web-modelos-ci-redis-20261018-173221-2870ec78": {
+      "absent_independently_checked": true
+    }
+  },
+  "temporary_absent": true,
+  "runner_and_child_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI regression"
+  },
+  "selection_reconciliation": {
+    "baseline_full_run": "20261018-104857-f945ff5e",
+    "baseline_full_nodes": 3631,
+    "baseline_functional_nodes": 3333,
+    "current_functional_nodes": 3336,
+    "capacity_nodes": 298,
+    "removed_functional_nodes": [],
+    "added_functional_nodes": [
+      "tests/test_test_notifications.py::test_failed_delivery_keeps_test_result_and_redacts_provider_diagnostics",
+      "tests/test_test_notifications.py::test_notification_uses_openclaw_without_exposing_credentials",
+      "tests/test_test_notifications.py::test_worker_and_runner_do_not_duplicate_pytest_notification"
+    ]
+  },
+  "comparison": {
+    "baseline_full_counts": {
+      "node_cases": 3631,
+      "passed": 3501,
+      "skipped": 130,
+      "failed": 0,
+      "errors": 0,
+      "junit_tests_including_subtests": 3635,
+      "subtests_passed": 4
+    },
+    "baseline_full_wall_seconds": 19999.940458419267,
+    "limitation": "Different scopes: full serial versus functional parallel. Not a causal parallel speedup or application request-latency measurement."
+  },
+  "remaining": [
+    "capacity partition serial on same technical inputs",
+    "reconcile all skips and retained contractual exclusions",
+    "valid unprofiled long HTTP measurement and reproducibility when permitted by diagnostic procedure",
+    "CR09 requirement-by-requirement closure, then CR10/GS01/BF/BB/C"
+  ],
+  "graph_receipt": "artifacts/graphify-capacity-serial-20261018/receipt.json",
+  "graph_scope": "Partial deterministic AST on ten Python files, not full semantic documentation refresh."
+}
