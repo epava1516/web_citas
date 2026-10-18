@@ -1,0 +1,182 @@
+{
+  "run": "20261018-223323-a8004006",
+  "head": "a3ccecfdd088ac18ce54952354c5ca294ad960e7",
+  "result": "PASS",
+  "summary": {
+    "verdict": "PASS",
+    "invalid_reasons": [],
+    "counts": {
+      "scheduled": 18000,
+      "emitted": 18000,
+      "not_emitted": 0,
+      "successful": 18000,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "observable_latency_seconds": {
+      "p50": 0.1907603363506496,
+      "p90": 0.2900144732557237,
+      "p95": 0.3324673040769994,
+      "p99": 0.5476815830916166,
+      "max": 1.0222309627570212,
+      "population": 18000
+    },
+    "generator_delay_seconds": {
+      "p50": 0.0008117067627608776,
+      "p90": 0.0012879260815452653,
+      "p95": 0.001834540814115826,
+      "p99": 0.0028813097626425588,
+      "max": 0.02858784394339864,
+      "population": 18000
+    },
+    "window_close": {
+      "dynamic": {
+        "scheduled": 18000,
+        "emitted": 18000,
+        "not_emitted": 0,
+        "successful": 17997,
+        "failed": 0,
+        "pending": 3,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "uploads": {
+        "scheduled": 15,
+        "emitted": 15,
+        "not_emitted": 0,
+        "successful": 15,
+        "failed": 0,
+        "pending": 0,
+        "timeouts": 0,
+        "other_errors": 0,
+        "reconciled": true
+      },
+      "observed_at_seconds": 900.0227851239033
+    },
+    "final_upload_counts": {
+      "scheduled": 15,
+      "emitted": 15,
+      "not_emitted": 0,
+      "successful": 15,
+      "failed": 0,
+      "pending": 0,
+      "timeouts": 0,
+      "other_errors": 0,
+      "reconciled": true
+    },
+    "actual_elapsed_seconds": 905.6503563188016,
+    "resources": {
+      "canonical_kernel": {
+        "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+        "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+        "cache_tag": "cpython-312",
+        "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+        "cython": "3.0.12",
+        "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+        "flags": [
+          "-O3",
+          "-fPIC",
+          "-shared"
+        ],
+        "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+        "machine": "x86_64",
+        "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+        "mode": "native-sealed",
+        "module": "apps.safety._canonical_kernel",
+        "python": "3.12.15",
+        "schema": 1,
+        "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+      },
+      "os": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+      "cpu_count": 8,
+      "cpu_affinity_count": 4,
+      "postgres_version": "17.11",
+      "gunicorn_version": "23.0.0",
+      "django_version": "5.2.17",
+      "python_version": "3.12.15",
+      "pg_server_shared": true,
+      "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+      "memory_total": "MemTotal:       23760928 kB"
+    },
+    "server_topology": {
+      "worker_class": "sync",
+      "workers": 4,
+      "threads": 1
+    },
+    "refresh_mode": "normal_worker_beat"
+  },
+  "per_route": [
+    {
+      "path": "/en/",
+      "requests": 3000,
+      "p95_seconds": 0.3240680522285402
+    },
+    {
+      "path": "/en/?q=synthetic",
+      "requests": 3000,
+      "p95_seconds": 0.3897514049895108
+    },
+    {
+      "path": "/en/listing/1f2cb95b-6451-4f5b-ac91-c956670bb581/",
+      "requests": 3000,
+      "p95_seconds": 0.20532740373164415
+    },
+    {
+      "path": "/es/",
+      "requests": 3000,
+      "p95_seconds": 0.34632799215614796
+    },
+    {
+      "path": "/es/?q=photography",
+      "requests": 3000,
+      "p95_seconds": 0.3712290278635919
+    },
+    {
+      "path": "/es/listing/4690d1a4-44e0-4f6a-bebf-f5926bb091f2/",
+      "requests": 3000,
+      "p95_seconds": 0.21536551881581545
+    }
+  ],
+  "source_differences_from_first_contractual": [
+    ".ai/tasks/desarrollo.md"
+  ],
+  "technical_sources_identical": true,
+  "documentation_freeze_count": 2851,
+  "documentation_unchanged": true,
+  "sources_unchanged": true,
+  "independent_cleanup": {
+    "label_inventory_empty": true,
+    "temporary_absent": true,
+    "runner_child_celery_absent": true
+  },
+  "host_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-contractual-repro-20261018.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "988594176"
+  },
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "artifact_sha256": {
+    "artifacts/local-ci/20261018-223323-a8004006/result.json": "644e0e9ac990a869c54c08aac91643eb6832074ede6c47be6dcce3093bd9749f",
+    "artifacts/local-ci/20261018-223323-a8004006/pytest.xml": "90e31b6f88a8b51e8ccbba19e702f80e67ec8522829b76b129d797f2ea661860",
+    "artifacts/local-ci/20261018-223323-a8004006/benchmark-samples.json": "79bc1adc3a425d9047af493b333255ea3e810daf54ceeb7071aad9201b6b94bf",
+    "artifacts/local-ci/20261018-223323-a8004006/benchmark-manifest.json": "143facac391df5b72f2f34ba87efb7c1dc84f2c91a6170bf5908423b672788ef"
+  },
+  "acceptance_limits": "Two valid clean contractual trials under unchanged technical sources satisfy observed reproduction for this owned synthetic fixture and declared quotas. No causal speedup, production, CR09 global or N3 acceptance."
+}

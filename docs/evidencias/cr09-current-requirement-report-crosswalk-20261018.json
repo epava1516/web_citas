@@ -1,0 +1,1626 @@
+{
+  "runs": [
+    "20261018-173221-2870ec78",
+    "20261018-205138-387d4b6d"
+  ],
+  "rights_index": [
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_audited_coverage_preserves_open_request_and_rejects_stale_replay",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [
+        "invoke().pk == row.pk",
+        "reason not in row.encrypted_coverage",
+        "unseal(row.encrypted_coverage)['bound_references']",
+        "inspected.pk == row.pk and body['accounting']",
+        "record(verifier, case.pk, case.version, row.pk, audited_read.pk, decision_key, reason, 'approved').pk == approved.pk",
+        "path in other.get(inspection_path).content.decode()",
+        "path not in staff.get(inspection_path).content.decode()",
+        "other.get(path).status_code == 200",
+        "'Synthetic declaration awaiting' not in other.get(path).content.decode()",
+        "RightsAction.objects.count() == before",
+        "staff.get(path).status_code == 403",
+        "Client().get(path).status_code == 302",
+        "csrf.post(path, {}).status_code == 403",
+        "response.status_code == 200 and 'Synthetic declaration awaiting' in response.content.decode()",
+        "response.status_code == 200 and 'Synthetic declaration awaiting' not in response.content.decode()",
+        "used.pk == approved.pk and evidence_body['evidence_bodies']",
+        "consume(author, case.pk, case.version, case.response_version, approved.pk, use_key, reason)[0].pk == approved.pk",
+        "response_draft.coverage_review_id == approved.pk",
+        "response_page.status_code == 200",
+        "response_text not in response_page.content.decode()",
+        "(case.version, case.response_version, case.status) == original",
+        "RightsAccessCoverage.objects.count() == 1",
+        "purge_expired_access_coverage() == 1",
+        "purge_expired_access_coverage() == 0",
+        "row.purged_at and (not row.encrypted_coverage)",
+        "RightsAction.objects.filter(key=key, operation='access_coverage').exists()",
+        "RightsAction.objects.filter(key=use_key, operation='access_cover_use').exists()",
+        "validate_draft(response_draft, case, None if account_only else case.person)['text'] == response_text",
+        "not original_scope['blocked']",
+        "package_page.status_code == 200",
+        "package_page.context['package_preview'] == original_scope",
+        "'Original access package' in package_page.content.decode()",
+        "spanish_page.status_code == 200",
+        "'Paquete original de acceso' in spanish_page.content.decode()",
+        "spanish_page.context['package_preview'] == original_scope",
+        "RightsAccessResponseDraft.objects.count() == drafts_before",
+        "not RightsAction.objects.filter(key=preview_key, operation='access_draft').exists()",
+        "staff.post(response_path, preview_values).status_code == 200",
+        "other.post(response_path, preview_values).status_code == 403",
+        "page_reload.status_code == 200",
+        "page_reload.context['package_preview'] is None",
+        "RightsAction.objects.count() == action_count",
+        "package_body['access_package']['pending'] == expected_pending",
+        "redacted_row['data'][redacted_field] == original_value",
+        "inspected_package['access_package'] == package_body['access_package']",
+        "other.get(close_path).status_code == 403",
+        "staff.get(close_path).status_code == 200",
+        "RightsAction.objects.count() == action_count",
+        "staff.post(close_path, close_values).status_code == 200",
+        "staff.post(close_path, close_values | {'key': uuid4()}).status_code == 409",
+        "(case.version, case.response_version, case.status) == (original[0] + 1, original[1] + 1, 'resolved')",
+        "RightsAccessClosure.objects.count() == 1",
+        "(RightsResponse.objects.count(), RightsNotice.objects.count()) == (before[0] + 1, before[1] + 1)",
+        "downloaded.status_code == 200",
+        "downloaded.json() == recipient_payload(completed_body)",
+        "downloaded.json()['simulation'] is True",
+        "'review_material' not in downloaded.content.decode()",
+        "'origin_digest' not in downloaded.content.decode()",
+        "public.post(url(receipt, export), {'key': uuid4()}).json() == downloaded.json()",
+        "[item['id'] for item in case_export_forms(case)] == [export.pk]",
+        "public.post(url(receipt, export), {'key': uuid4()}).status_code == 404",
+        "public.post(url(receipt, export), {'key': uuid4()}).json() == downloaded.json()",
+        "'Synthetic declaration awaiting' not in page.locator('body').inner_text()",
+        "'Synthetic declaration awaiting' in page.locator('body').inner_text()",
+        "page.evaluate('document.documentElement.scrollWidth <= innerWidth')",
+        "'Synthetic declaration awaiting' not in page.locator('body').inner_text()",
+        "len(original_scope['groups']['operations.LogEvent']) == 1",
+        "not original_scope['log_origins']['unprojected_candidates']",
+        "original_scope['log_origins']['configured'] is False",
+        "len(original_scope['log_origins']['projected_mail']) == 1",
+        "any((row['data']['body'].endswith('[redacted]') for row in original_scope['groups']['operations.Mail']))",
+        "redacted_field not in delivered_row['data']",
+        "delivered_row['data'][redacted_field] == redacted_value",
+        "observation['coverage_complete'] is False",
+        "len(retained_files) == 1",
+        "retained_files[0]['subject_binding'] == 'not_established'",
+        "retained_archive.name in retained_files[0]['relative_path']",
+        "census_body['categories']['unlinked_records']['origins'][0]['records']",
+        "all((category['pending'] for category in census_body['categories'].values()))",
+        "completed_scope['resource_scope']['pending']",
+        "completed_scope['resource_scope']['groups']",
+        "completed_scope['resource_scope']['pending'] == []",
+        "'operations.RetainedResource' in completed_scope['groups']",
+        "'infrastructure_content_accounting' in completed_body['access_package']['pending']",
+        "completed_body['access_package']['partial'] is True",
+        "completed_body['access_package']['pending'] == []",
+        "completed_body['access_package']['partial'] is False",
+        "before == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())",
+        "(case.status, case.version, case.response_version) == case_before",
+        "response.status_code == 409",
+        "b'Complete reviewed access delivery' in response.content",
+        "'no-store' in response.headers['Cache-Control']",
+        "before == (RightsResponse.objects.count(), RightsNotice.objects.count(), RightsAccessClosure.objects.count())",
+        "RightsAction.objects.count() == actions_before",
+        "(case.status, case.version, case.response_version) == case_before",
+        "hashlib.sha256(retained_archive.read_bytes()).hexdigest() == retained_digest",
+        "all((status == 200 for status, _ in results))",
+        "any((row['expired_at_cutoff'] and row.get('language') == 'en' for row in session_copy))",
+        "retained_session.session_key not in downloaded.content.decode()",
+        "'synthetic-expired-capability-not-for-delivery' not in downloaded.content.decode()",
+        "'Single-use link' in downloaded.content.decode()",
+        "'/account/token/' not in downloaded.content.decode()",
+        "cli.returncode == 0",
+        "cli.stdout.strip() == str(expected_path)",
+        "duplicate.returncode == 2 and 'no accepted artifact' in duplicate.stderr",
+        "closing.status_code == 200",
+        "public.post(url(receipt, export), {'key': uuid4()}).status_code == 404",
+        "not public_page.evaluate('() => document.documentElement.scrollWidth > window.innerWidth')",
+        "json.loads(Path(downloaded_file.value.path()).read_text()) == recipient_payload(completed_body)"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+        "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+        "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+        "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-False]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[es-True]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-False]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_closes_and_downloads_a_reviewed_scoped_resource_fixture[en-True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_integrated_access_concurrent_closure_has_one_response_and_notice",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[False]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_concurrent_closure_has_one_response_and_notice[True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_integrated_access_includes_retained_expired_session_without_capabilities",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[False]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_retained_expired_session_without_capabilities[True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_integrated_access_includes_console_mail_without_authentication_link",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[False]",
+        "tests/test_rights_access_coverage_store.py::test_integrated_access_includes_console_mail_without_authentication_link[True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_coverage_store.py",
+      "function": "test_historical_log_selection_uses_audited_package_review_and_blocks_full_close",
+      "current_source_sha256": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[False]",
+        "tests/test_rights_access_coverage_store.py::test_historical_log_selection_uses_audited_package_review_and_blocks_full_close[True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_recipient_projection_keeps_copy_without_private_review_envelope",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "payload['copy'] == body['access_package']['copy']",
+        "payload['response'] == body['text']",
+        "'private-review-only' not in str(payload)",
+        "'private-decision-only' not in str(payload)",
+        "'private-source-only' not in str(payload)",
+        "body == original"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_recipient_projection_keeps_copy_without_private_review_envelope"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_recipient_projection_rejects_incomplete_or_unknown_copy",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[partial]",
+        "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[pending]",
+        "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[unknown_copy_member]",
+        "tests/test_rights_access_recipient_payload.py::test_recipient_projection_rejects_incomplete_or_unknown_copy[legacy]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_session_scope_reads_owned_records_without_exposing_authentication_material",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "connection.vendor == 'postgresql'",
+        "[row['fields'] for row in captured['blocked']] == [['expired_subject_data']]",
+        "len(captured['copy']) == len(captured['evidence']) == 2",
+        "active_copy['language'] == 'en'",
+        "sum((row['expired_at_cutoff'] for row in captured['copy'])) == 1",
+        "captured['copy'][0]['authenticated'] is True",
+        "own.session_key not in str(captured)",
+        "other.session_key not in str(captured)",
+        "'synthetic-authentication-material' not in str(captured)",
+        "'other-subject-only' not in str(captured)",
+        "'expired-only' not in str(captured)",
+        "{row['reference']: row['content'] for row in changed['evidence']} != previous",
+        "{tuple(row['fields']) for row in changed['blocked']} == {('unknown_personal_data',), ('expired_subject_data',)}",
+        "'requires-an-adapter' not in str(changed)",
+        "len(retained['copy']) == 1 and (not retained['copy'][0]['expired_at_cutoff'])",
+        "len(retained['blocked']) == 1",
+        "other.session_key not in str(retained)",
+        "session_records(101, cutoff)['blocked'] == [{'resource': 'sessions', 'reason': 'unsupported_session_store'}]"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_session_scope_reads_owned_records_without_exposing_authentication_material"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_broker_scope_reads_actual_owned_queued_and_reserved_messages_without_consuming",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "not read['blocked']",
+        "len(read['copy']) == 2",
+        "{row['state'] for row in read['copy']} == {'queued'}",
+        "own not in str(read) and other not in str(read)",
+        "client.lrange(key, 0, -1) == before",
+        "client.lrange(key + '\\x06\\x16' + '3', 0, -1) == priority_before",
+        "reserved.payload[0] == [own]",
+        "before_unacked",
+        "not second['blocked']",
+        "len(second['copy']) == 2",
+        "{row['state'] for row in second['copy']} == {'queued', 'reserved'}",
+        "client.hgetall(prefix + 'unacked') == before_unacked",
+        "len(second['evidence']) == 2",
+        "broker_records({own})['blocked'][0]['reason'] == 'unsupported_message'",
+        "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]",
+        "client.lpop(key) == oversized",
+        "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]",
+        "client.hget(unacked_key, 'oversized-fixture') == oversized",
+        "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_bytes'}]",
+        "(client.llen(key), client.llen(priority_key)) == length_before",
+        "broker_records({own})['blocked'] == [{'resource': 'queues', 'reason': 'bounded_read_limit'}]",
+        "client.lpop(key) == aggregate",
+        "client.lpop(priority_key) == aggregate"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_broker_scope_reads_actual_owned_queued_and_reserved_messages_without_consuming"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_log_origin_reader_keeps_candidates_private_and_rejects_stale_or_altered_files",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "len(read['origins']) == 6",
+        "len(read['candidates']) == 1",
+        "read['pending'] == body['pending']",
+        "'sensitive-original-log-only' not in str(read)",
+        "'later-event-only' not in str(read)",
+        "'other-subject-only' not in str(read)",
+        "own not in str(read)",
+        "len(typed['projected']) == 2",
+        "typed['projected'][0]['reference'] != typed['projected'][1]['reference']",
+        "len(typed['unprojected_candidates']) == 6",
+        "all((row['data']['operation'] == 'profile_updated' for row in typed['projected']))",
+        "'unadapted-private-only' not in str(typed)",
+        "'subject_id' not in str(typed['projected'][0]['data'])"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_log_origin_reader_keeps_candidates_private_and_rejects_stale_or_altered_files"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_group_projection_preserves_unmodified_data_and_original_review_material",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "records[0]['data'] == {'description': 'Own text; [redacted]', 'metadata': {'language': 'es'}}",
+        "len(exclusions) == 2",
+        "all(('third party' not in str(row.get('value', '')) for row in exclusions))",
+        "rows == original"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_preserves_unmodified_data_and_original_review_material"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_group_projection_rejects_changes_without_exact_origin",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[record]",
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[field]",
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[foreign_text]",
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[unchanged]",
+        "tests/test_rights_access_recipient_payload.py::test_group_projection_rejects_changes_without_exact_origin[numeric]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_mail_scope_accounts_for_owned_and_shared_messages_without_releasing_credentials",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "message.send() == 1",
+        "len(read['records']) == 2",
+        "read['records'][0]['attachment_count'] == 1",
+        "read['records'][1]['shared_recipients'] is True",
+        "read['pending'] == ['mail_body_headers_and_attachments_projection']",
+        "'private-credential' not in str(read)",
+        "'private-attachment-content' not in str(read)",
+        "'other-subject-content' not in str(read)",
+        "mail_records(own)['records'][0]['content'] != previous",
+        "len(captured_mime['records']) == 3",
+        "'private-mime-attachment' not in str(captured_mime)",
+        "mail_records(own)['records'][-1]['content'] != prior_mime",
+        "mail_records(own)['pending'] == ['mail_backend_content_accounting']"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_mail_scope_accounts_for_owned_and_shared_messages_without_releasing_credentials"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_account_mail_projection_checks_database_owner_and_never_releases_link",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "read['pending'] == []",
+        "read['projected'][0]['data']['body'] == prefix + '[redacted]'",
+        "read['projected'][0]['data']['purpose'] == 'reset'",
+        "raw not in str(read)",
+        "str(token.pk) not in str(read)",
+        "token.digest not in str(read)",
+        "mail_records(owner.email, owner=other.pk)['projected'] == []",
+        "mail_records(owner.email, owner=owner.pk)['projected'] == []",
+        "mail_records(owner.email, owner=owner.pk)['projected'] == []",
+        "rejected['projected'] == []",
+        "rejected['pending'] == ['mail_body_headers_and_attachments_projection']"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_account_mail_projection_checks_database_owner_and_never_releases_link"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_resource_census_binds_actual_required_records_and_rejects_scope_or_digest_changes",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "not read['pending']",
+        "len(read['groups']) == 1",
+        "read['groups'][0]['data']['content'] == row['content']",
+        "'synthetic-foreign-resource-private-content' not in str(read)",
+        "all(('subject_id' not in item['data'] for item in read['groups']))",
+        "len(read['origins']) == 5",
+        "retained_resource_records(case, None, inventory, body['dependencies'], required)['pending'] == ['logs:unaccounted_retained_records']"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_resource_census_binds_actual_required_records_and_rejects_scope_or_digest_changes"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_resource_copy_never_delivers_unreviewed_originals_or_closes_on_generic_assessment",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "package['partial'] is False",
+        "package['pending'] == []",
+        "'private-secret' not in str(package['copy'])",
+        "'origin_digest' not in str(package['copy'])",
+        "original['groups']['operations.RetainedResource'][0]['data']['content'] == 'Own event private-secret'",
+        "compile_package(inventory, export, original, decisions, cutoff=cutoff, projected={})['pending'] == ['infrastructure_content_accounting']"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_resource_copy_never_delivers_unreviewed_originals_or_closes_on_generic_assessment"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_private_resource_directory_retains_independent_origins_for_two_cases",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "all((not item['pending'] for item in reads))",
+        "reads[0]['digest'] != reads[1]['digest']",
+        "retained_resource_records(cases[0], None, inventories[0], artifacts[0][1]['dependencies'], {'logs': {}, 'mail': {}}) == reads[0]"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_private_resource_directory_retains_independent_origins_for_two_cases"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_rights_access_recipient_payload.py",
+      "function": "test_private_log_directory_writes_scoped_immutable_archives",
+      "current_source_sha256": "14bdda962ea88e6f76413cd8e75258e464357b021adead286b59f25a3d4e76ad",
+      "current_assertions": [
+        "paths[0] != paths[1]",
+        "len(read['candidates']) == 1",
+        "'private-scoped-log' not in str(read)"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_access_recipient_payload.py::test_private_log_directory_writes_scoped_immutable_archives"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_access_close_localization.py",
+      "function": "test_close_labels_invalid_partial_and_revocation",
+      "current_source_sha256": "ebc0a7d3e41c225d2b110c72ca313846a8ecb039bab0446965a7a5f571fd9e68",
+      "current_assertions": [
+        "denied.status_code == 403",
+        "denied.content.decode() == ('Forbidden' if language == 'en' else 'Acceso denegado')",
+        "(case.status, case.version, case.response_version, draft.encrypted_response, RightsAction.objects.filter(request=case).count()) == before",
+        "response.status == 200",
+        "TEXT not in page.content()",
+        "response.value.status == 400",
+        "response.value.status == 409",
+        "TEXT not in page.content()",
+        "db_sync(lambda: RightsResponse.objects.filter(request=case).count()) == 0",
+        "db_sync(lambda: RightsAccessClosure.objects.filter(action__request=case).count()) == 0",
+        "db_sync(lambda: RightsAction.objects.filter(request=case).count()) == before[-1]",
+        "response.status == 403",
+        "page.locator('body').inner_text() == ('Forbidden' if language == 'en' else 'Acceso denegado')",
+        "'no-store' in response.headers['cache-control']",
+        "response.status == 403",
+        "response.text() == ('Forbidden' if language == 'en' else 'Acceso denegado')"
+      ],
+      "passed_nodeids": [
+        "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[False-es]",
+        "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[False-en]",
+        "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[True-es]",
+        "tests/test_access_close_localization.py::test_close_labels_invalid_partial_and_revocation[True-en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "access",
+      "source": "tests/test_access_close_localization.py",
+      "function": "test_close_form_values_legacy",
+      "current_source_sha256": "ebc0a7d3e41c225d2b110c72ca313846a8ecb039bab0446965a7a5f571fd9e68",
+      "current_assertions": [
+        "form.is_valid()",
+        "form.cleaned_data == data",
+        "not CloseForm({**data, 'reason': 'short'}, language=language).is_valid()",
+        "CloseForm().fields['reason'].label == CloseForm.base_fields['reason'].label"
+      ],
+      "passed_nodeids": [
+        "tests/test_access_close_localization.py::test_close_form_values_legacy[es]",
+        "tests/test_access_close_localization.py::test_close_form_values_legacy[en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close.py",
+      "function": "test_final_response_closes_only_exact_approval_and_replays_without_effects",
+      "current_source_sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+      "current_assertions": [
+        "staff.get(path).status_code == 200 and TEXT not in staff.get(path).content.decode()",
+        "RightsAction.objects.count() == before",
+        "path in staff.get(reverse('rights_portability_response_prepare', args=[case.pk])).content.decode()",
+        "result.status_code == 200 and 'no-store' in result['Cache-Control']",
+        "TEXT not in result.content.decode()",
+        "staff.post(path, data).status_code == 200",
+        "Client().get(path).status_code == 302",
+        "csrf.post(path, data).status_code == 403",
+        "unseal(response.encrypted_response) == {'text': TEXT, 'simulation': True}",
+        "close(author, case.pk, original[0], original[1], decision.pk, key, REASON).pk == response.pk",
+        "RightsResponse.objects.count() == RightsNotice.objects.count() == RightsPortabilityClosure.objects.count() == 1",
+        "case.status == 'resolved' and case.scope_status == 'unverified'",
+        "(case.version, case.response_version, case.initial_due_at) == (original[0] + 1, original[1] + 1, original[2])",
+        "client.post(url(receipt, export), {'key': uuid4()}).status_code == 200",
+        "client.post(url(receipt, export), {'key': uuid4()}).json() == payload",
+        "[item['id'] for item in case_export_forms(case)] == [export.pk]",
+        "TEXT in client.get(receipt).content.decode()",
+        "inventory_before['count'] == 1",
+        "closure_inventory()['state_digest'] != inventory_before['state_digest']",
+        "client.post(url(receipt, export), {'key': uuid4()}).status_code == 404",
+        "RightsExportDownload.objects.count() == downloads",
+        "closure_inventory() == inventory_before",
+        "client.post(url(receipt, export), {'key': uuid4()}).status_code == 200",
+        "RightsResponse.objects.count() == RightsNotice.objects.count() == RightsPortabilityClosure.objects.count() == 0",
+        "case.status == 'reviewing' and (case.version, case.response_version, case.initial_due_at) == original",
+        "TEXT not in str(manifest)",
+        "draft.encrypted_response not in str(manifest)"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-False]",
+        "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[approved-True]",
+        "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-False]",
+        "tests/test_rights_portability_close.py::test_final_response_closes_only_exact_approval_and_replays_without_effects[rejected-True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close.py",
+      "function": "test_final_response_does_not_change_historical_fifty_response_read_boundary",
+      "current_source_sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+      "current_assertions": [
+        "response.response_version == 51",
+        "close(author, case.pk, version, 50, decision.pk, key, REASON).pk == response.pk",
+        "case.status == 'resolved' and case.response_version == 51"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_portability_close.py::test_final_response_does_not_change_historical_fifty_response_read_boundary"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close.py",
+      "function": "test_closed_portability_delivers_exact_image_and_package_and_rolls_back_tampering",
+      "current_source_sha256": "a78603b3ae2937adda1826284582987b1f4ca546947b737d89e83ccd4f264292",
+      "current_assertions": [
+        "payload.status_code == 200",
+        "response.status_code == 200 and 'no-store' in response['Cache-Control']",
+        "hashlib.sha256(response.content).hexdigest() == payload.json()['images'][0]['sha256']",
+        "package.status_code == 200",
+        "client.post(image_path, {'key': uuid4()}).content == response.content",
+        "client.post(part_path, {'key': uuid4()}).content == package.content",
+        "archive.namelist() == [str(image.pk) + '.webp']",
+        "archive.read(archive.namelist()[0]) == response.content",
+        "RightsExportDownload.objects.count() == before",
+        "client.post(path, {'key': uuid4()}).status_code == 404"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_portability_close.py::test_closed_portability_delivers_exact_image_and_package_and_rolls_back_tampering"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_rights_portability_close_races.py",
+      "function": "test_closure_revalidates_after_observed_lock_wait",
+      "current_source_sha256": "4381472cd63a3da1c47bafa1aca2d39217a0f7e44e18ed4dc0dbbdc95eee38cb",
+      "current_assertions": [
+        "results[0] is not None and results[0] == results[1]",
+        "counts == [1, 1, 1]",
+        "RightsAction.objects.filter(request=case).count() == baseline + 1",
+        "(case.version, case.response_version, case.status, case.initial_due_at) == (original[0] + 1, original[1] + 1, 'resolved', original[3])",
+        "results == [None, None]",
+        "counts == [0, 0, 0]",
+        "RightsAction.objects.filter(request=case).count() == baseline",
+        "(case.version, case.response_version, case.status, case.initial_due_at) == original",
+        "len(set(workers + [holder])) == 3"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[replay]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_permission]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_session]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[author_mfa]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_permission]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_session]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[reviewer_mfa]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[proof]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[source]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[ciphertext]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[expiry]",
+        "tests/test_rights_portability_close_races.py::test_closure_revalidates_after_observed_lock_wait[decision]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_portability_close_localization.py",
+      "function": "test_native_approved_close_caption_errors_permission_replay",
+      "current_source_sha256": "ebde505dd8200b8459f0698bce405ad4350dcc286bc2876fe31f65ff5beab85c",
+      "current_assertions": [
+        "unseal(response.encrypted_response) == {'text': TEXT, 'simulation': True}",
+        "closure.review.draft_id == draft.pk and closure.response_id == response.pk",
+        "case.status == 'resolved' and case.scope_status == 'unverified'",
+        "(case.version, case.response_version, case.initial_due_at) == (original[0] + 1, original[1] + 1, original[2])",
+        "page.goto(url).status == 200",
+        "TEXT not in page.locator('body').inner_text()",
+        "invalid.value.status == 400",
+        "TEXT not in page.content() and db_sync(counts) == [0, 0, 0]",
+        "response.status == 403 and page.locator('body').inner_text() == ('Forbidden' if language == 'en' else 'Acceso denegado')",
+        "'no-store' in response.headers['cache-control']",
+        "response.status == 403 and response.text() == ('Forbidden' if language == 'en' else 'Acceso denegado')",
+        "db_sync(counts) == [0, 0, 0]",
+        "page.goto(url).status == 200",
+        "issued.value.status == 200",
+        "TEXT not in page.content() and db_sync(counts) == [1, 1, 1]",
+        "response.status == 200 and TEXT not in response.text()",
+        "db_sync(counts) == [1, 1, 1]",
+        "TEXT not in page.content() and page.locator('form').count() == 0"
+      ],
+      "passed_nodeids": [
+        "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[False-es]",
+        "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[False-en]",
+        "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[True-es]",
+        "tests/test_portability_close_localization.py::test_native_approved_close_caption_errors_permission_replay[True-en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "portability",
+      "source": "tests/test_portability_close_localization.py",
+      "function": "test_close_schema_literal_default",
+      "current_source_sha256": "ebde505dd8200b8459f0698bce405ad4350dcc286bc2876fe31f65ff5beab85c",
+      "current_assertions": [
+        "form.is_valid() and form.cleaned_data['reason'] == raw",
+        "form.fields['reason'].max_length == 200 and form.fields['reason'].min_length == 20",
+        "form.fields['version'].min_value == 1 and form.fields['response_version'].min_value == 0",
+        "CloseForm().fields[name].label == field.label"
+      ],
+      "passed_nodeids": [
+        "tests/test_portability_close_localization.py::test_close_schema_literal_default[es]",
+        "tests/test_portability_close_localization.py::test_close_schema_literal_default[en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "rectification",
+      "source": "tests/test_rectification_final_localization.py",
+      "function": "test_rectification_recipient_review_and_close_requirements",
+      "current_source_sha256": "21ec9ba601161e21dba737b11c1ac7ebd65b317a1fa6b3bb4c44a5822b68a471",
+      "current_assertions": [
+        "field.clean('1') == 1",
+        "not form.is_valid()",
+        "form.errors == {'review': ['Required for this action' if language == 'en' else 'Obligatorio para esta acci\u00f3n']}",
+        "form.is_valid() and form.cleaned_data['operation'] == 'close'",
+        "not form.fields['confirmed'].required",
+        "form.fields['text'].min_length == 50 and form.fields['text'].max_length == 4000"
+      ],
+      "passed_nodeids": [
+        "tests/test_rectification_final_localization.py::test_rectification_recipient_review_and_close_requirements[es]",
+        "tests/test_rectification_final_localization.py::test_rectification_recipient_review_and_close_requirements[en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "rectification",
+      "source": "tests/test_rectification_final_denial_localization.py",
+      "function": "test_rectification_final_denial_private_and_effect_free",
+      "current_source_sha256": "1a30679c64592648fc6cdc9fd9b1101ae86a7296c6a12f8cb276fcf76d4f6d06",
+      "current_assertions": [
+        "connection.vendor == 'postgresql'",
+        "token is not None",
+        "(case.version, case.response_version, case.status, case.initial_due_at, RightsAction.objects.count(), RightsResponse.objects.count()) == before",
+        "response.status == 403 and page.locator('body').inner_text() == expected",
+        "posted.status == 403 and posted.text() == expected",
+        "item.headers['cache-control'] == 'private, no-store'",
+        "item.headers['x-robots-tag'] == 'noindex, nofollow'"
+      ],
+      "passed_nodeids": [
+        "tests/test_rectification_final_denial_localization.py::test_rectification_final_denial_private_and_effect_free[es]",
+        "tests/test_rectification_final_denial_localization.py::test_rectification_final_denial_private_and_effect_free[en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "erasure",
+      "source": "tests/test_account_erasure_execution.py",
+      "function": "test_account_scoped_execution_preserves_evidence_and_procedural_channel",
+      "current_source_sha256": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+      "current_assertions": [
+        "staff.get(path).status_code == 200",
+        "'publication' not in {value for value, _ in staff.get(path).context['form'].fields['purposes'].choices}",
+        "Client(enforce_csrf_checks=True).post(path, data).status_code == 403",
+        "response.status_code == 200",
+        "staff.post(path, data).status_code == 200",
+        "execution.person_id is None and execution.account_subject_id == subject.pk",
+        "result['schema'] == 'account-erasure-execution-v1' and result['partial']",
+        "result['tokens_deleted'] == result['recovery_codes_deleted'] == result['favorites_deleted'] == result['copies_cleared'] == 1",
+        "not AccountToken.objects.filter(user=subject).exists()",
+        "not RecoveryCode.objects.filter(user=subject).exists()",
+        "not Favorite.objects.filter(user=subject).exists()",
+        "copy.encrypted_payload == '' and copy.purged_at",
+        "LegalAcceptance.objects.filter(pk=acceptance.pk).exists()",
+        "list(Person.objects.order_by('pk').values()) == profiles",
+        "list(Agency.objects.order_by('pk').values()) == agencies",
+        "(subject.session_version, subject.mfa_version) == (before[2] + 1, before[3] + 1)",
+        "case.version == data['version'] + 1 and case.status == 'reviewing' and (case.scope_status == 'unverified')",
+        "staff.post(f'/en/moderation/rights/{case.pk}/response/', values(case)).status_code == 302",
+        "public.get(receipt).status_code == 200",
+        "(subject.email, subject.password) == before[:2] and (not subject.account_erased_at)",
+        "subject.account_erased_at and (not subject.is_active) and (not subject.has_usable_password())",
+        "subject.email != before[0] and (not subject.first_name) and (not subject.last_name)",
+        "fresh.account_subject_id == subject.pk and fresh.status == 'pending'"
+      ],
+      "passed_nodeids": [
+        "tests/test_account_erasure_execution.py::test_account_scoped_execution_preserves_evidence_and_procedural_channel[False]",
+        "tests/test_account_erasure_execution.py::test_account_scoped_execution_preserves_evidence_and_procedural_channel[True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "erasure",
+      "source": "tests/test_account_erasure_execution.py",
+      "function": "test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes",
+      "current_source_sha256": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+      "current_assertions": [
+        "not ErasureExecution.objects.exists()",
+        "not RightsAction.objects.filter(operation='erasure_execute').exists()",
+        "(subject.email, subject.password, subject.session_version, subject.mfa_version) == original",
+        "stored.encrypted_payload and (not stored.purged_at)",
+        "AccountToken.objects.filter(user=subject).count() == RecoveryCode.objects.filter(user=subject).count() == 1"
+      ],
+      "passed_nodeids": [
+        "tests/test_account_erasure_execution.py::test_account_execution_denies_unreviewed_editorial_stale_and_production_scopes"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "erasure",
+      "source": "tests/test_partial_response_localization.py",
+      "function": "test_partial_response_effective_execution_type",
+      "current_source_sha256": "64cff157c99baf78117d581b971600c03a8c57887404517a8fc6622bc0248ea7",
+      "current_assertions": [
+        "not execution.required",
+        "form.fields['text'].min_length == 50 and form.fields['text'].max_length == 4000",
+        "isinstance(execution, forms.UUIDField)",
+        "execution.clean(str(uuid4())).version == 4",
+        "isinstance(execution, forms.IntegerField) and execution.min_value == 1",
+        "execution.clean('1') == 1"
+      ],
+      "passed_nodeids": [
+        "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[FinalForm-es]",
+        "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[FinalForm-en]",
+        "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[ProcessingForm-es]",
+        "tests/test_partial_response_localization.py::test_partial_response_effective_execution_type[ProcessingForm-en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution.py",
+      "function": "test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights",
+      "current_source_sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+      "current_assertions": [
+        "own.get(reverse('favorites')).status_code == 200",
+        "Client(enforce_csrf_checks=True).post(path, payload).status_code == 403",
+        "staff.post(path, payload).status_code == 200 and staff.post(path, payload).status_code == 200",
+        "ProcessingExecution.objects.count() == PurposeRestriction.objects.count() == 1",
+        "Favorite.objects.filter(pk=favorite.pk).exists()",
+        "own.get(reverse('favorites')).status_code == 409",
+        "own.post(reverse('favorite_add', kwargs={'listing_id': favorite.listing_id})).status_code == 409",
+        "own.post(reverse('favorite_remove', kwargs={'favorite_id': favorite.pk})).status_code == 409",
+        "reviewer.get(reverse('favorites')).status_code == 200",
+        "own.get(reverse('rights_create')).status_code == 200",
+        "(case.initial_due_at, subject.email, subject.is_active, subject.session_version) == original",
+        "case.status == 'reviewing' and case.scope_status == 'unverified'",
+        "result['data_deleted'] is False and result['partial'] is True",
+        "own.get(reverse('favorites')).status_code == 409",
+        "restricted(subject, 'account_preferences')"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution.py::test_http_execution_preserves_favorites_blocks_ordinary_use_and_keeps_rights"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution.py",
+      "function": "test_unsupported_purpose_rolls_back_without_restrictions",
+      "current_source_sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+      "current_assertions": [
+        "not ProcessingExecution.objects.exists() and (not PurposeRestriction.objects.exists())"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution.py::test_unsupported_purpose_rolls_back_without_restrictions"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution.py",
+      "function": "test_new_erasure_cannot_delete_restricted_preferences",
+      "current_source_sha256": "d96dc0373b0d39466d8056f22e9c85cbcf531b7bd3cdc27e2ae843eee022306a",
+      "current_assertions": [
+        "public.post('/en/safety/rights/', data(public, kind='erase')).status_code == 302",
+        "not ErasureExecution.objects.exists() and Favorite.objects.filter(pk=favorite.pk).exists()"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution.py::test_new_erasure_cannot_delete_restricted_preferences"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_races.py",
+      "function": "test_favorite_route_waiting_on_account_observes_new_restriction",
+      "current_source_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "current_assertions": [
+        "Favorite.objects.filter(pk=favorite.pk).exists() and PurposeRestriction.objects.count() == 1",
+        "future.result(timeout=20) == 409",
+        "not future.done()"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[index]",
+        "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[add]",
+        "tests/test_processing_execution_races.py::test_favorite_route_waiting_on_account_observes_new_restriction[remove]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_races.py",
+      "function": "test_execution_replay_after_wait_is_unique",
+      "current_source_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "current_assertions": [
+        "ProcessingExecution.objects.count() == PurposeRestriction.objects.count() == 1",
+        "first.result(timeout=20) == second.result(timeout=20)"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution_races.py::test_execution_replay_after_wait_is_unique"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_races.py",
+      "function": "test_permission_revoked_during_execution_wait_rolls_back",
+      "current_source_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "current_assertions": [
+        "case.version == version and (not ProcessingExecution.objects.exists()) and (not PurposeRestriction.objects.exists())",
+        "future.result(timeout=20) == 'denied'",
+        "user.has_perm('safety.execute_rights_request')"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution_races.py::test_permission_revoked_during_execution_wait_rolls_back"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_races.py",
+      "function": "test_proof_revoked_while_waiting_for_approval_row_prevents_execution",
+      "current_source_sha256": "7216c6b6513a36dcf0932565f286509f7a54f70c8d049b71581120927cdeaadf",
+      "current_assertions": [
+        "case.version == version and (not ProcessingExecution.objects.exists()) and (not PurposeRestriction.objects.exists())",
+        "future.result(timeout=20) == 'denied'",
+        "not future.done()"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution_races.py::test_proof_revoked_while_waiting_for_approval_row_prevents_execution"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "restriction",
+      "source": "tests/test_processing_execution_mobile.py",
+      "function": "test_mobile_apply_and_subject_favorites_block",
+      "current_source_sha256": "a56318402bb919ec89d9642e288c02350de409d56c56f954d9be736a926a4c6e",
+      "current_assertions": [
+        "(case.initial_due_at, subject.session_version, subject.is_active) == original",
+        "case.status == 'reviewing' and Favorite.objects.filter(pk=favorite.pk).exists()",
+        "PurposeRestriction.objects.get().active is True",
+        "reason not in page.content()",
+        "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')",
+        "response.status == 409",
+        "own.goto(live_server.url + f'/{language}/safety/rights/').status == 200"
+      ],
+      "passed_nodeids": [
+        "tests/test_processing_execution_mobile.py::test_mobile_apply_and_subject_favorites_block[es]",
+        "tests/test_processing_execution_mobile.py::test_mobile_apply_and_subject_favorites_block[en]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "opposition",
+      "source": "tests/test_purpose_exception_opposition.py",
+      "function": "test_opposition_cessation_exception_consumes_without_resuming_ordinary_processing",
+      "current_source_sha256": "33931127d53c7bc307dffd15fdc37dbdc4a7857206a1275d24429bce46fd2fd6",
+      "current_assertions": [
+        "measure.mode == 'cease' and measure.execution.action.request.kind == 'object'",
+        "PurposeExceptionReview.objects.get(proposal=proposal).consumed_action_id == result.action_id",
+        "not Favorite.objects.filter(pk=favorite.pk).exists()",
+        "measure.active and measure.mode == 'cease' and subject.is_active"
+      ],
+      "passed_nodeids": [
+        "tests/test_purpose_exception_opposition.py::test_opposition_cessation_exception_consumes_without_resuming_ordinary_processing"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_response_acknowledgement.py",
+      "function": "test_explicit_receipt_is_private_idempotent_and_changes_no_authorization",
+      "current_source_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "current_assertions": [
+        "client.get(receipt).status_code == 200",
+        "not RightsResponseAcknowledgement.objects.exists()",
+        "client.get(path).status_code == 405",
+        "client.post(path, {}).status_code == 400",
+        "not RightsResponseAcknowledgement.objects.exists()",
+        "client.post(path, {'received': 'yes'}).status_code == 302",
+        "ack.channel_digest == case.receipt_digest",
+        "client.post(path, {'received': 'yes'}).status_code == 302",
+        "(ack.pk, ack.created_at, ack.channel_digest) == initial",
+        "body['Cache-Control'] == 'private, no-store' and body['X-Robots-Tag'] == 'noindex, nofollow'",
+        "b'Receipt recorded' in body.content",
+        "b'Record response receipt' not in body.content",
+        "(case.version, case.response_version, case.status, case.scope_status, case.received_at, case.initial_due_at) == original",
+        "response.rightsnotice.status == 'queued'"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_response_acknowledgement.py::test_explicit_receipt_is_private_idempotent_and_changes_no_authorization"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_response_acknowledgement.py",
+      "function": "test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge",
+      "current_source_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "current_assertions": [
+        "client.post(path.replace(secret, 'x' * 43), {'received': 'yes'}).status_code == 404",
+        "client.post(path.replace(f'/response/{response.pk}/', f'/response/{response.pk + 1}/'), {'received': 'yes'}).status_code == 404",
+        "Client(enforce_csrf_checks=True).post(path, {'received': 'yes'}).status_code == 403",
+        "client.post(path, {'received': 'yes'}).status_code == 404",
+        "not RightsResponseAcknowledgement.objects.exists()"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_response_acknowledgement.py::test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_response_acknowledgement.py",
+      "function": "test_two_postgresql_connections_keep_one_receipt_record",
+      "current_source_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "current_assertions": [
+        "RightsResponseAcknowledgement.objects.count() == 1",
+        "[job.result(timeout=30) for job in jobs] == [302, 302]"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_response_acknowledgement.py::test_two_postgresql_connections_keep_one_receipt_record"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_response_acknowledgement.py",
+      "function": "test_mobile_receipt_confirmation_persists_without_account",
+      "current_source_sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+      "current_assertions": [
+        "RightsResponseAcknowledgement.objects.count() == 1",
+        "page.get_by_role('button', name='Record response receipt', exact=True).count() == 0"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_response_acknowledgement.py::test_mobile_receipt_confirmation_persists_without_account"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_communications.py",
+      "function": "test_review_is_independent_exact_audited_and_never_implies_delivery",
+      "current_source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "current_assertions": [
+        "source['kind'] == kind and source['complete'] is False",
+        "not source['manager_notices'] and source['pending']",
+        "inspected_source == source and source_audit.operation == 'rights_comms_source'",
+        "communications.propose(actor, *common, execution.pk, key, 'Assess recipients of the executed right', decisions).pk == proposal.pk",
+        "body['decisions'] == decisions",
+        "communications.review(reviewer, *common, proposal.pk, audit.pk, review_key, 'approved', REASON).pk == accepted.pk",
+        "original_checked(accepted.encrypted_reason)['pending'] is True",
+        "reviewer.has_perm('safety.review_recipient_assessment')",
+        "case.status == 'reviewing' and case.version == common[1]",
+        "staff.get(path).status_code == 200",
+        "b'Read exact recipient' not in staff.get(path).content",
+        "Client(enforce_csrf_checks=True).post(path).status_code == 403",
+        "accessed.status_code == 200 and accessed.context['decisions']",
+        "posted.status_code == 302",
+        "seen.status_code == 200 and seen.context['inspected']['decisions'] == decisions",
+        "other.get(path).context['inspected'] is None",
+        "recorded.status_code == 302",
+        "sent.status_code == 302",
+        "notices.count() == len(body['source']['notice_targets'])",
+        "delivery.operation == 'rights_comms_deliver'",
+        "notices.filter(acknowledged_at__isnull=True).count() == 0",
+        "summary['state'] == 'reviewed_partial' and summary['acknowledged'] == notices.count()",
+        "summary['outcomes']['communicated'] >= 1 and summary['pending'] is True",
+        "backend.issue(actor, *common, final_review.pk, response_key).pk == response.pk",
+        "set(projected) == {'state', 'pending', 'outcomes', 'delivered', 'acknowledged'}",
+        "projected['acknowledged'] == notices.count() and projected['pending'] is True",
+        "case.status == 'reviewing'",
+        "set(notices.values_list('recipient__username', flat=True)) == {'fixture-v1-agency', 'fixture-v1-editor'}",
+        "receiving.get(inbox).status_code == 200",
+        "receiving.get(inbox).context['payload'] is None",
+        "inspected_notice.status_code == 200",
+        "inspected_notice.context['payload']['kind'] == kind",
+        "set(inspected_notice.context['payload']) == {'schema', 'kind', 'execution', 'purposes', 'simulation', 'complete'}",
+        "receiving.post(inbox, {'operation': 'ack', 'notice': notice.pk, 'read': notice_read}).status_code == 302",
+        "acknowledged.acknowledged_at and acknowledged.acknowledged_action_id",
+        "RightsAction.objects.filter(request=case, operation='rights_notice_ack').count() == index",
+        "deliver(actor, *common, approval.pk, delivery_key).pk == delivery.pk",
+        "RightsAction.objects.filter(request=case, actor=reviewer, operation='rights_comms_read').exists()",
+        "receiving.post(inbox, {'operation': 'inspect', 'notice': foreign_notice.pk, 'purpose': \"Attempt another manager's private execution notification\"}).status_code == 403"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+        "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_communications.py",
+      "function": "test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+      "current_source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "current_assertions": [
+        "results[0] == results[1]",
+        "RightsAction.objects.filter(request=case, operation='rights_comms_deliver').count() == 1",
+        "RightsRecipientNotice.objects.filter(request=case).count() == len(source['notice_targets'])",
+        "RightsAction.objects.filter(request=case, operation='rights_notice_read').count() == before"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_communications.py",
+      "function": "test_agency_own_account_notice_does_not_include_owned_models",
+      "current_source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "current_assertions": [
+        "source['person'] is None and source['account_subject'] == str(subject.pk)",
+        "source['notice_targets'] == [{'recipient': str(subject.pk), 'authorization_version': 'account'}]",
+        "all((candidate['kind'] == 'account' for candidate in source['candidates']))",
+        "all((evidence['basis'] not in {'representation_history', 'submission_actor', 'publishing_acceptance'} for candidate in source['candidates'] for evidence in candidate['evidence']))"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_communications.py",
+      "function": "test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+      "current_source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+      "current_assertions": [
+        "page.locator('fieldset').count() == 0",
+        "negative.value.status == 400",
+        "page.locator('fieldset').count() == 0",
+        "page.locator('fieldset').count() >= 5",
+        "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')",
+        "page.locator('fieldset').count() == 0",
+        "page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    },
+    {
+      "right": "communications_shared",
+      "source": "tests/test_rights_responses_revocation_races.py",
+      "function": "test_legacy_response_denies_authority_revoked_during_observed_wait",
+      "current_source_sha256": "08aade35be6de738fcedad620db93563860d0cda03b788220d410fec6bc4227d",
+      "current_assertions": [
+        "result is None",
+        "(RightsResponse.objects.count(), RightsNotice.objects.count()) == baseline",
+        "(case.version, case.response_version, case.status, case.initial_due_at) == original",
+        "RightsResponse.objects.get(pk=existing.pk).key == data['key']",
+        "actor.has_perm('safety.review_rights_request')",
+        "actor.has_perm('safety.respond_rights_request')",
+        "worker != holder"
+      ],
+      "passed_nodeids": [
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-False]",
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-True]",
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-False]",
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-True]",
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-False]",
+        "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-True]"
+      ],
+      "other_nodeids": [],
+      "not_collected": false
+    }
+  ],
+  "retention_index": [
+    {
+      "task": "apps.safety.tasks.purge_expired_access_field_decision",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_field_decision.py::test_typed_field_decisions_and_independent_review[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.reconcile_retention_reviews",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "implementation": "apps/mediafiles/tasks.py",
+      "current_direct_reports": []
+    },
+    {
+      "task": "apps.mediafiles.tasks.erase_media_files",
+      "implementation": "apps/mediafiles/tasks.py",
+      "current_direct_reports": []
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_expired_confirmation_delivery_is_purged_without_erasing_audit",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_scope_inventory.py::test_field_inventory_is_scoped_opaque_stable_and_detects_subject_changes[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_coverage",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[False-True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay[True-True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_access_response_draft.py::test_access_draft_requires_fresh_proof_and_does_not_close[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[approved-True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_response_draft.py::test_final_draft_requires_new_authorization_preserves_case_and_validates_replay[rejected-True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_coverage",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_coverage_store.py::test_coverage_is_bound_cifred_replayable_and_purged_without_closing[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_selections",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_portability_page_selection.py::test_page_selection_preserves_other_pages_and_rejects_stale_or_foreign_forms",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_review.py::test_portability_independent_review_requires_read_and_resolved_datasets[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_assessments",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_portability.py::test_expired_assessment_purge_preserves_audit_and_blocks_read",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_information",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_copy_information.py::test_information_drafts_are_encrypted_versioned_replayable_and_purged",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_rights_copy_page_review.py::test_encrypted_page_decisions_version_replay_and_purge_do_not_approve_copy",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_copy_page_review.py::test_erasure_inventory_tracks_page_content_and_purge_without_disclosing_it",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_exports",
+      "implementation": "apps/safety/tasks.py",
+      "current_direct_reports": [
+        {
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-access]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[False-portability]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-access]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_account_only_exports.py::test_own_account_copy_review_download_and_changed_authority[True-portability]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_data_parts.py::test_reviewed_large_copy_manifest_receipt_download_and_purge",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_part_delivery.py::test_reviewed_part_download_is_scoped_audited_and_purged",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[False]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        },
+        {
+          "nodeid": "tests/test_rights_portability_image_storage.py::test_binary_declarations_require_inspection_approval_and_private_delivery[True]",
+          "current_call_pass": true,
+          "current_call_run": [
+            "20261018-173221-2870ec78"
+          ],
+          "ordinary_skip": false
+        }
+      ]
+    },
+    {
+      "task": "apps.listings.tasks.expire_listings",
+      "implementation": "apps/listings/tasks.py",
+      "current_direct_reports": []
+    },
+    {
+      "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "implementation": "apps/safety/rights_object_delivery.py",
+      "current_direct_reports": []
+    },
+    {
+      "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "implementation": "apps/safety/rights_object_content.py",
+      "current_direct_reports": []
+    }
+  ],
+  "limits": "Revalidates named historical index entries against current source assertions and raw case reports. Existing index is explicitly partial; this is not proof of exhaustive rights/retention or N3. Six reviewed content cases retain separate exact receipts; no skipped node promoted."
+}
