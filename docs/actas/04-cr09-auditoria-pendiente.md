@@ -1,5 +1,7 @@
 # Auditoría de alcance CR-09 antes de aceptación
 
+**Estado histórico:** esta auditoría se conserva como antecedente. El estado vigente es la [aceptación técnica local2026-10-18](05-cr09-aceptacion-tecnica-local-20261018.md), con sus límites y deuda MOD09.
+
 Fecha: 2026-10-04. Referencia funcional: 14/15/16 y contratos/10. Matriz revisada sobre `f5c636c`, core0015/safety0041/mediafiles0009. Las evidencias históricas conservan sus referencias originales; las pruebas dirigidas no sustituyen una regresión conjunta. **CR-09 sigue en curso; GS-01 no satisfecho.** Esta matriz separa avances verificables de requisitos aún sin entrega completa. No sustituye las evidencias dirigidas de docs/18 ni una regresión común.
 
 ## Matriz de cobertura y siguiente trabajo

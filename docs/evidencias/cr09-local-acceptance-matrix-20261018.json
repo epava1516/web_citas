@@ -1,0 +1,135 @@
+{
+  "decision": "CR09_TECHNICAL_LOCAL_ACCEPTED",
+  "reviewed_source_head": "657f7278208276abae1ddc3088a0118fe5205364",
+  "original_requirements": {
+    "source": "docs/83-auditoria-pendientes-cr09.md",
+    "source_sha256_at_review": "0783eaf675b8827f224106c6005fdc3cfa949bf6f30b095eb7060b4bd7879bcc"
+  },
+  "rows": [
+    {
+      "criterion": "Portabilidad y respuesta privada /15%",
+      "local_requirement": "Censo finito de fuentes sint\u00e9ticas propias con origen/corte/huella/formato/per\u00edodo, asociaci\u00f3n expl\u00edcita al sujeto, inclusi\u00f3n/redacci\u00f3n/exclusi\u00f3n motivada y revisi\u00f3n separada. Cubrir preparaci\u00f3n/revisi\u00f3n/generaci\u00f3n/respuesta/cierre/replay/descarga, variantes del derecho y rechazo de terceros, identidad inv\u00e1lida/revocada y cobertura necesaria pendiente. Reutilizar recorridos v\u00e1lidos; consolidar cobertura/evidencia pendiente sobre la versi\u00f3n com\u00fan.",
+      "production_only": "Operador/custodio y revisor: inventario real aprobado y procedimiento de identidad autorizado. No acreditar cobertura real desde fixture.",
+      "evidence": [
+        "cr09-owned-content-review-20261018.md",
+        "cr09-owned-content-negative-20261018.json",
+        "cr09-current-requirement-report-crosswalk-20261018.json",
+        "cr09-excluded-functional-terminal-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Denuncias y derechos por finalidad, verificaci\u00f3n y autoridad /20%",
+      "local_requirement": "Escenarios sint\u00e9ticos por derecho/finalidad con prueba, vigencia, representaci\u00f3n/revocaci\u00f3n y autoridad expl\u00edcitas. Verificar decisiones motivadas, denegaciones/fallos, concurrencia y acceso m\u00ednimo en flujos reales de aplicaci\u00f3n. Definir la selecci\u00f3n pendiente a partir de evidencia existente; resultado parcial no cierra un derecho completo.",
+      "production_only": "Operador/revisor jur\u00eddico y de identidad: procedimientos, evidencias admisibles y proveedor real cuando necesario/autorizado.",
+      "evidence": [
+        "cr09-current-requirement-report-crosswalk-20261018.json",
+        "cr09-current-mechanisms-docker-binding-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Conservaci\u00f3n y destrucci\u00f3n por finalidad /10%",
+      "local_requirement": "Configuraciones de ensayo expl\u00edcitas por finalidad/artefacto, inicio/plazo/estado, excepciones/reserva e historial/backups sint\u00e9ticos. Verificar vencimiento, retenci\u00f3n debida, destrucci\u00f3n autorizada de fixtures, reintentos e idempotencia; contrastar cobertura pendiente con planes/disparadores existentes. Par\u00e1metros de prueba no son plazos legales definitivos. Selecci\u00f3n actual de planes/autoridad/calendario/seguimiento/purga/reintentos y UI verificada N2; integrar esta evidencia en el N3 com\u00fan, sin extrapolar destrucci\u00f3n jur\u00eddica o scheduling productivo.",
+      "production_only": "Operador/revisor jur\u00eddico: fundamento, duraci\u00f3n y excepciones definitivas, autoridad de destrucci\u00f3n y pol\u00edtica de backups. No ejecutar destrucci\u00f3n real.",
+      "evidence": [
+        "cr09-retention-recovery-current-reports-20261018.json",
+        "cr09-retention-policy-crosswalk-20261016.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Restauraci\u00f3n de datos y medios /15%",
+      "local_requirement": "Inventario de backups sint\u00e9ticos propios, corte esperado, huellas y restauraci\u00f3n completa PG/medios en entorno desechable; validar checkpoint, restricciones, invalidaci\u00f3n MOD05 y coherencia de fuentes. Registrar tiempos y p\u00e9rdida de datos contra objetivos de dise\u00f1o vigentes RPO 1 h/RTO 8 h de docs14 \u00a710, en el alcance ensayado; Fixture real local final con inventario/huellas, checkpoint independiente sint\u00e9tico, supresi\u00f3n/medios/otro sujeto/comercial, triggers restaurados y comando MOD05 verificados. Falta incluir este alcance en la versi\u00f3n integrada y ensayo com\u00fan N3 pertinente; capacidad/cadencia/custodia productivas no se extrapolan.",
+      "production_only": "Titular/operador/custodio: entorno real, custodia/inventario, configuraci\u00f3n de backups y acta; comprobar RPO/RTO en esa topolog\u00eda sin extrapolar desde local.",
+      "evidence": [
+        "cr09-retention-recovery-current-reports-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Sesiones, cach\u00e9s, colas, logs y recursos externos /10%",
+      "local_requirement": "Delimitar las 23 fuentes conocidas pertinentes al escenario local y revisar asociaci\u00f3n/contenido/diferencias/divulgaci\u00f3n; a\u00f1adir otra fuente solo por dependencia concreta demostrada. Fuentes necesarias desconocidas o no le\u00eddas mantienen cobertura local pendiente. No inferir asociaci\u00f3n por UUID/substrings/conteos. El inventario de servicios ajenos no se exige para un escenario t\u00e9cnico que no los usa.",
+      "production_only": "Operador/custodio/revisor: censo autorizado de recursos reales host/correo/backups y asociaci\u00f3n/divulgaci\u00f3n aprobadas, incluyendo las fuentes necesarias descubiertas all\u00ed.",
+      "evidence": [
+        "cr09-owned-content-review-20261018.md",
+        "cr09-owned-content-negative-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Comunicaciones y destinatarios /8%",
+      "local_requirement": "Matriz sint\u00e9tica por derecho de destinatario/rol/autorizaci\u00f3n, canal, contenido m\u00ednimo, acuse, fallos/reintentos/revocaci\u00f3n y efecto en cierre. Probar buz\u00f3n real local y adaptadores simulados identificados donde corresponda; demostrar ausencia de filtraciones y tratamiento de fallo. Un aviso emitido no se registra como recepci\u00f3n externa real.",
+      "production_only": "Operador/responsable del canal: destinatarios reales, autorizaci\u00f3n y servicio; evidencia verificable de entrega/fallo externo cuando exigible.",
+      "evidence": [
+        "cr09-current-mechanisms-docker-binding-20261018.json",
+        "cr09-local-security-review-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Atenci\u00f3n urgente y escalado /7%",
+      "local_requirement": "Roles/usuarios y cobertura de ensayo, prioridad, escalado, canal, plazo sint\u00e9tico y criterio de resoluci\u00f3n expl\u00edcitos. Simulacro local con cronolog\u00eda, asignaci\u00f3n/suplencia, actuaci\u00f3n y resultado; reconocer no equivale a resolver. Simulacro HTTP ES/EN completado en su alcance t\u00e9cnico interno con primario revocado, suplencia autorizada, consulta auditada, decisi\u00f3n terminal y replay; [protocolo](37-alertas-denuncias-urgentes.md#simulacro-t\u00e9cnico-local-de-suplencia-2026-10-09). Falta consolidarlo en la versi\u00f3n com\u00fan y N3; no repetirlo sin riesgo concreto.",
+      "production_only": "Responsable operativo: personas/suplentes, cobertura, SLA decidido, autoridad y simulacro operativo real. No prometer atenci\u00f3n humana desde fixtures.",
+      "evidence": [
+        "cr09-current-mechanisms-docker-binding-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Rendimiento de expedientes grandes /5%",
+      "local_requirement": "Objetivos locales fijados por delegaci\u00f3n: dos expedientes simult\u00e1neos de1.500 revisiones,16MiB JSON y64MiB im\u00e1genes cada uno; presupuesto4CPU/8GiB/20GiB y [l\u00edmites por etapa](propuesta-cierre-pendientes-locales.md). El [fixture completo](evidencias/capacidad-fixture-objetivo-20261009.json) est\u00e1 validado; [consulta/aprobaci\u00f3n escalar](evidencias/capacidad-seleccion-completa-versiones-20261009.json) cumple en su variante. El [flujo con16im\u00e1genes incluidas](evidencias/capacidad-entrega-binaria-revision-inicial-20261009.json) cumple guardado, pero falla revisi\u00f3n de p\u00e1ginas frente a2s; etapas posteriores NOT_PROVEN. La [correctiva funcional63PASS](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) no se midi\u00f3 de nuevo en el escenario p95. Falta verificar ese recorrido cambiado, generaci\u00f3n/cierre/descargas y presupuesto global (controlador/almacenamiento), preservando contenido, autoridad y l\u00edmites; prototipo del controlador sin commit y no ejecutado. Resultados parciales no acreditan capacidad integral ni N3 com\u00fan; el SLO del directorio no sustituye estos criterios.",
+      "production_only": "Titular/operador: validar objetivos y capacidad en recursos de producci\u00f3n; no asumir equivalencia de host/topolog\u00eda.",
+      "evidence": [
+        "../16-contrato-ejecucion-desarrollo.md"
+      ],
+      "decision": "ACCEPTED_LOCAL_WITH_MOD09_PROVISIONAL_PERFORMANCE_DEBT",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    },
+    {
+      "criterion": "Aceptaci\u00f3n integral CR09 /5%",
+      "local_requirement": "Codex consolida los criterios locales anteriores, revisi\u00f3n t\u00e9cnica de seguridad y trazabilidad requisito\u2192versi\u00f3n\u2192prueba\u2192evidencia. Ejecutar N3 sobre una versi\u00f3n integrada com\u00fan con PG real y [CI propio](ci-local.md), carga/recuperaci\u00f3n pertinentes y resultado terminal sin omisiones necesarias; no sumar runs separados ni usar smoke como N3. Sigue pendiente.",
+      "production_only": "Titular/revisor independiente: evaluaci\u00f3n externa de seguridad y remediaciones antes de producci\u00f3n, adem\u00e1s de entradas operativas anteriores. No exigir CI alojado/pago para aceptaci\u00f3n local.",
+      "evidence": [
+        "cr09-functional-parallel-terminal-20261018.json",
+        "cr09-capacity-serial-terminal-20261018.json",
+        "cr09-excluded-functional-terminal-20261018.json",
+        "cr09-current-short-terminal-20261018.json",
+        "cr09-current-contractual-terminal-20261018.json",
+        "cr09-contractual-repro-terminal-20261018.json",
+        "cr09-local-security-review-20261018.json",
+        "cr09-dirty-refresh-current-terminal-20261018.json"
+      ],
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Reviewed current finite synthetic scenarios, current actual reports and source binding; production prerequisites remain separate."
+    }
+  ],
+  "technical_source_files": 1373,
+  "technical_source_manifest_sha256": "b2d6de9009743cdb86a9eaa8e7de193f12dfc8aef0fc8a952c069bc2a562776e",
+  "common_regression_runs": [
+    "20261018-173221-2870ec78",
+    "20261018-205138-387d4b6d"
+  ],
+  "same_technical_inputs_verified_against_current": true,
+  "necessary_omissions_resolved_by_scoped_evidence": [
+    "six explicit content scenarios reviewed separately",
+    "positive current dirty-mark Beat-worker witness",
+    "eight-way route matrix",
+    "six TCP matrices and actual >8MiB JSON transport"
+  ],
+  "remaining_ordinary_skips": "130 remain SKIP in raw reports: explicit prototypes/diagnostics are not delivered behavior; specialized runtime/readiness/content/route obligations have distinct evidence. MOD09 performance exception remains provisional, no original failure converted to PASS.",
+  "security_review": "cr09-local-security-review-20261018.json",
+  "positive_runtime_resolution": "cr09-dirty-refresh-current-terminal-20261018.json",
+  "limits": [
+    "Local own synthetic application only; no legal compliance, real identity/operator or provider acceptance.",
+    "No global final application N3 or production acceptance; CR10, GS01, B-F/B-B and C remain in full objective.",
+    "Original FAIL/INVALID/OOM results, source boundaries and MOD09 debt retained."
+  ]
+}

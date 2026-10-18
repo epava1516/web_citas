@@ -1,0 +1,155 @@
+{
+  "run": "20261018-230838-3e2d0669",
+  "head": "657f7278208276abae1ddc3088a0118fe5205364",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "78.591",
+      "timestamp": "2026-10-19T01:08:57.617664+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "wiring": {
+    "generation": "t8665882ab5814663bb307d0bd7f717c",
+    "pids": {
+      "worker": [
+        3167367,
+        3167479,
+        3167483
+      ],
+      "beat": [
+        3167368
+      ]
+    },
+    "cleared_after_ready_seconds": 29.13751298515126,
+    "pid_absence": {
+      "3167367": true,
+      "3167479": true,
+      "3167483": true,
+      "3167368": true
+    },
+    "owned_redis_keys_removed": 1,
+    "owned_redis_empty": true,
+    "observer": [
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "3d3ae6a4-7111-46ae-8de1-e5808aac0334",
+        "role": "beat",
+        "pid": 3167368,
+        "monotonic": 4085601.930952275
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "24d3c0da-ebda-4f66-8c76-5c0afca24f00",
+        "role": "beat",
+        "pid": 3167368,
+        "monotonic": 4085611.921505033
+      },
+      {
+        "event": "publish",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "36e66e90-0fe8-43b2-ab69-67a3bc66381c",
+        "role": "beat",
+        "pid": 3167368,
+        "monotonic": 4085621.92174396
+      },
+      {
+        "event": "publish",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "b419fb12-2b47-4dbe-ad3d-0a0c30d6c7af",
+        "role": "beat",
+        "pid": 3167368,
+        "monotonic": 4085621.925373957
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "3d3ae6a4-7111-46ae-8de1-e5808aac0334",
+        "role": "worker",
+        "pid": 3167479,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 4085601.940045762,
+        "end_monotonic": 4085602.026437661,
+        "wall": 0.0863918992690742,
+        "thread_cpu": 0.062016268,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "24d3c0da-ebda-4f66-8c76-5c0afca24f00",
+        "role": "worker",
+        "pid": 3167479,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 4085611.925763545,
+        "end_monotonic": 4085611.954011372,
+        "wall": 0.028247826732695103,
+        "thread_cpu": 0.010988157999999984,
+        "result": 0
+      },
+      {
+        "event": "execution",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "id": "36e66e90-0fe8-43b2-ab69-67a3bc66381c",
+        "role": "worker",
+        "pid": 3167479,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 4085621.928774227,
+        "end_monotonic": 4085622.217141775,
+        "wall": 0.2883675480261445,
+        "thread_cpu": 0.12900775800000003,
+        "result": 1,
+        "dirty_before": 1,
+        "dirty_after": 0,
+        "cleared": 1,
+        "db_wall": 0.24171805381774902,
+        "mark_to_clear_seconds": [
+          31.76625108718872
+        ]
+      },
+      {
+        "event": "execution",
+        "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+        "id": "b419fb12-2b47-4dbe-ad3d-0a0c30d6c7af",
+        "role": "worker",
+        "pid": 3167483,
+        "eager": false,
+        "state": "SUCCESS",
+        "start_monotonic": 4085621.931599728,
+        "end_monotonic": 4085622.035139141,
+        "wall": 0.10353941330686212,
+        "thread_cpu": 0.028209974999999998,
+        "result": 0
+      }
+    ]
+  },
+  "sources_unchanged": true,
+  "documentation_freeze_count": 2857,
+  "documentation_unchanged": true,
+  "independent_cleanup": {
+    "label_inventory_empty": true,
+    "temporary_absent": true,
+    "runner_child_worker_beat_absent": true
+  },
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "artifact_sha256": {
+    "artifacts/local-ci/20261018-230838-3e2d0669/result.json": "9b8b85f116a7721bd888efb4fafea06f7284037fa399afcc79f77aab8978ab74",
+    "artifacts/local-ci/20261018-230838-3e2d0669/pytest.xml": "b842ec887006be8025456129c551595939067b9b7f553ac886b94a59998b2d40",
+    "artifacts/vps-preparation/cr09-dirty-refresh-current-20261018/20261018-230838-3e2d0669/wiring.json": "0de4d7ea52f4d1dbbb51b8fccc8758080bebc801965293f6fe8c9de2917798e1"
+  },
+  "limits": "Positive current dirty-mark dispatch and refresh witness, not capacity or an external production service."
+}
