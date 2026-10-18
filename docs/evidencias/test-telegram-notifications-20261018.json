@@ -1,0 +1,29 @@
+{
+  "transport": "OpenClaw message send via existing paired Telegram; credentials stay outside repository",
+  "verification": [
+    {
+      "receipt": "1792344450802239137-1158742.json",
+      "name": "Configuraci\u00f3n de avisos",
+      "result": "ACTIVADA: aviso al terminar pruebas grandes y peque\u00f1as"
+    },
+    {
+      "receipt": "1792344514394410621-1165000.json",
+      "name": "Pruebas de notificaciones Telegram",
+      "result": "PASS"
+    },
+    {
+      "receipt": "1792344530783573147-1166699.json",
+      "name": "pytest",
+      "result": "PASS"
+    }
+  ],
+  "unit_checks_passed": 3,
+  "configuration": "Private host config ~/.config/web_modelos/test-notifications.json, mode0600; no token copied",
+  "scopes": [
+    "CI runner terminal after cleanup",
+    "direct pytest controller sessionfinish",
+    "non-pytest commands through run_notified wrapper"
+  ],
+  "limitations": "Host must have configured OpenClaw gateway and reachable Telegram; failures recorded separately, no false delivery claim.",
+  "mock_receipts": "Receipts named synthetic are transport mocks, excluded from real-delivery evidence."
+}

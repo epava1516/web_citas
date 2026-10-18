@@ -6,3 +6,5 @@ No hay límite numérico de invocaciones Claude para el objetivo de desarrollo, 
 No publicar ni contratar proveedores. No datos reales. PostgreSQL obligatorio en integración. Nunca declarar simuladores como verificación real. Actualizar docs/ y preservar trabajo del usuario.
 
 Instrucción del usuario del 2026-10-17: actualizar el grafo antes de analizar cada nuevo hito. Registrar el corte y alcance de la actualización; no tratar un refresco sólo AST como actualización semántica completa. Realizarlo antes de congelar fuentes o iniciar mediciones aisladas.
+
+Instrucción del usuario del 2026-10-18: toda ejecución de pruebas, grande o pequeña, debe avisar de su resultado terminal por el Telegram configurado de OpenClaw. pytest carga scripts.test_notifications automáticamente; run_local_ci notifica después de limpieza sin duplicar pytest. Para otros comandos de pruebas usar .venv/bin/python scripts/run_notified.py --name "nombre" -- comando. No enviar logs, credenciales ni datos de sujetos. Comprobar el recibo de envío; un error de Telegram no convierte el resultado de pruebas en PASS.

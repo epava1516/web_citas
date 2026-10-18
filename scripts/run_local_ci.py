@@ -318,6 +318,8 @@ def main():
         or k.startswith("XDG_")
     }
 
+    env["LOCAL_CI_TELEGRAM_OWNER"] = "runner"
+
     def interrupted(signum, frame):
         # Termination must take the same cleanup path as an interactive interrupt.
         raise KeyboardInterrupt(f"signal {signum}")
@@ -582,6 +584,10 @@ def main():
                 report["result"], exit_code = "ERROR", 1
         (output / "result.json").write_text(json.dumps(report, indent=2) + "\n")
         print(f"{report['result']}: {output / 'result.json'}", flush=True)
+        from test_notifications import notify
+        notification = notify("CI " + args.profile, report["result"], run_id=run_id,
+                              counts={"errores de pasos": sum(step.get("exit", 0) != 0 for step in report["steps"])})
+        (output / "telegram-notification.json").write_text(json.dumps(notification) + "\n")
     return exit_code
 
 
