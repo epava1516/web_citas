@@ -1,0 +1,83 @@
+{
+  "run": "20261018-205138-387d4b6d",
+  "head": "0e561a04110b7721153e2c00fed60583eca5849c",
+  "recorded_at": "2026-10-18T21:46:53.054306+00:00",
+  "result": "PASS",
+  "cases": 298,
+  "passed": 290,
+  "skipped": [
+    {
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller"
+    },
+    {
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode"
+    },
+    {
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe"
+    },
+    {
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    }
+  ],
+  "failures": 0,
+  "errors": 0,
+  "workers": 1,
+  "pytest_wall_seconds": 3077.343544767704,
+  "sources_unchanged": true,
+  "documentation_freeze_verified": 2845,
+  "independent_cleanup": {
+    "service": "inactive/dead; Result=success; MainPID=0",
+    "run_label_container_inventory_empty": true,
+    "temporary_directory_absent": true,
+    "runner_pid_absent": true,
+    "pytest_pid_absent": true
+  },
+  "controller_limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/cr09-capacity-serial-20261018-205035.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "2363805696"
+  },
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI regression"
+  },
+  "artifacts_sha256": {
+    "artifacts/local-ci/20261018-205138-387d4b6d/result.json": "71c9f8af468018c791f0aba276a758de1f6bec7f94dac59b9e28caf4a8c80f00",
+    "artifacts/local-ci/20261018-205138-387d4b6d/pytest.xml": "c76991a31b4d824285a531812caf9c82f25acef18dec2a3de64ca2d93cd21ee2",
+    "artifacts/local-ci/20261018-205138-387d4b6d/runner.json": "ae88773154ad6c963bd63fd51aaa3e44a2a928732f6b4121769902ecc0701542",
+    "artifacts/local-ci/20261018-205138-387d4b6d/source-hashes.json": "8af8e3e98c7ca93e4b3e0584ed7b139253c3b32d079e0e3b4e808b1152098642",
+    "artifacts/local-ci/20261018-205138-387d4b6d/native-manifest.json": "4cd45cb11748dad8e960e17b9f37e9e2f23c0d30698f7fc9933ff9b3494166a4",
+    "artifacts/local-ci/20261018-205138-387d4b6d/telegram-notification.json": "35069dd449e77458f25bab0fa7ef0313db023336506e27345a09f8ae181152ad"
+  },
+  "limits": "Partition regression PASS only. Eight explicit gates skipped, four global exclusions preserved. No new request p95. CR09/N3 acceptance remains pending."
+}
