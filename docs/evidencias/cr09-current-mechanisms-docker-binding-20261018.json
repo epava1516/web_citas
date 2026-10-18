@@ -1,0 +1,172 @@
+{
+  "groups": {
+    "conservation": [
+      {
+        "source": "tests/test_retention_reviews.py",
+        "sha256": "7693b80a778dec47199e4a76ede07368ba0df5413af16a15e17fb0af0b2d19de",
+        "passed_nodeids": [
+          "tests/test_retention_reviews.py::test_plan_schedules_all_retained_purposes_and_reconciliation_is_idempotent",
+          "tests/test_retention_reviews.py::test_private_audited_independent_followup_preserves_original_plan_and_deadlines",
+          "tests/test_retention_reviews.py::test_calendar_and_followup_survive_erased_account_without_mutating_data",
+          "tests/test_retention_reviews.py::test_tampered_plan_is_not_displayed_or_scheduled",
+          "tests/test_retention_reviews.py::test_history_pages_are_required_and_inspection_replay_keeps_its_original_snapshot",
+          "tests/test_retention_reviews.py::test_reconciliation_repairs_partial_calendar_without_overwriting_existing_followup"
+        ]
+      },
+      {
+        "source": "tests/test_retention_review_races.py",
+        "sha256": "c0cd871b6d64aa69a811235b4a26dd1f8c869f6940da37b041ef754cfffa2067",
+        "passed_nodeids": [
+          "tests/test_retention_review_races.py::test_permission_revoked_during_observed_wait_prevents_disclosure",
+          "tests/test_retention_review_races.py::test_followup_same_key_waits_and_updates_once"
+        ]
+      },
+      {
+        "source": "tests/test_retention_calendar.py",
+        "sha256": "234c165f6f2720b97f6829549ce8a8e13e3a45a8f5720233c27b82c1e81e19e9",
+        "passed_nodeids": [
+          "tests/test_retention_calendar.py::test_calendar_bounds_loading_and_preserves_navigation_and_scope",
+          "tests/test_retention_calendar.py::test_calendar_date_filters_and_cursor_expiry"
+        ]
+      },
+      {
+        "source": "tests/test_retention_mobile.py",
+        "sha256": "168fb0ab18fbd44cc28a2ead00baa582640ba4b4716738e2ed6ba4670fe8a532",
+        "passed_nodeids": [
+          "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[es]",
+          "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[en]"
+        ]
+      },
+      {
+        "source": "tests/test_retention_localization.py",
+        "sha256": "1a3b1d79470934d06ef3988da58f01562949507ee5d1898b8e53362b6dfca4e7",
+        "passed_nodeids": [
+          "tests/test_retention_localization.py::test_localized_retention_review_preserves_plan_authority_and_dates[es]",
+          "tests/test_retention_localization.py::test_localized_retention_review_preserves_plan_authority_and_dates[en]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_final_draft_retention.py",
+        "sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+        "passed_nodeids": [
+          "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[unused]",
+          "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[issued]",
+          "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives[legacy_issued]",
+          "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run"
+        ]
+      },
+      {
+        "source": "tests/test_rights_export_retention.py",
+        "sha256": "062cc0abe91b2ca7b6df8e2a5d20ce65bdb6907d3b5dd1b04287d3d33291b2bc",
+        "passed_nodeids": [
+          "tests/test_rights_export_retention.py::test_expired_content_removed_without_deleting_source_or_audit",
+          "tests/test_rights_export_retention.py::test_locked_copy_skipped_then_purged_on_next_scan"
+        ]
+      }
+    ],
+    "communications": [
+      {
+        "source": "tests/test_notice_delivery.py",
+        "sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+        "passed_nodeids": [
+          "tests/test_notice_delivery.py::test_due_outbox_exactly_once_private_receipt_and_production_disabled",
+          "tests/test_notice_delivery.py::test_retry_backoff_dead_state_and_no_exception_details_persisted",
+          "tests/test_notice_delivery.py::test_two_workers_claim_one_notice_without_duplicate_simulation",
+          "tests/test_notice_delivery.py::test_locked_notice_is_skipped_then_recovered_and_backend_disabled_is_inert",
+          "tests/test_notice_delivery.py::test_report_and_complaint_outboxes_share_bounded_processing_without_duplicates",
+          "tests/test_notice_delivery.py::test_mobile_receipt_status_changes_only_to_explicit_simulation"
+        ]
+      },
+      {
+        "source": "tests/test_notice_operations.py",
+        "sha256": "b599d4b3dd886647b45871b87b5777ca925856134599ca0fb0fe8fc0f6f58974",
+        "passed_nodeids": [
+          "tests/test_notice_operations.py::test_recovery_preserves_history_replays_and_case_decision",
+          "tests/test_notice_operations.py::test_permission_mfa_expiry_and_conflict_are_revalidated",
+          "tests/test_notice_operations.py::test_complaint_recovery_requires_own_scope_and_preserves_resolution",
+          "tests/test_notice_operations.py::test_two_connections_recover_only_once",
+          "tests/test_notice_operations.py::test_mobile_queue_recovery_and_reload",
+          "tests/test_notice_operations.py::test_scoped_pagination_invalid_identifiers_and_global_key_conflict",
+          "tests/test_notice_operations.py::test_complete_recovery_history_and_csrf_input_guards"
+        ]
+      },
+      {
+        "source": "tests/test_rights_notice_inventory.py",
+        "sha256": "347d894929baf4839779777562b33102ca70a6a6eb07ec45925b54830c9cad3d",
+        "passed_nodeids": [
+          "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[profile]",
+          "tests/test_rights_notice_inventory.py::test_census_includes_owned_notice_evidence_and_opaque_changes_only[account]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_communications_localization.py",
+        "sha256": "906e885701f1da4b287e69b329f4d3875844cf5c43dfb4d036a0cf97c59ee917",
+        "passed_nodeids": [
+          "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[es]",
+          "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[en]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_response_acknowledgement.py",
+        "sha256": "e899e4fd33ef83bbb4d21ea851331fbf50a3e121e9feaf7529fb63bc519ca069",
+        "passed_nodeids": [
+          "tests/test_rights_response_acknowledgement.py::test_explicit_receipt_is_private_idempotent_and_changes_no_authorization",
+          "tests/test_rights_response_acknowledgement.py::test_invalid_or_expired_receipt_and_foreign_response_cannot_acknowledge",
+          "tests/test_rights_response_acknowledgement.py::test_two_postgresql_connections_keep_one_receipt_record",
+          "tests/test_rights_response_acknowledgement.py::test_mobile_receipt_confirmation_persists_without_account"
+        ]
+      },
+      {
+        "source": "tests/test_rights_communications.py",
+        "sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+        "passed_nodeids": [
+          "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+          "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+          "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+          "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+          "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+          "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages"
+        ]
+      }
+    ],
+    "restore": [
+      {
+        "source": "tests/test_recovery_pg_restore.py",
+        "sha256": "42cf1b6af938557bfb5ebe7fefa436cf076073f2242c645a579cdfaa0d3268dd",
+        "passed_nodeids": [
+          "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data"
+        ]
+      }
+    ],
+    "urgent": [
+      {
+        "source": "tests/test_urgent_report_drill.py",
+        "sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+        "passed_nodeids": [
+          "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+          "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+          "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]"
+        ]
+      }
+    ]
+  },
+  "runs": [
+    "20261018-173221-2870ec78",
+    "20261018-205138-387d4b6d"
+  ],
+  "docker_v10_product_inputs_equal_to_current": true,
+  "docker_receipt": "cr09-docker-native-v10-20261016.json",
+  "docker_source": "ee2d55004399fa8a5b1010d9a58f9243345de8e7",
+  "limits": "Current case correspondence to named existing reviewed mechanism groups, no new runtime execution. Scope of local channels and production-only human/identity/custody prerequisites preserved. Final requirement completeness and technical review pending, no acceptance solely from this index."
+}

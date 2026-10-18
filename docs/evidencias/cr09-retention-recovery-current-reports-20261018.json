@@ -1,0 +1,1706 @@
+{
+  "runs": [
+    "20261018-173221-2870ec78",
+    "20261018-205138-387d4b6d"
+  ],
+  "additional_five_retention_task_bindings": [
+    {
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "scope": "Wrapper delegates cleanup_due_preparations; retention, exceptions, retry and concurrent media guards tested directly.",
+      "current_tests": [
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_expired_exclusive_files_purged_and_same_bytes_can_be_uploaded_again",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 47,
+              "expression": "result == {'queued': 1, 'completed': 1}"
+            },
+            {
+              "line": 51,
+              "expression": "blob.status == 'purged' and blob.sha256 != sha"
+            },
+            {
+              "line": 52,
+              "expression": "not blob.original and (not blob.derivative) and (not blob.signature) and (not blob.phash)"
+            },
+            {
+              "line": 53,
+              "expression": "not blob.regional_hashes and blob.width == blob.height == 0"
+            },
+            {
+              "line": 54,
+              "expression": "not storage.exists(original) and (not storage.exists(derivative))"
+            },
+            {
+              "line": 55,
+              "expression": "item.photo.removed_at and job.completed_at and (job.attempts == 1)"
+            },
+            {
+              "line": 56,
+              "expression": "not job.encrypted_paths and (not cleanup_one(job.pk))"
+            },
+            {
+              "line": 57,
+              "expression": "cleanup_due_preparations() == {'queued': 0, 'completed': 0}"
+            },
+            {
+              "line": 60,
+              "expression": "blob.status == 'purged' and (not blob.derivative)"
+            },
+            {
+              "line": 63,
+              "expression": "staff.post(path, payload(case)).status_code == 302"
+            },
+            {
+              "line": 65,
+              "expression": "new.photo.blob_id != blob.pk and new.photo.blob.sha256 == sha"
+            },
+            {
+              "line": 66,
+              "expression": "new.photo.blob.status == 'ready' and new.photo.comparison_complete"
+            },
+            {
+              "line": 68,
+              "expression": "entries['safety.RightsRectificationPhotoUpload']['count'] == 2"
+            },
+            {
+              "line": 69,
+              "expression": "entries['mediafiles.MediaPreparationCleanup']['count'] == 1"
+            },
+            {
+              "line": 70,
+              "expression": "staff.get(f'/en/moderation/rights/{case.pk}/rectification/photos/{item.photo_id}/').status_code == 404"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_shared_historical_reference_and_active_sibling_prevent_cleanup",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 86,
+              "expression": "staff.post(path, payload(case)).status_code == 302"
+            },
+            {
+              "line": 88,
+              "expression": "sibling.photo.blob_id == blob.pk"
+            },
+            {
+              "line": 89,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 0}"
+            },
+            {
+              "line": 91,
+              "expression": "job.status == 'retained' and job.reason_code == 'active_upload'"
+            },
+            {
+              "line": 98,
+              "expression": "not cleanup_one(job.pk)"
+            },
+            {
+              "line": 101,
+              "expression": "job.reason_code == 'shared_reference' and job.attempts == 0"
+            },
+            {
+              "line": 102,
+              "expression": "blob.status == 'ready' and blob.original.storage.exists(blob.original.name)"
+            },
+            {
+              "line": 103,
+              "expression": "Photo.objects.filter(pk=historical.pk).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_shared_storage_path_preserved_even_without_shared_photo",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 111,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 0}"
+            },
+            {
+              "line": 114,
+              "expression": "job.status == 'retained' and job.reason_code == 'shared_storage_path'"
+            },
+            {
+              "line": 115,
+              "expression": "job.attempts == 0 and (not job.encrypted_paths)"
+            },
+            {
+              "line": 116,
+              "expression": "blob.status == 'ready' and alias.original.storage.exists(alias.original.name)"
+            },
+            {
+              "line": 117,
+              "expression": "blob.original.storage.exists(blob.original.name)"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_proposal_evidence_is_retained_without_worker_decryption",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 123,
+              "expression": "staff.post(path, initial | {'operation': 'propose', 'fields': ['photos'], 'reason': REASON, 'photos-TOTAL_FORMS': '1', 'photos-INITIAL_FORMS': '0', 'photos-0-photo_id': item.photo_id, 'photos-0-position': '0'}).status_code == 302"
+            },
+            {
+              "line": 140,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 0}"
+            },
+            {
+              "line": 142,
+              "expression": "job.status == 'retained' and job.reason_code == 'case_evidence'"
+            },
+            {
+              "line": 143,
+              "expression": "not job.encrypted_paths and job.attempts == 0"
+            },
+            {
+              "line": 144,
+              "expression": "item.photo.blob.original.storage.exists(item.photo.blob.original.name)"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 153,
+              "expression": "staff.post(path, {'key': uuid.uuid4(), 'version': case.version, 'operation': 'discard', 'photo_id': item.photo_id, 'reason': REASON}).status_code == 302"
+            },
+            {
+              "line": 177,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 0}"
+            },
+            {
+              "line": 180,
+              "expression": "job.status == 'failed' and job.attempts == 1 and job.encrypted_paths"
+            },
+            {
+              "line": 181,
+              "expression": "job.reason_code == 'storage_delete_failed' and blob.status == 'purging'"
+            },
+            {
+              "line": 182,
+              "expression": "not storage.exists(original) and storage.exists(derivative)"
+            },
+            {
+              "line": 183,
+              "expression": "not cleanup_one(job.pk)"
+            },
+            {
+              "line": 186,
+              "expression": "staff.post(path, payload(case)).status_code == 409"
+            },
+            {
+              "line": 187,
+              "expression": "RightsRectificationPhotoUpload.objects.count() == 1"
+            },
+            {
+              "line": 190,
+              "expression": "cleanup_one(job.pk)"
+            },
+            {
+              "line": 192,
+              "expression": "job.attempts == 2 and job.status == 'completed' and (not job.encrypted_paths)"
+            },
+            {
+              "line": 193,
+              "expression": "not storage.exists(derivative)"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[False]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 238,
+              "expression": "blob.status == 'purged' and (not blob.original) and (not blob.derivative)"
+            },
+            {
+              "line": 210,
+              "expression": "resume.wait(timeout=30)"
+            },
+            {
+              "line": 231,
+              "expression": "reached.wait(timeout=30)"
+            },
+            {
+              "line": 233,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 1}"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[True]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 238,
+              "expression": "blob.status == 'purged' and (not blob.original) and (not blob.derivative)"
+            },
+            {
+              "line": 210,
+              "expression": "resume.wait(timeout=30)"
+            },
+            {
+              "line": 231,
+              "expression": "reached.wait(timeout=30)"
+            },
+            {
+              "line": 233,
+              "expression": "cleanup_due_preparations() == {'queued': 1, 'completed': 1}"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_cleanup_serializes_with_new_shared_reference",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 281,
+              "expression": "job.status == 'retained' and job.reason_code == 'shared_reference'"
+            },
+            {
+              "line": 282,
+              "expression": "blob.original.storage.exists(blob.original.name)"
+            },
+            {
+              "line": 279,
+              "expression": "not future.result(timeout=30)"
+            },
+            {
+              "line": 277,
+              "expression": "holder_pid in blockers and (not future.done())"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_worker_interruption_keeps_committed_guard_and_paths[before]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 317,
+              "expression": "blob.status == 'purging' and job.encrypted_paths and (job.status == 'queued')"
+            },
+            {
+              "line": 318,
+              "expression": "job.attempts == 0"
+            },
+            {
+              "line": 319,
+              "expression": "storage.exists(original) == (interruption == 'before')"
+            },
+            {
+              "line": 320,
+              "expression": "storage.exists(derivative)"
+            },
+            {
+              "line": 322,
+              "expression": "staff.post(f'/en/moderation/rights/{case.pk}/rectification/uploads/', payload(case)).status_code == 409"
+            },
+            {
+              "line": 328,
+              "expression": "actual_delete_prepared(job.pk)"
+            },
+            {
+              "line": 329,
+              "expression": "not blob.original.storage.exists(original)"
+            },
+            {
+              "line": 330,
+              "expression": "not blob.original.storage.exists(derivative)"
+            },
+            {
+              "line": 332,
+              "expression": "job.status == 'completed' and (not job.encrypted_paths)"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_worker_interruption_keeps_committed_guard_and_paths[partial]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+          "assertions": [
+            {
+              "line": 317,
+              "expression": "blob.status == 'purging' and job.encrypted_paths and (job.status == 'queued')"
+            },
+            {
+              "line": 318,
+              "expression": "job.attempts == 0"
+            },
+            {
+              "line": 319,
+              "expression": "storage.exists(original) == (interruption == 'before')"
+            },
+            {
+              "line": 320,
+              "expression": "storage.exists(derivative)"
+            },
+            {
+              "line": 322,
+              "expression": "staff.post(f'/en/moderation/rights/{case.pk}/rectification/uploads/', payload(case)).status_code == 409"
+            },
+            {
+              "line": 328,
+              "expression": "actual_delete_prepared(job.pk)"
+            },
+            {
+              "line": 329,
+              "expression": "not blob.original.storage.exists(original)"
+            },
+            {
+              "line": 330,
+              "expression": "not blob.original.storage.exists(derivative)"
+            },
+            {
+              "line": 332,
+              "expression": "job.status == 'completed' and (not job.encrypted_paths)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task": "apps.mediafiles.tasks.erase_media_files",
+      "scope": "Wrapper delegates erase_due_media; real file deletion, shared-path denial, retry and in-flight worker guarded.",
+      "current_tests": [
+        {
+          "nodeid": "tests/test_media_erasure.py::test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+          "assertions": [
+            {
+              "line": 38,
+              "expression": "storage.exists(original) and storage.exists(derivative)"
+            },
+            {
+              "line": 42,
+              "expression": "blob.status == 'erasing' and blob.sha256 != sha"
+            },
+            {
+              "line": 43,
+              "expression": "not blob.phash and (not blob.signature) and (not blob.regional_hashes)"
+            },
+            {
+              "line": 44,
+              "expression": "unseal(execution.encrypted_result)['media_jobs_queued'] >= 1"
+            },
+            {
+              "line": 45,
+              "expression": "not Photo.objects.filter(revision__listing__person=person, removed_at__isnull=True).exists()"
+            },
+            {
+              "line": 48,
+              "expression": "storage.exists(original) and storage.exists(derivative)"
+            },
+            {
+              "line": 50,
+              "expression": "erase_due_media() >= 1"
+            },
+            {
+              "line": 51,
+              "expression": "not storage.exists(original) and (not storage.exists(derivative))"
+            },
+            {
+              "line": 54,
+              "expression": "blob.status == 'erased' and (not blob.original) and (not blob.derivative)"
+            },
+            {
+              "line": 55,
+              "expression": "job.status == 'completed' and job.completed_at and (not job.encrypted_paths)"
+            },
+            {
+              "line": 56,
+              "expression": "not erase_one(job.pk)"
+            },
+            {
+              "line": 59,
+              "expression": "blob.status == 'erased' and (not blob.derivative)"
+            },
+            {
+              "line": 60,
+              "expression": "Photo.objects.filter(blob=blob).exists()"
+            },
+            {
+              "line": 62,
+              "expression": "case.status == 'reviewing'"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_shared_file_cannot_be_erased_by_another_person",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+          "assertions": [
+            {
+              "line": 73,
+              "expression": "blob.status == 'ready' and blob.original.storage.exists(original)"
+            },
+            {
+              "line": 74,
+              "expression": "not MediaErasure.objects.exists()"
+            },
+            {
+              "line": 75,
+              "expression": "Photo.objects.filter(blob=blob, removed_at__isnull=True).count() >= 2"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+          "assertions": [
+            {
+              "line": 94,
+              "expression": "not erase_one(job.pk)"
+            },
+            {
+              "line": 96,
+              "expression": "job.status == 'failed' and job.attempts == 1 and job.encrypted_paths"
+            },
+            {
+              "line": 97,
+              "expression": "not storage.exists(original) and storage.exists(derivative)"
+            },
+            {
+              "line": 98,
+              "expression": "not erase_one(job.pk)"
+            },
+            {
+              "line": 101,
+              "expression": "erase_one(job.pk)"
+            },
+            {
+              "line": 102,
+              "expression": "not storage.exists(derivative)"
+            },
+            {
+              "line": 104,
+              "expression": "job.attempts == 2 and job.status == 'completed'"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_inflight_processing_cannot_write_derivative_after_erasure",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+          "assertions": [
+            {
+              "line": 149,
+              "expression": "blob.status == 'erased' and (not blob.derivative) and (not blob.signature)"
+            },
+            {
+              "line": 117,
+              "expression": "resume.wait(timeout=30)"
+            },
+            {
+              "line": 132,
+              "expression": "reached.wait(timeout=15)"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_distinct_blob_with_shared_storage_path_prevents_file_deletion",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+          "assertions": [
+            {
+              "line": 160,
+              "expression": "blob.status == 'ready' and blob.derivative.storage.exists(alias.original.name)"
+            },
+            {
+              "line": 161,
+              "expression": "not MediaErasure.objects.exists()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task": "apps.listings.tasks.expire_listings",
+      "scope": "Direct periodic dispatcher; future/paused preserved, expiry/audit/idempotency verified.",
+      "current_tests": [
+        {
+          "nodeid": "tests/test_listing_expiry_dispatch.py::test_periodic_expiry_preserves_unexpired_and_paused_and_is_idempotent",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "ac7fc9c4e5323b3a543f991bbeaa61667b3784c29bb8fe6059e3bdbf8f389128",
+          "assertions": [
+            {
+              "line": 18,
+              "expression": "len(listings) == 3"
+            },
+            {
+              "line": 27,
+              "expression": "expire_listings() == 1"
+            },
+            {
+              "line": 31,
+              "expression": "due.status == 'expired' and due.lifecycle_version == before[due.pk] + 1"
+            },
+            {
+              "line": 32,
+              "expression": "future.status == 'published' and future.lifecycle_version == before[future.pk]"
+            },
+            {
+              "line": 33,
+              "expression": "paused.status == 'paused' and paused.lifecycle_version == before[paused.pk]"
+            },
+            {
+              "line": 35,
+              "expression": "action.actor_id is None"
+            },
+            {
+              "line": 36,
+              "expression": "action.approved_revision_id == due.approved_revision_id"
+            },
+            {
+              "line": 37,
+              "expression": "action.expected_version == before[due.pk]"
+            },
+            {
+              "line": 38,
+              "expression": "action.previous_status == 'published' and action.resulting_status == 'expired'"
+            },
+            {
+              "line": 39,
+              "expression": "LifecycleAction.objects.count() == actions_before + 1"
+            },
+            {
+              "line": 40,
+              "expression": "expire_listings() == 0"
+            },
+            {
+              "line": 41,
+              "expression": "LifecycleAction.objects.count() == actions_before + 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "scope": "Direct purge and actual owned Celery purge; byte deletion and minimal audit preservation.",
+      "current_tests": [
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_one_use_and_original_audit_count",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 65,
+              "expression": "(tmp_path / value.object_name).read_bytes() == content"
+            },
+            {
+              "line": 66,
+              "expression": "hashlib.sha256(content).hexdigest() == value.content_sha256"
+            },
+            {
+              "line": 67,
+              "expression": "RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 69,
+              "expression": "row.consumed_at is not None"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[receipt]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[subject]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[expires]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[payload]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[namespace]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[grant]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[file]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[restore]",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 103,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 99,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_internal_auth_head_range_and_no_secret_are_denied_without_consumption",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 116,
+              "expression": "client.get('/internal/rights-objects/authorize/', **{**base, 'HTTP_X_RIGHTS_PROXY': 'bad'}).status_code == 404"
+            },
+            {
+              "line": 122,
+              "expression": "client.get('/internal/rights-objects/authorize/', **{**base, 'HTTP_X_FORWARDED_METHOD': 'HEAD'}).status_code == 404"
+            },
+            {
+              "line": 128,
+              "expression": "client.get('/internal/rights-objects/authorize/', **{**base, 'HTTP_X_FORWARDED_RANGE': 'bytes=0-10'}).status_code == 404"
+            },
+            {
+              "line": 136,
+              "expression": "row.consumed_at is None"
+            },
+            {
+              "line": 137,
+              "expression": "client.get('/internal/rights-objects/authorize/', **base).status_code == 200"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_concurrent_requests_only_one_consumes_pg_grant",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 155,
+              "expression": "RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 154,
+              "expression": "sorted(executor.map(lambda _: consume(), range(2))) == [200, 404]"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 167,
+              "expression": "purge_object_deliveries() == 1"
+            },
+            {
+              "line": 168,
+              "expression": "purge_object_deliveries() == 0"
+            },
+            {
+              "line": 169,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            },
+            {
+              "line": 170,
+              "expression": "not orphan.exists()"
+            },
+            {
+              "line": 171,
+              "expression": "(tmp_path / 'private').exists()"
+            },
+            {
+              "line": 172,
+              "expression": "RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 174,
+              "expression": "row.purged_at"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 250,
+              "expression": "denied.value.code == 404"
+            },
+            {
+              "line": 262,
+              "expression": "replay.value.code == 404"
+            },
+            {
+              "line": 265,
+              "expression": "RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 271,
+              "expression": "subprocess.run(['docker', 'inspect', name], capture_output=True).returncode != 0"
+            },
+            {
+              "line": 252,
+              "expression": "delivered.read() == content"
+            },
+            {
+              "line": 253,
+              "expression": "'no-store' in delivered.headers['Cache-Control']"
+            },
+            {
+              "line": 254,
+              "expression": "delivered.headers['Content-Disposition'] == 'attachment; filename=\"rights-profile.json\"'"
+            },
+            {
+              "line": 258,
+              "expression": "delivered.headers['Content-Type'] == 'application/json; charset=utf-8'"
+            },
+            {
+              "line": 259,
+              "expression": "'ETag' not in delivered.headers"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_actual_celery_worker_purges_expired_delivery",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 331,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            },
+            {
+              "line": 332,
+              "expression": "RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 340,
+              "expression": "worker.poll() is not None"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_post_redirect_replay_retains_one_proxy_grant_and_direct_fallback",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 348,
+              "expression": "repeat.status_code == 303"
+            },
+            {
+              "line": 349,
+              "expression": "RightsObjectDelivery.objects.count() == RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 352,
+              "expression": "replay.status_code == 200 and replay.content == content"
+            },
+            {
+              "line": 353,
+              "expression": "RightsObjectDelivery.objects.count() == RightsExportDownload.objects.count() == 1"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 365,
+              "expression": "purge_expired_exports() == 1"
+            },
+            {
+              "line": 366,
+              "expression": "not (tmp_path / row.object_name).exists()"
+            },
+            {
+              "line": 368,
+              "expression": "row.purged_at is not None"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_grant_person_and_account_inventory_include_own_exclude_other_subject",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "assertions": [
+            {
+              "line": 388,
+              "expression": "item(source_manifest(person))['count'] == 1"
+            },
+            {
+              "line": 389,
+              "expression": "item(source_manifest(peer))['count'] == 0"
+            },
+            {
+              "line": 399,
+              "expression": "item(own)['count'] == 1 and item(other)['count'] == 0"
+            },
+            {
+              "line": 406,
+              "expression": "item(changed)['state_digest'] != before"
+            },
+            {
+              "line": 407,
+              "expression": "row.object_name not in str(changed)"
+            },
+            {
+              "line": 408,
+              "expression": "User.objects.filter(pk=person.subject_id).exists()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "scope": "Real owned object storage grace, live references, recovery guard and idempotent removal. Hourly scheduling not observed here.",
+      "current_tests": [
+        {
+          "nodeid": "tests/test_rights_orphan_objects_retention.py::test_orphan_object_grace_live_reference_and_idempotent_physical_removal",
+          "run": "20261018-173221-2870ec78",
+          "current_source_sha256": "7695bdf6ad8747f24167bdb983c17ecc524d199d893d889ac9ddea420c9d36f8",
+          "assertions": [
+            {
+              "line": 34,
+              "expression": "rights_object_content.purge_orphan_export_objects() == 0"
+            },
+            {
+              "line": 35,
+              "expression": "repo.client.head_object(Bucket=repo.bucket, Key=orphan_key)['ContentLength'] > 0"
+            },
+            {
+              "line": 39,
+              "expression": "rights_object_content.purge_orphan_export_objects() == 0"
+            },
+            {
+              "line": 42,
+              "expression": "rights_object_content.purge_orphan_export_objects() == 0"
+            },
+            {
+              "line": 44,
+              "expression": "rights_object_content.purge_orphan_export_objects() == 1"
+            },
+            {
+              "line": 47,
+              "expression": "absent.value.response['ResponseMetadata']['HTTPStatusCode'] == 404"
+            },
+            {
+              "line": 48,
+              "expression": "repo.client.head_object(Bucket=repo.bucket, Key=retained_key)['ContentLength'] > 0"
+            },
+            {
+              "line": 50,
+              "expression": "part.encrypted_content == retained"
+            },
+            {
+              "line": 53,
+              "expression": "output.getvalue() == b'synthetic retained bytes'"
+            },
+            {
+              "line": 54,
+              "expression": "rights_object_content.purge_orphan_export_objects() == 0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "current_recovery_reports": [
+    {
+      "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "42cf1b6af938557bfb5ebe7fefa436cf076073f2242c645a579cdfaa0d3268dd",
+      "assertions": [
+        {
+          "line": 227,
+          "expression": "source_database.startswith('test_')"
+        },
+        {
+          "line": 228,
+          "expression": "AccountToken.objects.filter(user=subject).exists()"
+        },
+        {
+          "line": 243,
+          "expression": "media_inventory(backup_media) == media_manifest"
+        },
+        {
+          "line": 258,
+          "expression": "export_batch(store) == 1"
+        },
+        {
+          "line": 259,
+          "expression": "erase_due_media() >= 1"
+        },
+        {
+          "line": 263,
+          "expression": "media_inventory(restored_media) == media_manifest"
+        },
+        {
+          "line": 328,
+          "expression": "result.returncode == 0"
+        },
+        {
+          "line": 330,
+          "expression": "proof['real_restore'] and (not proof['publication_authorized'])"
+        },
+        {
+          "line": 331,
+          "expression": "proof['conservative_schema_restored'] and proof['rejected_helpers_absent']"
+        },
+        {
+          "line": 332,
+          "expression": "proof['restored_transient_copy_cleared_audit_retained']"
+        },
+        {
+          "line": 333,
+          "expression": "proof['independent_authority_verified']"
+        },
+        {
+          "line": 334,
+          "expression": "proof['wrong_authority_rejected_without_effects']"
+        },
+        {
+          "line": 349,
+          "expression": "hashlib.sha256(backup.read_bytes()).hexdigest() == backup_sha256"
+        },
+        {
+          "line": 350,
+          "expression": "proof['restore_and_reconcile_seconds'] <= 28800"
+        },
+        {
+          "line": 351,
+          "expression": "proof['backup_age_upper_bound_seconds'] <= 3600"
+        },
+        {
+          "line": 357,
+          "expression": "not admin.execute('SELECT 1 FROM pg_database WHERE datname=%s', (database,)).fetchone()"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_publication_projection.py::test_recovery_clears_only_selected_restored_publication_without_refresher[True]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "ce0e68444cf23e1351a8c5a20e39412eb41e782a465f26e8295ef75c1417bdc8",
+      "assertions": [
+        {
+          "line": 30,
+          "expression": "restored['search_document'] and restored['expires_at']"
+        },
+        {
+          "line": 40,
+          "expression": "reconcile(store, start)['applied'] == 1"
+        },
+        {
+          "line": 41,
+          "expression": "list(PublicationState.objects.exclude(listing_id=listing.pk).order_by('listing_id').values()) == peers"
+        },
+        {
+          "line": 48,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 44,
+          "expression": "all((not row['search_document'] and row['published_at'] is None and (row['expires_at'] is None) for row in remaining))"
+        },
+        {
+          "line": 47,
+          "expression": "remaining == [restored]"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_publication_projection.py::test_recovery_clears_only_selected_restored_publication_without_refresher[False]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "ce0e68444cf23e1351a8c5a20e39412eb41e782a465f26e8295ef75c1417bdc8",
+      "assertions": [
+        {
+          "line": 30,
+          "expression": "restored['search_document'] and restored['expires_at']"
+        },
+        {
+          "line": 40,
+          "expression": "reconcile(store, start)['applied'] == 1"
+        },
+        {
+          "line": 41,
+          "expression": "list(PublicationState.objects.exclude(listing_id=listing.pk).order_by('listing_id').values()) == peers"
+        },
+        {
+          "line": 48,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 44,
+          "expression": "all((not row['search_document'] and row['published_at'] is None and (row['expires_at'] is None) for row in remaining))"
+        },
+        {
+          "line": 47,
+          "expression": "remaining == [restored]"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_outbox.py::test_outbox_atomic_rollback_and_replay",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "f77ec7163dba6452e9de33a64d0d979061b87a77aea820ca32ccfa70d9ca1857",
+      "assertions": [
+        {
+          "line": 30,
+          "expression": "not ErasureExecution.objects.filter(plan=plan).exists()"
+        },
+        {
+          "line": 31,
+          "expression": "not RecoveryOutbox.objects.exists()"
+        },
+        {
+          "line": 32,
+          "expression": "AccountToken.objects.filter(user=subject).count() == tokens"
+        },
+        {
+          "line": 34,
+          "expression": "case.version == version"
+        },
+        {
+          "line": 38,
+          "expression": "payload['scope'] == 'account'"
+        },
+        {
+          "line": 39,
+          "expression": "payload['subject'] == str(subject.pk)"
+        },
+        {
+          "line": 40,
+          "expression": "payload['purposes'] == sorted(purposes)"
+        },
+        {
+          "line": 41,
+          "expression": "len(payload['references']['resources']['tokens']) == tokens"
+        },
+        {
+          "line": 43,
+          "expression": "payload['references']['account']['minimum_session_version'] == subject.session_version"
+        },
+        {
+          "line": 44,
+          "expression": "payload['references']['account']['minimum_mfa_version'] == subject.mfa_version"
+        },
+        {
+          "line": 45,
+          "expression": "'reason' not in payload and 'email' not in payload"
+        },
+        {
+          "line": 46,
+          "expression": "event.exported_at is None"
+        },
+        {
+          "line": 47,
+          "expression": "execute(actor, case.pk, plan.pk, key, version, purposes, REASON, True).pk == execution.pk"
+        },
+        {
+          "line": 48,
+          "expression": "RecoveryOutbox.objects.count() == 1"
+        },
+        {
+          "line": 61,
+          "expression": "current['safety.RecoveryOutbox']['count'] == 0"
+        },
+        {
+          "line": 66,
+          "expression": "row['count'] == 1"
+        },
+        {
+          "line": 67,
+          "expression": "event.encrypted_event not in str(previous)"
+        },
+        {
+          "line": 72,
+          "expression": "row['state_digest'] != changed_row['state_digest']"
+        },
+        {
+          "line": 73,
+          "expression": "event.encrypted_event not in str(changed)"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_outbox.py::test_profile_receipt_is_scoped_and_opaque",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "f77ec7163dba6452e9de33a64d0d979061b87a77aea820ca32ccfa70d9ca1857",
+      "assertions": [
+        {
+          "line": 89,
+          "expression": "body['scope'] == 'person' and body['subject'] == str(person.pk)"
+        },
+        {
+          "line": 90,
+          "expression": "body['references']['resources']['exports'] == [str(stored.pk)]"
+        },
+        {
+          "line": 91,
+          "expression": "len(body['references']['resources']['favorites']) == 1"
+        },
+        {
+          "line": 94,
+          "expression": "Favorite.objects.filter(user=outsider, listing=person.listing).exists()"
+        },
+        {
+          "line": 103,
+          "expression": "row['count'] == 1 and row['purpose'] == 'dependent_evidence'"
+        },
+        {
+          "line": 104,
+          "expression": "event.encrypted_event not in str(current)"
+        },
+        {
+          "line": 106,
+          "expression": "other is not None"
+        },
+        {
+          "line": 111,
+          "expression": "other_row['count'] == 0"
+        },
+        {
+          "line": 116,
+          "expression": "changed_row['state_digest'] != row['state_digest']"
+        },
+        {
+          "line": 117,
+          "expression": "event.encrypted_event not in str(changed)"
+        },
+        {
+          "line": 118,
+          "expression": "snapshot(other) == other_manifest"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_outbox.py::test_media_receipt_keeps_recovery_paths_after_physical_deletion",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "f77ec7163dba6452e9de33a64d0d979061b87a77aea820ca32ccfa70d9ca1857",
+      "assertions": [
+        {
+          "line": 135,
+          "expression": "item == {'job': str(job.pk), 'blob': str(blob.pk), 'paths': paths}"
+        },
+        {
+          "line": 136,
+          "expression": "refs['resources']['media_operation'] == 'erase_exclusive'"
+        },
+        {
+          "line": 137,
+          "expression": "all((not photo['shared'] for photo in refs['resources']['photos']))"
+        },
+        {
+          "line": 138,
+          "expression": "paths['original'] not in event.encrypted_event"
+        },
+        {
+          "line": 139,
+          "expression": "erase_due_media() >= 1"
+        },
+        {
+          "line": 141,
+          "expression": "job.status == 'completed' and (not job.encrypted_paths)"
+        },
+        {
+          "line": 143,
+          "expression": "unseal(event.encrypted_event)['references']['media_jobs'] == refs['media_jobs']"
+        },
+        {
+          "line": 144,
+          "expression": "not blob.original.storage.exists(paths['original'])"
+        },
+        {
+          "line": 145,
+          "expression": "not blob.derivative.storage.exists(paths['derivative'])"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_task_gate.py::test_actual_worker_ignores_recovery_and_executes_normal_probe",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "9fe6a62a1e4b35b0ac049011a23ebfbb1b9cdccf2ffbfddf0d87ac2b5cf3248d",
+      "assertions": [
+        {
+          "line": 29,
+          "expression": "business and all((isinstance(task, RecoveryAwareTask) for task in business))"
+        },
+        {
+          "line": 31,
+          "expression": "database['NAME'].startswith('test_')"
+        },
+        {
+          "line": 59,
+          "expression": "process.poll() is None"
+        },
+        {
+          "line": 86,
+          "expression": "process.poll() is not None"
+        },
+        {
+          "line": 65,
+          "expression": "not marker.exists()"
+        },
+        {
+          "line": 70,
+          "expression": "data['synthetic_probe_executed'] and data['postgres_pid'] > 0"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_task_gate.py::test_actual_beat_removes_prior_schedule_during_recovery",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "9fe6a62a1e4b35b0ac049011a23ebfbb1b9cdccf2ffbfddf0d87ac2b5cf3248d",
+      "assertions": [
+        {
+          "line": 117,
+          "expression": "database['NAME'].startswith('test_')"
+        },
+        {
+          "line": 189,
+          "expression": "not (directory / 'never-executed.json').exists()"
+        },
+        {
+          "line": 155,
+          "expression": "process.poll() is None"
+        },
+        {
+          "line": 182,
+          "expression": "process.poll() is not None"
+        },
+        {
+          "line": 185,
+          "expression": "'synthetic-probe' in entries if mode == '0' else not entries"
+        },
+        {
+          "line": 172,
+          "expression": "'\"effective_tasks\": []' in log.read_text()"
+        },
+        {
+          "line": 174,
+          "expression": "'Sending due task' not in log.read_text()"
+        },
+        {
+          "line": 163,
+          "expression": "message.headers['task'] == 'recovery_gate.synthetic_database_probe'"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_multiple_events.py::test_signed_multiple_events_apply_atomically_or_reject_whole_suffix[valid]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b",
+      "assertions": [
+        {
+          "line": 74,
+          "expression": "Favorite.objects.filter(user=outsider, listing=person.listing).exists()"
+        },
+        {
+          "line": 56,
+          "expression": "not RecoveryApplication.objects.exists()"
+        },
+        {
+          "line": 57,
+          "expression": "AccountToken.objects.filter(user=account).count() == len(tokens)"
+        },
+        {
+          "line": 58,
+          "expression": "RecoveryCode.objects.filter(user=account).count() == len(codes)"
+        },
+        {
+          "line": 59,
+          "expression": "Favorite.objects.filter(user=account).count() == len(favorites)"
+        },
+        {
+          "line": 60,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == before"
+        },
+        {
+          "line": 62,
+          "expression": "reconcile(store, start)['applied'] == 2"
+        },
+        {
+          "line": 65,
+          "expression": "account.session_version >= second['references']['account']['minimum_session_version']"
+        },
+        {
+          "line": 66,
+          "expression": "person.rights_version >= second['references']['person']['minimum_rights_version']"
+        },
+        {
+          "line": 67,
+          "expression": "not AccountToken.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 68,
+          "expression": "not RecoveryCode.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 69,
+          "expression": "not Favorite.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 70,
+          "expression": "RecoveryApplication.objects.count() == 2"
+        },
+        {
+          "line": 72,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 73,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == after"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_multiple_events.py::test_signed_multiple_events_apply_atomically_or_reject_whole_suffix[foreign]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b",
+      "assertions": [
+        {
+          "line": 74,
+          "expression": "Favorite.objects.filter(user=outsider, listing=person.listing).exists()"
+        },
+        {
+          "line": 56,
+          "expression": "not RecoveryApplication.objects.exists()"
+        },
+        {
+          "line": 57,
+          "expression": "AccountToken.objects.filter(user=account).count() == len(tokens)"
+        },
+        {
+          "line": 58,
+          "expression": "RecoveryCode.objects.filter(user=account).count() == len(codes)"
+        },
+        {
+          "line": 59,
+          "expression": "Favorite.objects.filter(user=account).count() == len(favorites)"
+        },
+        {
+          "line": 60,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == before"
+        },
+        {
+          "line": 62,
+          "expression": "reconcile(store, start)['applied'] == 2"
+        },
+        {
+          "line": 65,
+          "expression": "account.session_version >= second['references']['account']['minimum_session_version']"
+        },
+        {
+          "line": 66,
+          "expression": "person.rights_version >= second['references']['person']['minimum_rights_version']"
+        },
+        {
+          "line": 67,
+          "expression": "not AccountToken.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 68,
+          "expression": "not RecoveryCode.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 69,
+          "expression": "not Favorite.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 70,
+          "expression": "RecoveryApplication.objects.count() == 2"
+        },
+        {
+          "line": 72,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 73,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == after"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_multiple_events.py::test_signed_multiple_events_apply_atomically_or_reject_whole_suffix[conflicting]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b",
+      "assertions": [
+        {
+          "line": 74,
+          "expression": "Favorite.objects.filter(user=outsider, listing=person.listing).exists()"
+        },
+        {
+          "line": 56,
+          "expression": "not RecoveryApplication.objects.exists()"
+        },
+        {
+          "line": 57,
+          "expression": "AccountToken.objects.filter(user=account).count() == len(tokens)"
+        },
+        {
+          "line": 58,
+          "expression": "RecoveryCode.objects.filter(user=account).count() == len(codes)"
+        },
+        {
+          "line": 59,
+          "expression": "Favorite.objects.filter(user=account).count() == len(favorites)"
+        },
+        {
+          "line": 60,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == before"
+        },
+        {
+          "line": 62,
+          "expression": "reconcile(store, start)['applied'] == 2"
+        },
+        {
+          "line": 65,
+          "expression": "account.session_version >= second['references']['account']['minimum_session_version']"
+        },
+        {
+          "line": 66,
+          "expression": "person.rights_version >= second['references']['person']['minimum_rights_version']"
+        },
+        {
+          "line": 67,
+          "expression": "not AccountToken.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 68,
+          "expression": "not RecoveryCode.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 69,
+          "expression": "not Favorite.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 70,
+          "expression": "RecoveryApplication.objects.count() == 2"
+        },
+        {
+          "line": 72,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 73,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == after"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_multiple_events.py::test_signed_multiple_events_apply_atomically_or_reject_whole_suffix[invalid_schema]",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "d5bf210c7d6a2d5b4a3908cc23074880b940ad16cb52ae5557f1ff983a17a15b",
+      "assertions": [
+        {
+          "line": 74,
+          "expression": "Favorite.objects.filter(user=outsider, listing=person.listing).exists()"
+        },
+        {
+          "line": 56,
+          "expression": "not RecoveryApplication.objects.exists()"
+        },
+        {
+          "line": 57,
+          "expression": "AccountToken.objects.filter(user=account).count() == len(tokens)"
+        },
+        {
+          "line": 58,
+          "expression": "RecoveryCode.objects.filter(user=account).count() == len(codes)"
+        },
+        {
+          "line": 59,
+          "expression": "Favorite.objects.filter(user=account).count() == len(favorites)"
+        },
+        {
+          "line": 60,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == before"
+        },
+        {
+          "line": 62,
+          "expression": "reconcile(store, start)['applied'] == 2"
+        },
+        {
+          "line": 65,
+          "expression": "account.session_version >= second['references']['account']['minimum_session_version']"
+        },
+        {
+          "line": 66,
+          "expression": "person.rights_version >= second['references']['person']['minimum_rights_version']"
+        },
+        {
+          "line": 67,
+          "expression": "not AccountToken.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 68,
+          "expression": "not RecoveryCode.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 69,
+          "expression": "not Favorite.objects.filter(user=account).exists()"
+        },
+        {
+          "line": 70,
+          "expression": "RecoveryApplication.objects.count() == 2"
+        },
+        {
+          "line": 72,
+          "expression": "reconcile(store, start)['applied'] == 0"
+        },
+        {
+          "line": 73,
+          "expression": "type(account).objects.filter(pk=account.pk).values().get() == after"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_recovery_media_sequence.py::test_two_authorized_media_executions_recover_from_before_shared_redaction",
+      "run": "20261018-173221-2870ec78",
+      "current_source_sha256": "3d2ed6612106991d05794fb96365ef388ae8e62140f079f7058de6e473ad9d8a",
+      "assertions": [
+        {
+          "line": 102,
+          "expression": "json.loads(output.getvalue())['events_checked'] == 2"
+        },
+        {
+          "line": 103,
+          "expression": "not RecoveryApplication.objects.exists() and (not Blob.objects.filter(pk__in=replacements).exists())"
+        },
+        {
+          "line": 108,
+          "expression": "reconcile(store, checkpoint)['applied'] == 2"
+        },
+        {
+          "line": 109,
+          "expression": "destroy_due(store, checkpoint) == 1"
+        },
+        {
+          "line": 111,
+          "expression": "peer_photo.blob_id == shared.pk and peer_photo.removed_at is None"
+        },
+        {
+          "line": 112,
+          "expression": "shared.original.storage.exists(shared.original.name)"
+        },
+        {
+          "line": 113,
+          "expression": "exclusive.original.storage.exists(exclusive.original.name) is False"
+        },
+        {
+          "line": 114,
+          "expression": "reconcile(store, checkpoint)['applied'] == 0"
+        },
+        {
+          "line": 115,
+          "expression": "RecoveryApplication.objects.count() == 2"
+        }
+      ]
+    }
+  ],
+  "limits": "Concrete direct current cases and assertions, source hashes match recorded battery inputs. Extends partial index for five named tasks and recovery paths; no proof of every conceivable purpose exception, external storage custody or production cadence. Prior 13 task references and Beat17/18 registration retain distinct scope."
+}
