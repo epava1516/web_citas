@@ -54,6 +54,7 @@ print(json.dumps({'identity':identity,'trusted':trusted,'enforced':settings.RIGH
 
 
 def test_owned_context_rejects_unverified_alias_before_provision(monkeypatch):
-    monkeypatch.setitem(connection.settings_dict, "NAME", "normal_database")
-    with pytest.raises(RuntimeError, match="owned disposable"):
-        _owned_database()
+    with monkeypatch.context() as patch:
+        patch.setitem(connection.settings_dict, "NAME", "normal_database")
+        with pytest.raises(RuntimeError, match="owned disposable"):
+            _owned_database()

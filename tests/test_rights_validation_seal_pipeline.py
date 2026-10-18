@@ -128,9 +128,9 @@ def test_pipeline_pending_cursor_limit_and_failure_closes_every_cursor(monkeypat
                 live.remove(id(cursor))
                 closed.append(cursor)
 
-    with transaction.atomic():
+    with transaction.atomic(), monkeypatch.context() as patch:
         raw = native_pipeline()
-        monkeypatch.setattr(connection, "cursor", tracked)
+        patch.setattr(connection, "cursor", tracked)
         statements = [("SELECT %s::integer AS value", [index]) for index in range(19)]
         assert len(seals._replay(statements)) == 19
         assert len(opened) == len(closed) == 19 and not live
