@@ -1,0 +1,257 @@
+{
+  "source_head": "e1312ed3aac2aedfa184ab4eda553643644d4301",
+  "reviewer": "Codex principal; local technical review, not external production security audit",
+  "reviewed_sources": {
+    "apps/safety/rights_responses.py": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "apps/safety/rights_verification.py": "a4dac22bdef79a8b3f2dca6328c1d432b6c18cbccf5abab7dbec1a1e10b69b34",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+    "apps/safety/rights_copy_page_review.py": "8d046a0c15c517c1772bbf678dee5ca2d2ba204be0d110aed228cb00b1fae4f9",
+    "apps/safety/rights_access_response_views.py": "adbbb321570d68edc8fece62802741e0b24fc9e38dfd90d67f09f07b2f637160",
+    "apps/safety/rights_portability_response_views.py": "aa59310e74e6057fa62655210d3ef17dda07a92c552305a6de41ae7924fd2c08",
+    "apps/safety/rights_portability_export_views.py": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+    "apps/safety/rights_object_delivery.py": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+    "apps/safety/views.py": "4c2a2c38095049a7993a91863e9cafd8298ae0a22bddd9e994421ded489a0e8b",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "config/settings.py": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412",
+    "config/gunicorn_logging.py": "894136747f4d50b37140c562cbdc91499918fdd6f7f8e74669df7054e4a51512",
+    "config/private_logging.py": "64368befebcaea77260b3cba0312c47c74191915c7104076755677b59285e873",
+    "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+    "Dockerfile": "6cc6d27bf3dfe8ad6a6be05938aa706101486cff1bbb007134cb0a58f23d8177"
+  },
+  "reviewed_invariants": [
+    "Canonical domain/case locks and fresh role/session/MFA checks before mutations or returning existing response; case and scope binding retained.",
+    "Proofs bind person/account, manager/rights version, request scope, receipt channel, validity and current procedure; simulator disabled for production.",
+    "Response preparation requires assigned actor and scoped ModelChoice querysets; GET does not read private contents.",
+    "Export proxy authorizes current scope/proof/closure under locks, signed generation/expiry/descriptor, one use, no symlink, type/size/hash checks.",
+    "Private capability channels use timing-safe digests and POST acknowledgement; CSRF middleware active. No-store/noindex and sensitive paths/queries minimized in packaged and Django loggers.",
+    "Public validation catalogs and per-request caches remain context-local; product source matches validated integrated regression and HTTP inputs.",
+    "Production secret/key/cookie/debug and provider restrictions remain separate from synthetic local acceptance."
+  ],
+  "blocking_security_findings_in_reviewed_scope": [],
+  "runtime_evidence_gap": "Current normal Beat refresh executions cleared zero marks; run one exact dirty-mark wiring case before final local acceptance. Historical wiring tests cannot be treated as current dependency execution without that witness.",
+  "current_test_bindings": {
+    "test_groups": [
+      {
+        "source": "tests/test_private_logging.py",
+        "sha256": "2184cc2777acc45d81f49bcafd998fd2d45554f3b54a7b451c763e35a9bff85b",
+        "passed_nodeids": [
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/es/draft/private-id/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/photos/private-id/private/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/favorites/private-id/remove/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/es/listing/private-id/favorite/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/listing/private-id/manage/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/receipt/private-id/private-secret/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/reports/private-id/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/rights/private-id/private-secret/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/rights/private-id/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/complaints/private-id/private-secret/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/complaints/private-id/]",
+          "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/publication-calendar/private-id/]",
+          "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[safety/receipt]",
+          "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/reports]",
+          "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/rights]",
+          "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/complaints]",
+          "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/publication-calendar]",
+          "tests/test_private_logging.py::test_development_http_log_hides_report_capability[safety/receipt]",
+          "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/reports]",
+          "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/rights]",
+          "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/complaints]",
+          "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/publication-calendar]",
+          "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[302]",
+          "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[400]",
+          "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[403]",
+          "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[404]",
+          "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[405]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_actions_specific_revocation.py",
+        "sha256": "bba6e89b74c5845439370693bea1a20267f43efb7614430e0a0ca0a724cdbe59",
+        "passed_nodeids": [
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-False]",
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-True]",
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-False]",
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-True]",
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-False]",
+          "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-True]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_actions_revocation_races.py",
+        "sha256": "cf2d6efa750a4c3cda58dc063e312f107702f31469aff699f1456318bee436ea",
+        "passed_nodeids": [
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[permission-False]",
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[permission-True]",
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[session-False]",
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[session-True]",
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[mfa-False]",
+          "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[mfa-True]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_responses_revocation_races.py",
+        "sha256": "08aade35be6de738fcedad620db93563860d0cda03b788220d410fec6bc4227d",
+        "passed_nodeids": [
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-False]",
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[permission-True]",
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-False]",
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[session-True]",
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-False]",
+          "tests/test_rights_responses_revocation_races.py::test_legacy_response_denies_authority_revoked_during_observed_wait[mfa-True]"
+        ]
+      },
+      {
+        "source": "tests/test_rights_agency_conflict.py",
+        "sha256": "ce7175102ee96e5a08627cefa6f91d4572fdf9a8d4e32f770cc7d2218b89d22b",
+        "passed_nodeids": [
+          "tests/test_rights_agency_conflict.py::test_agency_conflict_observes_relationship_changes_without_stale_user_cache"
+        ]
+      },
+      {
+        "source": "tests/test_rights_object_delivery.py",
+        "sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+        "passed_nodeids": [
+          "tests/test_rights_object_delivery.py::test_one_use_and_original_audit_count",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[receipt]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[subject]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[expires]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[payload]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[namespace]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[grant]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[file]",
+          "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[restore]",
+          "tests/test_rights_object_delivery.py::test_internal_auth_head_range_and_no_secret_are_denied_without_consumption",
+          "tests/test_rights_object_delivery.py::test_concurrent_requests_only_one_consumes_pg_grant",
+          "tests/test_rights_object_delivery.py::test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+          "tests/test_rights_object_delivery.py::test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path",
+          "tests/test_rights_object_delivery.py::test_actual_celery_worker_purges_expired_delivery",
+          "tests/test_rights_object_delivery.py::test_post_redirect_replay_retains_one_proxy_grant_and_direct_fallback",
+          "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+          "tests/test_rights_object_delivery.py::test_grant_person_and_account_inventory_include_own_exclude_other_subject"
+        ]
+      },
+      {
+        "source": "tests/test_recipient_notice_revocation_races.py",
+        "sha256": "a2910e7d25d883ef298c3541e1dfc9f99e603d3dff64b69bbd87451acdd6fcdb",
+        "passed_nodeids": [
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[session-inspect]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[session-acknowledge]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa-inspect]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa-acknowledge]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[disabled-inspect]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[disabled-acknowledge]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-inspect]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[mfa_disabled-acknowledge]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[erased-inspect]",
+          "tests/test_recipient_notice_revocation_races.py::test_recipient_rechecks_authority_after_observed_wait[erased-acknowledge]"
+        ]
+      },
+      {
+        "source": "tests/test_account_recipient_notice_revocation_races.py",
+        "sha256": "4185e37a322354fcdfad6f9fbd1983642235383d2f47496927e953572c3ffaef",
+        "passed_nodeids": [
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-inspect-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[session-acknowledge-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-inspect-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa-acknowledge-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-inspect-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[disabled-acknowledge-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-inspect-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[mfa_disabled-acknowledge-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-inspect-object]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-restriction]",
+          "tests/test_account_recipient_notice_revocation_races.py::test_account_recipient_rechecks_after_observed_account_wait[erased-acknowledge-object]"
+        ]
+      },
+      {
+        "source": "tests/test_editor_recipient_notice_revocation_races.py",
+        "sha256": "1b4b61d272aafd441853df36527ad86a19e0ff4e928c1c0ef99077c908b02cfd",
+        "passed_nodeids": [
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[unassigned-inspect]",
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[unassigned-acknowledge]",
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[membership-inspect]",
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[membership-acknowledge]",
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[manager_version-inspect]",
+          "tests/test_editor_recipient_notice_revocation_races.py::test_live_editor_loses_notice_authority_after_observed_wait[manager_version-acknowledge]"
+        ]
+      },
+      {
+        "source": "tests/test_recovery_replacement_security.py",
+        "sha256": "4f633105f875b14df8ec7ee05f95b43bf3a4fbbe5a5bd133d6cc25c646d7d36a",
+        "passed_nodeids": [
+          "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[data]",
+          "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[foreign]",
+          "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[original]",
+          "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[legacy]"
+        ]
+      }
+    ],
+    "product_bindings": [
+      {
+        "run": "20261018-173221-2870ec78",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-205138-387d4b6d",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-220845-3be2644d",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-221358-68fccccd",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-223323-a8004006",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-225403-aa8bce71",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-102254-9fe9b547",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-102742-9bece192",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-103326-bc4e3554",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-103832-c2595ad8",
+        "product_files_checked": 622,
+        "differences": []
+      },
+      {
+        "run": "20261018-104301-47758129",
+        "product_files_checked": 622,
+        "differences": []
+      }
+    ]
+  },
+  "limits": "Targeted local source and actual report review; not a claim of legal compliance, external operator identity, complete external security audit, or CR09 acceptance by itself. No new test execution in this report."
+}
