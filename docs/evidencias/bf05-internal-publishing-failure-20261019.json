@@ -1,0 +1,135 @@
+{
+  "result": "ERROR",
+  "scope": "BF05 first owned delivery attempt; browser not started",
+  "failure": "Caddy inspect NetworkSettings.Ports[80/tcp] was null on internal-only network despite requested loopback publishing; TypeError reading HostPort",
+  "application_runtime_checks": {
+    "rate_form_declaration_immutable_after_formset": true,
+    "rate_form_sha256": "a216dd6cc23341d5fc36b4b053659b6b963e091a38116ad916961660e37dd775",
+    "private_response_anonymous_login": 302,
+    "private_response_sha256": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "runtime_debug": false,
+    "synthetic_positive_routes": [
+      {
+        "route": "/es/",
+        "status": 200,
+        "body_sha256": "99f1d250145158b381fb77c82f1db37cd9138a0bda3ea9250a3e278ad5cad9a7"
+      },
+      {
+        "route": "/en/",
+        "status": 200,
+        "body_sha256": "d0ad8c702c59b5a3e7513951a9bfe0d875d2e0e36cab78f905b5ca8bb35041cb"
+      },
+      {
+        "route": "/es/?q=photography",
+        "status": 200,
+        "body_sha256": "a3bbe15ee5c8fc67dd7ba3417d24fa70a473a201094b649c4b124b16b68b71d2"
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "status": 200,
+        "body_sha256": "3f0f51dc97c50d4057dd11e7c74c6f1e6d4f6138a99ec30f6f8aa4492fda12e6"
+      },
+      {
+        "actor": "individual",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "482b52c98e52c4ed5c8ddfc3093563de9959bc62635d685a22b1d6f5238dd984",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "individual",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "c4ea7b7ffaaff7ec7c69131c2c4619535a61fa249b7eb5fd557810968a4ddb9f",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "db234a4fbbcd817eb05ca07fb179b742971ea815b68c0467cfb3409e7e352135",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "cb8297e0719ef2dbec91ac4b0f3c4a8a7b2c3e2c8195426d5ab6ffc77e871621",
+        "signed_target_verified": true
+      }
+    ],
+    "identity_fixture": "simulated development only; HTTP/PG/kernel are real local",
+    "integrated_sources_sha256": {
+      "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+      "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+      "apps/listings/moderation_views.py": "b96e782c245f7cf3191c405f1855633ddfdb2f7287053e869ab4d08f75a6db70"
+    },
+    "startup_sha256": {
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+    },
+    "migration_0020_sha256": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "migration_0022_applied": true,
+    "rejected_helpers_absent": true,
+    "three_dependency_triggers_restored": true,
+    "no_host_bytecode": true,
+    "pg_function_matches_migration": true,
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "c9a502a7bf24d3486bb8829a7ea474b96ffb6436bd8561c0d71243c96df5a186",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "dfa43f922b060e7624249f7c8ae8ec05fc458fd67467a392f69c34f8c9d83464",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "detail_missing": 404,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "cleanup": {
+    "bf-assets-20261019-caddy": true,
+    "bf-assets-20261019-app-20261018": true,
+    "bf-assets-20261019-pg-20261018": true,
+    "bf-assets-20261019-net-20261018": true,
+    "bf-assets-20261019-static": true
+  },
+  "source_freeze": "all tracked hashes unchanged independently verified",
+  "terminal_telegram": {
+    "name": "BF05 Docker Caddy activos y navegador",
+    "result": "EXIT 1",
+    "delivery": "sent"
+  },
+  "raw_result": {
+    "path": "artifacts/vps-preparation/bf-assets-20261019/result.json",
+    "sha256": "88f696de8967527b161cf91f9f05f036f4033380db6ead494f2136f9cde7e9a9"
+  },
+  "diagnosis": {
+    "docker_server": "29.8.1",
+    "references": [
+      "https://docs.docker.com/engine/network/",
+      "https://docs.docker.com/engine/network/port-publishing/"
+    ],
+    "decision": "Give only owned Caddy an additional dedicated bridge for loopback publishing; application and PostgreSQL remain on original internal network. No product/config/resource change. No speculative repeated run."
+  }
+}

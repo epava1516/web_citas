@@ -3212,3 +3212,5 @@ Prerregistro repetición conjunta necesaria tras corrección del aislamiento del
 ## BF05 — verificación de entrega preparada, 2026-10-19
 
 Prerregistro: [activos Docker/Caddy](evidencias/bf05-assets-preregistration-20261019.json). Cinco activos propios por SHA/MIME y dieciséis vistas sintéticas ES/EN, móvil/escritorio, claro/oscuro, listado/ficha. Imagen v11 inmutable; PostgreSQL real, red/volumen/contenedores propios con limpieza, sin cambios de aplicación ni servicios normales. Métricas locales separadas, sin declarar CDN, CWV de campo ni nuevo p95. Resultado todavía pendiente.
+
+BF05 primer intento ERROR antes de navegador: puerto Caddy nulo en red sólo interna; [fallo y diagnóstico](evidencias/bf05-internal-publishing-failure-20261019.json). Runtime PG/kernel/HTTP previo PASS, fuentes y limpieza independientes, Telegram EXIT1 enviado. Corrección exclusiva del instrumento: puente propio adicional para Caddy con puerto sólo loopback; aplicación/PG permanecen internos. [Prerregistro correctivo](evidencias/bf05-assets-corrective-preregistration-20261019.json). Sin cambios del producto ni ampliación de cuotas.
