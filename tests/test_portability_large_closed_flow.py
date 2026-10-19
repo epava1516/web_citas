@@ -7,6 +7,7 @@ import os
 import threading
 import time
 import zipfile
+from functools import partial
 from pathlib import Path
 from uuid import uuid4
 
@@ -21,6 +22,7 @@ from test_rights_exports import url
 from test_rights_portability_response_draft import REASON
 
 from apps.listings.models import Revision
+from apps.safety import rights_portability_coverage_batch as coverage_batch
 from apps.safety.models import RightsNotice, RightsPortabilityClosure, RightsResponse
 from apps.safety.rights_portability_close import close
 from apps.safety.rights_portability_response_review import record
@@ -128,6 +130,13 @@ def test_large_history_native_approval_closure_and_binary_delivery(
         (response_fixture, "inspect", "final_draft_inspection"),
     ]:
         monkeypatch.setattr(module, field, measured(label, getattr(module, field)))
+    # The UI already uses the native four-page batch service. Keep all1511 page
+    # inspections and their measurements, without rebuilding the source per page.
+    monkeypatch.setattr(coverage_batch, "inspect_page", coverage_fixture.inspect_page)
+    monkeypatch.setattr(
+        response_fixture, "approved_coverage",
+        partial(coverage_fixture.approved_coverage, batched=True),
+    )
     sampler = threading.Thread(target=sample, daemon=True)
     sampler.start()
     try:

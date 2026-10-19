@@ -2,6 +2,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
+from itertools import groupby
 from queue import Queue
 from uuid import uuid4
 
@@ -22,6 +23,7 @@ from apps.safety.models import (
     RightsExport,
     RightsExportDownload,
     RightsPortabilityCoverage,
+    RightsPortabilityCoverageRead,
     RightsRequest,
 )
 from apps.safety.rights_copy_inspection import SECTIONS
@@ -37,7 +39,7 @@ from apps.safety.rights_portability_selection import row_reference
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def approved_coverage(request, settings, monkeypatch, account_only, *, binary=False):
+def approved_coverage(request, settings, monkeypatch, account_only, *, binary=False, batched=False):
     case, author, selection, selected_review, profile, subject, receipt = (
         prepared_covered_selection(request, settings, monkeypatch, account_only, binary)
     )
@@ -89,19 +91,44 @@ def approved_coverage(request, settings, monkeypatch, account_only, *, binary=Fa
         image_omissions,
     )
     reviewer = User.objects.get(pk=selected_review.action.actor_id)
-    for dataset, index, page, binary in required_pages(source):
-        inspect_page(
-            reviewer,
-            case.pk,
-            case.version,
-            coverage.pk,
-            uuid4(),
-            reason,
-            dataset,
-            index,
-            page,
-            binary=binary,
-        )
+    required = required_pages(source)
+    if batched:
+        from apps.safety.rights_portability_coverage_batch import MAX_PAGES, inspect_batch
+
+        # Exercise the existing browser service, including every native page audit.
+        # Group only adjacent pages of the same dataset/binary mode; never cross a boundary.
+        for _, pages in groupby(required, key=lambda page: (page[0], page[3])):
+            pending = list(pages)
+            for offset in range(0, len(pending), MAX_PAGES):
+                expected = pending[offset:offset + MAX_PAGES]
+                dataset, index, field_page, binary = expected[0]
+                results = inspect_batch(
+                    reviewer, case.pk, case.version, coverage.pk, uuid4(), reason,
+                    dataset, index, field_page, binary=binary, page_count=len(expected),
+                )
+                actual = [
+                    (page["dataset"], page["row_index"], page["field_page"], page["binary"])
+                    for _, page in results
+                ]
+                assert actual == expected, "Native batches must audit every required page in order"
+                reads = list(RightsPortabilityCoverageRead.objects.filter(
+                    coverage=coverage, action_id__in=[action.pk for action, _ in results],
+                ).values_list("dataset", "row_index", "field_page", "binary"))
+                assert len(reads) == len(expected) and set(reads) == set(expected)
+    else:
+        for dataset, index, page, binary in required_pages(source):
+            inspect_page(
+                reviewer,
+                case.pk,
+                case.version,
+                coverage.pk,
+                uuid4(),
+                reason,
+                dataset,
+                index,
+                page,
+                binary=binary,
+            )
     decision = record(reviewer, case.pk, case.version, coverage.pk, uuid4(), reason, "approved")
     return (
         case,

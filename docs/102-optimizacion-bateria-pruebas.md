@@ -1,0 +1,11 @@
+# Optimización de la batería — investigación aislada, 2026-10-19
+
+Estado: candidata, no integrada ni medida como mejora. Base09093c4, worktree test_optimization aislado; C continúa con fuentes congeladas en su worktree original. Grafo AST de pruebas/dependencias actualizado antes de analizar y preparar verificación; sin semántica documental completa ni nuevo consumo Claude.
+
+El caso large_closed_flow tardó1652s, de ellos1604s en1511inspecciones nativas/191899consultas de esa etapa, según JUnit del primer C. No es latencia HTTP limpia. Semillas y aprobación/cierre/entrega ocuparon una fracción menor; no bajar1500revisiones ni sustituir el servicio por mocks para ganar tiempo.
+
+La aplicación tiene inspect_batch con máximo4páginas, cada una con su registro/validaciones, contexto por petición y comprobación fresca al salir. La candidata usa esa vía ya existente sólo en la preparación del caso grande. Conserva todas las páginas requeridas, verifica orden y registros persistidos de cada lote, mantiene aprobación/cierre/replay/JSON/WebP/ZIP/huellas y el control de caso abierto antes de cierre. El helper mantiene por defecto la vía individual para las pruebas de carreras actuales. No cambia código de producto, máximo de lote ni políticas de autoridad.
+
+Prerregistro: tres controles PostgreSQL reales del helper batched (cuenta, perfil, perfil+binario); luego medir el caso grande completo con las mismas1500revisiones y aserciones. La colección/orden por duración tiene su evidencia aparte. No prometer porcentaje de ahorro ni equiparar prueba concurrente/disinto presupuesto a medición causal.
+
+Control auxiliar limitado aCPU6/1536MiB/swap0/512pids,PG0,5CPU7/512MiB/128pids/Redis0,1CPU7/64MiB/64pids: presupuestos propios menores y CPU fuera del C activo. Admisión con margen de memoria del host, sin cambiar los límites/servicios del C. Avisos Telegram terminales y limpieza independiente obligatorios. Prueba completa de tiempo sin interferencia se realizará por separado; no acumular ensayos especulativos.
