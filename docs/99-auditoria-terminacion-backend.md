@@ -1,0 +1,15 @@
+# Auditoría de terminación B-B — 2026-10-19
+
+Estado: en curso; B-F aceptada en [acta08](actas/08-bf-aceptacion-tecnica-local-20261019.md), B-B/C abiertos. Requisitos literales en contrato16 §7. Grafo AST dirigido actualizado antes de revisar; no equivale a actualización semántica de toda la documentación. [Inventario de casos actuales](evidencias/bb-current-test-inventory-20261019.json) es localización de evidencia candidata, no aceptación automática por cantidad de pruebas.
+
+| Punto | Evidencia localizada | Verificación pendiente |
+| --- | --- | --- |
+| BB01 consultas/búsqueda/paginación | N3 común, proyección mantenida, filtros/privacidad y carga limpia válida/repetida CR09 | Conciliar fuentes/alcance y objetivos; MOD09 sigue excepción provisional, sin repetir carga sin riesgo concreto |
+| BB02 tareas/reintentos/caducidad/duplicados | N3 de ciclo, procesamiento, recuperación; positivos de recompresión/recorte/rotación y negativos sintéticos | Calibración y límites exactos; vincular worker/Beat reales y no extrapolar precisión a fotos reales. FAISS/CC05 permanece propuesta documentada |
+| BB03 IMP001–011/seguridad/derechos/retención | Revisión técnica CR09 y pruebas actuales de permisos, cuentas, registros y retención | Matriz literal por IMP con implementación, evidencia y límites de producción; no confundir revisión técnica local con externa/jurídica |
+| BB04 geografía | Dos casos previos de importación, rollback inicial e IDs idempotentes | Nueva regresión preparada para actualización versionada, renombrado/IDs/asociaciones y rollback sobre datos existentes; ejecutar los tres casos en PostgreSQL propio |
+| BB05 adaptadores | Pruebas de verificadores/avisos/pagos sintéticos/objetos locales | Correspondencia de válido/fallo/pendiente, producción deshabilitada y aislamiento; ningún proveedor real acreditado |
+| BB06 Docker/operación/recuperación | Imagen v11, BF05 Caddy/estáticos, restauración PG/medios y reconciliación actual | Revisar actualización de volumen estático persistente, migración/rollback, alertas y simulacros OP; delimitar cifrado/PITR/custodia y RPO/RTO sin ampliar alcance de dumps locales |
+| BB07 sitemap/indexación | N3 sitemap/robots/SEO, retirada y navegador móvil | Leer reglas y pruebas, comprobar fuente vigente/privacidad/códigos y coherencia BF06 |
+
+Prerregistro BB04: ejecutar `tests/test_geography_import.py` completo, **tres casos**, mediante runner oficial focused con PostgreSQL/Redis propios y kernel native-sealed. Se conserva el importador sin cambios; prueba nueva sobre fixture sintético del proyecto, nunca dataset nacional o servicio externo. Controlador4CPU0–3/3584MiB/swap0/pids512, PG1CPU4/1536MiB y Redis0,2CPU5/128MiB. Fuentes/selección/limpieza/Telegram verificables, sin modificar servicios normales. El PASS acotado no sustituye N3 de entrega.
