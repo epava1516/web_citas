@@ -1437,3 +1437,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: BB06 TLS PASS previo; perfil preparado8controles7PASS1FAIL por servicio opcional omitido al renderizar. ERROR/fuentes/cleanup/Telegram conservados; corrección de selección rights-objects sin relajar aislamiento ni iniciar servicios. GrafoAST corte2948af1 previo; sin ClaudeV1 ni alteración consumo anterior.
 
 2026-10-19: B-B siete requisitos aceptados técnicos locales en acta09/matriz; seguridad27fuentes/11IMP/OP001–009 conciliados con límites reales,44dependencias0avisos; perfilconfig8PASStraserrores de selección/tipos/PATHconservados. Producto/14contratos GS01intactos; C/N3 finalpendientes. SinClaudeV1/push/alteraciónconsumoanterior.
+
+2026-10-19: C preparada trasgrafoAST20fuentes;colección3647=3349funcional+298capacidad disjuntos, noPASSfuncional. Reutilización623fuentesDocker/621porcada2cargaslimpias sin diferencias, actaproductivaG01–08pendiente separada. PrepararN3persistente2+1workers/freeze/Telegram/pausa;sinClaudeV1/alteraciónconsumoprevio/aceptaciónC.

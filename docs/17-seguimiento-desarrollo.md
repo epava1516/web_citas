@@ -1,3 +1,7 @@
+## Próxima acción vigente — C preparada, sin aceptación final
+
+[Preparación C](101-preparacion-entrega-final-c.md): selección3349funcionales+298capacidad=3647nodeids, diez adicionales aGS01; pendiente ejecución común sobre el commit final. [Reutilización por huellas](evidencias/c-final-reused-scope-preregistration-20261019.json):623fuentes Docker y621fuentes de producto por cada carga contractual idénticas. No nueva métrica ni aceptación por colección. [Preparación productiva](actas/11-preparacion-produccion-pendiente-20261019.md) queda pendiente separadamente. Preparar ejecución persistente2workersfuncional→capacidadserial, Telegram y pausa explícita del goal durante espera larga.
+
 ## Estado actual — B-B terminada técnicamente en local, 2026-10-19
 
 [Acta B-B09](actas/09-bb-aceptacion-tecnica-local-20261019.md) y [matriz de siete requisitos](evidencias/bb-local-acceptance-matrix-20261019.json): seguridad IMP001–011/operación conciliadas, geografía3PASS, restauración completa cifrada/control2PASS y configuración8PASS; TLS/proxy y estáticos verificados con recursos propios. Fallos conservados, fuentes/limpieza/Telegram comprobados. B-F, GS01, CR09 y CR10 aceptados técnicos locales; queda **C integración y entrega final**, incluida N3 del commit con las pruebas ampliadas. No aceptación global ni producción. Las entradas inferiores son históricas salvo indicación posterior.
