@@ -1,0 +1,62 @@
+{
+  "result": "IMAGES_RESTORED_EXACT_IDENTITIES",
+  "restoration": {
+    "result": "PASS",
+    "restored": {
+      "postgres:17-alpine": {
+        "id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+        "repo_digests": [
+          "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+        ]
+      },
+      "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": {
+        "id": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+        "repo_digests": [
+          "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c"
+        ]
+      },
+      "web-modelos-cr10-native:20261018-v11": {
+        "id": "sha256:261d4b6d97f581ddf8cfd19318b3455eda8bafafb5de4e151c084d08d2200fbd",
+        "archive_sha256_verified": true,
+        "rebuild": false
+      }
+    },
+    "cause_of_absence": "Not determined; do not attribute to a process or user"
+  },
+  "prior_attempt": {
+    "run": "20261019-094059-a249ca86",
+    "result": "ERROR",
+    "stage": "start-pg: image missing",
+    "cases_executed": 0,
+    "telegram": "sent",
+    "cleanup": {
+      "web-modelos-ci-pg-20261019-094059-a249ca86": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    }
+  },
+  "celery_mechanism": {
+    "result": "PASS",
+    "controls": [
+      {
+        "close_called": false,
+        "late_task_result": "registered"
+      },
+      {
+        "close_called": true,
+        "late_task_result": "NotRegistered"
+      }
+    ],
+    "scope": "Mechanism reproduction only; no project integration verdict"
+  },
+  "composite_notice_recovery": {
+    "result": "ERROR",
+    "delivery": "sent",
+    "reason": "Parent wrapper killed by OOM before composite terminal notice; manual recovery after independent cleanup verification",
+    "phase_run": "20261019-001231-bdcc7f12",
+    "cleanup_verified": true
+  },
+  "scope": "Environment recovery and mechanism only, not project integration PASS; no app/test changes"
+}
