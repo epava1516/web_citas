@@ -56,3 +56,10 @@ las verificaciones de interfaz y el residual BF/BB; no añade aceptación.
 2. Aceptar CR10 con su batería integrada.
 3. Completar el inventario de estados por pantalla y el residual definitivo.
 4. Ejecutar N3 sobre un único commit y registrar aquí commit, pruebas, contratos congelados (hash de `docs/contratos/`) e inventario residual.
+
+
+## Corte vigente — 2026-10-19
+
+CR09 y CR10 están aceptados técnicamente en local: actas05/06. Las tablas superiores conservan sus cortes históricos; no representan un bloqueo vigente de MOD08 ni ausencia de entrega comercial. [Conciliación actual de estados](evidencias/gs01-current-state-report-crosswalk-20261019.json):19familias y165patrones de ruta, pruebas comunes actuales y matriz especializada de publicación con fuente idéntica. Se leyeron aserciones de servidor/navegador, guardias y contratos; los estados persistidos no se confunden con espera síncrona ni el fixture del navegador con worker real. Generación y lotes tienen variantes ES/EN/errores/recarga; el testigo histórico del exportador real conserva nueve fuentes idénticas. No es auditoría completa de accesibilidad ni verificación de proveedores.
+
+El residual sigue asignado a BF-S01/BF-S02 y BB-S01/BB-S02, sin cambio coordinado conocido de datos/rutas/permisos/estados necesario para la terminación. Cualquier requisito compartido descubierto volverá a mini-flujo. Antes de emitir GS01 falta la revisión de una batería conjunta ampliada, sobre un único commit congelado, que incluya las dos nuevas fuentes de pruebas comerciales (tres casos). La fuente funcional no ha cambiado; esta ejecución responde al gate N3 de GS01 y al alcance ampliado, no a cambios exclusivos de documentación. Las omisiones largas conservan sus recibos específicos de código idéntico y MOD09 provisional; regression reducido no se declara N3 por sí solo. Carga/recuperación y producción se concilian por alcance al decidir. GS01 todavía no emitida.

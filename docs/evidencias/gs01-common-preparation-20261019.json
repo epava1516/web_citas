@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "scope": "Static preparation only, not functional/N3 acceptance",
+  "checks": [
+    "Ruff runtime syntax/undefined-name selection E9,F63,F7,F82 on orchestration",
+    "check_docs.py:448Markdown3800links",
+    "git diff --check"
+  ],
+  "telegram": {
+    "receipt": "artifacts/test-notifications/1792368697936353654-3526513.json",
+    "delivery": "sent",
+    "result": "PASS"
+  },
+  "environment": "artifacts/vps-preparation/gs01-common-20261019/environment.json",
+  "graph": "artifacts/graphify-gs01-states-current-20261019/receipt.json",
+  "graph_scope": "16 Python sources targeted AST only; templates/docs not semantically refreshed"
+}
