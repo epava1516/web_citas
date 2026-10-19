@@ -1,0 +1,87 @@
+{
+  "run": "20261019-160110-33603703",
+  "head": "a130ec5a7f4821cd762d884aeb1e595a0f409a70",
+  "result": "PASS",
+  "cases": [
+    "tests/test_geography_import.py::test_import_idempotent_preserves_postal_correspondence_and_privacy",
+    "tests/test_geography_import.py::test_invalid_import_rolls_back_whole_dataset",
+    "tests/test_geography_import.py::test_versioned_update_preserves_ids_and_rejects_partial_replacement"
+  ],
+  "pass": 3,
+  "skip": 0,
+  "source_hashes_verified": 1574,
+  "cleanup_independently_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS"
+  },
+  "limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/bb-geography-20261019.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "355225600"
+  },
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.5181510369293392
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.5188389918766916
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.06666016392409801
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.11632366199046373
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 1.2244729469530284
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.7759608612395823
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 2.0230893758125603
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 9.857007150072604
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 38.82584717310965
+    }
+  ],
+  "scope": "BB04 real PostgreSQL synthetic importer initial/idempotent/invalid and versioned update stable IDs/rename/association changes plus rollback preserving previous version; no national dataset/legal license certification",
+  "artifacts": {
+    "artifacts/local-ci/20261019-160110-33603703/result.json": "0571723980e63d3882c0738f504e0325a589bb9df8f71a4019f8775b96ef6f5b",
+    "artifacts/local-ci/20261019-160110-33603703/source-hashes.json": "2a3789bf56e3c321d2a7bb1e6b4e2898aff76d7a2ff9f949597c2fe5585da7c3",
+    "artifacts/local-ci/20261019-160110-33603703/pytest.xml": "1ac11ff5cb79fecfda56bee770edafdfe01f759a0cd92f6ae1edb920b67743f7",
+    "artifacts/local-ci/20261019-160110-33603703/pytest-reports.jsonl": "def07e42468895bd241e03b7bae1b4b4a574ec8178325ef6ae2dba8d0b12da10",
+    "artifacts/local-ci/20261019-160110-33603703/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

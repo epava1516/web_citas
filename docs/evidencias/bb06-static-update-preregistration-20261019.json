@@ -1,0 +1,16 @@
+{
+  "head": "a130ec5a7f4821cd762d884aeb1e595a0f409a70",
+  "result": "PREREGISTERED",
+  "scope": "BB06 packaged persistent static volume: newer stale CSS/obsolete JS fixture; ordinary collectstatic expected to leave stale bytes, then clear=True expected to restore all five source assets and obsolete HTTP404. Exact Caddyfile and v11 immutable, no product changes.",
+  "boundaries": "Owned static volume and Caddy only, local loopback; packaging command has network none and never accesses database. Current separate app/PG integration remains distinct. No normal services.",
+  "limits": "Controller4CPU0-3/3584MiB/swap0/pids512; command1CPU0-3/512MiB/pids64; Caddy.2CPU5/128MiB/pids64",
+  "references": [
+    "https://docs.djangoproject.com/en/5.2/ref/contrib/staticfiles/"
+  ],
+  "files": {
+    "artifacts/vps-preparation/bb-static-update-20261019/probe.py": "9be4aff8a0f39a39ffb2dae10ec10252449692bf8d5fe9b3491d755e87291153",
+    "artifacts/vps-preparation/bb-static-update-20261019/Caddyfile": "e945651e9694c1107c47af452e31842f6b4ff3cb3dc5f704e28ada7f49aad453"
+  },
+  "cleanup": "Owned command/Caddy/network/volume removed in finally, independently check absent",
+  "failures": "Retain any unexpected failure; diagnosis separate before correcting"
+}
