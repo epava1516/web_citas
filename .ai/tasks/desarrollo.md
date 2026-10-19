@@ -1419,3 +1419,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: parPGworkerreal→bump1PASS1FAILreproduceNotRegistered,sinOOM. Fixsólotest:broker/producerpropiosencontexto,sinapp.closeglobal. Preparados9casoscorrectivos/par+7timeouts,sinappchanges/timeoutampliados/ClaudeV1/consumoprevioalterado.
 
 2026-10-19: correctiva9PASS/parCelery2PASS+7browserPASS,sinSKIP/timeoutampliado/appchanges. Freeze/623productos/PGRedis/temp/PIDs/oomkill0/Telegramindependientes. Prepararrepeticióncomún3637trasfixsólotest,mismosrecursos2+1workerssecuenciales;pausaavisadaduranteesperalarga. SinClaudeV1/alteraciónconsumoanterior/aceptaciónGS01.
+
+2026-10-19: GS01aceptadotécnicolocaltras7condiciones/acta07,corregidan3común3637/3507PASS+4subpruebas130SKIP0FAIL,fuentes/cleanup/Telegramauditados;14contratoscongelados,19familiasreportsactuales. Residual13puntosBFBB y Cpendientes;sinpush/appchanges/ClaudeV1/alteraciónconsumoanterior/aceptaciónglobal.

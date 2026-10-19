@@ -1,4 +1,6 @@
-# Acta GS-01 — borrador de comprobación (no emitida)
+Estado vigente2026-10-19: **GS01 aceptada técnicamente en local**, [acta07](actas/07-gs01-puerta-separacion-20261019.md). Lo que sigue conserva el borrador y sus cortes previos, sin describir bloqueos actuales.
+
+# Antecedente GS01 — borrador histórico sustituido
 
 Fecha: 2026-10-10. Redacta: Claude principal (MOD-07). Estado: **BORRADOR, puerta no superada**. Criterios: [contrato16 §6](16-contrato-ejecucion-desarrollo.md#6-puerta-de-separación--gs-01). Estado vigente: [seguimiento17](17-seguimiento-desarrollo.md). Este documento no acepta CR09, CR10 ni GS01; solo prepara el acta para que se emita sobre un único commit integrado cuando las condiciones se cumplan.
 

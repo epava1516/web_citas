@@ -1,0 +1,119 @@
+{
+  "decision": "GS01_TECHNICAL_LOCAL_ACCEPTED",
+  "reviewer": "Codex principal",
+  "tested_head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+  "branch": "codex/mod08-vps-server-20261012",
+  "scope": "Local integrated VPS worktree authorized by user; preserve dirty master/original worktree. No push, publish, provider or real data.",
+  "rows": [
+    {
+      "criterion": 1,
+      "requirement": "CR-01 a CR-10 tienen recorrido real y sus pruebas esenciales pasan.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "CR01–CR10 con recorridos de cuenta/agencia/publicación/descubrimiento/ciclo/derechos/comercio en la batería actual y las19familias; actas locales BASE/CR06,CR07,CR08,CR09,CR10 y dependencias conciliadas. Proveedores de identidad/pago siguen simulados, nunca se declaran reales.",
+      "evidence": [
+        "docs/actas/01-base-cr06-local.md",
+        "docs/actas/02-cr07-local.md",
+        "docs/actas/03-cr08-local.md",
+        "docs/actas/05-cr09-aceptacion-tecnica-local-20261018.md",
+        "docs/actas/06-cr10-aceptacion-tecnica-local-20261019.md",
+        "docs/evidencias/gs01-current-states-final-binding-20261019.json"
+      ]
+    },
+    {
+      "criterion": 2,
+      "requirement": "Todas las pantallas de MVP tienen operaciones/estados servidor conocidos y contratos documentados.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "19familias con rutas, formularios, autoridad y estados conocidos;165patrones cubiertos por test_route_inventory actual y14contratos congelados por SHA. Las aserciones de pantalla se vinculan a la batería del mismo commit.",
+      "evidence": [
+        "docs/evidencias/gs01-current-states-final-binding-20261019.json",
+        "docs/evidencias/gs01-common-terminal-audit-20261019.json"
+      ]
+    },
+    {
+      "criterion": 3,
+      "requirement": "No quedan cambios coordinados conocidos en modelo, permisos, campos, estados, rutas, tareas o presentación de resultados.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Generación asíncrona y revisión por lotes ya integradas con estados/contratos/pruebas. Residual BF01–06/BB01–07 no exige cambios conocidos en modelo/permisos/campos/estados/rutas/semántica. Si se descubre uno, vuelve a mini-flujo; no se congela un defecto.",
+      "evidence": [
+        "docs/97-inventario-estados-gs01.md",
+        "docs/98-inventario-residual-post-gs01.md"
+      ]
+    },
+    {
+      "criterion": 4,
+      "requirement": "Errores de permisos, publicación, datos privados y cargas introducidos están corregidos.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "3507PASS+4subpruebas/130SKIP actual, permisos/privacidad/publicación/concurrencia/recuperación y corrección de aislamiento Celery verificados. Las omisiones necesarias tienen recibos específicos con producto/harness aplicable, no se convierten los130SKIP en PASS. Carga contractual válida reproducida y MOD09 provisional preservados.",
+      "evidence": [
+        "docs/evidencias/gs01-common-terminal-audit-20261019.json",
+        "docs/evidencias/gs01-nine-case-corrective-terminal-20261019.json",
+        "docs/actas/05-cr09-aceptacion-tecnica-local-20261018.md"
+      ]
+    },
+    {
+      "criterion": 5,
+      "requirement": "Se han probado estados de carga/vacío/error/pendiente y variaciones de rol/idioma; no se necesita un endpoint nuevo para terminar UI.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Matriz19familias y reports actuales: vacío/error/pendiente,roles yESEN, navegación/recarga,JS/noJS y generación running/rejected/failed, lote múltiple e independencia. No se exige un estado pending artificial por GET síncrono. Accesibilidad/visual completa queda BF, sin endpoint nuevo conocido.",
+      "evidence": [
+        "docs/evidencias/gs01-current-states-final-binding-20261019.json"
+      ]
+    },
+    {
+      "criterion": 6,
+      "requirement": "Integraciones externas pendientes están aisladas y no implican que se haya cumplido el gate de producción.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Infraestructura propia real PG/Redis/S3-compatible/worker identificada; correo/identidad/pagos externos de prueba explícitos, ventas reales deshabilitadas y gates de producción separados. No se acredita proveedor real, identidad real, revisión jurídica ni seguridad externa.",
+      "evidence": [
+        "docs/contratos/11-promociones-preparacion.md",
+        "docs/actas/05-cr09-aceptacion-tecnica-local-20261018.md",
+        "docs/evidencias/cr10-docker-v11-verified-20261019.json"
+      ]
+    },
+    {
+      "criterion": 7,
+      "requirement": "Inventario residual asigna cada tarea a frontend o backend y prueba que no requiere cambiar el contrato compartido.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "reason": "Inventario residual finito13puntos de contrato asignados aBF/BB, límites y evidencia de salida, sin cambios compartidos conocidos; faseC mantiene integración/entrega y gate de producción aparte.",
+      "evidence": [
+        "docs/98-inventario-residual-post-gs01.md"
+      ]
+    }
+  ],
+  "contracts_frozen": {
+    "files": {
+      "docs/contratos/00-base.md": "7133d5c68a844813dc6efcb39fbea6d276c2dc8b0cad23b7f8a07c7dc35fb3b6",
+      "docs/contratos/01-cuentas-legal.md": "0e57054e791beefd76ce963f7be87b80cace6df46a481c8200c847bffa97121b",
+      "docs/contratos/02-agencias-mfa.md": "3bf098e02cbc8f9cc9b41de610820b71ad5e4bc6949e3528bb0eba8c8c4947fc",
+      "docs/contratos/03-verificacion-representacion.md": "b8259f8496f7b1ed54070d2304eda94825e7ffa9ba5919066a5f51632fad29b6",
+      "docs/contratos/04-borradores-catalogo-geografia.md": "f8b09c865a8155a5e700859b179df7a3be17d464f2480a6089048f8f15ddc583",
+      "docs/contratos/05-fotografias-coincidencias.md": "7501ebd43202dc50440857fac6b9fa43a04b17e78d86b6baeeb8b1f1cc9880f5",
+      "docs/contratos/06-moderacion-publicacion.md": "c22c9494059fe32b0c60ca0e841f77c7f46c132b09e8f43f1431ca8ee3d348ff",
+      "docs/contratos/07-datos-sinteticos.md": "9541ed0da70f25888b7a41106963f44c4a64d79ca332294c1d0c16ce1402a09f",
+      "docs/contratos/08-descubrimiento.md": "430bda84d099f8fc3fad5bfd1311f8ef3f36ce82adb4f4712e05f62ff6cc91df",
+      "docs/contratos/09-ciclo-vida.md": "21c9b4ad9ec6677bf33ce84e95e0321944e4b67f10c3a80750c86508d68a25ac",
+      "docs/contratos/09-publicacion-finalidad.md": "866cf8f97aea7a1b064897a86aab56a2a77698cb0f151c874d5b2d972cdb54d4",
+      "docs/contratos/10-denuncias-derechos.md": "cf00bb75481e8c63785ae6af3b16dee491f4ab2ea69d652c4384c703c41f577d",
+      "docs/contratos/11-promociones-preparacion.md": "9af525922f4305e5555a52dc10bf3d9c01f566552ee857606e39d0d1c5761652",
+      "docs/contratos/12-rutas-complementarias.md": "613a1fa5651842d9e5b5195f3f5658ebe926f6c2361191965b0bc667b3d49f05"
+    },
+    "canonical_manifest_algorithm": "sha256 of UTF-8 JSON sorted keys and separators comma/colon",
+    "sha256": "5cb6b6f773b05b9fe09a378415cffc1ad05ed4303e3cd51be309af4e615e7c7c"
+  },
+  "residual": "docs/98-inventario-residual-post-gs01.md",
+  "future_shared_change_rule": "New shared fields/states/routes/permissions/result semantics require versioned cross-flow, browser verification and contract update before continuing separately.",
+  "not_accepted": [
+    "B-F",
+    "B-B",
+    "C final delivery",
+    "global production readiness",
+    "external legal/security/identity/payment provider gates"
+  ],
+  "retained_debt": "MOD09 provisional large-export latency acceptance and historic FAIL/ERROR/INVALID; no redefinition of targets.",
+  "document_check": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "GS01 acta: documentación y diff",
+    "scope": "450Markdown3820links and git diff --check"
+  }
+}

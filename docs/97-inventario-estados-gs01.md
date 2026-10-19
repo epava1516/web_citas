@@ -1,3 +1,5 @@
+Estado vigente2026-10-19: GS01 aceptada en [acta07](actas/07-gs01-puerta-separacion-20261019.md). [Reports actuales](evidencias/gs01-current-states-final-binding-20261019.json) concilian19familias y165patrones; [residual vigente13puntos](98-inventario-residual-post-gs01.md). Los cortes históricos inferiores se conservan.
+
 # Inventario finito de pantallas y estados para GS-01
 
 Fecha: 2026-10-12. Base inspeccionada: `de12d9b`. **Preparación documental; no acepta CR09, CR10, GS-01, BF, BB ni N3.** Inspección estática de rutas, vistas, plantillas y pruebas; no se han ejecutado pruebas durante esta tarea porque existe una regresión común activa.

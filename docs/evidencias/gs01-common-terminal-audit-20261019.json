@@ -1,0 +1,241 @@
+{
+  "decision": "COMMON_REGRESSION_VERIFIED_NOT_ALONE_GS01",
+  "head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+  "frozen_count": 4252,
+  "lanes": [
+    {
+      "phase": "functional",
+      "run": "20261019-095237-9bf4f4f2",
+      "head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+      "selected": 3339,
+      "passed": 3217,
+      "additional_passed_call_reports": 4,
+      "skipped": 122,
+      "failed": 0,
+      "source_count": 1574,
+      "sources_unchanged": true,
+      "documentation_freeze_unchanged": true,
+      "independent_cleanup": true,
+      "telegram": "sent",
+      "pytest_seconds": 10019.07389730215,
+      "limits": {
+        "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/gs01-common-corrective-20261019.service",
+        "affinity": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "memory.max": "3758096384",
+        "memory.swap.max": "0",
+        "pids.max": "512",
+        "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "terminal_memory_peak": "3532296192"
+      },
+      "artifact_sha256": {
+        "artifacts/local-ci/20261019-095237-9bf4f4f2/result.json": "40eab2699ecea24a61ed8a93c184c66195b7ee7876afd02002ec8dbda19f73a7",
+        "artifacts/local-ci/20261019-095237-9bf4f4f2/pytest.xml": "83dc99245ea7c0035e0c372cefef1c02f84bad410da15096e2066779cb47b0e1",
+        "artifacts/local-ci/20261019-095237-9bf4f4f2/pytest-reports.jsonl": "d27b686c8b16d47b021addc923f7c85f07e344d7f993427929cd8210c55c7620",
+        "artifacts/local-ci/20261019-095237-9bf4f4f2/source-hashes.json": "58ae714240e4d3f13fd6daf22240bc7b21cfa7a57fc73b074c8b59093b19b657"
+      }
+    },
+    {
+      "phase": "capacity",
+      "run": "20261019-124016-c5996270",
+      "head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+      "selected": 298,
+      "passed": 290,
+      "additional_passed_call_reports": 0,
+      "skipped": 8,
+      "failed": 0,
+      "source_count": 1574,
+      "sources_unchanged": true,
+      "documentation_freeze_unchanged": true,
+      "independent_cleanup": true,
+      "telegram": "sent",
+      "pytest_seconds": 3105.9516032803804,
+      "limits": {
+        "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/gs01-common-corrective-20261019.service",
+        "affinity": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "memory.max": "3758096384",
+        "memory.swap.max": "0",
+        "pids.max": "512",
+        "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "terminal_memory_peak": "3532296192"
+      },
+      "artifact_sha256": {
+        "artifacts/local-ci/20261019-124016-c5996270/result.json": "5f0e693c2eb3b635ef9bf6916ed1097baa0923088b19d65711edfe01b4993fd0",
+        "artifacts/local-ci/20261019-124016-c5996270/pytest.xml": "670d08f1a83f7cc6d222de30fd474cb07894059c08e7762a33ce684139fd3d72",
+        "artifacts/local-ci/20261019-124016-c5996270/pytest-reports.jsonl": "56dd664c8bae19a1d0f1e96771a5f56a530ae610e2701748091f5b0d9c678bea",
+        "artifacts/local-ci/20261019-124016-c5996270/source-hashes.json": "58ae714240e4d3f13fd6daf22240bc7b21cfa7a57fc73b074c8b59093b19b657"
+      }
+    }
+  ],
+  "source_manifests_equal": true,
+  "failures_preserved": [
+    "gs01-common-global-oom-failures-20261019.json",
+    "gs01-celery-ordered-negative-20261019.json"
+  ],
+  "unique_nodeids": 3637,
+  "skip_count": 130,
+  "skip_set_unchanged_vs_prior_complete_regression": true,
+  "skip_set_sha256": "c9fed0457aefca6b25d22eb5aae34e876d6589d010e26d9e1ec731decfbb3781",
+  "skip_counts_by_source": {
+    "tests/test_capacity_delivery_complete.py": 1,
+    "tests/test_capacity_delivery_profile.py": 1,
+    "tests/test_capacity_native_probe.py": 1,
+    "tests/test_capacity_object_preflight.py": 1,
+    "tests/test_capacity_professional_profile.py": 1,
+    "tests/test_capacity_selection_concurrent_tcp.py": 1,
+    "tests/test_capacity_selection_tcp.py": 1,
+    "tests/test_capacity_source_profile.py": 1,
+    "tests/test_directory_current_rule_profile.py": 2,
+    "tests/test_directory_query_plans.py": 1,
+    "tests/test_owned_backend_cpu_families.py": 1,
+    "tests/test_owned_broker_accumulation.py": 1,
+    "tests/test_owned_cold_mix_pyspy.py": 1,
+    "tests/test_owned_cold_prepared_cpu.py": 3,
+    "tests/test_owned_context_duplicate_reads.py": 1,
+    "tests/test_owned_context_list_consumers.py": 1,
+    "tests/test_owned_context_to_attr.py": 1,
+    "tests/test_owned_count_partition.py": 1,
+    "tests/test_owned_counted_page_parity.py": 1,
+    "tests/test_owned_counted_page_roi.py": 1,
+    "tests/test_owned_detail_context_roi.py": 1,
+    "tests/test_owned_detail_generic_parity.py": 1,
+    "tests/test_owned_detail_generic_roi.py": 1,
+    "tests/test_owned_detail_generic_scope.py": 7,
+    "tests/test_owned_detail_pyspy.py": 1,
+    "tests/test_owned_detail_query_template.py": 13,
+    "tests/test_owned_detail_template_roi.py": 1,
+    "tests/test_owned_detail_template_threads.py": 1,
+    "tests/test_owned_direct_field_binding.py": 1,
+    "tests/test_owned_directory_cpu_profile.py": 1,
+    "tests/test_owned_dirty_population_plans.py": 1,
+    "tests/test_owned_dirty_projection_parity.py": 1,
+    "tests/test_owned_dirty_projection_roi.py": 1,
+    "tests/test_owned_dirty_unknown_census.py": 1,
+    "tests/test_owned_draft_upload_dependency.py": 1,
+    "tests/test_owned_empty_mark_guard.py": 2,
+    "tests/test_owned_first_page_batch_parity.py": 1,
+    "tests/test_owned_first_page_batch_revision_alias.py": 2,
+    "tests/test_owned_first_page_batch_roi.py": 2,
+    "tests/test_owned_geo_catalog_reuse.py": 1,
+    "tests/test_owned_media_candidates_cpu.py": 1,
+    "tests/test_owned_media_process_cpu.py": 1,
+    "tests/test_owned_native_conflict_plan.py": 2,
+    "tests/test_owned_page_query_template.py": 4,
+    "tests/test_owned_page_template_roi.py": 1,
+    "tests/test_owned_pg_statement_diagnostic.py": 1,
+    "tests/test_owned_population_union.py": 1,
+    "tests/test_owned_prepared_guard_reads_cpu.py": 1,
+    "tests/test_owned_prepared_hydration_cpu.py": 1,
+    "tests/test_owned_private_draft_candidate.py": 10,
+    "tests/test_owned_private_draft_fenced_concurrency.py": 7,
+    "tests/test_owned_private_draft_prelocked_writers.py": 3,
+    "tests/test_owned_private_draft_publication_race.py": 3,
+    "tests/test_owned_private_draft_roi.py": 1,
+    "tests/test_owned_process_preparation.py": 1,
+    "tests/test_owned_public_projection_cpu.py": 1,
+    "tests/test_owned_publication_mark_cost.py": 1,
+    "tests/test_owned_refresh_topology.py": 1,
+    "tests/test_owned_request_aa_stability.py": 1,
+    "tests/test_owned_retention_topology.py": 1,
+    "tests/test_owned_search_shared_population_cpu.py": 1,
+    "tests/test_owned_startup_gc.py": 1,
+    "tests/test_owned_state_aggregate_cpu.py": 1,
+    "tests/test_owned_static_warmup.py": 1,
+    "tests/test_owned_sync_headroom.py": 1,
+    "tests/test_owned_upload_cpu_profile.py": 1,
+    "tests/test_owned_upload_mark_cost.py": 1,
+    "tests/test_owned_upload_warm_profile.py": 1,
+    "tests/test_owned_worker_startup_runtime.py": 1,
+    "tests/test_owned_wsgi_close_release.py": 1,
+    "tests/test_owned_wsgi_context_release.py": 1,
+    "tests/test_owned_wsgi_incoming_retention.py": 1,
+    "tests/test_owned_wsgi_object_lifetime.py": 1,
+    "tests/test_owned_wsgi_release_roi.py": 1,
+    "tests/test_publication_route_coverage.py": 1,
+    "tests/test_resource_service_checkpoint.py": 1,
+    "tests/test_rights_access_coverage_store.py": 6,
+    "tests/test_worker_capacity_comparison.py": 1
+  },
+  "composite_telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "receipt": "artifacts/test-notifications/1792416767624639506-2630253.json"
+  },
+  "reused_required_scope_witnesses": [
+    {
+      "receipt": "docs/evidencias/cr09-current-contractual-terminal-20261018.json",
+      "run": "20261018-221358-68fccccd",
+      "result": "PASS",
+      "technical_differences": [
+        "tests/test_rights_portability_jobs.py"
+      ],
+      "difference_review": "Only uninvoked test body broker cleanup changed; all other module AST and its assertions identical. All app and selected harness sources unchanged. No new timing measurement."
+    },
+    {
+      "receipt": "docs/evidencias/cr09-contractual-repro-terminal-20261018.json",
+      "run": "20261018-223323-a8004006",
+      "result": "PASS",
+      "technical_differences": [
+        "tests/test_rights_portability_jobs.py"
+      ],
+      "difference_review": "Only uninvoked test body broker cleanup changed; all other module AST and its assertions identical. All app and selected harness sources unchanged. No new timing measurement."
+    },
+    {
+      "receipt": "docs/evidencias/cr09-excluded-functional-terminal-20261018.json",
+      "run": "20261018-225403-aa8bce71",
+      "result": "PASS",
+      "technical_differences": [
+        "tests/test_rights_portability_jobs.py"
+      ],
+      "difference_review": "Only uninvoked test body broker cleanup changed; all other module AST and its assertions identical. All app and selected harness sources unchanged. No new timing measurement."
+    },
+    {
+      "receipt": "docs/evidencias/cr09-route-matrix-terminal-20261018.json",
+      "run": "20261018-214959-ddb9050d",
+      "result": "PASS",
+      "technical_differences": [
+        "tests/test_rights_portability_jobs.py"
+      ],
+      "difference_review": "Only uninvoked test body broker cleanup changed; all other module AST and its assertions identical. All app and selected harness sources unchanged. No new timing measurement."
+    },
+    {
+      "receipt": "docs/evidencias/cr09-dirty-refresh-current-terminal-20261018.json",
+      "run": "20261018-230838-3e2d0669",
+      "result": "PASS",
+      "technical_differences": [
+        "tests/test_rights_portability_jobs.py"
+      ],
+      "difference_review": "Only uninvoked test body broker cleanup changed; all other module AST and its assertions identical. All app and selected harness sources unchanged. No new timing measurement."
+    }
+  ],
+  "contracts_frozen": {
+    "files": {
+      "docs/contratos/00-base.md": "7133d5c68a844813dc6efcb39fbea6d276c2dc8b0cad23b7f8a07c7dc35fb3b6",
+      "docs/contratos/01-cuentas-legal.md": "0e57054e791beefd76ce963f7be87b80cace6df46a481c8200c847bffa97121b",
+      "docs/contratos/02-agencias-mfa.md": "3bf098e02cbc8f9cc9b41de610820b71ad5e4bc6949e3528bb0eba8c8c4947fc",
+      "docs/contratos/03-verificacion-representacion.md": "b8259f8496f7b1ed54070d2304eda94825e7ffa9ba5919066a5f51632fad29b6",
+      "docs/contratos/04-borradores-catalogo-geografia.md": "f8b09c865a8155a5e700859b179df7a3be17d464f2480a6089048f8f15ddc583",
+      "docs/contratos/05-fotografias-coincidencias.md": "7501ebd43202dc50440857fac6b9fa43a04b17e78d86b6baeeb8b1f1cc9880f5",
+      "docs/contratos/06-moderacion-publicacion.md": "c22c9494059fe32b0c60ca0e841f77c7f46c132b09e8f43f1431ca8ee3d348ff",
+      "docs/contratos/07-datos-sinteticos.md": "9541ed0da70f25888b7a41106963f44c4a64d79ca332294c1d0c16ce1402a09f",
+      "docs/contratos/08-descubrimiento.md": "430bda84d099f8fc3fad5bfd1311f8ef3f36ce82adb4f4712e05f62ff6cc91df",
+      "docs/contratos/09-ciclo-vida.md": "21c9b4ad9ec6677bf33ce84e95e0321944e4b67f10c3a80750c86508d68a25ac",
+      "docs/contratos/09-publicacion-finalidad.md": "866cf8f97aea7a1b064897a86aab56a2a77698cb0f151c874d5b2d972cdb54d4",
+      "docs/contratos/10-denuncias-derechos.md": "cf00bb75481e8c63785ae6af3b16dee491f4ab2ea69d652c4384c703c41f577d",
+      "docs/contratos/11-promociones-preparacion.md": "9af525922f4305e5555a52dc10bf3d9c01f566552ee857606e39d0d1c5761652",
+      "docs/contratos/12-rutas-complementarias.md": "613a1fa5651842d9e5b5195f3f5658ebe926f6c2361191965b0bc667b3d49f05"
+    },
+    "canonical_manifest_algorithm": "sha256 of UTF-8 JSON sorted keys and separators comma/colon",
+    "sha256": "5cb6b6f773b05b9fe09a378415cffc1ad05ed4303e3cd51be309af4e615e7c7c"
+  },
+  "scope": "Common full ordinary regression plus separately scoped necessary omissions/capacity/load/recovery; 130SKIP preserved; MOD09 provisional debt retained. Not global app/production/BF/BB/C acceptance."
+}
