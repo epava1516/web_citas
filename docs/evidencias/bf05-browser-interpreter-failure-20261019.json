@@ -1,0 +1,36 @@
+{
+  "result": "ERROR",
+  "scope": "Corrected Caddy network works, browser subprocess failed before assets",
+  "failure": "Path.resolve dereferenced .venv/bin/python symlink, selecting base Python without venv dependencies",
+  "diagnosis": {
+    "venv_executable": "/home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python",
+    "playwright": "1.63.0",
+    "base_interpreter": "/home/felidae/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/bin/python3.12",
+    "base_import_returncode": 1,
+    "base_import_error": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'playwright'\n",
+    "fix": "Use absolute path without resolving symlink; preserve interpreter venv discovery."
+  },
+  "cleanup": {
+    "bf-assets-20261019-caddy": true,
+    "bf-assets-20261019-app-20261018": true,
+    "bf-assets-20261019-pg-20261018": true,
+    "bf-assets-20261019-net-20261018": true,
+    "bf-assets-20261019-ingress": true,
+    "bf-assets-20261019-static": true
+  },
+  "caddy_loopback_mapping": {
+    "2019/tcp": null,
+    "443/tcp": null,
+    "443/udp": null,
+    "80/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "34285"
+      }
+    ]
+  },
+  "raw_result": {
+    "path": "artifacts/vps-preparation/bf-assets-corrective-20261019/result.json",
+    "sha256": "1b634c2a230fc609e042592d17400cb8bd843bd74a8749edc8da522bc00aa595"
+  }
+}
