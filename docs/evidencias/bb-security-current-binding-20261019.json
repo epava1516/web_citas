@@ -1,0 +1,1777 @@
+{
+  "same_common_sources": 1571,
+  "changed_common_sources": [
+    ".ai/tasks/desarrollo.md",
+    "tests/test_geography_import.py",
+    "tests/test_recovery_pg_restore.py"
+  ],
+  "change_scope": "Two test modules extended plus administrative ledger append. Geography3 and recovery2 focused PASS/current receipts. No final common regression over new combined test selection claimed. C remains pending.",
+  "prior_security_review_sources_identical": 15,
+  "groups": {
+    "IMP-001": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_four_children_validate_projection_once_without_copying_discarded_return",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_fresh_child_two_drift_rolls_back_all_audits_and_clears_context[session]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_fresh_child_two_drift_rolls_back_all_audits_and_clears_context[source]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_public_projection_returns_independent_values_after_audit_only_marker",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_audit_only_requires_exact_boolean_before_any_write[None]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_audit_only_requires_exact_boolean_before_any_write[1]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_audit_only_requires_exact_boolean_before_any_write[true]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_audit_only_outside_batch_still_runs_full_pure_validation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_audit_sentinel_never_hides_changed_ciphertext_key",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_failed_audit_operation_stores_no_marker_and_next_call_executes",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_coverage_audit_projection.py::test_each_child_latest_approval_queries_fetch_only_primary_keys",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_rights_coverage_audit_projection.py": "adfe8cef1c5e2006fd49e5d2824d745af8de9f7d141005fb1c1f7f1dd3565806"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-002": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_drafts.py::test_wizard_persists_real_fields_contact_and_consult_rate",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[https://external.invalid]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[www.external.invalid]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[@synthetic_contact]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[+34999999999]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_invalid_geography_service_contact_and_version",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_private_drafts_csrf_obsolete_manager_and_quota",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_concurrent_start_keeps_one_listing_and_draft",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_consult_amount_and_database_fixed_null_rejected",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[permission-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[unassign-manage_rights_assignment-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[permission-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[session-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[withdraw-execute_rights_request-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[session-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[mfa-False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_specific_revocation.py::test_specific_rights_permission_is_revalidated_after_observed_wait[extend-extend_rights_deadline-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_actions_revocation_races.py::test_rights_action_denies_authority_revoked_during_observed_wait[mfa-True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_individual_prerequisites_persistence_phone_replay",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_agency_direct_consent_shared_phone_and_transfer",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_events_signed_idempotent_obsolete_and_production_disabled",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_phone_resend_invalidates_previous_and_unauthorized_actor",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_concurrent_phone_cannot_be_claimed_by_two_individuals",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_phone_challenge_created_in_dev_cannot_be_consumed_after_provider_switch",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_mfa_enrollment_replay_and_recovery",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_two_models_editor_scope_and_revocation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_agency_requires_mfa_and_cannot_assign_outside_member",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_concurrent_recovery_code_one_use",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_agency_quota_counts_unapproved_current_manager_and_owner_scope",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_agencies_mfa.py": "030780ab1b74cfa2d16369db96451b68c098f2dc5654dc603ff1d5c14b1ddaea",
+        "tests/test_drafts.py": "e24e3aa5289354aac73f29443335ff181918ab7d3e34273f99d549b44e284622",
+        "tests/test_rights_actions_revocation_races.py": "cf2d6efa750a4c3cda58dc063e312f107702f31469aff699f1456318bee436ea",
+        "tests/test_rights_actions_specific_revocation.py": "bba6e89b74c5845439370693bea1a20267f43efb7614430e0a0ca0a724cdbe59",
+        "tests/test_verification.py": "b5cc93125ac2dffe81b80a71946dcf1fab12135b33eac46225494837cf8fbbf9"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-003": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_existing_email_and_recovery_do_not_enumerate",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_csrf_throttle_and_token_headers",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_concurrent_token_consumption",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_resend_invalidates_older_token",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_token_invalid_after_email_or_password_change",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_concurrent_signup_email_unicity",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_email_delivery_failure_generic_response",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_audited_destination_confirmation_http_keeps_account_unchanged",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_confirmation_delivery_is_disabled_and_source_changes_invalidate_link",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_mobile_destination_confirmation_is_visible_and_persists[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_mobile_destination_confirmation_is_visible_and_persists[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_account_only_execution_consumes_confirmation_without_changing_listing",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_expired_confirmation_delivery_is_purged_without_erasing_audit",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_name_correction_needs_no_new_mailbox_and_mixed_changes_preserve_review[False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_name_correction_needs_no_new_mailbox_and_mixed_changes_preserve_review[True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_confirmation_rechecks_authority_after_observed_account_lock[account]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_account_email_confirmation.py::test_confirmation_rechecks_authority_after_observed_account_lock[proof]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_mfa_enrollment_replay_and_recovery",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_two_models_editor_scope_and_revocation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_agency_requires_mfa_and_cannot_assign_outside_member",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_concurrent_recovery_code_one_use",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_agencies_mfa.py::test_agency_quota_counts_unapproved_current_manager_and_owner_scope",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_mfa_localization.py::test_mfa_localization_and_real_enrollment_challenge_recovery[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_mfa_localization.py::test_mfa_localization_and_real_enrollment_challenge_recovery[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_account_email_confirmation.py": "c6488e35d8b98c0c12937612c1cf7f29b48ac29367217999ddd54899fbbd93e0",
+        "tests/test_accounts.py": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+        "tests/test_agencies_mfa.py": "030780ab1b74cfa2d16369db96451b68c098f2dc5654dc603ff1d5c14b1ddaea",
+        "tests/test_mfa_localization.py": "73aa2597dbdc8c9724b42f69f972853f7edcc72bfee019f84c9788ac1178d7f0"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-004": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_anonymous_encrypted_intake_minimal_receipt_replay_and_no_automatic_change",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_invalid_secret_expiry_csrf_and_rate_limit",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_audited_triage_separate_permission_mfa_and_own_case_exclusion",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_public_entry_bypasses_outdated_account_gate_and_nonstaff_review_requires_mfa",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_concurrent_intake_is_one_case_and_one_receipt",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_actor_replay_foreign_receipt_and_escaped_reference_do_not_confer_access",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[post-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-405]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-404]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[delete-/en/safety/complaints/-405]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/not-a-valid-case-id/-404]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_reviewer_login_mfa_and_audited_delivery_then_reload_hides",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_wizard_persists_real_fields_contact_and_consult_rate",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[https://external.invalid]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[www.external.invalid]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[@synthetic_contact]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_tariff_cannot_publish_unverified_contact[+34999999999]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_invalid_geography_service_contact_and_version",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_private_drafts_csrf_obsolete_manager_and_quota",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_concurrent_start_keeps_one_listing_and_draft",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_drafts.py::test_consult_amount_and_database_fixed_null_rejected",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_public_jsonld_uses_approved_canonical_language_and_public_alias[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_public_jsonld_uses_approved_canonical_language_and_public_alias[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_untranslated_fallback_catalog_and_private_routes_do_not_emit_jsonld",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_hidden_listing_does_not_publish_jsonld[paused]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_hidden_listing_does_not_publish_jsonld[expired]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_hidden_listing_does_not_publish_jsonld[consent]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_browser_jsonld_remains_inert_and_readable_under_csp[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_structured_data.py::test_browser_jsonld_remains_inert_and_readable_under_csp[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_clarification_is_encrypted_replay_safe_and_does_not_reset_clock",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_reviewer_only_reads_clarifications_after_audited_post",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_concurrent_same_reply_creates_one_message_and_one_version_increment",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_new_clarification_invalidates_old_staff_form_and_scope_marker",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_older_clarifications_are_accessible_with_audited_cursor",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_messages.py::test_mobile_clarification_persists_without_account_or_text_disclosure",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_base.py::test_health_uses_postgresql",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_base.py::test_local_home_security_and_language[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_base.py::test_local_home_security_and_language[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_history.py::test_history_is_only_revealed_by_audited_post_and_remains_escaped",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_history.py::test_keyset_history_has_no_omission_or_other_case_data",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_history.py::test_mobile_history_older_page_is_audited_and_get_hides_it",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_base.py": "5b8a23fead07924cd6e2c6aba4ed975bc6bf9814ee991efc37e272c5db779e97",
+        "tests/test_complaint_intake.py": "cd68597d39c2ef89a38e0490238f1893c22717e2f86a79b7204b34d4ca557dc7",
+        "tests/test_drafts.py": "e24e3aa5289354aac73f29443335ff181918ab7d3e34273f99d549b44e284622",
+        "tests/test_public_structured_data.py": "fcd4ce68ea8d0ecb43d5d99a869865c64d37461cb151fae7ee432a650b87c850",
+        "tests/test_report_history.py": "2edf92c32e3ff1d76b852a4a6a8928efcbfe551fa0c609a631872c4fa9fff681",
+        "tests/test_rights_messages.py": "0356f319761bafeb5f708b09eb13584e49aead202b38c85fae6bcf49d5440609"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-005": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_image_similarity.py::test_positive_recompression_and_crop_candidate_and_confirmation[q40]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_positive_recompression_and_crop_candidate_and_confirmation[q70]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_positive_recompression_and_crop_candidate_and_confirmation[left20]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_positive_recompression_and_crop_candidate_and_confirmation[top10-left10]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_positive_recompression_and_crop_candidate_and_confirmation[rotate90]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[10]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[11]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[12]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[13]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[14]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[15]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[16]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[17]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[18]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_unrelated_synthetic_images_never_confirm[19]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_image_similarity.py::test_flat_and_tiny_images_are_not_identity_matches",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_expired_exclusive_files_purged_and_same_bytes_can_be_uploaded_again",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_shared_historical_reference_and_active_sibling_prevent_cleanup",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_shared_storage_path_preserved_even_without_shared_photo",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_proposal_evidence_is_retained_without_worker_decryption",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_inflight_processing_cannot_recreate_purged_preparation[True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_cleanup_serializes_with_new_shared_reference",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_worker_interruption_keeps_committed_guard_and_paths[before]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_preparation_cleanup.py::test_worker_interruption_keeps_committed_guard_and_paths[partial]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_valid_photo_private_derivative_retries_exif_and_remove",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_duplicate_is_global_without_account_suspension[individual]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_duplicate_is_global_without_account_suspension[agency]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_invalid_upload_bounds_and_order",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_regional_crop_across_accounts_waits_for_review",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_photos.py::test_late_photo_is_not_falsely_marked_as_compared",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_processing_publication_without_account.py::test_publication_and_release_without_subject_account[restrict]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_processing_publication_without_account.py::test_publication_and_release_without_subject_account[cease]",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_image_similarity.py": "aef633fcce37e713b64d644ba9378de68c493b17c7bf032750cfa38d1bd6c6c1",
+        "tests/test_photos.py": "5ddceb800d932164f76e7cbd45c2ec1abd15cdfeccf670ef894ecfdfb772e8df",
+        "tests/test_preparation_cleanup.py": "a6e2d9fa1a7c6f0e453b926141499e0ced0aeb33420f6f86e709e42e2e610e9b",
+        "tests/test_processing_publication_without_account.py": "50a15cf6d8c2da60288ae719e9f3131a07c207e483ee7e8621de86db97cf9b4b"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-006": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_one_use_and_original_audit_count",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[receipt]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[subject]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[expires]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[payload]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[namespace]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[grant]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[file]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[restore]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_internal_auth_head_range_and_no_secret_are_denied_without_consumption",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_concurrent_requests_only_one_consumes_pg_grant",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_actual_celery_worker_purges_expired_delivery",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_post_redirect_replay_retains_one_proxy_grant_and_direct_fallback",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_delivery.py::test_grant_person_and_account_inventory_include_own_exclude_other_subject",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_actual_export_data_packages_download_and_purge_s3",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_actual_s3_immutable_put_private_read_rotation_purge_and_restore_replay",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_actual_s3_corruption_and_reference_tamper_release_no_bytes",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_actual_s3_versioning_change_blocks_new_writes_and_physical_purge",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_unsupported_bucket_guards_never_mutate_client[Enabled]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_unsupported_bucket_guards_never_mutate_client[Suspended]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_unsupported_bucket_guards_never_mutate_client[Unknown]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_unsupported_bucket_guards_never_mutate_client[lock]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_object_store.py::test_unsupported_bucket_guards_never_mutate_client[denied]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_shared_file_cannot_be_erased_by_another_person",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_inflight_processing_cannot_write_derivative_after_erasure",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_erasure.py::test_distinct_blob_with_shared_storage_path_prevents_file_deletion",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_shared_media_redaction.py::test_detach_shared_references_preserves_peer_files_and_audit_ids",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_shared_media_redaction.py::test_mixed_scope_can_then_erase_exclusive_file_with_fresh_identity_and_plan",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_shared_media_redaction.py::test_mobile_reviewed_shared_media_redaction",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_shared_media_redaction.py::test_concurrent_redaction_replay_creates_one_empty_marker",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_shared_media_redaction.py::test_redaction_without_shared_references_does_not_withdraw_images",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_orphan_objects_retention.py::test_orphan_object_grace_live_reference_and_idempotent_physical_removal",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_media_erasure.py": "48ab025a96f05eacb0c2079629ee6b40933e23308683b90d12d13e61bcf1d0e1",
+        "tests/test_rights_object_delivery.py": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+        "tests/test_rights_object_store.py": "81fcbc9c7d213a8656b89a4f4cf793938f1a6926424456175a27cb62fc0bd17c",
+        "tests/test_rights_orphan_objects_retention.py": "7695bdf6ad8747f24167bdb983c17ecc524d199d893d889ac9ddea420c9d36f8",
+        "tests/test_shared_media_redaction.py": "6c4abf54be153c8f52a8d8ff34517a15ba0bf092d1d48826459619d76f34ec2b"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-007": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_lifecycle.py::test_availability_pause_resume_withdraw_and_old_retry",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_renewal_same_id_confirmation_expiry_and_delayed_task",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_stale_form_revocation_and_key_payload_conflict",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_concurrent_actions_accept_only_one_version",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_withdraw_pending_revision_prevents_late_moderation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_mobile_pause_resume_withdraw_persists",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_expiry_concurrent_tasks_record_one_system_event",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_action_history_does_not_expose_previous_manager_events",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_agency_editor_assignment_mfa_and_revocation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_expiry_racing_renewal_never_expires_new_period",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_mobile_renewal_confirms_data_and_preserves_publication",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_availability_expires_without_beat_and_resume_preserves_dates",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_lifecycle.py::test_renewing_paused_listing_keeps_it_private",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-create]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-event]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-replay]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-create]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-event]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-replay]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-create]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-event]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-replay]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_concurrent_identical_payment_event_has_one_entitlement_and_one_event",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_order_races.py::test_audit_failure_rolls_back_order_and_payment_grant",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_approval_exposes_exact_revision_and_only_derivative",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_approval_revalidates_current_prerequisites[consent]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_approval_revalidates_current_prerequisites[age]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_approval_revalidates_current_prerequisites[matches]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_approval_revalidates_current_prerequisites[version]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_listing_moderation.py::test_permission_mfa_self_review_rejection_and_concurrency",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_orders.py::test_order_snapshot_replay_pending_failed_success_and_event_conflicts",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_orders.py::test_invalid_events_foreign_actor_and_revoked_session_never_grant",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_promotion_orders.py::test_disabled_production_incomplete_product_and_withdrawn_listing_reject",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_publication_conservative_restore.py::test_corrective_up_down_preserves_conservative_dirty",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_lifecycle.py": "56612af9c8ee3a3403f2456ec8b3063c5ec1084cb6bc6c2253d0e824f4b38bc2",
+        "tests/test_listing_moderation.py": "20bf2e42a3035827ee966f886791d479ab9d8688ad83e99becd799f812c2b0ad",
+        "tests/test_promotion_order_races.py": "f52dd491fb969d27c31c871bc7b2d2f357eeb18c27a0abccf004db23da7838d5",
+        "tests/test_promotion_orders.py": "c5ddd2d990280395e2a4a21610a82a5bf3a02e6d3baaa2ff0b82db625a929967",
+        "tests/test_publication_conservative_restore.py": "ab88a88ccb9e98305facdc1a91c2e7c64c9f5c7211f1ba4dec189bcfb6d11ab1"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-008": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_intake_atomic_alert_replay_and_bounded_reconciliation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_private_acknowledgement_does_not_read_assign_or_resolve",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_concurrent_acknowledgement_preserves_single_first_attention",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_mobile_attention_persists_after_reload",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_reconciler_batch_limit_and_intake_rollback",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_management_and_historical_conflict",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[False-permission]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[False-session]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[False-mfa]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[False-active]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[True-permission]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[True-session]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[True-mfa]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledgement_rechecks_revoked_authority[True-active]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledged_alert_remains_in_scoped_followup_until_terminal[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_urgent_report_alerts.py::test_acknowledged_alert_remains_in_scoped_followup_until_terminal[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_anonymous_encrypted_intake_minimal_receipt_replay_and_no_automatic_change",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_invalid_secret_expiry_csrf_and_rate_limit",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_audited_triage_separate_permission_mfa_and_own_case_exclusion",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_public_entry_bypasses_outdated_account_gate_and_nonstaff_review_requires_mfa",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_concurrent_intake_is_one_case_and_one_receipt",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_actor_replay_foreign_receipt_and_escaped_reference_do_not_confer_access",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[post-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-405]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-404]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[delete-/en/safety/complaints/-405]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/not-a-valid-case-id/-404]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_complaint_intake.py::test_mobile_reviewer_login_mfa_and_audited_delivery_then_reload_hides",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_scoped_simulation_needs_independent_permission_and_current_evidence",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_incomplete_or_failed_proof_never_authorizes_rights[pending]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_incomplete_or_failed_proof_never_authorizes_rights[failed]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_manager_change_or_new_clarification_invalidates_proof",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_disabled_adapter_and_production_reject_synthetic_checks",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_two_simulated_results_only_consume_version_once",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_mobile_operator_starts_explicit_simulation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_verification.py::test_simulated_pass_requires_audited_delivery_of_all_clarification_pages",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_sensitive_data_requires_explicit_audited_access_and_valid_purpose",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_original_agency_and_revoked_editor_cannot_inspect_after_transfer",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_mobile_moderator_inspection_requires_reason_then_hides_on_get",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_transfer_between_initial_check_and_lock_does_not_expose_payload",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_inspection_denies_missing_permission_or_current_mfa[permission]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_inspection_denies_missing_permission_or_current_mfa[disabled_mfa]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_report_inspection.py::test_inspection_denies_missing_permission_or_current_mfa[stale_mfa]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_anonymous_receipt_private_encryption_replay_and_formal_rules",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_queue_permissions_mfa_coi_and_public_route_account_gate",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_concurrent_public_report_replay_is_one_case",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_mobile_report_without_account_and_private_receipt_reload",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_expired_receipt_never_logs_secret_or_contact",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_reports.py::test_report_crypto_requires_real_dedicated_key_in_production",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_complaint_intake.py": "cd68597d39c2ef89a38e0490238f1893c22717e2f86a79b7204b34d4ca557dc7",
+        "tests/test_report_inspection.py": "82b939fb94ea6868e74682cfec35bd67a6e1cff34f6c62021a933741dd83317e",
+        "tests/test_reports.py": "b7b0ec95d53c4d816d6e5604f843aff41a450c2b192cbd2a1fe78ba15bd0cf9b",
+        "tests/test_rights_verification.py": "a929cc4965b72d2cc21f212bbcfa85d6534d1591cd0e7589283976d108399fe9",
+        "tests/test_urgent_report_alerts.py": "d6c24420f0d452608adc2ad1d29a454a468ac9deb1089ba357e43f5de9446e46"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-009": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_rejects_every_source_and_chain_mutation[UPDATE]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_rejects_every_source_and_chain_mutation[DELETE]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_rejects_every_source_and_chain_mutation[TRUNCATE]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_owner_drift_detected_even_when_ticket_and_head_unchanged",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_concurrent_runtime_inserts_and_rollback_share_head",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_backfill_restored_rows_preserves_existing_links_and_detects_drift",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_tombstone_is_bounded_minimized_and_runtime_cannot_insert_chain_directly",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_rollback_of_first_event_leaves_no_head",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_owner_event_link_mutation_rejected_and_ticket_count_strict[payload_digest]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_owner_event_link_mutation_rejected_and_ticket_count_strict[source_pk]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_owner_event_link_mutation_rejected_and_ticket_count_strict[created_at]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable[request_id]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable[actor_id]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable[operation]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable[expected_version]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_runtime_cannot_move_parent_action_scope_but_payload_remains_mutable[key]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain.py::test_chain_inventory_scopes_metadata_and_excludes_current_procedure",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_autocommit_validation_keeps_head_lock_until_source_validation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_same_seven_queries_rows_and_ticket",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_first_and_last_corruption_rejected_in_both_paths[0]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_first_and_last_corruption_rejected_in_both_paths[6]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_sql_first_error_drain_and_savepoint_connection_reuse[0]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_sql_first_error_drain_and_savepoint_connection_reuse[6]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_recorder_falls_back_and_preserves_all_seven_results",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_real_serial_fallback[nested]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_real_serial_fallback[vendor]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_real_serial_fallback[support]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_committed_change_between_queries_visible_in_later_snapshot[False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_committed_change_between_queries_visible_in_later_snapshot[True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_rights_evidence_chain_pipeline.py::test_alternating_source_transport_measurement",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_old_fresh_and_other_project_messages_are_isolated",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_queue_generation_rejects_unsafe_names[../old]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_queue_generation_rejects_unsafe_names[a:b]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_queue_generation_rejects_unsafe_names[UPPER]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_queue_generation_rejects_unsafe_names[]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_broker_namespace.py::test_queue_generation_rejects_unsafe_names[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[data]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[foreign]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[original]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_replacement_security.py::test_signed_replacement_cannot_reuse_data_or_foreign_resource[legacy]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_capacity_runtime_role.py::test_owned_runtime_child_login_acl_optin_and_private_cleanup",
+          "run": "20261019-124016-c5996270"
+        },
+        {
+          "nodeid": "tests/test_capacity_runtime_role.py::test_owned_context_rejects_unverified_alias_before_provision",
+          "run": "20261019-124016-c5996270"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_capacity_runtime_role.py": "da5a5d2de0908f078dbadf5eba200bbbdb92ee3e69413abb9db2c0208508c254",
+        "tests/test_recovery_broker_namespace.py": "2a2a750ea624cbfb62f2047c4554ca5679ea59bbd3bf62799a8e015bf7160489",
+        "tests/test_recovery_replacement_security.py": "4f633105f875b14df8ec7ee05f95b43bf3a4fbbe5a5bd133d6cc25c646d7d36a",
+        "tests/test_rights_evidence_chain.py": "c54b4e09515f378a177dcbe284c8e77d5d604edecedee126a040c4608683ea97",
+        "tests/test_rights_evidence_chain_pipeline.py": "9c8a1b52ab74488f313fb35d44abbca5f386a7a901bfe0511d255d19ff23d911"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-010": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/es/draft/private-id/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/photos/private-id/private/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/favorites/private-id/remove/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/es/listing/private-id/favorite/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/listing/private-id/manage/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/receipt/private-id/private-secret/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/reports/private-id/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/rights/private-id/private-secret/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/rights/private-id/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/safety/complaints/private-id/private-secret/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/complaints/private-id/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_photo_and_draft_access_logs_hide_private_identifiers[/en/moderation/publication-calendar/private-id/]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[safety/receipt]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/reports]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/rights]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/complaints]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_django_http_warning_hides_report_receipt_secret[moderation/publication-calendar]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_development_http_log_hides_report_capability[safety/receipt]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/reports]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/rights]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/complaints]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_development_http_log_hides_report_capability[moderation/publication-calendar]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[302]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[400]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[403]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[404]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_private_logging.py::test_publication_queue_early_responses_receive_private_headers[405]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_recovery_preserves_history_replays_and_case_decision",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_permission_mfa_expiry_and_conflict_are_revalidated",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_complaint_recovery_requires_own_scope_and_preserves_resolution",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_two_connections_recover_only_once",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_mobile_queue_recovery_and_reload",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_scoped_pagination_invalid_identifiers_and_global_key_conflict",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_notice_operations.py::test_complete_recovery_history_and_csrf_input_guards",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_recovery_is_audited_replay_does_not_reset_new_attempts_and_files_finish",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_recovery_http_permissions_csrf_state_and_private_paths",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_concurrent_recovery_same_key_has_one_cycle",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_mobile_recovery_queue_and_form",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_manager_with_operational_permissions_is_still_excluded",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_media_operations.py::test_old_recovery_does_not_reset_a_later_cycle",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_reintroduced_credentials_preferences_and_copy_removed_with_replay",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_foreign_scope_rolls_back_whole_application",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_media_recovery_requeues_even_if_old_job_claims_completed",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_restored_contact_and_consent_are_revoked_without_changing_peer",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_restored_account_erasure_obeys_selected_scope[False]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_apply.py::test_restored_account_erasure_obeys_selected_scope[True]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_task_gate.py::test_actual_worker_ignores_recovery_and_executes_normal_probe",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_recovery_task_gate.py::test_actual_beat_removes_prior_schedule_during_recovery",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_retention_calendar.py::test_calendar_bounds_loading_and_preserves_navigation_and_scope",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_retention_calendar.py::test_calendar_date_filters_and_cursor_expiry",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_media_operations.py": "80d504549b7eeb71a41be0acadbdea36b2d3f57bf20b6f79e19047e08c27aa5b",
+        "tests/test_notice_operations.py": "b599d4b3dd886647b45871b87b5777ca925856134599ca0fb0fe8fc0f6f58974",
+        "tests/test_private_logging.py": "2184cc2777acc45d81f49bcafd998fd2d45554f3b54a7b451c763e35a9bff85b",
+        "tests/test_recovery_apply.py": "e190ecadf188208bf4ed5a29a783336a70f2697f9310b7b3caa2c8bb51d998e2",
+        "tests/test_recovery_task_gate.py": "9fe6a62a1e4b35b0ac049011a23ebfbb1b9cdccf2ffbfddf0d87ac2b5cf3248d",
+        "tests/test_retention_calendar.py": "234c165f6f2720b97f6829549ce8a8e13e3a45a8f5720233c27b82c1e81e19e9"
+      },
+      "extended_test_sources": []
+    },
+    "IMP-011": {
+      "current_common_passed_nodeids": [
+        {
+          "nodeid": "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_existing_email_and_recovery_do_not_enumerate",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_csrf_throttle_and_token_headers",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_concurrent_token_consumption",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_resend_invalidates_older_token",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_token_invalid_after_email_or_password_change",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_concurrent_signup_email_unicity",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_accounts.py::test_email_delivery_failure_generic_response",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_individual_prerequisites_persistence_phone_replay",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_agency_direct_consent_shared_phone_and_transfer",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_events_signed_idempotent_obsolete_and_production_disabled",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_phone_resend_invalidates_previous_and_unauthorized_actor",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_concurrent_phone_cannot_be_claimed_by_two_individuals",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_verification.py::test_phone_challenge_created_in_dev_cannot_be_consumed_after_provider_switch",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_seo.py::test_public_metadata_localization_filters_privacy_and_origin[es]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_seo.py::test_public_metadata_localization_filters_privacy_and_origin[en]",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_seo.py::test_only_available_listing_languages_are_indexable_and_pending_content_excluded",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_public_seo.py::test_browser_metadata_navigation_and_retirement",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_demo_fixture.py::test_demo_fixture_reproducible_private_credentials_and_real_publication",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_demo_fixture.py::test_demo_fixture_refuses_production_and_existing_namespace",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_demo_fixture.py::test_demo_credential_write_failure_rolls_back_accounts_and_owned_media",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_geography_import.py::test_import_idempotent_preserves_postal_correspondence_and_privacy",
+          "run": "20261019-095237-9bf4f4f2"
+        },
+        {
+          "nodeid": "tests/test_geography_import.py::test_invalid_import_rolls_back_whole_dataset",
+          "run": "20261019-095237-9bf4f4f2"
+        }
+      ],
+      "limits": "Evidence binding only, not a claim that every security/production obligation is satisfied by this selection.",
+      "test_source_sha256": {
+        "tests/test_accounts.py": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+        "tests/test_demo_fixture.py": "6c7022cf054f698a1282fe045786828b377a5139d64a595473bcee8668007773",
+        "tests/test_geography_import.py": "7cba7da64bc7dc484e379ea76a27d2a05708aeddb20f1317f0722abb789e327e",
+        "tests/test_public_seo.py": "926d873fd6d66538d976f1b9ab4f6cd96c7be4a9ae479d98ae00d2c5078135aa",
+        "tests/test_verification.py": "b5cc93125ac2dffe81b80a71946dcf1fab12135b33eac46225494837cf8fbbf9"
+      },
+      "extended_test_sources": [
+        "tests/test_geography_import.py"
+      ]
+    }
+  },
+  "head": "dd1a6ebf77f7b195618ef418cb0f9ccfb25a1946",
+  "reviewer": "Codex principal, local technical review; not independent external audit",
+  "decision": "Reviewed mechanisms and trust/data boundaries; B-B acceptance requires separate seven-point decision; final C common suite pending",
+  "common_runs": [
+    "20261019-095237-9bf4f4f2",
+    "20261019-124016-c5996270"
+  ],
+  "current_reviewed_product_sources": {
+    "Dockerfile": "6cc6d27bf3dfe8ad6a6be05938aa706101486cff1bbb007134cb0a58f23d8177",
+    "apps/core/accounts.py": "2d3531a3b8e3b139095b324433ace238021ac882cf3a6eb763b268dcee84ff9f",
+    "apps/core/agencies.py": "a212af9c9d501041cd2f152dbb702af29c3a2a3577f3e9a7ddc516cc809ec5c0",
+    "apps/core/mfa.py": "089689db3454f5bbf5bf9b62ebd56059f08b93b9ca0b286a4e21997d74af1aee",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "apps/core/models.py": "e9110dee9a2964512c0e70c603ab04563739d524f733fc5eec04912b160e681c",
+    "apps/core/sitemaps.py": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+    "apps/core/verification.py": "6d18e5667c5506247864b1f32ad26081887236af1907d0e3b58619b8161ef9d4",
+    "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+    "apps/mediafiles/services.py": "dde07f3f5d419521145a8aa1997a6db48d743898377d9c374dc55ad906fb05a5",
+    "apps/mediafiles/similarity.py": "2e722818420ec2592bda126bad219a00cd997dc90fb83f17c93bcfe61f1351e1",
+    "apps/safety/erasure_inventory.py": "564a648af115be55432423bc593367798f656d0592cb70e12f51ab52be97788d",
+    "apps/safety/notice_delivery.py": "bef8bb3aff08b641c18158ac7048f9879870560d8330ba4a923c61254694751c",
+    "apps/safety/retention_reviews.py": "cbc69acd23a9280f48d6a19c4a8b0c557191fdefb72a1fd256fefbcffa57027c",
+    "apps/safety/rights_access_response_views.py": "adbbb321570d68edc8fece62802741e0b24fc9e38dfd90d67f09f07b2f637160",
+    "apps/safety/rights_copy_page_review.py": "8d046a0c15c517c1772bbf678dee5ca2d2ba204be0d110aed228cb00b1fae4f9",
+    "apps/safety/rights_object_delivery.py": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+    "apps/safety/rights_portability_export_views.py": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+    "apps/safety/rights_portability_response_views.py": "aa59310e74e6057fa62655210d3ef17dda07a92c552305a6de41ae7924fd2c08",
+    "apps/safety/rights_responses.py": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+    "apps/safety/rights_verification.py": "a4dac22bdef79a8b3f2dca6328c1d432b6c18cbccf5abab7dbec1a1e10b69b34",
+    "apps/safety/tasks.py": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+    "apps/safety/views.py": "4c2a2c38095049a7993a91863e9cafd8298ae0a22bddd9e994421ded489a0e8b",
+    "config/gunicorn_logging.py": "894136747f4d50b37140c562cbdc91499918fdd6f7f8e74669df7054e4a51512",
+    "config/private_logging.py": "64368befebcaea77260b3cba0312c47c74191915c7104076755677b59285e873",
+    "config/settings.py": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412"
+  },
+  "prior_security_source_hashes_identical": {
+    "apps/safety/rights_responses.py": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "apps/safety/rights_verification.py": "a4dac22bdef79a8b3f2dca6328c1d432b6c18cbccf5abab7dbec1a1e10b69b34",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+    "apps/safety/rights_copy_page_review.py": "8d046a0c15c517c1772bbf678dee5ca2d2ba204be0d110aed228cb00b1fae4f9",
+    "apps/safety/rights_access_response_views.py": "adbbb321570d68edc8fece62802741e0b24fc9e38dfd90d67f09f07b2f637160",
+    "apps/safety/rights_portability_response_views.py": "aa59310e74e6057fa62655210d3ef17dda07a92c552305a6de41ae7924fd2c08",
+    "apps/safety/rights_portability_export_views.py": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+    "apps/safety/rights_object_delivery.py": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+    "apps/safety/views.py": "4c2a2c38095049a7993a91863e9cafd8298ae0a22bddd9e994421ded489a0e8b",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "config/settings.py": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412",
+    "config/gunicorn_logging.py": "894136747f4d50b37140c562cbdc91499918fdd6f7f8e74669df7054e4a51512",
+    "config/private_logging.py": "64368befebcaea77260b3cba0312c47c74191915c7104076755677b59285e873",
+    "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+    "Dockerfile": "6cc6d27bf3dfe8ad6a6be05938aa706101486cff1bbb007134cb0a58f23d8177"
+  },
+  "contracts_frozen": {
+    "files": {
+      "docs/contratos/00-base.md": "7133d5c68a844813dc6efcb39fbea6d276c2dc8b0cad23b7f8a07c7dc35fb3b6",
+      "docs/contratos/01-cuentas-legal.md": "0e57054e791beefd76ce963f7be87b80cace6df46a481c8200c847bffa97121b",
+      "docs/contratos/02-agencias-mfa.md": "3bf098e02cbc8f9cc9b41de610820b71ad5e4bc6949e3528bb0eba8c8c4947fc",
+      "docs/contratos/03-verificacion-representacion.md": "b8259f8496f7b1ed54070d2304eda94825e7ffa9ba5919066a5f51632fad29b6",
+      "docs/contratos/04-borradores-catalogo-geografia.md": "f8b09c865a8155a5e700859b179df7a3be17d464f2480a6089048f8f15ddc583",
+      "docs/contratos/05-fotografias-coincidencias.md": "7501ebd43202dc50440857fac6b9fa43a04b17e78d86b6baeeb8b1f1cc9880f5",
+      "docs/contratos/06-moderacion-publicacion.md": "c22c9494059fe32b0c60ca0e841f77c7f46c132b09e8f43f1431ca8ee3d348ff",
+      "docs/contratos/07-datos-sinteticos.md": "9541ed0da70f25888b7a41106963f44c4a64d79ca332294c1d0c16ce1402a09f",
+      "docs/contratos/08-descubrimiento.md": "430bda84d099f8fc3fad5bfd1311f8ef3f36ce82adb4f4712e05f62ff6cc91df",
+      "docs/contratos/09-ciclo-vida.md": "21c9b4ad9ec6677bf33ce84e95e0321944e4b67f10c3a80750c86508d68a25ac",
+      "docs/contratos/09-publicacion-finalidad.md": "866cf8f97aea7a1b064897a86aab56a2a77698cb0f151c874d5b2d972cdb54d4",
+      "docs/contratos/10-denuncias-derechos.md": "cf00bb75481e8c63785ae6af3b16dee491f4ab2ea69d652c4384c703c41f577d",
+      "docs/contratos/11-promociones-preparacion.md": "9af525922f4305e5555a52dc10bf3d9c01f566552ee857606e39d0d1c5761652",
+      "docs/contratos/12-rutas-complementarias.md": "613a1fa5651842d9e5b5195f3f5658ebe926f6c2361191965b0bc667b3d49f05"
+    },
+    "canonical_manifest_algorithm": "sha256 of UTF-8 JSON sorted keys and separators comma/colon",
+    "sha256": "5cb6b6f773b05b9fe09a378415cffc1ad05ed4303e3cd51be309af4e615e7c7c"
+  },
+  "focused_additions": [
+    "bb04-geography-terminal-20261019.json",
+    "bb06-encrypted-backup-terminal-20261019.json",
+    "bb06-deployment-profile-terminal-20261019.json"
+  ],
+  "new_test_file_not_in_old_common": "tests/test_deployment_profile.py",
+  "limits": "Group selections overlap; do not sum as unique cases. No final N3 or production/legal/external-review acceptance. National geography, real vendors, operator/legal policies, offsite/key custody and production operations remain separate."
+}

@@ -1,3 +1,7 @@
+## Estado actual — B-B terminada técnicamente en local, 2026-10-19
+
+[Acta B-B09](actas/09-bb-aceptacion-tecnica-local-20261019.md) y [matriz de siete requisitos](evidencias/bb-local-acceptance-matrix-20261019.json): seguridad IMP001–011/operación conciliadas, geografía3PASS, restauración completa cifrada/control2PASS y configuración8PASS; TLS/proxy y estáticos verificados con recursos propios. Fallos conservados, fuentes/limpieza/Telegram comprobados. B-F, GS01, CR09 y CR10 aceptados técnicos locales; queda **C integración y entrega final**, incluida N3 del commit con las pruebas ampliadas. No aceptación global ni producción. Las entradas inferiores son históricas salvo indicación posterior.
+
 ## Estado actual — B-F terminada técnicamente en local, 2026-10-19
 
 [Acta B-F08](actas/08-bf-aceptacion-tecnica-local-20261019.md): seis requisitos conciliados; BF05 Docker/Caddy real PASS, cinco activos, dieciséis vistas y veinticuatro imágenes decodificadas. Fuentes congeladas, limpieza y Telegram independientes. Sin cambios del producto ni repeticiones redundantes de N3. CR09, CR10 y GS01 siguen aceptados localmente; quedan **B-B01–07 y C**. No aceptación global ni producción. Las entradas inferiores son históricas salvo indicación posterior.

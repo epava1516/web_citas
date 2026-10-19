@@ -1,6 +1,6 @@
 # Operación de seguridad e incidentes
 
-Actualizado: 2026-10-03. Estado: procedimientos propuestos, pendientes de responsables, herramientas y simulacros.
+Procedimientos originales: 2026-10-03. Revisión técnica local: 2026-10-19. Los mecanismos/simulacros propios y sus límites se concilian por OP001–009 en [auditoría100](100-auditoria-seguridad-tecnica-local.md) y [acta B-B09](actas/09-bb-aceptacion-tecnica-local-20261019.md). Responsables, custodia y procedimientos reales de producción siguen pendientes.
 
 ## Preparación
 
@@ -90,7 +90,7 @@ Distinguir parches urgentes de cambios de funcionalidades; no aplazar una vulner
 
 Realizar antes de lanzar: restauración completa, toma de cuenta de agencia, retirada urgente y caída de worker/broker. Repetir cuando cambien componentes o aparezcan fallos que lo justifiquen; periodicidad ordinaria pendiente.
 
-Medir detección, contención, retirada, recuperación y resolución; evitar que los indicadores incentiven cierre de denuncias sin revisar. Registrar hallazgos y tareas correctoras en el plan de seguridad. Ningún simulacro ha sido ejecutado todavía.
+Medir detección, contención, retirada, recuperación y resolución; evitar que los indicadores incentiven cierre de denuncias sin revisar. Registrar hallazgos y tareas correctoras en el plan de seguridad. La ausencia de simulacros correspondía al estado inicial. La evidencia técnica local posterior de recuperación, retirada urgente, revocación y colas se delimita por procedimiento en auditoría100; no equivale a simulacro jurídico, recepción externa ni preparación del personal real.
 
 
 ## Ensayo local de limpieza de copias con worker/Beat

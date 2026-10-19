@@ -6,7 +6,7 @@ Plan de requisitos del 2026-10-03. Revisión documental: 2026-10-09. El plan con
 
 Convertir los riesgos y controles de [seguridad](03-seguridad-privacidad.md), [legalidad](06-marco-legal.md) y [antiduplicados](10-unicidad-antiduplicados.md) en trabajo ejecutable. Cubre aplicación Django, agencias, medios, PostgreSQL, Redis/Celery, almacenamiento, proxy, despliegue, personal de soporte y proveedores.
 
-Referencias SEC-xxx corresponden a la matriz de `03-seguridad-privacidad.md`; IMP-xxx identifica paquetes de implementación de este documento. Todos están pendientes. «Necesario» significa necesario para cubrir el riesgo en el alcance descrito; no convierte una propuesta de producto aún abierta en decisión aprobada.
+Referencias SEC-xxx corresponden a la matriz de `03-seguridad-privacidad.md`; IMP-xxx identifica paquetes de implementación de este documento. El estado inicial era pendiente; la revisión técnica local de IMP001–011 y sus límites actuales está en [auditoría100](100-auditoria-seguridad-tecnica-local.md) y [acta B-B09](actas/09-bb-aceptacion-tecnica-local-20261019.md). Los gates de producción y la revisión externa permanecen separados. «Necesario» significa necesario para cubrir el riesgo en el alcance descrito; no convierte una propuesta de producto aún abierta en decisión aprobada.
 
 ## Responsabilidades propuestas
 

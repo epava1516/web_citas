@@ -1,6 +1,8 @@
 # Auditoría de terminación B-B — 2026-10-19
 
-Estado: en curso; B-F aceptada en [acta08](actas/08-bf-aceptacion-tecnica-local-20261019.md), B-B/C abiertos. Requisitos literales en contrato16 §7. Grafo AST dirigido actualizado antes de revisar; no equivale a actualización semántica de toda la documentación. [Inventario de casos actuales](evidencias/bb-current-test-inventory-20261019.json) es localización de evidencia candidata, no aceptación automática por cantidad de pruebas.
+Estado actual: B-B aceptada técnicamente en local en [acta09](actas/09-bb-aceptacion-tecnica-local-20261019.md), con [matriz literal](evidencias/bb-local-acceptance-matrix-20261019.json) y [seguridad/operación](100-auditoria-seguridad-tecnica-local.md). C sigue pendiente, incluida N3 de la versión final. La tabla y entradas siguientes conservan la auditoría inicial y su resolución posterior.
+
+Estado inicial histórico: en curso; B-F aceptada en [acta08](actas/08-bf-aceptacion-tecnica-local-20261019.md), B-B/C abiertos. Requisitos literales en contrato16 §7. Grafo AST dirigido actualizado antes de revisar; no equivale a actualización semántica de toda la documentación. [Inventario de casos actuales](evidencias/bb-current-test-inventory-20261019.json) es localización de evidencia candidata, no aceptación automática por cantidad de pruebas.
 
 | Punto | Evidencia localizada | Verificación pendiente |
 | --- | --- | --- |
@@ -40,3 +42,5 @@ BB06 TLS [PASS con auditoría terminal](evidencias/bb06-tls-proxy-terminal-20261
 BB06 controles de configuración: primer ensayo 7PASS/1FAIL conservado en [recibo](evidencias/bb06-deployment-profile-failure-20261019.json). El servicio opcional objects no aparecía porque su perfil no se seleccionó en config; corregida sólo la selección explícita rights-objects, manteniendo todas las aserciones de aislamiento y sin arrancar servicios. Fuentes/limpieza/Telegram ERROR comprobados.
 
 Segundo control de configuración 7PASS/1FAIL: [representación JSON de bytes](evidencias/bb06-deployment-profile-types-failure-20261019.json) como cadena, no entero. Diagnóstico separado verificó tipos/cuotas/montajes; convertir a entero conserva la comparación exacta. [Lanzamiento anterior sin uv](evidencias/bb06-deployment-profile-launch-failure-20261019.json) falló antes de CI; PATH corregido explícitamente, sin cambiar dependencias. Ambos errores y avisos Telegram conservados.
+
+Resolución final: ocho controles de configuración PASS/0SKIP, con fuentes/limpieza/Telegram comprobados en [recibo](evidencias/bb06-deployment-profile-terminal-20261019.json). Siete puntos B-B conciliados en acta09; sin modificaciones de aplicación/contratos compartidos ni aceptación C/productiva.
