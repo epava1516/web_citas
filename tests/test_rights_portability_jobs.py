@@ -248,7 +248,13 @@ def test_real_broker_worker_uses_only_job_identifier(request, settings, monkeypa
     queue = "async-test-" + uuid4().hex
     from apps.safety.tasks import generate_portability_export
 
-    generate_portability_export.apply_async(args=[str(job.pk)], queue=queue, ignore_result=True)
+    # Own this test's broker connection without closing the process-wide Celery
+    # app: app.close() deregisters it and breaks later shared_task imports.
+    with app.connection_for_write() as broker:
+        with app.amqp.Producer(broker) as producer:
+            generate_portability_export.apply_async(
+                args=[str(job.pk)], queue=queue, ignore_result=True, producer=producer
+            )
     prefix = django_settings.CELERY_BROKER_TRANSPORT_OPTIONS["global_keyprefix"]
     with Redis.from_url(django_settings.CELERY_BROKER_URL) as redis:
         raw = redis.lindex(prefix + queue, 0)
@@ -304,7 +310,6 @@ def test_real_broker_worker_uses_only_job_identifier(request, settings, monkeypa
                 worker.wait(timeout=5)
             with Redis.from_url(django_settings.CELERY_BROKER_URL) as redis:
                 redis.delete(prefix + queue)
-            app.close()
 
 
 def test_broker_outage_preserves_durable_job_and_reconciles(request, settings, monkeypatch):

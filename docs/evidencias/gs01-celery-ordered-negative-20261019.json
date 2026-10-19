@@ -1,0 +1,35 @@
+{
+  "run": "20261019-094347-a00445ba",
+  "head": "373a8de",
+  "result": "ERROR_REPRODUCED_NOTREGISTERED",
+  "cases": [
+    {
+      "nodeid": "tests/test_rights_portability_jobs.py::test_real_broker_worker_uses_only_job_identifier",
+      "outcome": "passed",
+      "trace": null
+    },
+    {
+      "nodeid": "tests/test_promotion_exposure.py::test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements",
+      "outcome": "failed",
+      "trace": "tests/test_promotion_exposure.py:117: in test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements\n    assert bump_promotions.run() == 0\n           ^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/celery/local.py:143: in __getattr__\n    return getattr(self._get_current_object(), name)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/celery/local.py:105: in _get_current_object\n    return loc(*self.__args, **self.__kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/celery/app/__init__.py:68: in task_by_cons\n    return app.tasks[\n.venv/lib/python3.12/site-packages/celery/app/registry.py:18: in __missing__\n    raise self.NotRegistered(key)\nE   celery.exceptions.NotRegistered: 'apps.catalog.tasks.bump_promotions'"
+    }
+  ],
+  "freeze_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261019-094347-a00445ba": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261019-094347-a00445ba": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "scope": "Two actual PG/worker tests one worker; reproduces independently of prior global OOM",
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR"
+  }
+}

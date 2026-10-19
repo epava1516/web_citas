@@ -1415,3 +1415,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: GS01grafoAST13/19familias165rutasconciliadas,fuentes/estados/roles/ESEN/currentreports. PrerregistroN3ampliada3339functional2workers+298capacityserial mismoSHAcongelado,3casosnuevos;sinaceptaciónautomática/mediciónHTTPnueva. PrepararlanzamientopersistenteypausaconavisoTelegramconfirmado. SinClaudeV1/consumoprevioalterado.
 
 2026-10-19: GS01globalOOMconfirmado(kernelCONSTRAINT_NONE,memorymax0oom0oomkill1),7timeoutsy1NotRegistered;fallo/fuentes/cleanup/Telegramconservados. Usuarioquitócargaexterna,sincausalidadtotalpresumida. DiagnósticoCeleryapp.closeglobal/registro tardío;preparado parordenado antesdecorregir. SinClaudeV1/consumoprevioalterado/appchanges.
+
+2026-10-19: parPGworkerreal→bump1PASS1FAILreproduceNotRegistered,sinOOM. Fixsólotest:broker/producerpropiosencontexto,sinapp.closeglobal. Preparados9casoscorrectivos/par+7timeouts,sinappchanges/timeoutampliados/ClaudeV1/consumoprevioalterado.
