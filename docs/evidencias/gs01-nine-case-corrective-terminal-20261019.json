@@ -1,0 +1,65 @@
+{
+  "run": "20261019-094704-f8718c56",
+  "head": "bdc3d3f24d6f58698d4a2bb4e82be2e64a2a7f16",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "9",
+      "time": "158.467",
+      "timestamp": "2026-10-19T11:47:24.132159+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "nodeids": [
+    "tests/test_rights_portability_jobs.py::test_real_broker_worker_uses_only_job_identifier",
+    "tests/test_promotion_exposure.py::test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements",
+    "tests/test_photo_disposition_authority.py::test_review_requires_independence_current_audit_and_invalidates_changed_resources[es]",
+    "tests/test_reflow_320.py::test_public_reflow_and_keyboard_errors[en]",
+    "tests/test_rights_attention.py::test_mobile_attention_filter_preserves_request",
+    "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[False-es]",
+    "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[False-en]",
+    "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[True-es]",
+    "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[True-en]"
+  ],
+  "source_and_documentation_freeze_unchanged": true,
+  "frozen_count": 4245,
+  "independent_cleanup": {
+    "containers_absent": true,
+    "temporary_absent": true,
+    "runner_and_child_absent": true
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS"
+  },
+  "application_sources_unchanged_vs_Docker": 623,
+  "change": "Only test cleanup: own broker connection/producer; do not close shared global app",
+  "comparison": [
+    {
+      "control": "ordered Celery pair",
+      "before": "1PASS1FAIL(NotRegistered)",
+      "current": "2PASS"
+    },
+    {
+      "control": "seven original browser timeouts",
+      "before": "7FAIL Timeout30000ms",
+      "current": "7PASS unchanged timeout"
+    }
+  ],
+  "limits": [
+    "Targeted9cases are not N3/GS01/global acceptance.",
+    "Browser failures not reproduced under current run; do not claim exclusive causal attribution to external process.",
+    "No app performance measurement, no increased budget/Playwright timeout, no provider/production changes."
+  ],
+  "artifact_sha256": {
+    "artifacts/local-ci/20261019-094704-f8718c56/result.json": "618f4a7e163f2c84be1fcdd21934097a4597feda4d9396d84487584bd1341e47",
+    "artifacts/local-ci/20261019-094704-f8718c56/pytest.xml": "056751a5f770dae1f20e169b356c064d1043cd5b7fdb667cfcf0cd95a0617769",
+    "artifacts/local-ci/20261019-094704-f8718c56/pytest-reports.jsonl": "1e70e1098d97dcbd47735cf5e864d33021c8f2cc3add6a2cd92530d1d12d9082",
+    "artifacts/vps-preparation/gs01-failures-corrective-20261019/frozen-inputs.json": "9f16fac54437ecfbe4aebc93983d8261b7794918db5ae8bf7c98f5713bcdf2b1"
+  }
+}

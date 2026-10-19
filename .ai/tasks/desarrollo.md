@@ -1417,3 +1417,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: GS01globalOOMconfirmado(kernelCONSTRAINT_NONE,memorymax0oom0oomkill1),7timeoutsy1NotRegistered;fallo/fuentes/cleanup/Telegramconservados. Usuarioquitócargaexterna,sincausalidadtotalpresumida. DiagnósticoCeleryapp.closeglobal/registro tardío;preparado parordenado antesdecorregir. SinClaudeV1/consumoprevioalterado/appchanges.
 
 2026-10-19: parPGworkerreal→bump1PASS1FAILreproduceNotRegistered,sinOOM. Fixsólotest:broker/producerpropiosencontexto,sinapp.closeglobal. Preparados9casoscorrectivos/par+7timeouts,sinappchanges/timeoutampliados/ClaudeV1/consumoprevioalterado.
+
+2026-10-19: correctiva9PASS/parCelery2PASS+7browserPASS,sinSKIP/timeoutampliado/appchanges. Freeze/623productos/PGRedis/temp/PIDs/oomkill0/Telegramindependientes. Prepararrepeticióncomún3637trasfixsólotest,mismosrecursos2+1workerssecuenciales;pausaavisadaduranteesperalarga. SinClaudeV1/alteraciónconsumoanterior/aceptaciónGS01.
