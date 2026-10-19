@@ -1,0 +1,85 @@
+{
+  "result": "PASS",
+  "head": "f410bc03a5459d255e73c1b091662dfed9693b7f",
+  "source_and_instrument_hashes_verified": true,
+  "source_count": 4276,
+  "cleanup_independently_verified": true,
+  "telegram": [
+    {
+      "path": "artifacts/test-notifications/1792427444050158446-794995.json",
+      "sha256": "17ef7f03944ff5ceff0b24ed288a9333319780ff4668ac5c835ceed6c62ef697",
+      "result": "PASS",
+      "delivery": "sent"
+    }
+  ],
+  "evidence": {
+    "result": "PASS",
+    "scope": "Owned local TLS with actual Caddy/Gunicorn23, PostgreSQL/runtime role; production settings branch with empty synthetic database and disabled providers. No real production/domain/ACME/provider claim.",
+    "negative_control": {
+      "expected_redirect_loop_without_proxy_trust": true,
+      "status": 301
+    },
+    "https_health": {
+      "status": 200,
+      "hsts": "max-age=31536000; includeSubDomains",
+      "ca_verified": true
+    },
+    "spoofed_scheme_headers_ignored": true,
+    "http_spoof_cannot_bypass_https": 308,
+    "secure_csrf_cookie": true,
+    "client_limits": [
+      {
+        "source_ip": "10.0.7.3",
+        "statuses": [
+          400,
+          400,
+          400,
+          400,
+          400,
+          429
+        ]
+      },
+      {
+        "source_ip": "10.0.7.4",
+        "statuses": [
+          400
+        ]
+      }
+    ],
+    "untrusted_proxy_protocol": {
+      "untrusted_proxy_protocol_status": 403
+    },
+    "runtime": {
+      "runtime_role_not_owner_or_superuser": true,
+      "independent_client_limits": [
+        1,
+        6
+      ],
+      "user_rows": 0,
+      "kernel": "native-sealed"
+    },
+    "app_and_pg_not_published": true,
+    "trusted_proxy_ip": "10.0.6.3",
+    "cleanup": {
+      "bb-tls-client-a-20261019": true,
+      "bb-tls-client-b-20261019": true,
+      "bb-tls-untrusted-20261019": true,
+      "bb-tls-command-20261019": true,
+      "bb-tls-app-20261019": true,
+      "bb-tls-caddy-20261019": true,
+      "bb-tls-pg-20261019": true,
+      "bb-tls-edge-20261019": true,
+      "bb-tls-backend-20261019": true,
+      "bb-tls-static-20261019": true
+    }
+  },
+  "configuration_scope": "Exact Caddyfile.production.example; compose example syntax validated separately. Runtime uses same declared limits via own docker run commands; full Compose deployment not claimed. No production/domain/ACME/custody/provider verified.",
+  "artifacts": {
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/result.json": "0e1e55261d953f078064f52c3164c13d6a1f0ab591f5de339a03a1a102c66513",
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/freeze.json": "649bed93210afb7fcc764734af1f717e307407a101530c1298bd40ace377aed0",
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/probe.py": "651db802587b5b7140bd92501185cdeb465b788aa31e85e607df73fff434709c",
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/Caddyfile": "81301889f988739bfbe0f996c05f4878bbfb1e9fe5455266731ff3d48424dcc1",
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/preflight.json": "15cdb52bfcf8ccc3976c0d1663fe832d74a1793731cb175998beda3a6c71f3c3",
+    "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/root.crt": "e0d971b189a738445ea6630a6560131ed41f33f01cdd02bc9fd3b5124c56941b"
+  }
+}

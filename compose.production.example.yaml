@@ -4,21 +4,42 @@
 name: web-modelos-production-example
 services:
   db:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set separate migrator password}
+    cpus: '1'
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 128
     ports: !reset []
     networks: [backend]
   redis:
+    cpus: '0.2'
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
     ports: !reset []
     networks: [backend]
   objects:
     ports: !reset []
     networks: [backend]
   migrate-runtime:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set separate migrator password}
+    cpus: '1'
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
     networks: [backend]
     read_only: true
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp]
   app:
+    cpus: '2'
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    pids_limit: 128
+    init: true
     ports: !reset []
     networks: [backend]
     environment: &production
@@ -42,6 +63,11 @@ services:
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp]
   worker:
+    cpus: '1'
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 128
+    init: true
     networks: [backend]
     environment: *production
     read_only: true
@@ -49,6 +75,11 @@ services:
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp]
   beat:
+    cpus: '0.2'
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    init: true
     networks: [backend]
     environment: *production
     read_only: true
@@ -56,6 +87,11 @@ services:
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp]
   caddy:
+    cpus: '0.2'
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 64
+    init: true
     networks: [edge, backend]
     environment:
       PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME:?Set reviewed hostname}

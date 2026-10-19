@@ -1,0 +1,16 @@
+{
+  "head_before_configuration_tests": "f410bc03a5459d255e73c1b091662dfed9693b7f",
+  "selection": [
+    "tests/test_deployment_profile.py"
+  ],
+  "expected_cases": 8,
+  "scope": "Real Compose config rendering only, no daemon service creation and no normal env-file resolution. Assert private ports/networks, distinct runtime user, required secrets/proxy addresses, disabled providers/payments, read-only/capability and resource limits; seven missing-input negatives.",
+  "configuration_change": "Production example adds explicit budgets matching owned test service roles and mandatory migrator password; no change to actual Caddy routing template or default development services. Existing TLS witness remains for exact Caddyfile; examples are inactive and loopback only.",
+  "limits": "Official focused CI controller4CPU0-3/3584MiB/swap0/pids512; own PG1CPU4/1536MiB, Redis.2CPU5/128MiB; render subprocess20sec each.",
+  "files": {
+    "tests/test_deployment_profile.py": "66cc7f87be29f423e551e6af50ba7eb754cdde6d08bd54e21f6615142a33a840",
+    "compose.production.example.yaml": "142d5a83b7f909aa43b948820032df2e99a31fea8decc8e698165d4bf0926019",
+    "Caddyfile.production.example": "81301889f988739bfbe0f996c05f4878bbfb1e9fe5455266731ff3d48424dcc1"
+  },
+  "failure_policy": "Retain failures and diagnose; do not start normal Compose project."
+}
