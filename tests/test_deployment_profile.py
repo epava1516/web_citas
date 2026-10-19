@@ -67,7 +67,7 @@ def test_prepared_profile_keeps_private_ports_roles_keys_and_limits(tmp_path):
         ("caddy", 128, 64),
     ]:
         service = services[name]
-        assert service["mem_limit"] == service["memswap_limit"] == memory * 1024**2
+        assert int(service["mem_limit"]) == int(service["memswap_limit"]) == memory * 1024**2
         assert service["pids_limit"] == pids and float(service["cpus"]) > 0
     caddy_mounts = {row["target"]: row for row in services["caddy"]["volumes"]}
     assert Path(caddy_mounts["/etc/caddy/Caddyfile"]["source"]).name == "Caddyfile.production.example"
