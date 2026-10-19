@@ -1,0 +1,135 @@
+{
+  "head": "b571bcb82889485c58706c32de043ce7f78b918a",
+  "result": "PASS",
+  "scope": "Fixture/tooling verification only; final C pending",
+  "frozen_files_unchanged": 4310,
+  "product_image_sources_unchanged": 623,
+  "phases": [
+    {
+      "phase": "reference",
+      "run_id": "20261019-200350-6e6caefd",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "512.395",
+          "timestamp": "2026-10-19T22:04:16.410246+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "telegram": {
+        "delivery": "sent",
+        "result": "PASS",
+        "name": "CI focused"
+      },
+      "cleanup_independently_verified": true,
+      "host_limits": {
+        "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/optimization-matched-ready-20261019.service",
+        "affinity": [
+          6
+        ],
+        "memory.max": "1610612736",
+        "memory.swap.max": "0",
+        "pids.max": "512",
+        "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "terminal_memory_peak": "321724416"
+      },
+      "raw_path": "/home/felidae/proyectos/web_modelos_test_optimization_20261019/artifacts/local-ci/20261019-200350-6e6caefd"
+    },
+    {
+      "phase": "candidate",
+      "run_id": "20261019-201321-fb8fa9fb",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "12",
+          "time": "936.866",
+          "timestamp": "2026-10-19T22:13:48.210221+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "telegram": {
+        "delivery": "sent",
+        "result": "PASS",
+        "name": "CI focused"
+      },
+      "cleanup_independently_verified": true,
+      "host_limits": {
+        "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/optimization-matched-ready-20261019.service",
+        "affinity": [
+          6
+        ],
+        "memory.max": "1610612736",
+        "memory.swap.max": "0",
+        "pids.max": "512",
+        "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "terminal_memory_peak": "778678272"
+      },
+      "raw_path": "/home/felidae/proyectos/web_modelos_test_optimization_20261019/artifacts/local-ci/20261019-201321-fb8fa9fb"
+    },
+    {
+      "phase": "candidate-repeat",
+      "run_id": "20261019-202957-6bd63d92",
+      "result": "PASS",
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "120.585",
+          "timestamp": "2026-10-19T22:30:23.867258+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "telegram": {
+        "delivery": "sent",
+        "result": "PASS",
+        "name": "CI focused"
+      },
+      "cleanup_independently_verified": true,
+      "host_limits": {
+        "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/optimization-matched-ready-20261019.service",
+        "affinity": [
+          6
+        ],
+        "memory.max": "1610612736",
+        "memory.swap.max": "0",
+        "pids.max": "512",
+        "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "terminal_memory_peak": "778678272"
+      },
+      "raw_path": "/home/felidae/proyectos/web_modelos_test_optimization_20261019/artifacts/local-ci/20261019-202957-6bd63d92"
+    }
+  ],
+  "graph_refresh": "artifacts/test-optimization-terminal-audit-20261019/receipt.json",
+  "limitations": [
+    "Reference began with concurrent C; C stopped before candidate. Wall-time differences are observational, not fully isolated causal estimates.",
+    "Full1500 prior baseline used different resources and process history.",
+    "Small native batch fixtures used more SQL and no consistent wall-time benefit; default remains scalar.",
+    "No new clean request p95 or complete battery speedup measured."
+  ],
+  "observed_seconds": {
+    "copy30": [
+      16.11571714282036,
+      8.268688122276217,
+      8.29336193529889
+    ],
+    "copy1280": [
+      397.2501060771756,
+      9.712932080030441,
+      10.449852230027318
+    ],
+    "full1500_candidate": 814.9617922273465
+  },
+  "acceptance": false
+}
