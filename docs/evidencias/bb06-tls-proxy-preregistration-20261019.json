@@ -1,0 +1,25 @@
+{
+  "head_before_configuration": "ba568b6c579ac7cf11bc2db74362d97dde12d04e",
+  "scope": "BB06 unused production-preparation example only: actual owned TLS with localhost Caddy local CA and certificate verification, Gunicorn23 native-sealed v11, PG17 and separate non-owner runtime role. Empty synthetic DB, disabled providers; no real environment/domain/ACME/public ports.",
+  "controls": [
+    "negative TLS redirect loop without exact proxy IP trust (expected301)",
+    "positive HTTPS health200/HSTS and Secure CSRF cookie",
+    "spoofed scheme/legacy headers ignored; plain HTTP spoof still redirects",
+    "two distinct owned client IPs get independent recover limits: first5invalid400+429, otherinvalid400; forged XFF ignored",
+    "untrusted PROXY protocol sender403; app/PG no published ports"
+  ],
+  "implementation": "Configuration examples only; preserve default local Caddyfile/Compose/application and image. Gunicorn supported FORWARDED_ALLOW_IPS and proxy-protocol/allow-from use exact owned Caddy IP, no wildcard. Caddy PROXYv1 with upstream keepalive off matches current sync workers.",
+  "compose_scope": "Read-only config --quiet on base+runtime-role+production.example using synthetic private env; never compose up on normal project. Template binds only loopback, external production gates remain.",
+  "limits": "Controller4CPU0-3/3584MiB/swap0/pids512; PG1CPU4/1536MiB, app2CPU0-3/1536MiB/4sync, Caddy.2CPU5/128MiB; migration1CPU0-3/512MiB and clients1CPU0-3/256MiB bounded, synthetic only.",
+  "files": {
+    "Caddyfile.production.example": "81301889f988739bfbe0f996c05f4878bbfb1e9fe5455266731ff3d48424dcc1",
+    "compose.production.example.yaml": "3a89fb1abe2e1e473ed1943dc3d955902f82508522d6c9e2331c6761607fb5f6",
+    "artifacts/vps-preparation/bb-tls-proxy-20261019/probe.py": "4b37a915bf812dae17c08caea95b331b08236cc30e1a2dd9b50e9ad0559e815d"
+  },
+  "references": [
+    "https://gunicorn.org/reference/settings/",
+    "https://caddyserver.com/docs/caddyfile/directives/reverse_proxy",
+    "https://docs.djangoproject.com/en/5.2/ref/settings/#secure-proxy-ssl-header"
+  ],
+  "failure_policy": "Retain unexpected failure, cleanup and notify; diagnose separately before correction; no speculative capacity reruns."
+}

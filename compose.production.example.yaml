@@ -1,0 +1,81 @@
+# Preparation only. No external deployment or production readiness is implied.
+# Combine after compose.yaml and compose.runtime-role.yaml; config --quiet first.
+# Proxy addresses must be assigned/verified by the operator for the private network.
+name: web-modelos-production-example
+services:
+  db:
+    ports: !reset []
+    networks: [backend]
+  redis:
+    ports: !reset []
+    networks: [backend]
+  objects:
+    ports: !reset []
+    networks: [backend]
+  migrate-runtime:
+    networks: [backend]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+  app:
+    ports: !reset []
+    networks: [backend]
+    environment: &production
+      APP_ENV: production
+      DJANGO_DEBUG: '0'
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set independent production secret}
+      DJANGO_ALLOWED_HOSTS: ${PUBLIC_HOSTNAME:?Set reviewed hostname}
+      PUBLIC_ORIGIN: https://${PUBLIC_HOSTNAME}:${HTTPS_PORT:-18443}
+      MFA_ENCRYPTION_KEY: ${MFA_ENCRYPTION_KEY:?Set independent MFA key}
+      SAFETY_ENCRYPTION_KEY: ${SAFETY_ENCRYPTION_KEY:?Set independent safety key}
+      VERIFICATION_PROVIDER: disabled
+      SAFETY_NOTICE_BACKEND: disabled
+      RIGHTS_VERIFICATION_BACKEND: disabled
+      ACCOUNT_CORRECTION_DELIVERY_BACKEND: disabled
+      PAYMENTS_ENABLED: '0'
+      PROMOTION_TEST_MODE: '0'
+      FORWARDED_ALLOW_IPS: ${TRUSTED_CADDY_IPS:?Set exact private Caddy IPs}
+      GUNICORN_CMD_ARGS: --proxy-protocol --proxy-allow-from=${TRUSTED_CADDY_IPS:?Set exact private Caddy IPs}
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+  worker:
+    networks: [backend]
+    environment: *production
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+  beat:
+    networks: [backend]
+    environment: *production
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+  caddy:
+    networks: [edge, backend]
+    environment:
+      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME:?Set reviewed hostname}
+    ports: !override
+      - 127.0.0.1:${HTTP_PORT:-18080}:80
+      - 127.0.0.1:${HTTPS_PORT:-18443}:443
+    volumes:
+      - ./Caddyfile.production.example:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+networks:
+  backend:
+    internal: true
+  edge:
+    driver: bridge
+volumes:
+  caddy_data:
+  caddy_config:
