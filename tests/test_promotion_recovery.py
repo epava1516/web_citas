@@ -136,7 +136,7 @@ def test_real_restore_preserves_commercial_evidence_without_reactivating_erased_
 
     monkeypatch.setattr(recovery.subprocess, "run", run)
     recovery.test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
-        request, settings, monkeypatch, tmp_path, record_property
+        request, settings, monkeypatch, tmp_path, record_property, encrypted_backup=True
     )
     assert commercial.get("child_checked") is True
     record_property("commercial_restore_checks", {

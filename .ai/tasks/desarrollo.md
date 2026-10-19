@@ -1439,3 +1439,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: B-B siete requisitos aceptados técnicos locales en acta09/matriz; seguridad27fuentes/11IMP/OP001–009 conciliados con límites reales,44dependencias0avisos; perfilconfig8PASStraserrores de selección/tipos/PATHconservados. Producto/14contratos GS01intactos; C/N3 finalpendientes. SinClaudeV1/push/alteraciónconsumoanterior.
 
 2026-10-19: C preparada trasgrafoAST20fuentes;colección3647=3349funcional+298capacidad disjuntos, noPASSfuncional. Reutilización623fuentesDocker/621porcada2cargaslimpias sin diferencias, actaproductivaG01–08pendiente separada. PrepararN3persistente2+1workers/freeze/Telegram/pausa;sinClaudeV1/alteraciónconsumoprevio/aceptaciónC.
+
+2026-10-19: Cfuncional3349termina3226PASS+4subpruebas/122SKIP/1FAIL TypeError de llamada comercial a testrestore ampliado;capacidadnoiniciada. Fuentes/cleanup/TelegramERRORconservados,sinOOMkill. GrafoAST21fuentesantesdecorregircallencrypted_backup=True,sinappchanges;preparar3casoscorrectivos yN3comúnnueva. SinClaudeV1/alteraciónconsumoprevio.

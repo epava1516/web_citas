@@ -1,0 +1,22 @@
+{
+  "result": "ERROR preserved",
+  "head": "a3b5d32dc58cb3290b8a9348f711dfa47d9ed629",
+  "run": "20261019-165015-1484be6c",
+  "functional": {
+    "passed": 3226,
+    "additional_subtests_passed": 4,
+    "skipped": 122,
+    "failed": 1,
+    "selected": 3349,
+    "pytest_seconds": 9919.21
+  },
+  "failed_case": "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+  "cause": "Direct call of parametrized restore test omitted newly required encrypted_backup argument; TypeError before restore scenario ran",
+  "capacity_started": false,
+  "sources_unchanged": true,
+  "cleanup_independently_verified": true,
+  "telegram": "sent",
+  "no_oom_kill": true,
+  "correction_scope": "Explicit encrypted_backup=True on commercial recovery call, retaining base plain/encrypted controls; no app/schema/limits changes",
+  "next": "Run both complete restore modules (3cases) before new common regression."
+}
