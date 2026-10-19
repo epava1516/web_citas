@@ -1,0 +1,54 @@
+{
+  "result": "BUILD_PASS_SOURCE_CHECK_ERROR",
+  "image_id": "sha256:261d4b6d97f581ddf8cfd19318b3455eda8bafafb5de4e151c084d08d2200fbd",
+  "image_size_bytes": 887663521,
+  "source_check_difference_paths": [
+    "apps/safety/_canonical_native/_canonical_kernel.cpython-312-x86_64-linux-gnu.so",
+    "apps/safety/_canonical_native/manifest.json"
+  ],
+  "matched_other_files": 623,
+  "kernel": {
+    "binary_sha256": "c9a502a7bf24d3486bb8829a7ea474b96ffb6436bd8561c0d71243c96df5a186",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "dfa43f922b060e7624249f7c8ae8ec05fc458fd67467a392f69c34f8c9d83464",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "kernel_resource_witness": {
+    "memory.max": "1610612736",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-3",
+    "pids.max": "max",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "scope": "Per-RUN cgroups; not whole BuildKit daemon budget"
+  },
+  "owned_cleanup": {
+    "cr10-native-v11-image-app-20261018": true,
+    "cr10-native-v11-image-pg-20261018": true,
+    "cr10-native-v11-image-net-20261018": true,
+    "source_readers_absent": true
+  },
+  "sources_changed": [],
+  "source_pipeline_sha256": "5c7a9fce7be7b3a4d75c615e121a4f668adc31e94f46866e9df99c6b5d825308",
+  "interpretation": "Verifier incorrectly required generated binary/manifest equality across builds. Preserve ERROR; correct only validation: unchanged sources, own seal, recorded toolchain/C inputs and real native parity. Do not rebuild or attribute differing binary digests to a specific cause."
+}

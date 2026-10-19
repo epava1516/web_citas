@@ -1,0 +1,182 @@
+{
+  "result": "PASS",
+  "scope": "Existing v11 image verification, no rebuild/no capacity/no global acceptance",
+  "image_id": "sha256:261d4b6d97f581ddf8cfd19318b3455eda8bafafb5de4e151c084d08d2200fbd",
+  "image_size_bytes": 887663521,
+  "source_head": "aa2de37b1eb5b33da0f0f49344c161a94ca44e6c",
+  "source_files_compared": 623,
+  "source_differences": [],
+  "native_validation": {
+    "generated_artifacts_match_own_seal": true,
+    "shared_metadata_matches_prior_Docker": {
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "binary_digest_equal_across_builds_required": false
+  },
+  "per_RUN_build_limits": {
+    "memory.max": "1610612736",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "cpuset.cpus.effective": "0-3",
+    "pids.max": "max",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "scope": "Per-RUN cgroups; not whole BuildKit daemon budget"
+  },
+  "runtime": {
+    "rate_form_declaration_immutable_after_formset": true,
+    "rate_form_sha256": "a216dd6cc23341d5fc36b4b053659b6b963e091a38116ad916961660e37dd775",
+    "private_response_anonymous_login": 302,
+    "private_response_sha256": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "runtime_debug": false,
+    "synthetic_positive_routes": [
+      {
+        "route": "/es/",
+        "status": 200,
+        "body_sha256": "385dc6c9098d39892ce4e4e6d04cc4eeb919cbdb262a26cb538440d7c046cbdc"
+      },
+      {
+        "route": "/en/",
+        "status": 200,
+        "body_sha256": "4423f06cc0eb211f25e76a412bb7ca186c8be588d92657977f5bbe50b921d824"
+      },
+      {
+        "route": "/es/?q=photography",
+        "status": 200,
+        "body_sha256": "376c983641b8a15b14f66d6206a99f5c23dad413fcb0e39838151a462df91711"
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "status": 200,
+        "body_sha256": "03b7a957fc6d03233d1f1af8e1e738fa54b644d7f2a2cefa3af65da0f4511e2f"
+      },
+      {
+        "actor": "individual",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "91e99bb363d507f5e5e8f8f83f9c3b2a166f58ce926858c874650a5c93923f66",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "individual",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "d1f463ee308f4478ac5d1021f6841b259e71a7d4a776c2ba4c72e426a09679ee",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "5c5cf8f3ce3b7db96f5d92abfcb897d84d2b1687d9a264914e5cfb3c6a8a73c7",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "5c045561c3be924cc96d93159e563f3d617afce65ae8b3659d55866d279e2cf6",
+        "signed_target_verified": true
+      }
+    ],
+    "identity_fixture": "simulated development only; HTTP/PG/kernel are real local",
+    "integrated_sources_sha256": {
+      "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+      "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+      "apps/listings/moderation_views.py": "b96e782c245f7cf3191c405f1855633ddfdb2f7287053e869ab4d08f75a6db70"
+    },
+    "startup_sha256": {
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+    },
+    "migration_0020_sha256": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "migration_0022_applied": true,
+    "rejected_helpers_absent": true,
+    "three_dependency_triggers_restored": true,
+    "no_host_bytecode": true,
+    "pg_function_matches_migration": true,
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "c9a502a7bf24d3486bb8829a7ea474b96ffb6436bd8561c0d71243c96df5a186",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "dfa43f922b060e7624249f7c8ae8ec05fc458fd67467a392f69c34f8c9d83464",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "detail_missing": 404,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "pg_version": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "workers_booted": 4,
+  "image_archive": {
+    "path": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/cr10-docker-native-v11-verification-20261018/image.tar",
+    "bytes": 906383360,
+    "sha256": "0a5e94d8d60aafca23bda3943bd53f6213ce17498f88211a6b6d93190d59497a"
+  },
+  "independent_cleanup": true,
+  "owned_cleanup": {
+    "cr10-native-v11-image-app-20261018": true,
+    "cr10-native-v11-image-pg-20261018": true,
+    "cr10-native-v11-image-net-20261018": true,
+    "source_readers_absent": true
+  },
+  "frozen_inputs_unchanged": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "receipt": "artifacts/test-notifications/1792368097292984221-3452146.json"
+  },
+  "prior_errors_preserved": [
+    "docs/evidencias/cr10-original-image-unavailable-20261018.json",
+    "docs/evidencias/cr10-v11-build-verifier-original-20261018.json"
+  ],
+  "artifact_sha256": {
+    "artifacts/cr10-docker-native-v11-verification-20261018/pipeline-result.json": "9cbd815a8843feebd5c4419dccb36bc2c682f42b57fcfb695cc7fba536c71f6a",
+    "artifacts/cr10-docker-native-v11-verification-20261018/result.json": "a6451fee08b75312d7b2f41b6dc1455c604633cb8fd1d8dd3292c734003e7051",
+    "artifacts/cr10-docker-native-v11-verification-20261018/source-integrity/result.json": "adde10a24a1dbc22e6be355d2ce02afdef480ecebb5c01d95e356ec94e236081",
+    "artifacts/cr10-docker-native-v11-verification-20261018/frozen-inputs.json": "74f494b54396076bb301850d5964233b87c6bf11d251b4912c3a4fae9ad68608",
+    "artifacts/cr10-docker-native-v11-verification-20261018/launcher-diagnostics.json": "95950192d017f09c5c9fed23af4da1d872abc93020a0648024548c64685f90b3"
+  }
+}
