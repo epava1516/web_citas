@@ -1,0 +1,61 @@
+{
+  "decision": "PREREGISTERED_NOT_SPEEDUP_OR_ALPHA_ACCEPTANCE",
+  "base": "3a847a06fa609d9f49db55c4a1a87bb98226c91a",
+  "phases": [
+    {
+      "name": "reference",
+      "expected": 11,
+      "mode": "direct native coverage and original historical fixture from09093c4"
+    },
+    {
+      "name": "candidate",
+      "expected": 12,
+      "mode": "native four-page coverage, bulk history fixture and full1500closed flow"
+    },
+    {
+      "name": "candidate-repeat",
+      "expected": 11,
+      "mode": "repeat small/mid fixtures; not repeat full1500 without need"
+    }
+  ],
+  "shared_cases": "3native controls with24historical rows for profile scopes,30/1280fullcopy/reference-parity2cases,6tooling controls; shared cases overlap, do not sum as unique coverage",
+  "limits": "Sequential CPU6/1536MiB/swap0/pids512,PG.5CPU7/512MiB/swap0/pids128/WAL256-80,Redis.1CPU7/64MiB/swap0/pids64. Admission needs2.5GiB host available each phase. C concurrent in its original CPU0-5 budgets.",
+  "measurement_scope": "Instrumented fixture timing/query counts only, not clean HTTP/p95 or isolated global speedup. Source/function and actual argv/plugin proofs retained.",
+  "failure_policy": "Retain ERROR and stop sequence; audit evidence before next action, no speculative retries",
+  "graph": {
+    "code_cut": "3a847a06fa609d9f49db55c4a1a87bb98226c91a",
+    "prior_cut": null,
+    "files": {
+      "scripts/run_local_ci.py": "5a4981b2625481ef66cf0789a912943cd468bcd6fac23bd0fa470c4f2e8ca0e5",
+      "scripts/local_ci_duration_order.py": "675f43a1f7a67bd6fecccf79806ec758cbe26679e9f60c07d94d3587bdde583d",
+      "tests/test_ci_duration_order.py": "86709fad34003e298bb62c21e344cb4aeadb494008e157b56190db94b91dea18",
+      "artifacts/test-optimization-20261019/diagnostic_plugin.py": "b479af246433123cca3ae19d15e03a0e718ec0948762c5534cd00e5193e8ff95",
+      "tests/test_large_flow_batch_fixture.py": "239e7da6c7e8814426d80ef4a89bdab2832db13847ca01f727d32ef2a2b21ed6",
+      "tests/test_portability_large_closed_flow.py": "d5bf1316f848489adac3cbdf50a7cb9f2d052d299604877ee681bd49d4b85dc5",
+      "tests/test_rights_portability_covered_export_races.py": "761420232d09480ed84c25b29a0cd66400696c2926d51549baeccb6508797a64",
+      "tests/test_rights_portability_response_races.py": "4cab9c627108a0342390f4de68d25874816c762899c7616a0a4cda557ece0e9e",
+      "tests/test_rights_copy_scope.py": "b78c4b01a277d2daecba31b472ed858f4def69d4af26dd4e659daf052493d98b",
+      "tests/test_rights_access_coverage_store.py": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+      "tests/directory_snapshot.py": "ad871a23c7b7ec7e1fa5371ec0a1dcaf7e8ee7ac8f29bf1b9f1617edc8f7ebc9",
+      "apps/safety/rights_portability_coverage_batch.py": "c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd",
+      "apps/safety/rights_portability_coverage_inspection.py": "5b56adae4b46076d27c6635120097bef0770a198025263809cff83cf75a37771",
+      "apps/safety/rights_portability_coverage_read_gate.py": "02047b4d1e7669aeb0db0f789eae0557fac88abee911219197bc0ccdd929ffa2",
+      "apps/safety/rights_inspection_source.py": "de70a8b2c237f1a4a691e1e4300783516af64c918025b3f7551d33afa6117764"
+    },
+    "nodes": 11981,
+    "edges": 46201,
+    "scope": "Targeted Python/JavaScript AST refresh before matched reference/candidate fixture diagnosis and full1500 validation; product unmodified; isolated worktree. CSS/templates/document semantic graph not fully refreshed and must be read directly. No LLM cost.",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "token_scope": "Deterministic AST only; no LLM invoked; previous semantic/native usage preserved."
+  },
+  "instruments": {
+    "artifacts/vps-preparation/optimization-matched-20261019/run.py": "531bbb50fc285d933b5d4de3e1554dc40af8c8ab13e141dd7e589959e9443c01",
+    "artifacts/vps-preparation/optimization-matched-20261019/reference/run.py": "93050a4d32ad4976596fcdbfef0c985de4d128a2fc89016d8217a2022481b547",
+    "artifacts/vps-preparation/optimization-matched-20261019/candidate/run.py": "c675352a684c6ff7114026e52d4dd5414b775a6c77106eaf9b959dd834e44811",
+    "artifacts/vps-preparation/optimization-matched-20261019/candidate-repeat/run.py": "c675352a684c6ff7114026e52d4dd5414b775a6c77106eaf9b959dd834e44811",
+    "artifacts/test-optimization-20261019/diagnostic_plugin.py": "b479af246433123cca3ae19d15e03a0e718ec0948762c5534cd00e5193e8ff95"
+  },
+  "instrument_correction": "PYTEST_ADDOPTS not inherited by runner; use explicit argv and require loaded proof. Earlier five tests PASS only functional controls, not direct-mode measurement.",
+  "goal_wait": "Persistent service and PID/start ticks checked, terminal Telegram and prior-pause notice confirmed; pause goal during long background work; no automatic resume/polling."
+}

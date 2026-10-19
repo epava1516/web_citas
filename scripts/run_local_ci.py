@@ -176,6 +176,8 @@ def main():
     )
     parser.add_argument("--regression-lane", choices=["all", "functional", "capacity"], default="all",
                         help="Optional disjoint regression lanes; both lanes required for complete regression")
+    parser.add_argument("--duration-order-from", type=Path,
+                        help="Optional prior gate timing report; preserve whole files and all selected cases")
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
     parser.add_argument("--isolate-test-broker", action="store_true",
                         help="Use a fresh owned broker generation for each pytest case")
@@ -217,6 +219,17 @@ def main():
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
     )
     args = parser.parse_args()
+    if args.duration_order_from:
+        if args.profile != "regression" or args.regression_lane != "functional" or args.workers < 2:
+            parser.error("Duration ordering requires parallel functional regression")
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from scripts.local_ci_duration_order import file_costs
+
+        try:
+            file_costs(args.duration_order_from)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            parser.error(f"Invalid duration history: {error}")
     if (args.benchmark_normal_refresh or args.benchmark_generator_freeze or args.benchmark_observe_workers) and (
         args.profile != "focused" or args.workers != 1
     ):
@@ -270,6 +283,8 @@ def main():
     run_id = time.strftime("%Y%m%d-%H%M%S", time.gmtime()) + "-" + uuid.uuid4().hex[:8]
     output = ROOT / "artifacts/local-ci" / run_id
     output.mkdir(parents=True)
+    if args.duration_order_from:
+        shutil.copyfile(args.duration_order_from, output / "duration-history.json")
     report = {
         "id": run_id,
         "profile": args.profile,
@@ -284,6 +299,7 @@ def main():
                                 if args.profile == "regression" else []),
         "workers": args.workers,
         "fixture_snapshots": args.fixture_snapshots,
+        "duration_order": {"enabled": bool(args.duration_order_from)},
         "benchmark_observe_workers": args.benchmark_observe_workers,
         "benchmark_ingress_only": args.benchmark_ingress_only,
         "benchmark_prepare_static": args.benchmark_prepare_static,
@@ -521,6 +537,12 @@ def main():
                     "junit_family=xunit1",
                     *(["-n", str(args.workers), "--dist", "loadfile"] if args.workers > 1 else []),
                 ]
+                if args.duration_order_from:
+                    command.extend([
+                        "-p", "scripts.local_ci_duration_order", "--no-loadscope-reorder",
+                        f"--local-ci-duration-history={output / 'duration-history.json'}",
+                        f"--local-ci-duration-order-report={output / 'duration-order.json'}",
+                    ])
                 if args.isolate_test_broker:
                     env["LOCAL_CI_ISOLATED_BROKER_RUN"] = run_id
                     command.extend(["-p", "scripts.local_ci_broker"])
@@ -540,6 +562,17 @@ def main():
                             ["--ignore=" + case] if "::" not in case else ["--deselect=" + case]
                         )
                 run(command, "pytest")
+                if args.duration_order_from:
+                    proofs = sorted(output.glob("duration-order.gw*.json"))
+                    records = [json.loads(path.read_text()) for path in proofs]
+                    if (len(records) != args.workers or not records
+                            or len({row["nodeid_set_sha256"] for row in records}) != 1):
+                        raise RuntimeError("Missing or inconsistent duration-order worker proofs")
+                    report["duration_order"].update(
+                        worker_proofs=[path.name for path in proofs],
+                        history_sha256=hashlib.sha256((output / "duration-history.json").read_bytes()).hexdigest(),
+                        selected=records[0]["nodeids"],
+                    )
             report["result"] = "PASS"
             exit_code = 0
     except (Exception, KeyboardInterrupt) as error:

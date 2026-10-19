@@ -1,0 +1,43 @@
+{
+  "decision": "PASS tooling scope only",
+  "unit_cases": 6,
+  "real_xdist_cases": 22,
+  "workers": 2,
+  "worker_proofs": {
+    "artifacts/test-optimization-20261019/duration-order.gw0.json": {
+      "sha256": "9b2fa9c609bead54eec5af9c15d4548987798c22e87611673ae009c61863799f",
+      "proof": {
+        "nodeids": 22,
+        "nodeid_set_sha256": "bcb8dc661dadf27fbaf88195839f7b1585558fe4febf09f8d0ca2333d2561181",
+        "history_sha256": "63b5725ef6436c41a0da52c2a56d0a5d4e366b477c93ac60eb80dbded68d20b9",
+        "ordered_files": [
+          "tests/test_image_similarity.py",
+          "tests/test_ci_duration_order.py"
+        ],
+        "within_file_order_preserved": true,
+        "scope": "Ordering only; not test PASS or measured speedup"
+      }
+    },
+    "artifacts/test-optimization-20261019/duration-order.gw1.json": {
+      "sha256": "9b2fa9c609bead54eec5af9c15d4548987798c22e87611673ae009c61863799f",
+      "proof": {
+        "nodeids": 22,
+        "nodeid_set_sha256": "bcb8dc661dadf27fbaf88195839f7b1585558fe4febf09f8d0ca2333d2561181",
+        "history_sha256": "63b5725ef6436c41a0da52c2a56d0a5d4e366b477c93ac60eb80dbded68d20b9",
+        "ordered_files": [
+          "tests/test_image_similarity.py",
+          "tests/test_ci_duration_order.py"
+        ],
+        "within_file_order_preserved": true,
+        "scope": "Ordering only; not test PASS or measured speedup"
+      }
+    }
+  },
+  "scope": "Actual plugin invocation, all cases retained and file-local order stable; no measured total speedup or final N3",
+  "tooling_files": {
+    "scripts/local_ci_duration_order.py": "675f43a1f7a67bd6fecccf79806ec758cbe26679e9f60c07d94d3587bdde583d",
+    "scripts/run_local_ci.py": "5a4981b2625481ef66cf0789a912943cd468bcd6fac23bd0fa470c4f2e8ca0e5",
+    "tests/test_ci_duration_order.py": "86709fad34003e298bb62c21e344cb4aeadb494008e157b56190db94b91dea18"
+  },
+  "terminal_notifications": "sent"
+}
