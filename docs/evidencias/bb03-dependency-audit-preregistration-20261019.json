@@ -1,0 +1,27 @@
+{
+  "head": "d355dde5db4a64d5191de3933619efe6975cf9ef",
+  "command": [
+    ".venv/bin/pip-audit",
+    "--disable-pip",
+    "--no-deps",
+    "--progress-spinner",
+    "off",
+    "--timeout",
+    "30",
+    "-r",
+    "artifacts/vps-preparation/bb-dependency-audit-20261019/requirements.txt",
+    "-f",
+    "json",
+    "-o",
+    "artifacts/vps-preparation/bb-dependency-audit-20261019/audit.json"
+  ],
+  "scope": "Production dependency set exported from frozen uv.lock without dev/project; public package/version advisory queries only, no credentials/data, no --fix/install/update.",
+  "limits": "Controller CPU0-3,MemoryMax512MiB,swap0,pids128; at most300sec audit process",
+  "files": {
+    "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+    "pyproject.toml": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
+    "artifacts/vps-preparation/bb-dependency-audit-20261019/requirements.txt": "fa7d826639d4de863eb0cf8ee53eb15c804f20ff42d199396a9723c1a46ee5a4"
+  },
+  "graph": "artifacts/graphify-bb-security-20261019/receipt.json; targeted AST, lock/manual config read separately",
+  "failure_policy": "Keep advisory findings or transport error separate; no blind upgrade or scan retry."
+}

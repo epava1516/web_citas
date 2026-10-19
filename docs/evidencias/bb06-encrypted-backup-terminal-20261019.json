@@ -1,0 +1,107 @@
+{
+  "run": "20261019-160901-026b8fd9",
+  "head": "d355dde5db4a64d5191de3933619efe6975cf9ef",
+  "result": "PASS",
+  "pass": 2,
+  "skip": 0,
+  "cases": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local]",
+      "seconds": 55.029,
+      "properties": {
+        "restored_transient_copy_cleared_audit_retained": "True",
+        "conservative_schema_restored": "True",
+        "rejected_helpers_absent": "True",
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "complete_backup_encrypted": "False",
+        "encrypted_copy_bytes": "0",
+        "encrypted_copy_sha256": "",
+        "invalid_backup_key_and_tampering_rejected": "False",
+        "plaintext_backup_removed_before_recovery": "False",
+        "backup_bytes": "1053314",
+        "backup_sha256": "d33d71fdf7f01d1bbcb2a4221144f06ee4d2d59a60fd1fe9acaefb26e47c3d95",
+        "backup_cutoff_unix": "1792426209.457494",
+        "media_manifest_sha256": "d800bbe10fdee945d060e4afb69e5a0f6ef77201235093be550e999b0675178f",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.7193386037833989",
+        "restore_and_reconcile_seconds": "5.012500621844083",
+        "backup_age_upper_bound_seconds": "6.54982328414917",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local]",
+      "seconds": 16.264,
+      "properties": {
+        "restored_transient_copy_cleared_audit_retained": "True",
+        "conservative_schema_restored": "True",
+        "rejected_helpers_absent": "True",
+        "independent_authority_verified": "True",
+        "wrong_authority_rejected_without_effects": "True",
+        "real_restore": "True",
+        "effects_applied": "True",
+        "media_deleted": "True",
+        "peer_preserved": "True",
+        "old_session_rejected": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "complete_backup_encrypted": "True",
+        "encrypted_copy_bytes": "1515620",
+        "encrypted_copy_sha256": "b9d54477e2f13af9b5e86e1681bf086c70f2465a8d00672fac40598442e2a4a7",
+        "invalid_backup_key_and_tampering_rejected": "True",
+        "plaintext_backup_removed_before_recovery": "True",
+        "backup_bytes": "1053393",
+        "backup_sha256": "623d3097c9f46f1e1272e85b814ee185ec5d96d2f3b3aee5a29fb4d7fcb2abe8",
+        "backup_cutoff_unix": "1792426225.2283385",
+        "media_manifest_sha256": "d8862f6d866d8cd0472e4d1608e9e02170756795d5bc1b36ac6c29723ec9b941",
+        "restored_media_integrity_verified": "True",
+        "backup_seconds": "0.7101173726841807",
+        "restore_and_reconcile_seconds": "5.285660676192492",
+        "backup_age_upper_bound_seconds": "7.066380262374878",
+        "mod05_stale_state_invalidated": "True",
+        "mod05_restored_triggers_active": "True",
+        "mod05_required_refresh_command_verified": "True",
+        "restored_database_removed": "True"
+      }
+    }
+  ],
+  "source_hashes_verified": 1574,
+  "cleanup_independently_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS"
+  },
+  "limits": {
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1002.slice/user@1002.service/app.slice/bb-encrypted-backup-20261019.service",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "pids.max": "512",
+    "terminal_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "terminal_memory_peak": "533647360"
+  },
+  "scope": "Complete synthetic dump/media Fernet backup and real PostgreSQL/media restoration; original plain local control retained; wrong key/tampering rejected before materialization. No production backup system, WAL/PITR/offsite/key escrow claim.",
+  "artifacts": {
+    "artifacts/local-ci/20261019-160901-026b8fd9/result.json": "3048e07a1eb2d4dddaa514a384fc6e5d4ad3b0cd5d8729504988307c3d8bd731",
+    "artifacts/local-ci/20261019-160901-026b8fd9/source-hashes.json": "6828e6c3da39ac42c2796cf4e5af2bb73a776f8218e01dee0a701ad8ffb28ebb",
+    "artifacts/local-ci/20261019-160901-026b8fd9/pytest.xml": "342a25c6de1966fe22fb651f4b94d55e4a67109d2570dfcb8156db1ad2290dcd",
+    "artifacts/local-ci/20261019-160901-026b8fd9/pytest-reports.jsonl": "aa492b4c5cceba0d2023cc24f4b33408760dc4c11423e2c467da2eec88c25dd6",
+    "artifacts/local-ci/20261019-160901-026b8fd9/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

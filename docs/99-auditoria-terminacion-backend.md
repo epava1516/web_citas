@@ -21,3 +21,12 @@ BB06 intento inicial [ERROR de readiness](evidencias/bb06-static-startup-failure
 BB06 volumen estático corregido PASS: negativo esperado demuestra CSS más reciente/JS obsoleto conservados; clear=True restaura cinco SHA HTTP200 y obsoleto404. [Auditoría](evidencias/bb06-static-update-terminal-20261019.json), fuentes/limpieza/Telegram independientes. Runbook12 corregido para mantenimiento y STATIC_ROOT exclusivo; no cambios de app, esquema, cuotas ni servicios normales. Resto de BB06 sigue en revisión.
 
 BB06 cifrado completo: el dump del ensayo previo no estaba cifrado aunque sí lo estaba el registro de reconciliación. Se conserva el control local original y se añade una variante que cifra el conjunto PostgreSQL/medios, elimina las copias temporales originales y restaura desde el archivo autenticado; clave errónea/alteración deben rechazarse antes de extraer. [Prerregistro de dos casos](evidencias/bb06-encrypted-backup-preregistration-20261019.json). Sólo fixture; sin nuevo gestor de backups, WAL/PITR, custodia externa, recuperación de claves ni garantías de producción.
+
+BB06 copia completa cifrada [2PASS/0SKIP](evidencias/bb06-encrypted-backup-terminal-20261019.json), fuentes/PG/medios/limpieza/Telegram verificados. Comparación de escenarios locales independientes, sin atribuir diferencias a optimizaciones:
+
+| Métrica | Control local sin cifrado de copia | Copia completa cifrada |
+| --- | ---: | ---: |
+| Restaurar y reconciliar | 5.012500621844083 s | 5.285660676192492 s |
+| Edad máxima observada de copia | 6.54982328414917 s | 7.066380262374878 s |
+
+Ambos escenarios respetan RTO8h/RPO1h del fixture, sin extrapolar cadencia/custodia productivas ni PITR. Siguiente control BB03/IMP009: [auditoría de avisos de dependencias congeladas](evidencias/bb03-dependency-audit-preregistration-20261019.json), sólo consulta pública de paquetes/versiones; no actualiza el lock.
