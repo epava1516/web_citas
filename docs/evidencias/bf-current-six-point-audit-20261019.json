@@ -1,0 +1,201 @@
+{
+  "head": "a5a403be2dad29f2d9d4570b3ff5c1f4b6433774",
+  "tested_head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+  "run": "20261019-095237-9bf4f4f2",
+  "cases": [
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_public_rendered_contrast[light-es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_public_rendered_contrast[light-en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_public_rendered_contrast[dark-es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_public_rendered_contrast[dark-en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_private_rendered_contrast[light-es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_private_rendered_contrast[light-en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_private_rendered_contrast[dark-es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_private_rendered_contrast[dark-en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_rendered_contrast",
+      "case": "test_contrast_reference_pairs_and_alpha",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_accounts",
+      "case": "test_real_browser_account_flow[es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_accounts",
+      "case": "test_real_browser_account_flow[en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_accounts",
+      "case": "test_browser_mfa_agency_two_people",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_accounts",
+      "case": "test_browser_individual_verification",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_public_seo",
+      "case": "test_public_metadata_localization_filters_privacy_and_origin[es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_public_seo",
+      "case": "test_public_metadata_localization_filters_privacy_and_origin[en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_public_seo",
+      "case": "test_only_available_listing_languages_are_indexable_and_pending_content_excluded",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_public_seo",
+      "case": "test_browser_metadata_navigation_and_retirement",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_reflow_320",
+      "case": "test_public_reflow_and_keyboard_errors[es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_reflow_320",
+      "case": "test_public_reflow_and_keyboard_errors[en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_reflow_320",
+      "case": "test_private_reflow_content_controls_and_native_conflict[es]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_reflow_320",
+      "case": "test_private_reflow_content_controls_and_native_conflict[en]",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_discovery",
+      "case": "test_mobile_search_service_modes_language_and_public_card",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_discovery",
+      "case": "test_mobile_geo_dependencies_clear_children_and_preserve_url",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_discovery",
+      "case": "test_mobile_positive_pagination_preserves_filters_and_reload",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_drafts",
+      "case": "test_browser_draft_steps_reload_and_consult",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_listing_moderation",
+      "case": "test_browser_listing_review_and_public_version",
+      "result": "PASS"
+    },
+    {
+      "class": "tests.test_browser_photos",
+      "case": "test_browser_photo_upload_preview_remove",
+      "result": "PASS"
+    }
+  ],
+  "contrast": {
+    "potential_selector_observations": 712,
+    "actual_measured_PASS": 640,
+    "not_present_not_measured": 72,
+    "not_measured_reasons": {
+      "not_present_in_this_page": 72
+    },
+    "languages": [
+      "en",
+      "es"
+    ],
+    "color_schemes": [
+      "dark",
+      "light"
+    ],
+    "widths": [
+      390,
+      1280
+    ],
+    "states": [
+      "private_409",
+      "public_initial",
+      "public_required_400"
+    ]
+  },
+  "reflow": {
+    "observations": 20,
+    "widths": [
+      320,
+      1280
+    ],
+    "states": [
+      "private_409",
+      "private_initial",
+      "private_page_read",
+      "public_initial",
+      "public_required_400"
+    ],
+    "zoom": "Not measured; CSS viewport320 is not actual400percent browser zoom"
+  },
+  "frontend_sources": {
+    "static/app.css": "db85d6055ad8a12e9087557999c5ea6f71a0d684a2f10387b61eae00514918a3",
+    "static/form-errors.js": "e1e1c5829d4b1e07df3a43dc43da0116cd151f15101681c496eb6e5020b448b4",
+    "static/geography.js": "0ba31f32ff04069e163baa2374567bd2e9f62579339a39541ae5bc4bb473063d",
+    "static/search-geography.js": "99cc9a4004cea7e87f6752f26524c9bb500117116ff604ba12f98ea1ab059865",
+    "static/vendor/htmx.min.js": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717",
+    "templates/base.html": "c80fe741b565503f6575f03c6ab8e905bc196faf02c423be4abdb10e06f60298",
+    "templates/listings/results.html": "264ce3d83ca1d504a06e758906220e56bbce773c0f466dbda1fafe7df765d5c2",
+    "templates/listings/public_detail.html": "9833886b006daa564264644e4e7e6b1159ca6fb94f2cbeaf173b01a55335af6a",
+    "templates/core/dashboard.html": "e845b8b8b5dca754d955680c692c721d202cbc187d874401c29735579e4419b2"
+  },
+  "manual_source_reading": [
+    "CSS light/dark tokens, system fonts, spacing, forms/cards/profile, responsive, reduced-motion/print",
+    "Base language, skip link/landmarks/navigation, SEO/private metadata and states",
+    "Error-focus JS waits load/rAF; geography script no external requests; dependent filters preserved",
+    "Results show empty/pagination/sponsorship; public images lazy WebP with title alt and CSS ratio"
+  ],
+  "pending": "BF05 actual packaged Caddy/static/image delivery and separate metrics plus visual verification; no BF acceptance yet",
+  "limits": "Finite sampled browser contrast/reflow/known flows;72 absent selectors are not measurements/PASS; not full WCAG/legal or external service performance"
+}

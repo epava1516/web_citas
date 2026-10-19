@@ -3207,3 +3207,8 @@ Prerregistro repetición conjunta necesaria tras corrección del aislamiento del
 
 
 2026-10-19 — **GS01 aceptada técnicamente en local**, acta07/matriz7condiciones, corte únicoe99dc96. Auditoría independiente de ambasparticiones3339/298,1574huellasiguales,freeze completo,selección disjunta3637,3507PASS+4subpruebas/130SKIPidénticosanteriores/0fallos ylimpieza/Telegramde fases/compuestosent.14contratoscongelados por manifiestoSHA;19familias deestados ligadas a reports actuales. TCP/JSON8MiB/rutas/Beat/carga reproducida aplicables: única diferencia técnica es cuerpo cleanup de test no invocado, assertions yrestomódulo iguales. Revisiónno se deduce sólo de regressionverde. Originalmaster/cambiospreservados, integraciónesworktreeVPSautorizado;sinpush. Residual13puntosBF01–06/BB01–07, Cposterior. No aceptación BF/BB/C/global/productiva, no nuevas métricas HTTP.
+
+
+## BF05 — verificación de entrega preparada, 2026-10-19
+
+Prerregistro: [activos Docker/Caddy](evidencias/bf05-assets-preregistration-20261019.json). Cinco activos propios por SHA/MIME y dieciséis vistas sintéticas ES/EN, móvil/escritorio, claro/oscuro, listado/ficha. Imagen v11 inmutable; PostgreSQL real, red/volumen/contenedores propios con limpieza, sin cambios de aplicación ni servicios normales. Métricas locales separadas, sin declarar CDN, CWV de campo ni nuevo p95. Resultado todavía pendiente.
