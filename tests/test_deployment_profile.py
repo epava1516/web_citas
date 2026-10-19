@@ -29,7 +29,7 @@ def render_profile(tmp_path, values):
     environment["COMPOSE_DISABLE_ENV_FILE"] = "1"
     return subprocess.run(
         [
-            "docker", "compose", "--env-file", str(env_file),
+            "docker", "compose", "--profile", "rights-objects", "--env-file", str(env_file),
             "-f", "compose.yaml", "-f", "compose.runtime-role.yaml",
             "-f", "compose.production.example.yaml", "config", "--no-env-resolution",
             "--format", "json",
