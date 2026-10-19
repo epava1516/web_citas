@@ -1,6 +1,6 @@
 # CR-10 — Contrato de preparación comercial
 
-Fecha:2026-10-06. Estado: catálogo y entrega comercial completa integrados/verificados localmente en8388bef; fase CR10 no aceptada por dependencias abiertas. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
+Fecha:2026-10-06. Estado vigente2026-10-19: **CR10 aceptado técnicamente en local**, [acta06](../actas/06-cr10-aceptacion-tecnica-local-20261019.md) y [siete criterios](../evidencias/cr10-local-acceptance-matrix-20261019.json). Los estados de preparación/no aceptación inferiores conservan sus cortes históricos; esta decisión posterior y seguimiento17 prevalecen. Catálogo y entrega comercial completa integrados/verificados originalmente en8388bef; dependencia CR09 aceptada localmente en acta05. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
 
 ## Entrega independiente inicial: catálogo sin datos de clientes
 
@@ -127,3 +127,8 @@ Fuente4ab1baa: PromotionEntitlement.last_checked_at permite ordenar no comprobad
 ## Cierre local de la entrega comercial completa
 
 Integración25423c1/runtime8388bef; [N2 común](../evidencias/promociones-comercial-n2-final0110.json)81 PG/Chromium correctas, [Docker](../evidencias/promociones-comercial-runtime0110.json)105 hashes/3 servicios y migraciones0004/0005 correctos. Worker/Beat aislados reales y restauración comercial correctos. Los apartados preparados de arriba describen sus cortes históricos; esta sección y seguimiento17 prevalecen para estado actual. Criterios técnicos1–7 verificados localmente dentro de v1 sintética; no identidad/proveedor/retención legal externa, producción ni fase formal CR10. Modo comercial sintético y schedule deshabilitados por defecto y en runtime normal; ningún cobro real. Reabrir solo por requisito/riesgo/defecto concreto, conservando pendientes de contrato sin inventar políticas comerciales.
+
+
+## Aceptación de fase técnica local — 2026-10-19
+
+[Acta06](../actas/06-cr10-aceptacion-tecnica-local-20261019.md): siete criterios originales aceptados con67casos comunes actuales, controles adicionales de rotación/móvil1+2 y Docker actual con623fuentes iguales y PG real. Sin cambios de producto; fallos históricos conservados. V1 exclusivamente sintética, ventas/proveedores reales inactivos; no GS01 ni aceptación global/productiva. La faseC mantiene N3final sobre su entrega integrada.
