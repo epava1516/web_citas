@@ -1,0 +1,19 @@
+{
+  "result": "ERROR",
+  "scope": "BB06 startup only; no collectstatic comparison yet",
+  "failure": "ConnectionResetError during first startup HTTP probe not caught by URLError handler",
+  "diagnosis": {
+    "ConnectionResetError_is_ConnectionError": true,
+    "correction": "Catch ConnectionError/TimeoutError alongside URLError only during bounded startup readiness. No request/correctness assertion weakened."
+  },
+  "cleanup": {
+    "bb-static-update-command-20261019": true,
+    "bb-static-update-caddy-20261019": true,
+    "bb-static-update-net-20261019": true,
+    "bb-static-update-volume-20261019": true
+  },
+  "raw_result": {
+    "path": "artifacts/vps-preparation/bb-static-update-20261019/result.json",
+    "sha256": "491f15b9ae3177750b8840edf3b19351057be0f49c68dec98eb215bc3daa0585"
+  }
+}
