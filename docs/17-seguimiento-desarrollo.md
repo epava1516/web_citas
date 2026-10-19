@@ -1,3 +1,7 @@
+## Estado actual — B-F terminada técnicamente en local, 2026-10-19
+
+[Acta B-F08](actas/08-bf-aceptacion-tecnica-local-20261019.md): seis requisitos conciliados; BF05 Docker/Caddy real PASS, cinco activos, dieciséis vistas y veinticuatro imágenes decodificadas. Fuentes congeladas, limpieza y Telegram independientes. Sin cambios del producto ni repeticiones redundantes de N3. CR09, CR10 y GS01 siguen aceptados localmente; quedan **B-B01–07 y C**. No aceptación global ni producción. Las entradas inferiores son históricas salvo indicación posterior.
+
 # Estado vigente — 2026-10-19
 
 **CR09, CR10 y GS01 aceptados técnicamente en local.** [Acta GS01](actas/07-gs01-puerta-separacion-20261019.md), [siete criterios](evidencias/gs01-local-acceptance-matrix-20261019.json), [batería conjunta auditada](evidencias/gs01-common-terminal-audit-20261019.json), [residual BF/BB](98-inventario-residual-post-gs01.md). Corte `e99dc96`:3507PASS+4subpruebas/130SKIP/0fallos,3637nodeids; PGRedis/temporales/PIDs/freeze yTelegramterminales verificados. Los negativos y MOD09 provisional permanecen. No aceptación de BF/BB/C/aplicación global/producción; el objetivo íntegro continúa con trece requisitos residuales y entrega final.

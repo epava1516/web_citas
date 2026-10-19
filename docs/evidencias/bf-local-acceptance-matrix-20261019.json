@@ -1,0 +1,80 @@
+{
+  "decision": "ACCEPTED_TECHNICAL_LOCAL",
+  "reviewer": "Codex principal",
+  "head": "dab95ec558347852801b22db2610104a5feaeef5",
+  "common_tested_head": "e99dc962c6403e23e53b7bfb00b2442aef3ac341",
+  "source_continuity": "No product or existing test changes since accepted GS01; current frozen sources and image identities verified. New disposable probe is not an application feature.",
+  "requirements": [
+    {
+      "id": "BF-01",
+      "requirement": "Sistema visual común",
+      "implementation": "static/app.css; templates/base.html",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "Tokens claros/oscuros, fuentes del sistema, componentes y revisión visual actual de ocho capturas; referencias de errores público/privado ligadas a CSS/base idénticos."
+    },
+    {
+      "id": "BF-02",
+      "requirement": "Portada/listados/ficha/formularios",
+      "implementation": "templates/listings; templates/core; plantillas de cuenta/agencia/moderación",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "27 casos actuales de navegador/SEO/contraste/reflow más recorridos de 19 familias vinculados a la batería común; 16 vistas Docker nuevas."
+    },
+    {
+      "id": "BF-03",
+      "requirement": "Responsive, teclado, foco, labels, contraste, errores ES/EN",
+      "implementation": "tests/test_reflow_320.py; tests/test_rendered_contrast.py; static/form-errors.js",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "20 observaciones de reflow 320/1280 y teclado/errores; 640 mediciones de contraste PASS; 72 selectores ausentes no medidos. Navegador real ES/EN y 390/1280 en ambos temas."
+    },
+    {
+      "id": "BF-04",
+      "requirement": "Estados y consistencia de paneles/agencia/moderación",
+      "implementation": "docs/evidencias/gs01-current-states-final-binding-20261019.json",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "19 familias con errores/vacío/pendiente/carga y autoridad identificados, vinculadas a reports actuales; no se añaden estados ni porcentajes de progreso ficticios."
+    },
+    {
+      "id": "BF-05",
+      "requirement": "Entrega de activos y métricas frontend",
+      "implementation": "Dockerfile; Caddyfile; static; apps/mediafiles/views.py",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "Cinco activos HTTP200/SHA/MIME; 16 vistas, 24 imágenes decodificadas; métricas por recurso y navegación, origen propio. Inventario sin referencias literales a activos remotos."
+    },
+    {
+      "id": "BF-06",
+      "requirement": "Metadatos/canonicalización/idiomas",
+      "implementation": "templates/base.html; tests/test_public_seo.py",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "evidence": "SEO renderizado actual y privacidad/noindex/canonical/idiomas ligados a fuentes vigentes; reglas servidor se concilian en BB-07."
+    }
+  ],
+  "receipts": [
+    "docs/evidencias/bf-current-six-point-audit-20261019.json",
+    "docs/evidencias/gs01-current-states-final-binding-20261019.json",
+    "docs/evidencias/gs01-common-terminal-audit-20261019.json",
+    "docs/evidencias/bf05-assets-terminal-audit-20261019.json"
+  ],
+  "visual_review": {
+    "current_views": [
+      "es-light-390-list",
+      "en-dark-1280-detail",
+      "es-dark-390-detail",
+      "en-light-1280-list",
+      "en-light-390-detail",
+      "es-light-1280-detail",
+      "en-dark-390-list",
+      "es-dark-1280-list"
+    ],
+    "older_bound_reference": [
+      "es-light-390-public_required_400",
+      "en-dark-1280-private_409"
+    ],
+    "findings": "No missing content, horizontal overflow or unreadable controls in reviewed samples. Narrow mobile rate table wraps words; long filter form remains scrollable, future usability refinement, no hidden fields/states."
+  },
+  "limits": [
+    "Engineering accessibility objective sampled on MVP flows; not full WCAG/legal certification or actual400percent browser zoom",
+    "Synthetic development fixture and local delivery only; external CDN/provider/production not verified",
+    "No frontend optimization or causal performance improvement claimed; app unchanged",
+    "BB and C remain open; MOD09 export provisional acceptance retained"
+  ]
+}

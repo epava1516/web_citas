@@ -1,0 +1,1328 @@
+{
+  "result": "PASS",
+  "head": "dab95ec558347852801b22db2610104a5feaeef5",
+  "scope": "Owned Caddy/Docker local synthetic resource delivery; no p95 or field Core Web Vitals",
+  "source_freeze_count": 4257,
+  "source_freeze_unchanged": true,
+  "instruments_unchanged": true,
+  "frontend_current_common_sources_equal": true,
+  "images": {
+    "web-modelos-cr10-native:20261018-v11": "261d4b6d97f581ddf8cfd19318b3455eda8bafafb5de4e151c084d08d2200fbd",
+    "postgres:17-alpine": "79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+  },
+  "controller": {
+    "MainPID": "558376",
+    "ControlGroup": "/user.slice/user-1002.slice/user@1002.service/app.slice/bf05-assets-ready-20261019.service",
+    "MemoryMax": "3758096384",
+    "MemorySwapMax": "0",
+    "TasksMax": "512",
+    "start_ticks": "414583181",
+    "affinity": [
+      "Cpus_allowed_list:\t0-3"
+    ]
+  },
+  "unit": {
+    "MainPID": "0",
+    "Result": "success",
+    "ActiveState": "inactive"
+  },
+  "assets": [
+    {
+      "path": "/static/app.css",
+      "status": 200,
+      "bytes": 12412,
+      "seconds": 0.004073997959494591,
+      "mime": "text/css",
+      "sha256": "db85d6055ad8a12e9087557999c5ea6f71a0d684a2f10387b61eae00514918a3",
+      "encoding": null,
+      "etag": "\"dm8d99ngixvk-9ks\""
+    },
+    {
+      "path": "/static/form-errors.js",
+      "status": 200,
+      "bytes": 962,
+      "seconds": 0.0018862439319491386,
+      "mime": "text/javascript",
+      "sha256": "e1e1c5829d4b1e07df3a43dc43da0116cd151f15101681c496eb6e5020b448b4",
+      "encoding": null,
+      "etag": "\"dm8d99ngixvk-qq\""
+    },
+    {
+      "path": "/static/search-geography.js",
+      "status": 200,
+      "bytes": 1553,
+      "seconds": 0.0018692351877689362,
+      "mime": "text/javascript",
+      "sha256": "99cc9a4004cea7e87f6752f26524c9bb500117116ff604ba12f98ea1ab059865",
+      "encoding": null,
+      "etag": "\"dm8d99ngixvk-175\""
+    },
+    {
+      "path": "/static/geography.js",
+      "status": 200,
+      "bytes": 1179,
+      "seconds": 0.0015150480903685093,
+      "mime": "text/javascript",
+      "sha256": "0ba31f32ff04069e163baa2374567bd2e9f62579339a39541ae5bc4bb473063d",
+      "encoding": null,
+      "etag": "\"dm8d99ngixvk-wr\""
+    },
+    {
+      "path": "/static/vendor/htmx.min.js",
+      "status": 200,
+      "bytes": 52182,
+      "seconds": 0.0024374397471547127,
+      "mime": "text/javascript",
+      "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717",
+      "encoding": null,
+      "etag": "\"dm8d99ngixvk-149i\""
+    }
+  ],
+  "pages": [
+    {
+      "language": "es",
+      "width": 390,
+      "theme": "light",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 335.5,
+            "domContentLoaded": 296.7000002861023,
+            "load": 335.5
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 364
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 364
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 41.299999713897705,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 45,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 45,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 19.59999990463257,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 156.39999961853027,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/es/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 140.80000019073486,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "theme": "light",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 288.40000009536743,
+            "domContentLoaded": 174.09999990463257,
+            "load": 288.40000009536743
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 200
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 200
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 39.5,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 39.80000019073486,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 156.7000002861023,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 2.0999999046325684,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "theme": "dark",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 320.30000019073486,
+            "domContentLoaded": 315.90000009536743,
+            "load": 320.30000019073486
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 324
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 324
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 56.90000009536743,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 54.799999713897705,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 56.90000009536743,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 8.199999809265137,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 143.39999961853027,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/es/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 141.19999980926514,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "theme": "dark",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 256.80000019073486,
+            "domContentLoaded": 167.69999980926514,
+            "load": 256.80000019073486
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 188
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 188
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 34.19999980926514,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 40.5,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 121.80000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 2.5,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 1280,
+      "theme": "light",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 254.09999990463257,
+            "domContentLoaded": 250.2999997138977,
+            "load": 254.09999990463257
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 268
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 268
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 44.299999713897705,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 45.90000009536743,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 49.200000286102295,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 19.100000381469727,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 128.80000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/es/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 168.19999980926514,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 1280,
+      "theme": "light",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 344,
+            "domContentLoaded": 184,
+            "load": 344
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 236
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 236
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 39.5,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 49.5,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 210.30000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 2.1000003814697266,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 1280,
+      "theme": "dark",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 291.90000009536743,
+            "domContentLoaded": 241.19999980926514,
+            "load": 291.90000009536743
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 324
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 324
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 45.799999713897705,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 42.90000009536743,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 41.59999990463257,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 7.599999904632568,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 114,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/es/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 132,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "es",
+      "width": 1280,
+      "theme": "dark",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 326.69999980926514,
+            "domContentLoaded": 237.5,
+            "load": 326.69999980926514
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 292
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 292
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 46.10000038146973,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 45.5,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/es/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 134.10000038146973,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 9.200000286102295,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 254.90000009536743,
+            "domContentLoaded": 229.30000019073486,
+            "load": 254.90000009536743
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 272
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 272
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 65.2000002861023,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 65.09999990463257,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 65.09999990463257,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 1.8000001907348633,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 136.19999980926514,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/en/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 171.59999990463257,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 257.30000019073486,
+            "domContentLoaded": 173.5,
+            "load": 257.30000019073486
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 196
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 196
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 27.200000286102295,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 25.90000009536743,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 104.39999961853027,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 13.900000095367432,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 295.7999997138977,
+            "domContentLoaded": 267.19999980926514,
+            "load": 295.7999997138977
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 320
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 320
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 57.59999990463257,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 56.59999990463257,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 59.200000286102295,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 5,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 107.90000009536743,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/en/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 106.80000019073486,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 254.40000009536743,
+            "domContentLoaded": 161.30000019073486,
+            "load": 254.40000009536743
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 196
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 196
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 37,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 41.09999990463257,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 133.80000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 2.700000286102295,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 1280,
+      "theme": "light",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 311.7999997138977,
+            "domContentLoaded": 301.59999990463257,
+            "load": 311.7999997138977
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 328
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 328
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 65.80000019073486,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 67.7000002861023,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 75.30000019073486,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 1.700000286102295,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 206.30000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/en/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 158.2999997138977,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 1280,
+      "theme": "light",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 300.7000002861023,
+            "domContentLoaded": 201.7000002861023,
+            "load": 300.7000002861023
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 232
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 232
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 43.19999980926514,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 45,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 145.30000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 4.099999904632568,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 1280,
+      "theme": "dark",
+      "kind": "list",
+      "images_decoded": 2,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 302.69999980926514,
+            "domContentLoaded": 295.19999980926514,
+            "load": 302.69999980926514
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 304
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 304
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 52.80000019073486,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 52.700000286102295,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/static/search-geography.js",
+            "type": "script",
+            "duration": 55.30000019073486,
+            "transferSize": 1853,
+            "encodedBodySize": 1553,
+            "decodedBodySize": 1553
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 2,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 131.80000019073486,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/en/listing/182c81db-82b7-4439-9d88-abfa2b861dce/photo/5c04fa84-45b4-450e-956f-f9dddd82c6b0/",
+            "type": "img",
+            "duration": 128.7000002861023,
+            "transferSize": 11410,
+            "encodedBodySize": 11110,
+            "decodedBodySize": 11110
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "width": 1280,
+      "theme": "dark",
+      "kind": "detail",
+      "images_decoded": 1,
+      "metrics": {
+        "navigation": [
+          {
+            "duration": 283.5,
+            "domContentLoaded": 188.09999990463257,
+            "load": 283.5
+          }
+        ],
+        "paint": [
+          {
+            "name": "first-paint",
+            "startTime": 244
+          },
+          {
+            "name": "first-contentful-paint",
+            "startTime": 244
+          }
+        ],
+        "resources": [
+          {
+            "path": "/static/app.css",
+            "type": "link",
+            "duration": 39.09999990463257,
+            "transferSize": 12712,
+            "encodedBodySize": 12412,
+            "decodedBodySize": 12412
+          },
+          {
+            "path": "/static/form-errors.js",
+            "type": "script",
+            "duration": 34.5,
+            "transferSize": 1262,
+            "encodedBodySize": 962,
+            "decodedBodySize": 962
+          },
+          {
+            "path": "/en/listing/37ae4156-6ca6-490c-8ad2-0721f09dd1e0/photo/322fce33-f3f3-4889-9abb-11525d3ca914/",
+            "type": "img",
+            "duration": 131.10000038146973,
+            "transferSize": 10816,
+            "encodedBodySize": 10516,
+            "decodedBodySize": 10516
+          },
+          {
+            "path": "/favicon.ico",
+            "type": "other",
+            "duration": 1.5999999046325684,
+            "transferSize": 0,
+            "encodedBodySize": 0,
+            "decodedBodySize": 0
+          }
+        ]
+      }
+    }
+  ],
+  "runtime": {
+    "rate_form_declaration_immutable_after_formset": true,
+    "rate_form_sha256": "a216dd6cc23341d5fc36b4b053659b6b963e091a38116ad916961660e37dd775",
+    "private_response_anonymous_login": 302,
+    "private_response_sha256": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "runtime_debug": false,
+    "synthetic_positive_routes": [
+      {
+        "route": "/es/",
+        "status": 200,
+        "body_sha256": "447a022684180325125d17b4ace9b024b5fe6c32151f703be1cb284efc6445df"
+      },
+      {
+        "route": "/en/",
+        "status": 200,
+        "body_sha256": "539eae44408718dc9d3a59b5d9e29f1101f9f0c699b0afdb91fff97b4024b45c"
+      },
+      {
+        "route": "/es/?q=photography",
+        "status": 200,
+        "body_sha256": "f887728d3c6c6f8c21e6bb5e1d9ac58a1447b2efc4c19c537a7361ba771bff12"
+      },
+      {
+        "route": "/en/?q=synthetic",
+        "status": 200,
+        "body_sha256": "3805ff5c225dbb412811586942c0e39b4145cee5a63cbce6882ea387045a8101"
+      },
+      {
+        "actor": "individual",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "f2d80bc18efc0920c0d1b8f547f72d1f025972a944975cef31e66aa72d3f289e",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "individual",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "8d90a4b04d0602630569c233eeaf9c1f83115bfbaae7760b005b5924ade75b89",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "es",
+        "status": 200,
+        "body_sha256": "cf1420cc328993619919b16c071fc83eef11d60ae60cbb7891c348080c465f76",
+        "signed_target_verified": true
+      },
+      {
+        "actor": "agency",
+        "language": "en",
+        "status": 200,
+        "body_sha256": "880e2735805fd5f66bb15c787d89ff571ec7446a739c144fd7eda0536b79efc1",
+        "signed_target_verified": true
+      }
+    ],
+    "identity_fixture": "simulated development only; HTTP/PG/kernel are real local",
+    "integrated_sources_sha256": {
+      "apps/listings/publication_state.py": "00f30e13c11a01af4b151c9d333376c5084f26fcbd58af5d3c9eb07e24ca8947",
+      "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+      "apps/listings/moderation_views.py": "b96e782c245f7cf3191c405f1855633ddfdb2f7287053e869ab4d08f75a6db70"
+    },
+    "startup_sha256": {
+      "config/worker_startup.py": "b64a0be5d44ba1b242ee0039b10830fa5808b3b00e55ebc4e0079a1324d065ba",
+      "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+    },
+    "migration_0020_sha256": "40d07e5490bf5907d7ca1b5d207e01d3d731c379c1496117d15b2d9c3f833474",
+    "migration_0022_applied": true,
+    "rejected_helpers_absent": true,
+    "three_dependency_triggers_restored": true,
+    "no_host_bytecode": true,
+    "pg_function_matches_migration": true,
+    "python": "3.12.15",
+    "uid": 10001,
+    "kernel": {
+      "binary_sha256": "c9a502a7bf24d3486bb8829a7ea474b96ffb6436bd8561c0d71243c96df5a186",
+      "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+      "cache_tag": "cpython-312",
+      "compiler_version": "gcc (Debian 12.2.0-14+deb12u1) 12.2.0",
+      "cython": "3.0.12",
+      "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+      "flags": [
+        "-O3",
+        "-fPIC",
+        "-shared"
+      ],
+      "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+      "machine": "x86_64",
+      "manifest_sha256": "dfa43f922b060e7624249f7c8ae8ec05fc458fd67467a392f69c34f8c9d83464",
+      "mode": "native-sealed",
+      "module": "apps.safety._canonical_kernel",
+      "python": "3.12.15",
+      "schema": 1,
+      "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+    },
+    "parity_cases": 11,
+    "health": 200,
+    "detail_missing": 404,
+    "versions": {
+      "Django": "5.2.17",
+      "gunicorn": "23.0.0",
+      "psycopg": "3.3.6",
+      "celery": "5.6.3"
+    }
+  },
+  "cleanup": {
+    "bf-assets-20261019-caddy": true,
+    "bf-assets-20261019-app-20261018": true,
+    "bf-assets-20261019-pg-20261018": true,
+    "bf-assets-20261019-net-20261018": true,
+    "bf-assets-20261019-ingress": true,
+    "bf-assets-20261019-static": true
+  },
+  "independent_cleanup": true,
+  "telegram": [
+    {
+      "path": "artifacts/test-notifications/1792425337718154865-558376.json",
+      "sha256": "48cbdf1562b38b3235f175fccbf017bb3ef810249f034eb63f6fc098d057e1a8",
+      "name": "BF05 Docker Caddy activos finales",
+      "result": "PASS",
+      "delivery": "sent"
+    }
+  ],
+  "external_asset_inventory": {
+    "literal_remote_asset_references": [],
+    "scope": "Static template/CSS/JS resource loads; vendor minified source inspected with same narrow URL pattern; not a proof about arbitrary future user-generated values. Browser blocks all non-owned origins for exercised pages."
+  },
+  "artifacts": {
+    "artifacts/vps-preparation/bf-assets-ready-20261019/result.json": "9a1bcd003f8cb24eb2c8613a97ffc2da4ef483dd2ba3ca58246ec854769bc7ac",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/browser-result.json": "091294769891d981334772fa889fadb72659e2c3f711267868ed2cf6d22b86ec",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/launch-freeze.json": "a9fe9f8774b8dbc0fa363043848232915e8115ec35ac4b372a08742effc82d50",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/live-handle.json": "3cdad6cfb10b3811d16620dab2931985d6304afea15e8a920688031fb1cce8e4",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/external-resource-inventory.json": "600084e6a4b944f53c2dd11e03ccbf5db63439b023f727be8b30bf041d5a49cf",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-dark-1280-detail.png": "ebd9d0b28602ab2774944eed40460c8b1d6f228c796c7424b40e75b175388e8e",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-dark-1280-list.png": "0fd6376ab488b3751f6aac177e82d1bf8b6b88c7036a4e0df2c62404bae7d577",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-dark-390-detail.png": "8dea28e206489455c4452d02519ab86fe3d153d62030911a5a92b94830efb5d4",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-dark-390-list.png": "0e0f3e978eb0cf5c1c9eaf99f3d6fe82bff926d4fba6d3d996cf8f638965e453",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-light-1280-detail.png": "f262e3dd4231297c8f86d57e5b0c4892592b0c219c7cec75497057d3d024f2e1",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-light-1280-list.png": "5a61783dac2e4d23715764af68f4a37ac43c796717525e02e4673a8334e3c1ec",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-light-390-detail.png": "eb50dcd705d4bcd16a56d2560bc002ad83c95fc8aead9faa33068aef9735b73a",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/en-light-390-list.png": "24a596f552322ccb9d847a4db3e00c1a4c740e5a8cdf4734495c103d001cc801",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-dark-1280-detail.png": "881ec03982b4661bb40475a1340ffb79bc2a6d247b9b6e3104664de8e8efe491",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-dark-1280-list.png": "db98a9b65480d259b0d5d9263eb71023eacec71d6c02949db1af1fc3fbc872c5",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-dark-390-detail.png": "c52e7e1fc3f3a553e2e337b9c4dabee8980efc5abc2362a9e4de1ad868b864c9",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-dark-390-list.png": "3882795803be9f50f44253b66dced07b0c6e324b65094e4ad6f9ce832e2b5862",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-light-1280-detail.png": "95085fa51769c4594081a71e57713bc84a3b7c0e56b9ef411c2ca0eb326c5189",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-light-1280-list.png": "65dfd7f4a13c6abcf5227dabe80834c290357041229bdbc5fe524dcf4f843dc7",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-light-390-detail.png": "0d639e3c98d4bc98902c48787338f37da8e11a1f47233c06213519848dcd5cb1",
+    "artifacts/vps-preparation/bf-assets-ready-20261019/es-light-390-list.png": "cf4382f636a1d97e368a41d486bcf5b951c4177b68bb69a8f70b4bc064d28776"
+  },
+  "limits": [
+    "Local synthetic fixtures, no external CDN or provider verification",
+    "Single observations, no field CWV/p95 or causal before/after improvement claim",
+    "Playwright routing disables cache; list then detail per fresh language/width/theme context",
+    "First network and interpreter ERROR attempts retained separately; no app changes"
+  ]
+}
