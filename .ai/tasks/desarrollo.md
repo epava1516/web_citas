@@ -1423,3 +1423,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: GS01aceptadotécnicolocaltras7condiciones/acta07,corregidan3común3637/3507PASS+4subpruebas130SKIP0FAIL,fuentes/cleanup/Telegramauditados;14contratoscongelados,19familiasreportsactuales. Residual13puntosBFBB y Cpendientes;sinpush/appchanges/ClaudeV1/alteraciónconsumoanterior/aceptaciónglobal.
 
 2026-10-19: BF auditoría vigente seis puntos preparada; BF05 prerregistrada entrega real Docker/Caddy/PG/Chromium, cinco activos y dieciséis vistas sintéticas. Grafo AST dirigido antes de congelar instrumentos, sin semántica CSS/HTML completa ni cambios de aplicación. Sin Claude V1; consumo anterior preservado.
+
+2026-10-19: BF05 tres intentos de instrumento ERROR conservados (publicación en red interna, symlink Python, permisos copia Caddy). Diagnósticos separados confirman cada corrección; validación Caddy con copia0644 PASS, sin producto/cuotas/capacidades ampliadas. Preparada comprobación definitiva con readiness/logs y mismo alcance; sin Claude V1, consumo previo intacto.

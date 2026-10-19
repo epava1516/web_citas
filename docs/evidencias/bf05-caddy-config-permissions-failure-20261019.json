@@ -1,0 +1,22 @@
+{
+  "result": "ERROR",
+  "failure": "ConnectionRefused before first asset; separate exact runtime validation proves permission denied reading owned Caddyfile (0640 uid1002/gid1004, process root with CAP_DAC_OVERRIDE dropped).",
+  "diagnosis": [
+    "caddy-config-diagnosis.json: first diagnostic omitted required NET_BIND_SERVICE, executable EPERM; not evidence about actual runtime config",
+    "caddy-config-bind-diagnosis.json: matching capabilities yields reading config permission denied"
+  ],
+  "fix": "Only owned copied synthetic Caddyfile chmod0644; containing directory0700; exact content unchanged. Retain cap-drop/security limits. Add bounded startup readiness and always capture owned Caddy logs before cleanup.",
+  "cleanup": {
+    "bf-assets-20261019-caddy": true,
+    "bf-assets-20261019-app-20261018": true,
+    "bf-assets-20261019-pg-20261018": true,
+    "bf-assets-20261019-net-20261018": true,
+    "bf-assets-20261019-ingress": true,
+    "bf-assets-20261019-static": true
+  },
+  "raw_files": {
+    "artifacts/vps-preparation/bf-assets-venv-20261019/result.json": "cb13d8d4af9736757f0cb629b1a2f72c36149c2a8e924b1795472debf7a9595f",
+    "artifacts/vps-preparation/bf-assets-venv-20261019/caddy-config-diagnosis.json": "b566514e1c1d8b8967e577d3e03a8ecc90623d11666f5bbf9cf03d17ddc494b3",
+    "artifacts/vps-preparation/bf-assets-venv-20261019/caddy-config-bind-diagnosis.json": "3843b4f4fcd60cee9bdee9ddb93b10795afc6903a5fc32077394c6fa57af4e7a"
+  }
+}
