@@ -379,11 +379,23 @@ def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
             for n in range(history_count)
         ]
     )
-    for item in added:
-        item.categories.set(base.categories.all())
-        item.services.set(base.services.all())
-        item.travel_areas.set(base.travel_areas.all())
-        Rate.objects.create(revision=item, concept="Synthetic historical rate", mode="consult")
+    # This is historical-source setup, not a manager edit/publication operation.
+    # Build the same join rows and rates in batches; database constraints/triggers
+    # remain active and the entire original source/parity checks run below.
+    for name in ("categories", "services", "travel_areas"):
+        field = Revision._meta.get_field(name)
+        related_ids = list(getattr(base, name).values_list("pk", flat=True))
+        source_field = field.m2m_field_name() + "_id"
+        target_field = field.m2m_reverse_field_name() + "_id"
+        field.remote_field.through.objects.bulk_create([
+            field.remote_field.through(**{source_field: item.pk, target_field: related_id})
+            for item in added for related_id in related_ids
+        ], batch_size=500)
+    Rate.objects.bulk_create([
+        Rate(revision=item, concept="Synthetic historical rate", mode="consult")
+        for item in added
+    ], batch_size=500)
+    expected_categories = sorted(base.categories.values_list("slug", flat=True))
     with transaction.atomic(), CaptureQueriesContext(connection) as large_queries:
         large = source_copy(person, listing, case)
     assert len(large["revisions"]) == len(small["revisions"]) + history_count
@@ -393,7 +405,7 @@ def test_profile_copy_queries_are_batched_without_losing_historical_revisions(
         row = by_id[str(revision.pk)]
         assert row["title"] == revision.title
         assert row["rates"][0]["concept"] == "Synthetic historical rate"
-        assert row["categories"] == sorted(base.categories.values_list("slug", flat=True))
+        assert row["categories"] == expected_categories
     from apps.safety import rights_exports
 
     batch_size = rights_exports.COPY_REVISION_BATCH_SIZE
