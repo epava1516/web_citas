@@ -1,0 +1,70 @@
+{
+  "decision": "PREREGISTERED_NOT_PASS_OR_SPEEDUP",
+  "base_head": "3c2df5657d33ba2b18faca33353936e741c435a9",
+  "preceding_failure": "c-final-shared-restore-failure-20261019.json",
+  "corrective": "c-restore-corrective-terminal-20261019.json",
+  "selection": {
+    "scope": "COLLECTION ONLY, not tests/N3 PASS",
+    "functional": 3349,
+    "capacity": 298,
+    "unique": 3647,
+    "disjoint": true
+  },
+  "selection_identical_to_first_C": true,
+  "ordering": {
+    "method": "Whole files descending historical sum of setup/call/teardown durations, stable within each file",
+    "pytest_xdist": "3.8.0",
+    "option": "--dist loadfile --no-loadscope-reorder",
+    "workers": 2,
+    "plugin": "artifacts.vps-preparation.c-final-balanced-20261019.duration_order",
+    "no_case_removed": true,
+    "within_file_order_preserved": true,
+    "capacity": "Unchanged serial, no ordering plugin",
+    "expected_saving": "Not measured; no numerical improvement promised"
+  },
+  "limits": "Unchanged controller4CPU0-3/3584MiB/swap0/pids512, PG1CPU4/1536MiB/128pids/WAL256-80, Redis.2CPU5/128MiB/64pids. No profiler or dynamic workers.",
+  "graph": {
+    "code_cut": "3c2df5657d33ba2b18faca33353936e741c435a9",
+    "prior_cut": null,
+    "files": {
+      "artifacts/vps-preparation/c-final-balanced-20261019/duration_order.py": "f9c8c3fbaa2503070dfbafef859e2fec6440618cf4dd49af9ff24ff2fbd67750",
+      "tests/test_promotion_recovery.py": "0d6ca3641a2cda2da6ccdb2508fce9151f1b1c1ebfc39c60f44713ec6bfff174",
+      "apps/core/sitemaps.py": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+      "tests/test_sitemaps.py": "9c7777f5522c05c3b4645acf9ae7a8b0f078d6c9614cda74cc372074e8f8b829",
+      "tests/test_geography_import.py": "7cba7da64bc7dc484e379ea76a27d2a05708aeddb20f1317f0722abb789e327e",
+      "tests/test_deployment_profile.py": "79fb67476d539e5e9b6b75fa230988aaa9deec41ff1573f5fdb5ef880212e129",
+      "artifacts/vps-preparation/bb-tls-proxy-exec-20261019/probe.py": "651db802587b5b7140bd92501185cdeb465b788aa31e85e607df73fff434709c",
+      "apps/core/accounts.py": "2d3531a3b8e3b139095b324433ace238021ac882cf3a6eb763b268dcee84ff9f",
+      "apps/core/mfa.py": "089689db3454f5bbf5bf9b62ebd56059f08b93b9ca0b286a4e21997d74af1aee",
+      "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+      "apps/core/agencies.py": "a212af9c9d501041cd2f152dbb702af29c3a2a3577f3e9a7ddc516cc809ec5c0",
+      "apps/core/verification.py": "6d18e5667c5506247864b1f32ad26081887236af1907d0e3b58619b8161ef9d4",
+      "apps/listings/public_validation.py": "c5c2fd049bcdcb5831cff6bd5be5aee1d1490b53a95d79a02854eba9564e5739",
+      "apps/mediafiles/services.py": "dde07f3f5d419521145a8aa1997a6db48d743898377d9c374dc55ad906fb05a5",
+      "apps/mediafiles/similarity.py": "2e722818420ec2592bda126bad219a00cd997dc90fb83f17c93bcfe61f1351e1",
+      "apps/safety/rights_verification.py": "a4dac22bdef79a8b3f2dca6328c1d432b6c18cbccf5abab7dbec1a1e10b69b34",
+      "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+      "apps/safety/crypto.py": "07d1bd47771559c9722de5d8cd2a15248a8505b85eb4e7d4673a13795307a21d",
+      "config/settings.py": "232a18ed6fae8800ba747bc61dfbbd05f41925e5e802d1e7b1012f50717fc412",
+      "config/private_logging.py": "64368befebcaea77260b3cba0312c47c74191915c7104076755677b59285e873",
+      "config/gunicorn_logging.py": "894136747f4d50b37140c562cbdc91499918fdd6f7f8e74669df7054e4a51512",
+      "tests/test_recovery_pg_restore.py": "4aa18628a647251f2f8b86d5aa5b7b02fd3bb59642b4db58fa5ab3fafeb6f6c6"
+    },
+    "nodes": 11956,
+    "edges": 46178,
+    "scope": "Targeted Python/JavaScript AST refresh before validating file-duration collection scheduling; no product change. CSS/templates/document semantic graph not fully refreshed and must be read directly. No LLM cost.",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "token_scope": "Deterministic AST only; no LLM invoked; previous semantic/native usage preserved."
+  },
+  "instruments": {
+    "artifacts/vps-preparation/c-final-balanced-20261019/run.py": "d25185f3eae1679c8ecf5ed572bbae4d8014fc134d6dce0fa2b44a69c48066ab",
+    "artifacts/vps-preparation/c-final-balanced-20261019/functional/run.py": "1c4996f6c46abc4aaf55830a0a7a6ee7dd4827ad9c2fe2ec968833b3734de372",
+    "artifacts/vps-preparation/c-final-balanced-20261019/capacity/run.py": "c6bda30ddae2e2dff22f2c83b631c3d6f5249ec056ab1926078e177d934e0070",
+    "artifacts/vps-preparation/c-final-balanced-20261019/duration_order.py": "f9c8c3fbaa2503070dfbafef859e2fec6440618cf4dd49af9ff24ff2fbd67750",
+    "artifacts/vps-preparation/c-final-balanced-20261019/file-costs.json": "e9e3005bfe0669f2ecd6d29a23fbf50a00bc038efb6b57e28c90da404aeeae1b",
+    "artifacts/vps-preparation/c-final-balanced-20261019/collect.py": "f471dd47a46b4fe1d8e67608d7ebdf7251f74cd878b000a8ccab7d1c801b32f0"
+  },
+  "next": "Freeze final commit and instruments; persistent full functional followed by capacity. Prior-pause Telegram confirmed then goal paused while test continues.",
+  "acceptance": false
+}

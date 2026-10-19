@@ -1,3 +1,7 @@
+## Próxima acción vigente — C correctiva verificada, preparar repetición común
+
+Primer C funcional:3226PASS+4subpruebas/122SKIP/1FAIL por llamada entre tests sin argumento nuevo; capacidad no iniciada, fallo/fuentes/limpieza/Telegram conservados. [Correctiva tres restauraciones](evidencias/c-restore-corrective-terminal-20261019.json) PASS. Repetición3647casos [preparada con reparto por duración](evidencias/c-final-balanced-preregistration-20261019.json),2workers y capacidad serial, mismas cuotas/selección/orden interno. Sin nuevo producto ni ahorro medido; C/Alpha aún pendiente. Producción permanece separada. Las preparaciones de abajo son históricas salvo indicación posterior.
+
 ## Próxima acción vigente — C preparada, sin aceptación final
 
 [Preparación C](101-preparacion-entrega-final-c.md): selección3349funcionales+298capacidad=3647nodeids, diez adicionales aGS01; pendiente ejecución común sobre el commit final. [Reutilización por huellas](evidencias/c-final-reused-scope-preregistration-20261019.json):623fuentes Docker y621fuentes de producto por cada carga contractual idénticas. No nueva métrica ni aceptación por colección. [Preparación productiva](actas/11-preparacion-produccion-pendiente-20261019.md) queda pendiente separadamente. Preparar ejecución persistente2workersfuncional→capacidadserial, Telegram y pausa explícita del goal durante espera larga.

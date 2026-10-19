@@ -1441,3 +1441,5 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: C preparada trasgrafoAST20fuentes;colección3647=3349funcional+298capacidad disjuntos, noPASSfuncional. Reutilización623fuentesDocker/621porcada2cargaslimpias sin diferencias, actaproductivaG01–08pendiente separada. PrepararN3persistente2+1workers/freeze/Telegram/pausa;sinClaudeV1/alteraciónconsumoprevio/aceptaciónC.
 
 2026-10-19: Cfuncional3349termina3226PASS+4subpruebas/122SKIP/1FAIL TypeError de llamada comercial a testrestore ampliado;capacidadnoiniciada. Fuentes/cleanup/TelegramERRORconservados,sinOOMkill. GrafoAST21fuentesantesdecorregircallencrypted_backup=True,sinappchanges;preparar3casoscorrectivos yN3comúnnueva. SinClaudeV1/alteraciónconsumoprevio.
+
+2026-10-19: correctiva restauración3PASS/0SKIP85.47s/fuentes1577cleanupTelegramindependientes. Preparada repeticiónC3647mismosnodeids conordenporcoste dearchivo y2workers/snapshots/cuotasintactas;colecciónidéntica/ordeninternopreservado,sinprometerahorro. GrafoAST22fuentesprevio. Alphaconsolidado sólotrasC;OpenNotebookcorpuscompleto revisiónposterior,no producción. SinClaudeV1/alteraciónconsumoprevio.
