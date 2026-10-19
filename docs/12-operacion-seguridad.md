@@ -117,7 +117,7 @@ Ensayo físico de supresión local: `uv run python -m scripts.probe_media_erasur
 
 ## Estáticos en actualizaciones locales Docker
 
-El build recoge estáticos en la imagen, pero Compose monta static_data persistente en /app/staticfiles y Caddy lo lee desde ese volumen. Recrear app no sustituye el contenido existente del volumen. Tras reconstruir/recrear y aplicar migraciones, ejecutar `docker compose exec -T app python manage.py collectstatic --noinput` y verificar el archivo servido por Caddy contra el SHA-256 de static/app.css. No borrar el volumen para actualizar CSS.
+El build recoge estáticos en la imagen, pero Compose monta static_data persistente en /app/staticfiles y Caddy lo lee desde ese volumen. Recrear app no sustituye el contenido existente del volumen. Tras reconstruir/recrear y aplicar migraciones, ejecutar `docker compose exec -T app python manage.py collectstatic --clear --noinput` y verificar el archivo servido por Caddy contra el SHA-256 de static/app.css. No borrar el volumen para actualizar CSS. El vaciado con `--clear` se limita a `STATIC_ROOT`, que debe ser exclusivo de archivos estáticos recopilados; nunca debe contener medios privados o archivos de usuarios. Ejecutar durante mantenimiento, antes de reabrir tráfico, y verificar después los cinco activos y los archivos obsoletos. No se ejecuta sobre los servicios normales como parte de los probes locales.
 
 Detectado durante supresión de cuenta: los14 archivos fuente coincidían host/app/worker/Beat, pero el CSS HTTP de Caddy seguía siendo anterior. collectstatic copió128 archivos y dejó2 sin cambios; comprobación62078 terminal0 confirmó CSS servido igual a fuente, evidencia supresion-cuenta-runtime.json. La futura automatización de despliegue en B-B debe incluir esta fase antes de aceptar la versión; health200 por sí solo no demuestra que los estáticos coincidan.
 
@@ -126,3 +126,10 @@ Detectado durante supresión de cuenta: los14 archivos fuente coincidían host/a
 La migración0085 crea el permiso `safety.review_portability`. La semilla sintética `seed_demo` no lo asigna automáticamente; las pruebas lo conceden expresamente a un segundo usuario. Para reproducir el flujo local, configurar mediante administración un revisor distinto del autor con `safety.review_rights_request`, `safety.execute_rights_request` y `safety.review_portability`, además de MFA y ausencia de conflicto de interés. El responsable de preparar/generar sigue sujeto a asignación y permisos propios; tener el permiso independiente no permite aprobar la selección propia ni sustituye lectura del expediente, fuente o prueba vigente.
 
 La preparación de entrega debe comprobar este reparto de responsabilidades y documentar quién administrará sus permisos; no dar el permiso a todas las cuentas como solución a una pantalla vacía. Esta nota describe la configuración técnica local; operadores reales, proveedores y preparación de producción siguen pendientes.
+
+
+### Actualización y rollback de estáticos verificados, 2026-10-19
+
+[Ensayo BB06 propio](evidencias/bb06-static-update-terminal-20261019.json): un volumen con CSS de fecha posterior a la imagen de rollback conserva los bytes antiguos con collectstatic normal. `--clear --noinput` restablece los cinco activos por SHA y elimina un JS obsoleto (HTTP404), conservando un control fuera de STATIC_ROOT. Configuración Caddy idéntica, imagen v11 inmutable y recursos propios eliminados; fuentes/Telegram verificados. El [primer fallo de arranque](evidencias/bb06-static-startup-failure-20261019.json) queda conservado.
+
+La comparación por fecha está descrita en la [documentación oficial de Django](https://docs.djangoproject.com/en/5.2/ref/contrib/staticfiles/). Por ello health200 o recrear el contenedor no bastan para aceptar una actualización/rollback. Esta evidencia se limita a activos; migración de esquema y recuperación de datos conservan sus pruebas separadas.

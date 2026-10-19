@@ -1,0 +1,83 @@
+{
+  "result": "PASS",
+  "head": "f54c794834b37be018de1c9326568bbdf30b9919",
+  "sources_verified": 4266,
+  "sources_and_instruments_unchanged": true,
+  "cleanup_independently_verified": true,
+  "telegram": [
+    {
+      "path": "artifacts/test-notifications/1792425967121835250-640591.json",
+      "sha256": "2b6a8987ad25d1a1dea1584b1e200515cc3ebdaad73d4f3bff2a0b613220ce78",
+      "result": "PASS",
+      "delivery": "sent"
+    }
+  ],
+  "evidence": {
+    "result": "PASS",
+    "scope": "Owned packaged static-volume update/rollback timestamp fixture, actual Caddy HTTP. No DB is accessed; no application/PG integration claim (separate current proof).",
+    "product_changed": false,
+    "prepare": {
+      "source_mtime": 1791765925.0,
+      "target_mtime": 1792425956.6010108,
+      "stale_sha256": "eef7a5f57042215863db74fe8536f934566fdb644e21901b5c623284d7d0e33a"
+    },
+    "ordinary_collectstatic": {
+      "expected_negative": true,
+      "newer_stale_css_survives": true,
+      "obsolete_asset_survives": true,
+      "sha256": "eef7a5f57042215863db74fe8536f934566fdb644e21901b5c623284d7d0e33a"
+    },
+    "clear_collectstatic": {
+      "restored_source_bytes": true,
+      "obsolete_removed": true,
+      "outside_static_control_preserved": true
+    },
+    "http_assets": [
+      {
+        "path": "app.css",
+        "status": 200,
+        "bytes": 12412,
+        "sha256": "db85d6055ad8a12e9087557999c5ea6f71a0d684a2f10387b61eae00514918a3"
+      },
+      {
+        "path": "form-errors.js",
+        "status": 200,
+        "bytes": 962,
+        "sha256": "e1e1c5829d4b1e07df3a43dc43da0116cd151f15101681c496eb6e5020b448b4"
+      },
+      {
+        "path": "search-geography.js",
+        "status": 200,
+        "bytes": 1553,
+        "sha256": "99cc9a4004cea7e87f6752f26524c9bb500117116ff604ba12f98ea1ab059865"
+      },
+      {
+        "path": "geography.js",
+        "status": 200,
+        "bytes": 1179,
+        "sha256": "0ba31f32ff04069e163baa2374567bd2e9f62579339a39541ae5bc4bb473063d"
+      },
+      {
+        "path": "vendor/htmx.min.js",
+        "status": 200,
+        "bytes": 52182,
+        "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+      }
+    ],
+    "obsolete_http_status": 404,
+    "cleanup": {
+      "bb-static-update-command-20261019": true,
+      "bb-static-update-caddy-20261019": true,
+      "bb-static-update-net-20261019": true,
+      "bb-static-update-volume-20261019": true
+    }
+  },
+  "limits": "No DB used/accessed; only owned packaged static-volume fixture, no full migration/rollback or production claim. Source image is same immutable v11 as accepted runtime.",
+  "artifacts": {
+    "artifacts/vps-preparation/bb-static-update-ready-20261019/result.json": "0ec61ed799de9c6294e3d1be91c55c2910409c20f7d3bf9552d1efffc5906836",
+    "artifacts/vps-preparation/bb-static-update-ready-20261019/freeze.json": "f9f11407ab0938c190e9f490d2a35a61f39a2ddabc8b1f20d1af987701f2ff6c",
+    "artifacts/vps-preparation/bb-static-update-ready-20261019/probe.py": "aa39535cf835d9ee92ce3425a2009a2128123cfb41a39a08676433db8ed94bc7",
+    "artifacts/vps-preparation/bb-static-update-ready-20261019/Caddyfile": "e945651e9694c1107c47af452e31842f6b4ff3cb3dc5f704e28ada7f49aad453",
+    "artifacts/vps-preparation/bb-static-update-ready-20261019/caddy.log": "3208315fa1a99581fc00ade0ba06e9da638f170fe414d75c1fa0a6a3d48b531b"
+  }
+}
