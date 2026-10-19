@@ -1,0 +1,10 @@
+{
+  "result": "LAUNCH_ERROR_PRESERVED",
+  "unit": "optimization-matched-20261019.service",
+  "exit": 1,
+  "cause": "One untracked evidence receipt failed clean-worktree prerequisite; shell continued launching despite plan not created",
+  "stage": "Before any test/resources phase; no PG/Redis created",
+  "correction": "Commit missing receipt; prepare/freeze plan in successful separate command; launch only after explicit verification",
+  "telegram": "sent EXIT1",
+  "scope": "Orchestration failure, not product/test assertion; preserve original unit journal"
+}
