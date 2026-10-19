@@ -1,0 +1,18 @@
+{
+  "head_before_test_change": "758462633e17f2bb2d8e66cba51bb0f84b9841a8",
+  "selection": [
+    "tests/test_recovery_pg_restore.py"
+  ],
+  "expected_cases": 2,
+  "scope": "BB06 complete synthetic encrypted dump/media archive roundtrip before real PostgreSQL/media recovery, preserving existing plain local control. Wrong key and tampering rejected before file extraction. Independent reconciliation ledger/checkpoint and key remain outside backup. All original recovery/privacy/erasure/schema/RPO/RTO assertions retained.",
+  "implementation_changes": "Test fixture only; no application/runtime/crypto primitive or production backup manager changes. Fernet provided by existing frozen cryptography dependency.",
+  "limits": "Controller4CPU0-3/3584MiB/swap0/pids512; PG1CPU4/1536MiB; Redis.2CPU5/128MiB. Same official focused CI, native-sealed, synthetic only.",
+  "out_of_scope": [
+    "WAL/PITR cadence, offsite custody, key escrow or actual production recovery",
+    "Full-sized production backup memory/scalability; encrypted tar fixture is bounded synthetic data in memory"
+  ],
+  "files": {
+    "tests/test_recovery_pg_restore.py": "4aa18628a647251f2f8b86d5aa5b7b02fd3bb59642b4db58fa5ab3fafeb6f6c6"
+  },
+  "failure_policy": "Preserve any unexpected failure; no speculative full-suite/capacity retries."
+}

@@ -3226,3 +3226,5 @@ BF05 [fallo de configuración Caddy](evidencias/bf05-caddy-config-permissions-fa
 B-B iniciada: [auditoría por siete puntos](99-auditoria-terminacion-backend.md), inventario de pruebas actuales candidato y pendientes explícitos. BB04 añade sólo regresión de actualización versionada/IDs/rollback sobre datos existentes; importador sin cambios. Prerregistro focused de tres casos PostgreSQL propios, sin aceptación automática ni nueva carga.
 
 BB04 focused completo 3PASS/0SKIP, importación inicial y actualización/rollback sobre datos existentes; fuentes y recursos propios/Telegram auditados. Siguiente prueba BB06 prerregistrada sobre actualización de volumen estático/rollback, sin producto ni servicios normales modificados.
+
+BB06 estáticos PASS y runbook corregido. Preparados dos casos de restauración real: control local anterior y variante de backup completo cifrado con rechazo de clave/alteración, conservando reconciliación independiente y todas las aserciones originales. Es ampliación de fixture, no cifrado productivo desplegado ni PITR. B-B/C abiertos.

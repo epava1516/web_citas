@@ -1,19 +1,21 @@
 """Real PostgreSQL/medium restore in a disposable database, with synthetic identities."""
 
 import hashlib
+import io
 import json
 import os
 import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import time
 from pathlib import Path
 from uuid import uuid4
 
 import psycopg
 import pytest
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 from django.db import connection
 from django.test import Client
 from psycopg import sql
@@ -198,8 +200,9 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
 """
 
 
+@pytest.mark.parametrize("encrypted_backup", [False, True], ids=["plain-local", "encrypted-local"])
 def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
-    request, settings, monkeypatch, tmp_path, record_property
+    request, settings, monkeypatch, tmp_path, record_property, encrypted_backup
 ):
     purposes = [
         "authentication",
@@ -251,13 +254,55 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             stderr=subprocess.PIPE,
             check=True,
         )
-    backup_seconds = time.monotonic() - backup_started
     backup_sha256 = hashlib.sha256(backup.read_bytes()).hexdigest()
+    encrypted_copy = None
+    backup_cipher = None
+    if encrypted_backup:
+        # This bounded synthetic fixture encrypts the complete dump/media set.
+        # The independent ledger and its keys are deliberately not in the copy.
+        archive_bytes = io.BytesIO()
+        with tarfile.open(fileobj=archive_bytes, mode="w") as archive:
+            archive.add(backup, arcname="database.dump")
+            archive.add(backup_media, arcname="media")
+        backup_cipher = Fernet(Fernet.generate_key())
+        encrypted_copy = tmp_path / "complete-synthetic-backup.fernet"
+        encrypted_fd = os.open(encrypted_copy, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(encrypted_fd, "wb") as output:
+            output.write(backup_cipher.encrypt(archive_bytes.getvalue()))
+        backup.unlink()
+        shutil.rmtree(backup_media)
+        assert not backup.exists() and not backup_media.exists()
+        assert encrypted_copy.stat().st_mode & 0o777 == 0o600
+    backup_seconds = time.monotonic() - backup_started
     execution = execute(actor, case.pk, plan.pk, **(payload(case) | {"purposes": purposes}))
     event = unseal(RecoveryOutbox.objects.get(execution=execution).encrypted_event)
     assert export_batch(store) == 1
     assert erase_due_media() >= 1
     restored_at = time.monotonic()
+    if encrypted_backup:
+        ciphertext = encrypted_copy.read_bytes()
+        staging = tmp_path / "decrypted-backup"
+        # Authentication failures must occur before materializing any files.
+        with pytest.raises(InvalidToken):
+            Fernet(Fernet.generate_key()).decrypt(ciphertext)
+        altered = bytearray(ciphertext)
+        altered[len(altered) // 2] = ord("A") if altered[len(altered) // 2] != ord("A") else ord("B")
+        with pytest.raises(InvalidToken):
+            backup_cipher.decrypt(bytes(altered))
+        assert not staging.exists()
+        plaintext = backup_cipher.decrypt(ciphertext)
+        with tarfile.open(fileobj=io.BytesIO(plaintext), mode="r:") as archive:
+            members = archive.getmembers()
+            assert all(member.isfile() or member.isdir() for member in members)
+            assert {member.name for member in members if member.isfile()} == {
+                "database.dump", *{f"media/{name}" for name in media_manifest}
+            }
+            staging.mkdir(mode=0o700)
+            archive.extractall(staging, filter="data")
+        backup = staging / "database.dump"
+        backup_media = staging / "media"
+        assert hashlib.sha256(backup.read_bytes()).hexdigest() == backup_sha256
+        assert media_inventory(backup_media) == media_manifest
     restored_media = tmp_path / "restored-media"
     shutil.copytree(backup_media, restored_media)
     assert media_inventory(restored_media) == media_manifest
@@ -333,6 +378,13 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         assert proof["independent_authority_verified"]
         assert proof["wrong_authority_rejected_without_effects"]
         proof.update(
+            complete_backup_encrypted=encrypted_backup,
+            encrypted_copy_bytes=encrypted_copy.stat().st_size if encrypted_backup else 0,
+            encrypted_copy_sha256=(
+                hashlib.sha256(encrypted_copy.read_bytes()).hexdigest() if encrypted_backup else ""
+            ),
+            invalid_backup_key_and_tampering_rejected=encrypted_backup,
+            plaintext_backup_removed_before_recovery=encrypted_backup,
             backup_bytes=backup.stat().st_size,
             backup_sha256=backup_sha256,
             backup_cutoff_unix=backup_cutoff,
