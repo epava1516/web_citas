@@ -3240,3 +3240,5 @@ B-B iniciada: [auditoría por siete puntos](99-auditoria-terminacion-backend.md)
 BB04 focused completo 3PASS/0SKIP, importación inicial y actualización/rollback sobre datos existentes; fuentes y recursos propios/Telegram auditados. Siguiente prueba BB06 prerregistrada sobre actualización de volumen estático/rollback, sin producto ni servicios normales modificados.
 
 BB06 estáticos PASS y runbook corregido. Preparados dos casos de restauración real: control local anterior y variante de backup completo cifrado con rechazo de clave/alteración, conservando reconciliación independiente y todas las aserciones originales. Es ampliación de fixture, no cifrado productivo desplegado ni PITR. B-B/C abiertos.
+
+2026-10-19 — C pendiente: integración local de mejoras verificadas de pruebas (34PASS en comparativa; producto intacto). Segundo C detenido deliberadamente con1071PASS/6SKIP/0FAIL parciales y limpieza. Próximo ensayo único3358+298=3656casos, presupuestos intactos y ordenación oficial explícita; no aceptación anticipada. Véanse docs101/102 y recibo c-final-optimized-preregistration-20261019.
