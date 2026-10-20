@@ -1,3 +1,5 @@
+> Cierre posterior2026-10-20: **C01–07 aceptados técnicamente en local**, [acta10](actas/10-entrega-tecnica-local-alpha-20261020.md) y [matriz](evidencias/c-local-acceptance-matrix-20261020.json).3656nodeids/3526PASS+4subpruebas/130SKIP/0fallos; fuentes/limpieza/Telegram auditados. El contenido siguiente conserva la preparación y los fallos anteriores, no pendientes actuales. ProducciónG01–08 y revisión posterior Open Notebook siguen separadas.
+
 # C — Preparación de integración y entrega técnica local, 2026-10-19
 
 Estado: **pendiente**, tras [B-B09](actas/09-bb-aceptacion-tecnica-local-20261019.md) y [B-F08](actas/08-bf-aceptacion-tecnica-local-20261019.md). El contrato16 §8 tiene siete condiciones: terminar áreas no sustituye su aceptación. La matriz siguiente fija la prueba de cada una, sin convertir preparación en resultado.

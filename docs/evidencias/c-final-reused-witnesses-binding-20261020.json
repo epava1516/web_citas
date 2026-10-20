@@ -1,0 +1,97 @@
+{
+  "head": "3887db16f4ba0a4a06e79f3c23990543aaf8f59d",
+  "witnesses": [
+    {
+      "run": "20261018-221358-68fccccd",
+      "result_sha256": "d594b07915532fe0056df32f0fefe0b1fceb1382c3e168df4d67213c79e4a9dd",
+      "source_manifest_sha256": "9fc99676f2632437a9de4f273098e106148cfc7387b435ef760edca602fdb864",
+      "unchanged_product_sources": 621,
+      "technical_differences_reviewed": {
+        ".ai/tasks/desarrollo.md": "Administrative history only; prior consumption retained.",
+        "scripts/run_local_ci.py": "Opt-in CLI whole-file ordering only on parallel functional regression; omitted option leaves clean load and focused behavior unchanged.",
+        "tests/test_geography_import.py": "Additional update/rollback test; no reused witness imports this test.",
+        "tests/test_portability_large_closed_flow.py": "Only large full-flow fixture switches to existing native batching; not the separate excluded large_history witness.",
+        "tests/test_promotion_recovery.py": "Direct helper call adds encrypted_backup=True, verified in current common suite.",
+        "tests/test_recovery_pg_restore.py": "Additional encrypted/full-backup branch, current common plain/encrypted PASS.",
+        "tests/test_rights_copy_scope.py": "Batch setup of historical joins/rates, same data and full reference parity; not invoked by clean-load/TCP witnesses.",
+        "tests/test_rights_portability_covered_export_races.py": "Optional batching defaults False; old scalar route retained. Separate excluded selection/JSON witness imports export_races fixture, not this coverage helper.",
+        "tests/test_rights_portability_jobs.py": "Previously reviewed app-close test cleanup only; unchanged module API and product."
+      },
+      "decision": "SCOPED_REUSE_VALID_NO_NEW_MEASUREMENT"
+    },
+    {
+      "run": "20261018-223323-a8004006",
+      "result_sha256": "644e0e9ac990a869c54c08aac91643eb6832074ede6c47be6dcce3093bd9749f",
+      "source_manifest_sha256": "97523efc0e736a203005dca13434048aba61b41a35de3b1550cf712801de887f",
+      "unchanged_product_sources": 621,
+      "technical_differences_reviewed": {
+        ".ai/tasks/desarrollo.md": "Administrative history only; prior consumption retained.",
+        "scripts/run_local_ci.py": "Opt-in CLI whole-file ordering only on parallel functional regression; omitted option leaves clean load and focused behavior unchanged.",
+        "tests/test_geography_import.py": "Additional update/rollback test; no reused witness imports this test.",
+        "tests/test_portability_large_closed_flow.py": "Only large full-flow fixture switches to existing native batching; not the separate excluded large_history witness.",
+        "tests/test_promotion_recovery.py": "Direct helper call adds encrypted_backup=True, verified in current common suite.",
+        "tests/test_recovery_pg_restore.py": "Additional encrypted/full-backup branch, current common plain/encrypted PASS.",
+        "tests/test_rights_copy_scope.py": "Batch setup of historical joins/rates, same data and full reference parity; not invoked by clean-load/TCP witnesses.",
+        "tests/test_rights_portability_covered_export_races.py": "Optional batching defaults False; old scalar route retained. Separate excluded selection/JSON witness imports export_races fixture, not this coverage helper.",
+        "tests/test_rights_portability_jobs.py": "Previously reviewed app-close test cleanup only; unchanged module API and product."
+      },
+      "decision": "SCOPED_REUSE_VALID_NO_NEW_MEASUREMENT"
+    },
+    {
+      "run": "20261018-225403-aa8bce71",
+      "result_sha256": "ed30c14bbe99f06b5d861ae29ecc3f23e8ac0c420968ec3175a0d9d5ba13653c",
+      "source_manifest_sha256": "fda824dda9b83a35259720747e81f8466c35643b8114f93ff2cde52e77d4d6cd",
+      "unchanged_product_sources": 621,
+      "technical_differences_reviewed": {
+        ".ai/tasks/desarrollo.md": "Administrative history only; prior consumption retained.",
+        "scripts/run_local_ci.py": "Opt-in CLI whole-file ordering only on parallel functional regression; omitted option leaves clean load and focused behavior unchanged.",
+        "tests/test_geography_import.py": "Additional update/rollback test; no reused witness imports this test.",
+        "tests/test_portability_large_closed_flow.py": "Only large full-flow fixture switches to existing native batching; not the separate excluded large_history witness.",
+        "tests/test_promotion_recovery.py": "Direct helper call adds encrypted_backup=True, verified in current common suite.",
+        "tests/test_recovery_pg_restore.py": "Additional encrypted/full-backup branch, current common plain/encrypted PASS.",
+        "tests/test_rights_copy_scope.py": "Batch setup of historical joins/rates, same data and full reference parity; not invoked by clean-load/TCP witnesses.",
+        "tests/test_rights_portability_covered_export_races.py": "Optional batching defaults False; old scalar route retained. Separate excluded selection/JSON witness imports export_races fixture, not this coverage helper.",
+        "tests/test_rights_portability_jobs.py": "Previously reviewed app-close test cleanup only; unchanged module API and product."
+      },
+      "decision": "SCOPED_REUSE_VALID_NO_NEW_MEASUREMENT"
+    },
+    {
+      "run": "20261018-214959-ddb9050d",
+      "result_sha256": "de26a39a1a4b687978b50535ccbfabac52d29ff6dd700b40d3e17228630b804e",
+      "source_manifest_sha256": "83820c40c6756f7c753cb12378593d0b7f35498a4cc4adeb0c3a53b439c530a5",
+      "unchanged_product_sources": 621,
+      "technical_differences_reviewed": {
+        ".ai/tasks/desarrollo.md": "Administrative history only; prior consumption retained.",
+        "scripts/run_local_ci.py": "Opt-in CLI whole-file ordering only on parallel functional regression; omitted option leaves clean load and focused behavior unchanged.",
+        "tests/test_geography_import.py": "Additional update/rollback test; no reused witness imports this test.",
+        "tests/test_portability_large_closed_flow.py": "Only large full-flow fixture switches to existing native batching; not the separate excluded large_history witness.",
+        "tests/test_promotion_recovery.py": "Direct helper call adds encrypted_backup=True, verified in current common suite.",
+        "tests/test_recovery_pg_restore.py": "Additional encrypted/full-backup branch, current common plain/encrypted PASS.",
+        "tests/test_rights_copy_scope.py": "Batch setup of historical joins/rates, same data and full reference parity; not invoked by clean-load/TCP witnesses.",
+        "tests/test_rights_portability_covered_export_races.py": "Optional batching defaults False; old scalar route retained. Separate excluded selection/JSON witness imports export_races fixture, not this coverage helper.",
+        "tests/test_rights_portability_jobs.py": "Previously reviewed app-close test cleanup only; unchanged module API and product."
+      },
+      "decision": "SCOPED_REUSE_VALID_NO_NEW_MEASUREMENT"
+    },
+    {
+      "run": "20261018-230838-3e2d0669",
+      "result_sha256": "9b8b85f116a7721bd888efb4fafea06f7284037fa399afcc79f77aab8978ab74",
+      "source_manifest_sha256": "6ea1d59ed0108ccd201c992419f6b3220d2c76b3bf69631819c15e60e0eb65c0",
+      "unchanged_product_sources": 621,
+      "technical_differences_reviewed": {
+        ".ai/tasks/desarrollo.md": "Administrative history only; prior consumption retained.",
+        "scripts/run_local_ci.py": "Opt-in CLI whole-file ordering only on parallel functional regression; omitted option leaves clean load and focused behavior unchanged.",
+        "tests/test_geography_import.py": "Additional update/rollback test; no reused witness imports this test.",
+        "tests/test_portability_large_closed_flow.py": "Only large full-flow fixture switches to existing native batching; not the separate excluded large_history witness.",
+        "tests/test_promotion_recovery.py": "Direct helper call adds encrypted_backup=True, verified in current common suite.",
+        "tests/test_recovery_pg_restore.py": "Additional encrypted/full-backup branch, current common plain/encrypted PASS.",
+        "tests/test_rights_copy_scope.py": "Batch setup of historical joins/rates, same data and full reference parity; not invoked by clean-load/TCP witnesses.",
+        "tests/test_rights_portability_covered_export_races.py": "Optional batching defaults False; old scalar route retained. Separate excluded selection/JSON witness imports export_races fixture, not this coverage helper.",
+        "tests/test_rights_portability_jobs.py": "Previously reviewed app-close test cleanup only; unchanged module API and product."
+      },
+      "decision": "SCOPED_REUSE_VALID_NO_NEW_MEASUREMENT"
+    }
+  ],
+  "limits": "Complete product scope and selected harness/test unchanged; helper changes outside selected execution reviewed. No blanket same-commit claim for these historical runs. Laptop power-profile differences not attributed to code.",
+  "retained_skips": "130 historical skips unchanged; diagnostics remain unexecuted in ordinary profile and are not PASS. Six required external-content review scenarios separately reconciled by original CR09 acceptance matrix and reviewed source continuity."
+}

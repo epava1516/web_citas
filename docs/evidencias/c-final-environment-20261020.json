@@ -1,0 +1,62 @@
+{
+  "head": "3887db16f4ba0a4a06e79f3c23990543aaf8f59d",
+  "python": "3.12.15",
+  "platform": "Linux-5.14.0-570.58.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "machine": "x86_64",
+  "packages": {
+    "Django": "5.2.17",
+    "pytest": "9.1.1",
+    "pytest-xdist": "3.8.0",
+    "playwright": "1.63.0",
+    "psycopg": "3.3.6",
+    "gunicorn": "23.0.0",
+    "celery": "5.6.3",
+    "redis": "6.4.0",
+    "ruff": "0.16.10"
+  },
+  "uv_lock_sha256": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+  "pyproject_sha256": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
+  "kernel": {
+    "binary_sha256": "ca3c388585ed10a6f5ca3f5e82aeea385c5c496368e3800b45758df6fa2a0726",
+    "build_script_sha256": "aad66de256f32814f911f412c959a6c2a936832abc9a1c10f1199ab031aa88a9",
+    "cache_tag": "cpython-312",
+    "compiler_version": "cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)",
+    "cython": "3.0.12",
+    "extension_suffix": ".cpython-312-x86_64-linux-gnu.so",
+    "flags": [
+      "-O3",
+      "-fPIC",
+      "-shared"
+    ],
+    "generated_c_sha256": "43fec35d556285d65d118c907053aee647cd90d26f18cc4e61f1d7ae120530ff",
+    "machine": "x86_64",
+    "manifest_sha256": "7295368a6cae5fba922030565d33f032ef92a47f4af45c60fd0fc44cd2900e74",
+    "mode": "native-sealed",
+    "module": "apps.safety._canonical_kernel",
+    "python": "3.12.15",
+    "schema": 1,
+    "source_sha256": "9cecbd34c3b8286c4bdfd35708a8c2f935b96457d57ce8b9cbfc9d94614afaf9"
+  },
+  "native_tools_manifest": {
+    "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+    "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+    "environment": {
+      "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-local-ci-kvuhdue7/native-tools/rdb-cli",
+      "RETAINED_RDB_DECODER_SHA256": "ed1bd6a8612b9c2f6a57271d3fb69798d2a2e50049250e77ff628f1baea22edb",
+      "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-local-ci-kvuhdue7/native-tools/retained-rdb-aux",
+      "RETAINED_RDB_AUX_SHA256": "845f0e7919cbee1770e1f7e934965234caaa62848b8ae869ef3e0c8072908cb4",
+      "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-local-ci-kvuhdue7/native-tools/retained-rdb-metadata",
+      "RETAINED_RDB_METADATA_SHA256": "fcd9361177a274d6679625153ede3a9cc8675e2675e819b097faa640a399f9aa"
+    }
+  },
+  "images": {
+    "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+    "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+    "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526",
+    "web-modelos-cr10-native:20261018-v11": "sha256:261d4b6d97f581ddf8cfd19318b3455eda8bafafb5de4e151c084d08d2200fbd"
+  },
+  "postgres_image_version_from_verified_docker": "PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "cython_note": "Cython3.0.12/compiler recorded by sealed artifact builder; Cython not installed in the application venv.",
+  "scope": "Versions from current unchanged locked venv and frozen sealed manifests/pinned images; no production environment."
+}

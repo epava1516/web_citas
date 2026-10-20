@@ -1,0 +1,2198 @@
+{
+  "head": "3887db16f4ba0a4a06e79f3c23990543aaf8f59d",
+  "family_count": 19,
+  "families": [
+    {
+      "family": "Cuenta y textos legales \u2014 [CR01](contratos/01-cuentas-legal.md)",
+      "states_and_authority": "Visitante/cuenta; formulario inv\u00e1lido, token inv\u00e1lido/caducado, env\u00edo y aceptaci\u00f3n pendientes; ES/EN. Carga de POST no equivale a correo real recibido.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_accounts.py",
+          "sha256": "fbb896c3485c0cb10ebd0dd8eea6b13e0d9b2038d75cffabf5b10a7d30cbe184",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_accounts.py::test_browser_mfa_agency_two_people",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_accounts.py::test_browser_individual_verification",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "fbb896c3485c0cb10ebd0dd8eea6b13e0d9b2038d75cffabf5b10a7d30cbe184"
+        },
+        {
+          "source": "tests/test_accounts.py",
+          "sha256": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_existing_email_and_recovery_do_not_enumerate",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_csrf_throttle_and_token_headers",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_concurrent_token_consumption",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_resend_invalidates_older_token",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_token_invalid_after_email_or_password_change",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_concurrent_signup_email_unicity",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_accounts.py::test_email_delivery_failure_generic_response",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0"
+        },
+        {
+          "source": "tests/test_reset_localization.py",
+          "sha256": "614595e13576a9506183efee311cf84da7158bdddbb280ff7b16ca67ce5e0bf6",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reset_localization.py::test_reset_localization_preserves_token_and_session_contract[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reset_localization.py::test_reset_localization_preserves_token_and_session_contract[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "614595e13576a9506183efee311cf84da7158bdddbb280ff7b16ca67ce5e0bf6"
+        }
+      ]
+    },
+    {
+      "family": "Panel, MFA y agencia \u2014 [CR02](contratos/02-agencias-mfa.md)",
+      "states_and_authority": "Cuenta, miembro y gestor vigentes; panel sin personas, invitaci\u00f3n pendiente/revocada, c\u00f3digo MFA inv\u00e1lido, p\u00e9rdida de permiso despu\u00e9s de mostrar formulario. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_agencies_mfa.py",
+          "sha256": "030780ab1b74cfa2d16369db96451b68c098f2dc5654dc603ff1d5c14b1ddaea",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agencies_mfa.py::test_mfa_enrollment_replay_and_recovery",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agencies_mfa.py::test_two_models_editor_scope_and_revocation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agencies_mfa.py::test_agency_requires_mfa_and_cannot_assign_outside_member",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agencies_mfa.py::test_concurrent_recovery_code_one_use",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agencies_mfa.py::test_agency_quota_counts_unapproved_current_manager_and_owner_scope",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "030780ab1b74cfa2d16369db96451b68c098f2dc5654dc603ff1d5c14b1ddaea"
+        },
+        {
+          "source": "tests/test_mfa_localization.py",
+          "sha256": "73aa2597dbdc8c9724b42f69f972853f7edcc72bfee019f84c9788ac1178d7f0",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_mfa_localization.py::test_mfa_localization_and_real_enrollment_challenge_recovery[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_mfa_localization.py::test_mfa_localization_and_real_enrollment_challenge_recovery[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "73aa2597dbdc8c9724b42f69f972853f7edcc72bfee019f84c9788ac1178d7f0"
+        },
+        {
+          "source": "tests/test_agency_setup_localization.py",
+          "sha256": "105d0d73c662fb16f8baf66969326cea1117d4681a93faf02a946a74e59aba75",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_setup_localization.py::test_localized_agency_setup_preserves_private_membership[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_setup_localization.py::test_localized_agency_setup_preserves_private_membership[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_setup_localization.py::test_shared_individual_alias_is_localized_and_private[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_setup_localization.py::test_shared_individual_alias_is_localized_and_private[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "105d0d73c662fb16f8baf66969326cea1117d4681a93faf02a946a74e59aba75"
+        }
+      ]
+    },
+    {
+      "family": "Identidad, tel\u00e9fono y representaci\u00f3n \u2014 [CR03](contratos/03-verificacion-representacion.md)",
+      "states_and_authority": "Particular/gestor/persona representada; verificaci\u00f3n no iniciada, pendiente, fallida, consentimiento ausente/revocado y gestor cambiado; invitaci\u00f3n secreta. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_verification.py",
+          "sha256": "b5cc93125ac2dffe81b80a71946dcf1fab12135b33eac46225494837cf8fbbf9",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_individual_prerequisites_persistence_phone_replay",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_agency_direct_consent_shared_phone_and_transfer",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_events_signed_idempotent_obsolete_and_production_disabled",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_phone_resend_invalidates_previous_and_unauthorized_actor",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_concurrent_phone_cannot_be_claimed_by_two_individuals",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_verification.py::test_phone_challenge_created_in_dev_cannot_be_consumed_after_provider_switch",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b5cc93125ac2dffe81b80a71946dcf1fab12135b33eac46225494837cf8fbbf9"
+        },
+        {
+          "source": "tests/test_consent_transfer_localization.py",
+          "sha256": "383222e327ad1ae51ef42d5bd7c0ab6467a9fd8c92fe02c71faac3bfb9fd5be6",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[direct-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[direct-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[invited-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[invited-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "383222e327ad1ae51ef42d5bd7c0ab6467a9fd8c92fe02c71faac3bfb9fd5be6"
+        },
+        {
+          "source": "tests/test_browser_manager_transfer.py",
+          "sha256": "54a6b8d82099b5da51ec8c54b0316dfc48e6b0af7d77f3d0a674bdab23bbccdb",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_manager_transfer.py::test_mobile_agency_transfer_to_self_and_human_review",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "54a6b8d82099b5da51ec8c54b0316dfc48e6b0af7d77f3d0a674bdab23bbccdb"
+        }
+      ]
+    },
+    {
+      "family": "Borrador y cat\u00e1logo/geograf\u00eda \u2014 [CR04](contratos/04-borradores-catalogo-geografia.md)",
+      "states_and_authority": "Publicante/gestor; crear o retomar borrador, obligatorios inv\u00e1lidos, cat\u00e1logo incompatible, borrador obsoleto o sin permiso; recarga. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_drafts.py",
+          "sha256": "142475af55d6dec9c3f186df05beaa3f58026d51aeccf390155bee535bc804d6",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_drafts.py::test_browser_draft_steps_reload_and_consult",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "142475af55d6dec9c3f186df05beaa3f58026d51aeccf390155bee535bc804d6"
+        },
+        {
+          "source": "tests/test_browser_revised_listings.py",
+          "sha256": "5541539163e44c036fb39afd399b49b80a467d70f6437d80ddae812ef3d751ff",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_revised_listings.py::test_mobile_edit_keeps_public_snapshot_until_review",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_revised_listings.py::test_browser_match_resolution_and_pending_approval",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "5541539163e44c036fb39afd399b49b80a467d70f6437d80ddae812ef3d751ff"
+        }
+      ]
+    },
+    {
+      "family": "Fotos privadas y procesamiento \u2014 [CR05](contratos/05-fotografias-coincidencias.md)",
+      "states_and_authority": "Publicante vigente; sin fotos, subida inv\u00e1lida, procesamiento pendiente/fallido, foto restringida y acceso privado denegado. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_photos.py",
+          "sha256": "55f00f7e6cbd393daa726ae71b743b77d4c061380450690553462bd860ddbcc1",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_photos.py::test_browser_photo_upload_preview_remove",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "55f00f7e6cbd393daa726ae71b743b77d4c061380450690553462bd860ddbcc1"
+        },
+        {
+          "source": "tests/test_browser_photo_appeal.py",
+          "sha256": "b0d25be0e77213d500d72ca00922c2f70ec4c5ecc75fefbdbf86870158077370",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_photo_appeal.py::test_mobile_photo_appeal_submission_and_independent_reopening",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b0d25be0e77213d500d72ca00922c2f70ec4c5ecc75fefbdbf86870158077370"
+        }
+      ]
+    },
+    {
+      "family": "Env\u00edo/publicaci\u00f3n y revisi\u00f3n humana \u2014 [CR06](contratos/06-moderacion-publicacion.md)",
+      "states_and_authority": "Publicante frente a moderador autorizado/MFA sin conflicto; colas vac\u00edas, revisi\u00f3n pendiente, aprobada/rechazada/obsoleta, foto/coincidencia privada denegada.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_submissions.py",
+          "sha256": "0d3d83842f47cba757446d7f507733100905f9a651d0780754ec1124b66c2248",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_submissions.py::test_mobile_submission_declaration_and_pending_reload",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "0d3d83842f47cba757446d7f507733100905f9a651d0780754ec1124b66c2248"
+        },
+        {
+          "source": "tests/test_browser_listing_moderation.py",
+          "sha256": "b2c43386a37e3c0c27636e5c2b498325983dfd4130d686a169607a9233b48495",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_listing_moderation.py::test_browser_listing_review_and_public_version",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b2c43386a37e3c0c27636e5c2b498325983dfd4130d686a169607a9233b48495"
+        },
+        {
+          "source": "tests/test_publication_route_coverage.py",
+          "sha256": "288f17467746825f7002da161e30165bf789aafcbb42544f51ba45d0dace58c9",
+          "current_passed_nodeids": [],
+          "specialized_receipts": [
+            "docs/evidencias/cr09-route-matrix-terminal-20261018.json"
+          ],
+          "prior_sha256": "288f17467746825f7002da161e30165bf789aafcbb42544f51ba45d0dace58c9"
+        }
+      ]
+    },
+    {
+      "family": "Organizaciones, gestores y recursos \u2014 [CR02/03/06](contratos/06-moderacion-publicacion.md)",
+      "states_and_authority": "Gestor/publicante y revisor independiente; cola vac\u00eda, recurso pendiente/resuelto, sin decisi\u00f3n recurrible y conflicto de inter\u00e9s. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_organization_review.py",
+          "sha256": "5232dbae6423a1bcdd842406cc0a963fd1fd78ded6b8c6cd0bf51dbc001dcd8b",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_organization_review.py::test_browser_moderator_mfa_and_organization_decision",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "5232dbae6423a1bcdd842406cc0a963fd1fd78ded6b8c6cd0bf51dbc001dcd8b"
+        },
+        {
+          "source": "tests/test_browser_appeals.py",
+          "sha256": "2e5ce67ce0270956ff7700f6038433baa0fd5dcb416ed53abc0f6b87afa66ffd",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_appeals.py::test_browser_appeal_and_independent_mfa_review",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "2e5ce67ce0270956ff7700f6038433baa0fd5dcb416ed53abc0f6b87afa66ffd"
+        },
+        {
+          "source": "tests/test_browser_agency_appeal.py",
+          "sha256": "008bd6328c2b4109b95c35ff00a6ee9a0339cee07fd38a353b5fd2843cc17540",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_agency_appeal.py::test_mobile_agency_rejection_appeal",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "008bd6328c2b4109b95c35ff00a6ee9a0339cee07fd38a353b5fd2843cc17540"
+        },
+        {
+          "source": "tests/test_browser_manager_appeal.py",
+          "sha256": "da275eaf4e2fb6d95744b4cdada9003e86135f31f2e761f3eeb7ee4dfd331484",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_manager_appeal.py::test_browser_manager_rejection_appeal",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "da275eaf4e2fb6d95744b4cdada9003e86135f31f2e761f3eeb7ee4dfd331484"
+        }
+      ]
+    },
+    {
+      "family": "Descubrimiento y ficha p\u00fablica \u2014 [CR07](contratos/08-descubrimiento.md)",
+      "states_and_authority": "Visitante; filtros combinados, ning\u00fan resultado compatible, paginaci\u00f3n, ficha no p\u00fablica/inaccesible, imagen retirada. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_browser_discovery.py",
+          "sha256": "1fd2838b19177623bc18b22486970fdcf644640bd337a93f41e4048ca4ea8d12",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_discovery.py::test_mobile_search_service_modes_language_and_public_card",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_discovery.py::test_mobile_geo_dependencies_clear_children_and_preserve_url",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_browser_discovery.py::test_mobile_positive_pagination_preserves_filters_and_reload",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "1fd2838b19177623bc18b22486970fdcf644640bd337a93f41e4048ca4ea8d12"
+        },
+        {
+          "source": "tests/test_discovery.py",
+          "sha256": "e90a1bdad0d933423ae65d3afe0ecf0da23f990053081b600cfe68f35bfbdedc",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_search_approved_text_language_and_hidden_revisions",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_service_any_all_geo_json_and_private_postal_filters",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_public_detail_localizes_attributes_rates_and_selected_contacts",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_simulation_provenance_survives_provider_switch_and_blocks_production",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_geography_checks_postal_and_zone_ancestry_without_selected_city",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_search_title_weight_precedes_newer_description_and_private_text",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_specific_real_checks_exclude_simulated_or_obsolete_proofs",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_discovery.py::test_contact_and_agency_checks_are_specific_and_require_current_evidence",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "e90a1bdad0d933423ae65d3afe0ecf0da23f990053081b600cfe68f35bfbdedc"
+        },
+        {
+          "source": "tests/test_promotion_exposure.py",
+          "sha256": "3d3895b7d894372be915fbcd5d28593addb4a22c0fae9916ac703b3648273e27",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_exposure.py::test_sponsorship_uses_filtered_visible_set_and_never_reintroduces_withdrawn_listing",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_exposure.py::test_bump_window_quota_replay_and_editorial_state_preserved",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_exposure.py::test_task_bounded_scan_advances_past_one_hundred_ineligible_entitlements",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "3d3895b7d894372be915fbcd5d28593addb4a22c0fae9916ac703b3648273e27"
+        }
+      ]
+    },
+    {
+      "family": "Favoritos y ciclo de vida \u2014 [CR08](contratos/09-ciclo-vida.md)",
+      "states_and_authority": "Cuenta/publicante o gestor; favoritos vac\u00edos y aislados, pausa/caducidad/retirada/traslado, renovaci\u00f3n y disponible ahora. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_favorites.py",
+          "sha256": "19b688ee32c38bd2d05384bd235ec6555b713d62db3b944245d4295c6cac55ef",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_favorites.py::test_favorites_private_idempotent_permissions_and_hidden_content",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_favorites.py::test_concurrent_favorite_add_is_unique",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_favorites.py::test_mobile_visitor_favorite_save_reload_remove",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "19b688ee32c38bd2d05384bd235ec6555b713d62db3b944245d4295c6cac55ef"
+        },
+        {
+          "source": "tests/test_lifecycle.py",
+          "sha256": "56612af9c8ee3a3403f2456ec8b3063c5ec1084cb6bc6c2253d0e824f4b38bc2",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_availability_pause_resume_withdraw_and_old_retry",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_renewal_same_id_confirmation_expiry_and_delayed_task",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_stale_form_revocation_and_key_payload_conflict",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_concurrent_actions_accept_only_one_version",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_withdraw_pending_revision_prevents_late_moderation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_mobile_pause_resume_withdraw_persists",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_expiry_concurrent_tasks_record_one_system_event",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_action_history_does_not_expose_previous_manager_events",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_agency_editor_assignment_mfa_and_revocation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_expiry_racing_renewal_never_expires_new_period",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_mobile_renewal_confirms_data_and_preserves_publication",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_availability_expires_without_beat_and_resume_preserves_dates",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_lifecycle.py::test_renewing_paused_listing_keeps_it_private",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "56612af9c8ee3a3403f2456ec8b3063c5ec1084cb6bc6c2253d0e824f4b38bc2"
+        },
+        {
+          "source": "tests/test_agency_publication.py",
+          "sha256": "4f67142593d8193734e4825d73119bec190fdf38cca23c31d6cfc23a9d5c9042",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_publication.py::test_agency_two_people_shared_phone_editor_publication_and_revoke",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_agency_publication.py::test_browser_agency_independent_review_of_two_publications",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "4f67142593d8193734e4825d73119bec190fdf38cca23c31d6cfc23a9d5c9042"
+        }
+      ]
+    },
+    {
+      "family": "Reportes, denuncias y recibos \u2014 [CR09](contratos/10-denuncias-derechos.md)",
+      "states_and_authority": "Visitante sin cuenta con recibo secreto, denunciante y responsable autorizado; entrada inv\u00e1lida/l\u00edmite, acuse, mensaje pendiente, colas vac\u00edas, resoluci\u00f3n y urgencia. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_reports.py",
+          "sha256": "b7b0ec95d53c4d816d6e5604f843aff41a450c2b192cbd2a1fe78ba15bd0cf9b",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_anonymous_receipt_private_encryption_replay_and_formal_rules",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_queue_permissions_mfa_coi_and_public_route_account_gate",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_concurrent_public_report_replay_is_one_case",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_mobile_report_without_account_and_private_receipt_reload",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_expired_receipt_never_logs_secret_or_contact",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_reports.py::test_report_crypto_requires_real_dedicated_key_in_production",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b7b0ec95d53c4d816d6e5604f843aff41a450c2b192cbd2a1fe78ba15bd0cf9b"
+        },
+        {
+          "source": "tests/test_complaint_intake.py",
+          "sha256": "cd68597d39c2ef89a38e0490238f1893c22717e2f86a79b7204b34d4ca557dc7",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_anonymous_encrypted_intake_minimal_receipt_replay_and_no_automatic_change",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_invalid_secret_expiry_csrf_and_rate_limit",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_audited_triage_separate_permission_mfa_and_own_case_exclusion",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_public_entry_bypasses_outdated_account_gate_and_nonstaff_review_requires_mfa",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_concurrent_intake_is_one_case_and_one_receipt",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_actor_replay_foreign_receipt_and_escaped_reference_do_not_confer_access",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[post-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-405]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/00000000-0000-0000-0000-000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/-404]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[delete-/en/safety/complaints/-405]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_channel_errors_keep_privacy_headers[get-/en/safety/complaints/not-a-valid-case-id/-404]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_mobile_intake_without_agency_login_and_receipt_reload[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_intake.py::test_mobile_reviewer_login_mfa_and_audited_delivery_then_reload_hides",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "cd68597d39c2ef89a38e0490238f1893c22717e2f86a79b7204b34d4ca557dc7"
+        },
+        {
+          "source": "tests/test_complaint_localization.py",
+          "sha256": "3a7358358577390eb7af957d1d9d48c0bf5809e674f5b6f5f2ecc79f68acd7e2",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_localization.py::test_anonymous_complaint_localization_preserves_private_intake[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_complaint_localization.py::test_anonymous_complaint_localization_preserves_private_intake[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "3a7358358577390eb7af957d1d9d48c0bf5809e674f5b6f5f2ecc79f68acd7e2"
+        },
+        {
+          "source": "tests/test_urgent_report_drill.py",
+          "sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        }
+      ]
+    },
+    {
+      "family": "Solicitud de derechos, verificaci\u00f3n y comunicaciones \u2014 [CR09](contratos/10-denuncias-derechos.md)",
+      "states_and_authority": "Solicitante con secreto/cuenta, persona representada y operador con permiso; identidad/representaci\u00f3n pendiente, asociaci\u00f3n inv\u00e1lida, respuesta/acuse pendientes y cola vac\u00eda. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_rights_intake_localization.py",
+          "sha256": "07d0fbc23357217f1bbe10baeffe0c2306c652ac94e5dab75db2376076e0a3de",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_intake_localization.py::test_rights_intake_localization_preserves_unverified_private_requests[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_intake_localization.py::test_rights_intake_localization_preserves_unverified_private_requests[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "07d0fbc23357217f1bbe10baeffe0c2306c652ac94e5dab75db2376076e0a3de"
+        },
+        {
+          "source": "tests/test_rights_verification.py",
+          "sha256": "a929cc4965b72d2cc21f212bbcfa85d6534d1591cd0e7589283976d108399fe9",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_scoped_simulation_needs_independent_permission_and_current_evidence",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_incomplete_or_failed_proof_never_authorizes_rights[pending]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_incomplete_or_failed_proof_never_authorizes_rights[failed]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_manager_change_or_new_clarification_invalidates_proof",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_disabled_adapter_and_production_reject_synthetic_checks",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_two_simulated_results_only_consume_version_once",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_mobile_operator_starts_explicit_simulation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_verification.py::test_simulated_pass_requires_audited_delivery_of_all_clarification_pages",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "a929cc4965b72d2cc21f212bbcfa85d6534d1591cd0e7589283976d108399fe9"
+        },
+        {
+          "source": "tests/test_rights_communications.py",
+          "sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[erase]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[restriction]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery[object]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_same_execution_delivery_serializes_and_old_authority_cannot_read",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_agency_own_account_notice_does_not_include_owned_models",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications.py::test_mobile_recipient_assessment_source_is_audited_in_both_languages",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb"
+        },
+        {
+          "source": "tests/test_rights_communications_localization.py",
+          "sha256": "906e885701f1da4b287e69b329f4d3875844cf5c43dfb4d036a0cf97c59ee917",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_communications_localization.py::test_operation_requirements_and_legacy[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "906e885701f1da4b287e69b329f4d3875844cf5c43dfb4d036a0cf97c59ee917"
+        }
+      ]
+    },
+    {
+      "family": "Acceso, inventario y respuesta privada \u2014 [CR09](contratos/10-denuncias-derechos.md)",
+      "states_and_authority": "Preparador/revisor independiente/respondedor; inventario vac\u00edo o incompleto, inspecci\u00f3n pendiente, decisi\u00f3n rechazada, fuente o versi\u00f3n cambiada/conflicto409, cierre bloqueado. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_rights_access_response_mobile.py",
+          "sha256": "2da57d922541e0e72d571d71d29a74316c94beb01770e179b0eb4a945e594946",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[False-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[False-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[True-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[True-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_aux_inspection_requires_exact_metadata_review_and_stays_partial[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_physical_census_uses_existing_review_and_independent_decision[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_physical_census_uses_existing_review_and_independent_decision[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[False-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_response_mobile.py::test_mobile_historical_logs_use_existing_private_review_and_stay_partial[True-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "2da57d922541e0e72d571d71d29a74316c94beb01770e179b0eb4a945e594946"
+        },
+        {
+          "source": "tests/test_rights_access_coverage.py",
+          "sha256": "43a5702e31b2623311e33dc5da5152b4ddb5eb86bf99f926bb680004b553a772",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_every_field_and_unprojected_boundary_is_accounted_without_authorizing",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[missing_field]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[missing_boundary]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[unknown_boundary]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[pending]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[foreign_field]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[foreign_row]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[stale_reference]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[false_index]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[missing_section]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_incomplete_or_conflicting_accounting_is_rejected[redacted_without_decision]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_old_delivery_digest_rejected_even_when_new_rows_could_be_accounted",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_injected_empty_container_cannot_escape_scalar_accounting",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_access_coverage.py::test_redaction_requires_motivated_exact_field_decision",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "43a5702e31b2623311e33dc5da5152b4ddb5eb86bf99f926bb680004b553a772"
+        },
+        {
+          "source": "tests/test_access_coverage_review_localization.py",
+          "sha256": "978974090ac60183c0f8d0c4b53b392ef23f64433b0e97d7b4212dc7c9b856a5",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_access_coverage_review_localization.py::test_native_coverage_review_private_and_current[False-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_access_coverage_review_localization.py::test_native_coverage_review_private_and_current[False-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_access_coverage_review_localization.py::test_native_coverage_review_private_and_current[True-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_access_coverage_review_localization.py::test_native_coverage_review_private_and_current[True-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "978974090ac60183c0f8d0c4b53b392ef23f64433b0e97d7b4212dc7c9b856a5"
+        }
+      ]
+    },
+    {
+      "family": "Portabilidad, selecci\u00f3n y revisi\u00f3n por lotes \u2014 MOD-08/CR09",
+      "states_and_authority": "Preparador/revisor independiente; filas/im\u00e1genes vac\u00edas seg\u00fan sujeto, p\u00e1ginas todav\u00eda no le\u00eddas, lote inspeccionado, cobertura excluida/rechazada y fuente desactualizada. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_rights_portability_coverage_review_mobile.py",
+          "sha256": "fafc34c48892abe3a7fff5f999ea2e7197f14e2570ec6a69045d47d8d23457fa",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[False-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[False-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[True-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_mobile.py::test_mobile_independent_coverage_approval[True-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "fafc34c48892abe3a7fff5f999ea2e7197f14e2570ec6a69045d47d8d23457fa"
+        },
+        {
+          "source": "tests/test_rights_portability_coverage_review_http.py",
+          "sha256": "449144023e34e5f50884f98ad73f93087224393f153be5c40828dc7da7783624",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_http.py::test_review_http_requires_all_pages_and_never_restores_evidence_on_get[False]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_review_http.py::test_review_http_requires_all_pages_and_never_restores_evidence_on_get[True]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "449144023e34e5f50884f98ad73f93087224393f153be5c40828dc7da7783624"
+        },
+        {
+          "source": "tests/test_rights_portability_coverage_batch.py",
+          "sha256": "93999d4be3154cb5505a0a6d8fb4e24cbeabce11d2b8bd759f6cf6c5b5207685",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_preserves_page_audits_and_idempotency",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rolls_back_all_reads_if_a_later_page_fails",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[0]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[5]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[True]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_batch_rejects_unbounded_count[4]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_private_http_batch_requires_post_and_renders_all_pages[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_private_http_batch_requires_post_and_renders_all_pages[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_mobile_batch_displays_multiple_individual_pages[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_mobile_batch_displays_multiple_individual_pages[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_revocation_before_batch_return_rolls_back_every_read",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_coverage_batch.py::test_binary_batch_stops_after_last_image_page",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "93999d4be3154cb5505a0a6d8fb4e24cbeabce11d2b8bd759f6cf6c5b5207685"
+        },
+        {
+          "source": "tests/test_portability_coverage_batch_validation.py",
+          "sha256": "c02096be4a5b65ecae4a96fc28f2ee23c520d80c13bd0d70bdb4c287960a4338",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_portability_coverage_batch_validation.py::test_approval_replay_does_not_rebuild_full_source_per_read",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "c02096be4a5b65ecae4a96fc28f2ee23c520d80c13bd0d70bdb4c287960a4338"
+        },
+        {
+          "source": "tests/test_coverage_review_localization.py",
+          "sha256": "d1a0319520c77dae55b568b23a129046967e55b3cc951910ac4d2cbe83b40d67",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_coverage_review_localization.py::test_forms_defaults_raw_bounds_and_tristate[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_coverage_review_localization.py::test_forms_defaults_raw_bounds_and_tristate[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "d1a0319520c77dae55b568b23a129046967e55b3cc951910ac4d2cbe83b40d67"
+        }
+      ]
+    },
+    {
+      "family": "Generaci\u00f3n privada as\u00edncrona \u2014 MOD-08/CR09",
+      "states_and_authority": "Operador con autoridad vigente; `queued`, `running`, `succeeded`, `rejected`, `failed`, reintento desde generaci\u00f3n y actualizaci\u00f3n sin JS. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_rights_portability_jobs.py",
+          "sha256": "078164f3527e4fa98d893fc378b40dae51e02f1bb709d5d4ff53c41ee0c85814",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_durable_replay_and_conflicts[False]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_durable_replay_and_conflicts[True]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[session]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[mfa]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[assignment]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[proof]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[source]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_rejects_changed_authority_source_or_proof[expiry]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_retries_roll_back_partial_generation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_lease_recovery",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_expired_job_is_purged_by_reconciler",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_two_workers_generate_once",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_post_queues_and_status_requires_fresh_original_authority[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_post_queues_and_status_requires_fresh_original_authority[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_post_without_execute_permission_creates_no_job",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_broker_schema_is_typed_and_scoped",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_real_broker_worker_uses_only_job_identifier",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_broker_outage_preserves_durable_job_and_reconciles",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_technical_retries_are_bounded_and_clear_private_reason",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_worker_limits_allow_the_generation_objective_within_the_lease",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_worker_rechecks_after_observed_postgresql_wait[permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_worker_rechecks_after_observed_postgresql_wait[proof]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[False]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_positive_job_inventory_and_scoped_live_broker[True]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs.py::test_job_historical_broker_projection_is_explicit_and_pure",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "078164f3527e4fa98d893fc378b40dae51e02f1bb709d5d4ff53c41ee0c85814"
+        },
+        {
+          "source": "tests/test_rights_portability_jobs_mobile.py",
+          "sha256": "5e363262849e2ae8d8aba58b2feda57e63789ed1a4441b84d733690a7d06ea5a",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_polling_and_no_javascript_fallback[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_polling_and_no_javascript_fallback[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[rejected-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[rejected-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[failed-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_jobs_mobile.py::test_mobile_generation_errors_stop_polling_and_offer_no_final_response[failed-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "5e363262849e2ae8d8aba58b2feda57e63789ed1a4441b84d733690a7d06ea5a"
+        }
+      ]
+    },
+    {
+      "family": "Respuesta final, exportaci\u00f3n y descargas privadas \u2014 CR09",
+      "states_and_authority": "Solicitante autorizado/respondedor/revisor; artefacto no listo, respuesta pendiente/aprobada/cerrada, autorizaci\u00f3n caducada/revocada, pieza purgada/corrupta. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_rights_portability_response_mobile.py",
+          "sha256": "357132ff46220f90c32fe46cf4ac48e4972c532c2f722c29dbc5925dbb30a972",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[False-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[False-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[True-es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_portability_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision[True-en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "357132ff46220f90c32fe46cf4ac48e4972c532c2f722c29dbc5925dbb30a972"
+        },
+        {
+          "source": "tests/test_rights_information_export_mobile.py",
+          "sha256": "b87f50d4e05dd6cb2463eb6d8e0feeff9d96fb1243337feaf3a31d343cbd4569",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_information_export_mobile.py::test_mobile_generate_pages_with_approved_information[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_information_export_mobile.py::test_mobile_generate_pages_with_approved_information[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b87f50d4e05dd6cb2463eb6d8e0feeff9d96fb1243337feaf3a31d343cbd4569"
+        },
+        {
+          "source": "tests/test_rights_object_delivery.py",
+          "sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_one_use_and_original_audit_count",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[receipt]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[subject]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[expires]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[payload]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[namespace]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[grant]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[file]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_fresh_revocation_content_expiry_foreign_scope_and_restore[restore]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_internal_auth_head_range_and_no_secret_are_denied_without_consumption",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_concurrent_requests_only_one_consumes_pg_grant",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_actual_celery_worker_purges_expired_delivery",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_post_redirect_replay_retains_one_proxy_grant_and_direct_fallback",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_export_purge_removes_proxy_plaintext_immediately_before_worker",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rights_object_delivery.py::test_grant_person_and_account_inventory_include_own_exclude_other_subject",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "5e7e8498f971c92898aa1f30782264727586b4bae48f4ad2a6bd9439eae1c52d"
+        }
+      ]
+    },
+    {
+      "family": "Rectificaci\u00f3n, supresi\u00f3n y tratamiento por finalidad \u2014 CR09",
+      "states_and_authority": "Operador ejecutor/revisor y destinatario autorizado; propuesta/inventario incompletos, aprobaci\u00f3n pendiente, ejecuci\u00f3n/fallo/recuperaci\u00f3n, liberaci\u00f3n denegada y conflicto de versi\u00f3n. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_account_erasure_mobile.py",
+          "sha256": "3dd7cf81a0d9b9840cf4948e9dfb1bf1b975cded8786654a72288ce882e7707c",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_account_erasure_mobile.py::test_mobile_account_inventory_plan_execution_and_response[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_account_erasure_mobile.py::test_mobile_account_inventory_plan_execution_and_response[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "3dd7cf81a0d9b9840cf4948e9dfb1bf1b975cded8786654a72288ce882e7707c"
+        },
+        {
+          "source": "tests/test_rectification_review_localization.py",
+          "sha256": "0790729d4867d328925a64cc8f5b9653541ae1b7f574a5a928d5a8580fda225d",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rectification_review_localization.py::test_review_error_audit_raw_value_and_revoked_permission[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rectification_review_localization.py::test_review_error_audit_raw_value_and_revoked_permission[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rectification_review_localization.py::test_display_preserves_data_native_validation_and_unknown_raw_values[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_rectification_review_localization.py::test_display_preserves_data_native_validation_and_unknown_raw_values[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "0790729d4867d328925a64cc8f5b9653541ae1b7f574a5a928d5a8580fda225d"
+        },
+        {
+          "source": "tests/test_processing_mobile.py",
+          "sha256": "d9713e2d5e7adc9584d6479988ff44cadc5eb282b5ef38c50b60606b4727767d",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_processing_mobile.py::test_mobile_processing_preparation[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_processing_mobile.py::test_mobile_processing_preparation[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "d9713e2d5e7adc9584d6479988ff44cadc5eb282b5ef38c50b60606b4727767d"
+        },
+        {
+          "source": "tests/test_purpose_release_mobile.py",
+          "sha256": "ec7f01094d7a8fda9ad7903b4d658c0e9017a71d07bccb34534dee020479f03d",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_purpose_release_mobile.py::test_mobile_propose_reload_receive_and_execute[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_purpose_release_mobile.py::test_mobile_propose_reload_receive_and_execute[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "ec7f01094d7a8fda9ad7903b4d658c0e9017a71d07bccb34534dee020479f03d"
+        }
+      ]
+    },
+    {
+      "family": "Conservaci\u00f3n, avisos y recuperaci\u00f3n de operaciones \u2014 CR09/BB",
+      "states_and_authority": "Responsable autorizado; cola vac\u00eda, pendiente/fallida, recuperaci\u00f3n/reintento y decisi\u00f3n de conservaci\u00f3n/rechazo. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_retention_mobile.py",
+          "sha256": "168fb0ab18fbd44cc28a2ead00baa582640ba4b4716738e2ed6ba4670fe8a532",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_retention_mobile.py::test_mobile_independent_retention_followup[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "168fb0ab18fbd44cc28a2ead00baa582640ba4b4716738e2ed6ba4670fe8a532"
+        },
+        {
+          "source": "tests/test_notice_operations.py",
+          "sha256": "b599d4b3dd886647b45871b87b5777ca925856134599ca0fb0fe8fc0f6f58974",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_recovery_preserves_history_replays_and_case_decision",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_permission_mfa_expiry_and_conflict_are_revalidated",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_complaint_recovery_requires_own_scope_and_preserves_resolution",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_two_connections_recover_only_once",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_mobile_queue_recovery_and_reload",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_scoped_pagination_invalid_identifiers_and_global_key_conflict",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_operations.py::test_complete_recovery_history_and_csrf_input_guards",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "b599d4b3dd886647b45871b87b5777ca925856134599ca0fb0fe8fc0f6f58974"
+        },
+        {
+          "source": "tests/test_notice_delivery.py",
+          "sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_due_outbox_exactly_once_private_receipt_and_production_disabled",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_retry_backoff_dead_state_and_no_exception_details_persisted",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_two_workers_claim_one_notice_without_duplicate_simulation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_locked_notice_is_skipped_then_recovered_and_backend_disabled_is_inert",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_report_and_complaint_outboxes_share_bounded_processing_without_duplicates",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_notice_delivery.py::test_mobile_receipt_status_changes_only_to_explicit_simulation",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c"
+        }
+      ]
+    },
+    {
+      "family": "Cat\u00e1logo comercial \u2014 [CR10](contratos/11-promociones-preparacion.md)",
+      "states_and_authority": "Operador activo/MFA/permiso cat\u00e1logo; lista vac\u00eda, borrador o versi\u00f3n publicada inmutable, configuraci\u00f3n pendiente, entrada400/conflicto409; ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_promotion_catalog.py",
+          "sha256": "7b9b25e571f6be9acaabd943d22330e8f1b626eb02a8aef2bccb181f4743bf32",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_incomplete_preview_release_new_version_and_csrf[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_incomplete_preview_release_new_version_and_csrf[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[permission]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[session]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_cached_actor_revocation_denies_without_catalogue_effects[mfa]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_invalid_values_stale_edit_and_released_payload_preserved",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_concurrent_new_versions_serialize_on_product",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_mobile_catalogue_navigation_save_release_reload[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_audit_is_atomic_minimal_and_release_replay_does_not_duplicate",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-update]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-publish]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[permission-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-update]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-publish]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[session-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-update]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-publish]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_revocation_during_observed_product_lock_denies_without_effects[mfa-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_direct_routes_deny_unprivileged_account_and_get_has_no_effect[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_direct_routes_deny_unprivileged_account_and_get_has_no_effect[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_invalid_http_form_returns_error_without_mutating_draft",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog.py::test_concurrent_releases_preserve_one_current_version_and_both_snapshots",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "7b9b25e571f6be9acaabd943d22330e8f1b626eb02a8aef2bccb181f4743bf32"
+        },
+        {
+          "source": "tests/test_promotion_catalog_localization.py",
+          "sha256": "8bdcc76c7330a6f6a79045ffaea2c616d96e0799927e97bac9fddefd9727e617",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog_localization.py::test_localized_mobile_catalogue_navigation_save_release_reload[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_catalog_localization.py::test_localized_mobile_catalogue_navigation_save_release_reload[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "8bdcc76c7330a6f6a79045ffaea2c616d96e0799927e97bac9fddefd9727e617"
+        },
+        {
+          "source": "tests/test_promotion_conflict_localization.py",
+          "sha256": "4a631f6bd06da6d074d94f189fb7544ca385a814ba4bb1e47f6e2fa8cee255d6",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_conflict_localization.py::test_three_native_conflicts_localized[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_conflict_localization.py::test_three_native_conflicts_localized[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "4a631f6bd06da6d074d94f189fb7544ca385a814ba4bb1e47f6e2fa8cee255d6"
+        }
+      ]
+    },
+    {
+      "family": "Pedidos y exposici\u00f3n de prueba \u2014 [CR10](contratos/11-promociones-preparacion.md)",
+      "states_and_authority": "Particular/gestor comprador vigente; sin pedidos/producto elegible, resultado sint\u00e9tico pending/failed/succeeded, replay/conflicto y autoridad revocada; patrocinio expl\u00edcito. ES/EN.",
+      "evidence": [
+        {
+          "source": "tests/test_promotion_order_http.py",
+          "sha256": "63d60b9453aadadc6662b3162a561a1957f6f95acc88f1745e3a5d06a2d8a4cc",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_http.py::test_private_order_form_simulation_reload_and_ownership[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_http.py::test_private_order_form_simulation_reload_and_ownership[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "63d60b9453aadadc6662b3162a561a1957f6f95acc88f1745e3a5d06a2d8a4cc"
+        },
+        {
+          "source": "tests/test_promotion_order_mobile_agency.py",
+          "sha256": "48b9a2a66870a3d5b6b2993dbd8cf672ab15a3219676b9e77ec5d1498882bea9",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_mobile_agency.py::test_mobile_dashboard_order_simulation_reload_and_layout[es]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_mobile_agency.py::test_mobile_dashboard_order_simulation_reload_and_layout[en]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_mobile_agency.py::test_agency_buyer_authority_and_revocation_remove_sponsorship[owner]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_mobile_agency.py::test_agency_buyer_authority_and_revocation_remove_sponsorship[editor]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "48b9a2a66870a3d5b6b2993dbd8cf672ab15a3219676b9e77ec5d1498882bea9"
+        },
+        {
+          "source": "tests/test_promotion_order_races.py",
+          "sha256": "f52dd491fb969d27c31c871bc7b2d2f357eeb18c27a0abccf004db23da7838d5",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-event]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[session-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-event]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[mfa-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-create]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-event]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_observed_person_lock_revocation_denies_new_operation_or_replay[management-replay]",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_concurrent_identical_payment_event_has_one_entitlement_and_one_event",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            },
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_order_races.py::test_audit_failure_rolls_back_order_and_payment_grant",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "f52dd491fb969d27c31c871bc7b2d2f357eeb18c27a0abccf004db23da7838d5"
+        },
+        {
+          "source": "tests/test_promotion_recovery.py",
+          "sha256": "0d6ca3641a2cda2da6ccdb2508fce9151f1b1c1ebfc39c60f44713ec6bfff174",
+          "current_passed_nodeids": [
+            {
+              "run": "20261019-204004-686b929a",
+              "nodeid": "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+              "prior_run": "20261019-095237-9bf4f4f2"
+            }
+          ],
+          "specialized_receipts": [],
+          "prior_sha256": "dba7d516562c60e7896ea31e9b16b1db4372ab69d0b505fdd51cc72ac7ba942d"
+        }
+      ]
+    }
+  ],
+  "original_assertion_review": "gs01-current-state-report-crosswalk-20261019.json",
+  "updated_test_body": "tests/test_rights_portability_jobs.py",
+  "unchanged_assertions_verified": true,
+  "scope": "19 MVP state families rebound to exact current common call PASS and current source hashes. Synthetic data/local adapters; no production or external delivery claim.",
+  "reviewer": "Codex principal",
+  "prior_binding": "docs/evidencias/gs01-current-states-final-binding-20261019.json",
+  "source_changes_reviewed": {
+    "tests/test_promotion_recovery.py": "Explicit encrypted_backup=True in direct helper call, original failure and three-case corrective preserved; current common call PASS. Product unchanged."
+  }
+}

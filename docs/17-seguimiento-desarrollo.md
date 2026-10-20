@@ -1,3 +1,15 @@
+# Estado vigente — Alpha técnico local consolidado, 2026-10-20
+
+**CR01–CR10, GS01, B-F/B-B y C aceptados técnicamente en el alcance local del MVP.** [Acta10 de entrega](actas/10-entrega-tecnica-local-alpha-20261020.md), [matriz literal C01–07](evidencias/c-local-acceptance-matrix-20261020.json), [batería final común auditada](evidencias/c-final-common-terminal-audit-20261020.json). Corte probado3887db16f4ba0a4a06e79f3c23990543aaf8f59d:3656nodeids,3526PASS+4subpruebas/130SKIP/0fallos; PostgreSQL/navegador/kernel reales, fuentes/limpieza/Telegram comprobados. Las130omisiones históricas y testigos separados se conservan explícitos; no cero omisiones. ProductoDocker623fuentes intacto,14contratos GS01 congelados.
+
+Funcional8746,145s ycapacidad3102,344s, suma3h17m28s frente3h38m45sGS01:−9,7%observado,19casos más; no nueva métrica request ni causalidad aislada. MOD09provisional ypropuesta97CC05 siguen documentadas. No producción, push, pagos/proveedores/datos reales ni revisión jurídica/externa aceptados. [G01–08 pendientes por separado](actas/11-preparacion-produccion-pendiente-20261019.md).
+
+**Próxima acción:** revisión posterior acordada de todas las fuentes de Open Notebook como corpus único del proyecto, conservando referencias. No está realizada por esta acta. No reabrir baterías completas sin cambios/riesgos que lo justifiquen. Ocho invocaciones Claude V1/consumo anterior conservados.
+
+Los encabezados de «vigente», «pendiente» o «próxima acción» siguientes son históricos de sus propios cortes y quedan sustituidos por este encabezado.
+
+---
+
 ## Próxima acción vigente — C correctiva verificada, preparar repetición común
 
 Primer C funcional:3226PASS+4subpruebas/122SKIP/1FAIL por llamada entre tests sin argumento nuevo; capacidad no iniciada, fallo/fuentes/limpieza/Telegram conservados. [Correctiva tres restauraciones](evidencias/c-restore-corrective-terminal-20261019.json) PASS. Repetición3647casos [preparada con reparto por duración](evidencias/c-final-balanced-preregistration-20261019.json),2workers y capacidad serial, mismas cuotas/selección/orden interno. Sin nuevo producto ni ahorro medido; C/Alpha aún pendiente. Producción permanece separada. Las preparaciones de abajo son históricas salvo indicación posterior.

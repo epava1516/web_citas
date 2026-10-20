@@ -1,6 +1,6 @@
 # Optimización de la batería — investigación aislada, 2026-10-19
 
-Estado: candidata verificada, pendiente de integración y regresión final común. Base09093c4, worktree test_optimization aislado; C fue interrumpido deliberadamente para priorizar la optimización, conservando1071PASS/6SKIP/0FAIL parciales; capacidad no iniciada. Grafo AST de pruebas/dependencias actualizado antes de analizar y preparar verificación; sin semántica documental completa ni nuevo consumo Claude.
+Estado: integrada y verificada por regresión final común3656casos, sin fallos; detalles históricos y limitaciones debajo. Base09093c4, worktree test_optimization aislado; C fue interrumpido deliberadamente para priorizar la optimización, conservando1071PASS/6SKIP/0FAIL parciales; capacidad no iniciada. Grafo AST de pruebas/dependencias actualizado antes de analizar y preparar verificación; sin semántica documental completa ni nuevo consumo Claude.
 
 El caso large_closed_flow tardó1652s, de ellos1604s en1511inspecciones nativas/191899consultas de esa etapa, según JUnit del primer C. No es latencia HTTP limpia. Semillas y aprobación/cierre/entrega ocuparon una fracción menor; no bajar1500revisiones ni sustituir el servicio por mocks para ganar tiempo.
 
@@ -40,3 +40,15 @@ La referencia comenzó con C concurrente; C se detuvo antes de la candidata. Pre
 Los tres controles pequeños de lotes consumieron más consultas (2643/6613/7488 frente a2443/6341/7216) y no mejoraron consistentemente el tiempo. Por ello el helper conserva batched=False por defecto; sólo el flujo grande usa el servicio nativo de cuatro páginas, manteniendo1511inspecciones y todos los asserts. La preparación masiva de históricos conserva los datos y la paridad completa con el lector de referencia. Revisado el diff: no se eliminan casos ni aserciones de producto.
 
 Integrar estas mejoras de pruebas y la ordenación explícita por duración; después ejecutar una única regresión común funcional/capacidad secuencial, sin comparativas auxiliares en paralelo. La ordenación necesita recibos reales de ambos workers; una variable de entorno no sirve como prueba de aplicación. C y Alpha siguen pendientes hasta auditar sus siete requisitos.
+
+## Resultado de la integración común
+
+[Acta10](actas/10-entrega-tecnica-local-alpha-20261020.md):3358funcionales+298capacidad,3526PASS+4subpruebas/130SKIP/0fallos. Ordenación por argv aplicada y dos recibos3358/digestidéntico comprobados; sin comparativa auxiliar concurrente.
+
+| Etapa pytest | GS01anterior | Cfinal | Reducción observada |
+| --- | ---: | ---: | ---: |
+| Funcional | 10019,074s | 8746,145s | 12,7% |
+| Capacidad | 3105,952s | 3102,344s | Sin cambio material |
+| Suma | 13125,026s | 11848,489s | 9,7% /21min17s |
+
+Diecinueve casos adicionales respecto aGS01; comparación observacional, no ensayo causal aislado. No prometer97%menos en batería por la reducción de un fixture. No nueva métrica HTTP; recursos/carga/historia de proceso limitan extrapolaciones. La capacidad serial permanece intacta. Cambios sólo de pruebas/herramienta,623fuentes producto idénticas.

@@ -1,0 +1,335 @@
+{
+  "decision": "C_ACCEPTED_TECHNICAL_LOCAL_ALPHA_CONSOLIDATED",
+  "reviewer": "Codex principal",
+  "tested_head": "3887db16f4ba0a4a06e79f3c23990543aaf8f59d",
+  "contract": "docs/16-contrato-ejecucion-desarrollo.md sections8/11 and MOD09",
+  "requirements": [
+    {
+      "id": "C01",
+      "literal_requirement": "Ejecutar conjunto completo de pruebas unitarias necesarias, integraci\u00f3n PostgreSQL, navegador, permisos y seguridad sobre un mismo commit.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Official local CI regression, functional2workers then capacity1; frozen HEAD/source/instrument manifests, native-sealed and real disposable PostgreSQL/Redis.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/c-final-common-terminal-audit-20261020.json": "4ee0ba2516a80249062d4fdf26975ef6ce6f4325042d22afb4d31a14fce0d49e",
+        "docs/evidencias/c-final-environment-20261020.json": "a1ef090fa38b7b60d64e0c1cd6fc65cfe47a28eaf47ebb0784445140554800e5",
+        "docs/evidencias/c-final-reused-witnesses-binding-20261020.json": "7ad7b35aa95f2a610d77bb717dac656674c296a87aa750ab420bad701d4afe4a"
+      },
+      "current_common_passed_bindings": [],
+      "review": "3656 disjoint selected nodeids,3526unique PASS plus4subtests,130historical skips,0failures. Both lanes head3887db1; setup/teardown, source, cleanup, terminal notifications and worker-order proofs independently inspected. Skips exactly equal accepted GS01 set; necessary omitted scopes reconciled with unchanged-source witnesses, not counted as ordinary PASS.",
+      "limits": "Full ordinary regression scope, not all imaginable circumstances.130 explicit diagnostic/owned-runner skips and four runner exclusions remain disclosed."
+    },
+    {
+      "id": "C02",
+      "literal_requirement": "Probar ES/EN, m\u00f3vil/escritorio y roles; recorrer particular y agencia hasta publicaci\u00f3n, b\u00fasqueda, denuncia y retirada.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Accounts/agency MFA and representation, draft/photo/submission, moderation, discovery, reports and lifecycle with real browser/client/server+PG.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/c-final-current-states-binding-20261020.json": "62cb05de29e8713265cccbeaa230acfe509774cb36cc67a557156d1b2887d4c2",
+        "docs/evidencias/bf-local-acceptance-matrix-20261019.json": "62abcc1056f20f37b5becbf7cdbed00e522d5318b820ca3305cd10ca7cb7ef92"
+      },
+      "current_common_passed_bindings": [
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_browser_individual_verification"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_browser_mfa_agency_two_people"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[en]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[es]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_drafts.py::test_browser_draft_steps_reload_and_consult"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_listing_moderation.py::test_browser_listing_review_and_public_version"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_discovery.py::test_mobile_geo_dependencies_clear_children_and_preserve_url"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_discovery.py::test_mobile_positive_pagination_preserves_filters_and_reload"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_discovery.py::test_mobile_search_service_modes_language_and_public_card"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_lifecycle.py::test_mobile_pause_resume_withdraw_persists"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_reports.py::test_anonymous_receipt_private_encryption_replay_and_formal_rules"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_public_seo.py::test_browser_metadata_navigation_and_retirement"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[en]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_urgent_report_drill.py::test_urgent_owner_revocation_escalates_to_authorized_substitute[es]"
+        }
+      ],
+      "review": "19 MVP state families rebound to actual current callPASS and current test hashes. Read browser assertions:390px account/search/guest/retirement;1280px agency MFA two people and moderator publication; ES/EN account/search/rights/urgent flows; unauthorized/revoked paths covered. Desktop/mobile are complementary scenarios, not exhaustive product of every viewport/role/language.",
+      "limits": "Synthetic identities/content/policies and locmem delivery; no proof of external identity or human response time. National production geography not claimed."
+    },
+    {
+      "id": "C03",
+      "literal_requirement": "Prueba de carga y objetivos del contrato funcional con recursos y dataset documentados; medir im\u00e1genes/CDN por separado.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Conservative maintained publication state, native authorization/fallback, clean HTTP open-loop with real worker/Beat and upload; separate Docker/Caddy asset measurement.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/c-final-reused-witnesses-binding-20261020.json": "7ad7b35aa95f2a610d77bb717dac656674c296a87aa750ab420bad701d4afe4a",
+        "docs/evidencias/cr09-current-contractual-terminal-20261018.json": "e856763838ada7cb13c9a383fdbb9acb8bce951c9210c8b743d3a4ef896d69d0",
+        "docs/evidencias/cr09-contractual-repro-terminal-20261018.json": "1ccfd6d7fd7f93993a54222c563b0e0dd5a8469f72e1667e0e88c2719f52e08e",
+        "docs/evidencias/bf05-assets-terminal-audit-20261019.json": "fd8e42fa6fae4d3cb863ad71c1d7b56c571cd8eefeb1fef900d91e733f729942"
+      },
+      "current_common_passed_bindings": [],
+      "review": "Scoped reuse:621product/lock files per each witness identical,623Docker sources identical. Two clean18000request/15upload runs0errors; p95 .334852340/.332467304s. Actual route/TCP/>8MiB/Beat witnesses retained. Assets measured separately:5assets/16views/24images with own Docker/Caddy. No rerun justified by test/tool/docs-only changes.",
+      "limits": "No new request metric or CDN/field Core Web Vitals. Existing MOD09 extreme export provisional acceptance/debt remains; laptop charger/profile changes not attributed to code."
+    },
+    {
+      "id": "C04",
+      "literal_requirement": "Ensayo local de despliegue, migraci\u00f3n, recuperaci\u00f3n/rollback y restauraci\u00f3n completa con recursos propios y datos sint\u00e9ticos; simulacros OP t\u00e9cnicos.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Immutable Docker v11 with native runtime UID10001/PG roles+migrations; complete dump+media backup plain/encrypted, wrong-key/tamper rejection, reconciliation; private TLS/PROXY and static rollback.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/cr10-docker-v11-verified-20261019.json": "62689dbab6e73f3e0a97f34fbcf99786677f7ef513235a0d19d15d971a225b8a",
+        "docs/evidencias/bb06-encrypted-backup-terminal-20261019.json": "11deff21f2f5ee34183b5cad9498a39fc86e64164383166cb7759ae1012d6ac5",
+        "docs/evidencias/bb06-static-update-terminal-20261019.json": "b8560ddfdf4fbac246bc6c2343a8ee1515cdc71e03ea2a2acb539aded427d6bf",
+        "docs/evidencias/bb06-tls-proxy-terminal-20261019.json": "c3abb39347cf67cc449929fdaa9e32c4f49d79015ed6ff674c5d7a734d8cdce7",
+        "docs/evidencias/c-final-common-terminal-audit-20261020.json": "4ee0ba2516a80249062d4fdf26975ef6ce6f4325042d22afb4d31a14fce0d49e"
+      },
+      "current_common_passed_bindings": [
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_keeps_private_ports_roles_keys_and_limits"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[DJANGO_SECRET_KEY]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[MFA_ENCRYPTION_KEY]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[POSTGRES_PASSWORD]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[POSTGRES_RUNTIME_PASSWORD]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[PUBLIC_HOSTNAME]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[SAFETY_ENCRYPTION_KEY]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_deployment_profile.py::test_prepared_profile_rejects_missing_operator_inputs[TRUSTED_CADDY_IPS]"
+        }
+      ],
+      "review": "Current common plain+encrypted and commercial restore PASS. JUnit confirms real_restore/media_deleted/peer_preserved/old_session_rejected and authenticated encrypted branch wrong-key/tamper/plaintext removal. Independent Docker/migration/restore/static/TLS receipts source-compatible. OP001-009 reviewed in security100 and current IMP bindings.",
+      "limits": "Separate bounded real local exercises, not complete production Compose rollout. Config8tests render only. RPO/RTO fixture scope only; actual cadence/offsite/key custody/PITR/production operations remain G06 pending."
+    },
+    {
+      "id": "C05",
+      "literal_requirement": "Revisi\u00f3n t\u00e9cnica de seguridad, permisos y privacidad por Codex, correcci\u00f3n de hallazgos y pruebas afectadas; revisi\u00f3n independiente externa separada.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Security100 data/trust boundaries, purpose inventory, authority freshness and locks, media/privacy/recovery, IMP001-011 and operational procedures.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/c-final-security-current-binding-20261020.json": "ed96f99fe03fc86d072efbb8ccf24602c1e6add8254370be5aa397a99969218b",
+        "docs/evidencias/bb03-dependency-audit-terminal-20261019.json": "dff26d921f102e91e737b7056b69d920c0657939e35658a35c423760a4390272",
+        "docs/evidencias/c-final-shared-restore-failure-20261019.json": "13809dbaab859adbc83bcd1e4c505e3a7a3e1b90b7e615cc0c52bbe123a8baf7",
+        "docs/evidencias/c-restore-corrective-terminal-20261019.json": "0fc13662246624593f0b1f354e929b51e0a4aed823a76607802a361ad2e2d734"
+      },
+      "current_common_passed_bindings": [],
+      "review": "Codex principal rechecked27reviewed product hashes plus15prior security sources and current IMP exact callPASS. No new product blocker identified in reviewed scope. Original test-helper restore failure corrected explicitly encrypted=True and verified current common; interrupted run and instrument launch failure retained.44locked runtime Python dependencies had0known advisories0omissions in bounded audit.",
+      "limits": "Local technical review only; unknown vulnerabilities/OS/JS/Internet DoS/independent audit and legal compliance not asserted. G08 external review pending."
+    },
+    {
+      "id": "C06",
+      "literal_requirement": "Revisar versiones ES/EN y mecanismos de aceptaci\u00f3n contra flujos implementados, con textos/datos de prueba expl\u00edcitos.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "LegalDocument/LegalAcceptance, translated version-bound signup/update gates, stale/missing document rejection and retained acceptance, synthetic bootstrap denied in production.",
+      "evidence_receipt_sha256": {
+        "docs/evidencias/c-final-current-states-binding-20261020.json": "62cb05de29e8713265cccbeaa230acfe509774cb36cc67a557156d1b2887d4c2",
+        "docs/evidencias/c-final-security-current-binding-20261020.json": "ed96f99fe03fc86d072efbb8ccf24602c1e6add8254370be5aa397a99969218b"
+      },
+      "current_common_passed_bindings": [
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_concurrent_signup_email_unicity"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_concurrent_token_consumption"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_csrf_throttle_and_token_headers"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_email_delivery_failure_generic_response"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_existing_email_and_recovery_do_not_enumerate"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_resend_invalidates_older_token"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_token_invalid_after_email_or_password_change"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_acceptance_localization.py::test_localized_acceptance_preserves_stale_version_and_missing_document_gates[en]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_acceptance_localization.py::test_localized_acceptance_preserves_stale_version_and_missing_document_gates[es]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[en]"
+        },
+        {
+          "run": "20261019-204004-686b929a",
+          "nodeid": "tests/test_browser_accounts.py::test_real_browser_account_flow[es]"
+        }
+      ],
+      "review": "Read ES/EN synthetic texts, generic legal views and version models; browser390px changes dev-2\u2192dev-3 while form open and asserts400/no acceptance; old acceptance retained. Signup rejects unaccepted/stale versions. Simulated verification not identity; permission remains object-specific.",
+      "limits": "No legal advice/approval of definitive texts, real operator identity or processing policy. Synthetic sample catalogue is not complete production legal corpus; those production gates remain pending."
+    },
+    {
+      "id": "C07",
+      "literal_requirement": "Emitir acta de entrega t\u00e9cnica local con evidencias comunes y, por separado, estado de preparaci\u00f3n de producci\u00f3n G-01 a G-08.",
+      "decision": "ACCEPTED_TECHNICAL_LOCAL",
+      "implementation": "Acta10Alpha and separate acta11production pending; tracked current evidence/version/limitations.",
+      "evidence_receipt_sha256": {
+        "docs/actas/11-preparacion-produccion-pendiente-20261019.md": "bf9f48a3d69d7c955d4e64cd4f65a1a629cc1c6ad6c763d01fb5b072b57c45f0",
+        "docs/actas/10-entrega-tecnica-local-alpha-20261020.md": "749822456f81bf2cddc673632d361c53599edee40a2dd81404de6b632c809e7a"
+      },
+      "current_common_passed_bindings": [],
+      "review": "Acta10 records requirement-by-requirement acceptance of C01-06, frozen tested SHA, versions, full common results, source-compatible reused witnesses, original failures, cleanup and debt. Final commit adds documentation only to tested product.",
+      "limits": "No publication/deployment, external providers, payments, real subject data, operator/legal readiness or independent audit. Open Notebook corpus review is the agreed next distinct post-Alpha review, not claimed completed here."
+    }
+  ],
+  "acceptance_scope": "Integrated MVP local technical delivery, with synthetic data and explicitly simulated external adapters, no production authorization.",
+  "production_gates": {
+    "G01": "PENDING",
+    "G02": "PENDING",
+    "G03": "PENDING",
+    "G04": "PENDING",
+    "G05": "PENDING",
+    "G06": "PENDING",
+    "G07": "PENDING",
+    "G08": "PENDING"
+  },
+  "retained_debt": [
+    "MOD09 extreme export original2s/5s goals; provisional observed performance accepted by user.",
+    "CC05 approximate similarity index/FAISS proposal97 only, no implementation or measured result.",
+    "130ordinary skips and scoped historical required witnesses disclosed."
+  ],
+  "next_separate_review": "All Open Notebook project sources as one corpus, preserving references; audit not performed by this acceptance."
+}
