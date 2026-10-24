@@ -1,0 +1,186 @@
+{
+  "result": "PASS",
+  "updated_at": "2026-10-24T15:09:11.899050+00:00",
+  "nodes": 14240,
+  "relations": 60630,
+  "communities": 558,
+  "source_files": 1781,
+  "document_files": 271,
+  "template_files": 129,
+  "missing_endpoints": 0,
+  "dangling_endpoints": 0,
+  "self_loops": 130,
+  "parallel_edges_preserved": 1909,
+  "external_unresolved_nodes": 1057,
+  "external_resolution_status_counts": {
+    "unspecified": 863,
+    "static_import_expression_not_runtime_binding": 4,
+    "static_base_expression_not_runtime_evaluation": 7,
+    "external_or_unresolved": 183
+  },
+  "stale_source_hashes": 0,
+  "historical_section_expansion": false,
+  "full_AST_refresh": false,
+  "full_semantic_refresh": false,
+  "semantic_documents_complete": 236,
+  "semantic_current_sections": 1,
+  "literal_quotes_checked": 1436,
+  "graph_sha256": "3d6a8003ee7070e9d5fe2224bcc51fa4ed0f2c2bba22a578b54e194a89f180d6",
+  "outputs_sha256": {
+    "graph.json": "3d6a8003ee7070e9d5fe2224bcc51fa4ed0f2c2bba22a578b54e194a89f180d6",
+    "graph.html": "feeff8c94ff85ace19817ab718323db06decf84578ac247f0d8fd1411dac7702",
+    "GRAPH_REPORT.md": "bcaf1fd4ea81d535f86f4d0b8602f836295137d18da9bab6ad4d19764e4b3a98"
+  },
+  "native_semantic_extraction_turns": 433,
+  "native_semantic_agents": 1,
+  "native_token_usage": null,
+  "claude_v1_invocations": 0,
+  "functional_tests_credited_by_graph": false,
+  "limitations": [
+    "Self-loops retained, including extractor artifacts and recursive calls; not an application defect count",
+    "External/reference nodes include unresolved lexical/dependency references",
+    "Communities retained, no new global detection",
+    "All295captured dispositions complete; no live remote census or all linked original bodies; B00 acceptance is local source/decision reconciliation"
+  ],
+  "targeted_AST_scope_repairs": [
+    {
+      "source_file": "apps/safety/models.py",
+      "source_sha256": "e2eb6206cef2ae3be75e10be51acc6bdb56b119762940d008752fd657903bff2",
+      "qualified_scopes": 48,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/catalog/promotion_forms.py",
+      "source_sha256": "432de87f3e903ccb2fbdfe1f2a76053f1be27283de64448c5ddabe21a5c06a8e",
+      "qualified_scopes": 2,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/catalog/promotion_models.py",
+      "source_sha256": "7e714ec43f68e0ef6a8d9efa874f924fdbede3816cfc72f2c31fc1ff5b051824",
+      "qualified_scopes": 3,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/catalog/promotion_order_models.py",
+      "source_sha256": "a9a1e972125063b52aa6aab16a5651cfaa1310cc193bb9131a76913fa10b3628",
+      "qualified_scopes": 3,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/core/models.py",
+      "source_sha256": "e9110dee9a2964512c0e70c603ab04563739d524f733fc5eec04912b160e681c",
+      "qualified_scopes": 8,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/listings/forms.py",
+      "source_sha256": "33c972773584584c0775d103bdacb1340d17d0927a975a6d7b0255c074adf193",
+      "qualified_scopes": 3,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/listings/models.py",
+      "source_sha256": "8cffcfcd1fc35c0c4228a22d2685cc2187a9df8199564a294b68264c51f94937",
+      "qualified_scopes": 5,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    },
+    {
+      "source_file": "apps/mediafiles/models.py",
+      "source_sha256": "3c447459f195b2795b26b8003a0cef82d2bd851db310d8a4aa5474b26efe77b5",
+      "qualified_scopes": 4,
+      "original_collapsed_alias_absent": true,
+      "upstream_graphify_patched": false,
+      "full_AST_refresh": false
+    }
+  ],
+  "targeted_decorator_reference_repairs": [
+    {
+      "source_file": "scripts/benchmark_celery_observer.py",
+      "source_id": "scripts_benchmark_celery_observer_published",
+      "qualified_expression": "celery.signals.before_task_publish.connect",
+      "runtime_binding_verified": false
+    },
+    {
+      "source_file": "scripts/benchmark_celery_observer.py",
+      "source_id": "scripts_benchmark_celery_observer_prerun",
+      "qualified_expression": "celery.signals.task_prerun.connect",
+      "runtime_binding_verified": false
+    },
+    {
+      "source_file": "scripts/benchmark_celery_observer.py",
+      "source_id": "scripts_benchmark_celery_observer_postrun",
+      "qualified_expression": "celery.signals.task_postrun.connect",
+      "runtime_binding_verified": false
+    },
+    {
+      "source_file": "scripts/probe_recovery_task_gate.py",
+      "source_id": "scripts_probe_recovery_task_gate_database_probe",
+      "qualified_expression": "config.celery.app.task",
+      "runtime_binding_verified": false
+    }
+  ],
+  "targeted_class_base_reference_repairs": [
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Str",
+      "qualified_expression": "builtins.str",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Int",
+      "qualified_expression": "builtins.int",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Float",
+      "qualified_expression": "builtins.float",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Dict",
+      "qualified_expression": "builtins.dict",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "List",
+      "qualified_expression": "builtins.list",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Tuple",
+      "qualified_expression": "builtins.tuple",
+      "runtime_MRO_verified": false
+    },
+    {
+      "source_file": "tests/test_rights_native_canonical_equivalence.py",
+      "class_name": "Number",
+      "qualified_expression": "enum.IntEnum",
+      "runtime_MRO_verified": false
+    }
+  ],
+  "additional_scope_limits": [
+    "AST refreshed only publication_signals and new migration-signal tests; selected current-document semantics retained/refreshed",
+    "Contract16 final adenda and inventory111 are selected sections, not a new complete semantic audit",
+    "Full graph reconstruction and final differential action inventory remain pending"
+  ]
+}

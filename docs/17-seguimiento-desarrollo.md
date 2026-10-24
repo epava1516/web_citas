@@ -1,3 +1,7 @@
+B16-356: corregida la programación de tareas activas desde modelos históricos de migración, tras reproducción de 1 FAIL/1 PASS y un cierre de contenido rechazado con Redis pendiente. Correctiva de 9 PASS, relación m2m real con 1 PASS, cuatro revisiones positivas ES/EN de perfil/cuenta con 1 PASS por variante y nativo100 con 1 PASS, 60 páginas y reparación de 14→0 marcas. Fuentes, limpieza y Telegram verificados; guardas de contenido intactas, sin borrar colas. B16 abierto para rutas/capacidad/requisitos; 13/18 cerrados, proyecto en alfa.
+
+Corte: [corrección317](317-registros-historicos-senal-publicacion-b16-20261024.md). Sieteomisiones con testigos explícitos;121diagnósticos/prototipos sincréditoPASS ymatrizrutaspendiente. Reconstruccióncompleta delgrafo→diferencialinventario siguen comoúltimaacción contractual.
+
 B16-355:129omisiones individualizadas en74módulos. Dosnegativos decontenido actuales PASS114,464sJUnit y nativo100 PASS181,922sJUnit,60páginas/14→0marcas porBeat/workerreales. Fuentes,limpieza yTelegramverificados. Son3testigos suplementarios, sin reescribir129SKIP. Cuatrorevisionespositivas, matrizderutas ycapacidadpendientes;121diagnósticos/prototiposopt-in sinPASS. B16abierto,13/18cerrados, alfa.
 
 Corte: [conciliación316](316-conciliacion-omisiones-b16-20261024.md). Obligación final reconstruccióncompleta→diferencialinventarioconservada.
