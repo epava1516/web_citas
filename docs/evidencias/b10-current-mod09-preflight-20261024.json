@@ -1,0 +1,79 @@
+{
+  "run": "20261024-204645-750ad975",
+  "result": "READY_NOT_CAPACITY",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "75.206",
+      "timestamp": "2026-10-24T22:48:12.279828+02:00",
+      "hostname": "f32fcde3e7d2"
+    }
+  ],
+  "proof": {
+    "s3_aead": true,
+    "s3_purge": true,
+    "async_generation": {
+      "generation_job": {
+        "id": "a4e880d0-55cc-4597-8ebf-74458c4e015a",
+        "state": "succeeded",
+        "export": "054f31a1-2a94-4c2b-9784-63d50277320b",
+        "attempts": 1,
+        "polls": 14,
+        "enqueue_http_seconds": 0.3642028337344527,
+        "queue_to_ready_seconds": 4.341248394921422,
+        "worker_scope": "Real Celery worker in the same constrained app cgroup",
+        "profile_scope": "Parent HTTP/polling only; worker generation is not parent cProfile"
+      },
+      "success": true,
+      "image_bytes": 4300958,
+      "image_sha256": "218838b2b33dd22f66270dd1b044e1e0fbcd507f9c3452f89a5fa1e28779b1e9",
+      "observation_seconds": 5.819151214323938,
+      "normal_generation_objective_seconds": 120,
+      "scope": "One small synthetic real Celery/LOGIN/S3 generation; no capacity verdict"
+    },
+    "caddy_bytes": true,
+    "caddy_replay_denied": true,
+    "worker_purge": true,
+    "beat_purge": true,
+    "scope": "Finite synthetic PG/S3/Caddy/worker topology only; no target1500 fixture or capacity"
+  },
+  "sources_unchanged": true,
+  "independent_label_inventory": {
+    "containers": "",
+    "networks": "",
+    "volumes": ""
+  },
+  "controller_terminal": {
+    "id": "530f3d51053bf65ffb90ebd0241f9d5a80168b299894be9768e7c1a675c62d20",
+    "status": "exited",
+    "running": false,
+    "exit_code": 0,
+    "oom_killed": false,
+    "started_at": "2026-10-24T20:46:46.301046221Z",
+    "finished_at": "2026-10-24T20:49:52.864290969Z"
+  },
+  "archive_problems": [],
+  "images": {
+    "postgres:17-alpine": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+    "redis:7.4-alpine": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058",
+    "sha256:f50e2f01874ebbd1147261160c6058c64bf2e8d26d50b2446c7549d2692b947b": "sha256:f50e2f01874ebbd1147261160c6058c64bf2e8d26d50b2446c7549d2692b947b",
+    "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c": "sha256:f6b22807f10db2aee80b8a9ed1e36bd12c2fba25ac2d98dc3b0332a23f1a5c4d",
+    "caddy@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028": "sha256:5e0a314e87ee77965b977aca1699c2888aac0847287a7c0400d2bcbddde9e526"
+  },
+  "memory_upper_bound_bytes": 1359679488,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "B10-361 preflight topolog\u00eda actual MOD09"
+  },
+  "artifact_sha256": {
+    "report.json": "d4b93c1c3311ec408b6a5c2546fa51e953b7d120d4fe2d286eb4031d0754a662",
+    "launcher.json": "7bec76f178523ed5c51425fcd85423bdf66c5aee44fda07c601c40ae39e5f4c0",
+    "control-junit.log": "fa2897fe4068fea8f59c955637f074777603a254c9efc94e9c36781f419a478e"
+  },
+  "limits": "Finite topology only; no current 1500-revision measure, speedup, B10 acceptance or production capacity"
+}

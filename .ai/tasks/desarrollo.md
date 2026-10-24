@@ -2564,3 +2564,5 @@ B16-358 preflightcorregidoPASS:306nodeids/59fuentes igualesacolección, herramie
 
 
 2026-10-24 — B16-359/360: carril 20261024-154224-43b1e770 auditado297PASS/9SKIP/0fallos, 306nodeids exactos,1723fuentes iguales; limpieza yTelegram confirmados. Compactación yretorno mismo objetivo confirmados. Documentos320–323: acuerdos B10actual/deuda futura, auditoría yconciliación parcial AD01–AD11; sinaceptaciónB16. Refresco semántico dirigido435, no reconstrucción completa. B10contraste ASTde9módulos frente ac92fe64; sin nueva carga omejora global acreditada. Cero invocaciones ClaudeV1 nuevas; consumo previo preservado.
+
+2026-10-24 — B10-361: preflight actual20261024-204645-750ad975 READY_NOT_CAPACITY,1PASS/0SKIP,75,206sJUnit. Imagen soporte local f50e2f0 por SHA completo; worktree/intérprete montados sólo lectura. PG/Redis/RustFS/Caddy, generaciónCelery real, entrega íntegra/replay/purgaBeat aprobados; fuentesiguales,limpiezaindependiente yTelegram sent. Documento324 y auditoría; medida extrema pendiente, sin mejora temporal ni cierreB10. CeroClaudeV1nuevas,consumo anterior conservado.
