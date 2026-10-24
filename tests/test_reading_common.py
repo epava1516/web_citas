@@ -27,7 +27,7 @@ def test_actual_routes_keep_native_presentation_equivalence(
     if mode == "promotion":
         from test_promotion_exposure import purchased
 
-        purchased(request, settings)
+        _, promoted_listing, _ = purchased(request, settings)
     if mode == "production":
         settings.PRODUCTION = True
     params = {"checked": ["age"]} if mode == "checked" else {}
@@ -45,8 +45,13 @@ def test_actual_routes_keep_native_presentation_equivalence(
         assert candidate.content == original.content
         assert candidate.wsgi_request._publication_route == original.wsgi_request._publication_route
         route = candidate.wsgi_request._publication_route
-        # MOD-05: stored state serves production and checked too; synthetic promotions stay native.
-        assert route["route"] == ("fallback" if mode == "promotion" else "state")
+        # The integrated promotional ordering shares state membership and snapshot.
+        assert route["route"] == "state"
+        if mode == "promotion":
+            page = candidate.context["page"]
+            assert page.object_list[0].pk == promoted_listing.pk
+            assert page.sponsorship[promoted_listing.pk] == "premium"
+            assert (b"Sponsored" if language == "en" else b"Patrocinado") in candidate.content
         reports.append(
             {
                 "language": language,

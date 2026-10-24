@@ -9,10 +9,10 @@
 </form>
 <a href="{% url 'draft_edit' revision.pk 4 %}">{% if english %}Return to draft{% else %}Volver al borrador{% endif %}</a>
 {% else %}
-<p>{{ revision.status }}</p>
+<p><strong>{{ revision_state.label }}</strong></p>
 {% if revision.status == 'pending' %}<p>{% if english %}Awaiting human review. This version is saved and cannot be edited. It has not been published.{% else %}Pendiente de revisión humana. Esta versión está guardada y no se puede editar. Todavía no se ha publicado.{% endif %}</p>{% endif %}
 {% if revision.status == 'obsolete' %}<p>{% if english %}Another revision updated the public listing. Create a current draft to continue.{% else %}Otra revisión actualizó el anuncio público. Crea un borrador actual para continuar.{% endif %}</p>{% endif %}
-{% for decision in revision.decisions.all %}<article><p>{{ decision.outcome }} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p>{% if decision.outcome == 'rejected' %}<a href="{% url 'appeal_submit' decision.pk %}">{% if english %}Request review{% else %}Solicitar revisión{% endif %}</a>{% endif %}</article>{% endfor %}
+{% for decision in revision.decisions.all %}<article><p>{% if decision.outcome == "approved" %}{% if english %}Approved{% else %}Aprobada{% endif %}{% elif decision.outcome == "rejected" %}{% if english %}Rejected{% else %}Rechazada{% endif %}{% endif %} · {{ decision.created_at }}</p><p>{{ decision.reason }}</p>{% if decision.outcome == 'rejected' %}<a href="{% url 'appeal_submit' decision.pk %}">{% if english %}Request review{% else %}Solicitar revisión{% endif %}</a>{% endif %}</article>{% endfor %}
 <form method="post" action="{% url 'listing_start' revision.listing.person_id %}">{% csrf_token %}<button type="submit">{% if english %}Create or resume revised draft{% else %}Crear o retomar borrador revisado{% endif %}</button></form>
 {% endif %}
 {% endblock %}

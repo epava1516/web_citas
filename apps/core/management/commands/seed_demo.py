@@ -16,7 +16,7 @@ from django.db import transaction
 from django.utils import timezone
 from PIL import Image, ImageDraw
 
-from apps.catalog.models import Category, Municipality, Service
+from apps.catalog.models import Category, Municipality
 from apps.core.mfa import encrypt
 from apps.core.models import (
     Agency,
@@ -30,7 +30,7 @@ from apps.core.models import (
     User,
 )
 from apps.core.verification_services import receive_event, simulate_event, start_age_check
-from apps.listings.models import Listing, Rate, Revision
+from apps.listings.models import Listing, Revision
 from apps.listings.moderation import decide
 from apps.listings.submissions import submit
 from apps.mediafiles.models import Blob
@@ -202,9 +202,10 @@ class Command(BaseCommand):
                     revision = Revision.objects.create(
                         listing=listing,
                         manager_version=1,
-                        title=f"Demostración de fotografía {name}",
-                        description="Perfil sintético para probar fotografía profesional y eventos culturales. No representa a una persona real.",
-                        description_alternative="Synthetic profile for photography and cultural events; not a real person.",
+                        profile_type="woman",  # Explicit synthetic declaration, never a default.
+                        title=f"Perfil romántico de demostración {name}",
+                        description="Perfil sintético para buscar citas románticas y compartir fotografía y planes culturales como aficiones. No representa a una persona real.",
+                        description_alternative="Synthetic profile seeking romantic dates and sharing photography and cultural interests; not a real person.",
                         municipality=city,
                         spoken_languages=["es", "en"],
                         days=["1", "3"],
@@ -213,11 +214,7 @@ class Command(BaseCommand):
                         contact_exposure_accepted=True,
                         publisher_acceptance=acceptance,
                     )
-                    revision.categories.add(Category.objects.get(slug="modeling"))
-                    revision.services.add(Service.objects.get(slug="photography"))
-                    Rate.objects.create(
-                        revision=revision, concept="Sesión fotográfica sintética", mode="consult"
-                    )
+                    revision.categories.add(Category.objects.get(slug="romantic-dating"))
                     photo = ingest(
                         manager,
                         revision.pk,

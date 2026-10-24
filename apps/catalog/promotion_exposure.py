@@ -5,9 +5,10 @@ from datetime import UTC, datetime
 
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Exists, F, OuterRef
 from django.utils import timezone
 
-from apps.core.agencies import can_manage_person
+from apps.core.agencies import can_manage_person, person_queryset
 from apps.core.models import Agency, Person, User
 from apps.listings.models import Listing
 from apps.listings.moderation import publicly_visible
@@ -36,6 +37,23 @@ def eligible(entitlement, listing, now):
     )
 
 
+def live_entitlements(now):
+    """Commercial authority read in SQL, including assigned active agency editors.
+
+    Reuse the same person_queryset as can_manage_person rather than a second
+    interpretation of owner/editor permissions. The native bump path stays intact.
+    """
+    managed = person_queryset(OuterRef("order__buyer_id")).filter(
+        pk=OuterRef("order__listing__person_id"),
+    )
+    return PromotionEntitlement.objects.filter(
+        starts_at__lte=now, ends_at__gt=now, suspended_at__isnull=True,
+        order__synthetic=True, order__status="paid",
+        order__buyer__is_active=True, order__buyer__account_erased_at__isnull=True,
+        order__listing__person__manager_version=F("order__manager_version"),
+    ).filter(Exists(managed))
+
+
 def ranked(visible, *, text_search=False, now=None):
     if not enabled() or not visible:
         return visible, {}
@@ -44,19 +62,27 @@ def ranked(visible, *, text_search=False, now=None):
     promotions = {}
     bumps = {}
     priorities = {"premium": 0, "top": 1, "autobump": 2}
-    rows = (
-        PromotionEntitlement.objects.filter(
-            order__listing_id__in=by_listing,
-            starts_at__lte=now,
-            ends_at__gt=now,
-            suspended_at__isnull=True,
-        )
-        .select_related("order")
-        .order_by("pk")
+    rows = list(
+        live_entitlements(now).filter(order__listing_id__in=by_listing)
+        .select_related("order").order_by("pk")
     )
-    for entitlement in rows.iterator(chunk_size=100):
-        listing = by_listing[entitlement.order.listing_id]
-        if not eligible(entitlement, listing, now):
+    if not rows:
+        return visible, {}
+    # A caller's visible objects may predate a revocation. Read publication
+    # authority afresh, once per batch, and validate only context-owned instances.
+    from apps.listings.public_validation import PublicationContext
+
+    context = PublicationContext(
+        Listing.objects.filter(
+            pk__in={row.order.listing_id for row in rows}, approved_revision__isnull=False,
+        ), page_read=True,
+    )
+    current = {row.pk: row for row in context.rows}
+    public = {row.pk: publicly_visible(row, context=context) for row in context.rows}
+    for entitlement in rows:
+        listing = current.get(entitlement.order.listing_id)
+        if (listing is None or listing.person.manager_version != entitlement.order.manager_version
+                or not public[listing.pk]):
             continue
         kind = entitlement.order.kind
         if kind not in priorities:

@@ -39,12 +39,24 @@ def test_conditional_migration_invalidates_existing_state(request, record_proper
         assert not added & triggers()
         PublicationDirty.objects.all().delete()
         assert list(historical.objects.order_by("listing_id").values(*fields)) == states
-        MigrationExecutor(connection).migrate(latest)
+        # Isolate this migration's preservation promise before later content policy.
+        conditional = [("listings", "0017_conditional_publication_dependencies")]
+        MigrationExecutor(connection).migrate(conditional)
         assert added <= triggers()
         assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == ids
         assert list(PublicationState.objects.order_by("listing_id").values(*fields)) == states
+        MigrationExecutor(connection).migrate(latest)
+        assert added <= triggers()
+        assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) == ids
+        # The romantic-contract migration intentionally invalidates old authority,
+        # preserving every other field rather than relabelling legacy content.
+        policy_states = [dict(state, eligible=False, rules_version="romantic-contract-migration")
+                         for state in states]
+        assert list(PublicationState.objects.order_by("listing_id").values(*fields)) == policy_states
         record_property("upgrade", {"existing_listings_invalidated": len(ids),
-                                     "stored_states_preserved": len(states),
+                                     "state_rows_preserved": len(states),
+                                     "conditional_migration_preserves_all_original_fields": True,
+                                     "later_policy_invalidates_eligibility_and_version": True,
                                      "preserved_fields": fields,
                                      "conditional_triggers_restored": True})
     finally:
@@ -52,3 +64,4 @@ def test_conditional_migration_invalidates_existing_state(request, record_proper
     while publication_state.refresh(500):
         pass
     assert not PublicationDirty.objects.exists()
+    assert publication_state.all_state_current()

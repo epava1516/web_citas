@@ -12,6 +12,8 @@ from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_responses import ready
 
 from apps.core.models import Person
+from apps.core.operational_assessment import assess
+from apps.core.operational_snapshot import collect_snapshot
 from apps.mediafiles.models import Blob, MediaPreparationCleanup, Photo
 from apps.mediafiles.preparation_cleanup import cleanup_due_preparations, cleanup_one
 from apps.mediafiles.services import process
@@ -89,6 +91,9 @@ def test_shared_historical_reference_and_active_sibling_prevent_cleanup(
     assert cleanup_due_preparations() == {"queued": 1, "completed": 0}
     job = MediaPreparationCleanup.objects.get(blob=blob)
     assert job.status == "retained" and job.reason_code == "active_upload"
+    protected = collect_snapshot()
+    assert protected['media']['physical_jobs']['MediaPreparationCleanup']['retained']['count'] == 1
+    assert 'media_physical_failure' not in {row['code'] for row in assess(protected)['findings']}
     expire(sibling)
     peer = Person.objects.get(subject__username="fixture-v1-model-b")
     historical = Photo.objects.create(
@@ -115,6 +120,21 @@ def test_shared_storage_path_preserved_even_without_shared_photo(request, settin
     assert job.attempts == 0 and not job.encrypted_paths
     assert blob.status == "ready" and alias.original.storage.exists(alias.original.name)
     assert blob.original.storage.exists(blob.original.name)
+
+
+def test_monitor_counts_distinct_blob_when_two_preparations_expire(request, settings, monkeypatch):
+    case, _, staff, _, item = prepared(request, settings, monkeypatch)
+    expire(item)
+    audit(staff, case)
+    path = f"/en/moderation/rights/{case.pk}/rectification/uploads/"
+    assert staff.post(path, payload(case)).status_code == 302
+    sibling = RightsRectificationPhotoUpload.objects.exclude(pk=item.pk).get()
+    assert sibling.photo.blob_id == item.photo.blob_id
+    expire(sibling)
+    result = collect_snapshot()
+    assert result['media']['preparation_candidates']['count'] == 1
+    assert not MediaPreparationCleanup.objects.exists()
+    assert item.photo.blob.original.storage.exists(item.photo.blob.original.name)
 
 
 def test_proposal_evidence_is_retained_without_worker_decryption(request, settings, monkeypatch):
@@ -180,6 +200,10 @@ def test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload(
     assert job.status == "failed" and job.attempts == 1 and job.encrypted_paths
     assert job.reason_code == "storage_delete_failed" and blob.status == "purging"
     assert not storage.exists(original) and storage.exists(derivative)
+    observed = collect_snapshot()
+    assert observed['media']['physical_jobs']['MediaPreparationCleanup']['failed']['count'] == 1
+    assert 'media_physical_failure' in {row['code'] for row in assess(observed)['findings']}
+    assert original not in str(observed) and derivative not in str(observed)
     assert not cleanup_one(job.pk)
     process(blob.pk)
     audit(staff, case)
@@ -191,6 +215,7 @@ def test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload(
     job.refresh_from_db()
     assert job.attempts == 2 and job.status == "completed" and not job.encrypted_paths
     assert not storage.exists(derivative)
+    assert collect_snapshot()['media']['physical_jobs']['MediaPreparationCleanup']['failed']['count'] == 0
 
 
 @pytest.mark.parametrize("failure_after_cleanup", [False, True])

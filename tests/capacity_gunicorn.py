@@ -44,13 +44,22 @@ def server(settings, record_property):
                       f"DATABASES['default']['NAME'] = {connection.settings_dict['NAME']!r}\n" +
                       f"MEDIA_ROOT = {str(settings.MEDIA_ROOT)!r}\n" +
                       "RIGHTS_VERIFICATION_BACKEND = 'simulator'\n")
+    beta_http = (getattr(settings, 'CAPACITY_BETA_HTTP_FUNCTIONAL', False)
+                 or getattr(settings, 'CAPACITY_BETA_HTTP_SHORT', False)
+                 or getattr(settings, 'CAPACITY_BETA_HTTP_CONTRACTUAL', False))
     async_enabled = any(getattr(settings, flag, False) for flag in (
-        'CAPACITY_DELIVERY_COMPLETE', 'CAPACITY_DELIVERY_PROFILE_FULL', 'CAPACITY_PREFLIGHT_ONLY'))
+        'CAPACITY_DELIVERY_COMPLETE', 'CAPACITY_DELIVERY_PROFILE_FULL', 'CAPACITY_PREFLIGHT_ONLY',
+        'CAPACITY_BETA_HTTP_FUNCTIONAL', 'CAPACITY_BETA_HTTP_SHORT', 'CAPACITY_BETA_HTTP_CONTRACTUAL'))
     if async_enabled:
         with config.open('a') as generated:
             generated.write("CELERY_TASK_ALWAYS_EAGER = False\n")
-            generated.write("CELERY_BEAT_SCHEDULE = dict(CELERY_BEAT_SCHEDULE)\n")
-            generated.write("CELERY_BEAT_SCHEDULE.update({"
+            if beta_http:
+                from test_worker_capacity_comparison import OBSERVER_SETTINGS
+
+                generated.write(OBSERVER_SETTINGS)
+            if not beta_http:
+                generated.write("CELERY_BEAT_SCHEDULE = dict(CELERY_BEAT_SCHEDULE)\n")
+                generated.write("CELERY_BEAT_SCHEDULE.update({"
                 "'reconcile-portability-export-jobs': {'task': 'apps.safety.tasks.reconcile_portability_export_jobs', 'schedule': 60.0},"
                 "'purge-rights-object-deliveries': {'task': 'apps.safety.rights_object_delivery.purge_object_deliveries', 'schedule': 10.0},"
                 "'purge-orphan-export-objects': {'task': 'apps.safety.rights_object_content.purge_orphan_export_objects', 'schedule': 3600.0}})\n")
@@ -63,6 +72,12 @@ def server(settings, record_property):
     bind = "0.0.0.0" if objects else "127.0.0.1"
     env = os.environ.copy()
     env['DJANGO_SETTINGS_MODULE'] = 'capacity_gunicorn_settings'
+    celery_events = None
+    if beta_http:
+        celery_events = Path('/tmp/capacity-beta-celery')
+        celery_events.mkdir(mode=0o700)
+        env['WEB_MODELOS_CELERY_OBSERVER_DIR'] = str(celery_events)
+        env['WEB_MODELOS_PROCESS_ROLE'] = 'web'
     application = 'config.wsgi:application'
     if (getattr(settings, 'CAPACITY_SELECTION_PROFILE', False)
             or getattr(settings, 'CAPACITY_REQUEST_TIMING', False)):
@@ -79,10 +94,12 @@ def server(settings, record_property):
                 Path(__file__).with_name('capacity_native_profile.py').read_text())
             with connection.cursor() as cursor:
                 cursor.execute('CREATE EXTENSION IF NOT EXISTS pg_stat_statements')
-    command = [sys.executable, '-m', 'gunicorn', application, '--workers', '2',
-               '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '90',
+    command = [sys.executable, '-m', 'gunicorn', application, '--workers', '4' if beta_http else '2',
+               '--worker-class', 'sync', '--bind', f'{bind}:{port}', '--timeout', '60' if beta_http else '90',
                '--access-logfile', '-', '--error-logfile', '-',
                '--logger-class', 'config.gunicorn_logging.SafeAccessLogger']
+    if beta_http:
+        command += ['--threads', '1']
     scalene_mode = getattr(settings, 'CAPACITY_PROFESSIONAL_PROFILE', None) == 'scalene'
     if scalene_mode:
         tools_site = str(Path(settings.CAPACITY_DIAGNOSTIC_TOOLS_VENV) / 'lib/python3.12/site-packages')
@@ -158,10 +175,17 @@ def server(settings, record_property):
                 beat_command = [sys.executable, '-m', 'celery', '-A', 'config', 'beat',
                     '--loglevel=WARNING', '--schedule=/tmp/capacity-celerybeat',
                     '--pidfile=/tmp/capacity-celerybeat.pid']
+                if beta_http:
+                    # Same worker/Beat command policy as the original normal-refresh HTTP gate.
+                    worker_command = [sys.executable, '-m', 'celery', '-A', 'config', 'worker',
+                                      '--loglevel=INFO', '--concurrency=2']
+                    beat_command = [sys.executable, '-m', 'celery', '-A', 'config', 'beat',
+                                    '--loglevel=INFO', '--schedule=/tmp/capacity-celerybeat']
                 for role, task_command in [('worker', worker_command), ('beat', beat_command)]:
                     task_log = Path('/tmp/capacity-' + role + '.log')
                     handle = stack.enter_context(task_log.open('w'))
-                    child = subprocess.Popen(task_command, env=env, stdout=handle,
+                    child = subprocess.Popen(task_command,
+                        env=env | {'WEB_MODELOS_PROCESS_ROLE': role} if beta_http else env, stdout=handle,
                         stderr=subprocess.STDOUT, start_new_session=True)
                     owned.append((role, child, task_command, task_log))
                 # All process roots inherit the constrained container; verify actual cgroup.
@@ -172,8 +196,11 @@ def server(settings, record_property):
                 deadline = time.monotonic() + 45
                 while time.monotonic() < deadline:
                     assert all(child.poll() is None for _, child, _, _ in owned)
-                    replies = app.control.inspect(destination=[async_name], timeout=1).ping()
-                    if replies and replies.get(async_name, {}).get('ok') == 'pong':
+                    inspector = app.control.inspect(timeout=1, **({} if beta_http else {'destination': [async_name]}))
+                    replies = inspector.ping()
+                    ready = (replies and len(replies) == 1 and next(iter(replies.values())).get('ok') == 'pong'
+                             if beta_http else replies and replies.get(async_name, {}).get('ok') == 'pong')
+                    if ready:
                         break
                     time.sleep(.2)
                 else:
@@ -195,7 +222,20 @@ def server(settings, record_property):
                     urllib.request.urlopen("http://caddy:8080/", timeout=3)
                 except urllib.error.HTTPError as error:
                     assert error.code == 404
-            yield SimpleNamespace(url=url, object_delivery=objects,
+            beta_workers = []
+            if beta_http:
+                until = time.monotonic() + 20
+                while len(beta_workers) != 4:
+                    beta_workers = [int(value) for value in Path(
+                        f'/proc/{process.pid}/task/{process.pid}/children').read_text().split()]
+                    if len(beta_workers) == 4:
+                        break
+                    assert time.monotonic() < until, 'Four owned beta workers not observed'
+                    time.sleep(.1)
+                own_cgroup = Path('/proc/self/cgroup').read_text()
+                assert all(Path(f'/proc/{pid}/cgroup').read_text() == own_cgroup for pid in beta_workers)
+            yield SimpleNamespace(url=url, object_delivery=objects, beta_worker_pids=beta_workers,
+                                  celery_events=celery_events,
                                   runtime_config=env.get("RIGHTS_EVIDENCE_RUNTIME_CONFIG"))
         finally:
             stop.set()
@@ -229,9 +269,9 @@ def server(settings, record_property):
                 'native_profiles': {path.name: path.read_text() for path in Path('/tmp').glob('capacity-native-*.json')},
                 'scope': 'Master and workers kernel VmHWM sampled100ms; process-group teardown. Same owned app cgroup; optional Caddy and RustFS separate owned cgroups, never deployment.',
             }))
-            assert len(peaks) >= 3, 'Missing actual Gunicorn master/two-worker RSS observations'
+            assert len(peaks) >= (5 if beta_http else 3), 'Missing actual Gunicorn master/worker RSS observations'
             if async_enabled:
-                assert len(peaks) >= 7, 'Missing Gunicorn/worker prefork 2/Beat RSS observations'
+                assert len(peaks) >= (9 if beta_http else 7), 'Missing Gunicorn/worker prefork 2/Beat RSS observations'
             assert all(value <= 1024 ** 3 for value in peaks.values()), 'App process RSS exceeds1GiB'
 
 

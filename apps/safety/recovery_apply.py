@@ -170,6 +170,7 @@ def apply_database(receipt):
                 description="",
                 description_alternative="",
                 profile_type="",
+                show_trans_label=False,
                 municipality=None,
                 postal_code=None,
                 zone=None,

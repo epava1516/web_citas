@@ -10,6 +10,7 @@ from apps.mediafiles.models import Match
 
 from .history import is_rectification_history, ordinary_matches
 from .models import Listing, ModerationDecision, Revision
+from .profile_contract import CURRENT_CONTRACT
 from .submissions import validate_submission
 
 
@@ -64,6 +65,7 @@ def decide(user, revision_id, version, outcome, reason):
         is_rectification_history(revision)
         or revision.photos.filter(rectification_upload__isnull=False).exists()
         or revision.status != "pending"
+        or revision.content_contract != CURRENT_CONTRACT
         or revision.edit_version != version
         or not hasattr(revision, "submission")
     ):

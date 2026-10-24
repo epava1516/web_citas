@@ -45,11 +45,15 @@ services:
     environment: &production
       APP_ENV: production
       DJANGO_DEBUG: '0'
+      EMAIL_BACKEND: ${EMAIL_BACKEND:?Set reviewed external email backend}
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set independent production secret}
+      SAFETY_HMAC_KEY: "${SAFETY_HMAC_KEY:-}"
       DJANGO_ALLOWED_HOSTS: ${PUBLIC_HOSTNAME:?Set reviewed hostname}
       PUBLIC_ORIGIN: https://${PUBLIC_HOSTNAME}:${HTTPS_PORT:-18443}
       MFA_ENCRYPTION_KEY: ${MFA_ENCRYPTION_KEY:?Set independent MFA key}
       SAFETY_ENCRYPTION_KEY: ${SAFETY_ENCRYPTION_KEY:?Set independent safety key}
+      MFA_ENCRYPTION_KEY_FALLBACKS: "${MFA_ENCRYPTION_KEY_FALLBACKS:-}"
+      SAFETY_ENCRYPTION_KEY_FALLBACKS: "${SAFETY_ENCRYPTION_KEY_FALLBACKS:-}"
       VERIFICATION_PROVIDER: disabled
       SAFETY_NOTICE_BACKEND: disabled
       RIGHTS_VERIFICATION_BACKEND: disabled

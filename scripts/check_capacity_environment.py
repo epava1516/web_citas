@@ -54,6 +54,71 @@ PROBE = (
 PROBE_EXPECTED = ["rootfs=readonly", "hosts=protected", "tmpfs=enospc"]
 
 
+def collect_failed_service_states(run, containers):
+    """Preserve exit/OOM evidence before cleanup, without exporting configuration."""
+    states, errors = {}, {}
+    template = ('{"status":{{json .State.Status}},"running":{{json .State.Running}},'
+                '"exit_code":{{json .State.ExitCode}},"oom_killed":{{json .State.OOMKilled}},'
+                '"started_at":{{json .State.StartedAt}},"finished_at":{{json .State.FinishedAt}}}')
+    for name in containers:
+        try:
+            result = run(["docker", "container", "inspect", "--format", template, name],
+                         "failure-state-" + name, check=False)
+            if result.returncode:
+                errors[name] = "State unavailable"
+                continue
+            states[name] = json.loads(result.stdout)
+        except (ValueError, OSError, subprocess.TimeoutExpired) as exc:
+            errors[name] = type(exc).__name__
+    return states, errors
+
+
+def command_timeout(args, label):
+    """Finite process watchdog; workload deadlines remain independently enforced."""
+    timeout = ((9000 if args.delivery_complete or args.delivery_profile_full else
+                5400 if args.selection_complete or args.delivery_profile else 600)
+               if args.selection_tcp and label == "control-pytest" else 180)
+    if args.preflight_only and label == "control-pytest":
+        # Small generation observes up to180s in addition to real fixture setup,
+        # worker startup and teardown. This is a finite diagnostic, never a new SLA.
+        timeout = 360
+    if args.beta_http_upload_calibration and label == 'control-pytest':
+        timeout = 300  # Small native cohort plus15s calibration and teardown.
+    elif args.beta_http_contractual and label == 'control-pytest':
+        timeout = 3600  # Native issuance plus900s workload and70s drain.
+    elif args.beta_http_short and label == 'control-pytest':
+        timeout = 2400  # Synthetic native issuance plus fixed60s/70s workload/drain.
+    elif args.beta_http_functional and args.beta_http_backlog and args.beta_http_backlog_population > 10 and label == 'control-pytest':
+        # Scaled preparation is bounded separately from capture and workload.
+        # At10000 allow5400s before capture plus a fresh repaired native oracle.
+        # This outer watchdog does not change request, Beat slot or acceptance limits.
+        timeout = (18000 if args.beta_http_mixed_states else 9000) if args.beta_http_backlog_population == 10000 else 2400
+    if args.beta_http_combined_filters and label == 'control-pytest':
+        timeout = 18000 if args.beta_http_combined_population == 10000 else 2400
+    if args.beta_http_committed_mixed and label == 'control-pytest':
+        timeout = 18000 if args.beta_http_committed_population == 10000 else 2400
+    return timeout
+
+
+def app_lifetime(args):
+    """Keep the owned app alive beyond its command watchdog, including setup."""
+    if args.beta_http_combined_filters:
+        return 18600 if args.beta_http_combined_population == 10000 else 3000
+    if args.beta_http_committed_mixed:
+        return 18600 if args.beta_http_committed_population == 10000 else 3000
+    if args.beta_http_contractual:
+        return 4200
+    if args.beta_http_functional and args.beta_http_backlog and args.beta_http_backlog_population == 10000:
+        return 18600 if args.beta_http_mixed_states else 9600
+    if args.beta_http_short or (args.beta_http_functional and args.beta_http_backlog and args.beta_http_backlog_population > 10):
+        return 3000
+    if args.delivery_complete or args.delivery_profile_full:
+        return 10000
+    if args.selection_complete or args.delivery_profile:
+        return 6000
+    return 1800
+
+
 def controller_self_probe(archive):
     """Observe kernel EROFS, RLIMIT_FSIZE and mount classification inside the owned controller."""
     try:
@@ -97,8 +162,31 @@ def parse_options(argv=None):
     parser.add_argument("--owned-controller", action="store_true", help="Require launcher-enforced controller and whole owned budget")
     parser.add_argument("--cpu-budget", type=int, choices=(4, 8), default=4,
                         help="Aggregate owned CPU ceiling; 8 is the authorized VPS comparison")
+    parser.add_argument('--app-image', default='web-modelos-app:latest',
+                        help='Existing local application image; explicit overrides must be immutable sha256 IDs')
     parser.add_argument("--object-delivery", action="store_true", help="Real private RustFS and Caddy proxy in the same owned budget; requires owned complete delivery")
     parser.add_argument("--preflight-only", action="store_true", help="Verify owned object/proxy/worker topology only; never run capacity fixtures")
+    parser.add_argument('--beta-http-backlog', action='store_true',
+                        help='Native dirty rows, territorial functional observer only')
+    parser.add_argument('--beta-http-generator-diagnostic', action='store_true', help='Observed combined100 generator, not clean acceptance')
+    parser.add_argument('--beta-http-combined-population', type=int, choices=(100, 1000, 10000), default=100)
+    parser.add_argument('--beta-http-combined-filters', action='store_true', help='Territorial combined functional or short/contractual10000')
+    parser.add_argument('--beta-http-committed-mixed', action='store_true', help='Committed final mixture, territorial functional or short10000')
+    parser.add_argument('--beta-http-committed-population', type=int, choices=(100, 1000, 10000), default=100)
+    parser.add_argument('--beta-http-mixed-states', action='store_true', help='Mixed100/1000/10000 functional backlog only')
+    parser.add_argument('--beta-http-backlog-population', type=int, choices=(10, 100, 1000, 10000), default=10)
+    parser.add_argument('--beta-http-service-resources', action='store_true',
+                        help='Host observer for functional calibration only; outside workload budget')
+    parser.add_argument('--beta-http-territorial', action='store_true',
+                        help='Two-city synthetic workload; functional calibration only')
+    parser.add_argument('--beta-http-functional', action='store_true',
+                        help='Exclusive owned8CPU beta HTTP calibration, ten profiles only; never capacity')
+    parser.add_argument('--beta-http-upload-calibration', action='store_true',
+                        help='Functional-only fifteen distinct draft uploads,15s; never900s')
+    parser.add_argument('--beta-http-short', action='store_true',
+                        help='Exclusive owned8CPU beta short,10000profiles/60s; never contractual900s')
+    parser.add_argument('--beta-http-contractual', action='store_true',
+                        help='Exclusive owned8CPU beta HTTP900s/18000arrivals/15uploads; not global acceptance')
     parser.add_argument("--diagnostic-baseline-capture", action="store_true")
     parser.add_argument("--diagnostic-baseline-use", type=Path)
     parser.add_argument("--diagnostic-baseline-key", type=Path)
@@ -111,6 +199,53 @@ def parse_options(argv=None):
     parser.add_argument("--professional-probe-only", action="store_true")
     parser.add_argument('--sql-plan-target', type=int, choices=(64, 304))
     args = parser.parse_args(argv)
+    if args.app_image != 'web-modelos-app:latest' and not re.fullmatch(r'sha256:[0-9a-f]{64}', args.app_image):
+        parser.error('Application image override requires a full immutable sha256 ID')
+    if args.beta_http_combined_population != 100 and not args.beta_http_combined_filters:
+        parser.error('Combined population requires combined filters')
+    if args.beta_http_generator_diagnostic and (not args.beta_http_combined_filters or args.beta_http_combined_population != 100
+                                               or not args.beta_http_functional):
+        parser.error('Generator diagnostic requires explicit combined-filter functional100')
+    if args.beta_http_combined_filters and (not (args.beta_http_functional or args.beta_http_short or args.beta_http_contractual) or not args.beta_http_territorial
+                                           or (args.beta_http_short or args.beta_http_contractual) and args.beta_http_combined_population != 10000
+                                           or args.beta_http_service_resources or args.beta_http_backlog
+                                           or args.beta_http_mixed_states or args.beta_http_committed_mixed
+                                           or args.beta_http_upload_calibration):
+        parser.error('Combined filters require territorial functional or short/contractual10000 without observer or other mixtures')
+    if args.beta_http_committed_population != 100 and not args.beta_http_committed_mixed:
+        parser.error('Committed population requires committed mixture')
+    if args.beta_http_committed_mixed and (not (args.beta_http_functional or args.beta_http_short or args.beta_http_contractual) or not args.beta_http_territorial
+                                          or args.beta_http_backlog or args.beta_http_mixed_states
+                                          or args.beta_http_upload_calibration
+                                          or (args.beta_http_short or args.beta_http_contractual) and args.beta_http_committed_population != 10000):
+        parser.error('Committed mixture requires territorial functional or short/contractual10000 without backlog or upload calibration')
+    if args.beta_http_mixed_states and (not args.beta_http_backlog or args.beta_http_backlog_population not in (100, 1000, 10000)):
+        parser.error('Mixed states require backlog with100,1000 or10000 profiles')
+    if args.beta_http_backlog_population != 10 and not args.beta_http_backlog:
+        parser.error('Backlog population requires backlog')
+    if args.beta_http_backlog and (not args.beta_http_functional or not args.beta_http_territorial
+                                   or not args.beta_http_service_resources):
+        parser.error('Backlog requires territorial functional with service resources')
+    if args.beta_http_service_resources and (not (args.beta_http_functional or args.beta_http_short) or args.beta_http_upload_calibration):
+        parser.error('Service resources require functional or short diagnostic without upload calibration')
+    if args.beta_http_territorial and (not (args.beta_http_functional or args.beta_http_short or args.beta_http_contractual)
+                                         or args.beta_http_upload_calibration
+                                         or args.beta_http_contractual and not (args.beta_http_committed_mixed or args.beta_http_combined_filters)):
+        parser.error('Territorial mode requires functional, short or committed/combined contractual10000 without upload calibration')
+    if args.beta_http_upload_calibration and not args.beta_http_functional:
+        parser.error('Upload calibration requires exclusive beta HTTP functional mode')
+    if (args.beta_http_functional or args.beta_http_short or args.beta_http_contractual) and (
+        sum((args.beta_http_functional, args.beta_http_short, args.beta_http_contractual)) != 1
+        or
+        not args.owned_controller or not args.object_delivery or args.cpu_budget != 8
+        or any((args.control, args.diagnose, args.fixture_target, args.selection_tcp,
+                args.selection_concurrent, args.selection_gunicorn, args.selection_profile,
+                args.database_heavy, args.selection_complete, args.delivery_complete,
+                args.delivery_profile, args.delivery_profile_full, args.source_profile,
+                args.preflight_only, args.native_profile, args.professional_profile,
+                args.sql_plan_target, args.diagnostic_baseline_capture, args.diagnostic_baseline_use))
+    ):
+        parser.error('Beta HTTP functional requires exclusive owned8CPU object topology')
     if args.sql_plan_target is not None and (
             not args.owned_controller or not args.object_delivery or not args.delivery_profile_full
             or args.native_profile or args.professional_profile or args.source_profile
@@ -159,7 +294,7 @@ def parse_options(argv=None):
                 args.delivery_complete, args.delivery_profile, args.delivery_profile_full, args.source_profile)
     if args.preflight_only and any(workload):
         parser.error("--preflight-only is exclusive with every workload/profile flag")
-    if args.object_delivery and not (args.owned_controller and (args.delivery_complete or args.delivery_profile_full or args.preflight_only)):
+    if args.object_delivery and not (args.owned_controller and (args.delivery_complete or args.delivery_profile_full or args.preflight_only or args.beta_http_functional or args.beta_http_short or args.beta_http_contractual)):
         parser.error("--object-delivery requires --owned-controller and --delivery-complete, --delivery-profile-full or --preflight-only")
     if args.delivery_profile_full and (not args.delivery_profile or args.source_profile):
         parser.error("--delivery-profile-full requires --delivery-profile without --source-profile")
@@ -297,13 +432,7 @@ def main():
             if isinstance(item, str) and "=" in item and item.split("=", 1)[0] in private_names:
                 private_values.add(item.split("=", 1)[1])
         start = time.monotonic()
-        timeout = ((9000 if args.delivery_complete or args.delivery_profile_full else
-                    5400 if args.selection_complete or args.delivery_profile else 600)
-                   if args.selection_tcp and label == "control-pytest" else 180)
-        if args.preflight_only and label == "control-pytest":
-            # Small generation observes up to180s in addition to real fixture setup,
-            # worker startup and teardown. This is a finite diagnostic, never a new SLA.
-            timeout = 360
+        timeout = command_timeout(args, label)
         safe_command = ["<private>" if isinstance(value, str) and any(token in value for token in
                         tuple(name + "=" for name in private_names)) else value
                         for value in command]
@@ -404,7 +533,7 @@ def main():
         report["interpreter"] = {"path": str(interpreter),
                                  "sha256": hashlib.sha256(interpreter.read_bytes()).hexdigest()}
         object_image = "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c"
-        images = ["postgres:17-alpine", "redis:7.4-alpine", "web-modelos-app:latest"]
+        images = ["postgres:17-alpine", "redis:7.4-alpine", args.app_image]
         if args.object_delivery:
             images += [object_image, CADDY_IMAGE]
         for image in images:
@@ -481,7 +610,7 @@ def main():
         if args.diagnostic_baseline_use:
             baseline_mounts += ["--mount", f"type=bind,src={args.diagnostic_baseline_use},dst={args.diagnostic_baseline_use},readonly"]
         app = container(
-            "app", "web-modelos-app:latest",
+            "app", args.app_image,
             ["--init", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
              "--user", f"{os.getuid()}:{os.getgid()}", "--workdir", str(ROOT),
              "--mount", f"type=bind,src={ROOT},dst={ROOT},readonly",
@@ -492,7 +621,7 @@ def main():
              "-e", "DB_HOST=pg", "-e", "DB_PORT=5432", "-e", "POSTGRES_DB=capacity_ci",
              "-e", "POSTGRES_USER=ci", "-e", "POSTGRES_PASSWORD=ci-synthetic",
              "-e", "REDIS_URL=redis://redis:6379/0", "--entrypoint", str(ROOT / ".venv/bin/python3")],
-            ["-c", "import time; time.sleep(" + str(10000 if args.delivery_complete or args.delivery_profile_full else 6000 if args.selection_complete or args.delivery_profile else 1800) + ")"],
+            ["-c", "import time; time.sleep(" + str(app_lifetime(args)) + ")"],
         )
         if args.object_delivery:
             bootstrap = ("import time; from apps.safety.object_storage.factory import repository; "
@@ -569,7 +698,7 @@ def main():
                 raise RuntimeError("Unexpected own volume census")
             report["object_delivery"]["owned_volume_count"] = len(owned_volumes)
             report["object_delivery"]["volume"] = volume
-        if args.control or args.fixture_target or args.selection_tcp or args.preflight_only:
+        if args.control or args.fixture_target or args.selection_tcp or args.preflight_only or args.beta_http_functional or args.beta_http_short or args.beta_http_contractual:
             settings_source = (
                 "from config.settings import *\n"
                 "CAPACITY_ENVIRONMENT_VERIFIED = True\n"
@@ -581,6 +710,21 @@ def main():
                 f"CAPACITY_SQL_PLAN_TARGET = {args.sql_plan_target!r}\n"
                 f"CAPACITY_DIAGNOSTIC_TOOLS_VENV = {str(args.diagnostic_tools_venv or '')!r}\n"
                 f"CAPACITY_PREFLIGHT_ONLY = {args.preflight_only!r}\n"
+                f"CAPACITY_BETA_HTTP_BACKLOG = {args.beta_http_backlog!r}\n"
+                f"CAPACITY_BETA_HTTP_GENERATOR_DIAGNOSTIC = {args.beta_http_generator_diagnostic!r}\n"
+                f"CAPACITY_BETA_HTTP_COMBINED_FILTERS = {args.beta_http_combined_filters!r}\n"
+                f"CAPACITY_BETA_HTTP_COMBINED_POPULATION = {args.beta_http_combined_population!r}\n"
+                f"CAPACITY_BETA_HTTP_COMMITTED_MIXED = {args.beta_http_committed_mixed!r}\n"
+                f"CAPACITY_BETA_HTTP_COMMITTED_POPULATION = {args.beta_http_committed_population!r}\n"
+                f"CAPACITY_BETA_HTTP_MIXED_STATES = {args.beta_http_mixed_states!r}\n"
+                f"CAPACITY_BETA_HTTP_BACKLOG_POPULATION = {args.beta_http_backlog_population!r}\n"
+                f"CAPACITY_RESOURCE_RUN_ID = {run_id if args.beta_http_service_resources else None!r}\n"
+                f"CAPACITY_BETA_HTTP_TERRITORIAL = {args.beta_http_territorial!r}\n"
+                f"CAPACITY_BETA_HTTP_FUNCTIONAL = {args.beta_http_functional!r}\n"
+                f"CAPACITY_BETA_HTTP_UPLOAD_CALIBRATION = {args.beta_http_upload_calibration!r}\n"
+                f"CAPACITY_BETA_HTTP_SHORT = {args.beta_http_short!r}\n"
+                f"CAPACITY_BETA_HTTP_CONTRACTUAL = {args.beta_http_contractual!r}\n"
+                f"CAPACITY_CPU_BUDGET = {args.cpu_budget!r}\n"
                 f"CAPACITY_OBJECT_DELIVERY = {args.object_delivery!r}\n"
                 "MEDIA_ROOT = '/tmp/capacity-media'\n"
                 f"CAPACITY_SQL_DIAGNOSE = {args.diagnose!r}\n"
@@ -590,18 +734,24 @@ def main():
                 f"CAPACITY_DELIVERY_PROFILE_FULL = {args.delivery_profile_full!r}\n"
                 f"CAPACITY_SELECTION_COMPLETE = {args.selection_complete!r}\n"
                 f"CAPACITY_DELIVERY_COMPLETE = {args.delivery_complete!r}\n"
-                "DATABASES['default']['TEST'] = {'NAME': 'test_capacity_ci'}\n"
+                "DATABASES['default']['TEST'] = {'NAME': "
+                + repr('test_promotion_gate_capacity_ci' if args.beta_http_functional or args.beta_http_short or args.beta_http_contractual else 'test_capacity_ci') + "}\n"
             )
+            if args.beta_http_functional or args.beta_http_short or args.beta_http_contractual:
+                settings_source += 'PROMOTION_TEST_MODE = True\n'
             run(["docker", "exec", app, str(ROOT / ".venv/bin/python3"), "-c",
                  "from pathlib import Path; Path('/tmp/capacity_settings.py').write_text(" +
                  repr(settings_source) + ")"], "control-settings")
             result = run(
                 ["docker", "exec", "-e", f"PYTHONPATH=/tmp:{ROOT}",
-                 "-e", "DJANGO_SETTINGS_MODULE=capacity_settings", app,
+                 "-e", "DJANGO_SETTINGS_MODULE=capacity_settings",
+                 *(['-e', 'LOCAL_CI_TELEGRAM_OWNER=runner']
+                   if os.environ.get('LOCAL_CI_TELEGRAM_OWNER') == 'runner' else []), app,
                  str(ROOT / ".venv/bin/python3"), "-m", "pytest", "-q", "--tb=short",
                  "-o", "DJANGO_SETTINGS_MODULE=capacity_settings", "-o", "junit_family=xunit1",
                  "-p", "no:cacheprovider", "--basetemp=/tmp/capacity-pytest",
                  "--junitxml=/tmp/capacity-control.xml",
+                 "tests/test_capacity_beta_http.py" if args.beta_http_functional or args.beta_http_short or args.beta_http_contractual else
                  "tests/test_capacity_chain_explain.py::test_chain_plans_with_real_history" if args.sql_plan_target is not None else
                  "tests/test_capacity_professional_profile.py::test_owned_professional_probe" if args.professional_probe_only else
                  "tests/test_capacity_native_probe.py" if args.native_probe_only else
@@ -672,12 +822,56 @@ def main():
                     # Every stage measured to the end and a limit was breached: valid FAIL, not ERROR.
                     report["result"] = "FAIL_DELIVERY_STAGE_LIMITS"
                     raise RuntimeError("Valid delivery stage limit breach; see stage_violations")
+            if args.beta_http_short or args.beta_http_contractual:
+                properties = {item.attrib['name']: item.attrib['value']
+                              for suite in suites for item in suite.iter('property')}
+                proof_key = 'beta_http_contractual' if args.beta_http_contractual else 'beta_http_short'
+                proof = json.loads(properties.get(proof_key, '{}'))
+                report[proof_key] = proof
+                if proof.get('verdict') in {'FAIL', 'INVALID'} and proof.get(
+                        'workload_checks' if args.beta_http_contractual else 'short_checks'):
+                    kind = 'BETA_HTTP_CONTRACTUAL' if args.beta_http_contractual else 'BETA_HTTP_SHORT'
+                    report['result'] = kind + '_FAIL' if proof['verdict'] == 'FAIL' else 'INVALID_' + kind
+                    raise RuntimeError('Owned beta HTTP terminal ' + proof['verdict'])
             if result.returncode or not suites or any(
                 int(suite.attrib.get(key, 0)) for suite in suites
                 for key in ("failures", "errors", "skipped")
             ) or sum(int(suite.attrib.get("tests", 0)) for suite in suites) != 1:
                 raise RuntimeError("Small control did not pass exactly one required test")
-            if args.preflight_only:
+            if args.beta_http_functional or args.beta_http_short or args.beta_http_contractual:
+                properties = {item.attrib['name']: item.attrib['value']
+                              for suite in suites for item in suite.iter('property')}
+                # Short/contractual proof is already decoded and retained in report.
+                proof = (report[proof_key] if args.beta_http_short or args.beta_http_contractual
+                         else json.loads(properties.get('beta_http_calibration', '{}')))
+                required = [
+                    'owned_fixture_verified', 'complete_geography', 'statistics_finalized',
+                    'upload_persisted', 'four_workers', 'broker_empty_after']
+                if not (args.beta_http_short or args.beta_http_contractual):
+                    required.append('all_dynamic_successful')
+                if not all(proof.get(key) is True for key in required):
+                    raise RuntimeError('Owned beta HTTP calibration evidence incomplete')
+                if args.beta_http_short or args.beta_http_contractual:
+                    checks = proof.get('workload_checks' if args.beta_http_contractual else 'short_checks', {})
+                    if proof.get('verdict') != 'PASS' or not checks or not all(checks.values()):
+                        raise RuntimeError('Owned beta short positive proof incomplete')
+                    report['result'] = ('BETA_HTTP_CONTRACTUAL_PASS_NOT_GLOBAL' if args.beta_http_contractual
+                                        else 'BETA_HTTP_SHORT_PASS_NOT_CONTRACTUAL')
+                else:
+                    report['beta_http_calibration'] = proof
+                    if args.beta_http_upload_calibration:
+                        if (not proof.get('upload_calibration') or proof.get('planned_uploads') != 15
+                                or proof.get('upload_interval_seconds') != 1):
+                            raise RuntimeError('Fifteen upload calibration evidence incomplete')
+                    report['result'] = ('BETA_HTTP_UPLOAD_CALIBRATION_NOT_CAPACITY' if args.beta_http_upload_calibration
+                                        else 'BETA_HTTP_FUNCTIONAL_NOT_CAPACITY')
+                    if args.beta_http_generator_diagnostic:
+                        observation = proof.get('generator_diagnostic', {})
+                        if (not observation.get('iterations') or 'DIAGNOSTIC ONLY' not in observation.get('scope', '')
+                                or not proof.get('outcome', {}).get('scheduler_trace')):
+                            raise RuntimeError('Explicit generator diagnostic evidence missing')
+                        report['result'] = 'BETA_HTTP_GENERATOR_DIAGNOSTIC_NOT_CAPACITY'
+            elif args.preflight_only:
                 report["result"] = "READY_NOT_CAPACITY"
             elif args.sql_plan_target is not None:
                 properties = {item.attrib['name']: item.attrib['value']
@@ -772,6 +966,13 @@ def main():
     except Exception as exc:
         report["error"] = scrub(f"{type(exc).__name__}: {exc}")
     finally:
+        # The report owns the decoded proof; release XML and duplicate local roots
+        # before terminal collection/serialization inside the128MiB controller.
+        junit = suites = properties = proof = None
+        if "error" in report:
+            states, errors = collect_failed_service_states(run, containers)
+            report["failed_service_states"] = states
+            report["failure_state_collection_errors"] = errors
         report["cgroup_memory"] = {}
         report["cgroup_cpu"] = {}
         report["cpu_counter_scope"] = (
@@ -908,7 +1109,7 @@ def main():
         if sink is not None:
             sink.close()
     print(json.dumps({"result": report["result"], "evidence": str(output)}))
-    return 0 if report["result"] in {"READY_NOT_CAPACITY", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
+    return 0 if report["result"] in {"READY_NOT_CAPACITY", "BETA_HTTP_FUNCTIONAL_NOT_CAPACITY", "BETA_HTTP_GENERATOR_DIAGNOSTIC_NOT_CAPACITY", "BETA_HTTP_UPLOAD_CALIBRATION_NOT_CAPACITY", "BETA_HTTP_SHORT_PASS_NOT_CONTRACTUAL", "BETA_HTTP_CONTRACTUAL_PASS_NOT_GLOBAL", "CONTROL_PASS_NOT_TARGET_CAPACITY", "FIXTURE_VALID_NOT_CAPACITY", "SELECTION_TCP_PASS_NOT_FULL_CAPACITY", "DELIVERY_STAGES_PASS_NOT_GLOBAL_CAPACITY_OR_N3",
                                                "PROFILE_DIAGNOSTIC_NOT_CAPACITY", "NATIVE_INSTRUMENT_PROBE_NOT_CAPACITY",
                                                "PROFESSIONAL_INSTRUMENT_PROBE_NOT_CAPACITY",
                                                "SQL_PLANS_DIAGNOSTIC_NOT_CAPACITY"} else 1

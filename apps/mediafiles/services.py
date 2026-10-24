@@ -18,6 +18,7 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from apps.core.verification import locked_manager_person
 from apps.listings.history import is_rectification_history, rectification_history_ids
 from apps.listings.models import Revision
+from apps.listings.profile_contract import CURRENT_CONTRACT
 
 from .models import Blob, Match, Photo, UploadAttempt
 from .similarity import Signature, compare_signatures, compute_signature, confirm_match
@@ -72,6 +73,7 @@ def ingest(user, revision_id, upload):
             if (
                 is_rectification_history(revision)
                 or revision.status != "draft"
+                or revision.content_contract != CURRENT_CONTRACT
                 or revision.manager_version != person.manager_version
                 or revision.photos.filter(rectification_upload__isnull=False).exists()
             ):

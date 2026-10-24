@@ -1,4 +1,9 @@
 name: web-modelos
+x-operational-logging: &operational-logging
+  driver: json-file
+  options:
+    max-size: "1m"
+    max-file: "3"
 services:
   db:
     image: postgres:17-alpine
@@ -33,6 +38,7 @@ services:
     ports: ["127.0.0.1:${RIGHTS_OBJECT_PORT:-53900}:9000"]
     volumes: ["rights_object_data:/data"]
   app:
+    logging: *operational-logging
     build: .
     env_file: .env
     environment:
@@ -46,6 +52,7 @@ services:
       redis: {condition: service_healthy}
     volumes: ["private_media:/app/media/private", "static_data:/app/staticfiles", "rights_delivery:/app/media/delivery"]
   worker:
+    logging: *operational-logging
     build: .
     command: ["celery", "-A", "config", "worker", "--loglevel=INFO", "--concurrency=2"]
     env_file: .env
@@ -59,6 +66,7 @@ services:
       redis: {condition: service_healthy}
     volumes: ["private_media:/app/media/private", "rights_delivery:/app/media/delivery"]
   beat:
+    logging: *operational-logging
     build: .
     command: ["celery", "-A", "config", "beat", "--loglevel=INFO", "--schedule", "/tmp/celerybeat-schedule"]
     env_file: .env

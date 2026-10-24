@@ -15,6 +15,8 @@ from test_rights_messages import clarification
 from test_rights_verification import read
 
 from apps.core.models import Person, User
+from apps.listings.models import Revision
+from apps.listings.profile_contract import CURRENT_CONTRACT, LEGACY_CONTRACT
 from apps.safety.models import (
     RightsExport,
     RightsExportDownload,
@@ -98,7 +100,16 @@ def url(receipt, export):
 
 
 def test_encrypted_reviewed_copy_download_without_account_excludes_other_data(request, settings):
+    request.getfixturevalue("directory")
+    source = Person.objects.get(subject__username="fixture-v1-model-a").listing.approved_revision
+    source.show_trans_label = True
+    source.save(update_fields=["show_trans_label"])
     case, user, _, client, receipt, person = prepared(request, settings)
+    historical = Revision.objects.create(
+        listing=person.listing, manager_version=person.manager_version,
+        content_contract=LEGACY_CONTRACT, title="Historical synthetic profile",
+        description="Preserved private historical description",
+    )
     export = make_copy(case, user)
     assert "Reviewed description" not in export.encrypted_payload
     assert RightsExport.objects.count() == RightsExportPreview.objects.count() == 1
@@ -119,6 +130,12 @@ def test_encrypted_reviewed_copy_download_without_account_excludes_other_data(re
     assert set(item["revision"] for item in copy["revisions"]) == set(
         str(pk) for pk in person.listing.revisions.values_list("pk", flat=True)
     )
+    contracts = {item["revision"]: item["content_contract"] for item in copy["revisions"]}
+    assert contracts[str(historical.pk)] == LEGACY_CONTRACT
+    assert contracts[str(person.listing.approved_revision_id)] == CURRENT_CONTRACT
+    labels = {item["revision"]: item["show_trans_label"] for item in copy["revisions"]}
+    assert labels[str(historical.pk)] is False
+    assert labels[str(source.pk)] is True
     other = Person.objects.get(subject__username="fixture-v1-model-b")
     serialized = json.dumps(copy)
     assert str(other.pk) not in serialized

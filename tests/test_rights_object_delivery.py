@@ -22,6 +22,8 @@ from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_exports import make_copy, prepared, url
 
 from apps.core.models import Person
+from apps.core.operational_assessment import assess
+from apps.core.operational_snapshot import collect_snapshot
 from apps.safety.models import RightsExport, RightsExportDownload, RightsRequest
 from apps.safety.rights_object_delivery import (
     authorize_token,
@@ -84,7 +86,7 @@ def test_fresh_revocation_content_expiry_foreign_scope_and_restore(
         Person.objects.filter(pk=person.pk).update(rights_version=person.rights_version + 1)
     elif change == "expires":
         RightsExport.objects.filter(pk=export.pk).update(
-            expires_at=timezone.now() - timedelta(seconds=1)
+            expires_at=timezone.now() - timedelta(seconds=21)
         )
     elif change == "payload":
         RightsExport.objects.filter(pk=export.pk).update(encrypted_payload="changed")
@@ -97,6 +99,17 @@ def test_fresh_revocation_content_expiry_foreign_scope_and_restore(
     else:
         invalidate_restored_deliveries()
         assert not (tmp_path / row.object_name).exists()
+    observed = collect_snapshot()
+    cache = observed["private_delivery_cache"]
+    codes = {r["code"] for r in assess(observed)["findings"]}
+    if change == "expires":
+        assert cache["expired"]["count"] == 1
+        assert "private_delivery_cache_purge_late" in codes
+    elif change == "namespace":
+        assert cache["invalidated"]["count"] == 1
+        assert "private_delivery_cache_invalidated" in codes
+    elif change == "restore":
+        assert cache["expired"]["count"] == cache["invalidated"]["count"] == 0
     with pytest.raises(Http404):
         authorize_token(path.rsplit("/", 1)[1])
     row.refresh_from_db()
@@ -158,8 +171,12 @@ def test_concurrent_requests_only_one_consumes_pg_grant(request, settings, tmp_p
 def test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup(request, settings, tmp_path):
     _, _, _, _, row, _ = staged(request, settings, tmp_path)
     RightsObjectDelivery.objects.filter(pk=row.pk).update(
-        expires_at=timezone.now() - timedelta(seconds=1)
+        expires_at=timezone.now() - timedelta(seconds=21)
     )
+    observed = collect_snapshot()
+    assert observed["private_delivery_cache"]["expired"]["count"] == 1
+    assert "private_delivery_cache_purge_late" in {r["code"] for r in assess(observed)["findings"]}
+    assert row.object_name not in str(observed)
     orphan = tmp_path / uuid4().hex
     orphan.write_bytes(b"orphaned synthetic private bytes")
     old = timezone.now().timestamp() - 60
@@ -172,11 +189,15 @@ def test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup(request, set
     assert RightsExportDownload.objects.count() == 1
     row.refresh_from_db()
     assert row.purged_at
+    assert collect_snapshot()["private_delivery_cache"]["expired"]["count"] == 0
 
 
+@pytest.mark.parametrize("rotate_proxy", [False, True], ids=["steady", "credential-reload"])
 def test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path(
-    request, settings, tmp_path
+    request, settings, tmp_path, record_property, rotate_proxy
 ):
+    if rotate_proxy:
+        settings.SAFETY_HMAC_KEY = 'synthetic-caddy-domain-' + 'd' * 64
     _, _, _, path, row, content = staged(
         request, settings, tmp_path / "delivery", through_post=True
     )
@@ -185,7 +206,22 @@ def test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path(
         def log_message(self, format, *args):
             pass
 
-    server = make_server("0.0.0.0", 0, get_wsgi_application(), handler_class=QuietHandler)
+    application = get_wsgi_application()
+
+    def connection_scoped_application(environ, start_response):
+        response = None
+        try:
+            response = application(environ, start_response)
+            yield from response
+        finally:
+            try:
+                if response is not None:
+                    response.close()
+            finally:
+                # This serving thread owns its persistent Django connections.
+                connections.close_all()
+
+    server = make_server("0.0.0.0", 0, connection_scoped_application, handler_class=QuietHandler)
     worker = threading.Thread(target=server.serve_forever, daemon=True)
     worker.start()
     config = tmp_path / "Caddyfile"
@@ -245,6 +281,27 @@ def test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path(
                 break
             except (urllib.error.URLError, TimeoutError, ConnectionResetError):
                 time.sleep(0.1)
+        if rotate_proxy:
+            identity = subprocess.check_output(
+                ["docker", "inspect", "--format", "{{.Id}}", name], text=True
+            ).strip()
+            settings.RIGHTS_DELIVERY_PROXY_SECRET = "synthetic-reloaded-proxy-" + "r" * 64
+            with pytest.raises(urllib.error.HTTPError) as stale:
+                urllib.request.urlopen(origin + path, timeout=10)
+            assert stale.value.code == 404
+            row.refresh_from_db()
+            assert row.consumed_at is None and row.purged_at is None
+            assert (settings.RIGHTS_DELIVERY_ROOT / row.object_name).read_bytes() == content
+            reload_env = {**env, "RIGHTS_DELIVERY_PROXY_SECRET": settings.RIGHTS_DELIVERY_PROXY_SECRET}
+            loaded = subprocess.run(
+                ["docker", "exec", "-e", "RIGHTS_DELIVERY_PROXY_SECRET", name,
+                 "caddy", "reload", "--config", "/etc/caddy/Caddyfile"],
+                env=reload_env, capture_output=True, timeout=30,
+            )
+            assert loaded.returncode == 0, "Owned Caddy credential reload failed"
+            assert subprocess.check_output(
+                ["docker", "inspect", "--format", "{{.Id}}", name], text=True
+            ).strip() == identity
         with pytest.raises(urllib.error.HTTPError) as denied:
             urllib.request.urlopen(urllib.request.Request(origin + path, method="HEAD"), timeout=10)
         assert denied.value.code == 404
@@ -263,22 +320,34 @@ def test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path(
         with pytest.raises(urllib.error.HTTPError):
             urllib.request.urlopen(origin + "/private-deliveries/" + row.object_name, timeout=10)
         assert RightsExportDownload.objects.count() == 1
+        row.refresh_from_db()
+        assert row.consumed_at is not None
+        record_property('actual_caddy_byte_transport', True)
+        record_property('proxy_credential_reloaded_same_container', rotate_proxy)
+        record_property('stale_proxy_config_denied_without_consumption', rotate_proxy)
+        record_property('raw_path_and_replay_denied', True)
     finally:
         subprocess.run(["docker", "rm", "-f", "-v", name], capture_output=True, timeout=30)
         server.shutdown()
         server.server_close()
         worker.join(timeout=5)
-        assert subprocess.run(["docker", "inspect", name], capture_output=True).returncode != 0
+        assert not worker.is_alive()
+        absent = subprocess.run(["docker", "inspect", name], capture_output=True)
+        assert absent.returncode != 0 and b'no such' in absent.stderr.lower()
+        record_property('owned_caddy_and_wsgi_thread_stopped', True)
 
 
-def test_actual_celery_worker_purges_expired_delivery(request, settings, tmp_path):
+def test_actual_celery_worker_purges_expired_delivery(request, settings, tmp_path, monkeypatch):
     import sys
     import time
 
     _, _, _, _, row, _ = staged(request, settings, tmp_path)
     RightsObjectDelivery.objects.filter(pk=row.pk).update(
-        expires_at=timezone.now() - timedelta(seconds=1)
+        expires_at=timezone.now() - timedelta(seconds=21)
     )
+    observed = collect_snapshot()
+    assert observed["private_delivery_cache"]["expired"]["count"] == 1
+    assert "private_delivery_cache_purge_late" in {r["code"] for r in assess(observed)["findings"]}
     module = tmp_path / "object_worker_settings.py"
     module.write_text(
         "from config.settings import *\n"
@@ -286,6 +355,14 @@ def test_actual_celery_worker_purges_expired_delivery(request, settings, tmp_pat
         + f"RIGHTS_DELIVERY_ROOT = Path({str(tmp_path)!r})\n"
         + f"RIGHTS_DELIVERY_GENERATION = {settings.RIGHTS_DELIVERY_GENERATION!r}\n"
     )
+    from config.celery import app
+
+    assert app.conf.task_always_eager
+
+    def reject_parent_execution(*args, **kwargs):
+        raise AssertionError("Purge executed in pytest instead of owned worker")
+
+    monkeypatch.setattr(purge_object_deliveries, "run", reject_parent_execution)
     queue = "object-purge-" + uuid4().hex
     env = {
         **os.environ,
@@ -319,7 +396,7 @@ def test_actual_celery_worker_purges_expired_delivery(request, settings, tmp_pat
             start_new_session=True,
         )
         try:
-            purge_object_deliveries.apply_async(queue=queue)
+            app.send_task(purge_object_deliveries.name, queue=queue)
             deadline = time.monotonic() + 30
             while True:
                 row.refresh_from_db()
@@ -330,6 +407,7 @@ def test_actual_celery_worker_purges_expired_delivery(request, settings, tmp_pat
                 time.sleep(0.1)
             assert not (tmp_path / row.object_name).exists()
             assert RightsExportDownload.objects.count() == 1
+            assert collect_snapshot()["private_delivery_cache"]["expired"]["count"] == 0
         finally:
             worker.terminate()
             try:
@@ -360,7 +438,7 @@ def test_export_purge_removes_proxy_plaintext_immediately_before_worker(
 
     _, export, _, path, row, _ = staged(request, settings, tmp_path, through_post=True)
     RightsExport.objects.filter(pk=export.pk).update(
-        expires_at=timezone.now() - timedelta(seconds=1)
+        expires_at=timezone.now() - timedelta(seconds=21)
     )
     assert purge_expired_exports() == 1
     assert not (tmp_path / row.object_name).exists()

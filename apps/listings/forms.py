@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet, inlineformset_factory
 from django.views.decorators.debug import sensitive_variables
 
-from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
+from apps.catalog.models import Municipality, PostalCode, Province, Region, Zone
 
 from .models import Rate, Revision
 
@@ -54,14 +54,6 @@ def validate_details_values(data, *, postal_matches, add_error):
             )
     if data.get("zone") and city and data["zone"].municipality_id != city.pk:
         add_error("zone", "Zona incompatible / Incompatible area")
-    categories = data.get("categories")
-    if categories is not None and any(
-        service.category_id not in {cat.pk for cat in categories}
-        for service in data.get("services", [])
-    ):
-        add_error(
-            "services", "Servicio fuera de las categorías / Service outside selected categories"
-        )
     for field in ["description", "description_alternative", "title"]:
         try:
             validate_listing_text(data.get(field, ""))
@@ -83,18 +75,18 @@ class DetailsForm(forms.ModelForm):
     )
     content_language = forms.ChoiceField(choices=[("es", "Español"), ("en", "English")])
     profile_type = forms.ChoiceField(
+        required=False,
         choices=[
+            ("", "Sin indicar / Not specified"),
             ("woman", "Mujer / Woman"),
             ("man", "Hombre / Man"),
             ("trans", "Trans"),
             ("other", "Otro / Other"),
         ]
     )
-    categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.filter(active=True), widget=forms.CheckboxSelectMultiple
-    )
-    services = forms.ModelMultipleChoiceField(
-        queryset=Service.objects.filter(active=True), widget=forms.CheckboxSelectMultiple
+    show_trans_label = forms.BooleanField(
+        required=False, label="Mostrar etiqueta trans / Show trans label",
+        help_text="Opcional y pública sólo si la marcas / Optional; public only when selected",
     )
     municipality = forms.ModelChoiceField(
         queryset=Municipality.objects.filter(active=True),
@@ -149,17 +141,13 @@ class DetailsForm(forms.ModelForm):
             "content_language",
             "description_alternative",
             "profile_type",
-            "categories",
-            "services",
+            "show_trans_label",
             "municipality",
             "postal_code",
             "zone",
-            "travel_areas",
             "spoken_languages",
             "days",
             "time_slot",
-            "reception",
-            "travel",
         ]
         widgets = {
             "description": forms.Textarea(attrs={"rows": 6}),
@@ -182,6 +170,10 @@ class DetailsForm(forms.ModelForm):
 
     def clean(self):
         data = super().clean()
+        from .profile_contract import rejects_professional_input
+
+        if rejects_professional_input(self.data):
+            self.add_error(None, "Usa sólo los campos del perfil / Use only profile fields")
         return validate_details_values(
             data, postal_matches=self.postal_matches, add_error=self.add_error
         )

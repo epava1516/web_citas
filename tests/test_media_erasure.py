@@ -10,6 +10,8 @@ from test_erasure_execution import payload, plan_fixture
 from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.core.models import Person
+from apps.core.operational_assessment import assess
+from apps.core.operational_snapshot import collect_snapshot
 from apps.mediafiles.erasure import erase_due_media, erase_one
 from apps.mediafiles.models import Blob, MediaErasure, Photo
 from apps.mediafiles.services import process
@@ -95,6 +97,10 @@ def test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file(
     job.refresh_from_db()
     assert job.status == "failed" and job.attempts == 1 and job.encrypted_paths
     assert not storage.exists(original) and storage.exists(derivative)
+    observed = collect_snapshot()
+    assert observed['media']['physical_jobs']['MediaErasure']['failed']['count'] == 1
+    assert 'media_physical_failure' in {row['code'] for row in assess(observed)['findings']}
+    assert original not in str(observed) and derivative not in str(observed)
     assert not erase_one(job.pk)  # Backoff, no extra attempt.
     monkeypatch.setattr(storage, "delete", actual_delete)
     MediaErasure.objects.filter(pk=job.pk).update(next_attempt_at=timezone.now())
@@ -102,6 +108,7 @@ def test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file(
     assert not storage.exists(derivative)
     job.refresh_from_db()
     assert job.attempts == 2 and job.status == "completed"
+    assert collect_snapshot()['media']['physical_jobs']['MediaErasure']['failed']['count'] == 0
 
 
 def test_inflight_processing_cannot_write_derivative_after_erasure(request, settings, monkeypatch):

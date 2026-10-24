@@ -3,12 +3,14 @@
 import json
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.management.base import CommandError
-from django.db import connection
+from django.db import DatabaseError, connection
 
 from apps.safety.models import RecoveryMediaJob
 from apps.safety.recovery_apply import reconcile
 from apps.safety.recovery_media import destroy_due
+from apps.safety.rights_object_delivery import invalidate_restored_deliveries
 
 from .check_recovery_ledger import Command as PreflightCommand
 
@@ -30,7 +32,9 @@ class Command(PreflightCommand):
             store, start = self.recovery_store(options)
             result = reconcile(store, start)
             completed = destroy_due(store, start, limit=limit)
-        except (ValueError, KeyError, OSError, TypeError) as error:
+            # Restored transient grants are invalid even for exports not erased by this suffix.
+            invalidate_restored_deliveries()
+        except (ValueError, KeyError, OSError, TypeError, ValidationError, DatabaseError) as error:
             # Database effects may already be committed, and physical deletion is
             # irreversible. Keep isolation and retry against the same authority.
             raise CommandError(

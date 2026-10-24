@@ -57,7 +57,9 @@ def project(source_context, user, case, proof, row, review, source, assessment, 
            row.decision_digest, row.original_session_version, row.original_mfa_version,
            row.expires_at, row.purged_at, row.encrypted_selection, review.pk,
            review.assessment.encrypted_assessment, review.action.payload_digest,
-           review.read.action.payload_digest, settings.SECRET_KEY, settings.SAFETY_ENCRYPTION_KEY,
+           review.read.action.payload_digest, settings.SECRET_KEY, settings.SAFETY_HMAC_KEY,
+           settings.SAFETY_ENCRYPTION_KEY,
+           settings.SAFETY_ENCRYPTION_KEY_FALLBACKS,
            settings.PRODUCTION, operation)
     entries = state['entries']
     if key in entries and _audit_only:

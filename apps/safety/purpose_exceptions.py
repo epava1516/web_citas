@@ -513,6 +513,10 @@ def consume(user, case, person, subject, plan, manifest, purposes, proposal_id, 
     fresh = authorize(user, case, review_permission=False)
     if not fresh.has_perm("safety.review_purpose_exception"):
         raise PermissionDenied
+    # Source reconstruction and approval checks may outlive the proof. Require
+    # the same current scoped proof immediately before consuming authorization.
+    if authorized_proof(case, person, "erase").pk != proof.pk:
+        raise ValidationError("Current scoped proof required / Comprobación de ámbito vigente obligatoria")
     review.consumed_action = action
     review.save(update_fields=["consumed_action"])
     return review

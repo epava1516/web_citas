@@ -11,6 +11,8 @@ from test_privacy_release import fresh
 from test_rectification_review import REASON, independent_case
 from test_reports import directory, photo_environment  # noqa: F401
 
+from apps.core.operational_assessment import assess
+from apps.core.operational_snapshot import collect_snapshot
 from apps.safety.crypto import unseal
 from apps.safety.models import RightsAccountEmailConfirmation
 from apps.safety.rectification_review import inspect, review
@@ -366,9 +368,18 @@ def test_expired_confirmation_delivery_is_purged_without_erasing_audit(
     assert purge_expired_delivery() == 0
     token.refresh_from_db()
     assert token.encrypted_delivery
+    assert collect_snapshot()['expired_account_confirmation_delivery']['count'] == 0
+    now = timezone.now()
+    monkeypatch.setattr(timezone, 'now', lambda: now)
+    RightsAccountEmailConfirmation.objects.filter(pk=token.pk).update(expires_at=now)
+    assert collect_snapshot()['expired_account_confirmation_delivery'] == {
+        'count': 1, 'oldest_age_seconds': 0.0}
     RightsAccountEmailConfirmation.objects.filter(pk=token.pk).update(
-        expires_at=timezone.now() - timedelta(seconds=1)
+        expires_at=now - timedelta(seconds=120)
     )
+    observed = collect_snapshot()
+    assert 'account_confirmation_payload_purge_late' in {row['code'] for row in assess(observed)['findings']}
+    assert str(token.pk) not in str(observed) and token.encrypted_delivery not in str(observed)
     # Cleanup must remain possible after the delivery backend is disabled.
     settings.ACCOUNT_CORRECTION_DELIVERY_BACKEND = "disabled"
     assert purge_expired_account_confirmation_delivery() == 1
@@ -380,6 +391,7 @@ def test_expired_confirmation_delivery_is_purged_without_erasing_audit(
     assert token.action_id and token.proof_id and token.source_digest and token.destination_digest
     assert (person.subject.email, person.subject.session_version) == user_state
     assert case.status == "reviewing"
+    assert collect_snapshot()['expired_account_confirmation_delivery']['count'] == 0
 
 
 @pytest.mark.parametrize("mixed", [False, True])

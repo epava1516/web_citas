@@ -2,6 +2,7 @@
 <p>{{ revision.description_alternative|linebreaksbr }}</p>
 <dl>
 <dt>{% if english %}Content language / profile type{% else %}Idioma del contenido / tipo de perfil{% endif %}</dt><dd>{{ revision.content_language }} · {{ revision.profile_type }}</dd>
+<dt>{% if english %}Show trans label{% else %}Mostrar etiqueta trans{% endif %}</dt><dd>{% if revision.show_trans_label %}{% if english %}Selected{% else %}Seleccionada{% endif %}{% else %}{% if english %}Not selected{% else %}No seleccionada{% endif %}{% endif %}</dd>
 <dt>{% if english %}Location{% else %}Ubicación{% endif %}</dt><dd>{{ revision.municipality.province.region }} · {{ revision.municipality.province }} · {{ revision.municipality }} · {{ revision.postal_code|default:'' }} · {{ revision.zone|default:'' }}</dd>
 <dt>{% if english %}Travel areas{% else %}Zonas de desplazamiento{% endif %}</dt><dd>{% for area in revision.travel_areas.all %}{{ area }} {% endfor %}</dd>
 <dt>{% if english %}Languages / availability{% else %}Idiomas / disponibilidad{% endif %}</dt><dd>{{ revision.spoken_languages|join:', ' }} · {{ revision.days|join:', ' }} · {{ revision.time_slot }}</dd>

@@ -16,7 +16,7 @@ from test_photos import photo_environment  # noqa: F401
 from test_reset_localization import db_sync
 from test_submissions import prepared  # noqa: F401
 
-from apps.listings.models import LifecycleAction, ModerationDecision
+from apps.listings.models import LifecycleAction, Listing, ModerationDecision
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -92,9 +92,14 @@ def test_localized_publication_actions_persist_and_preserve_guards(request, live
                     name="Apply action" if language == "en" else "Aplicar acción",
                     exact=True,
                 ).click()
-                expect(page.get_by_text(status, exact=True)).to_be_visible()
+                labels = {
+                    "es": {"published": "Publicado", "paused": "En pausa", "withdrawn": "Retirado"},
+                    "en": {"published": "Published", "paused": "Paused", "withdrawn": "Withdrawn"},
+                }
+                expect(page.get_by_text(labels[language][status], exact=True)).to_be_visible()
+                assert db_sync(lambda: Listing.objects.get(pk=listing.pk).status) == status
                 page.reload()
-                expect(page.get_by_text(status, exact=True)).to_be_visible()
+                expect(page.get_by_text(labels[language][status], exact=True)).to_be_visible()
             assert (
                 page.request.get(live_server.url + f"/{language}/listing/{listing.pk}/").status
                 == 404

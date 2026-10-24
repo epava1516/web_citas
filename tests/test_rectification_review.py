@@ -36,11 +36,40 @@ def independent_case(
     correct_photos=False,
     clear_photos=False,
     replacement_photo=False,
+    source_trans_label=False,
+    details_trans_label=None,
+    legacy_professional_source=False,
 ):
     case, original, staff, client, receipt, person = ready(
         request, settings, monkeypatch, "rectify", subject_username=subject_username
     )
     assert person.subject.username == subject_username
+    if legacy_professional_source:
+        # Rights must retain genuine historical professional data independently
+        # of the current romantic publication fixture and its public eligibility.
+        from apps.catalog.models import Category, Service
+        from apps.listings.models import Rate
+        from apps.listings.profile_contract import LEGACY_CONTRACT
+
+        source = person.listing.approved_revision
+        category = Category.objects.create(
+            slug="synthetic-historical-category",
+            name_es="Synthetic historical category",
+            name_en="Synthetic historical category",
+        )
+        service = Service.objects.create(
+            slug="synthetic-historical-service", category=category,
+            name_es="Synthetic historical service", name_en="Synthetic historical service",
+        )
+        source.content_contract = LEGACY_CONTRACT
+        source.save(update_fields=["content_contract"])
+        source.categories.set([category])
+        source.services.set([service])
+        Rate.objects.create(revision=source, concept="Synthetic historical rate", mode="consult")
+    if source_trans_label:
+        source = person.listing.approved_revision
+        source.show_trans_label = True
+        source.save(update_fields=["show_trans_label"])
     if correct_location:
         from apps.catalog.models import Municipality, PostalCode, Zone
 
@@ -148,6 +177,9 @@ def independent_case(
                 "travel_areas": [travel_city.pk],
             },
         }
+    if details_trans_label is not None:
+        assert correct_details
+        changes["details"]["show_trans_label"] = details_trans_label
     if clear_details:
         assert correct_details
         changes["details"].update(
@@ -860,18 +892,21 @@ def test_proposal_history_pages_do_not_reveal_proposed_text(request, settings, m
 
 
 @pytest.mark.parametrize(
-    "outcome,subject_username,recipient_outcome,clear_rates",
+    "outcome,subject_username,recipient_outcome,clear_rates,details_trans_label",
     [
-        ("approved", "fixture-v1-model-a", "accepted", False),
-        ("approved", "fixture-v1-model-a", "rejected", False),
-        ("rejected", "fixture-v1-model-a", "accepted", False),
-        ("approved", "fixture-v1-individual", "accepted", False),
-        ("approved", "fixture-v1-individual", "accepted", True),
-        ("approved", "fixture-v1-model-a", "accepted", True),
+        ("approved", "fixture-v1-model-a", "accepted", False, None),
+        ("approved", "fixture-v1-model-a", "rejected", False, None),
+        ("rejected", "fixture-v1-model-a", "accepted", False, None),
+        ("approved", "fixture-v1-individual", "accepted", False, None),
+        ("approved", "fixture-v1-individual", "accepted", True, None),
+        ("approved", "fixture-v1-model-a", "accepted", True, None),
+        ("approved", "fixture-v1-individual", "accepted", False, True),
+        ("approved", "fixture-v1-individual", "accepted", False, False),
     ],
 )
 def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
-    request, settings, monkeypatch, outcome, subject_username, recipient_outcome, clear_rates
+    request, settings, monkeypatch, outcome, subject_username, recipient_outcome, clear_rates,
+    details_trans_label,
 ):
     from django.core.exceptions import ValidationError
 
@@ -887,6 +922,9 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         clear_rates=clear_rates,
         clear_contacts=clear_rates,
         clear_details=clear_rates,
+        source_trans_label=True,
+        legacy_professional_source=True,
+        details_trans_label=details_trans_label,
         clear_photos=clear_rates,
         correct_location=True,
         correct_catalog=True,
@@ -1208,8 +1246,15 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert catalog_source(corrected) == unseal(proposal.encrypted_changes)["catalog"]
         assert unseal(applied.encrypted_previous_values)["catalog"] == old_catalog
         assert catalog_source(corrected) != old_catalog
+        assert old_revision.show_trans_label is True
         assert details_source(old_revision) == old_details
-        assert details_source(corrected) == unseal(proposal.encrypted_changes)["details"]
+        expected_details = unseal(proposal.encrypted_changes)["details"]
+        actual_details = details_source(corrected)
+        assert {key: actual_details[key] for key in expected_details} == expected_details
+        if "show_trans_label" not in expected_details:
+            assert corrected.show_trans_label == old_revision.show_trans_label
+        else:
+            assert actual_details == expected_details
         assert unseal(applied.encrypted_previous_values)["details"] == old_details
         assert (person.subject_id, person.age_status, person.consent_version) == old_identity
         assert contact_source(old_revision) == old_contacts
@@ -1290,7 +1335,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         assert not applied.corrected_revision.contact_exposure_accepted
         from apps.listings.submissions import validate_submission
 
-        with pytest.raises(ValidationError, match="Corrected historical version"):
+        with pytest.raises(ValidationError, match="Corrected historical version; use a new revision"):
             validate_submission(old_revision, person)
 
     from apps.safety.crypto import unseal
@@ -1418,7 +1463,8 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     assert manager_client.get(f"/en/draft/{historical.pk}/status/").status_code == 404
     assert manager_client.get(f"/en/draft/{old_revision.pk}/status/").status_code == 404
     assert manager_client.get(f"/en/draft/{old_revision.pk}/1/").status_code == 404
-    assert manager_client.get(f"/en/draft/{corrected.pk}/status/").status_code == 200
+    assert corrected.content_contract == old_revision.content_contract == "legacy-professional-v1"
+    assert manager_client.get(f"/en/draft/{corrected.pk}/status/").status_code == 409
     for current_photo in corrected.photos.all():
         image = manager_client.get(f"/en/photos/{current_photo.pk}/private/")
         assert image.status_code == 200 and b"".join(image.streaming_content)
@@ -1547,7 +1593,7 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
         {"key": uuid.uuid4(), "version": person.listing.lifecycle_version, "operation": "resume"},
     )
     assert resume.status_code == 409
-    assert b"Corrected historical version" in resume.content
+    assert b"Corrected historical version; use a new revision" in resume.content
     person.listing.refresh_from_db()
     assert person.listing.status != "published"
     with pytest.raises(
@@ -1827,7 +1873,9 @@ def test_reviewed_correction_communication_requires_new_proof_and_is_idempotent(
     blank = person.listing.revisions.filter(status="draft").get()
     assert blank.source_revision_id is None
     assert not blank.title and not blank.description and not blank.photos.exists()
-    assert not blank.rates.exists() and not blank.categories.exists()
+    assert not blank.rates.exists() and not blank.services.exists()
+    assert blank.content_contract == "romantic-v1"
+    assert blank.categories.get().slug == "romantic-dating"
     for language in ["es", "en"]:
         page = manager_client.get(f"/{language}/draft/{blank.pk}/1/")
         assert page.status_code == 200 and page.context["history_excluded"] is True

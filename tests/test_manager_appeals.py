@@ -7,7 +7,7 @@ from test_listing_moderation import pending  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_submissions import prepared  # noqa: F401
 
-from apps.core.models import LegalAcceptance, ManagerAppeal, ManagerReview, User
+from apps.core.models import LegalAcceptance, LegalDocument, ManagerAppeal, ManagerReview, User
 
 
 @pytest.fixture
@@ -23,7 +23,13 @@ def manager_rejection(request):
     person.refresh_from_db()
     assert (
         owner.post(
-            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+            f"/es/person/{person.pk}/consent/",
+            {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="es", active=True
+                ).version,
+            },
         ).status_code
         == 302
     )

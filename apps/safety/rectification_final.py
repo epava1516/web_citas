@@ -150,6 +150,9 @@ def evidence(case, person, listing, review_id):
                 raise ValidationError("Executed corrected revision required")
             elif field in readers:
                 actual = readers[field](corrected)
+                if field == "details" and set(expected) == rectification_details.LEGACY_FIELDS:
+                    # Historical changes did not select the later optional label.
+                    actual = {key: actual[key] for key in expected}
             else:
                 actual = getattr(corrected, field)
             if canonical(actual) != canonical(expected):

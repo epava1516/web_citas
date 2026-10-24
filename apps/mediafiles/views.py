@@ -12,6 +12,7 @@ from apps.core.accounts import limited
 from apps.core.agencies import person_queryset
 from apps.core.verification import locked_manager_person
 from apps.listings.models import Revision
+from apps.listings.profile_contract import CURRENT_CONTRACT
 from apps.listings.revisions import is_rectification_history
 
 from .models import Photo, UploadAttempt
@@ -100,6 +101,7 @@ def remove(request, photo_id):
         if (
             is_rectification_history(revision)
             or revision.status != "draft"
+            or revision.content_contract != CURRENT_CONTRACT
             or revision.manager_version != person.manager_version
         ):
             return HttpResponse(
@@ -132,6 +134,7 @@ def reorder(request, photo_id):
         if (
             is_rectification_history(revision)
             or revision.status != "draft"
+            or revision.content_contract != CURRENT_CONTRACT
             or revision.manager_version != person.manager_version
         ):
             return HttpResponse(

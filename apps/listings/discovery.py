@@ -1,4 +1,4 @@
-from functools import reduce
+from functools import partial, reduce
 from operator import or_
 
 from django import forms
@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from apps.catalog.models import Category, Municipality, PostalCode, Province, Region, Service, Zone
+from apps.catalog.models import Municipality, PostalCode, Province, Region, Zone
 from apps.core.verification_services import real_checks
 
 from .forms import DetailsForm, RelatedSelect
@@ -66,11 +66,6 @@ def fast_widget_class(cls):
     return _FAST_WIDGETS[cls]
 
 
-class CatalogChoices(forms.ModelMultipleChoiceField):
-    def label_from_instance(self, item):
-        return getattr(item, "name_en" if self.english else "name_es")
-
-
 class RelatedMultipleSelect(RelatedSelect, forms.SelectMultiple):
     pass
 
@@ -79,13 +74,6 @@ class SearchForm(forms.Form):
     q = forms.CharField(max_length=200, required=False, label="Texto / Text")
     profile = forms.MultipleChoiceField(
         required=False, choices=DetailsForm.base_fields["profile_type"].choices
-    )
-    category = CatalogChoices(required=False, queryset=Category.objects.filter(active=True))
-    service = CatalogChoices(
-        required=False, queryset=Service.objects.filter(active=True, category__active=True)
-    )
-    services_mode = forms.ChoiceField(
-        required=False, choices=[("any", "Cualquiera / Any"), ("all", "Todos / All")]
     )
     region = forms.ModelMultipleChoiceField(required=False, queryset=Region.objects.all())
     province = forms.ModelMultipleChoiceField(
@@ -126,14 +114,10 @@ class SearchForm(forms.Form):
             ("agency", "Agencia / Agency"),
         ],
     )
-    reception = forms.BooleanField(required=False, label="Recepción / Reception")
-    travel = forms.BooleanField(required=False, label="Desplazamiento / Travel")
     available = forms.BooleanField(required=False, label="Disponible ahora / Available now")
 
     def __init__(self, *args, english=False, fast_render=True, **kwargs):
         super().__init__(*args, **kwargs)
-        for name in ["category", "service"]:
-            self.fields[name].english = english
         if fast_render:
             for field in self.fields.values():
                 if isinstance(field.widget, forms.Select):
@@ -141,9 +125,6 @@ class SearchForm(forms.Form):
         labels = {
             "q": ("Texto", "Text"),
             "profile": ("Tipo de perfil", "Profile type"),
-            "category": ("Categorías", "Categories"),
-            "service": ("Servicios", "Services"),
-            "services_mode": ("Servicios: cualquiera o todos", "Services: any or all"),
             "region": ("Comunidades", "Regions"),
             "province": ("Provincias", "Provinces"),
             "city": ("Ciudades", "Cities"),
@@ -160,6 +141,10 @@ class SearchForm(forms.Form):
 
     def clean(self):
         data = super().clean()
+        if any(key in self.data for key in (
+            "category", "service", "services_mode", "reception", "travel"
+        )):
+            self.add_error(None, "Estos filtros profesionales ya no se admiten / Professional filters are no longer supported")
         regions, provinces, cities = data.get("region"), data.get("province"), data.get("city")
         if regions and provinces and provinces.exclude(region__in=regions).exists():
             self.add_error("province", "Ubicación incompatible / Incompatible location")
@@ -194,7 +179,6 @@ def candidates(data, *, stored_search=True):
         status="published", expires_at__gt=expires_after
     ).select_related("approved_revision__municipality", "person__agency", "person__phone_claim")
     paths = {
-        "profile": "profile_type__in",
         "category": "categories__in",
         "region": "municipality__province__region__in",
         "province": "municipality__province__in",
@@ -203,6 +187,12 @@ def candidates(data, *, stored_search=True):
         "postal_code": "postal_code__in",
         "time_slot": "time_slot__in",
     }
+    if data.get("profile"):
+        selected = data["profile"]
+        profile_filter = Q(approved_revision__profile_type__in=selected)
+        if "trans" in selected:
+            profile_filter |= Q(approved_revision__show_trans_label=True)
+        query = query.filter(profile_filter)
     for name, path in paths.items():
         if data.get(name):
             query = query.filter(**{"approved_revision__" + path: data[name]})
@@ -289,13 +279,18 @@ def results(request):
         page = None
         if not valid:
             pass
-        elif promotions_enabled():
-            request._publication_route.update(reason="synthetic_promotions")
         else:
+            options = {}
+            if promotions_enabled():
+                from apps.catalog.promotion_paging import order_population
+
+                options["promotion_order"] = partial(
+                    order_population, text_search=bool(form.cleaned_data.get("q")),
+                )
             page = state_page(candidates(form.cleaned_data), number,
                               checked=form.cleaned_data.get("checked") or (),
-                              observation=request._publication_route)
-        sponsorship = {}
+                              observation=request._publication_route, **options)
+        sponsorship = getattr(page, "sponsorship", {})
         if page is None:
             # The complete native population; its correlated read runs without JIT.
             context = (

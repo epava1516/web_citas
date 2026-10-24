@@ -9,7 +9,7 @@ from test_listing_moderation import pending  # noqa: F401
 from test_photos import photo_environment  # noqa: F401
 from test_submissions import prepared  # noqa: F401
 
-from apps.core.models import Agency, AgencyMember, ManagerReview, Person, User
+from apps.core.models import Agency, AgencyMember, LegalDocument, ManagerReview, Person, User
 from apps.core.verification_services import publication_ready
 
 
@@ -54,7 +54,13 @@ def test_transfer_requires_current_human_review_before_readiness(request):
     assert reviewer.post(path, data).status_code == 400
     assert (
         owner.post(
-            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+            f"/es/person/{person.pk}/consent/",
+            {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="es", active=True
+                ).version,
+            },
         ).status_code
         == 302
     )
@@ -126,7 +132,13 @@ def test_transfer_double_submit_does_not_reset_new_authorization(request):
     person.refresh_from_db()
     assert (
         owner.post(
-            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+            f"/es/person/{person.pk}/consent/",
+            {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="es", active=True
+                ).version,
+            },
         ).status_code
         == 302
     )

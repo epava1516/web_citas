@@ -45,6 +45,8 @@ def context(user, case_id, version, coverage_id):
         or authorized_proof(case, person, "access").pk != row.proof_id
     ):
         raise ValidationError("Current access coverage unavailable")
+    # The coverage row lock may have waited while reviewer authority changed.
+    actor = authorize_reviewer(user, case)
     return case, actor, row
 
 

@@ -516,9 +516,6 @@ class PublicationContext:
         ids = {
             name: set()
             for name in [
-                "categories",
-                "services",
-                "travel_areas",
                 "municipality",
                 "province",
                 "region",
@@ -530,8 +527,6 @@ class PublicationContext:
             revision = row.approved_revision
             for relation in ["categories", "services", "travel_areas", "rates"]:
                 setattr(revision, "_pv_" + relation, list(getattr(revision, relation).all()))
-            for name in ["categories", "services", "travel_areas"]:
-                ids[name].update(item.pk for item in getattr(revision, "_pv_" + name))
             city = revision.municipality
             if city:
                 ids["municipality"].add(city.pk)

@@ -13,6 +13,7 @@ from apps.listings.forms import DetailsForm
 SCALARS = [
     "content_language",
     "profile_type",
+    "show_trans_label",
     "spoken_languages",
     "days",
     "time_slot",
@@ -20,6 +21,7 @@ SCALARS = [
     "travel",
 ]
 FIELDS = SCALARS + ["travel_areas"]
+LEGACY_FIELDS = set(FIELDS) - {"show_trans_label"}
 
 
 def field(name, label):
@@ -31,6 +33,7 @@ def field(name, label):
 class Editor(forms.Form):
     content_language = field("content_language", "Idioma del contenido / Content language")
     profile_type = field("profile_type", "Tipo de perfil / Profile type")
+    show_trans_label = field("show_trans_label", "Mostrar etiqueta trans / Show trans label")
     spoken_languages = field("spoken_languages", "Idiomas hablados / Spoken languages")
     days = field("days", "Días / Days")
     time_slot = field("time_slot", "Horario / Time slot")
@@ -46,9 +49,10 @@ class Editor(forms.Form):
 
 @sensitive_variables()
 def validate(value):
-    if not isinstance(value, dict) or set(value) != set(FIELDS):
+    if not isinstance(value, dict) or (set(value) != set(FIELDS) and set(value) != LEGACY_FIELDS):
         raise ValidationError("Complete profile details required / Detalles completos obligatorios")
-    if any(type(value[field]) is not bool for field in ["reception", "travel"]):
+    flags = ["reception", "travel"] + (["show_trans_label"] if "show_trans_label" in value else [])
+    if any(type(value[field]) is not bool for field in flags):
         raise ValidationError("Invalid detail flags / Opciones no válidas")
     for field, limit in [("spoken_languages", 6), ("days", 7), ("travel_areas", 1000)]:
         items = value[field]
@@ -75,7 +79,7 @@ def validate(value):
     if len(list(cities)) != len(value["travel_areas"]):
         raise ValidationError("Travel city unavailable / Ciudad de desplazamiento no disponible")
     return {
-        **{field: editor.cleaned_data[field] for field in SCALARS},
+        **{field: editor.cleaned_data[field] for field in SCALARS if field in value},
         "spoken_languages": sorted(value["spoken_languages"]),
         "days": sorted(value["days"]),
         "travel_areas": sorted(value["travel_areas"]),
@@ -99,6 +103,8 @@ def display(value, language=None):
 
     parts = []
     for field in SCALARS:
+        if field not in value:  # Historical proposals do not implicitly change a later field.
+            continue
         form_field = Editor.base_fields[field]
         item = value[field]
         if hasattr(form_field, "choices"):

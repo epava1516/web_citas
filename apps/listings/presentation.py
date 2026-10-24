@@ -16,6 +16,7 @@ def describe(listing, language, *, age=_UNSET):
         return [item.name_en if english else item.name_es for item in items]
 
     profile_names = {
+        "": ("Sin indicar", "Not specified"),
         "woman": ("Mujer", "Woman"),
         "man": ("Hombre", "Man"),
         "trans": ("Trans", "Trans"),
@@ -76,8 +77,8 @@ def describe(listing, language, *, age=_UNSET):
         "description": description,
         "description_language": description_language,
         "profile_type": profile_names[revision.profile_type][int(english)],
+        "trans_label": revision.show_trans_label and revision.profile_type != "trans",
         "categories": names(revision.categories.all()),
-        "services": names(revision.services.all()),
         "languages": [language_names[value][int(english)] for value in revision.spoken_languages],
         "days": [day_names[int(value) - 1][int(english)] for value in revision.days],
         "time_slot": slots.get(revision.time_slot, ("", ""))[int(english)],
@@ -88,5 +89,4 @@ def describe(listing, language, *, age=_UNSET):
         "telegram_url": "https://t.me/" + revision.telegram.lstrip("@").strip()
         if revision.telegram
         else "",
-        "rates": list(revision.rates.all()),
     }

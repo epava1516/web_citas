@@ -259,7 +259,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                     values.update(
                         {
                             field: changes["details"][field]
-                            for field in rectification_details.SCALARS
+                            for field in rectification_details.SCALARS if field in changes["details"]
                         }
                     )
                 if "contacts" in changes:

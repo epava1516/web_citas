@@ -42,6 +42,7 @@ class Listing(models.Model):
 
 
 class Revision(models.Model):
+    content_contract = models.CharField(max_length=32, default="romantic-v1", editable=False)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="revisions")
     source_revision = models.ForeignKey(
@@ -58,7 +59,8 @@ class Revision(models.Model):
     search_document = models.GeneratedField(
         expression=revision_search_vector(), output_field=SearchVectorField(), db_persist=True,
     )
-    profile_type = models.CharField(max_length=20, default="woman")
+    profile_type = models.CharField(max_length=20, blank=True, default="")
+    show_trans_label = models.BooleanField(default=False)
     categories = models.ManyToManyField("catalog.Category")
     services = models.ManyToManyField("catalog.Service")
     municipality = models.ForeignKey(

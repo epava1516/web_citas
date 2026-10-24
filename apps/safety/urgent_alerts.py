@@ -10,9 +10,10 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import Agency, AgencyMember, Person, User
+from apps.core.models import Agency, AgencyMember, Person
 
 from .models import Report, UrgentReportAlert
+from .report_authority import fresh_authority
 from .views import permitted, private
 
 
@@ -22,22 +23,6 @@ def authorized(request):
         and request.user.mfa_enabled
         and request.session.get("mfa_version") == request.user.mfa_version
     )
-
-
-def fresh_authority(request):
-    """Recheck revocation after lock waits, including legitimate replays."""
-    actor = User.objects.get(pk=request.user.pk)
-    if (
-        not actor.is_active
-        or not actor.has_perm("safety.review_report")
-        or not actor.mfa_enabled
-        or actor.session_version != request.user.session_version
-        or actor.mfa_version != request.user.mfa_version
-        or request.session.get("mfa_version") != actor.mfa_version
-        or request.session.get("account_version") != actor.session_version
-    ):
-        raise PermissionDenied
-    return actor
 
 
 @login_required

@@ -8,7 +8,8 @@ from apps.mediafiles.tasks import process_blob
 
 from .forms import DetailsForm
 from .history import is_rectification_history
-from .models import Rate, Revision
+from .models import Revision
+from .profile_contract import CURRENT_CONTRACT, set_profile_catalog
 
 
 def create_draft(listing, person):
@@ -20,18 +21,20 @@ def create_draft(listing, person):
         source = None
     correction = (
         listing.revisions.filter(
-            manager_version=person.manager_version, status__in=["rejected", "pending"]
+            manager_version=person.manager_version, status__in=["rejected", "pending"],
+            content_contract=CURRENT_CONTRACT
         )
         .order_by("-created_at")
         .first()
     )
     if correction and (not source or correction.created_at > source.created_at):
         source = correction
-    if source and is_rectification_history(source):
+    if source and (is_rectification_history(source) or source.content_contract != CURRENT_CONTRACT):
         source = None
     revision = Revision.objects.create(
         listing=listing, manager_version=person.manager_version, source_revision=source
     )
+    set_profile_catalog(revision)
     if not source:
         return revision
     for name in DetailsForm.Meta.fields:
@@ -43,15 +46,6 @@ def create_draft(listing, person):
     revision.whatsapp, revision.telegram = source.whatsapp, source.telegram
     # Every new version requires current contact exposure and a fresh declaration.
     revision.save()
-    for rate in source.rates.all():
-        Rate.objects.create(
-            revision=revision,
-            concept=rate.concept,
-            mode=rate.mode,
-            amount=rate.amount,
-            currency=rate.currency,
-            duration_minutes=rate.duration_minutes,
-        )
     blob_ids = set()
     for photo in source.photos.filter(removed_at__isnull=True):
         Photo.objects.create(revision=revision, blob_id=photo.blob_id, position=photo.position)

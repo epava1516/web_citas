@@ -21,7 +21,7 @@ def prepared(request):
     user, person, client = request.getfixturevalue("scenario")
     assert (
         client.post(
-            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-romantic-1"}
         ).status_code
         == 302
     )
@@ -114,7 +114,7 @@ def test_submission_rejects_invalid_or_pending_state(prepared, failure):
             published_at=timezone.now(),
         )
     elif failure == "catalog":
-        revision.services.update(active=False)
+        revision.categories.update(active=False)
     elif failure == "version":
         data["edit_version"] -= 1
     elif failure == "manager_snapshot":

@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+DOMAIN_KEY = "synthetic-domain-" + "h" * 64
 VALUES = {
     "POSTGRES_PASSWORD": "synthetic-migrator-only",
     "POSTGRES_RUNTIME_PASSWORD": "synthetic-runtime-only",
@@ -17,6 +18,7 @@ VALUES = {
     "SAFETY_ENCRYPTION_KEY": base64.urlsafe_b64encode(b"s" * 32).decode(),
     "PUBLIC_HOSTNAME": "localhost",
     "TRUSTED_CADDY_IPS": "192.0.2.2",
+    "EMAIL_BACKEND": "django.core.mail.backends.smtp.EmailBackend",
 }
 
 
@@ -39,7 +41,7 @@ def render_profile(tmp_path, values):
 
 
 def test_prepared_profile_keeps_private_ports_roles_keys_and_limits(tmp_path):
-    rendered = render_profile(tmp_path, VALUES)
+    rendered = render_profile(tmp_path, {**VALUES, "SAFETY_HMAC_KEY": DOMAIN_KEY})
     assert rendered.returncode == 0, rendered.stderr
     config = json.loads(rendered.stdout)
     services = config["services"]
@@ -54,6 +56,8 @@ def test_prepared_profile_keeps_private_ports_roles_keys_and_limits(tmp_path):
     for name in ("app", "worker", "beat"):
         env = services[name]["environment"]
         assert env["APP_ENV"] == "production" and env["DJANGO_DEBUG"] == "0"
+        assert env["SAFETY_HMAC_KEY"] == DOMAIN_KEY
+        assert env["EMAIL_BACKEND"] == VALUES["EMAIL_BACKEND"]
         assert env["POSTGRES_USER"] != services["db"]["environment"]["POSTGRES_USER"]
         assert env["RIGHTS_EVIDENCE_ENFORCED"] == "1"
         assert env["VERIFICATION_PROVIDER"] == "disabled" and env["PAYMENTS_ENABLED"] == "0"
@@ -80,3 +84,24 @@ def test_prepared_profile_rejects_missing_operator_inputs(tmp_path, missing):
     rendered = render_profile(tmp_path, {key: value for key, value in VALUES.items() if key != missing})
     assert rendered.returncode != 0
     assert missing in rendered.stderr
+
+
+def test_optional_encryption_predecessors_reach_app_worker_and_beat(tmp_path):
+    values = {**VALUES,
+              'MFA_ENCRYPTION_KEY_FALLBACKS': base64.urlsafe_b64encode(b'o' * 32).decode(),
+              'SAFETY_ENCRYPTION_KEY_FALLBACKS': base64.urlsafe_b64encode(b'p' * 32).decode()}
+    rendered = render_profile(tmp_path, values)
+    assert rendered.returncode == 0, rendered.stderr
+    services = json.loads(rendered.stdout)['services']
+    for name in ('app', 'worker', 'beat'):
+        env = services[name]['environment']
+        for field in ('MFA_ENCRYPTION_KEY_FALLBACKS', 'SAFETY_ENCRYPTION_KEY_FALLBACKS'):
+            assert env[field] == values[field]
+
+
+def test_missing_optional_domain_key_preserves_legacy_profile(tmp_path):
+    rendered = render_profile(tmp_path, VALUES)
+    assert rendered.returncode == 0, rendered.stderr
+    services = json.loads(rendered.stdout)['services']
+    assert all(services[name]['environment']['SAFETY_HMAC_KEY'] == ''
+               for name in ('app', 'worker', 'beat'))

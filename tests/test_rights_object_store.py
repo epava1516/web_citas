@@ -15,10 +15,13 @@ from test_reports import directory, photo_environment  # noqa: F401
 
 from apps.safety.object_storage.codec import InvalidObject, Keyring
 from apps.safety.object_storage.repository import ObjectRepository
+from scripts.local_ci_requirements import OBJECT_STORE_TEST_IMAGE, require_object_store_image
 
 
 @pytest.fixture(scope="module")
 def object_store(tmp_path_factory):
+    # Also protect dynamically requested fixtures, absent from collection closure.
+    require_object_store_image()
     name = "web-modelos-object-test-" + uuid4().hex[:12]
     access, secret = "synthetic" + os.urandom(16).hex(), os.urandom(32).hex()
     env = {
@@ -58,7 +61,7 @@ def object_store(tmp_path_factory):
                 "RUSTFS_SECRET_KEY",
                 "-e",
                 "RUSTFS_CONSOLE_ENABLE",
-                "rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c",
+                OBJECT_STORE_TEST_IMAGE,
             ],
             env=env,
             capture_output=True,

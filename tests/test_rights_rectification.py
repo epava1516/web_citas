@@ -3,6 +3,8 @@ from django.test import Client
 from test_reports import directory, photo_environment  # noqa: F401
 from test_rights_responses import ready
 
+from apps.listings.models import Listing, Rate, Revision
+from apps.listings.profile_contract import LEGACY_CONTRACT
 from apps.safety.crypto import unseal
 from apps.safety.models import RightsRectificationProposal
 
@@ -338,6 +340,7 @@ def test_mobile_source_review_and_field_proposal(
         "details": {
             "content_language": "en",
             "profile_type": "other",
+            "show_trans_label": False,
             "spoken_languages": ["en"],
             "days": ["3"],
             "time_slot": "morning",
@@ -499,7 +502,20 @@ def test_rate_table_form_validates_management_amount_duration_and_deletion(
     from apps.safety.rectification_rates import validate
 
     case, _, staff, _, _, person = ready(request, settings, monkeypatch, "rectify")
-    revision = person.listing.approved_revision
+    # Rectification must still read retained tariffs, outside the public profile.
+    revision = Revision.objects.create(
+        listing=person.listing,
+        manager_version=person.manager_version,
+        content_contract=LEGACY_CONTRACT,
+        status="approved",
+        title="Private historical source for correction",
+    )
+    Rate.objects.create(revision=revision, concept="Retained synthetic tariff", mode="consult")
+    Listing.objects.filter(pk=person.listing.pk).update(
+        status="withdrawn", approved_revision=revision
+    )
+    person.listing.refresh_from_db()
+    assert Client().get(f"/en/listing/{person.listing.pk}/").status_code == 404
     before = rates_source(revision)
     assert before
     path = f"/en/moderation/rights/{case.pk}/rectification/"
@@ -725,8 +741,12 @@ def test_details_form_validates_choices_lists_and_active_travel_cities(
         with pytest.raises(ValidationError):
             validate(invalid)
     assert not RightsRectificationProposal.objects.exists()
+    assert validate(valid) == valid
+    assert "show_trans_label" not in valid  # Historical proposal does not acquire a new flag.
     assert staff.post(path, data).status_code == 302
-    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {"details": valid}
+    assert unseal(RightsRectificationProposal.objects.get().encrypted_changes) == {
+        "details": valid | {"show_trans_label": False}
+    }
     assert source(revision) == original
     assert staff.get(path).context["source_fields"] is None
 

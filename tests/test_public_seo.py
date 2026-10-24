@@ -75,7 +75,7 @@ def test_public_metadata_localization_filters_privacy_and_origin(pub_client, set
         link["hreflang"]: link["href"] for link in head.links if link.get("rel") == "alternate"
     } == {lang: f"https://seo.example.invalid/{lang}/" for lang in ["es", "en"]}
     assert head.meta["robots"] == "noindex,nofollow"  # Development remains private.
-    assert ("Find professionals" if language == "en" else "Encuentra profesionales") in head.title
+    assert ("Find romantic dating profiles" if language == "en" else "Encuentra perfiles para citas románticas") in head.title
     for query in [
         {"q": "private-contact@example.invalid"},
         {"unknown": "tracking-only"},
@@ -88,6 +88,11 @@ def test_public_metadata_localization_filters_privacy_and_origin(pub_client, set
     private = Head(pub_client.get(f"/{language}/account/login/").content.decode())
     assert private.language == language
     assert not canonical(private) and private.meta["robots"] == "noindex,nofollow"
+    assert private.meta["description"] == (
+        "Personal profiles of adults seeking romantic dates in Spain."
+        if language == "en"
+        else "Perfiles personales de personas adultas que buscan citas románticas en España."
+    )
     # Explicit template branch verification; not production verification of fixtures.
     rendered = Head(
         render_to_string(
@@ -155,7 +160,7 @@ def test_browser_metadata_navigation_and_retirement(live_server, pub_client, set
         try:
             page = browser.new_page(viewport={"width": 390, "height": 844})
             page.goto(live_server.url + "/en/")
-            assert "Find professionals" in page.title()
+            assert "Find romantic dating profiles" in page.title()
             assert page.locator("html").get_attribute("lang") == "en"
             assert (
                 page.locator("link[rel=canonical]").get_attribute("href")

@@ -37,7 +37,11 @@ def _owned_database():
         # The owned controller verifies the pg container label/network before
         # installing capacity_settings inside its isolated, read-only app container.
         if (
-            database["NAME"] != "test_capacity_ci"
+            database["NAME"] != ('test_promotion_gate_capacity_ci'
+                                  if (getattr(settings, 'CAPACITY_BETA_HTTP_FUNCTIONAL', False)
+                                      or getattr(settings, 'CAPACITY_BETA_HTTP_SHORT', False)
+                                      or getattr(settings, 'CAPACITY_BETA_HTTP_CONTRACTUAL', False))
+                                  else 'test_capacity_ci')
             or database["HOST"] != "pg"
             or str(database["PORT"]) != "5432"
             or os.environ.get("DJANGO_SETTINGS_MODULE") != "capacity_settings"

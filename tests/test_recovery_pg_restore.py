@@ -1,5 +1,6 @@
 """Real PostgreSQL/medium restore in a disposable database, with synthetic identities."""
 
+import base64
 import hashlib
 import io
 import json
@@ -14,23 +15,32 @@ from pathlib import Path
 from uuid import uuid4
 
 import psycopg
+import pyotp
 import pytest
 from cryptography.fernet import Fernet, InvalidToken
-from django.db import connection
+from django.contrib.sessions.models import Session
+from django.db import connection, transaction
 from django.test import Client
 from psycopg import sql
 from test_erasure_execution import payload, plan_fixture
 from test_reports import directory, photo_environment  # noqa: F401
+from test_rights_exports import make_copy as access_copy
+from test_rights_exports import prepared as access_prepared
+from test_rights_exports import url as access_url
 
-from apps.core.models import AccountToken
+from apps.core.mfa import encrypt as encrypt_mfa
+from apps.core.models import AccountToken, Person
 from apps.listings.models import Revision
 from apps.mediafiles.erasure import erase_due_media
-from apps.safety.crypto import unseal
+from apps.safety.crypto import digest, unseal
 from apps.safety.erasure_execution import execute
 from apps.safety.erasure_inventory import canonical
-from apps.safety.models import RecoveryOutbox
+from apps.safety.models import RecoveryOutbox, RightsExportDownload
 from apps.safety.recovery_ledger_export import export_batch
 from apps.safety.recovery_ledger_producer import prepare_batch
+from apps.safety.rights import fingerprint
+from apps.safety.rights_object_delivery import stage_delivery
+from apps.safety.rights_object_models import RightsObjectDelivery
 from scripts.recovery_ledger import RecoveryLedger
 from scripts.recovery_store import RecoveryStore
 
@@ -66,14 +76,20 @@ def postgres_environment():
 
 
 CHILD = r"""
-import hashlib,json,sys,os
+import hashlib,json,sys,os,io
 from pathlib import Path
 os.environ['DJANGO_SETTINGS_MODULE']='config.settings'
 import django
 django.setup()
 from django.conf import settings
 from django.test import Client,override_settings
+from django.contrib.sessions.models import Session
 from apps.core.models import User,Person,AccountToken,RecoveryCode
+from apps.core.mfa import decrypt as decrypt_mfa
+from apps.safety.crypto import digest, unseal
+from apps.listings.profile_contract import CURRENT_CONTRACT
+from apps.safety.rights import fingerprint
+from apps.safety.rights_object_models import RightsObjectDelivery
 from apps.listings.models import Favorite,Revision,Listing,PublicationDirty,PublicationState
 from apps.listings.publication_state import mark_all,refresh_all,all_state_current
 from django.core.management import call_command
@@ -86,6 +102,16 @@ from apps.safety.recovery_media import destroy_due
 from scripts.recovery_ledger import Checkpoint,RecoveryLedger,LedgerIntegrityError
 from scripts.recovery_store import RecoveryStore
 config=json.loads(sys.argv[1])
+assert settings.MEDIA_STORAGE_PROVIDER=='local' and not settings.RIGHTS_OBJECT_STORAGE_ENABLED
+assert settings.TASK_QUEUE_GENERATION==config['fresh_queue_generation']
+assert settings.TASK_QUEUE_GENERATION!=config['old_queue_generation']
+assert bool(settings.SAFETY_ENCRYPTION_KEY_FALLBACKS)==config['key_transition']
+assert bool(settings.MFA_ENCRYPTION_KEY_FALLBACKS)==config['key_transition']
+assert bool(settings.SAFETY_HMAC_KEY)==config['key_transition']
+if config['key_transition']:assert settings.SAFETY_HMAC_KEY!=settings.SECRET_KEY
+assert digest('synthetic-restore-domain-witness')==config['domain_witness']['report']
+assert fingerprint('synthetic-restore-domain-witness')==config['domain_witness']['rights']
+
 # A dump/restore after corrective0022 must preserve the current conservative
 # invalidation definitions, not just django_migrations rows or trigger names.
 from importlib import import_module
@@ -107,14 +133,22 @@ start=Checkpoint(**config['start'])
 expected=Checkpoint(**config['expected'])
 assert expected.sequence > start.sequence
 store=RecoveryStore(config['records'],config['authority'],codec,expected_checkpoint=expected)
-with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
+with override_settings(MEDIA_ROOT=Path(config['media']),RIGHTS_DELIVERY_ROOT=Path(config['media'])/'delivery-cache',RECOVERY_MODE=True):
     subject=User.objects.get(pk=config['subject'])
     person=Person.objects.get(pk=config['person'])
     assert AccountToken.objects.filter(user=subject).exists()
+    peer_person=Person.objects.get(pk=config['peer'])
+    assert hashlib.sha256(decrypt_mfa(peer_person.subject.mfa_secret_encrypted).encode()).hexdigest()==config['peer_seed_digest']
+    cached=RightsObjectDelivery.objects.get(pk=config['peer_delivery'])
+    assert cached.purged_at is None and cached.consumed_at is None
+    cache_path=Path(settings.RIGHTS_DELIVERY_ROOT)/cached.object_name
+    assert cache_path.is_file()
+
     assert not RecoveryApplication.objects.exists()
     restored_export=RightsExport.objects.get(pk=config['export'])
     export_audit=(restored_export.action_id,restored_export.proof_id)
     assert restored_export.encrypted_payload and restored_export.purged_at is None
+    assert unseal(restored_export.encrypted_payload)=={'synthetic_snapshot':True}
     restored_images=list(RightsExportImage.objects.filter(export=restored_export).values_list('pk',flat=True))
     restored_parts=list(RightsExportPart.objects.filter(export=restored_export).values_list('pk',flat=True))
     assert restored_images and restored_parts
@@ -168,12 +202,29 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     assert not RightsExportImage.objects.filter(pk__in=restored_images).exclude(encrypted_content='').exists()
     assert not RightsExportPart.objects.filter(pk__in=restored_parts).exclude(encrypted_content='').exists()
     assert subject.session_version>=config['minimum_session']
-    assert destroy_due(store,start)>=1
+    # Finish the actual administrative command after the typed DB reconciliation.
+    # Its replay must also invalidate unrelated restored grants and private bytes.
+    output=io.StringIO()
+    call_command('apply_recovery_ledger',records_directory=config['records'],checkpoint_directory=config['authority'],
+                 backup_ledger=start.ledger,backup_sequence=start.sequence,backup_head=start.head,
+                 expected_ledger=expected.ledger,expected_sequence=expected.sequence,expected_head=expected.head,
+                 stdout=output)
+    completed=json.loads(output.getvalue())
+    assert completed['applied']==0 and completed['media_completed']>=1
+    assert completed['publication_authorized'] is False
+    cached.refresh_from_db()
+    assert cached.purged_at is not None and not cache_path.exists()
+    assert not RightsObjectDelivery.objects.filter(purged_at__isnull=True).exists()
+    assert cached.download_id and cached.download.export.purged_at is None
+    assert unseal(cached.download.export.encrypted_payload)
+    assert destroy_due(store,start)==0
+
     for paths in config['paths']:
         assert not Blob._meta.get_field('original').storage.exists(paths['original'])
         assert not Blob._meta.get_field('derivative').storage.exists(paths['derivative'])
 
     deleted={paths[name] for paths in config['paths'] for name in ('original','derivative')}
+    deleted.add(config['peer_cache_relative'])
     expected_media={path:digest for path,digest in config['media_manifest'].items() if path not in deleted}
     actual_media={}
     for path in sorted(Path(config['media']).rglob('*')):
@@ -187,6 +238,16 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
     assert destroy_due(store,start)==0
     call_command("refresh_publication_state", all=True)
     assert not PublicationDirty.objects.exists() and all_state_current()
+    sessions_before=Session.objects.count()
+    assert sessions_before>0
+    session_output=io.StringIO()
+    call_command('clear_recovery_sessions',records_directory=config['records'],checkpoint_directory=config['authority'],
+                 backup_ledger=start.ledger,backup_sequence=start.sequence,backup_head=start.head,
+                 expected_ledger=expected.ledger,expected_sequence=expected.sequence,expected_head=expected.head,
+                 stdout=session_output)
+    assert json.loads(session_output.getvalue())['sessions_deleted']==sessions_before
+    assert not Session.objects.exists()
+
     assert PublicationState.objects.get(listing_id=person.listing.pk).eligible is False
     rebuilt=PublicationState.objects.get(listing_id=person.listing.pk)
     assert rebuilt.search_document is rebuilt.published_at is rebuilt.expires_at is None
@@ -195,15 +256,57 @@ with override_settings(MEDIA_ROOT=Path(config['media']),RECOVERY_MODE=True):
         response=client.get('/en/')
         assert not response.wsgi_request.user.is_authenticated
         assert client.get('/en/listing/'+str(person.listing.pk)+'/').status_code==404
+        assert peer_person.listing.approved_revision.content_contract==CURRENT_CONTRACT
+        assert client.get('/en/listing/'+str(peer_person.listing.pk)+'/').status_code==200
+        receipt_response=Client().get(os.environ['TEST_RESTORE_PEER_RECEIPT'])
+        assert receipt_response.status_code==200
+        assert receipt_response['Cache-Control']=='private, no-store'
+        assert client.get('/en/listing/'+str(person.listing.pk)+'/photo/'+config['erased_photo']+'/').status_code==404
+
     # RECOVERY_EXTENSION_ASSERTIONS
-    print(json.dumps({'restored_transient_copy_cleared_audit_retained':True,'conservative_schema_restored':True,'rejected_helpers_absent':True,'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False}))
+    print(json.dumps({'restored_transient_copy_cleared_audit_retained':True,'conservative_schema_restored':True,'rejected_helpers_absent':True,'independent_authority_verified':True,'wrong_authority_rejected_without_effects':True,'real_restore':True,'effects_applied':True,'media_deleted':True,'peer_preserved':True,'old_session_rejected':True,'replay_idempotent':True,'publication_authorized':False,'restored_grants_invalidated':True,'peer_export_audit_and_content_preserved':True,'fresh_queue_namespace':True,'retained_mfa_seed_readable':True,'peer_beta_profile_visible':True,'all_restored_sessions_destroyed':True,'domain_hmac_witness_preserved':True,'original_peer_receipt_accessible':True,'domain_key_pinned_after_signing_rotation':config['key_transition']}))
 """
 
 
+@pytest.mark.parametrize("key_transition", [False, True], ids=["same-key", "retained-key-read"])
 @pytest.mark.parametrize("encrypted_backup", [False, True], ids=["plain-local", "encrypted-local"])
 def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
-    request, settings, monkeypatch, tmp_path, record_property, encrypted_backup
+    request, settings, monkeypatch, tmp_path, record_property, encrypted_backup, key_transition
 ):
+    # Every source key is synthetic and explicit before fixture creation.
+    original_signing_key = 'synthetic-restore-original-signing-' + 'a' * 64
+    settings.SECRET_KEY = original_signing_key
+    settings.SECRET_KEY_FALLBACKS = []
+    settings.SAFETY_HMAC_KEY = ''
+    domain_witness = {'report': digest('synthetic-restore-domain-witness'),
+                      'rights': fingerprint('synthetic-restore-domain-witness')}
+    # Explicit independent cipher keys; no implicit dev-key transition.
+    settings.SAFETY_ENCRYPTION_KEY = Fernet.generate_key().decode()
+    settings.MFA_ENCRYPTION_KEY = Fernet.generate_key().decode()
+    settings.SAFETY_ENCRYPTION_KEY_FALLBACKS = ''
+    settings.MFA_ENCRYPTION_KEY_FALLBACKS = ''
+    request.getfixturevalue('directory')
+    peer = Person.objects.get(subject__username='fixture-v1-individual')
+    peer_seed = pyotp.random_base32()
+    peer.subject.mfa_secret_encrypted = encrypt_mfa(peer_seed)
+    peer.subject.save(update_fields=['mfa_secret_encrypted'])
+    peer_case, peer_actor, _, peer_client, peer_receipt, _ = access_prepared(
+        request, settings, subject_username=peer.subject.username)
+    peer_export = access_copy(peer_case, peer_actor)
+    response = peer_client.post(access_url(peer_receipt, peer_export), {'key': uuid4()})
+    assert response.status_code == 200
+    peer_download = RightsExportDownload.objects.get(export=peer_export)
+    settings.RIGHTS_DELIVERY_ROOT = Path(settings.MEDIA_ROOT) / 'delivery-cache'
+    settings.RIGHTS_DELIVERY_PROXY_SECRET = 'synthetic-restore-proxy-' + 's' * 40
+    settings.RIGHTS_PROXY_DELIVERY_ENABLED = True
+    with transaction.atomic():
+        assert stage_delivery(peer_export, peer_download, response.content,
+                              response['Content-Type'], 'synthetic-peer.json')
+    settings.RIGHTS_PROXY_DELIVERY_ENABLED = False
+    peer_delivery = RightsObjectDelivery.objects.get(download=peer_download)
+    peer_cache = settings.RIGHTS_DELIVERY_ROOT / peer_delivery.object_name
+    assert peer_cache.is_file() and peer_delivery.consumed_at is None
+    peer_cache_relative = peer_cache.relative_to(settings.MEDIA_ROOT).as_posix()
     purposes = [
         "authentication",
         "account_preferences",
@@ -216,9 +319,7 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         request, settings, monkeypatch, selected_purposes=purposes
     )
     subject = person.subject
-    from apps.core.models import Person
-
-    peer = Person.objects.exclude(pk=person.pk).first()
+    assert peer.pk != person.pk
     peer_rows = list(Revision.objects.filter(listing__person=peer).order_by("pk").values())
     old_client = Client()
     old_client.force_login(subject)
@@ -274,6 +375,15 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         assert not backup.exists() and not backup_media.exists()
         assert encrypted_copy.stat().st_mode & 0o777 == 0o600
     backup_seconds = time.monotonic() - backup_started
+    if key_transition:
+        settings.SAFETY_HMAC_KEY = original_signing_key
+        settings.SECRET_KEY = 'synthetic-restore-new-signing-' + 'b' * 64
+        settings.SAFETY_ENCRYPTION_KEY_FALLBACKS = settings.SAFETY_ENCRYPTION_KEY
+        settings.MFA_ENCRYPTION_KEY_FALLBACKS = settings.MFA_ENCRYPTION_KEY
+        settings.SAFETY_ENCRYPTION_KEY = Fernet.generate_key().decode()
+        settings.MFA_ENCRYPTION_KEY = Fernet.generate_key().decode()
+    assert digest('synthetic-restore-domain-witness') == domain_witness['report']
+    assert fingerprint('synthetic-restore-domain-witness') == domain_witness['rights']
     execution = execute(actor, case.pk, plan.pk, **(payload(case) | {"purposes": purposes}))
     event = unseal(RecoveryOutbox.objects.get(execution=execution).encrypted_event)
     assert export_batch(store) == 1
@@ -328,7 +438,16 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             check=True,
         )
         expected = store.checkpoint()
+        fresh_generation = "r" + uuid4().hex[:31]
         config = {
+            "fresh_queue_generation": fresh_generation,
+            "old_queue_generation": settings.TASK_QUEUE_GENERATION,
+            "key_transition": key_transition,
+            "domain_witness": domain_witness,
+            "peer_seed_digest": hashlib.sha256(peer_seed.encode()).hexdigest(),
+            "peer_delivery": str(peer_delivery.pk),
+            "peer_cache_relative": peer_cache_relative,
+            "erased_photo": str(image.photo_id),
             "expected": {
                 "ledger": expected.ledger,
                 "sequence": expected.sequence,
@@ -357,7 +476,18 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
             POSTGRES_USER=db["USER"],
             POSTGRES_PASSWORD=db["PASSWORD"],
             DJANGO_SECRET_KEY=settings.SECRET_KEY,
+            SAFETY_HMAC_KEY=settings.SAFETY_HMAC_KEY,
+            TEST_RESTORE_PEER_RECEIPT=peer_receipt,
             SAFETY_ENCRYPTION_KEY=settings.SAFETY_ENCRYPTION_KEY,
+            SAFETY_ENCRYPTION_KEY_FALLBACKS=settings.SAFETY_ENCRYPTION_KEY_FALLBACKS,
+            MFA_ENCRYPTION_KEY=settings.MFA_ENCRYPTION_KEY,
+            MFA_ENCRYPTION_KEY_FALLBACKS=settings.MFA_ENCRYPTION_KEY_FALLBACKS,
+            TASK_QUEUE_GENERATION=fresh_generation,
+            RIGHTS_DELIVERY_GENERATION=settings.RIGHTS_DELIVERY_GENERATION,
+            RIGHTS_PROXY_DELIVERY_ENABLED='0',
+            MEDIA_STORAGE_PROVIDER='local',
+            RIGHTS_OBJECT_STORAGE_ENABLED='0',
+            RECOVERY_SIGNING_KEY=base64.urlsafe_b64encode(signing).decode(),
             RECOVERY_MODE="1",
             RECOVERY_ENCRYPTION_KEY=encryption.decode(),
             TEST_RECOVERY_SIGNING_HEX=signing.hex(),
@@ -373,6 +503,15 @@ def test_old_pg_dump_and_media_cannot_reintroduce_erased_data(
         assert result.returncode == 0, result.stderr[-4000:]
         proof = json.loads(result.stdout.strip().splitlines()[-1])
         assert proof["real_restore"] and not proof["publication_authorized"]
+        assert proof['restored_grants_invalidated'] and proof['peer_export_audit_and_content_preserved']
+        assert proof['fresh_queue_namespace'] and proof['retained_mfa_seed_readable'] and proof['peer_beta_profile_visible']
+        assert proof['all_restored_sessions_destroyed']
+        assert proof['domain_hmac_witness_preserved'] and proof['original_peer_receipt_accessible']
+        assert proof['domain_key_pinned_after_signing_rotation'] is key_transition
+        assert Session.objects.filter(session_key=old_session).exists()
+        peer_delivery.refresh_from_db()
+        assert peer_delivery.purged_at is None and peer_cache.is_file()
+        proof.update(source_peer_cache_preserved=True, retained_key_transition=key_transition)
         assert proof["conservative_schema_restored"] and proof["rejected_helpers_absent"]
         assert proof["restored_transient_copy_cleared_audit_retained"]
         assert proof["independent_authority_verified"]

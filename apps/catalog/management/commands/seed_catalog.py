@@ -8,7 +8,6 @@ from apps.catalog.models import (
     PostalCode,
     Province,
     Region,
-    Service,
     Zone,
 )
 from apps.listings.publication_state import refresh_all
@@ -20,44 +19,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if settings.PRODUCTION:
             raise CommandError("Synthetic geography prohibited in production")
-        catalog = [
-            (
-                "modeling",
-                "Modelaje",
-                "Modeling",
-                [
-                    ("photography", "Fotografía", "Photography"),
-                    ("model-events", "Eventos de modelaje", "Modeling events"),
-                ],
-            ),
-            (
-                "social",
-                "Acompañamiento social",
-                "Social companionship",
-                [
-                    ("conversation", "Conversación", "Conversation"),
-                    ("dinner", "Cena o evento", "Dinner or event"),
-                    ("culture", "Planes culturales", "Cultural activities"),
-                ],
-            ),
-            (
-                "wellness",
-                "Masajes de bienestar",
-                "Wellness massage",
-                [
-                    ("relaxation", "Masaje relajante", "Relaxation massage"),
-                    ("sports", "Deportivo no clínico", "Nonclinical sports massage"),
-                ],
-            ),
-        ]
-        for slug, es, en, services in catalog:
-            category, _ = Category.objects.get_or_create(
-                slug=slug, defaults={"name_es": es, "name_en": en}
-            )
-            for tag, tag_es, tag_en in services:
-                Service.objects.get_or_create(
-                    slug=tag, defaults={"category": category, "name_es": tag_es, "name_en": tag_en}
-                )
+        Category.objects.get_or_create(
+            slug="romantic-dating",
+            defaults={"name_es": "Citas románticas", "name_en": "Romantic dating", "version": 1},
+        )
         source, _ = GeographicSource.objects.get_or_create(
             key="synthetic-v1",
             defaults={

@@ -7,7 +7,7 @@ from django.db import connection, transaction
 from django.utils import timezone
 
 from apps.core.models import Person, RepresentationAction, User, VerificationCheck
-from apps.listings.models import Listing, Rate, Revision
+from apps.listings.models import Listing, Revision
 from apps.listings.moderation import publicly_visible
 from apps.mediafiles.models import Photo
 
@@ -57,12 +57,11 @@ def populate(count):
     ], batch_size=250)
     revisions = Revision.objects.bulk_create([
         clone(baseline.approved_revision, listing_id=listing.pk,
-              title=f'Synthetic photography load {index}', source_revision_id=None)
+              title=f'Synthetic romantic photography-interest profile {index}', source_revision_id=None)
         for index, listing in enumerate(listings)
     ], batch_size=250)
     photo = baseline.approved_revision.photos.first()
     Photo.objects.bulk_create([clone(photo, revision_id=revision.pk) for revision in revisions], batch_size=250)
-    Rate.objects.bulk_create([Rate(revision=revision, concept='Synthetic session', mode='consult') for revision in revisions], batch_size=250)
     for name in ['categories', 'services']:
         relation = getattr(Revision, name).through
         field = 'category_id' if name == 'categories' else 'service_id'

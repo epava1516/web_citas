@@ -39,7 +39,7 @@ from .models import (
 )
 from .rights import allowed, fingerprint
 from .rights_scope import locked_case, permitted
-from .rights_verification import enabled
+from .rights_verification import authorized_proof, enabled
 from .views import private
 
 SUPPORTED = [
@@ -260,6 +260,10 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
     from .recovery_effects import capture, finalized
 
     recovery_refs = capture(person, subject, purposes, exports, shared_ids, media_redaction)
+    # Inventory reconstruction and recovery reads may outlive the proof. Bind
+    # a new execution to the same current scoped proof before any effects.
+    if authorized_proof(case, person, "erase").pk != inventory.proof_id:
+        raise ValidationError("Current scoped proof required / Comprobación de ámbito vigente obligatoria")
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -372,6 +376,7 @@ def execute(user, case_id, plan_id, key, version, purposes, reason, confirmed, e
                     description="",
                     description_alternative="",
                     profile_type="",
+                    show_trans_label=False,
                     municipality=None,
                     postal_code=None,
                     zone=None,

@@ -8,7 +8,7 @@ import pytest
 from django.db import connection, transaction
 from test_reports import directory, photo_environment  # noqa: F401
 
-from apps.catalog.models import Municipality, PostalCode, Zone
+from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
 from apps.core.models import (
     Agency,
     AgencyMember,
@@ -20,6 +20,7 @@ from apps.core.models import (
     VerificationCheck,
 )
 from apps.listings.models import Favorite, Listing, Rate, Revision
+from apps.listings.profile_contract import LEGACY_CONTRACT
 from apps.safety import rights_inspection_source
 from apps.safety.rights_exports import canonical, source_copy
 from apps.safety.rights_source_fingerprint import part_tables, source_fingerprint, source_rows
@@ -36,7 +37,7 @@ pytestmark = [pytest.mark.django_db(transaction=True), pytest.mark.usefixtures("
 
 
 def complete_subject():
-    """A published profile whose subject has every family source_copy can read."""
+    """A subject with a romantic profile and every private historical source family."""
     person = (
         Person.objects.filter(subject__isnull=False, listing__isnull=False)
         .select_related("subject", "listing")
@@ -44,7 +45,24 @@ def complete_subject():
         .first()
     )
     user, listing = person.subject, person.listing
-    revision = listing.revisions.order_by("created_at", "pk").first()
+    revision = Revision.objects.create(
+        listing=listing,
+        manager_version=person.manager_version,
+        content_contract=LEGACY_CONTRACT,
+        status="archived",
+        title="Private synthetic historical content",
+    )
+    category = Category.objects.create(
+        slug="fingerprint-private-legacy", name_es="Histórico privado", name_en="Private legacy"
+    )
+    service = Service.objects.create(
+        slug="fingerprint-private-service",
+        category=category,
+        name_es="Servicio histórico",
+        name_en="Historical service",
+    )
+    revision.categories.add(category)
+    revision.services.add(service)
     document = LegalDocument.objects.order_by("pk").first()
     if not person.phone_claim_id:
         person.phone_claim = PhoneClaim.objects.create(phone="+34600000001", individual=user)

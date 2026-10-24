@@ -6,8 +6,9 @@ from apps.core.models import LegalDocument, RepresentationAction
 from apps.core.verification import locked_manager_person
 from apps.core.verification_services import publication_ready
 
-from .forms import ContactsForm, DetailsForm, RateForm
+from .forms import ContactsForm, DetailsForm
 from .models import Listing, Revision, Submission
+from .profile_contract import CURRENT_CONTRACT, validate_profile_contract
 from .revisions import is_rectification_history
 
 
@@ -117,11 +118,6 @@ def validate_submission(revision, person, *, context=None):
         for name in DetailsForm.Meta.fields
         if not Revision._meta.get_field(name).many_to_many
     }
-    if context:
-        data.update({
-            name: [item.pk for item in getattr(revision, "_pv_" + name)]
-            for name in ["categories", "services", "travel_areas"]
-        })
     data.update(
         region=city.province.region_id,
         province=city.province_id,
@@ -132,18 +128,13 @@ def validate_submission(revision, person, *, context=None):
     if context:
         details_valid = context.details_valid(data, revision)
     else:
-        # Native ModelForm initialization already reads each selected M2M
-        # membership into initial. Populate the same bound data dictionary
-        # from that snapshot instead of making a separate values_list read.
-        # Field/model cleaning still runs normally against the current catalog.
-        details = DetailsForm(data, instance=revision)
-        data.update({
-            name: [item.pk for item in details.initial[name]]
-            for name in ["categories", "services", "travel_areas"]
-        })
-        details_valid = details.is_valid()
+        details_valid = DetailsForm(data, instance=revision).is_valid()
     if not details_valid:
         raise ValidationError("Corrige datos y ubicación / Correct details and location")
+    # Native validation must observe membership/catalogue changes made while
+    # initializing the form. Context validation retains its request snapshot.
+    # Check once here, after the private preparation/history/review guards.
+    validate_profile_contract(revision, context=context)
     contact_data = {
         "whatsapp": revision.whatsapp,
         "telegram": revision.telegram,
@@ -157,18 +148,6 @@ def validate_submission(revision, person, *, context=None):
         else ContactsForm(contact_data, instance=revision).is_valid()
     ):
         raise ValidationError("Corrige los contactos / Correct contacts")
-    rates = revision._pv_rates if context else list(revision.rates.all())
-    if len(rates) > 10 or any(
-        not (
-            context.rate_valid(rate)
-            if context
-            else RateForm(
-                {name: getattr(rate, name) for name in RateForm.Meta.fields}, instance=rate
-            ).is_valid()
-        )
-        for rate in rates
-    ):
-        raise ValidationError("Corrige las tarifas / Correct rates")
     photos = (
         revision._pv_photos
         if context
@@ -187,6 +166,8 @@ def submit(user, revision_id, edit_version, declared):
     person = locked_manager_person(user, initial.listing.person_id)
     listing = Listing.objects.select_for_update().get(pk=initial.listing_id)
     revision = Revision.objects.select_for_update().get(pk=revision_id)
+    if revision.content_contract != CURRENT_CONTRACT:
+        raise ValidationError("Crea un perfil romántico nuevo / Create a new romantic profile")
     if revision.manager_version != person.manager_version:
         raise ValidationError("Gestor cambiado / Manager changed")
     if revision.status == "pending" and Submission.objects.filter(revision=revision).exists():

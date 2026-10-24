@@ -20,11 +20,11 @@ def absolute(route, language, *, args=None, page=1):
 
 def directory_metadata(request, *, valid, page):
     english = request.LANGUAGE_CODE == "en"
-    title = "Find professionals in Spain" if english else "Encuentra profesionales en España"
+    title = "Find romantic dating profiles in Spain" if english else "Encuentra perfiles para citas románticas en España"
     description = (
-        "Explore modeling, social companionship and nonsexual wellness listings by city and services."
+        "Explore personal profiles seeking romantic dates by city."
         if english
-        else "Encuentra anuncios de modelaje, acompañamiento social y bienestar no sexual por ciudad y servicios."
+        else "Encuentra perfiles personales que buscan citas románticas por ciudad."
     )
     # Do not reflect free text, contact data or arbitrary query parameters into
     # indexable metadata. Filter combinations remain available for navigation.

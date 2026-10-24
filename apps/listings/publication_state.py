@@ -22,6 +22,7 @@ from django.db import DatabaseError, connection, transaction
 from django.db.models import Exists, F, OuterRef, Q
 from django.utils import timezone
 
+from apps.core.domain_signing import domain_signing_key
 from apps.core.models import VerificationCheck
 from apps.core.verification_services import real_checks
 
@@ -56,6 +57,7 @@ CHECKS = ("age", "contact", "agency")
 RULE_SOURCES = (
     "apps/listings/moderation.py",
     "apps/listings/submissions.py",
+    "apps/listings/profile_contract.py",
     "apps/listings/forms.py",
     "apps/listings/public_validation.py",
     "apps/listings/history.py",
@@ -66,6 +68,7 @@ RULE_SOURCES = (
     "apps/core/verification_services.py",
     "apps/safety/photo_dispositions.py",
     "apps/safety/photo_reintroduction_review.py",
+    "apps/core/domain_signing.py",
     "apps/safety/rights.py",
     "apps/safety/rights_operation_fingerprints.py",
     "apps/safety/rights_validation_seal.py",
@@ -74,11 +77,12 @@ RULE_SOURCES = (
 
 def rules_version():
     """Fingerprint the current rule configuration, reusing unchanged source hashes."""
-    return _rules_version(settings.PRODUCTION, settings.VERIFICATION_PROVIDER, settings.SECRET_KEY)
+    return _rules_version(settings.PRODUCTION, settings.VERIFICATION_PROVIDER, settings.SECRET_KEY,
+                          domain_signing_key())
 
 
 @lru_cache(maxsize=1)
-def _rules_version(production, provider, secret_key):
+def _rules_version(production, provider, secret_key, domain_key):
     """Source text, Django version and configuration; cached per configuration.
 
     Hashing source rather than bytecode keeps the version stable across Python builds.
@@ -88,9 +92,10 @@ def _rules_version(production, provider, secret_key):
         digest.update(name.encode() + b"\0" + (settings.BASE_DIR / name).read_bytes() + b"\0")
     material = [django.get_version(), str(production), provider]
     digest.update("|".join(material).encode())
-    # Conditional photo authorization fingerprints use salted_hmac with SECRET_KEY.
+    # Conditional photo authority depends on the effective domain HMAC key.
     # A key rotation invalidates those decisions; never trust the previous result.
     digest.update(b"\0rights-fingerprint-key\0" + secret_key.encode())
+    digest.update(b"\0domain-hmac-key\0" + domain_key.encode())
     return digest.hexdigest()
 
 
@@ -353,7 +358,7 @@ def repair():
         pass
 
 
-def state_page(query, number, *, checked=(), observation=None):
+def state_page(query, number, *, checked=(), observation=None, promotion_order=None):
     """Exact page of the native population; None asks the caller for the native path.
 
     When opening the transaction, all reads share one REPEATABLE READ snapshot.
@@ -368,7 +373,10 @@ def state_page(query, number, *, checked=(), observation=None):
         if outermost:  # Only the first statement of a new transaction may set its isolation.
             with connection.cursor() as cursor:
                 cursor.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-        page = _state_page(query, number, checked, observation, stale, trusted_snapshot=outermost)
+        options = {"trusted_snapshot": outermost}
+        if promotion_order is not None:
+            options["promotion_order"] = promotion_order
+        page = _state_page(query, number, checked, observation, stale, **options)
     if stale:
         mark(stale)
     return page
@@ -392,7 +400,8 @@ def _first_page_clean_preview(query, dirty):
     return list(clean.values_list("listing_id", flat=True)[:24])
 
 
-def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=False):
+def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=False,
+                promotion_order=None):
     # The dirty set is small; read it once instead of a correlated anti-join per candidate,
     # whose plan degrades with the dead tuples a high-churn table accumulates.
     dirty = list(PublicationDirty.objects.values_list("listing_id", flat=True)[: DIRTY_LIMIT + 1])
@@ -416,10 +425,16 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
             else query.filter(~Exists(trusted_state()) | Q(pk__in=dirty))
         )
         unknown = list(unknown_query.values_list("pk", flat=True)[: NATIVE_UNKNOWN_LIMIT + 1])
+    extended_unknown = False
     if len(unknown) > NATIVE_UNKNOWN_LIMIT:
-        if observation is not None:
-            observation.update(route="fallback", reason="state_unknown_over_limit")
-        return None
+        if (trusted_snapshot and coverage_current
+                and getattr(query, "_publication_state_population", None) is not None):
+            unknown = list(unknown_query.values_list("pk", flat=True)[: DIRTY_LIMIT + 1])
+            extended_unknown = len(unknown) <= DIRTY_LIMIT
+        if not extended_unknown:
+            if observation is not None:
+                observation.update(route="fallback", reason="state_unknown_over_limit")
+            return None
     batch_context = None
     if (unknown and trusted_snapshot and coverage_current and number == 1 and not checked
             and getattr(query, "_publication_projection", None) is not None):
@@ -481,10 +496,21 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
             ).order_by("-relevance", "-published_at", "listing_id")
         else:
             population = population.order_by("-published_at", "listing_id")
-        page = Paginator(population.values_list("listing_id", flat=True), 24).page(number)
+    identifier = "listing_id" if projected else "pk"
+    if promotion_order is not None:
+        # Commercial authority is selected in the same snapshot as membership,
+        # count and the native page guard. It cannot add publication candidates.
+        population = promotion_order(population, identifier, trusted_snapshot=trusted_snapshot)
+        page = Paginator(population.values_list(identifier, "_promotion_priority"), 24).page(number)
+        selected_rights = list(page.object_list)
+        selected = [pk for pk, _ in selected_rights]
+        page.sponsorship = {
+            pk: ("premium" if priority == 0 else "top")
+            for pk, priority in selected_rights if priority < 2
+        }
     else:
-        page = Paginator(population.values_list("pk", flat=True), 24).page(number)
-    selected = list(page.object_list)
+        page = Paginator(population.values_list(identifier, flat=True), 24).page(number)
+        selected = list(page.object_list)
     # Hydration through the native context doubles as the page guard. The rows were
     # already selected by the filters; the guard depends only on the listing itself.
     from .public_validation import _prepared_page_binding
@@ -510,7 +536,9 @@ def _state_page(query, number, checked, observation, stale, *, trusted_snapshot=
         return None
     page.object_list = [rows[pk] for pk in selected]
     if observation is not None:
-        observation.update(route="state", reason="trusted_state", native_unknown=len(unknown),
+        observation.update(route="state", reason=(
+            "trusted_state_extended_unknown" if extended_unknown else "trusted_state"),
+                           native_unknown=len(unknown),
                            population="projection" if projected else "native_query")
     return page
 

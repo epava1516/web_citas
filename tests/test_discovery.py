@@ -7,9 +7,9 @@ from django.test import Client
 from django.utils import timezone
 from test_photos import photo_environment  # noqa: F401
 
-from apps.catalog.models import Municipality, PostalCode, Service
+from apps.catalog.models import Municipality, PostalCode
 from apps.core.models import Person
-from apps.listings.models import Rate, Revision
+from apps.listings.models import Revision
 
 
 @pytest.fixture
@@ -42,22 +42,14 @@ def test_search_approved_text_language_and_hidden_revisions(directory):
     published.save(update_fields=["consent_revoked_at"])
     assert directory.get("/es/", {"q": "photography"}).context["page"].paginator.count == 1
     english = directory.get("/en/")
-    assert b"Photography" in english.content and b"Synthetic profile" in english.content
+    assert b"photography" in english.content and b"Synthetic profile" in english.content
     assert english["Cache-Control"] == "no-store"
 
 
 @pytest.mark.django_db(transaction=True)
-def test_service_any_all_geo_json_and_private_postal_filters(directory):
-    photography = Service.objects.get(slug="photography")
-    events = Service.objects.get(slug="model-events")
-    query = {
-        "service": [photography.pk, events.pk],
-        "services_mode": "any",
-        "language": ["en", "fr"],
-    }
-    assert directory.get("/es/", query).context["page"].paginator.count == 2
-    query["services_mode"] = "all"
-    assert directory.get("/es/", query).context["page"].paginator.count == 0
+def test_language_any_geo_and_private_postal_filters(directory):
+    assert directory.get("/es/", {"language": ["en", "fr"]}).context["page"].paginator.count == 2
+    assert directory.get("/es/", {"language": ["fr"]}).context["page"].paginator.count == 0
     north = Municipality.objects.get(code="demo-north")
     south = Municipality.objects.get(code="demo-south")
     assert directory.get("/es/", {"city": [north.pk]}).context["page"].paginator.count == 0
@@ -88,7 +80,7 @@ def test_pagination_invalid_and_out_of_range_preserve_filter_semantics(directory
 
 
 @pytest.mark.django_db(transaction=True)
-def test_public_detail_localizes_attributes_rates_and_selected_contacts(directory):
+def test_public_detail_localizes_profile_and_selected_contacts(directory):
     person = Person.objects.get(individual__username="fixture-v1-individual")
     listing = person.listing
     revision = listing.approved_revision
@@ -96,23 +88,15 @@ def test_public_detail_localizes_attributes_rates_and_selected_contacts(director
     revision.telegram = "demo_model"
     revision.postal_code = PostalCode.objects.get(code="29001")
     revision.save()
-    Rate.objects.create(
-        revision=revision, concept="Photo session", mode="from", amount="75.00", duration_minutes=60
-    )
     response = directory.get(f"/en/listing/{listing.pk}/")
     assert response.status_code == 200
     content = response.content.decode()
     for expected in [
         "Synthetic profile",
         'lang="en"',
-        "Photography",
         "Spanish, English",
         "Monday, Wednesday",
         "Morning",
-        "From",
-        "75.00 EUR",
-        "60 min",
-        "Consult",
         "Age: simulated",
         "Contact: simulated",
         "29001",
@@ -121,6 +105,7 @@ def test_public_detail_localizes_attributes_rates_and_selected_contacts(director
     assert f'href="https://wa.me/{revision.phone.lstrip("+")}"' in content
     assert 'href="https://t.me/demo_model"' in content
     assert person.individual.email not in content
+    assert "EUR" not in content and "Photo session" not in content
     revision.whatsapp = False
     revision.telegram = ""
     revision.save()
@@ -238,7 +223,7 @@ def multipage_directory(directory):
             manager_version=1,
             status="approved",
             title=f"Pagination portrait {index}",
-            description="Synthetic pagination portfolio for professional photography and cultural events.",
+            description="Synthetic romantic profile seeking dates and sharing photography and cultural interests.",
             municipality=source.municipality,
             phone=source.phone,
             contact_exposure_accepted=True,
@@ -261,7 +246,7 @@ def multipage_directory(directory):
 @pytest.mark.django_db(transaction=True)
 def test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts(multipage_directory):
     client = multipage_directory
-    query = {"q": "pagination", "channel": ["phone"], "services_mode": "any"}
+    query = {"q": "pagination", "channel": ["phone"]}
     first = client.get("/en/", query)
     second = client.get("/en/", query | {"page": "2"})
     assert first.status_code == second.status_code == 200

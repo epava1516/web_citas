@@ -387,7 +387,7 @@ def age(request, person_id):
 def phone_start(request, person_id):
     person = get_object_or_404(person_queryset(request.user), pk=person_id)
     form = PhoneForm(request.POST or None, language=request.LANGUAGE_CODE)
-    if settings.PRODUCTION:
+    if settings.PRODUCTION or settings.VERIFICATION_PROVIDER != "simulator":
         return HttpResponse("SMS provider not integrated", status=503)
     if request.method == "POST" and form.is_valid():
         if limited(request, "phone-request", 5):

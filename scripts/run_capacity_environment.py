@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MIB = 1024 ** 2
 LABEL = "web-modelos-capacity-run"
 TIMEOUT_SECONDS = 11500
-LAUNCHER_FILES = {"controller.log", "launcher.json", "artifacts.tar"}
+LAUNCHER_FILES = {"controller.log", "launcher.json", "artifacts.tar", "host-service-resources.jsonl", "host-service-resources.summary.json"}
 
 
 def host_tools():
@@ -78,6 +78,30 @@ def absent(docker, kind, name):
     probe = subprocess.run([docker, kind, "inspect", "--format", "{{.Id}}", name], capture_output=True, text=True)
     text = (probe.stdout + probe.stderr).lower()
     return probe.returncode != 0 and ("no such" in text or "not found" in text)
+
+
+
+def controller_terminal_state(docker, name):
+    """Keep only identity/terminal fields, before explicit owned cleanup."""
+    template = ('{"id":{{json .Id}},"status":{{json .State.Status}},'
+                '"running":{{json .State.Running}},"exit_code":{{json .State.ExitCode}},'
+                '"oom_killed":{{json .State.OOMKilled}},'
+                '"started_at":{{json .State.StartedAt}},"finished_at":{{json .State.FinishedAt}}}')
+    try:
+        result = subprocess.run([docker, "container", "inspect", "--format", template, name],
+                                capture_output=True, text=True, timeout=30, check=True)
+        state = json.loads(result.stdout)
+        if (not isinstance(state, dict) or set(state) != {
+                "id", "status", "running", "exit_code", "oom_killed", "started_at", "finished_at"}
+                or not isinstance(state["id"], str) or len(state["id"]) != 64
+                or any(char not in "0123456789abcdef" for char in state["id"])
+                or any(type(state[key]) is not bool for key in ("running", "oom_killed"))
+                or type(state["exit_code"]) is not int or not 0 <= state["exit_code"] <= 255
+                or any(not isinstance(state[key], str) for key in ("status", "started_at", "finished_at"))):
+            raise ValueError("Malformed controller terminal state")
+        return state
+    except (OSError, subprocess.SubprocessError, ValueError) as error:
+        return {"error_type": type(error).__name__}
 
 
 def durable(path, value):
@@ -199,7 +223,7 @@ runpy.run_path(sys.argv[0], run_name='__main__')
 """
     command = [
         docker, "--host", "unix:///var/run/docker.sock", "run", "--pull=never",
-        "--rm", "--sig-proxy=false", "--name", name, "--label", f"{LABEL}={run_id}", *COMPOSE_NEUTRAL,
+        "--sig-proxy=false", "--name", name, "--label", f"{LABEL}={run_id}", *COMPOSE_NEUTRAL,
         "--network", "none",
         "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges",
         "--user", f"{os.getuid()}:{os.getgid()}", "--group-add", str(socket.stat().st_gid),
@@ -229,7 +253,9 @@ runpy.run_path(sys.argv[0], run_name='__main__')
     mounts.update({f"lib/{key}": path for key, path in libraries.items()})
     for target, source in mounts.items():
         command += ["--mount", f"type=bind,src={source},dst=/opt/host-tools/{target},readonly"]
-    command += ["--entrypoint", str(ROOT / ".venv/bin/python3"), "web-modelos-app:latest", "-c", bootstrap]
+    if os.environ.get('LOCAL_CI_TELEGRAM_OWNER') == 'runner':
+        command += ['-e', 'LOCAL_CI_TELEGRAM_OWNER=runner']
+    command += ["--entrypoint", str(ROOT / ".venv/bin/python3"), options.app_image, "-c", bootstrap]
     report = {"id": run_id, "controller": name, "head": head, "command": command,
               "cpu_budget_cores": options.cpu_budget,
               "timeout_seconds": TIMEOUT_SECONDS,
@@ -247,16 +273,39 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         "network": resources["network"],
     })
     print(f"owned-controller — {output}", flush=True)
+    timeout_seconds = (21000 if (options.beta_http_mixed_states and options.beta_http_backlog_population == 10000
+                                              or options.beta_http_committed_mixed and options.beta_http_committed_population == 10000)
+                       else TIMEOUT_SECONDS)
+    report["timeout_seconds"] = timeout_seconds
+    observer = None
+    if options.beta_http_service_resources:
+        sys.path.insert(0, str(ROOT))
+        from scripts.benchmark_capacity_resources import CapacityResourceObserver
+
+        observer = CapacityResourceObserver(
+            run_id, output, docker, preparation_seconds=(10800 if (options.beta_http_mixed_states and options.beta_http_backlog_population == 10000
+                                              or options.beta_http_committed_mixed and options.beta_http_committed_population == 10000)
+                                     else 5400 if options.beta_http_backlog_population == 10000
+                                     else 1800 if options.beta_http_short or options.beta_http_backlog_population > 10 or options.beta_http_committed_mixed
+                                     else 600),
+        )
+        observer.start()
     try:
         try:
             with (output / "controller.log").open("w") as log:
                 process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT,
-                                         timeout=TIMEOUT_SECONDS, check=False, preexec_fn=limit_client_log)
+                                         timeout=timeout_seconds, check=False, preexec_fn=limit_client_log)
             report["exit"] = process.returncode
         except subprocess.TimeoutExpired:
             report["exit"] = None
             report["timed_out"] = True
     finally:
+        if observer is not None:
+            try:
+                report["service_resources"] = observer.close()
+            except Exception as error:
+                report["service_resources"] = {"result": "ERROR", "error_type": type(error).__name__}
+        report["controller_terminal_state"] = controller_terminal_state(docker, name)
         report["cleanup"] = {}
         for owned in resources["containers"]:
             subprocess.run([docker, "rm", "-fv", owned], capture_output=True)
@@ -290,7 +339,11 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         (output / "launcher.json").write_text(json.dumps(report, indent=2) + "\n")
     result = json.loads((output / "report.json").read_text()) if (output / "report.json").exists() else {}
     cleanup = all(report["cleanup"].values())
-    success = (report.get("exit") == 0 and report["sources_unchanged"] and report["baseline_inputs_unchanged"] and cleanup
+    observation_ok = (observer is None or report["service_resources"]["result"] == "OBSERVED_FUNCTIONAL_PHASES_NOT_CAPACITY")
+    terminal = report["controller_terminal_state"]
+    terminal_ok = (terminal.get("status") == "exited" and terminal.get("running") is False
+                   and terminal.get("exit_code") == 0 and terminal.get("oom_killed") is False)
+    success = (terminal_ok and observation_ok and report.get("exit") == 0 and report["sources_unchanged"] and report["baseline_inputs_unchanged"] and cleanup
                and not report["archive_problems"] and report["archive_within_ceiling"]
                and report["controller_log"]["within_ceiling"] and result.get("head") == head)
     print(json.dumps({"result": result.get("result", "INVALID_CONTROLLER_NO_REPORT"),

@@ -23,6 +23,8 @@ from apps.listings.moderation import conflict_of_interest
 from .crypto import digest, seal, unseal
 from .models import Report, ReportAccess, UrgentReportAlert
 from .notices import enqueue_ack
+from .report_authority import fresh_authority
+from .report_queue import queue_reports
 
 
 class ReportForm(forms.Form):
@@ -255,12 +257,7 @@ def queue(request):
     statuses = ["received", "reviewing"]
     if request.user.has_perm("safety.review_restriction"):
         statuses += ["restricted", "upheld"]
-    reports = (
-        Report.objects.filter(status__in=statuses)
-        .exclude(actor=request.user)
-        .select_related("listing__person__agency")
-    )
-    allowed = [report for report in reports if permitted(request.user, report)]
+    allowed = list(queue_reports(request.user, statuses))
     return private(render(request, "safety/queue.html", {"reports": allowed}))
 
 
@@ -362,7 +359,11 @@ def inspect(request, report_id):
             )
             if person:
                 report.listing.person = person
-            if not permitted(request.user, report):
+            try:
+                actor = fresh_authority(request)
+            except PermissionDenied:
+                return private(HttpResponse("Forbidden", status=403))
+            if not permitted(actor, report):
                 return private(
                     HttpResponse(
                         (
@@ -376,7 +377,7 @@ def inspect(request, report_id):
             payload = unseal(report.encrypted_payload)
             ReportAccess.objects.create(
                 report=report,
-                actor=request.user,
+                actor=actor,
                 purpose=form.cleaned_data["purpose"],
                 case_version=report.version,
                 action_before=form.cleaned_data["action_before"],
@@ -397,6 +398,12 @@ def inspect(request, report_id):
                 )
             if len(records) > 50:
                 next_action_cursor = records[49].pk
+            try:
+                fresh_authority(request)
+            except PermissionDenied:
+                # Do not commit an audit or return bytes after mid-read revocation.
+                transaction.set_rollback(True)
+                return private(HttpResponse("Forbidden", status=403))
     return private(
         render(
             request,

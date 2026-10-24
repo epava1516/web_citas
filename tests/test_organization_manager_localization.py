@@ -14,7 +14,7 @@ from test_photos import photo_environment  # noqa: F401
 from test_reset_localization import db_sync
 from test_submissions import prepared  # noqa: F401
 
-from apps.core.models import AgencyReview, ManagerReview
+from apps.core.models import AgencyReview, LegalDocument, ManagerReview
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -43,7 +43,13 @@ def test_localized_current_review_preserves_authority_and_simulation(
         )
         assert (
             owner.post(
-                f"/es/person/{subject.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+                f"/es/person/{subject.pk}/consent/",
+                {
+                    "authorize": "on",
+                    "version": LegalDocument.objects.get(
+                        slug="publishing", language="es", active=True
+                    ).version,
+                },
             ).status_code
             == 302
         )

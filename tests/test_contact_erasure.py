@@ -16,7 +16,13 @@ from playwright.sync_api import expect, sync_playwright
 from test_erasure_execution import payload, plan_fixture
 from test_reports import directory, photo_environment  # noqa: F401
 
-from apps.core.models import Person, PhoneChallenge, RepresentationAction, RepresentationInvitation
+from apps.core.models import (
+    LegalDocument,
+    Person,
+    PhoneChallenge,
+    RepresentationAction,
+    RepresentationInvitation,
+)
 from apps.safety.crypto import unseal
 from apps.safety.erasure_execution import execute
 from apps.safety.erasure_inventory import prepare
@@ -179,7 +185,12 @@ def test_inflight_contact_operation_cannot_recreate_erased_codes(
         "invite": (f"/en/person/{person.pk}/consent/invite/", {"email": person.subject.email}),
         "accept": (
             f"/en/representation/{invitation.pk}/{raw}/",
-            {"authorize": "on", "version": "dev-1"},
+            {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="en", active=True
+                ).version,
+            },
         ),
     }
     path, data = endpoints[operation]
@@ -256,7 +267,13 @@ def test_phone_redaction_invalidates_retained_codes_but_new_explicit_request_is_
     subject.force_login(person.subject)
     assert (
         subject.post(
-            f"/en/representation/{invitation.pk}/{raw}/", {"authorize": "on", "version": "dev-1"}
+            f"/en/representation/{invitation.pk}/{raw}/",
+            {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="en", active=True
+                ).version,
+            },
         ).status_code
         == 409
     )
@@ -269,3 +286,52 @@ def test_phone_redaction_invalidates_retained_codes_but_new_explicit_request_is_
     assert current.person_rights_version == person.rights_version == 2
     assert client.post(response.url, {"code": mail.outbox[-1].body}).status_code == 302
     assert all(not revision.phone for revision in person.listing.revisions.all())
+
+
+@pytest.mark.parametrize("reintroduced", ["phone", "whatsapp"])
+def test_phone_outcome_preserves_unselected_telegram_and_detects_phone_reintroduction(
+    request, settings, monkeypatch, reintroduced
+):
+    from test_erasure_final import material
+
+    case, actor, _, person, prior, _, _, _, _ = prepared(request, settings, monkeypatch)
+    peer = Person.objects.get(subject__username="fixture-v1-model-b")
+    peer.phone_claim = person.phone_claim
+    peer.save(update_fields=["phone_claim"])
+    person.listing.revisions.update(telegram="retained_contact")
+    peer.listing.revisions.update(telegram="peer_contact")
+    inventory = prepare(
+        actor, case.pk, uuid.uuid4(), case.version,
+        "Review phone-only redaction while retaining a separate Telegram contact",
+    )
+    plan = record(
+        actor, case.pk, inventory.pk, uuid.uuid4(), case.version,
+        unseal(prior.encrypted_decisions)["decisions"],
+    )
+    peer_before = list(peer.listing.revisions.values())
+    claim_id = peer.phone_claim_id
+    execution = execute(
+        actor, case.pk, plan.pk,
+        **(payload(case) | {"purposes": ["shared_contact_review"]}),
+    )
+    person.refresh_from_db()
+    peer.refresh_from_db()
+    case.refresh_from_db()
+    assert person.phone_claim_id is None and peer.phone_claim_id == claim_id
+    assert list(peer.listing.revisions.values()) == peer_before
+    assert all(
+        row.telegram == "retained_contact" and not row.phone and not row.whatsapp
+        for row in person.listing.revisions.all()
+    )
+    observed = material(case, execution)
+    assert observed["completed_purposes"] == ["shared_contact_review"]
+    assert not observed["pending_execution_purposes"]
+    assert any(row["purpose"] == "publication" for row in observed["remaining_decisions"])
+    assert case.status == "reviewing"
+
+    revision = person.listing.revisions.order_by("pk").first()
+    value = "+34600123456" if reintroduced == "phone" else True
+    type(revision).objects.filter(pk=revision.pk).update(**{reintroduced: value})
+    changed = material(case, execution)
+    assert changed["pending_execution_purposes"] == ["shared_contact_review"]
+    assert "shared_contact_review" not in changed["completed_purposes"]

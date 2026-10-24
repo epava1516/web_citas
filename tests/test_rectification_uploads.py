@@ -303,3 +303,93 @@ def test_same_upload_key_serializes_in_postgresql(request, settings, monkeypatch
         results = [future.result(timeout=30) for future in futures]
     assert results[0] == results[1]
     assert RightsRectificationPhotoUpload.objects.count() == 1
+
+
+@pytest.mark.parametrize("expired_during", ["source", "blob"])
+def test_upload_rejects_proof_expiring_during_source_lock_wait(
+    request, settings, monkeypatch, expired_during
+):
+    from datetime import timedelta
+    from pathlib import Path
+
+    from apps.listings.models import Revision
+    from apps.mediafiles.models import Photo
+    from apps.safety import rights_rectification
+    from apps.safety.models import RightsAction
+
+    case, _, staff, _, _, _ = ready(request, settings, monkeypatch, "rectify")
+    audit(staff, case)
+    proof = case.proofs.order_by("-created_at", "-pk").first()
+    expired = proof.expires_at + timedelta(seconds=1)
+    original_snapshot = rights_rectification.source_snapshot
+    observed = []
+    before = (Blob.objects.count(), Photo.objects.count(), Revision.objects.count())
+    media = Path(settings.MEDIA_ROOT)
+    files_before = {p.relative_to(media) for p in media.rglob("*") if p.is_file()}
+
+    def after_wait(*args, **kwargs):
+        result = original_snapshot(*args, **kwargs)
+        observed.append(proof.pk)
+        # Model elapsed lock-wait time; domain source/DB/authorization remain real.
+        if expired_during == "source":
+            monkeypatch.setattr(timezone, "now", lambda: expired)
+        return result
+
+    monkeypatch.setattr(rights_rectification, "source_snapshot", after_wait)
+    if expired_during == "blob":
+        manager = Blob.objects
+        original_create = manager.get_or_create
+
+        def after_blob_wait(*args, **kwargs):
+            result = original_create(*args, **kwargs)
+            monkeypatch.setattr(timezone, "now", lambda: expired)
+            return result
+
+        monkeypatch.setattr(manager, "get_or_create", after_blob_wait)
+    path = f"/en/moderation/rights/{case.pk}/rectification/uploads/"
+    key = uuid.uuid4()
+    response = staff.post(path, payload(case, key=key))
+    assert observed
+    assert response.status_code == 409
+    assert not RightsRectificationPhotoUpload.objects.exists()
+    assert not RightsAction.objects.filter(key=key).exists()
+    assert (Blob.objects.count(), Photo.objects.count(), Revision.objects.count()) == before
+    assert {p.relative_to(media) for p in media.rglob("*") if p.is_file()} == files_before
+
+
+def test_discard_rejects_proof_expiring_during_upload_lock_wait(request, settings, monkeypatch):
+    from datetime import timedelta
+
+    from django.db.models.query import QuerySet
+
+    from apps.safety.models import RightsAction
+
+    case, _, staff, _, _, _ = ready(request, settings, monkeypatch, "rectify")
+    path = f"/en/moderation/rights/{case.pk}/rectification/uploads/"
+    audit(staff, case)
+    assert staff.post(path, payload(case)).status_code == 302
+    item = RightsRectificationPhotoUpload.objects.get()
+    audit(staff, case)
+    proof = case.proofs.order_by("-created_at", "-pk").first()
+    expired = proof.expires_at + timedelta(seconds=1)
+    original_first = QuerySet.first
+    observed = []
+
+    def after_wait(query):
+        result = original_first(query)
+        if query.model is RightsRectificationPhotoUpload and query.query.select_for_update:
+            observed.append(result.pk)
+            monkeypatch.setattr(timezone, "now", lambda: expired)
+        return result
+
+    monkeypatch.setattr(QuerySet, "first", after_wait)
+    key = uuid.uuid4()
+    response = staff.post(path, {
+        "key": key, "version": case.version, "operation": "discard",
+        "photo_id": item.photo_id, "reason": REASON,
+    })
+    assert observed == [item.pk]
+    assert response.status_code == 409
+    item.refresh_from_db()
+    assert item.discarded_at is None
+    assert not RightsAction.objects.filter(key=key).exists()

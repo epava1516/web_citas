@@ -229,19 +229,39 @@ def test_upgrade_invalidates_preexisting_negative_counterpart_state(request, mon
     new = [("listings", "0020_publication_match_counterparts")]
     leaves = MigrationExecutor(connection).loader.graph.leaf_nodes()
     try:
-        MigrationExecutor(connection).migrate(old)
-        publication_state.refresh_all()
-        Photo.objects.filter(pk=photos[0].pk).update(removed_at=timezone.now())
-        assert not PublicationDirty.objects.filter(listing_id=rows[1].pk).exists()
+        executor = MigrationExecutor(connection)
+        executor.migrate(old)
+        historical = executor.loader.project_state(old).apps
+        OldState = historical.get_model("listings", "PublicationState")
+        OldDirty = historical.get_model("listings", "PublicationDirty")
+        OldPhoto = historical.get_model("mediafiles", "Photo")
+        # The current ORM cannot read a schema that predates content_contract.
+        # Preserve the actual negative state built by setup; isolate missed marking.
+        assert not OldState.objects.get(listing_id=rows[1].pk).eligible
+        OldDirty.objects.all().delete()
+        OldPhoto.objects.filter(pk=photos[0].pk).update(removed_at=timezone.now())
+        assert OldDirty.objects.filter(listing_id=rows[0].pk).exists()
+        assert not OldDirty.objects.filter(listing_id=rows[1].pk).exists()
+        assert not OldState.objects.get(listing_id=rows[1].pk).eligible
+        executor = MigrationExecutor(connection)
+        executor.migrate(new)
+        upgraded = executor.loader.project_state(new).apps
+        assert (
+            upgraded.get_model("listings", "PublicationDirty")
+            .objects.filter(listing_id=rows[1].pk)
+            .exists()
+        )
+        # Restoring the current leaves must retain historical content privately;
+        # the new content policy must not republish it as a romantic revision.
+        MigrationExecutor(connection).migrate(leaves)
+        historical_revision = Revision.objects.get(pk=rows[1].approved_revision_id)
+        assert historical_revision.content_contract == "legacy-professional-v1"
+        assert not publicly_visible(Listing.objects.get(pk=rows[1].pk))
         assert not PublicationState.objects.get(listing_id=rows[1].pk).eligible
-        assert publicly_visible(Listing.objects.get(pk=rows[1].pk))
-        old_page = client.get("/en/")
-        assert rows[1].pk not in [r.pk for r in old_page.context["page"]]
-        MigrationExecutor(connection).migrate(new)
-        equivalent(client, monkeypatch, rows[1], True)
         publication_state.refresh_all()
-        assert PublicationState.objects.get(listing_id=rows[1].pk).eligible
         assert not PublicationDirty.objects.exists()
+        assert not PublicationState.objects.get(listing_id=rows[1].pk).eligible
+        assert not publicly_visible(Listing.objects.get(pk=rows[1].pk))
     finally:
         MigrationExecutor(connection).migrate(leaves)
 
@@ -256,9 +276,7 @@ def test_revision_delete_marks_surviving_match_reader(request, monkeypatch, orie
         Revision.objects.get(pk=approved_id).delete()
     assert Listing.objects.get(pk=rows[0].pk).approved_revision_id == approved_id
     assert not PublicationDirty.objects.exists()
-    draft = Revision.objects.create(
-        listing=rows[0], manager_version=rows[0].person.manager_version
-    )
+    draft = Revision.objects.create(listing=rows[0], manager_version=rows[0].person.manager_version)
     draft_photo = Photo.objects.create(
         revision=draft, blob=photos[0].blob, comparison_complete=True
     )
@@ -305,7 +323,9 @@ def _opposite_photo_writes(request, monkeypatch, *, prelocked):
             connections.close_all()
 
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futures = [pool.submit(write, row.pk, photo.pk) for row, photo in zip(rows, photos, strict=True)]
+        futures = [
+            pool.submit(write, row.pk, photo.pk) for row, photo in zip(rows, photos, strict=True)
+        ]
         assert [future.result(timeout=15) for future in futures] == [1, 1]
     assert set(PublicationDirty.objects.values_list("listing_id", flat=True)) >= {
         row.pk for row in rows
@@ -313,7 +333,9 @@ def _opposite_photo_writes(request, monkeypatch, *, prelocked):
     publication_state.refresh_all()
     assert not PublicationDirty.objects.exists()
     assert all(not publicly_visible(Listing.objects.get(pk=row.pk)) for row in rows)
-    assert not PublicationState.objects.filter(listing_id__in=[r.pk for r in rows], eligible=True).exists()
+    assert not PublicationState.objects.filter(
+        listing_id__in=[r.pk for r in rows], eligible=True
+    ).exists()
 
 
 def test_concurrent_opposite_photo_writes_drain_without_losing_marks(request, monkeypatch):

@@ -61,9 +61,7 @@ def state_ids():
     return [row.pk for row in page.object_list]
 
 
-def test_revision_version_does_not_cover_related_content_dependencies(
-    request, record_property
-):
+def test_revision_version_does_not_cover_related_content_dependencies(request, record_property):
     request.getfixturevalue("directory")
     revision = subject_revision()
     baseline_key = revision_key(revision)
@@ -79,27 +77,40 @@ def test_revision_version_does_not_cover_related_content_dependencies(
         assert fresh_visibility(revision.listing_id), label
         observed.append(label)
 
-    category = revision.categories.first()
-    service = revision.services.first()
-    assert category and service
+    category = revision.categories.get()
+    assert not revision.services.exists() and not revision.rates.exists()
     reversible_change(
         "category.active",
         lambda: Category.objects.filter(pk=category.pk).update(active=False),
         lambda: Category.objects.filter(pk=category.pk).update(active=category.active),
     )
     reversible_change(
-        "service.active",
-        lambda: Service.objects.filter(pk=service.pk).update(active=False),
-        lambda: Service.objects.filter(pk=service.pk).update(active=service.active),
-    )
-    other = Category.objects.create(
-        slug="dependency-proof-other", name_es="Otra", name_en="Other"
+        "category.slug",
+        lambda: Category.objects.filter(pk=category.pk).update(slug="invalid-profile-category"),
+        lambda: Category.objects.filter(pk=category.pk).update(slug=category.slug),
     )
     reversible_change(
-        "service.category_id",
-        lambda: Service.objects.filter(pk=service.pk).update(category=other),
-        lambda: Service.objects.filter(pk=service.pk).update(category_id=service.category_id),
+        "category.version",
+        lambda: Category.objects.filter(pk=category.pk).update(version=category.version + 1),
+        lambda: Category.objects.filter(pk=category.pk).update(version=category.version),
     )
+    other = Category.objects.create(
+        slug="dependency-proof-private", name_es="Histórico privado", name_en="Private legacy"
+    )
+    service = Service.objects.create(
+        slug="dependency-proof-private-service",
+        category=other,
+        name_es="Servicio sintético",
+        name_en="Synthetic service",
+    )
+    # Services are forbidden even if inactive: the relation itself excludes a profile.
+    for active in (True, False):
+        Service.objects.filter(pk=service.pk).update(active=active)
+        reversible_change(
+            f"revision.services forbidden membership (active={active})",
+            lambda: revision.services.add(service),
+            lambda: revision.services.remove(service),
+        )
     selected_categories = list(revision.categories.all())
     reversible_change(
         "revision.categories membership",
@@ -128,17 +139,24 @@ def test_revision_version_does_not_cover_related_content_dependencies(
         lambda: postal.municipalities.remove(city),
         lambda: postal.municipalities.add(city),
     )
-    rate = Rate.objects.create(revision=revision, concept="Session", mode="consult")
     reversible_change(
-        "rate.concept",
-        lambda: Rate.objects.filter(pk=rate.pk).update(concept="www.example.invalid"),
-        lambda: Rate.objects.filter(pk=rate.pk).update(concept=rate.concept),
+        "revision.travel_areas forbidden membership",
+        lambda: revision.travel_areas.add(city),
+        lambda: revision.travel_areas.remove(city),
     )
-    reversible_change(
-        "rate.duration_minutes",
-        lambda: Rate.objects.filter(pk=rate.pk).update(duration_minutes=10081),
-        lambda: Rate.objects.filter(pk=rate.pk).update(duration_minutes=None),
-    )
+    # No tariff is legal in a romantic profile, including a structurally valid one.
+    for label, concept, duration in (
+        ("valid retained tariff", "Synthetic retained tariff", None),
+        ("contact in historical tariff", "www.example.invalid", None),
+        ("historical tariff duration", "Synthetic retained tariff", 10081),
+    ):
+        reversible_change(
+            f"forbidden rate: {label}",
+            lambda concept=concept, duration=duration: Rate.objects.create(
+                revision=revision, concept=concept, mode="consult", duration_minutes=duration
+            ),
+            lambda: revision.rates.all().delete(),
+        )
     photo = revision.photos.filter(removed_at__isnull=True).first()
     assert photo and photo.comparison_complete and photo.blob.status == "ready"
     reversible_change(
@@ -158,14 +176,15 @@ def test_revision_version_does_not_cover_related_content_dependencies(
     )
     record_property("dependency_counterexamples", observed)
     record_property("revision_key_unchanged", True)
-    record_property("limits", "Committed synthetic PG mutations; fresh native/batched ordered "
-                    "visibility agrees after every change and restore. This rejects the "
-                    "revision/version/timestamp key; it does not validate a persistent cache.")
+    record_property(
+        "limits",
+        "Committed synthetic PG mutations; fresh native/batched ordered "
+        "visibility agrees after every change and restore. This rejects the "
+        "revision/version/timestamp key; it does not validate a persistent cache.",
+    )
 
 
-def test_fresh_context_observes_concurrent_committed_catalog_change(
-    request, record_property
-):
+def test_fresh_context_observes_concurrent_committed_catalog_change(request, record_property):
     assert connection.vendor == "postgresql"
     request.getfixturevalue("directory")
     revision = subject_revision()

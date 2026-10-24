@@ -147,8 +147,9 @@ def snapshot(case, person, listing, execution_id):
             and not RepresentationInvitation.objects.filter(person=person).exists()
         )
     if "shared_contact_review" in selected:
+        # This scope detaches the phone; Telegram belongs to publication content.
         checks["shared_contact_review"] = person.phone_claim_id is None and not (
-            listing and listing.revisions.exclude(phone="", whatsapp=False, telegram="").exists()
+            listing and listing.revisions.exclude(phone="", whatsapp=False).exists()
         )
     if "profile" in selected:
         checks["profile"] = not person.alias and not person.assigned_editor_id
@@ -178,6 +179,7 @@ def snapshot(case, person, listing, execution_id):
                     postal_code=None,
                     zone=None,
                     profile_type="",
+                    show_trans_label=False,
                     spoken_languages=[],
                     days=[],
                     time_slot="",

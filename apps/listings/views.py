@@ -12,8 +12,9 @@ from apps.core.models import LegalAcceptance, LegalDocument
 from apps.core.verification import locked_manager_person
 from apps.safety.photo_reintroduction_review import publication_pending
 
-from .forms import ContactsForm, DetailsForm, RateFormSet
+from .forms import ContactsForm, DetailsForm
 from .models import Listing, Revision
+from .profile_contract import CURRENT_CONTRACT, rejects_professional_input
 from .revisions import create_draft, is_rectification_history
 from .submissions import submit
 
@@ -65,7 +66,13 @@ def revision_status(request, revision_id):
         or revision.photos.filter(rectification_upload__isnull=False).exists()
     ):
         return HttpResponse("Not found", status=404)
-    return render(request, "listings/submission.html", {"revision": revision})
+    if revision.content_contract != CURRENT_CONTRACT:
+        return render(request, "listings/legacy_profile.html", {"person": revision.listing.person}, status=409)
+    from .profile_status import revision_summary
+
+    return render(request, "listings/submission.html", {
+        "revision": revision, "revision_state": revision_summary(revision, request.LANGUAGE_CODE),
+    })
 
 
 @login_required
@@ -77,7 +84,8 @@ def start(request, person_id):
         listing, _ = Listing.objects.get_or_create(person=person)
         listing = Listing.objects.select_for_update().get(pk=listing.pk)
         revision = (
-            listing.revisions.filter(status="draft", manager_version=person.manager_version)
+            listing.revisions.filter(status="draft", manager_version=person.manager_version,
+                                     content_contract=CURRENT_CONTRACT)
             .order_by("-created_at")
             .first()
         )
@@ -85,12 +93,17 @@ def start(request, person_id):
             if (
                 listing.revisions.filter(
                     status__in=["draft", "processing", "pending"],
+                    content_contract=CURRENT_CONTRACT,
                     manager_version=person.manager_version,
                 ).count()
                 >= 3
             ):
                 return HttpResponse("Pending revision quota reached", status=409)
-            revision = create_draft(listing, person)
+            try:
+                with transaction.atomic():
+                    revision = create_draft(listing, person)
+            except ValidationError as error:
+                return HttpResponse(" / ".join(error.messages), status=409)
     return redirect("draft_edit", revision_id=revision.pk, step=1)
 
 
@@ -110,8 +123,11 @@ def edit(request, revision_id, step):
         or revision.photos.filter(rectification_upload__isnull=False).exists()
     ):
         return HttpResponse("Not found", status=404)
+    if revision.content_contract != CURRENT_CONTRACT:
+        return render(request, "listings/legacy_profile.html", {"person": revision.listing.person}, status=409)
     if (
         revision.status != "draft"
+        or revision.content_contract != CURRENT_CONTRACT
         or revision.manager_version != revision.listing.person.manager_version
     ):
         return HttpResponse("Revision obsolete or not editable", status=409)
@@ -126,11 +142,12 @@ def edit(request, revision_id, step):
         form = ContactsForm(
             request.POST or None, instance=revision, initial={"legal_version": document.version}
         )
-        rates = RateFormSet(request.POST or None, instance=revision, prefix="rates")
+
     if request.method == "POST" and step in [1, 2]:
         valid = form.is_valid()
-        if rates is not None:
-            valid = rates.is_valid() and valid
+        if rejects_professional_input(request.POST):
+            form.add_error(None, "Servicios y tarifas no admitidos / Services and rates are not accepted")
+            valid = False
         if step == 2:
             person = revision.listing.person
             claim = person.phone_claim
@@ -153,6 +170,7 @@ def edit(request, revision_id, step):
                 current = Revision.objects.select_for_update().get(pk=revision.pk)
                 if (
                     current.status != "draft"
+                    or current.content_contract != CURRENT_CONTRACT
                     or current.manager_version != person.manager_version
                     or request.POST.get("edit_version") != str(current.edit_version)
                 ):
@@ -189,9 +207,7 @@ def edit(request, revision_id, step):
                 for name in form._meta.fields:
                     if name in form.cleaned_data and Revision._meta.get_field(name).many_to_many:
                         getattr(current, name).set(form.cleaned_data[name])
-                if rates is not None:
-                    rates.instance = current
-                    rates.save()
+
             return redirect("draft_edit", revision_id=current.pk, step=min(step + 1, 4))
     return render(
         request,

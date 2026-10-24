@@ -75,7 +75,7 @@ def agency_publication(request):
         invitation_path = mail.outbox[-1].body.removeprefix("http://localhost:8000")
         assert (
             subject_client.post(
-                invitation_path, {"authorize": "on", "version": "dev-1"}
+                invitation_path, {"authorize": "on", "version": "dev-romantic-1"}
             ).status_code
             == 302
         )

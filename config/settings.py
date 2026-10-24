@@ -4,6 +4,9 @@ from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
+from apps.core.domain_signing import validate_domain_key
+from apps.core.encryption import encryption_cipher
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 APP_ENV = os.getenv("APP_ENV", "development")
 PRODUCTION = APP_ENV == "production"
@@ -12,6 +15,7 @@ DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1" and not PRODUCTION
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "local-development-only-change-before-any-deployment")
 if PRODUCTION and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith("local-")):
     raise ImproperlyConfigured("Production requires a strong independent secret")
+SAFETY_HMAC_KEY = validate_domain_key(os.getenv("SAFETY_HMAC_KEY", ""))
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",")
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -38,6 +42,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.core.middleware.SecurityHeadersMiddleware",
     "apps.core.middleware.AccountGateMiddleware",
+    "apps.core.operational_events.PublicationEventsMiddleware",
 ]
 ROOT_URLCONF = "config.urls"
 TEMPLATES = [
@@ -100,6 +105,16 @@ LOGOUT_REDIRECT_URL = "home"
 # only with scoped keys, invalidation and retention covered by its contract.
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+if PRODUCTION and (
+    not EMAIL_BACKEND.strip()
+    or EMAIL_BACKEND in {
+        "django.core.mail.backends.console.EmailBackend",
+        "django.core.mail.backends.filebased.EmailBackend",
+        "django.core.mail.backends.locmem.EmailBackend",
+        "django.core.mail.backends.dummy.EmailBackend",
+    }
+):
+    raise ImproperlyConfigured("Production email requires an explicitly configured delivery backend")
 ACCESS_LOG_ORIGIN_BUNDLE = os.getenv("ACCESS_LOG_ORIGIN_BUNDLE", "")
 ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE = os.getenv("ACCESS_REDIS_HISTORY_ORIGIN_BUNDLE", "")
 ACCESS_RESOURCE_ORIGIN_BUNDLE = os.getenv("ACCESS_RESOURCE_ORIGIN_BUNDLE", "")
@@ -141,8 +156,11 @@ CELERY_TASK_TIME_LIMIT = 120
 CELERY_TASK_SOFT_TIME_LIMIT = 90
 
 MFA_ENCRYPTION_KEY = os.getenv("MFA_ENCRYPTION_KEY", "")
+MFA_ENCRYPTION_KEY_FALLBACKS = os.getenv("MFA_ENCRYPTION_KEY_FALLBACKS", "")
 if PRODUCTION and not MFA_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Production requires independent MFA encryption key")
+if MFA_ENCRYPTION_KEY or MFA_ENCRYPTION_KEY_FALLBACKS:
+    encryption_cipher(MFA_ENCRYPTION_KEY, MFA_ENCRYPTION_KEY_FALLBACKS)
 
 CELERY_BEAT_SCHEDULE = {
     "purge-access-field-decisions": {
@@ -246,14 +264,20 @@ if AGENCY_PENDING_PERSON_LIMIT < 1:
     raise ImproperlyConfigured("AGENCY_PENDING_PERSON_LIMIT must be positive")
 
 SAFETY_ENCRYPTION_KEY = os.getenv("SAFETY_ENCRYPTION_KEY", "")
+SAFETY_ENCRYPTION_KEY_FALLBACKS = os.getenv("SAFETY_ENCRYPTION_KEY_FALLBACKS", "")
 if PRODUCTION and not SAFETY_ENCRYPTION_KEY:
     raise ImproperlyConfigured("Safety encryption key required in production")
+if SAFETY_ENCRYPTION_KEY or SAFETY_ENCRYPTION_KEY_FALLBACKS:
+    encryption_cipher(SAFETY_ENCRYPTION_KEY, SAFETY_ENCRYPTION_KEY_FALLBACKS)
 
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "formatters": {"operational": {"format": "%(message)s"}},
+    "handlers": {"operational_stderr": {"class": "apps.core.operational_event_handler.NonBlockingOperationalHandler", "formatter": "operational"}},
     "filters": {"private_requests": {"()": "config.private_logging.PrivateRequestFilter"}},
     "loggers": {
+        "operational.events": {"handlers": ["operational_stderr"], "level": "INFO", "propagate": False},
         "django.request": {"filters": ["private_requests"], "propagate": True},
         "django.security.csrf": {"filters": ["private_requests"], "propagate": True},
         "django.server": {"filters": ["private_requests"], "propagate": True},

@@ -71,9 +71,19 @@ def test_individual_prerequisites_persistence_phone_replay(ready_accounts):
     person = Person.objects.get()
     assert person.subject_id == user.pk
     assert not publication_ready(person)
+    previous_consent = (person.consent_version, person.consent_revoked_at)
     assert (
         client.post(
             f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+        ).status_code
+        == 200
+    )
+    person.refresh_from_db()
+    assert (person.consent_version, person.consent_revoked_at) == previous_consent
+    assert not RepresentationAction.objects.filter(person=person, action="grant").exists()
+    assert (
+        client.post(
+            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-romantic-1"}
         ).status_code
         == 302
     )
@@ -127,7 +137,9 @@ def test_agency_direct_consent_shared_phone_and_transfer(ready_accounts):
     )
     invitation_path = mail.outbox[-1].body.removeprefix("http://localhost:8000")
     assert (
-        stranger_client.post(invitation_path, {"authorize": "on", "version": "dev-1"}).status_code
+        stranger_client.post(
+            invitation_path, {"authorize": "on", "version": "dev-romantic-1"}
+        ).status_code
         == 403
     )
     assert subject_client.get(invitation_path).status_code == 200
@@ -138,11 +150,15 @@ def test_agency_direct_consent_shared_phone_and_transfer(ready_accounts):
         == 200
     )
     assert (
-        subject_client.post(invitation_path, {"authorize": "on", "version": "dev-1"}).status_code
+        subject_client.post(
+            invitation_path, {"authorize": "on", "version": "dev-romantic-1"}
+        ).status_code
         == 302
     )
     assert (
-        subject_client.post(invitation_path, {"authorize": "on", "version": "dev-1"}).status_code
+        subject_client.post(
+            invitation_path, {"authorize": "on", "version": "dev-romantic-1"}
+        ).status_code
         == 403
     )
     assert (

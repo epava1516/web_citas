@@ -15,6 +15,7 @@ from apps.core.verification import locked_manager_person
 
 from .models import LifecycleAction, Listing
 from .moderation import unresolved_matches
+from .profile_status import publication_summary, status_label
 from .submissions import validate_submission
 
 
@@ -190,15 +191,25 @@ def panel(request, listing_id):
             response = redirect("listing_lifecycle", listing_id=listing.pk)
             response["Cache-Control"] = "private, no-store"
             return response
+    events = list(listing.lifecycle_actions.filter(
+        manager_version=listing.person.manager_version
+    ).order_by("-created_at", "-pk")[:20])
+    operation_labels = dict(form.fields["operation"].choices)
+    for event in events:
+        event.operation_label = operation_labels.get(
+            event.operation, ("Expiry" if request.LANGUAGE_CODE == "en" else "Caducidad")
+            if event.operation == "expire" else
+            ("Recorded action" if request.LANGUAGE_CODE == "en" else "Acción registrada")
+        )
+        event.status_label = status_label(event.resulting_status, request.LANGUAGE_CODE)
     response = render(
         request,
         "listings/lifecycle.html",
         {
             "listing": listing,
+            "publication_status": publication_summary(listing, request.LANGUAGE_CODE),
             "form": form,
-            "events": listing.lifecycle_actions.filter(
-                manager_version=listing.person.manager_version
-            ).order_by("-created_at", "-pk")[:20],
+            "events": events,
         },
         status=status,
     )

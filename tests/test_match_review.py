@@ -11,7 +11,7 @@ from test_photos import photo_environment, raw_image, upload  # noqa: F401
 from test_revised_listings import published  # noqa: F401
 from test_submissions import payload, prepared  # noqa: F401
 
-from apps.core.models import LegalAcceptance, Person, PhoneClaim, User
+from apps.core.models import LegalAcceptance, LegalDocument, Person, PhoneClaim, User
 from apps.listings.models import Listing, Revision
 from apps.mediafiles.models import Match, MatchResolution
 
@@ -43,7 +43,12 @@ def conflict(request):
     client.force_login(user)
     assert (
         client.post(
-            f"/es/person/{person.pk}/consent/", {"authorize": "on", "version": "dev-1"}
+            f"/es/person/{person.pk}/consent/", {
+                "authorize": "on",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="es", active=True
+                ).version,
+            }
         ).status_code
         == 302
     )

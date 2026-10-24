@@ -365,7 +365,28 @@ def token_view(request, token_id, raw):
 
 @login_required
 def dashboard(request):
-    return render(request, "core/dashboard.html")
+    from apps.listings.history import rectification_history_ids
+    from apps.listings.profile_contract import CURRENT_CONTRACT
+    from apps.listings.profile_status import publication_summary, revision_summary
+
+    from .agencies import person_queryset
+
+    person = person_queryset(request.user).filter(individual=request.user).select_related(
+        "listing"
+    ).first()
+    listing = getattr(person, "listing", None)
+    revisions = (listing.revisions.filter(
+        manager_version=person.manager_version, content_contract=CURRENT_CONTRACT,
+    ).exclude(pk__in=rectification_history_ids()) if listing else None)
+    draft = revisions.filter(status="draft").order_by("-created_at").first() if listing else None
+    current = (revisions.filter(status__in=["draft", "processing", "pending", "rejected"])
+               .order_by("-created_at").first() if listing else None)
+    return render(request, "core/dashboard.html", {
+        "own_profile": person, "own_listing": listing, "own_draft": draft,
+        "publication_status": publication_summary(listing, request.LANGUAGE_CODE),
+        "own_revision": current,
+        "revision_status": revision_summary(current, request.LANGUAGE_CODE),
+    })
 
 
 @require_http_methods(["GET", "POST"])

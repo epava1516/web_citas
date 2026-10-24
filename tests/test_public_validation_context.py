@@ -97,8 +97,6 @@ def test_prepared_details_preserve_cleaning_and_independent_fields(request):
         for name in SnapshotDetails.Meta.fields
         if not revision._meta.get_field(name).many_to_many
     }
-    data.update({name: [item.pk for item in getattr(revision, "_pv_" + name)]
-                 for name in ["categories", "services", "travel_areas"]})
     city = revision.municipality
     data.update(region=city.province.region_id, province=city.province_id,
                 municipality=city.pk, postal_code=revision.postal_code_id or "",
@@ -195,8 +193,6 @@ def test_field_clean_reuse_preserves_mutable_results_and_typed_keys(request, mon
     revision = row.approved_revision
     data = {name: getattr(revision, name) for name in SnapshotDetails.Meta.fields
             if not revision._meta.get_field(name).many_to_many}
-    data.update({name: [item.pk for item in getattr(revision, "_pv_" + name)]
-                 for name in ["categories", "services", "travel_areas"]})
     city = revision.municipality
     data.update(region=city.province.region_id, province=city.province_id,
                 municipality=city.pk, postal_code=revision.postal_code_id or "",
@@ -210,11 +206,11 @@ def test_field_clean_reuse_preserves_mutable_results_and_typed_keys(request, mon
 
     monkeypatch.setattr(SnapshotDetails, "full_clean", capture)
     assert context.details_valid(data, revision)
-    expected = list(seen[-1].cleaned_data["categories"])
-    seen[-1].cleaned_data["categories"].clear()
+    expected = list(seen[-1].cleaned_data["spoken_languages"])
+    seen[-1].cleaned_data["spoken_languages"].clear()
     assert context.details_valid(data, revision)
-    assert seen[-1].cleaned_data["categories"] == expected
-    assert seen[-1].cleaned_data["categories"] is not seen[-2].cleaned_data["categories"]
+    assert seen[-1].cleaned_data["spoken_languages"] == expected
+    assert seen[-1].cleaned_data["spoken_languages"] is not seen[-2].cleaned_data["spoken_languages"]
     before = dict(context.field_clean_cache_stats["SnapshotDetails.province"])
     assert context.details_valid({**data, "province": str(city.province_id)}, revision)
     after = context.field_clean_cache_stats["SnapshotDetails.province"]

@@ -7,7 +7,7 @@ from django.test import Client
 from test_erasure_execution import payload, plan_fixture
 from test_reports import directory, photo_environment  # noqa: F401
 
-from apps.core.models import Person, RepresentationAction
+from apps.core.models import LegalDocument, Person, RepresentationAction
 from apps.core.verification_services import publication_ready
 from apps.safety.erasure_execution import execute
 
@@ -72,7 +72,9 @@ def test_inflight_self_consent_cannot_restore_erased_authorization(request, sett
                 f"/en/person/{person.pk}/consent/",
                 {
                     "authorize": "on",
-                    "version": "dev-1",
+                    "version": LegalDocument.objects.get(
+                        slug="publishing", language="en", active=True
+                    ).version,
                 },
             ).status_code
         finally:
@@ -96,7 +98,9 @@ def test_inflight_self_consent_cannot_restore_erased_authorization(request, sett
             f"/en/person/{person.pk}/consent/",
             {
                 "authorize": "on",
-                "version": "dev-1",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="en", active=True
+                ).version,
             },
         ).status_code
         == 302
@@ -150,7 +154,9 @@ def test_self_consent_cannot_reauthorize_erased_publication(request, settings, m
             f"/en/person/{person.pk}/consent/",
             {
                 "authorize": "on",
-                "version": "dev-1",
+                "version": LegalDocument.objects.get(
+                    slug="publishing", language="en", active=True
+                ).version,
             },
         ).status_code
         == 409

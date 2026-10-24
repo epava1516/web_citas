@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LONG_CASES = [
+    "tests/test_capacity_territorial_equivalence.py",
     "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]",
     "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[measured]",
     "tests/test_rights_portability_large_history.py",
@@ -185,6 +186,16 @@ def main():
         "--benchmark-normal-refresh", action="store_true",
         help="Use actual worker/Beat with this run's owned Redis for an explicit focused HTTP gate",
     )
+    parser.add_argument("--benchmark-server-boundaries", action="store_true",
+                        help="Owned sync handler/parser boundaries; client phases and normal refresh required")
+    parser.add_argument("--benchmark-client-phases", action="store_true",
+                        help="Client TCP phase timestamps; explicit functional/short HTTP diagnostic only")
+    parser.add_argument("--benchmark-service-resources", action="store_true",
+                        help="Owned service CPU/RSS/cgroup diagnostic; explicit functional/short beta HTTP only")
+    parser.add_argument("--benchmark-territorial", action="store_true",
+                        help="Explicit two-city70/30 synthetic functional TCP calibration only")
+    parser.add_argument("--benchmark-beta-promotions", action="store_true",
+                        help="Synthetic20percent promotional HTTP workload; normal refresh and explicit single HTTP scenario required")
     parser.add_argument(
         "--benchmark-generator-freeze", action="store_true",
         help="Apply the documented GC preparation to the benchmark client only",
@@ -220,8 +231,21 @@ def main():
     )
     args = parser.parse_args()
     if args.duration_order_from:
-        if args.profile != "regression" or args.regression_lane != "functional" or args.workers < 2:
-            parser.error("Duration ordering requires parallel functional regression")
+        parallel_functional = args.workers >= 2 and (
+            (args.profile == "regression" and args.regression_lane == "functional")
+            or args.profile == "focused"
+        )
+        capacity_files = {
+            (ROOT / case.split("::", 1)[0]).resolve()
+            for case in [*regression_lane_files("capacity"), *LONG_CASES]
+        }
+        if not parallel_functional or any(
+            (ROOT / selected.split("::", 1)[0]).resolve() in capacity_files
+            for selected in args.test or []
+        ):
+            parser.error(
+                "Duration ordering requires parallel functional regression or focused tests; capacity stays serial"
+            )
         if str(ROOT) not in sys.path:
             sys.path.insert(0, str(ROOT))
         from scripts.local_ci_duration_order import file_costs
@@ -230,18 +254,52 @@ def main():
             file_costs(args.duration_order_from)
         except (OSError, ValueError, KeyError, TypeError) as error:
             parser.error(f"Invalid duration history: {error}")
-    if (args.benchmark_normal_refresh or args.benchmark_generator_freeze or args.benchmark_observe_workers) and (
+    if (args.benchmark_normal_refresh or args.benchmark_generator_freeze or args.benchmark_observe_workers or args.benchmark_client_phases or args.benchmark_service_resources) and (
         args.profile != "focused" or args.workers != 1
     ):
         parser.error("Benchmark switches require focused selection and --workers 1")
-    if args.benchmark_normal_refresh and (
+    mixed_native = args.test == [
+        "tests/test_mixed_state_territorial_equivalence.py::test_mixed_state_territorial_equivalence[native]"
+    ]
+    if args.benchmark_normal_refresh and mixed_native and not args.isolate_test_broker:
+        parser.error("Mixed native worker requires the isolated test broker")
+    if args.benchmark_normal_refresh and not mixed_native and (
         not args.test or any(
             not (item == "tests/test_contract_http_load.py"
                  or item.startswith("tests/test_contract_http_load.py::"))
             for item in args.test
         )
     ):
-        parser.error("Normal benchmark refresh requires the explicit contract HTTP test")
+        parser.error("Normal benchmark refresh requires an explicit contract HTTP or isolated mixed native test")
+    if args.benchmark_client_phases and args.test not in [
+        [f"tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[{scenario}]"]
+        for scenario in ("functional", "short")
+    ]:
+        parser.error("Client phases require one explicit functional or short HTTP diagnostic")
+    if args.benchmark_server_boundaries and (
+        not args.benchmark_client_phases or not args.benchmark_normal_refresh
+        or not args.benchmark_beta_promotions or args.benchmark_observe_workers
+    ):
+        parser.error("Server boundaries require client phases, normal refresh, beta promotions and no worker profiler")
+    if args.benchmark_service_resources and (
+        not args.benchmark_normal_refresh or not args.benchmark_beta_promotions
+        or args.benchmark_observe_workers or args.benchmark_client_phases or args.benchmark_server_boundaries
+        or args.test not in [[f"tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[{s}]"]
+                             for s in ("functional", "short")]
+    ):
+        parser.error("Service resources require one functional/short beta HTTP node, normal refresh and no other observer")
+    if args.benchmark_territorial and (
+        not args.benchmark_beta_promotions or not args.benchmark_normal_refresh
+        or args.test != ['tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[functional]']
+    ):
+        parser.error("Territorial workload requires explicit functional beta HTTP calibration")
+    if args.benchmark_beta_promotions:
+        permitted = [
+            [f"tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[{scenario}]"]
+            for scenario in ["functional", "short", "measured"]
+        ]
+        if not args.benchmark_normal_refresh or args.test not in permitted or args.benchmark_observe_workers:
+            parser.error("Beta promotions require normal refresh, one explicit HTTP scenario and no worker profiler")
     if args.benchmark_observe_workers and args.test != [
         "tests/test_contract_http_load.py::test_contract_arrival_rate_http_with_limited_uploads[short]"
     ]:
@@ -306,6 +364,11 @@ def main():
         "benchmark_sql_shapes": args.benchmark_sql_shapes,
         "benchmark_pg_statements": args.benchmark_pg_statements,
         "benchmark_normal_refresh": args.benchmark_normal_refresh,
+        "benchmark_beta_promotions": args.benchmark_beta_promotions,
+        "benchmark_territorial": args.benchmark_territorial,
+        "benchmark_client_phases": args.benchmark_client_phases,
+        "benchmark_server_boundaries": args.benchmark_server_boundaries,
+        "benchmark_service_resources": args.benchmark_service_resources,
         "benchmark_generator_freeze": args.benchmark_generator_freeze,
         "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
     }
@@ -435,6 +498,13 @@ def main():
                         LOCAL_CI_BENCHMARK_RUN=run_id,
                         LOCAL_CI_BENCHMARK_REDIS_CONTAINER=name,
                     )
+                env["WEB_MODELOS_BENCHMARK_SERVER_BOUNDARIES"] = "1" if args.benchmark_server_boundaries else "0"
+                env["WEB_MODELOS_BENCHMARK_CLIENT_PHASES"] = "1" if args.benchmark_client_phases else "0"
+                env["WEB_MODELOS_BENCHMARK_SERVICE_RESOURCES"] = "1" if args.benchmark_service_resources else "0"
+                env["WEB_MODELOS_BETA_TERRITORIAL_LOAD"] = "1" if args.benchmark_territorial else "0"
+                if args.benchmark_beta_promotions:
+                    env["WEB_MODELOS_BETA_PROMOTIONAL_LOAD"] = "1"
+                    env["PROMOTION_TEST_MODE"] = "1"
                 if args.benchmark_observe_workers:
                     env["WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS"] = "1"
                 if args.benchmark_ingress_only:

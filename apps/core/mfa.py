@@ -4,10 +4,10 @@ import secrets
 from datetime import datetime
 
 import pyotp
-from cryptography.fernet import Fernet
 from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -16,16 +16,19 @@ from django.utils.crypto import salted_hmac
 from django.views.decorators.http import require_http_methods
 
 from .accounts import limited
+from .encryption import encryption_cipher
 from .models import RecoveryCode, User
 
 
 def cipher():
     key = settings.MFA_ENCRYPTION_KEY
     if not key:
+        if settings.MFA_ENCRYPTION_KEY_FALLBACKS:
+            raise ImproperlyConfigured("Explicit active encryption key required with fallbacks")
         key = base64.urlsafe_b64encode(
             hashlib.sha256((settings.SECRET_KEY + ":dev-mfa").encode()).digest()
         )
-    return Fernet(key)
+    return encryption_cipher(key, settings.MFA_ENCRYPTION_KEY_FALLBACKS)
 
 
 def encrypt(secret):

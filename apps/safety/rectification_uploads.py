@@ -90,6 +90,8 @@ def check_current(user, case, person, listing, version, additional_blob_ids=()):
     from .rights_rectification import source_snapshot
 
     _, snapshot = source_snapshot(case, person, listing, additional_blob_ids=additional_blob_ids)
+    # Resource locks may outlast the previously checked authorization.
+    proof = authorized_proof(case, person, "rectify")
     if not RightsRectificationSourceRead.objects.filter(
         request=case,
         actor=user,
@@ -144,6 +146,8 @@ def upload(user, case_id, key, version, image, reason):
             digest = baseline(case, person, listing)
             blob, created = Blob.objects.get_or_create(sha256=sha)
             blob = Blob.objects.select_for_update().get(pk=blob.pk)
+            if authorized_proof(case, person, "rectify").pk != proof.pk:
+                raise ValidationError("Upload authorization changed / Autorización de carga cambiada")
             if blob.status in {"erasing", "erased", "purging", "purged"}:
                 raise ValidationError("Image unavailable / Imagen no disponible")
             if created:
@@ -200,7 +204,7 @@ def discard(user, case_id, key, version, photo_id, reason):
         ):
             return
         raise ValidationError("Conflicting discard key / Clave incompatible")
-    check_current(user, case, person, listing, version)
+    proof = check_current(user, case, person, listing, version)
     item = (
         RightsRectificationPhotoUpload.objects.select_for_update()
         .filter(action__request=case, photo_id=photo_id, proof__person=person)
@@ -210,6 +214,8 @@ def discard(user, case_id, key, version, photo_id, reason):
         raise ValidationError(
             "Current upload and reason required / Carga vigente y motivo obligatorios"
         )
+    if authorized_proof(case, person, "rectify").pk != proof.pk:
+        raise ValidationError("Upload authorization changed / Autorización de carga cambiada")
     item.discarded_at = timezone.now()
     item.save(update_fields=["discarded_at"])
     try:

@@ -22,6 +22,7 @@ from .moderation import (
     unresolved_matches,
 )
 from .presentation import describe
+from .profile_contract import CURRENT_CONTRACT
 from .public_validation import DetailQuery, PublicationContext, _prepared_page_binding
 
 
@@ -63,7 +64,7 @@ def queue(request):
         request,
         "listings/moderation_queue.html",
         {
-            "revisions": Revision.objects.filter(status="pending")
+            "revisions": Revision.objects.filter(status="pending", content_contract=CURRENT_CONTRACT)
             .exclude(pk__in=rectification_history_ids())
             .exclude(photos__rectification_upload__isnull=False)
             .order_by("submission__created_at")[:100]

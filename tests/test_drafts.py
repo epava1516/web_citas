@@ -7,7 +7,7 @@ from django.db import close_old_connections, connections
 from django.test import Client
 from django.utils import timezone
 
-from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
+from apps.catalog.models import Municipality, PostalCode, Zone
 from apps.core.models import LegalAcceptance, LegalDocument, Person, PhoneClaim, User
 from apps.listings.models import Listing, Rate, Revision
 
@@ -45,13 +45,11 @@ def details(revision, **changes):
     city = Municipality.objects.get(code="demo-south")
     return {
         "edit_version": str(revision.edit_version),
-        "title": "Modelo para fotografía y eventos",
-        "description": "Trabajo de fotografía profesional y eventos culturales.",
+        "title": "Perfil para compartir fotografía y planes románticos",
+        "description": "Me gustaría conocer a alguien para compartir fotografía y planes culturales.",
         "content_language": "es",
-        "description_alternative": "Professional photography and cultural events.",
+        "description_alternative": "I would like to meet someone who enjoys photography and cultural activities.",
         "profile_type": "woman",
-        "categories": [Category.objects.get(slug="modeling").pk],
-        "services": [Service.objects.get(slug="photography").pk],
         "region": city.province.region_id,
         "province": city.province_id,
         "municipality": city.pk,
@@ -69,22 +67,14 @@ def contacts(revision, **changes):
         "edit_version": revision.edit_version,
         "contact_exposure_accepted": "on",
         "accept_publishing": "on",
-        "legal_version": "dev-1",
+        "legal_version": LegalDocument.objects.get(slug="publishing", language="es", active=True).version,
         "whatsapp": "on",
         "telegram": "demo_model",
-        "rates-TOTAL_FORMS": "1",
-        "rates-INITIAL_FORMS": "0",
-        "rates-MIN_NUM_FORMS": "0",
-        "rates-MAX_NUM_FORMS": "10",
-        "rates-0-concept": "Sesión fotográfica",
-        "rates-0-mode": "consult",
-        "rates-0-amount": "",
-        "rates-0-duration_minutes": "60",
         **changes,
     }
 
 
-def test_wizard_persists_real_fields_contact_and_consult_rate(scenario):
+def test_wizard_persists_profile_and_contact_without_service_rates(scenario):
     user, person, client = scenario
     response = client.post(f"/es/person/{person.pk}/listing/start/")
     assert response.status_code == 302
@@ -93,7 +83,7 @@ def test_wizard_persists_real_fields_contact_and_consult_rate(scenario):
     assert response.status_code == 302, response.context["form"].errors
     revision.refresh_from_db()
     assert (
-        revision.municipality.code == "demo-south" and revision.services.get().slug == "photography"
+        revision.municipality.code == "demo-south" and revision.categories.get().slug == "romantic-dating"
     )
     assert revision.spoken_languages == ["es", "en"]
     response = client.post(f"/es/draft/{revision.pk}/2/", contacts(revision, phone="+34999999999"))
@@ -101,9 +91,9 @@ def test_wizard_persists_real_fields_contact_and_consult_rate(scenario):
     revision.refresh_from_db()
     assert revision.phone == person.phone_claim.phone
     assert revision.publisher_acceptance.user_id == user.pk
-    assert Rate.objects.get().amount is None and Rate.objects.get().mode == "consult"
+    assert not Rate.objects.exists() and not revision.services.exists()
     page = client.get(f"/es/draft/{revision.pk}/4/")
-    assert b"Consultar" in page.content and revision.title.encode() in page.content
+    assert b"Tarifas" not in page.content and revision.title.encode() in page.content
     assert (
         Listing.objects.get().status == "draft"
         and Listing.objects.get().approved_revision_id is None
@@ -142,7 +132,7 @@ def test_invalid_geography_service_contact_and_version(scenario):
     assert client.post(path, details(revision, municipality=north.pk)).status_code == 400
     assert (
         client.post(
-            path, details(revision, services=[Service.objects.get(slug="relaxation").pk])
+            path, details(revision, services=["untrusted-service"])
         ).status_code
         == 400
     )

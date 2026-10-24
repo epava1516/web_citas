@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}
+<h1>{% if english %}Review my profile{% else %}Revisar mi perfil{% endif %}</h1>
+<p>{% if english %}Complete a new personal profile for romantic dating. The earlier content is not published or copied automatically.{% else %}Completa un nuevo perfil personal para citas románticas. El contenido anterior no se publica ni se copia automáticamente.{% endif %}</p>
+<form method="post" action="{% url 'listing_start' person.pk %}">{% csrf_token %}<button type="submit">{% if english %}Complete my profile{% else %}Completar mi perfil{% endif %}</button></form>
+{% endblock %}

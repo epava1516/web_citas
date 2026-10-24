@@ -233,3 +233,48 @@ def test_projection_results_are_independent_and_context_does_not_survive_request
     pages = batch.inspect_batch(reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON, 'revisions')
     assert len(pages) == len(observed) == 4
     assert projection._current.get() is None
+
+
+@pytest.mark.parametrize('changed_setting', ['SAFETY_ENCRYPTION_KEY_FALLBACKS', 'SAFETY_HMAC_KEY'])
+def test_fallback_key_configuration_change_recomputes_each_audited_projection(request, settings, monkeypatch, changed_setting):
+    settings.SECRET_KEY = 'synthetic-batch-signing-' + 's' * 64
+    settings.SAFETY_HMAC_KEY = ''
+    from cryptography.fernet import Fernet
+    settings.SAFETY_ENCRYPTION_KEY = Fernet.generate_key().decode()
+    settings.SAFETY_ENCRYPTION_KEY_FALLBACKS = ''
+    case, _, coverage, reviewer = prepared(request, settings, monkeypatch)
+    original_batch, original_project = selection_review.project_in_batch, selection_review.project_selected
+    projected = []
+    def compute(*args, **kwargs):
+        projected.append(True)
+        return original_project(*args, **kwargs)
+    def change_configuration(*args, **kwargs):
+        setattr(settings, changed_setting, Fernet.generate_key().decode() if changed_setting.endswith('FALLBACKS') else settings.SECRET_KEY)
+        return original_batch(*args, **kwargs)
+    monkeypatch.setattr(selection_review, 'project_selected', compute)
+    monkeypatch.setattr(selection_review, 'project_in_batch', change_configuration)
+    before = RightsPortabilitySelectionRead.objects.count()
+    pages = batch.inspect_batch(reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON, 'revisions')
+    assert len(pages) == 4
+    assert len(projected) == (1 if changed_setting == 'SAFETY_HMAC_KEY' else 4)
+    assert RightsPortabilitySelectionRead.objects.count() == before + 4
+    assert projection._current.get() is None
+
+
+def test_domain_key_change_during_batch_rejects_and_rolls_back_child_reads(request, settings, monkeypatch):
+    settings.SAFETY_HMAC_KEY = ''
+    case, _, coverage, reviewer = prepared(request, settings, monkeypatch)
+    original = selection_review.project_in_batch
+    calls = []
+    def change_after_project(*args, **kwargs):
+        result = original(*args, **kwargs)
+        calls.append(True)
+        settings.SAFETY_HMAC_KEY = 'synthetic-changed-domain-' + 'q' * 64
+        return result
+    monkeypatch.setattr(selection_review, 'project_in_batch', change_after_project)
+    before = RightsPortabilitySelectionRead.objects.count()
+    with pytest.raises(ValidationError):
+        batch.inspect_batch(reviewer, case.pk, case.version, coverage.pk, uuid4(), REASON, 'revisions')
+    assert calls
+    assert RightsPortabilitySelectionRead.objects.count() == before
+    assert projection._current.get() is None

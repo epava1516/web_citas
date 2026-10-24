@@ -200,10 +200,10 @@ def test_mobile_pause_resume_withdraw_persists(live_server, request, settings):
             page.locator("button[type=submit]").click()
             page.goto(live_server.url + f"/en/listing/{listing_id}/manage/")
             for operation, status in [
-                ("available", "published"),
-                ("pause", "paused"),
-                ("resume", "published"),
-                ("withdraw", "withdrawn"),
+                ("available", "Published"),
+                ("pause", "Paused"),
+                ("resume", "Published"),
+                ("withdraw", "Withdrawn"),
             ]:
                 page.locator("[name=operation]").select_option(operation)
                 page.get_by_role("button", name="Apply action", exact=True).click()
@@ -371,9 +371,9 @@ def test_mobile_renewal_confirms_data_and_preserves_publication(live_server, req
             ).to_be_visible()
             page.locator("[name=confirm]").check()
             page.get_by_role("button", name="Apply action", exact=True).click()
-            expect(page.locator("p").filter(has_text=" · renew · ")).to_be_visible()
+            expect(page.locator("p").filter(has_text=" · Renew · ")).to_be_visible()
             page.reload()
-            expect(page.locator("p").filter(has_text=" · renew · ")).to_be_visible()
+            expect(page.locator("p").filter(has_text=" · Renew · ")).to_be_visible()
             assert str(listing_id) in page.url
         finally:
             browser.close()

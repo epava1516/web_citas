@@ -4,9 +4,10 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 from threading import get_ident
 
-from django.conf import settings
 from django.db import transaction
 from django.views.decorators.debug import sensitive_variables
+
+from apps.core.domain_signing import domain_signing_key
 
 MAX_ENTRIES = 128
 MAX_INPUT_BYTES = 32 * 1024 * 1024
@@ -62,7 +63,7 @@ def fingerprint(value, native):
         return native(value)
     # Read the current secret on EVERY invocation, including cache hits. Exact
     # immutable types alone avoid conversions and custom equality/hash behavior.
-    secret = settings.SECRET_KEY
+    secret = domain_signing_key()
     if type(secret) not in (str, bytes):
         return native(value)
     large = len(value) > LARGE_INPUT or len(secret) > LARGE_INPUT
@@ -89,7 +90,8 @@ def fingerprint(value, native):
     result = native(value)
     # Native reads its own settings: do not retain a result if those changed
     # during computation. Unicode upper bounds avoid allocating encoded inputs.
-    if type(settings.SECRET_KEY) is not type(secret) or settings.SECRET_KEY != secret:
+    current_secret = domain_signing_key()
+    if type(current_secret) is not type(secret) or current_secret != secret:
         return result
     size = len(value) * (4 if type(value) is str else 1)
     size += len(secret) * (4 if type(secret) is str else 1)

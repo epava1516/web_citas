@@ -68,6 +68,10 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     topology = server_topology(os.environ)
     if topology["threads"] > 1:
         assert scenario in {"functional", "short"}, "Threaded candidate is not a contractual measurement"
+    trace_server_boundaries = os.environ.get("WEB_MODELOS_BENCHMARK_SERVER_BOUNDARIES") == "1"
+    trace_client_phases = os.environ.get("WEB_MODELOS_BENCHMARK_CLIENT_PHASES") == "1"
+    trace_service_resources = os.environ.get("WEB_MODELOS_BENCHMARK_SERVICE_RESOURCES") == "1"
+    assert not trace_client_phases or scenario in {"functional", "short"}, "Client phases are diagnostic only"
     observe_workers = os.environ.get("WEB_MODELOS_BENCHMARK_OBSERVE_WORKERS") == "1"
     ingress_only = os.environ.get("WEB_MODELOS_BENCHMARK_INGRESS_ONLY") == "1"
     resource_only = os.environ.get("WEB_MODELOS_BENCHMARK_RESOURCE_ONLY") == "1"
@@ -76,16 +80,52 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     refresh_mode = os.environ.get("WEB_MODELOS_REFRESH_MODE", EAGER)
     assert refresh_mode in (EAGER, NORMAL)
     assert not (observe_workers and scenario == "measured"), "Worker observer is diagnostic only"
+    assert not trace_server_boundaries or (trace_client_phases and refresh_mode == NORMAL and not observe_workers and topology["worker_class"] == "sync" and topology["threads"] == 1)
     large = scenario != "functional"
     upload_count = 15 if scenario == "measured" else 1
+    beta_promotions = os.environ.get("WEB_MODELOS_BETA_PROMOTIONAL_LOAD") == "1"
+    territorial = os.environ.get("WEB_MODELOS_BETA_TERRITORIAL_LOAD") == "1"
+    assert not territorial or (beta_promotions and scenario == "functional"), "Territorial TCP requires a functional promotional calibration first"
+    if beta_promotions:
+        assert refresh_mode == NORMAL and not observe_workers
+    assert not trace_service_resources or (
+        scenario in {'functional', 'short'} and beta_promotions and refresh_mode == NORMAL
+        and not observe_workers and not trace_client_phases and not trace_server_boundaries
+    ), "Service resources are an isolated functional/short beta diagnostic only"
+    preparation_initial = None
+    if refresh_mode == NORMAL:
+        from beta_promotional_load_fixture import reset_preparation_broker
+
+        preparation_initial = reset_preparation_broker("before_directory_bootstrap")
     request.getfixturevalue("directory")
     assert connection.vendor == "postgresql"
-    dataset = populate(10000 if large else 10)
+    if beta_promotions:
+        from beta_promotional_load_fixture import prepare_promotional_load
+
+        dataset = prepare_promotional_load(request, 10000 if large else 10)
+    else:
+        dataset = populate(10000 if large else 10)
+    if territorial:
+        from beta_promotional_load_fixture import redistribute_promotional_geography
+
+        from apps.catalog.models import Municipality
+
+        cities = list(Municipality.objects.filter(active=True, source__synthetic=True)
+                      .order_by('pk').values_list('pk', flat=True)[:2])
+        assert len(cities) == 2
+        first = dataset['published'] * 7 // 10
+        dataset = redistribute_promotional_geography(
+            dataset, {cities[0]: first, cities[1]: dataset['published'] - first},
+        )
     # MOD-05 deployment step (README/docs85): recompute stored publication state with the
     # code under test before serving traffic; bulk fixtures leave every listing marked.
     deploy_output = io.StringIO()
     call_command("refresh_publication_state", stdout=deploy_output)
     dataset["deployment_step"] = deploy_output.getvalue().strip()
+    if beta_promotions:
+        from beta_promotional_load_fixture import finalize_promotional_statistics
+
+        dataset["post_preparation_statistics"] = finalize_promotional_statistics(dataset)
     db = connection.settings_dict
     assert db["NAME"].startswith("test_promotion_gate_")
     environment = os.environ.copy()
@@ -141,8 +181,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "gunicorn_version": version("gunicorn"),
         "django_version": version("Django"),
         "python_version": platform.python_version(),
-        "pg_server_shared": True,
-        "limits": "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented.",
+        "pg_server_shared": not bool(os.environ.get("LOCAL_CI_POSTGRES_CONTAINER")),
+        "limits": (
+            "Runner-owned PostgreSQL service/database; host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented."
+            if os.environ.get("LOCAL_CI_POSTGRES_CONTAINER") else
+            "Runner database isolated; PostgreSQL service/host shared with normal stack. No competing test/build workload; normal stack CPU load not instrumented."
+        ),
     }
     for name, file in [
         ("memory_total", "/proc/meminfo"),
@@ -155,9 +199,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
     process = None
     celery_processes, sampler = {}, None
     pg_statement_sampler = None
+    service_sampler = None
     summary = {
         "refresh_mode": refresh_mode,
         "dataset": dataset,
+        "beta_promotional_workload": beta_promotions,
+        "preparation_broker_initial": preparation_initial,
         "resources": resources,
         "success": False,
         "duration_seconds": {"functional": 3, "short": 60, "measured": 900}[scenario],
@@ -196,9 +243,20 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "/en/listing/" + dataset["sample_ids"][-1] + "/",
     ]
 
+    if territorial:
+        from scripts.benchmark_territorial_routes import balanced_territorial_cycle
+
+        routes = balanced_territorial_cycle(dataset['geography'], routes)
+        summary['mix']['territorial'] = (
+            'Two synthetic cities70/30; first/middle/last distinct pages; '
+            'six-slot blocks with equal route thirds and alternating ES/EN; '
+            'detail paths repeated deliberately; not national representation'
+        )
+
     async def concurrent_fetch(path, **kwargs):
         return await fetch_http(
-            origin, path, timeout_seconds=POLICY["request_timeout_seconds"], **kwargs
+            origin, path, timeout_seconds=POLICY["request_timeout_seconds"],
+            trace_phases=trace_client_phases, **kwargs
         )
 
     artifact_folder = Path(request.config.getoption("--gate-timings-output")).parent
@@ -212,12 +270,19 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         if ingress_only:
             module = "scripts.benchmark_ingress_observer"
         observer_args = ["--config", "python:" + module]
+    boundary_folder = artifact_folder / "server-boundaries-raw"
+    if trace_server_boundaries:
+        boundary_folder.mkdir(mode=0o700)
+        environment["WEB_MODELOS_SYNC_BOUNDARIES_DIR"] = str(boundary_folder)
+        observer_args = ["--config", "python:scripts.benchmark_sync_boundaries"]
     manifest = {
         "refresh_mode": refresh_mode,
         "diagnostic_static_startup": ingress_only and os.environ.get("WEB_MODELOS_BENCHMARK_PREPARE_STATIC") == "1",
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "server_topology": topology,
         "dataset": dataset,
+        "beta_promotional_workload": beta_promotions,
+        "preparation_broker_initial": preparation_initial,
         "fixture": "seed_demo; deterministic photo seed1, upload seed782134; UUID identities/time-relative validity vary per isolated run",
         "resources": resources,
         "routes": routes,
@@ -227,10 +292,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         "arrival_rps": summary["arrival_rps"],
         "scheduled_dynamic": int(summary["duration_seconds"] * summary["arrival_rps"]),
         "uploads_separate": upload_count,
-        "state": "Fresh Gunicorn/DB fixture; six cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
+        "state": f"Fresh Gunicorn/DB fixture; {len(routes)} cold probes then same-server sustained arrivals. OS/PG shared caches not reset or asserted cold",
         "error_policy": "Every non200 dynamic response, transport error or timeout is failed; uploads require302; final drain expiry classified failed/timeout",
         "instrumentation": "Monotonic per-request timestamps/async ledger; client-process GC callbacks during arrivals/drain with monotonic intervals and collector-thread CPU; event overlap reviewed after drain, causal callback overhead not_measured; GC policy unchanged; Gunicorn access logs; no app CPU/DB/RSS sampling",
         "scope": {"measured": "contractual", "short": "60s concurrent diagnostic only; not contractual capacity", "functional": "functional generator calibration only"}[scenario],
+        "server_boundaries": {"enabled": trace_server_boundaries, "scope": "Sync handle entry after accept bookkeeping, pre_request after parser, native handle exit; shared host monotonic clock; no exact TCP accept or socket-only queue, no causal overhead measured"},
+        "client_phases": {"enabled": trace_client_phases, "scope": "Client connection/drain/status-line/headers/body boundaries; no exact admission or socket queue; causal overhead not measured"},
         "client": "asyncio local HTTP, no pending-request cap, total HTTP transaction deadline65s; no redirect following",
         "client_fixture_preparation": "One gc.collect(2) after fixture/auth/upload construction, before arrival clock; enabled/thresholds unchanged, automatic GC remains active during load. Previous observed client GC321.913ms overlaps273.107ms of273.462ms maximum emission delay; no backend improvement attributed to this preparation",
     }
@@ -280,8 +347,16 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             "verdict_scope": "Complete diagnostic gate, transport verdict retained separately",
             "reason": "Existing latency/error objectives plus at most one second of arrivals outstanding as accumulation filter; generator numeric policy unchanged. No capacity acceptance.",
         }
+    manifest['service_resources'] = {
+        'enabled': trace_service_resources,
+        'scope': 'Owned service process CPU/RSS and PG/Redis leaf cgroups, sampled1Hz; '
+                 'no per-request CPU or causal overhead attribution; diagnostic only',
+    }
+    if trace_service_resources:
+        manifest['instrumentation'] += '; separate owned service resource sampler enabled; not a clean control'
     (artifact_folder / "benchmark-manifest.json").write_text(json.dumps(manifest, indent=2))
-    summary["frozen_manifest"] = manifest
+    # Keep the recorded manifest identical to the file sealed before runtime fixture writes.
+    summary["frozen_manifest"] = json.loads(json.dumps(manifest))
 
     def fetch(path, *, data=None, headers=None, expected=200, scheduled=None, benchmark_id=None):
         begin = time.perf_counter()
@@ -306,6 +381,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 result.update(
                     status=response.code, bytes=len(payload), unexpected=response.code != expected
                 )
+                if beta_promotions and path in routes[:2]:
+                    result["sponsorship_present"] = any(marker in payload for marker in [b"Patrocinado", b"Sponsored"])
         except (OSError, TimeoutError) as error:
             result.update(
                 status=0,
@@ -321,6 +398,11 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         if refresh_mode == NORMAL:
             from test_worker_capacity_comparison import owned_redis, process_tree, wait_for_log
 
+            # Automatic DB setup and fixture writes can leave broker state.
+            # Rebuild supersedes preparation; runtime always starts empty.
+            summary["preparation_broker_reset"] = reset_preparation_broker(
+                "after_explicit_publication_refresh",
+            )
             assert owned_redis().dbsize() == 0, "Owned Redis database must be empty"
             celery_events = artifact_folder / "celery-events-raw"
             celery_events.mkdir(mode=0o700)
@@ -386,6 +468,13 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 if time.monotonic() >= deadline:
                     raise AssertionError("Gunicorn did not become healthy")
                 time.sleep(0.1)
+        if refresh_mode == NORMAL:
+            owned_pids = set(process_tree(process.pid))
+            owned_pids.update(pid for pids in summary["celery_pids"].values() for pid in pids)
+            summary["owned_process_identities"] = {
+                str(pid): int(Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()[19])
+                for pid in sorted(owned_pids)
+            }
         for path in routes:
             cold.append(fetch(path))
             if large and cold[-1]["unexpected"]:
@@ -394,6 +483,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         assert all(not row["unexpected"] for row in cold), (
             "Cold HTTP prerequisite failed; full workload not executed"
         )
+        if beta_promotions:
+            assert all(row.get("sponsorship_present") for row in cold[:2]), "Promotional server path not exercised"
         summary["cold_latency_seconds"] = {
             "p95": percentile([row["seconds"] for row in cold], 0.95),
             "population": len(cold),
@@ -464,6 +555,24 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 artifact_folder / "pg-statements.jsonl", own_run, inspection, connection.settings_dict,
             )
             summary["pg_stat_statements_active"] = True
+        if trace_service_resources:
+            from scripts.benchmark_owned_services import OwnedServiceSampler
+
+            own_run = json.loads((artifact_folder / 'runner.json').read_text())
+            inspections = {
+                role: json.loads(subprocess.check_output(['docker', 'inspect', name], text=True))[0]
+                for role, name in {
+                    'postgres': os.environ['LOCAL_CI_POSTGRES_CONTAINER'],
+                    'redis': os.environ['LOCAL_CI_BENCHMARK_REDIS_CONTAINER'],
+                }.items()
+            }
+            candidate_sampler = OwnedServiceSampler(
+                artifact_folder / 'service-resources.jsonl', own_run,
+                {'web': process.pid, **{role: child.pid for role, child in celery_processes.items()}},
+                inspections,
+            )
+            candidate_sampler.start()
+            service_sampler = candidate_sampler
         if refresh_mode == NORMAL:
             from test_worker_capacity_comparison import BEAT_PHASE_SECONDS, beat_refresh_publishes
 
@@ -488,6 +597,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             summary["celery_cpu_ticks_before"] = cpu_ticks(
                 [pid for pids in summary["celery_pids"].values() for pid in pids])
             sampler.phase = "arrivals_and_drain"
+        if service_sampler:
+            service_sampler.phase = 'arrivals_and_drain'
         if pg_statement_sampler:
             pg_statement_sampler.start()
         summary["client_gc_preparation"] = prepare_generator_gc()
@@ -501,6 +612,8 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 upload_specs=upload_specs,
             )
         summary["client_gc"] = client_gc.report()
+        if service_sampler:
+            service_sampler.phase = 'idle_after'
         if refresh_mode == NORMAL:
             summary["celery_cpu_ticks_after"] = cpu_ticks(
                 [pid for pids in summary["celery_pids"].values() for pid in pids])
@@ -523,6 +636,23 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             json.dumps({"dynamic": rows, "uploads": uploads, "clock": outcome["clock"]}, indent=2)
         )
         summary["request_samples_artifact"] = str(samples_path)
+        if beta_promotions:
+            from apps.mediafiles.models import Photo, UploadAttempt
+
+            upload_revisions = [draft.pk for draft in draft_rows[:upload_count]]
+            actual_photos = Photo.objects.filter(revision_id__in=upload_revisions)
+            summary["beta_upload_witness"] = {
+                "expected": upload_count, "photos": actual_photos.count(),
+                "drafts_with_photo": actual_photos.values("revision_id").distinct().count(),
+                "accepted_attempts": UploadAttempt.objects.filter(
+                    revision_id__in=upload_revisions, user=manager,
+                    result__in=["accepted", "duplicate", "repeat"],
+                ).count(),
+                "scope": "New owned synthetic drafts; native ingestion persisted synchronously, not async processing/provider verification",
+            }
+            assert all(summary["beta_upload_witness"][key] == upload_count
+                       for key in ["photos", "drafts_with_photo", "accepted_attempts"]), summary["beta_upload_witness"]
+
         if scenario == "short":
             summary["transport_verdict"] = summary["verdict"]
             summary["diagnostic_checks"] = {
@@ -536,10 +666,12 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                     manifest["duration_seconds"] + manifest["diagnostic_criteria"]["drain_seconds_max"]
                 ),
             }
-            summary["diagnostic_continue_contract"] = all(summary["diagnostic_checks"].values())
+            diagnostic_passed = all(summary["diagnostic_checks"].values())
+            summary["diagnostic_continue_contract"] = diagnostic_passed and not trace_client_phases and not trace_service_resources
+            summary["client_phase_diagnostic_only"] = trace_client_phases
             summary["verdict"] = (
                 "INVALID" if summary["transport_verdict"] == "INVALID" else
-                "PASS" if summary["diagnostic_continue_contract"] else "FAIL"
+                "PASS" if diagnostic_passed else "FAIL"
             )
         assert summary["counts"]["reconciled"] and summary["final_upload_counts"]["reconciled"]
         if not large:
@@ -552,9 +684,14 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
                 summary["verdict"] + ": " + repr(summary["invalid_reasons"])
             )
         if scenario == "short":
-            assert summary["diagnostic_continue_contract"], summary["diagnostic_checks"]
+            assert all(summary["diagnostic_checks"].values()), summary["diagnostic_checks"]
         summary["success"] = True
     finally:
+        if service_sampler:
+            try:
+                summary['service_resources'] = service_sampler.close()
+            except Exception as error:
+                summary['service_resources'] = {'error_type': type(error).__name__, 'samples': 0}
         if process and process.poll() is None:
             import signal
 
@@ -601,6 +738,13 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
             ] + ["DB CPU; whole-app/other-thread CPU; unobserved request CPU",
                  "causal worker observer overhead; exact TCP/socket queue time",
                  "SQL rows_returned/affected/scanned; normalized dominant SQL patterns during load"]
+        if trace_server_boundaries:
+            from scripts.benchmark_sync_boundaries import collect_sync_boundaries
+
+            boundaries = collect_sync_boundaries(boundary_folder)
+            (artifact_folder / "benchmark-server-boundaries.json").write_text(json.dumps(boundaries, indent=2))
+            summary["server_boundary_parse_errors"] = boundaries["parse_errors"]
+            summary["server_boundary_samples"] = len(boundaries["samples"])
         if logfile.exists():
             import re
 
@@ -631,3 +775,6 @@ def test_contract_arrival_rate_http_with_limited_uploads(request, tmp_path, reco
         (tmp_path / "load-summary.json").write_text(json.dumps(summary, indent=2))
         compact = {key: value for key, value in summary.items() if key != "samples"}
         record_property("load_summary", json.dumps(compact))
+    if trace_service_resources:
+        assert summary['service_resources']['error_type'] is None
+        assert summary['service_resources']['samples'] >= 2

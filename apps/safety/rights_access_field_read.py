@@ -38,6 +38,8 @@ FIELDS = {
             "content_language",
             "description_alternative",
             "profile_type",
+            "show_trans_label",
+            "content_contract",
             "spoken_languages",
             "days",
             "time_slot",

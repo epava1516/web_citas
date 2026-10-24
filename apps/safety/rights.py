@@ -19,6 +19,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.accounts import limited
+from apps.core.domain_signing import domain_signing_key
 
 from .crypto import seal, unseal
 from .models import RightsAccess, RightsMessage, RightsRequest
@@ -31,7 +32,7 @@ def fingerprint(value):
     from .rights_operation_fingerprints import fingerprint as operation_fingerprint
 
     return operation_fingerprint(
-        value, lambda item: salted_hmac("rights-request-v1", item, algorithm="sha256").hexdigest()
+        value, lambda item: salted_hmac("rights-request-v1", item, algorithm="sha256", secret=domain_signing_key()).hexdigest()
     )
 
 
