@@ -1,3 +1,11 @@
+B10-364: crecimiento/densidad2PASS; detector1000blobs/5coincidencias3,20s y100densos/100coincidencias14,39s; sin índice adoptado. B10/B16 abiertos,13/18,alfa.
+
+Corte: [diagnóstico327](327-escenarios-crecimiento-densidad-similitud-b10-20261024.md).
+
+B10-363: medida actual MOD09 auditada; 1FAIL temporal,0ERROR/0SKIP,2015,181s. Fuentes1723 intactas, cuerpos/concurrencia/limpieza verificados; aceptación provisional conservada. B10/B16 abiertos,13/18,alfa.
+
+Corte: [auditoría326](326-auditoria-medicion-actual-mod09-b10-20261024.md).
+
 B10-362: preparación de medida actualMOD09 tras preflight361PASS; dos sujetos concurrentes1500revisiones, mismos objetivos, sinresultado aún. B10actual/B16abiertos,13/18,alfa.
 
 Corte: [prerregistro325](325-medicion-actual-mod09-b10-20261024.md); ejecución persistente yrelevo antes de espera. OptimizaciónQAaplazada; deudaB14/B15/B17propuesta futura.

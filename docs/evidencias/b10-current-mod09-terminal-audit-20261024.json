@@ -1,0 +1,209 @@
+{
+  "state": "TERMINAL_PRIMARY_AUDIT",
+  "run": "20261024-205341-42fa3118",
+  "result": "FAIL_DELIVERY_STAGE_LIMITS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "2015.181",
+      "timestamp": "2026-10-24T22:55:07.179630+02:00",
+      "hostname": "ea69d3d90f46"
+    }
+  ],
+  "source_count": 1723,
+  "source_mismatches": [],
+  "archive_readable": true,
+  "archive_sha256": "5dde65e738e4defe2f137f4470284b74d0a21696c54e91cd65ee9e6390a24e82",
+  "independent_label_inventory": {
+    "container": {
+      "exit": 0,
+      "ids": []
+    },
+    "volume": {
+      "exit": 0,
+      "ids": []
+    },
+    "network": {
+      "exit": 0,
+      "ids": []
+    }
+  },
+  "reported_cleanup": {
+    "web-modelos-capacity-20261024-205341-42fa3118-app": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-caddy": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-objects": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-redis": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-pg": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-delivery": {
+      "absent": true,
+      "removal_exit": 0
+    },
+    "web-modelos-capacity-20261024-205341-42fa3118-net": {
+      "absent": true
+    },
+    "labelled_remaining": []
+  },
+  "measurements_errors": [],
+  "cases": [
+    {
+      "case": "a3aa0b21-1ae0-4710-acee-af0d229c9b1a",
+      "delivered_json_bytes": 16793236,
+      "delivered_json_sha256": "446b4a4b48c17ee4d7dc0e6f90f4c87b0a8d09a9904326adaaebc8ba3073fee2",
+      "coverage_page_read_p95": 3.3768256679177284,
+      "json_download_p95": 6.600192723795772,
+      "binary_download_p95": 6.645133757963777,
+      "generation": [
+        40.74446919839829
+      ],
+      "final_preparation": [
+        20.44847813434899
+      ],
+      "final_inspection": [
+        3.790044153109193
+      ],
+      "final_approval": [
+        4.392806633375585
+      ],
+      "closure": [
+        20.41081835888326
+      ],
+      "violations": [
+        {
+          "stage": "coverage_page_read_p95",
+          "value": 3.3768256679177284,
+          "maximum": 2
+        },
+        {
+          "stage": "json_download_p95",
+          "value": 6.600192723795772,
+          "maximum": 5
+        },
+        {
+          "stage": "binary_download_p95",
+          "value": 6.645133757963777,
+          "maximum": 5
+        }
+      ]
+    },
+    {
+      "case": "c6cc7a31-c0bd-4cc3-a303-e00d94ffffed",
+      "delivered_json_bytes": 16793236,
+      "delivered_json_sha256": "6031398c028de9f36d71abd3d857c6bad32f58b8c80d847d162e5a973798eab3",
+      "coverage_page_read_p95": 3.3683785730972886,
+      "json_download_p95": 6.529012020677328,
+      "binary_download_p95": 6.770285124890506,
+      "generation": [
+        40.66660436056554
+      ],
+      "final_preparation": [
+        20.489944973029196
+      ],
+      "final_inspection": [
+        3.8898774068802595
+      ],
+      "final_approval": [
+        4.235902254469693
+      ],
+      "closure": [
+        20.51815141644329
+      ],
+      "violations": [
+        {
+          "stage": "coverage_page_read_p95",
+          "value": 3.3683785730972886,
+          "maximum": 2
+        },
+        {
+          "stage": "json_download_p95",
+          "value": 6.529012020677328,
+          "maximum": 5
+        },
+        {
+          "stage": "binary_download_p95",
+          "value": 6.770285124890506,
+          "maximum": 5
+        }
+      ]
+    }
+  ],
+  "owned_memory_upper_bound_bytes": 4279021568,
+  "owned_storage_ceiling_bytes": 5939134464,
+  "no_service_oom": true,
+  "scope": "Primary audit; semantic inspection of test assertions and concurrency still required. FAIL preserved; no B10 closure.",
+  "independent_concurrency_check": {
+    "binary_page_save": {
+      "counts": [
+        20,
+        20
+      ],
+      "all_pairs_overlap": true
+    },
+    "selection_page_read": {
+      "counts": [
+        31,
+        31
+      ],
+      "all_pairs_overlap": true
+    },
+    "binary_inspection": {
+      "counts": [
+        20,
+        20
+      ],
+      "all_pairs_overlap": true
+    },
+    "coverage_page_save": {
+      "counts": [
+        20,
+        20
+      ],
+      "all_pairs_overlap": true
+    },
+    "coverage_page_read": {
+      "counts": [
+        384,
+        384
+      ],
+      "all_pairs_overlap": true
+    },
+    "json_download": {
+      "counts": [
+        20,
+        20
+      ],
+      "all_pairs_overlap": true
+    },
+    "binary_download": {
+      "counts": [
+        20,
+        20
+      ],
+      "all_pairs_overlap": true
+    }
+  },
+  "test_assertion_order_note": "FAIL at success assertion prevents pytest from reaching final overlap assertions; recomputed here from original recorded intervals.",
+  "semantic_flow_inspection": {
+    "source": "tests/capacity_delivery_flow.py:390-481",
+    "completed_assertions": "Both workers reached success assignment with no errors: full JSON SHA/size and datasets equality, 1500 revisions, recovered original images equality, package size/ZIP/fragment hashes checked before assigning success from violations.",
+    "scope": "Synthetic subjects; does not verify live identity providers or production."
+  }
+}

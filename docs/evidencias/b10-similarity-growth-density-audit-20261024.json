@@ -1,0 +1,123 @@
+{
+  "run": "20261024-213414-574e4266",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "582.988",
+      "timestamp": "2026-10-24T23:34:35.392985+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1723,
+  "source_mismatches": [],
+  "cleanup": {
+    "web-modelos-ci-pg-20261024-213414-574e4266": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261024-213414-574e4266": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "independent_labels": {
+    "container": {
+      "exit": 0,
+      "ids": []
+    },
+    "volume": {
+      "exit": 0,
+      "ids": []
+    },
+    "network": {
+      "exit": 0,
+      "ids": []
+    }
+  },
+  "temporary_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "observations": [
+    {
+      "nodeid": "tests.test_similarity_scan_cost::test_current_scan_growth_and_density[distinct-1000]",
+      "junit_seconds": 521.5,
+      "measurement": {
+        "corpus_version": "synthetic-distinct-blobs-v1",
+        "candidates": 1000,
+        "corpus_sha256": "c6ee577aa121c15e505cc466989f0d5278bac02db2553a2bd5a26a9dc6be9d02",
+        "corpus_file_bytes": 12769285,
+        "expected_candidates": 5,
+        "recorded_matches": 5,
+        "calls": {
+          "stored_signature": 1002,
+          "compare_signatures": 1000,
+          "confirm_match": 5,
+          "record_match": 5
+        },
+        "stage_python_cpu_seconds": {
+          "stored_signature": 0.10945423500021434,
+          "compare_signatures": 0.47900648899843645,
+          "confirm_match": 0.2931249689999049,
+          "record_match": 0.23405894300003638
+        },
+        "confirmation_statuses": {
+          "confirmed": 5
+        },
+        "elapsed_seconds": 3.1997701646760106,
+        "python_thread_cpu_seconds": 2.737422062999997,
+        "sql_calls": 74,
+        "driver_execute_seconds": 0.302,
+        "operation_python_peak_bytes": 12320031,
+        "process_maxrss_kib": 273676,
+        "opencv_threads": 1,
+        "limits": "Single instrumented call per size, precomputed signatures/ready fixtures and warmed reference comparator; stage times not additive; SQL driver time is not PG CPU; no queue wait, worker, capacity or index-retrieval acceptance"
+      }
+    },
+    {
+      "nodeid": "tests.test_similarity_scan_cost::test_current_scan_growth_and_density[dense-100]",
+      "junit_seconds": 61.233,
+      "measurement": {
+        "corpus_version": "synthetic-dense-blobs-v1",
+        "candidates": 100,
+        "corpus_sha256": "5257531e183935f0f6a7c5b2d5b095c94cda82de8d5d56c9a2e790b8ee66b60b",
+        "corpus_file_bytes": 1580874,
+        "expected_candidates": 100,
+        "recorded_matches": 100,
+        "calls": {
+          "stored_signature": 102,
+          "compare_signatures": 100,
+          "confirm_match": 100,
+          "record_match": 100
+        },
+        "stage_python_cpu_seconds": {
+          "stored_signature": 0.01985038900016889,
+          "compare_signatures": 0.06751000799977191,
+          "confirm_match": 6.368066836000253,
+          "record_match": 3.709944984999879
+        },
+        "confirmation_statuses": {
+          "confirmed": 100
+        },
+        "elapsed_seconds": 14.39212704077363,
+        "python_thread_cpu_seconds": 11.818664119999994,
+        "sql_calls": 1214,
+        "driver_execute_seconds": 2.723,
+        "operation_python_peak_bytes": 6561230,
+        "process_maxrss_kib": 330812,
+        "opencv_threads": 1,
+        "limits": "Single instrumented call per size, precomputed signatures/ready fixtures and warmed reference comparator; stage times not additive; SQL driver time is not PG CPU; no queue wait, worker, capacity or index-retrieval acceptance"
+      }
+    }
+  ],
+  "limits": "Finite instrumented calls; prebuilt corpus; no full upload/worker latency, capacity or production claim."
+}

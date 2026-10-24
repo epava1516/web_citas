@@ -37,7 +37,7 @@ def compressed(image, quality):
         return decoded.convert("RGB")
 
 
-def corpus(request, count):
+def corpus(request, count, *, dense=False):
     request.getfixturevalue("directory")
     person = Person.objects.get(individual__username="fixture-v1-individual")
     peer = Person.objects.get(subject__username="fixture-v1-model-a")
@@ -56,9 +56,15 @@ def corpus(request, count):
     query_signature = services.stored_signature(query.blob)
     expected, manifest, bytes_written = set(), [], 0
     for index in range(count):
-        kind, image = variants[index] if index < len(variants) else (
-            "unrelated", synthetic_image(910000 + index),
-        )
+        if dense:
+            kind, image = "near_duplicate", base.copy()
+            # Distinct original bytes with almost identical visual content.
+            # Real comparator and confirmation decide eligibility, never a stub.
+            image.putpixel((0, 0), (index % 256, index // 256, 0))
+        else:
+            kind, image = variants[index] if index < len(variants) else (
+                "unrelated", synthetic_image(910000 + index),
+            )
         original, derivative = io.BytesIO(), io.BytesIO()
         image.save(original, format="PNG")
         image.save(derivative, format="WEBP", quality=85, method=4)
@@ -82,6 +88,9 @@ def corpus(request, count):
         manifest.append(dict(index=index, kind=kind, original_sha256=blob.sha256,
                              derivative_sha256=hashlib.sha256(body).hexdigest()))
         bytes_written += len(raw) + len(body)
+    assert len({row["original_sha256"] for row in manifest}) == count
+    if dense:
+        assert len(expected) >= count * .9
     Photo.objects.filter(pk=query.pk).update(comparison_complete=False)
     assert bytes_written < 128 * 1024 * 1024
     digest = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode()).hexdigest()
@@ -92,8 +101,20 @@ def corpus(request, count):
 def test_current_distinct_blob_scan_attribution(request, monkeypatch, settings, record_property, count):
     if not any(str(arg).split("::")[0] == "tests/test_similarity_scan_cost.py" for arg in request.config.args):
         pytest.skip("Explicit distinct-Blob detector diagnostic only")
+    measure_scan(request, monkeypatch, settings, record_property, count)
+
+
+@pytest.mark.parametrize("count,dense", [(1000, False), (100, True)],
+                         ids=["distinct-1000", "dense-100"])
+def test_current_scan_growth_and_density(request, monkeypatch, settings, record_property, count, dense):
+    if not any(str(arg).split("::")[0] == "tests/test_similarity_scan_cost.py" for arg in request.config.args):
+        pytest.skip("Explicit distinct-Blob detector diagnostic only")
+    measure_scan(request, monkeypatch, settings, record_property, count, dense=dense)
+
+
+def measure_scan(request, monkeypatch, settings, record_property, count, *, dense=False):
     assert connection.vendor == "postgresql"
-    query, expected, digest, bytes_written = corpus(request, count)
+    query, expected, digest, bytes_written = corpus(request, count, dense=dense)
     # Keep publication refresh queued on this CI's owned Redis. This diagnostic
     # does not measure queue wait or worker execution and never fakes completion.
     settings.CELERY_TASK_ALWAYS_EAGER = False
@@ -137,7 +158,8 @@ def test_current_distinct_blob_scan_attribution(request, monkeypatch, settings, 
     rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     assert rss < 1024 * 1024  # Safety budget for this Python process, not total services.
     record_property("distinct_blob_scan_diagnostic", dict(
-        corpus_version="synthetic-distinct-blobs-v1", candidates=count, corpus_sha256=digest,
+        corpus_version="synthetic-dense-blobs-v1" if dense else "synthetic-distinct-blobs-v1",
+        candidates=count, corpus_sha256=digest,
         corpus_file_bytes=bytes_written, expected_candidates=len(expected), recorded_matches=len(actual),
         calls=dict(calls), stage_python_cpu_seconds=dict(stage_cpu), confirmation_statuses=dict(confirmations),
         elapsed_seconds=elapsed, python_thread_cpu_seconds=cpu,
