@@ -1,3 +1,7 @@
+B10-362: preparación de medida actualMOD09 tras preflight361PASS; dos sujetos concurrentes1500revisiones, mismos objetivos, sinresultado aún. B10actual/B16abiertos,13/18,alfa.
+
+Corte: [prerregistro325](325-medicion-actual-mod09-b10-20261024.md); ejecución persistente yrelevo antes de espera. OptimizaciónQAaplazada; deudaB14/B15/B17propuesta futura.
+
 B16-359: carril serial terminado, 297PASS/9SKIP/0fallos en306casos, 4h58min; selección y1723fuentes verificadas, limpieza yTelegram confirmados. B16abierto para conciliación de requisitos/exclusiones. B10se resuelve en contrato actual conforme aMOD09; B14/B15/B17deuda propuesta futura, alfa.
 
 Corte: [auditoría321](321-auditoria-carril-capacidad-b16-20261024.md) y [acuerdos320](320-acuerdos-alcance-b10-prioridades-20261024.md). Optimización específicaQAaplazada hasta etapa estable/productiva.
