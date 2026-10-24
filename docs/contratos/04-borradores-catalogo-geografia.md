@@ -1,5 +1,15 @@
 # CR-04 — Borradores, catálogos y geografía, interfaz v1
 
+## Objetivo beta consolidado el 2026-10-20
+
+La [versión funcional 1.1](../14-contrato-funcional-v1.md) sustituye para beta el catálogo y formulario profesionales de las interfaces del alfa descritas más abajo. Implementación pendiente B02–B03: un recorrido «Mi perfil» con datos personales de presentación, ubicación, contacto y fotos; sin selección obligatoria de categorías/servicios ni filas de tarifas. Mantener borrador, revisión exacta, límites de fotos, ES/EN, geografía, permisos y concurrencia. La agrupación romántica se asigna por sistema; no reutilizar IDs profesionales con significado nuevo ni borrar historial.
+
+Los atributos físicos son opcionales y requieren antes de su alta contrato de opciones/unidades, límites, visibilidad, valor desconocido y revisión. Preferencias del visitante son otro ámbito; no añadirlas al formulario del anunciante ni imponerlas para publicar. Las fotos no se usan para inferir rasgos. La representación existente conserva autorización individual y un perfil por persona, no por cuenta. [Matriz de adaptación y evidencia requerida](../104-consolidacion-contrato-beta-b00b01-20261020.md).
+
+Contrato de campos beta: `profile_type` es opcional, valores vacíos/woman/man/trans/other y ninguna asignación automática. `show_trans_label` es un booleano de presentación independiente, predeterminado false: significa no mostrar esa etiqueta, no afirmar que la persona no sea trans. Sólo se publica cuando se marca expresamente y se aprueba la revisión. Puede combinarse con mujer, hombre u otro tipo, o con tipo sin indicar; no inferirlo de imágenes/texto. La opción de filtro trans reúne el tipo declarado trans y la etiqueta seleccionada, conservando OR dentro del filtro. Copia, rectificación, supresión y recuperación deben conservar su ámbito. No añade edad pública, biometría, raza, etnia ni nacionalidad.
+
+Las rutas, cuatro pasos, campos profesionales y evidencias siguientes describen el alfa. No se ha aplicado una migración ni cambiado el comportamiento HTTP al consolidar este requisito. [Copia del contrato anterior](../17-historial/2026-10-20-04-borradores-catalogo-geografia-antes-beta-b00b01.md).
+
 ## Rutas y pasos
 
 - POST /{es|en}/person/{id}/listing/start/: gestor autorizado, CSRF, crea o retoma anuncio/borrador; 302 al paso1, 404 ajeno, 409 cuota. Persona bloqueada en PostgreSQL: una Listing por persona mediante OneToOne, sin clones por ciudad/categoría/agencia.

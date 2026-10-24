@@ -1,0 +1,28 @@
+{
+  "result": "PASS_EXACT_CLASS_AND_OTHER_STATEMENT_AST_PARITY",
+  "classes": [
+    "ReviewedCopyField",
+    "CopyPresentationForm",
+    "PageReviewForm",
+    "ExportForm"
+  ],
+  "legacy_reexports": {
+    "CopyPresentationForm": "CopyPresentationForm",
+    "ExportForm": "ExportForm",
+    "PageReviewForm": "PageReviewForm",
+    "ReviewedCopyField": "ReviewedCopyField"
+  },
+  "new_module_dependencies": [
+    "django",
+    "rectification_presentation"
+  ],
+  "old_source_sha256": "d27a87483caccbdb19be10b6be06ed75ac5a7c438f501af6b4cb36cbebd4c151",
+  "current_sha256": {
+    "apps/safety/rights_exports.py": "c8d82c314b1f2c5b83117f99097161855c4ca2a627dfb4179813f98cdf7f5dbe",
+    "apps/safety/rights_copy_forms.py": "4d315274d62d8d5112127f55d017caace9b6c03fc8f8f12d4d8afcb95fcd74a4"
+  },
+  "limits": [
+    "Class __module__ changes to rights_copy_forms; inherited import aliases preserved",
+    "AST evidence is structural, not runtime authority acceptance"
+  ]
+}

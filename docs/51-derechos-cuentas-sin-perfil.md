@@ -1,5 +1,11 @@
 # Derechos de una cuenta sin perfil
 
+## Precedencia del diseño inicial — 2026-10-24
+
+Los apartados de hueco y estado inicial siguientes documentan el diseño anterior a las ampliaciones de cuenta propia. En el código actual, RightsProof, RightsRectificationProposal, ErasureInventory y ErasureExecution declaran `person` nullable y `account_subject`, con restricciones de ámbito exclusivo; esta observación del modelo no acredita migraciones instaladas o cobertura integral de derechos.
+
+La evolución posterior se documenta en [inventario53](53-inventario-derechos-cuenta.md), [copia54](54-copia-cuenta-sin-perfil.md), [supresión55](55-inventario-supresion-cuenta.md), [dependencias56](56-dependencias-inventario-cuenta.md) y la [matriz88](88-matriz-cierre-derechos.md). Para implementación, límites y aceptación vigente prevalece [seguimiento17](17-seguimiento-desarrollo.md). El antiguo requisito de Person obligatorio no debe reconstruirse como un defecto actual desde esta página; tampoco se declara completo el recorrido por la mera presencia de campos.
+
 Estado: implementación iniciada; vínculo de ámbito comprobado localmente, consumidores pendientes. Complementa docs/40, docs/49 y docs/50; no acepta CR-09. No constituye una nueva función comercial: evita que una cuenta registrada necesite crear un perfil publicable para tramitar sus datos.
 
 ## Hueco comprobado

@@ -1,0 +1,46 @@
+{
+  "result": "PASS_SCOPED_BOUNDED_TRANSPORT_NOT_B12_ACCEPTANCE",
+  "run_id": "20261020-232949-2d2b26df",
+  "passed": 47,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 76.338,
+  "by_module": {
+    "test_operational_events": 5,
+    "test_operational_snapshot": 6,
+    "test_recovery_task_gate": 2,
+    "test_operational_event_handler": 7,
+    "test_private_logging": 27
+  },
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "terminal_telegram_sent": true,
+  "changed_existing_product_sources": [
+    "config/settings.py"
+  ],
+  "added_product_sources": [
+    "apps/core/operational_event_handler.py"
+  ],
+  "witnesses": [
+    "Seven transport cases: real full pipe, overload/gap, fork, descriptor retirement/reuse, constructor failures, byte limit and broken pipe",
+    "Real owned Celery poolsolo retry/failure/success against PostgreSQL/Redis",
+    "Actual HTTP state/fallback preserves ordered IDs and count",
+    "Actual worker and Beat recovery gates",
+    "Six snapshot cases repeated under new configuration",
+    "27existing private logging checks"
+  ],
+  "limits": [
+    "Task worker probe is synthetic, not external delivery or prefork process-loss recovery",
+    "No verified deployed Docker log rotation or hard storage ceiling",
+    "No normal-load cost/RSS or end-to-end SLO measurement, alert thresholds or continuous transport health",
+    "Events are best effort, not durable accounting; B12 remains open"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261020-232949-2d2b26df/result.json": "942b0d49c991693eee645b50ce68262b6bf84393f15ee1de3717093b2d4202fc",
+    "artifacts/local-ci/20261020-232949-2d2b26df/source-hashes.json": "5bc6c0d80bd390f2fd86bb8d21d7513fddc474383d3632c0b91437e16f3cecba",
+    "artifacts/local-ci/20261020-232949-2d2b26df/pytest.xml": "ee4a621aaad8a6761228186a3f8d346e6166ba4e48eb77fff89d8811c96ec772",
+    "artifacts/local-ci/20261020-232949-2d2b26df/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

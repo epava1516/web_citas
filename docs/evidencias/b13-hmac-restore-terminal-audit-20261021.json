@@ -1,0 +1,50 @@
+{
+  "result": "PASS_LOCAL_SCOPED",
+  "run_id": "20261021-061505-c5e00a3a",
+  "passed": 22,
+  "failed": 0,
+  "skipped": 0,
+  "workers": 4,
+  "junit_seconds": 105.889,
+  "real_restore_witnesses": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+      "class": "tests.test_recovery_pg_restore",
+      "pinned_after_django_rotation": false,
+      "encrypted_backup": false
+    },
+    {
+      "name": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+      "class": "tests.test_promotion_recovery",
+      "pinned_after_django_rotation": true,
+      "encrypted_backup": true
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+      "class": "tests.test_recovery_pg_restore",
+      "pinned_after_django_rotation": true,
+      "encrypted_backup": false
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+      "class": "tests.test_recovery_pg_restore",
+      "pinned_after_django_rotation": false,
+      "encrypted_backup": true
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+      "class": "tests.test_recovery_pg_restore",
+      "pinned_after_django_rotation": true,
+      "encrypted_backup": true
+    }
+  ],
+  "source_product_equal_to_domain_key_candidate": true,
+  "fresh_sources_cleanup_and_terminal_telegram": true,
+  "original_peer_receipts_preserved": 5,
+  "rotated_django_with_pinned_domain_cases": 3,
+  "legacy_same_key_restore_cases": 2,
+  "publication_authorized": false,
+  "production_key_custody_or_compromise_recovery_accepted": false,
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

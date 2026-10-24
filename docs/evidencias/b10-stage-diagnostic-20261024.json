@@ -1,0 +1,117 @@
+{
+  "result": "VERIFIED_SCOPED_B10_STAGE_DIAGNOSTIC",
+  "run": "20261024-080216-d5c5b518",
+  "cases": 20,
+  "junit_seconds": 109.166,
+  "source_hashes_verified": 1719,
+  "unchanged_product_and_static_paths": 637,
+  "observations": {
+    "distinct_blob_scan_diagnostic": [
+      {
+        "corpus_version": "synthetic-distinct-blobs-v1",
+        "candidates": 10,
+        "corpus_sha256": "45b3178333cfcc72633438db4bd72994027c0c12e222d1d1fcd2e985a63e00a2",
+        "corpus_file_bytes": 399137,
+        "expected_candidates": 5,
+        "recorded_matches": 5,
+        "calls": {
+          "stored_signature": 12,
+          "compare_signatures": 10,
+          "confirm_match": 5,
+          "record_match": 5
+        },
+        "stage_python_cpu_seconds": {
+          "stored_signature": 0.0014299809999940294,
+          "compare_signatures": 0.004543854000012004,
+          "confirm_match": 0.2830599939999985,
+          "record_match": 0.19165578599999833
+        },
+        "confirmation_statuses": {
+          "confirmed": 5
+        },
+        "elapsed_seconds": 0.8804090544581413,
+        "python_thread_cpu_seconds": 0.6642773490000025,
+        "sql_calls": 74,
+        "driver_execute_seconds": 0.227,
+        "operation_python_peak_bytes": 4504929,
+        "process_maxrss_kib": 288440,
+        "opencv_threads": 1,
+        "limits": "Single instrumented call per size, precomputed signatures/ready fixtures and warmed reference comparator; stage times not additive; SQL driver time is not PG CPU; no queue wait, worker, capacity or index-retrieval acceptance"
+      },
+      {
+        "corpus_version": "synthetic-distinct-blobs-v1",
+        "candidates": 100,
+        "corpus_sha256": "19bee3dc51d48c7e35444ffa5bac9ce679d412481595d2ab557ac729fcdad862",
+        "corpus_file_bytes": 1521816,
+        "expected_candidates": 5,
+        "recorded_matches": 5,
+        "calls": {
+          "stored_signature": 102,
+          "compare_signatures": 100,
+          "confirm_match": 5,
+          "record_match": 5
+        },
+        "stage_python_cpu_seconds": {
+          "stored_signature": 0.012951610000058622,
+          "compare_signatures": 0.057344015999930775,
+          "confirm_match": 0.2576217219999961,
+          "record_match": 0.16887876900001686
+        },
+        "confirmation_statuses": {
+          "confirmed": 5
+        },
+        "elapsed_seconds": 1.026718620210886,
+        "python_thread_cpu_seconds": 0.8181490709999935,
+        "sql_calls": 74,
+        "driver_execute_seconds": 0.2,
+        "operation_python_peak_bytes": 5163643,
+        "process_maxrss_kib": 322788,
+        "opencv_threads": 1,
+        "limits": "Single instrumented call per size, precomputed signatures/ready fixtures and warmed reference comparator; stage times not additive; SQL driver time is not PG CPU; no queue wait, worker, capacity or index-retrieval acceptance"
+      }
+    ],
+    "canonical_stage_diagnostic": [
+      {
+        "rows": 100,
+        "ordinary_field_length": 5400,
+        "document_bytes": 1096235,
+        "document_sha256": "8acd7e221de0248012369331a086d9478a6f5f11a7af991b46b85d18aa178987",
+        "canonical_schema": "rights-canonical-json-v2",
+        "validated_kernel_available": true,
+        "elapsed_seconds": 0.0024774139747023582,
+        "python_thread_cpu_seconds": 0.0024288959999978488,
+        "operation_python_peak_bytes": 5375943,
+        "process_maxrss_kib": 322788,
+        "limits": "One isolated active-encoder call, warmed reference; not source_copy, generation, encryption, coverage, package delivery, full request, p95 or MOD09 reassessment"
+      },
+      {
+        "rows": 1500,
+        "ordinary_field_length": 5400,
+        "document_bytes": 16446835,
+        "document_sha256": "92299b8c37b7f93deb1df581cabebd2dc021e6b1e24030ab16b39159649ff394",
+        "canonical_schema": "rights-canonical-json-v2",
+        "validated_kernel_available": true,
+        "elapsed_seconds": 0.048302520997822285,
+        "python_thread_cpu_seconds": 0.04763173700000323,
+        "operation_python_peak_bytes": 66003931,
+        "process_maxrss_kib": 322788,
+        "limits": "One isolated active-encoder call, warmed reference; not source_copy, generation, encryption, coverage, package delivery, full request, p95 or MOD09 reassessment"
+      }
+    ]
+  },
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifact_sha256": {
+    "result.json": "065982f3116ba7d85c5397a9c7d11eb966832824230e27e8b0eb1fc04412d087",
+    "source-hashes.json": "ee6d303f2b4a0af7fd2cb4c77df361a626d903c686cd0dd0b7f5510d3d28486c",
+    "pytest.xml": "689baf37290293e172fed09e1a2e1032e4087e3ed260d8ae236c60aef82fce89",
+    "runner.json": "2a0c5f755f5f829b4d89d846811db664d3afb9d626859bf56d5cd494d2e858a2",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "Single instrumented warmed call per size; no p95 or cold measurements",
+    "Current native comparator oracle is not independent index-retrieval parity",
+    "No application, index, codec or canonicalization change",
+    "Not full export, queue/worker timing, resource capacity or MOD09 reassessment"
+  ]
+}

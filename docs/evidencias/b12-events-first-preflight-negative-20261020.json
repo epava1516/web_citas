@@ -1,0 +1,26 @@
+{
+  "result": "AUDITED_PREFLIGHT_RUFF_NEGATIVE_NOT_FUNCTIONAL_FAILURE",
+  "run_id": "20261020-230056-65c259ae",
+  "executed_functional_cases": 0,
+  "cause": "F811 imported fixture directory shadowed by added test parameter",
+  "sources_unchanged_fresh": true,
+  "cleanup_reported": {
+    "web-modelos-ci-pg-20261020-230056-65c259ae": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261020-230056-65c259ae": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "runner_terminal": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "source_manifest_sha256": "a662ee7eb51fab98f07617e3c68c68d866e05f3696242231d256a577215e7b06"
+}

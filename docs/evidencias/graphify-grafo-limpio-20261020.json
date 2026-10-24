@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-20",
+  "request": "Delete every prior graph and rebuild from absolute zero with clean current corpus",
+  "source": {
+    "stage": "Alpha técnico local aceptado; producción G01–08 pendiente",
+    "source_root": "/home/felidae/proyectos/web_modelos_mod08_vps",
+    "source_commit": "920ea36b6f4d0e8c0a60d030730de5aed1cf1781",
+    "fresh_start": true,
+    "old_graph_reused": false,
+    "old_cache_reused": false,
+    "historic_expansion": false,
+    "nodes": 10972,
+    "relations": 55014,
+    "communities": 501,
+    "source_files": 1410,
+    "updated_at": "2026-10-20T00:46:51.819256+00:00"
+  },
+  "health": {
+    "nodes": 10972,
+    "relations": 55014,
+    "communities": 501,
+    "source_files": 1410,
+    "code_files": 1226,
+    "document_files": 41,
+    "template_files": 129,
+    "configuration_files": 14,
+    "missing_endpoints": 0,
+    "dangling_endpoints": 0,
+    "external_unresolved_nodes": 174,
+    "internal_module_paths_resolved": 0,
+    "self_loops": 126,
+    "parallel_edges_preserved": 1580,
+    "exact_duplicates_removed": 3,
+    "old_graph_entities_used": 0,
+    "old_cache_entries_used": 0,
+    "source_commit": "920ea36b6f4d0e8c0a60d030730de5aed1cf1781",
+    "semantic_audits": [
+      {
+        "agent": 1,
+        "documents": 6,
+        "nodes": 43,
+        "edges": 48,
+        "quotations_verified": 48
+      },
+      {
+        "agent": 2,
+        "documents": 17,
+        "nodes": 76,
+        "edges": 102,
+        "quotations_verified": 102
+      },
+      {
+        "agent": 3,
+        "documents": 18,
+        "nodes": 98,
+        "edges": 108,
+        "quotations_verified": 108
+      }
+    ],
+    "routing_audit": {
+      "routes": 170,
+      "unresolved_template_urls": [],
+      "sensitive_template_override": "Both token templates reviewed as tracked HTML/Django source; contain no credential values; included as interface code.",
+      "no_historical_link_expansion": true
+    },
+    "ast_external_symbol_occurrences_without_source_file": 974
+  },
+  "old_graph_nodes_reused": 0,
+  "old_graph_edges_reused": 0,
+  "old_cache_entries_reused": 0,
+  "reset": {
+    "deleted_graph_outputs": [
+      "/home/felidae/proyectos/web_modelos/graphify-out",
+      "/home/felidae/proyectos/web_modelos_claude_base/graphify-out",
+      "/home/felidae/proyectos/web_modelos_claude_perf/graphify-out",
+      "/home/felidae/proyectos/web_modelos_claude_xdist/graphify-out",
+      "/home/felidae/proyectos/web_modelos_mod08_vps/graphify-out",
+      "/home/felidae/proyectos/web_modelos_test_optimization_20261019/graphify-out",
+      "/home/felidae/proyectos/web_modelos/docs/evidencias/traslado-maquina-graphify0110.tar.gz",
+      "/home/felidae/proyectos/web_modelos_mod08_vps/docs/evidencias/traslado-maquina-graphify0110.tar.gz"
+    ],
+    "retained_graph_backups": 0,
+    "consumption_ledger_only_preserved": true,
+    "source_root": "/home/felidae/proyectos/web_modelos_mod08_vps",
+    "source_commit": "920ea36b6f4d0e8c0a60d030730de5aed1cf1781",
+    "fresh_extraction_required": true
+  },
+  "limits": [
+    "Bounded semantic interpretation",
+    "External/unresolved references marked",
+    "AST self-loops do not prove recursion",
+    "No application tests or new acceptance"
+  ],
+  "verification_pending": false,
+  "verification": {
+    "result": "PASS",
+    "errors": [],
+    "nodes": 10972,
+    "relations": 55014,
+    "source_files_sha256_verified": 1410,
+    "historical_source_nodes": 0,
+    "prior_nodes_edges_cache_reused": 0,
+    "unresolved_external_references": 174,
+    "self_loops": 126,
+    "template_routes": 170,
+    "template_url_names_unresolved": 0,
+    "scope": "Graph artifact integrity, fresh corpus isolation and source consistency. No application tests or new acceptance."
+  },
+  "terminal_notification": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "Grafo limpio final: fuentes, exclusiones y acceso canónico"
+  },
+  "fresh_temporary_caches_removed": true
+}

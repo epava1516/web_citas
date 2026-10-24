@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "scope": "direct_application_hmac_producers_only",
+  "retirement_authorized": false,
+  "producers": [
+    {
+      "source": "apps/catalog/promotion_orders.py",
+      "line": 139,
+      "producer": "synthetic_signature",
+      "purpose": "promotion-synthetic-event-v1",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "synthetic_payment_signature",
+      "response": "do_not_accept_old_synthetic_events"
+    },
+    {
+      "source": "apps/core/accounts.py",
+      "line": 48,
+      "producer": "limited",
+      "purpose": "rate-window",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "RateWindow.key",
+      "response": "rate_limits_change_namespace"
+    },
+    {
+      "source": "apps/core/accounts.py",
+      "line": 159,
+      "producer": "token_user_state",
+      "purpose": "account-token-state",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "AccountToken.user_state",
+      "response": "revoke_and_reissue_live_account_tokens"
+    },
+    {
+      "source": "apps/core/mfa.py",
+      "line": 43,
+      "producer": "recovery_digest",
+      "purpose": "mfa-recovery",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "RecoveryCode.digest",
+      "response": "reissue_recovery_codes_after_fresh_mfa"
+    },
+    {
+      "source": "apps/core/verification.py",
+      "line": 409,
+      "producer": "phone_start",
+      "purpose": "phone-otp",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "PhoneChallenge.digest",
+      "response": "restart_pending_phone_challenges"
+    },
+    {
+      "source": "apps/core/verification.py",
+      "line": 453,
+      "producer": "phone_confirm",
+      "purpose": "phone-otp",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "PhoneChallenge.digest",
+      "response": "restart_pending_phone_challenges"
+    },
+    {
+      "source": "apps/safety/crypto.py",
+      "line": 34,
+      "producer": "digest",
+      "purpose": "safety-report-v1",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "domain_receipts_and_audit_digests",
+      "response": "inventory_transitive_consumers_before_rotation"
+    },
+    {
+      "source": "apps/safety/rights.py",
+      "line": 34,
+      "producer": "fingerprint",
+      "purpose": "rights-request-v1",
+      "key_family": "DJANGO_SECRET_KEY",
+      "stored_or_derived_scope": "rights_approvals_bindings_and_evidence",
+      "response": "no_blind_rehash_of_immutable_evidence"
+    }
+  ],
+  "source_sha256": {
+    "apps/catalog/promotion_orders.py": "223dad9f7083f90c6c9ff853ac6dab30f03fd72336fa7a8b64a89d48d06fb16c",
+    "apps/core/accounts.py": "878021a6788af106ec7105d582a5a27eed0888afce79cbb44be4f546b1a83e73",
+    "apps/core/mfa.py": "6410b1c16ecb79d00ebd6c05d3130fd4d9f8c9cf093089ec64563e82315b3402",
+    "apps/core/verification.py": "6d18e5667c5506247864b1f32ad26081887236af1907d0e3b58619b8161ef9d4",
+    "apps/safety/crypto.py": "2470923e43b11e51d1b2b0a40429e7660c3ce208dc40b057adb342182c11271b",
+    "apps/safety/rights.py": "57e18fd49e92106cb060c24fb7de432b7f4fb875889a5621ce57c95a5522b72b"
+  },
+  "unmeasured": [
+    "Django and third-party signing internals",
+    "Complete transitive domain-consumer and historical-data census"
+  ]
+}

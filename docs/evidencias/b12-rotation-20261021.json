@@ -1,0 +1,84 @@
+{
+  "result": "PASS_OWNED_ROTATION_AND_FOLLOW_NOT_DEPLOYED_OPERATION",
+  "container": "b12-rotation-0f53dee906254a029fd398123941120c",
+  "label": "web-modelos-b12-rotation=0f53dee906254a029fd398123941120c",
+  "image_id": "sha256:79bd7c99e923138f136f8009d6bffa66e21e9d4fda5c0c561b00fc9c90cfe537",
+  "docker_server_version": "29.8.1",
+  "runtime_logging": {
+    "Type": "json-file",
+    "Config": {
+      "max-file": "3",
+      "max-size": "1m"
+    }
+  },
+  "synthetic_events_generated": 50001,
+  "follow_received": 50001,
+  "retained_events": 10174,
+  "retained_first_timestamp": 39827,
+  "retained_last_timestamp": 50000,
+  "retained_api_bytes": 1387739,
+  "last_window_report": {
+    "schema_version": 1,
+    "start_inclusive": 49641,
+    "end_exclusive": 50001,
+    "scope": "observed_input_only",
+    "coverage": "unverified",
+    "health": "unknown",
+    "counts": {
+      "lines": 10174,
+      "malformed_or_unrecognized": 0,
+      "outside_window": 9814,
+      "publication_observed": 359,
+      "fallback_observed": 35,
+      "http_5xx_observed": 0,
+      "publication_unclassified_observed": 0,
+      "transport_gap_markers_observed": 0
+    },
+    "input_bytes": 1387739,
+    "fallback_fraction_observed": 0.09749303621169916,
+    "publication_reasons_observed": {
+      "trusted_state": 324,
+      "invalid_search": 35
+    },
+    "task_outcomes_observed": {
+      "apps.listings.tasks.refresh_publication_state": {
+        "failed": 1
+      }
+    },
+    "delivery_samples_observed": 0,
+    "delivery_known_totals_observed": {
+      "failed": 0,
+      "processed": 0,
+      "retry": 0,
+      "simulated": 0
+    },
+    "delivery_unknown_samples": {
+      "failed": 0,
+      "processed": 0,
+      "retry": 0,
+      "simulated": 0
+    },
+    "processor_disabled_samples": {
+      "true": 0,
+      "false": 0,
+      "unknown": 0
+    },
+    "limitations": [
+      "No full traffic or worker coverage proof",
+      "No durable accounting or deduplication proof",
+      "Gap counters cannot be added across unidentified processes",
+      "Zero observations do not establish health"
+    ]
+  },
+  "reader_attachment_before_burst_observed": true,
+  "reader_stop": "explicit_after_expected_events",
+  "limits": [
+    "Synthetic generator, not app/worker/Beat deployment",
+    "No daemon file access or measured physical disk ceiling",
+    "Runtime log options verified; old lines missing after rotation",
+    "One owned burst and receiver; no universal completeness guarantee",
+    "Operational report retains unverified coverage and unknown health",
+    "No receiver restart/backpressure recovery, alert routing or B12 acceptance"
+  ],
+  "owned_container_removed": true
+}

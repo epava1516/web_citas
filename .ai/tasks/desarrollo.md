@@ -1451,3 +1451,1097 @@ Revisión nativa detalle 20261016: F1/F2 contrastados mediante escritores Postgr
 2026-10-19: FF local de optimizaciones auditadas a0b7ad95; colección3358+298=3656disjuntos y623fuentes producto iguales. Preparada única C secuencial con CLI de duración y cuotas anteriores; no nuevas invocaciones Claude ni aceptación global.
 
 2026-10-20: C01–07/Alpha técnico local aceptados por acta10 y matriz, probado3887db1:3656nodeids/3526PASS+4subpruebas/130SKIP/0FAIL. Ambaslanes1580fuentesidénticas/4311freeze,623Docker/14contratosintactos,limpieza/PID/Telegramauditados;19familias y11IMP enlazados a callPASSactual. Fallos originales/omisiones/MOD09/FAISSpropuesto preservados. Siguiente revisiónOpenNotebookcorpuscompleto separada; producciónG01–08pendiente. Sin nuevasinvocacionesClaudeV1, conservarlas8yconsumoprevio; sinpush/publicación/proveedores/datosreales.
+
+2026-10-21: B07-193 terminal212403 auditado PASS acotado/914,775sJUnit:1200éxitos0erroresomitidosfinales/ventana2/p95515,045ms/generador3,479/6,397/16,209ms/1upload;10000perfiles2000derechos/4workers9PID/8CPU8GiBswap0/628appintactas/fuentesprotocololedgercleanupTelegramverificados. Pausa+compactación+autowake mismo goal comprobados; no causalidad ni aceptaciónB07/900automático,8de18. Sin nuevas invocaciones ClaudeV1; preservar ocho anteriores y consumo.
+
+2026-10-21: B07-194 preparada confirmación única del corto193 con cliente corregido; mismas cuotas/umbrales, no lanzada, no900automático ni aceptación global. Sin nuevas invocaciones ClaudeV1 ni alteración de consumo previo.
+
+2026-10-21: B07-194 confirmación única auditada:1200éxitos/0errores/p95461,745ms/generador máximo15,335ms/ventana6/final0; fuentes,limpieza,Telegram,compactación y reactivación del mismo goal verificados.193/194 pasan separados; no tercer corto/900automático ni aceptaciónB07,8de18. Sin nuevas invocaciones ClaudeV1; preservar ocho anteriores y consumo.
+
+2026-10-21: B07-195 corrige etiqueta posterior del colector opcional: calibración nativa1PASS/60éxitos/1upload/35muestras verifica idle_after y limpieza/fuentes/Telegram;5guardas separadas PASS. Auditor prematuro EXIT1 conservado, repetido sólo tras salida real, sin repetir TCP. No capacidad grande ni aceptaciónB07. Sin ClaudeV1nuevo; preservar8yconsumo.
+
+2026-10-21: B07-196 preparación territorial opcional auditada3PASS/58,261sJUnit:10perfiles7/3, seis negativas sin mutación, visibilidad nativa/filtros ciudad ESEN y órdenes/derechos conservados.628producto/fuentes/limpieza/Telegram verificados. Sin activación TCP/capacidad grande ni cierreB07. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-197 equivalencia territorial10/100 auditada4PASS/82,671sJUnit:100perfiles70/30 y20páginas ciudad/texto ESEN completas hasta tercera, sin duplicados; derechos intactos y limits corregido.628producto/fuentes/limpieza/Telegram verificados. Sin ranking independiente,1000/10000/TCP ni cierreB07. Sin ClaudeV1nuevo; conservar8yconsumo.
+
+2026-10-21: B07-198 auditado4PASS/117,715sJUnit:comparador comercial independiente verifica orden completo de8/20páginas territoriales10/100,con autoridad nativa y relevanciaPostgreSQL compartidas.628producto/fuentes/limpieza/Telegram intactos; sin autosubida,1000/10000/TCP ni cierreB07. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-199 protocolo de secuencia territorial4+1+1:regresión10/100 exhaustiva antes de1000/10000 con censo nativo y páginas inicial/intermedia/última. No lanzada; fallo detiene fases posteriores, pausa/Telegram/autowake/compactación previstos. Sin TCP ni cierreB07. Sin ClaudeV1nuevo; conservar8yconsumo.
+
+2026-10-21: B07-199 secuencia territorial auditada: tres runners con4+1+1PASS; escalas1000/10000 repartidas700/300 y7000/3000,24páginas seleccionadas por escala hasta30/292. Censo nativo y orden comercial de referencia verificados;628fuentesproducto intactas, limpieza y Telegram confirmados. Compactación solicitada y reactivación automática del mismo goal comprobadas. Equivalencia funcional, sin capacidadTCP ni cierreB07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-200 preparado modo TCP territorial funcional:10perfiles7/3,14rutas declaradas/60llegadas/1upload;9guardas de planesPASS. Calibración nativa no lanzada; short/measured bloqueados, sin cierreB07. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-200 calibración TCP territorial auditada1PASS/87,533sJUnit:10perfiles7/3,14sondas200 y60dinámicas exitosas con ciclo14rutas conciliado,1upload persistido.628producto intactas/fuentes congeladas/limpieza/Telegram verificados;ERROR Ruff previo conservado. Sin capacidad grande ni cierreB07,8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-201 alinea ciclo territorial con tercios contractuales: bloques6alternandoESEN, ficha repetida como slot explícito;18slots/14rutas únicas a10 y42slots/30únicas a1000/10000.21guardasPASS; calibración nativa del nuevo ciclo pendiente. Mantiene bloqueo short/measured y8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-201 calibración TCP del ciclo equilibrado auditada1PASS/87,098sJUnit:60éxitos20listado20búsqueda20ficha/30ES30EN,18slots14rutas/18sondas200 y1upload persistido;10perfiles7/3.628producto/fuentes/limpieza/Telegram verificados. No entorno kernel ni carga grande ni cierreB07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-21: B07-202 adaptación territorial kernel preparada:--territorial sólo functional8CPU,10perfiles7/3 y ciclo18slots14rutas en tercios;46guardasPASS, cuotas intactas y short/contractual rechazados. Calibración kernel pendiente, sin capacidad ni cierreB07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-202 calibración territorial kernel auditada1PASS/92,397sJUnit:10perfiles7/3/2derechos,60éxitos20porcategoría30poridioma/18slots14rutas y1upload persistido.8CPU8GiBswap0/kernel, generador máximo4,346ms,628producto/fuentes/limpieza/Telegram verificados. Sin TCPgrande ni cierreB07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-203 preparado corto territorial nuevo:10000perfiles7000/3000/2000derechos,42slots30rutas y páginas hasta292,1200dinámicas400porcategoría600poridioma/1upload. Mismos umbrales/cuotas,47guardasPASS; pendiente lanzamiento. Sin900ni aceptaciónB07,8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-203 corto territorial auditado1PASS/898,983sJUnit:10000perfiles7000/3000 y2000derechos,1200éxitos0errores/p95520,383ms/ventana6/final0;42slots30URLs con secuencia completa verificada,400porcategoría600poridioma,1upload persistido. Generador3,408/6,497/29,454ms p95/p99/máximo;8CPU8GiBswap0,628producto/fuentes/protocolo/limpieza/Telegram confirmados. Compactación y reactivación del mismo goal comprobadas. PASS corto acotado, sin900automático ni cierreB07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-204 lector host de recursos kernel implementado con guardas de identidad de seis contenedores: nombre/etiqueta/ID completo/PID/startticks/cgroup y descendientes propios.15guardasPASS y RuffPASS. Aún no integrado ni calibrado con Docker; no acredita recursos por ventana ni capacidad. B07 abierto8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-205 canal de fases acotado implementado: historial atómico before_arrivals/arrivals_and_drain/idle_after ligado a ejecución, lectura host de máximo2048bytes por raíz app verificada antes/después.31guardasPASS y RuffPASS; sin integración ni calibración Docker, no capacidad ni cierreB07,8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-206: observador host integrado sólo en calibración funcional; 62 guardas y Ruff PASS. Inventario de procesos por cgroup propio incluye docker exec; identidad del launcher y de seis contenedores verificada. Calibración207 prevista con 10 perfiles, sin capacidad ni cierre B07; 8 de 18. Sin nuevas ClaudeV1; preservar8 y consumo.
+
+2026-10-22: B07-207: calibración Docker del observador auditada 1PASS/93,336sJUnit, 10perfiles7/3 y2derechos,60éxitos20porcategoría/30poridioma y1upload.69muestras:62previas/6carga/1posterior completamente dentro de sus fases; fuentes628producto, cuotas y limpieza confirmadas. Observador host fuera de presupuesto, sin capacidad grande ni cierre B07;8de18. Auditor original import EXIT1 preservado; corregido PASS sin nueva carga. Sin nuevas ClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-208: manifiesto mínimo de identidad por contenedor y tres muestras idle_after implementados;63guardas y Ruff PASS. Calibración209 pequeña preregistrada para comprobar identidad archivada y deltaCPU posterior. Sin carga grande ni cierre B07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-209: identidad y reposo del observador auditados 1PASS/92,221sJUnit; seis identidades mínimas archivadas y70muestras completas62previas/5carga/3posteriores, deltaCPU posterior≈1,04s.10publicados7/3 y2derechos,60éxitos/1upload,628producto y limpieza confirmados. Diagnóstico host separado; sin capacidad grande ni cierre B07,8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-210: escenario funcional de dos marcas nativas preparado: un retirado promocionado y un candidato aún elegible; señales/worker/Beat intactos.77guardas y Ruff PASS. Intervalos publicación–inicio y marca–limpieza separados; calibración211 preregistrada, sin capacidad ni cierre B07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-211: backlog nativo auditado 1PASS/97,329sJUnit;10preparados/9visibles, dos marcas (retirado y elegible),24páginas HTTP equivalentes y404ESEN.60éxitos/1upload; worker real repara2marcas, despacho11,775ms y marca–limpieza≤5,505s observados.628producto, cuotas, limpieza y Telegram confirmados. Funcional pequeño, sin capacidad ni cierre B07;8de18. Cabecera17 resumida con texto anterior íntegro en historial del mismo archivo y SHA de conservación. Sin nuevasClaudeV1; preservar8yconsumo.
+
+2026-10-22: B07-212: preparado control territorial100 con0/20derechos y49candidatos elegibles sucios más1retirado; instantánea propia extendida y READCOMMITTED heredado contrastados con referencia nativa en todas las páginas ESEN. Ruff PASS; ejecución213 pendiente. Sin cambio de producto ni cierre B07;8de18. Sin nuevasClaudeV1; preservar8yconsumo.
+
+
+### Control213 — equivalencia territorial49 auditada
+
+B07-213: equivalencia territorial verificada en PostgreSQL real: 2PASS,160páginas ESEN,100perfiles por cohorte con0/20derechos,49elegibles sucios y1retirado. Instantánea propia extendida y fallback READCOMMITTED coinciden con reparación manual. Fuentes/628producto, limpieza, Telegram, reactivación del mismo objetivo y solicitud de compactación comprobados. Sin crédito de capacidad ni worker; B07 abierto,8de18. Evidencia: `docs/evidencias/b07-equivalence213-unknown49-20261022-audit.json`. No nueva batería ni repetición TCP.
+
+
+### Preparación214 — escala funcional49
+
+B07-214: preparada equivalencia49 a1000/10000, con0derechos y20%promocionados; censo nativo completo y páginas primera/intermedia/última ESEN en cuatro fases. Revalidación100 justificada por generalizar el helper y comprobar etiquetas por identidad. Sin producto nuevo, TCP ni worker; B07 abierto8de18. Protocolo `docs/208-escala-territorial-49pendientes-b07-20261022.md`; tres gates secuenciales100/1000/10000,544páginas previstas, fuentes congeladas y parada al primer fallo.
+
+
+### Control215 — equivalencia49 a volumen auditada
+
+B07-215: equivalencia territorial49 auditada en PostgreSQL real: 6PASS/544páginas, cohortes100/1000/10000 con0/20%derechos. Censo nativo completo; páginas grandes primera/intermedia/última, sin recorrido exhaustivo. Instantánea propia y READCOMMITTED coinciden con reparación manual;628fuentes producto intactas. Limpieza, Telegram, reactivación del mismo objetivo y solicitud de compactación confirmados. Sin crédito de capacidad ni worker; B07 abierto8de18. Evidencia: `docs/evidencias/b07-equivalence215-unknown49-scale-20261022-audit.json`. Sin nuevasClaudeV1; preservar8yconsumo.
+
+
+### Preparación216 — recursos a volumen
+
+B07-216: habilitado observador de recursos en diagnóstico corto territorial10000, separado de capacidad limpia.56guardas PASS; espera de preparación acotada1800s sólo en corto, captura600s/600muestras/8MiB intacta. Sin cambio de producto, sin ejecución grande ni cierre B07;8de18. Protocolo docs/209-recursos-territoriales-volumen-b07-20261022.md;217 pendiente. Sin nuevasClaudeV1; preservar8yconsumo.
+
+
+B07-216 recuperación: imagen reconstruida y732fuentes verificadas,628producto intactas; preflight real8CPU READY_NOT_CAPACITY con limpieza confirmada.217 pendiente de congelación y ejecución; B07 abierto8de18. Artefactos artifacts/b07-image-recovery-20261022. Sin nuevasClaudeV1; preservar8yconsumo.
+
+
+2026-10-22 — B07-217: diagnóstico territorial instrumentado auditado:1PASS/900,148sJUnit,10000publicados7000/3000 y2000derechos sintéticos;1200dinámicas exitosas y1upload. p95 observado538.876ms; generador máximo15,662ms.182muestras (62previas/117carga/3reposo), seis identidades verificadas;628producto, fuentes, cuotas8CPU/8GiB, limpieza, Telegram, compactación y reactivación del mismo objetivo confirmados. Sin aceptación de capacidad ni cierre B07;8de18. Auditorías locales corregidas sin repetir TCP; ClaudeV1 sigue8invocaciones y consumo histórico conservado.
+
+2026-10-22 — B07-218: preparado backlog funcional escalable100/1000/10000 con49elegibles y1retirado;72guardas PASS y Ruff PASS. Worker/Beat nativos intactos, sin ejecución integrada nueva ni capacidad ni cierre B07;8de18. Seis fuentes de instrumento, ninguna de producto; sin nuevas invocaciones ClaudeV1 (histórico8 conservado).
+
+
+### B07 — negativo219 y preparación220
+
+B07-220:219 terminó1FAIL antes de carga por exceder9,877s el slot Beat+5s; fuentes, limpieza, Telegram, compactación y reactivación verificados.220 separa selección/oráculo previos del tramo mutación/HTTP;72guardas PASS, integración corregida pendiente. B07 abierto;8de18.
+
+Véase docs/210-backlog-escalable-worker-b07-20261022.md; no nueva aceptación. Preservados los ocho consumos ClaudeV1 anteriores, sin invocaciones nuevas.
+
+
+### Consolidación222 — resultado221
+
+B07-222: integración221 auditada1PASS/152,603s con100perfiles,20derechos,50marcas y99visibles; worker real limpió50marcas,60dinámicas exitosas y1upload. Compactación solicitada y reactivación del mismo objetivo con consumo conservado verificadas; Telegram confirmado. Sin capacidad ni cierre B07;8de18.
+
+Detalle en docs/210-backlog-escalable-worker-b07-20261022.md. Siguiente: prerregistrar funcional1000; sin10000/900automático. Histórico8invocaciones ClaudeV1 preservado, ninguna nueva.
+
+
+### Corrección224 — negativo223 e integración225
+
+B07-224:223 interrumpida por watchdog180s, sin JUnit; negativo auditado. Corregidos watchdog2400s y vida del contenedor3000s sólo para funcional backlog escalable;81guardas PASS, Ruff PASS. Slot Beat+5s y criterios intactos. Integración225 pendiente; B07 abierto,8de18.
+
+Detalle en docs/210-backlog-escalable-worker-b07-20261022.md. Histórico8invocaciones ClaudeV1 preservado; ninguna nueva.
+
+
+### Auditoría225 — 2026-10-22
+
+B07-225: funcional1000 INVALID por generator_delay_p99=28,649766ms>25ms;60dinámicas y1upload correctos no validan la medición. JUnit1FAIL/0ERROR; fuentes y protocolo congelados intactos, limpieza, Telegram, compactación y reactivación del mismo objetivo verificados. Causa exclusiva no establecida; sin repetición ciega ni relajación de umbrales. B07 abierto,8de18. Véase docs/210-backlog-escalable-worker-b07-20261022.md y backlog225-negative-audit.json. Siguiente: instrumentación del despertar/ejecución del generador antes de otro ensayo. Histórico8invocaciones ClaudeV1 preservado; ninguna nueva.
+
+
+### Diagnóstico226 — 2026-10-22
+
+B07-226: diagnóstico optativo del generador separa despertar del planificador, creación de tarea e inicio HTTP; emisión y umbrales intactos.18guardas PASS/21,59s, Ruff PASS. Integración227 funcional1000 prerregistrada, aún sin resultado;8de18,B07 abierto. Producto628 intacto. Histórico8invocaciones ClaudeV1 preservado, ninguna nueva. Fuentes y criterios del siguiente ensayo en documento210.
+
+
+## Resultado227 auditado
+
+B07-227: funcional1000 auditada PASS,60dinámicas y1upload correctos;50marcas antes de carga, reparación nativa51→0 y24páginas reparadas. Generador p99=17,944489ms; diagnóstico sin causa exclusiva ni mejora atribuida. Fuentes, limpieza, Telegram, compactación y mismo objetivo verificados;8de18,B07 abierto.
+
+Ensayo `20261022-092104-3a98b036`: JUnit1PASS/0FAIL/0ERROR/0SKIP,585,812s de caso. Población1000, geografía700/300,200derechos comerciales sintéticos (67premium/133top),999visibles tras retirar un perfil.42slots/30rutas,42sondas frías200;60dinámicas correctas (20listado/20búsqueda/20ficha,30ES/30EN) y1upload302persistido. HTTP p95=608,325805ms y p99=730,537891ms en carga funcional3s, no capacidad sostenida. Preparación estadística ANALYZE en cinco tablas registrada.
+
+Se verificaron24páginas frescas, dos primeras páginas pendientes de ciudad mayoritaria sin texto ES/EN y24reparadas seleccionadas; las dos pendientes coinciden exactamente con su versión reparada. La comprobación nativa vuelve a verificar los49elegibles y la ausencia del retirado; no es HTTP exhaustivo de todas las páginas. Mutación22,564386ms; comprobación pendiente1,149873s; margen3,733922s respecto al slot original Beat+5s. La tarea web364b87d7-e498-4440-a95f-a4dcf96f8098 terminó SUCCESS, sin eager, y limpió51marcas hasta0;50de la cohorte estaban presentes antes de carga. No equiparar51 a tamaño de cohorte ni afirmar que todas las60peticiones observaron estado sucio. Publicación→inicio10,914820ms incluye el recorrido emisor/broker/despacho, sin atribución exclusiva a cola; ejecución318,975644ms. Las cotas marca→limpieza de toda la tarea abarcan0,456036–5,783021s y no identifican individualmente la cohorte en el evento.
+
+Generador p95=2,291298ms, p99/máximo17,944489ms, límites originales conservados. Peor fila d-14: prevista0,7s, despertar0,717836588s, encolado0,717842882s y emisión0,717944489s. Descomposición17,836588ms +0,006295ms +0,101606ms; todas las61filas mantienen orden y suma, subida comparte despertar del slot. GC no solapa el peor intervalo. Esto localiza el tramo observado, no demuestra causa exclusiva del SO/CPU/event loop; sobrecoste causal no medido. El cambio226 añade diagnóstico y no acredita mejora frente al INVALID225, que se conserva.
+
+Observador exterior al presupuesto:534muestras,525antes/6durante/3después; identidades completas de seis servicios y del proceso observador, cotas de captura y deltas CPU poscarga verificados. Espera de preparación212,712060s y vida del observador489,181513s; CPU propia10,222008s. Perfil real8CPU/8GiB/swap0/storage≤20GiB, cuatro workers/un hilo y GC sin cambios. Fuentes completas1689iguales entre prerregistro/lanzamiento/runner/árbol, protocolo congelado por bytes/SHA y628fuentes de producto intactas antes de esta edición. Limpieza real confirmada sin recursos etiquetados ni problemas de archivo.
+
+Evidencia: artifacts/beta-promotion-fix-20261020/backlog227-audit.json y audit_backlog227.py. La primera ejecución del auditor falló por un literal de memoria PostgreSQL alterado al adaptar el identificador221a227; se corrigió sólo ese literal, se revisó el diff y la auditoría pasó sin repetir TCP. Ambos resultados terminales Telegram confirmados. Telegram de finalización, reactivación del mismo objetivo con consumo preservado y solicitud de compactación REQUEST_ACKNOWLEDGED verificados. La auditoría se ejecutó antes de editar documentación/grafo.
+
+Siguiente: evaluar el presupuesto de preparación y observación para10000 con cohorte49+1 usando los tiempos observados y la equivalencia215; prerregistrar el siguiente ensayo sólo tras resolver su encaje temporal. No lanzar automáticamente10000 ni900, ni aceptar B07 por este PASS funcional.
+
+
+## Preparación228 y protocolo de integración229
+
+B07-228: preparación y captura separadas para backlog; oráculos nativos completos conservados.83guardas PASS/19,22s, Ruff PASS. Sólo10000 recibe preparación5400s/watchdog9000s/vida9600s; captura600s/600muestras/8MiB y criterios HTTP intactos. Integración229 pendiente;8de18,B07 abierto.
+
+Diagnóstico de encaje: en227 la espera previa a la captura fue212,712060s y el tramo antes de llegadas duró272,076242s, con525muestras de preparación. verify_pages evalúa por separado el censo nativo de dos ciudades y dos búsquedas; prepare_backlog construye otro oráculo para la cohorte antes del tick. Estos censos son deliberadamente independientes del estado derivado. No se deduce tiempo lineal exacto a10000; sí existe riesgo concreto de agotar600muestras/600s antes de carga. El resultado215 a10000 confirma un coste de equivalencia significativo; no ejecutar un ensayo previsiblemente truncado sin ajustar su preparación.
+
+Cambio limitado a instrumentación y control: en backlog el escritor de fases se crea tras sondas frías, páginas frescas y plan de mutación, antes de buscar el siguiente tick nativo. resource_preparation_excluded registra inicio/fin monotónicos y ámbito excluido. No representa medición de recursos de preparación ni del oráculo reparado posterior a idle_after. Ambos censos,24páginas frescas y24reparadas seleccionadas y49comprobaciones nativas finales siguen ejecutándose; no se sustituyen por resultados anteriores ni se elimina PostgreSQL real. Los modos sin backlog conservan el comienzo anterior de captura.
+
+A10000 únicamente: espera de preparación del observador5400s, watchdog pytest9000s y vida del contenedor9600s; el watchdog exterior11500s ya existente permanece. Cotas conservadoras de control, no objetivos de latencia ni tiempos observados. A100/1000 se mantienen1800/2400/3000; a10 los controles anteriores. Captura después de la señal sigue600s/600muestras/8MiB/.5s y tres muestras de reposo. Pruebas con reloj controlado verifican preparación2000s permitida y6000s rechazada bajo5400; guardas de modos/propiedad/fases y codec cubiertas.83PASS19,22s y RuffPASS no acreditan el nuevo recorrido Docker. Producto628 intacto.
+
+229 previsto: una integración funcional10000 territorial con servicio de recursos y backlog49elegibles+1retirado;10000publicados,7000/3000,2000derechos sintéticos,9999visibles nativos. Misma imagen6936424,8CPU/8GiB/storage≤20GiB/swap0, cuatro workers/un hilo,workerBeat nativos,READ_REPAIRfalse yGCsin cambios.42slots/30rutas esperadas pero auditar las reales;60dinámicas/3s/20RPS/1upload. Dos páginas pendientes ciudad mayoritaria sin texto ESEN y404ESEN,50marcas verificadas antes/después de404;24páginas frescas y24reparadas seleccionadas, no HTTP exhaustivo ni todas las60peticiones sucias. Slot original Beat+5s y reparación≤45s conservados. Diagnóstico226 activo sin restar intervalos a criterios del generador.
+
+Congelar fuentes/protocolo/grafo después de comprobar documentación; ejecución persistente única con Telegram previo y terminal, pausa, compactación y reactivación automática del mismo objetivo. Antes de una nueva decisión auditar fuentes completas, propiedad, contabilidad, fases/cotas y limpieza real. Cualquier FAIL/INVALID se conserva y no permite repetir por buscar verde.229 no se ha lanzado ni constituye aceptación. No900automático; B07 sigue abierto.
+
+
+## Resultado229 auditado y siguiente paso
+
+B07-229: funcional10000 auditada PASS;60dinámicas y1upload correctos,50marcas de cohorte y reparación nativa51→0.24páginas frescas,2pendientes y24reparadas. Preparación excluida de captura verificada; generador p99=6,680589ms. Fuentes, limpieza, Telegram, compactación y mismo objetivo verificados;8de18,B07 abierto.
+
+Ensayo `20261022-094304-a4f41580`: JUnit1PASS/0FAIL/0ERROR/0SKIP,4957,631s de caso.10000publicados sintéticos,7000/3000 en dos ciudades,2000derechos comerciales y9999visibles tras retirar un perfil.42slots/30rutas,42sondas frías200,60dinámicas200 (20listado/20búsqueda/20ficha y30ES/30EN) y1upload302persistido. HTTP p95=1141,143596ms y p99=1195,208694ms corresponden a funcional3s; no capacidad sostenida ni mejora de producto.
+
+Cohorte49elegibles distintos más1retirado,50generaciones comprobadas.24páginas frescas y24reparadas seleccionadas; las dos pendientes de primera página sin texto de ciudad mayoritaria ES/EN coinciden exactamente con sus versiones reparadas.404ES/EN conserva marcas; el oráculo nativo comprueba elegibilidad de los49 y ausencia del retirado. No es HTTP exhaustivo ni demuestra que las60peticiones observaran estado sucio. Mutación22,382365ms, verificación pendiente1,399852s, margen3,180985s al slot original Beat+5s.
+
+Tarea web0ab29a7f-5364-4bf3-9ed1-448043609ac9 SUCCESS nativa,51→0, sin eager ni error de snapshot;50marcas de cohorte antes de carga. Publicación→inicio8,155576ms y ejecución316,583605ms; cotas marca→limpieza0,454740–6,030352s para toda la tarea, sin atribución individual de cohorte. El evento adicional no amplía la cohorte. Contabilidad Celery parcial se conserva en backlog229-audit.json; no atribución exclusiva a cola.
+
+Generador p95=4,346843ms y p99/máximo6,680589ms dentro de límites originales. Peor fila d-34: despertar6,513488ms, encolado0,002153ms e inicio de corrutina0,164948ms. Orden y suma de61filas y despertar compartido de subida verificados; ningún GC solapa ese intervalo. Sin causa exclusiva ni sobrecoste causal medido, sin atribuir mejora al diagnóstico226.
+
+Preparación explícitamente excluida:3162,103745s entre marcas; precede señal de captura y nuevo tick. Espera del observador3287,495974s bajo5400s y vida3299,443838s bajo6010s; CPU propia13,072708s fuera del presupuesto. Captura24muestras (13antes/8durante/3después), seis identidades completas, deltas CPU de reposo y cotas600s/600muestras/8MiB verificadas. No se mide preparación ni oráculo reparado posterior al reposo. Perfil8CPU/8GiB/swap0/storage≤20GiB, cuatro workers/un hilo y GC conservados.
+
+Auditorías antes de editar documentación:1689fuentes iguales entre prerregistro/lanzamiento/runner/árbol; protocolo idéntico por bytes/SHA y628fuentes de producto intactas. Limpieza Docker real y archivo sin problemas. Evidencias backlog229-audit.json y audit_backlog229.py en artifacts/beta-promotion-fix-20261020; dos comprobaciones terminales PASS con recibos Telegram confirmados. Aviso terminal y reactivación automática del mismo objetivo conservando consumo verificados; compactación REQUEST_ACKNOWLEDGED y contexto compacto recibido. No nueva batería ni repetición TCP durante auditoría.
+
+Siguiente: contrastar la cobertura acumulada100/1000/10000 con los estados mixtos exigidos por matriz180§16 y roadmap103, y preparar el mínimo incremento que cubra sus lagunas. Las poblaciones actuales publicadas con derechos no prueban por sí solas borrador/pendiente/pausa/caducidad/revocación ni producción. No900automático; B07 y aceptación beta global pendientes. Se conserva el protocolo229 anterior como registro histórico de preparación.
+
+
+## Preparación231 — estados mixtos
+
+B07-231: preparada equivalencia PostgreSQL de100perfiles en dos ciudades;14inelegibles de siete estados, dos derechos inactivos y20derechos nativos sintéticos. Prueba pendiente, sin carga ni aceptación;8de18,B07 abierto. Véase docs/211-estados-mixtos-territoriales-b07-20261022.md.
+
+
+## Resultado231 auditado
+
+B07-231: equivalencia mixta100 auditada PASS/142,990s;60páginas ESEN,14excluidos y86visibles,marcas0→14→0. Derechos suspendido/caducado pierden patrocinio sin ocultar perfil. Reparación manual, sin carga ni worker acreditados;8de18,B07 abierto.
+
+Corrida `20261022-111510-f00a8bb0`:1PASS/0FAIL/0ERROR/0SKIP,142,990sJUnit.20páginas exhaustivas por fase fresca/mezcla pendiente/reparada; IDs ordenados, recuentos, unicidad, etiquetas y404ESEN de14inelegibles verificados. Cada motivo se aplica a un perfil orgánico y otro promocionado: borrador, procesando, pendiente, pausado, plazo caducado manteniendo published, retirado y consentimiento revocado. Las mutaciones preparan estados directamente; no acreditan transiciones de interfaz. Derechos nativos20 antes/después; tarjetas patrocinadas sumadas en las cuatro combinaciones idioma/texto80→44→44. Siete derechos corresponden a perfiles excluidos y otros dos pierden vigencia comercial;11promociones siguen elegibles. Ambos perfiles sin derecho vigente permanecen públicos.
+
+Proyección pendiente y reparada producen firmas idénticas; todas las lecturas mantienen IDs/generaciones de marcas. Reparación explícita manual: no worker ni Beat acreditados por este caso. Perfil100 y dos municipios sintéticos70/30, no diversidad nacional. Sin producción, checked real, TCP ni percentiles de capacidad.
+
+Auditoría antes de editar fuentes/documentación:1690huellas iguales entre prerregistro/runner/árbol, protocolo por bytes/SHA y628fuentes de producto intactas. PostgreSQL17/Redis7.4 reales, compilación nativa, todos los pasos y limpieza Docker/temporal/PID verificados. Telegram CI y auditoría PASS con delivery sent. Evidencias artifacts/beta-promotion-fix-20261020/mixed231-audit.json y audit_mixed231.py. Se conserva Ruff inicial EXIT1 (import desordenado) y lanzamiento EXIT2 rechazado antes de pruebas por faltar native-source; corregidos sin ocultar resultados. Prueba focal ejecutada una sola vez.
+
+Siguiente incremento: integrar esta mezcla en el escenario de observación nativa con preparación fuera del slot, sin repetir la cohorte49 ya verificada. Antes de escalar hay que medir el coste de oráculos en el caso pequeño y congelar nuevo protocolo. PRODUCTION/checked requiere un escenario separado: capacity_beta_http.verify_owned_fixture rechaza PRODUCTION y promotion_exposure.enabled deshabilita promociones sintéticas allí. La metadata sintética de las pruebas checked no prueba proveedor real. Mantener umbral48, límite1000, no READ_REPAIR, presupuestos del generador y SLO originales. B07 abierto; sin900HTTP automático.
+
+
+## Protocolo232 — reparación nativa
+
+B07-232: preparado control mixto100 con worker y Beat reales propios; comprobación pendiente completa antes del arranque, reparación observada y limpieza exigidas. Integración pendiente;8de18,B07 abierto.
+
+Se reutiliza el caso231 y se parametriza manual/native. La variante manual conserva sus comprobaciones; native requiere opt-in normal_worker_beat sin xdist. Ejecutar sólo el selector[native], con runner oficial, --benchmark-normal-refresh, --isolate-test-broker, --workers1 y dependencia librdb fijada. No repetir manual ni10000. Watchdog900s; no ensayoHTTP900s.
+
+La variante nativa ejecuta antes del arranque todas las páginas frescas y pendientes y404ESEN, preservando marcas. Después verifica identidad efectiva de PostgreSQL y contenedor/puerto/etiqueta de Redis propio vacío; arranca worker Celery concurrencia2 y Beat con sus comandos habituales y generación aislada. Mantiene calendario nativo y no invoca refresh_all para reparar. Desde readiness exige≤45s hasta dirty0 y evento SUCCESS no eager correlacionado por UUID con publicación Beat, cleared≥14 y sin snapshot_error. Es reparación posterior a las lecturas, no escenario concurrente ni slot Beat+5s.
+
+Detener primero Beat y después worker; comprobar PID/start_ticks, raíces terminadas y Redis vacío. Configuración temporal de media/delivery propia; ningún servicio normal ni proveedor. Guardar mixed-worker-repair.json, ledger y propiedad JUnit. Luego repetir el mismo oráculo nativo y todas las páginas reparadas, iguales a pendientes. La lista inicial sigue100/70–30/20derechos/14excluidos/86visibles; sin cambio de producto628. Las comprobaciones de cargas229 y de umbral49 se conservan separadas. Un PASS no acepta B07 ni capacidad.
+
+
+## Adaptador de lanzamiento232
+
+B07-232: selector nativo100 autorizado de forma exacta en runner serial con broker aislado; seis guardas CLI y Ruff pendientes de recibo. Primera solicitud rechazada antes de pruebas; integración real pendiente.8de18,B07 abierto.
+
+El runner rechazó el primer selector porque normal_refresh sólo admitía contratoHTTP; no arrancó contenedores ni pruebas. Se conserva mixed232-rejected-preregister.json y su protocolo original. scripts/run_local_ci.py admite ahora exclusivamente el selector mixto[native] bajo focused/workers1 y --isolate-test-broker; selector manual o múltiple conserva rechazo, y el contratoHTTP anterior conserva compatibilidad. Se comprueban seis fronteras CLI sin contenedores. La primera ejecución del comprobador olvidó workers1 y falló; se corrige sólo su invocación, sin aflojar runner. Congelar de nuevo fuentes/protocolo tras grafo242 y recibos.
+
+
+## Negativo232 y protocolo233
+
+B07-233: preparación de broker aislada por generación; negativo232 auditado antes del arranque del worker. Se conservan claves previas y se exige reparación Beat/worker de14marcas. Integración233 pendiente;8de18,B07 abierto.
+
+Corrida232 `20261022-112631-585f9c23`:1FAIL/0ERROR/0SKIP,116,261s de caso; CI ERROR y Telegram sent. La guarda broker.dbsize()==0 falló antes de arrancar procesos worker/Beat. No se archivó inventario de claves en ese corte y no se atribuye su tipo. Auditoría negativa verifica1691fuentes, protocolo congelado, limpieza real y recibo antes de editar. Evidencia mixed232-negative-audit.json; no reparación nativa acreditada.
+
+Corrección limitada a tests/mixed_state_worker.py: comprobar vacía únicamente una generación aleatoria nueva, registrar número/huellas de claves de preparación y conservarlas. Worker/Beat usan esa generación; al terminar sólo se borran sus claves. Exigir generación propia vacía, claves previas aún vivas con igual valor y ninguna clave nueva fuera de la generación. Las expiraciones previas se registran separadas; no se exige conservar TTL ni borrar preparación. No se conoce el contenido del broker negativo232 ni se convierte ese fallo en éxito.
+
+233 repite únicamente el selector native100 afectado por esta corrección, mismo reparto70/30,20derechos,14excluidos,86visibles y60páginas previstas. Mismos comandos worker/Beat, espera≤45s desde readiness, UUIDpublicaciónBeat→ejecuciónSUCCESS, ausencia eager/snapshot_error y dirty0. Sin reparación manual en variante nativa. Mismos controles de procesos/propiedad, fuentes congeladas y Telegram. No se repite229 ni manual231, no hay carga HTTP ni SLO/capacidad acreditados. Congelar tras grafo243 y comprobar Ruff/documentación.
+
+
+## Resultado233 auditado — reparación nativa de estados mixtos
+
+B07-233: equivalencia mixta100 con Beat/worker reales auditada PASS/174,917s;60páginas,14excluidos,86visibles y reparación14→0.28,892571s desde readiness; dos claves previas preservadas. Fuentes/limpieza/Telegram verificados;8de18,B07 abierto.
+
+Corrida `20261022-113144-9e6fe9ca`: un caso PASS, sin fallos, errores ni omisiones; 174,917 segundos JUnit. Inventario sintético de 100 perfiles, dos municipios 70/30 y 20 derechos comerciales emitidos por los servicios existentes con eventos sintéticos. Los siete motivos de exclusión se verifican tanto en perfil orgánico como promocionado: 14 excluidos y 86 visibles. Un derecho suspendido y otro caducado pierden patrocinio, conservando sus perfiles públicos. Las tarjetas patrocinadas suman 80/44/44 en las cuatro combinaciones idioma/texto.
+
+Veinte páginas exhaustivas en cada fase fresca/pendiente/reparada, 60 en total. IDs ordenados, recuentos, unicidad, etiquetas y 404 ES/EN comprobados. Las lecturas pendientes mantienen las generaciones de las 14 marcas; firmas pendientes y reparadas idénticas. Worker y Beat se arrancan después de completar esas lecturas. No son peticiones concurrentes con la reparación ni carga TCP.
+
+Beat publica UUID bbcaa2be-cfcf-4936-aa71-6a251bd42b2d; el worker registra SUCCESS no eager, limpia exactamente 14 marcas hasta cero y no registra error de snapshot. Publicación→inicio 6,715392ms, ejecución 258,458766ms. Reparación observada a 28,892571s desde readiness; ciclo de arranque y espera 31,947237s. Las cotas marca→limpieza son 60,905944–61,023096s porque incluyen las lecturas pendientes previas al arranque. No afirmar reparación en 45s desde mutación: este protocolo acota desde readiness y no sustituye el slot original ni la cota del caso229. Ledger: un UUID correlacionado, cero ambiguos y cero publicaciones/ejecuciones no correlacionadas en el tramo capturado; sin afirmación sobre otros tramos.
+
+Redis propio: dos claves de preparación preservadas sin cambio de valor, cero expiradas y cero claves nuevas fuera de la generación; generación del worker vacía tras su limpieza. Dos raíces y dos hijos observados retirados. PostgreSQL y Redis efectivos verificados; sin cuotas de carga ni proveedor real acreditados. Auditoría antes de editar: 1691 fuentes iguales en prerregistro/runner/árbol, protocolo por bytes/SHA y 628 fuentes de producto intactas. Limpieza real de contenedores, temporal y procesos y Telegram terminal confirmados. Evidencias mixed233-audit.json y audit_mixed233.py en artifacts/beta-promotion-fix-20261020. Negativo232 y rechazos previos conservados.
+
+Siguiente: perfilar en una cohorte pequeña el coste del oráculo antes de ampliar esta mezcla al HTTP acotado. Cualquier optimización debe conservar lecturas nativas frescas, pertenencia, orden, etiquetas y separación de la proyección; no adoptar PublicationContext sólo por existir en producto. La hipótesis está registrada sin cambio de oráculo. No repetir229 ni lanzar900s automáticamente. B07, producción/checked y aceptación beta global siguen pendientes.
+
+
+## Preparación234 — perfil del oráculo
+
+B07-234: preparado contraste ABBA del oráculo nativo100 con relaciones cargadas por joins; validación y derechos intactos, sin lectura de proyección ni caché. Medición pendiente y candidato no adoptado;8de18,B07 abierto. Véase docs/212-perfil-oraculo-nativo-b07-20261022.md.
+
+
+## Resultado234 y adopción235
+
+B07-234: contraste nativo100 auditado PASS/102,663s;SQL2311→1752 (−24,19%),ratio wall instrumentado0,8951 y diez llamadas equivalentes.235 activa joins nativos por defecto; verificación mixta pendiente.8de18,B07 abierto.
+
+234: corrida `20261022-114145-d66e0ff0`, un PASS sin fallos, errores u omisiones;102,663sJUnit. ABBA fotografía en70perfiles: nativo2311consultas en6,777577/6,975994s; hidratado1752consultas en5,912341/6,398376s. Reducción de consultas24,188663%, ratio de medianas wall0,895092 (10,490760% menos en este contraste instrumentado). No causalidad de rendimiento del producto ni extrapolación exacta a10000.
+
+Tras pausa de un promocionado, revocación de consentimiento de un orgánico y suspensión de otro derecho: ambos recorridos dan68IDs ordenados iguales con texto vacío y photography, con2225→1679consultas; término ausente da0IDs y una consulta en ambas variantes. Esa pareja vacía tarda4,870114/12,709760ms, sin mejora de latencia acreditada para búsquedas vacías. Las diez llamadas rechazaron escrituras y lecturas de tablas de proyección/marcas; las marcas y generaciones permanecieron iguales. Sin caché ni contexto de validación compartido.
+
+Auditoría previa a edición:1692fuentes iguales, protocolo por bytes/SHA, producto628 intacto, PostgreSQL17/Redis7.4 reales y limpieza de contenedores/temporal/PID. Telegram CI y auditoría confirmados. Evidencias oracle234-audit.json y audit_oracle234.py en artifacts/beta-promotion-fix-20261020. El resultado234 se tomó con hydrate=False por defecto y no se reinterpreta tras adoptar235.
+
+235 cambia sólo el valor por defecto de hydrate a True y actualiza la metadata del perfil para leer el valor efectivo. Mantiene escape hydrate=False para comparar con el recorrido original y no cambia autoridad, formularios, SQL de búsqueda, derechos ni orden. Verificar únicamente test_mixed_state_territorial_equivalence[manual]:100perfiles70/30,20derechos,14excluidos,86visibles,60páginas exhaustivas y etiquetas/404/lecturas sin reparación. El censo nativo directo de ese test sigue sin joins especiales ni contexto y contrasta la pertenencia con el oráculo hidratado. Reparación manual declarada; no repetir worker233 ni234 por buscar mejores tiempos.
+
+Congelar fuentes/protocolo tras grafo246 y documentación. Un caso focal serial con PostgreSQL real y watchdog900s. No medir velocidad integral causal comparándolo sólo con el histórico231; los tiempos de ambas corridas son descriptivos.235 tampoco acepta capacidad ni B07. Después integrar mezcla al escenario HTTP acotado con oráculos nativos completos, conservando recursos/slots y negativos anteriores.
+
+
+## Resultado235 — oráculo nativo
+
+B07-235: oráculo con joins nativos adoptado; mezcla100 auditada PASS/138,360s,60páginas,14excluidos y86visibles. Contraste234:−24,19%consultas y−10,49%wall instrumentado del oráculo, sin crédito de rendimiento de producto.8de18,B07 abierto.
+
+Corrida20261022-114654-9a751873,fuentes/protocolo/producto628/limpieza/Telegram auditados antes de editar. Evidencia artifacts/beta-promotion-fix-20261020/oracle235-audit.json; desarrollo y límites en docs/212-perfil-oraculo-nativo-b07-20261022.md. Siguiente: preparar mezcla100 en HTTP acotado con slot original y oráculos completos; sin10000ni900automáticos.
+
+
+## Preparación236 — HTTP mixto100
+
+B07-236: HTTP mixto limitado a100perfiles, planificación nativa con rollback y patrocinio comprobado.84guardas PASS/10,02s y Ruff PASS; equivalencia PostgreSQL del plan e integraciónHTTP237 pendientes.8de18,B07 abierto.
+
+Alcance y límites en docs/213-http-estados-mixtos-b07-20261022.md; producto628 intacto. Siguiente: validar plan/reversión real antes de237.
+
+
+## Resultado236 y control236b
+
+B07-236b: plan236 auditado PASS/89.273s,20páginas y28detalles; corregida selección para proteger sólo2fichas de carga en lugar de21samples. Nuevo control del plan pendiente;8de18,B07 abierto.
+
+Evidencia mixed236-audit.json y alcance en docs/213-http-estados-mixtos-b07-20261022.md. NoHTTP237ni900automáticos.
+
+
+## Resultado236b y próxima integración237
+
+B07-236b: plan corregido auditado PASS/88,401s;20páginas,28detalles y dos fichas protegidas. Fuentes1695/producto628/limpieza/Telegram verificados. Se prepara una única HTTP237 mixta100 persistente;8de18,B07 abierto.
+
+Protocolo en docs/213-http-estados-mixtos-b07-20261022.md; evidencias mixed236b-audit.json/source-proof. Lanzamiento persistente237 sólo tras congelar/verificar; sin aceptación de capacidad ni900automático.
+
+
+B07-237: HTTP mixta100 auditada PASS/146,680s;14excluidos,86visibles,11patrocinios,20/2/20páginas y28detalles404. Reparación observada9,808647s desde mutación. Fuentes1695/producto628/limpieza/Telegram/compactación/reactivación del mismo goal verificados. Funcional instrumentada, no capacidad;8de18,B07 abierto.
+
+
+B07-238: cobertura vigente reconciliada con contrato y fuentes; mezcla237 cubre city+q, no tipo+idioma hablado+ciudad+texto. Siguiente: preparar oráculo nativo yfixture de filtros combinados antes de medir. Sin nueva batería ni cierre;8de18,B07 abierto. Véase docs/214-cobertura-vigente-b07-20261022.md.
+
+
+B07-239: equivalencia de filtros combinados100 auditada PASS/172,393s;264páginas ESEN,orgánico/promocional,fresco/pendiente/reparado,positivos yvacíos. Fuentes1696/producto628/limpieza/Telegram verificados;sin capacidad,8de18,B07 abierto. Evidencia en docs/214-cobertura-vigente-b07-20261022.md yartifacts/beta-promotion-fix-20261020/filters239-audit.json.
+
+
+B07-240: diagnóstico SQL/render combinado100 preparado;48observaciones,240controles yfirmas nativas con etiquetas. Ejecución pendiente,sin capacidad ni cierre;8de18,B07 abierto. Véase docs/215-coste-filtros-combinados-b07-20261022.md.
+
+
+B07-240: diagnóstico combinado100 auditado PASS/135,506s;48observaciones separadas,240controles,firmas nativas ypatrocinio equivalentes. SQL17–35consultas,render inclusivo mediano30–35ms porgrupo. Fuentes1697/producto628/limpieza/Telegram verificados;sin capacidad,8de18,B07 abierto. Véase docs/215-coste-filtros-combinados-b07-20261022.md.
+
+
+B07-242: implementado control local100 normal/PRODUCTION con filtros checked combinados ymetadatos sintéticos explícitos;equivalencia PostgreSQL pendiente. Sin proveedor real,capacidad ni cierre;8de18,B07 abierto.
+
+B07-241: diagnóstico combinado1000 auditado PASS/499,952s;48observaciones,240controles y336lecturas con IDs/recuento/patrocinio nativos equivalentes. Fuentes1697/producto628/limpieza/Telegram verificados;compactación yreactivación automática del mismo goal confirmadas. Sin capacidad ni cierre;8de18,B07 abierto. Véase docs/215-coste-filtros-combinados-b07-20261022.md.
+
+
+B07-243: negativo242b auditado: dos FAIL porque save activa reparación Celery eager del fixture antes de observar la marca. Corrección sólo del ensayo: actualización SQL conserva disparadores PostgreSQL sin emitir señal de modelo. Revalidación de los dos casos pendiente; no paridad aceptada, capacidad ni cierre; 8 de 18, B07 abierto. Auditoría policy242b-negative-audit.json preservada; sin invocaciones Claude nuevas (8 históricas).
+
+
+## Resultado auditado243
+
+B07-243 auditado: 1 PASS y 1 FAIL en 116,554 s; producción verifica 96 páginas, normal falla en el recuento nativo 69 frente a 70. Fuentes1698 y producto628 intactos, limpieza y Telegram confirmados; compactación y reactivación del mismo objetivo verificadas. B07 abierto; ocho de18 puntos cerrados.
+
+Ejecución `20261022-132257-f359d7e1`; auditoría `artifacts/beta-promotion-fix-20261020/policy243-negative-audit.json`. Un PASS no acepta el archivo completo. El caso production recorre fresh/pending/repaired, ES/EN, cuatro variantes checked y hasta tercera página; una marca pendiente permanece tras GET, reparación manual. El caso normal termina antes de emitir su propiedad completa. No equivalencia normal completa, capacidad ni proveedor real.
+
+Causa del recuento incorrecto del ensayo: `reference_territorial_order` llama a `publicly_visible`, que llama a `validate_submission`; `apps/listings/submissions.py:97–110` exige que la última prueba tenga estado passed, sujeto y manager_version actuales también fuera de PRODUCTION. La mutación de manager_version invalida por tanto la publicación completa en ambos modos: después de fresh quedan69 perfiles mayoritarios normales para sinchecked/contact/age+contact, y55 para age; producción55 para todas las variantes. El ensayo sobrescribe incorrectamente el decremento normal con70. Esto se deduce de la autoridad nativa y concuerda con69 observado; aún falta revalidación HTTP normal de las fases pendientes y reparadas. Siguiente corrección propuesta: conservar70/30 para fresh normal noage y restar1 después en mayoría para pending/repaired; mantener56/24 age/production y el decremento a55. No alterar producto, filtros, oráculo ni guardas para acomodar el fallo.
+
+Sin nuevas invocaciones Claude V1: se preservan las ocho y el consumo histórico.
+
+
+B07-244: corregida sólo la expectativa del ensayo: invalidar manager_version excluye un perfil mayoritario en ambos modos y todos los filtros; normal69 o55 para age tras fresh, producción55. Revalidación de dos casos100 pendiente; sin cambios de producto, capacidad ni cierre.
+Mantener ocho invocaciones Claude V1 históricas; ninguna nueva.
+
+
+## Resultado auditado244
+
+B07-244 auditado: dos PASS en 139,130 s; normal114 y producción96 páginas, total210. Fuentes1698 y producto628 intactos, limpieza y Telegram confirmados; compactación y reactivación del mismo objetivo verificadas. B07 abierto; ocho de18 puntos cerrados.
+
+Ejecución `20261022-133206-c545cb5f`; prueba y auditoría `artifacts/beta-promotion-fix-20261020/policy244-audit.json`. PostgreSQL17 y Redis7.4 reales locales; 100 perfiles sintéticos70/30, fresh/pending/repaired, ES/EN y cuatro variantes checked. IDs, orden, recuentos y unicidad contrastados con autoridad nativa; GET conserva la marca pendiente, reparación manual. El manager_version obsoleto excluye el perfil en ambos modos. Sin proveedor real, worker, TCP, capacidad ni configuración segura de producción acreditados. Se preservan negativos242b/243 y el primer auditor244 fallido por su supuesto incorrecto de96 páginas normales; corregido a114 sin repetir CI. Próximo trabajo: derivar del contrato y matriz la siguiente combinación pendiente antes de prerregistrar otra ejecución.
+
+
+B07-245: preparada equivalencia mixta1000 con censo nativo completo, páginas inicial/intermedia/final y14exclusiones; primero regresión manual100 por extraer el helper. Ejecución pendiente; sin capacidad ni cierre,8de18. Véase docs/217-escala-estados-mixtos-b07-20261022.md.
+
+
+## Resultado245 auditado
+
+B07-245: equivalencia mixta100/1000 auditada: dos PASS,132páginas de listado,14exclusiones y86/986visibles; fuentes1699/producto628 ylimpieza verificados. Compactación solicitada yreactivación del mismo goal confirmadas. Sin capacidad ni cierre;8de18,B07 abierto.
+
+Corrida20261022-134351-354ba097:100manual144,218s y1000manual1008,270s;1152,488sJUnit total.100recorre60páginas y1000selecciona72: inicial/intermedia/final en tres fases,ESEN ytexto vacío/photography. Censo nativo completo en ambas escalas, siete causas orgánico/promocionado, derechos suspendido/caducado sin ocultar perfil,28detalles404 por fase posterior. Marcas0/14/0 yfirmas pendientes/reparadas idénticas. Auditoría mixed245-audit.json: fuentes completas preregistro=lanzamiento=CI=actual1699, protocolo217bytes/SHA,628producto intactos,PostgreSQL17/Redis7.4 reales,compilación nativa ydos casos sin fallos ni omitidos;Docker/temporales/procesos ausentes yTelegram confirmado. Se conserva evidencia original congelada. Sin crédito worker,verificador real,TCP ni capacidad.10000noejecutado;duración no extrapolable ni latenciaHTTP.
+
+Siguiente trabajo: estudiar el coste del helper y la cobertura mixta HTTP antes de preparar10000; la variante HTTP conserva guard100 y requiere adaptación explícita. No repetir controles ya acreditados ni lanzar10000 automáticamente.
+
+Sin nuevas invocacionesClaudeV1; conservar ocho anteriores ysu consumo.
+
+
+B07-246: instrumento HTTP mixto adaptado a 100/1000; 43 guardas PASS. Pendiente verificar en PostgreSQL el rollback contrafactual y las páginas reales en ambas escalas. Sin nueva carga HTTP ni capacidad; 8 de 18, B07 abierto.
+Fuentes afectadas: siete scripts/tests; sin producto. Prerregistro218, grafo266; integración pendiente. Sin nuevas invocacionesClaudeV1; conservar ocho anteriores y consumo.
+
+
+B07-246 auditado: 2 PASS en PostgreSQL real, 100/1000 perfiles, rollback contrafactual y 44 páginas verificadas; fuentes y limpieza confirmadas. Compactación aceptada y mismo objetivo reactivado por la shell. Sin capacidad acreditada; 8 de 18, B07 abierto.
+
+## Resultado auditado del control 246
+
+Ejecución `20261022-141230-c15fcc1e`: dos casos PASS, sin fallos, errores ni omitidos; 561,583 s sumados de casos. Para 100/1000 perfiles: 20/200 derechos, 86/986 visibles, 11/191 patrocinios activos, cuatro censos nativos completos y 20/24 páginas comprobadas. Cada caso acredita rollback lógico, secuencia monotónica sin reinicio, 14 generaciones posteriores y 28 detalles excluidos con 404; los GET conservan las marcas. La selección de páginas de 1000 no equivale a recorrerlas todas.
+
+Auditoría `mixed246-audit.json`: las 1699 fuentes congeladas coinciden con lanzamiento, CI y estado posterior; protocolo original preservado por bytes y SHA, 628 fuentes de producto intactas, PostgreSQL17/Redis7.4, native-build y pasos correctos. Limpieza contrastada con Docker, temporal y procesos; recibos Telegram confirmados, compactación aceptada y reactivación del mismo objetivo conservando consumo. No se ejecutó carga TCP ni worker en esta integración y no acredita capacidad.
+
+El siguiente trabajo es preparar y prerregistrar HTTP mixto a 1000 con imagen e instrumento verificados. No habilita 10000 ni una prueba contractual de 900 s automáticamente. B07 sigue abierto y el balance permanece en 8 de 18.
+
+
+B07-247 auditado: ERROR de arranque PostgreSQL antes de ejecutar pruebas HTTP. Fuentes y limpieza verificadas; compactación y reactivación del mismo objetivo confirmadas. Causa pendiente; 8 de 18, B07 abierto. Protocolo219; sin nueva invocación ClaudeV1, conservar ocho y su consumo.
+
+B07-248 auditado: 44 pruebas PASS y preflight PostgreSQL/S3/Celery/Beat real PASS; limpieza y Telegram confirmados. Captura terminal añadida; causa247 desconocida, HTTP mixto1000 pendiente. 8 de 18, B07 abierto. Sin nueva invocación Claude; ocho acumuladas y consumo preservados.
+
+B07-249 preparado: HTTP mixto1000 con captura terminal248 y preflight real auditado; pendiente ejecución persistente. Se conserva el negativo247 y la causa desconocida; 8 de 18, B07 abierto. Sin nueva invocación ClaudeV1; conservar ocho y consumo.
+
+B07-249 auditado: control HTTP mixto1000 FAIL, 56 de 60 lecturas correctas y cuatro 404 en página30 de ciudad1; subida persistida. Fuentes1700, producto628 y limpieza verificados; compactación y reactivación del mismo objetivo confirmadas. 8 de 18, B07 abierto. Auditoría negativa preservada antes de cambios; siguiente diagnóstico: rutas calculadas con censo inicial frente a exclusiones. Sin nuevas invocaciones Claude; ocho acumuladas y consumo anterior preservados.
+
+B07-250 preparado: rutas HTTP mixtas derivadas del censo nativo posterior; 69 pruebas PASS. Pendiente integración PostgreSQL100/1000; negativo249 conservado, 8 de 18 y B07 abierto. Cuatro fuentes de test modificadas; producto intacto, ocho ClaudeV1 y consumo anterior preservados.
+
+
+B07-250 auditado: integración PostgreSQL de 100 y 1.000 perfiles PASS; censos de rutas 56/30 y 686/300, 44 páginas y rollback lógico verificados. Fuentes1700, limpieza, Telegram, compactación y reactivación confirmados. Control HTTP corregido pendiente; 8 de 18, B07 abierto. Sin nuevas invocaciones ClaudeV1: ocho acumuladas y consumo preservados.
+
+
+B07-251 preparado: HTTP mixto de 1.000 perfiles con rutas del censo nativo posterior, tras integración250 auditada. Pendiente ejecución; 8 de 18, B07 abierto. Sin nuevas invocaciones ClaudeV1; ocho y consumo preservados.
+
+
+B07-251 auditado: HTTP mixto de 1.000 perfiles PASS, 60 lecturas correctas, 50 páginas y 28 detalles excluidos404; rutas posteriores686/300 verificadas. Fuentes1700, producto628, recursos y limpieza confirmados; compactación aceptada y mismo objetivo reactivado por shell. Sin capacidad acreditada; 8 de 18, B07 abierto. Dos fallos de adaptación del auditor preservados; auditor final PASS enviado. Sin nueva carga ni nuevas invocaciones ClaudeV1: ocho acumuladas y consumo preservados.
+
+
+B07-252 preparado: integración contrafactual mixta de 10.000 perfiles y 2.000 derechos en PostgreSQL; ejecución pendiente. HTTP10000 continúa bloqueado, sin capacidad ni900s; 8 de 18, B07 abierto. Dos fuentes de test modificadas, producto628 preservado. Ocho ClaudeV1 acumuladas sin nuevas invocaciones ni consumo eliminado.
+
+
+B07-252 auditado: integración contrafactual mixta de 10.000 perfiles y 2.000 derechos PASS en 4524,207s; 24 páginas, cuatro censos y 28 detalles excluidos verificados. HTTP mixto10000 pendiente; sin capacidad ni cierre, ocho de 18, B07 abierto. Auditoría mixed252-audit.json: fuentes1700, producto628, protocolo congelado, limpieza real y recibos verificados; compactación reconocida y mismo goal reactivado. Sin nuevas invocaciones Claude V1; se conservan las ocho históricas y su consumo.
+
+
+B07-253 preparado: HTTP funcional mixto de 10.000 perfiles, 2.000 derechos y 14 exclusiones tras integración252 auditada; 79 controles PASS. Pendiente ejecución HTTP, sin capacidad ni900s; ocho de 18, B07 abierto. Protocolo225, runtime253 reutiliza imagen ymontaje actual readonly; preparación10800/pytest18000/app18600/controlador21000 sólo mixto10000. Sin cambios de producto, cuotas ocriterios; ocho Claude V1 históricas conservadas.
+
+
+B07-253 auditado: HTTP funcional mixto de 10.000 perfiles PASS; 60 lecturas, una subida persistida, 50 páginas y 28 detalles excluidos404 verificados. Fuentes1700, producto628, recursos y limpieza confirmados; compactación aceptada y mismo objetivo reactivado automáticamente. Sin capacidad acreditada; ocho de 18, B07 abierto. Auditor corregido sólo HTTP200, negativo preservado; sin repetir carga. Ocho invocaciones ClaudeV1 históricas yconsumo conservados.
+
+
+B07-254 preparado: vía de mezcla confirmada sin rollback contrafactual, con oráculo nativo independiente; integración100 nueva y regresión100 anterior pendientes. Sin carga HTTP ni capacidad; ocho de 18, B07 abierto. Dosfuentes de test; ningún producto alterado. Ruff inicial negativo de ámbito corregido. Ocho ClaudeV1 históricas yconsumo conservados.
+
+
+B07-254 auditado: mezcla confirmada sin rollback contrafactual y regresión anterior100, dos PASS/168,647s; 60 páginas y 84 detalles excluidos404. Fuentes1700/producto628, limpieza y Telegram verificados. Sin HTTP ni capacidad; ocho de 18, B07 abierto. Sin pruebas concurrentes ni repetición de carga. Ocho ClaudeV1 yconsumo conservados.
+
+
+B07-255 preparado: modo HTTP funcional de mezcla confirmada, sin rollback contrafactual; 47 controles de guards PASS. Funcional100 pendiente, sin corto ni900s; ocho de 18, B07 abierto. Cincofuentes modificadas yhelpernuevo; sin cambios deproducto ni nuevasinvocacionesClaudeV1 (ochohistóricas/consumo conservado).
+
+
+B07-255 revisión previa: estadística final exige status published, no visibilidad; helper declara población-10 (90/100), conserva86visibles/20derechos yvalidación original. Detectado antes de congelar/HTTP, sin corrida fallida ni repetición de carga. Grafo285 refresca sólo helper ydocumentación pertinente.
+
+
+B07-255 auditado: HTTP confirmado100 PASS/133,655s; 60 lecturas, una subida persistida,40páginas y56detalles404. Fuentes1701/producto628, recursos, limpieza y Telegram verificados. Corrección posterior sólo de metadatos; sin capacidad, ocho de 18, B07 abierto. Metadatos corregidos después de audit íntegro; fuente previa ydiffSHA conservados, sin nueva carga. OchoClaudeV1históricas/consumo conservado.
+
+
+B07-256 preparado: HTTP confirmado1000 con 200 derechos,14exclusiones y986visibles; ejecución pendiente. Sin cambio funcional respecto255 salvo metadatos ya corregidos; sin capacidad ni900s, ocho de 18, B07 abierto. Relevo persistente con compactación/autoresume del mismo goal, sin nuevosClaudeV1(ochohistóricas/consumo conservado)ni cambiosdeproducto.
+
+
+B07-256 auditado: HTTP confirmado de 1.000 perfiles PASS en 665,019 s; 60 lecturas, una subida persistida, 48 páginas y 56 detalles excluidos con 404. Fuentes, recursos y limpieza verificados; compactación aceptada y mismo objetivo reactivado automáticamente. Sin capacidad acreditada; ocho de 18, B07 abierto. Auditoría mixed256-audit.json: 1.701 fuentes y 628 de producto, protocolo congelado, seis servicios, Docker/PID y Telegram confirmados. Sin cambios de producto ni nuevas invocaciones Claude V1; ocho históricas y consumo conservados.
+
+
+B07-257 preparado: HTTP funcional de mezcla confirmada a 10.000 perfiles, 2.000 derechos, 14 exclusiones y 9.986 visibles. Reutiliza controles válidos y no modifica producto; ejecución pendiente, sin capacidad ni 900 s. Ocho de 18, B07 abierto. Sin nuevas invocaciones Claude V1; ocho históricas y consumo conservados.
+
+
+2026-10-22 B07-257: auditoría congelada1.701/628/protocolo original/limpieza real PASS. HTTP funcional unPASS6059.738s; observador ERROR ValueError31.514s cero muestras/sinidentidades: control no aceptado, causa exacta desconocida. Telegram terminal/callback sent; compactación ACK, mismo objetivo consumo preservado. Sin nueva invocación Claude: ocho históricas conservadas. Próximo diagnóstico acotado observador, sin repetir carga larga ni atribuir recursos.
+
+2026-10-22 B07-258: diagnóstico seguro error_stage/códigos fijos, sin mensajes privados ni reintentos/relajación.38testsPASS22.06s yRuffPASS, recibos sent. Control nativo100 del instrumento preparado, no repetir10000. Causa257 desconocida. Ocho invocaciones Claude históricas preservadas; ningún proveedor/dato real.
+
+B07-258 terminal auditado:20261022-213625-511535aa unPASS131.634s;21muestras12/5/3+transición/seisidentidades/cuotas1.701fuentes628producto/protocolo original/limpieza real/Telegram sent. observer258-audit.json. No prueba causa257; siguiente hipótesis create/start con reproducción mínima propia, sin repetir10000. Compactación/autoresume son evidencia257. Sin nueva ClaudeV1, ocho históricas yconsumo preservados.
+
+B07-259: reproducción inicialnativecreatedinspect0/Pid0/rechazo lector confirmada, contrasteposteriorstartfalló ynegativo preservado concleanup/fuentes/protocolo intactos. Corrección espera tipada estricta sólo created exacto propio antes dehostread, deadline600 intacto.44testsPASS33.00s/RuffPASS, sin nuevo producto ni carga10000. Correctiva nativamínima preparada, ochoClaudeV1históricas preservadas.
+
+B07-259 auditado:44testsPASS33.00s/RuffPASS/native20261022-214753-6561739dPASScreatedpending→runningvalid.1.701fuentes628producto/protocolo/script/limpieza DockerPID/Telegram comprobados; limitsHostConfigonly/no6servicesrerun/nohistorical257rootcause. Negativo inicial intacto; no otraHTTPidéntica porinstrumentación. Próximo residual coste/diversidad10000 a justificar antes de prueba larga. OchoClaudeV1históricas/consumo preservados.
+
+B07-260 preparado: coste combinado10000 faltante contrato16§16. Único cambio parámetro10000, reverseSHA coincide241. Mismafixture/oráculos/instrumentación, reutiliza100/1000; nuevo presupuesto18000s/commandinstrument-only. Páginas1/125/250,48observaciones336lecturas y2dirtysinrepair. Shellpersistente/Telegram/pausa/compact/autoresume mismoobjetivo antes deespera larga, sinotraHTTPidéntica ni900. OchoClaudeV1históricas/consumo preservados.
+
+
+## Resultado260 auditado
+
+B07-260 auditado: un PASS en 4333,792 s (72,23 minutos), 48 observaciones y 336 lecturas a 10.000 perfiles con 2.000 derechos sintéticos. IDs ordenados, recuentos y patrocinios coinciden con autoridad nativa; dos marcas pendientes permanecen intactas. Las 1701 fuentes coinciden entre prerregistro, lanzamiento, CI y árbol posterior; protocolo original y 628 fuentes de producto intactos. PostgreSQL17/Redis7.4 y compilación nativa verificados; Docker, temporal y procesos limpiados. Telegram terminal, compactación durante la espera y reactivación automática del mismo objetivo conservando consumo confirmados. Diagnóstico SQL/render, sin aceptación de capacidad; ocho de 18 puntos cerrados, B07 abierto.
+
+Ejecución `20261022-215355-1b0072dd`; auditoría `artifacts/beta-promotion-fix-20261020/combined260-audit.json`. Medianas de controles sin instrumentación: fresco orgánico 229,904 ms, fresco promocionado 340,416 ms, pendiente orgánico 237,348 ms y pendiente promocionado 347,145 ms. Consultas por lectura: 17–35; render inclusivo mediano por grupo 35,795–40,514 ms. Son valores descriptivos de cinco controles por observación; render incluye SQL y no se suma con él. El tiempo JUnit incluye preparación y oráculos; no representa latencia HTTP. Se reutilizan 240/241 para 100/1000, sin atribuir diferencias a efectos causales del volumen. El negativo de recursos257 sigue vigente.
+
+
+## B07-261 — preparación del corto final
+
+B07-261: adaptación del corto de mezcla final implementada;48guardas y Ruff PASS. Aún no ejecutado el corto nativo. B07 abierto; ocho de18puntos cerrados. Protocolo233; sin nueva carga ni invocaciones Claude. Cambios de instrumento exclusivamente; negativos y consumo preservados.
+
+
+## B07-262 — prerregistro corto limpio
+
+B07-262 prerregistrado: corto limpio de mezcla final10000,1200dinámicas/1upload, cuotas y criterios intactos. Ejecución y aceptación pendientes; ocho de18,B07 abierto. Protocolo234; helpers/auditor preparados. Sin nuevas invocaciones Claude; preservar consumo y negativos.
+
+
+## Resultado262 auditado
+
+B07-262 auditado: corto limpio de mezcla confirmada10000 PASS;1200éxitos,0errores,p95 564,618ms,1upload persistido. Generador p95/p99/máximo 3,120/6,186/14,163ms;pendientes6 al cierre y0 finales. Fuentes1701/producto628,cuotas8CPU8GiBswap0,limpieza,Telegram,compactación yreactivación del mismo objetivo comprobados. Ocho de18,B07 abierto;sin aceptación contractual.
+
+Ejecución `20261022-231456-319ed49a`; auditoría `artifacts/beta-promotion-fix-20261020/short262-audit.json`. Un caso PASS en 6130,126 s de JUnit, que incluye preparación y oráculos; la ventana de carga dura 60 s. Mezcla 400 listados,400 búsquedas,400 fichas y600 peticiones por idioma;42 slots y30 rutas únicas verificados contra los1200 registros. Fixture sintética con9986 visibles,1991 patrocinios ygeografía6986/3000 tras14 exclusiones confirmadas. Antes/después coinciden24 páginas por fase y56 detalles excluidos404 en total;marcas pendientes0. PostgreSQL17/Redis7.4 nativos,4workers/1thread,worker/Beat reales,GCsinfreeze. Cotas conservadoras: memoria1770422272bytes yalmacenamiento4865392640bytes;no observador host ni profiler. Protocolo original yfuentes congeladas comprobados antes de esta actualización. El negativo257 se conserva; no acredita mejora causal,capacidad PRODUCTION/checked,proveedor real ni cierre beta.
+
+Ocho invocaciones ClaudeV1 históricas y consumo preservados; ninguna nueva. Turno anterior: progreso con protocolo,congelación y lanzamiento persistente; pausa verificada. Resultado actual auditado sin repetir carga.
+
+
+## B07-264 — preparación contractual
+
+B07-264: contractual territorial10000 con mezcla confirmada habilitado en el instrumento;50 guardas y Ruff PASS. Cuotas y criterios vigentes intactos,628 fuentes de producto sin cambios. Ejecución contractual pendiente; ocho de18 puntos cerrados,B07 abierto. Sin nuevas invocaciones ClaudeV1; ocho históricas y consumo preservados. No carga nueva; negativo257 y demás negativos intactos.
+
+
+## B07-265 — prerregistro contractual
+
+B07-265 prerregistrado: contractual de mezcla final10000,900s/18000 dinámicas/15 uploads,tras corto262 PASS. Fuentes y criterios intactos; ejecución y aceptación pendientes. Ocho de18 puntos cerrados,B07 abierto. Runtime/helpers preparados;sin nuevas invocaciones ClaudeV1,ocho históricas yconsumo preservados. Turno264 PROGRESO: instrumento y50guardasPASS/RuffPASS/grafo301. Ningún resultado nativo265 aún.
+
+
+## B07-265 — resultado contractual auditado
+
+B07-265 auditado: contractual de mezcla final10000 PASS;900s,18000 éxitos,0 errores,p95 437,231ms y15 uploads persistidos. Generador válido;fuentes1701/producto628,cuotas ylimpieza verificadas. Telegram,compactación yreactivación del mismo objetivo confirmados. Ocho de18 puntos cerrados,B07 abierto.
+
+Ejecución `20261023-010935-e3cb6eba`; auditoría `artifacts/beta-promotion-fix-20261020/contract265-audit.json`. Un caso PASS en7128,003sJUnit incluyendo preparación y oráculos;ventana de llegadas900s. Generador p95/p99/máximo3,252/6,351/38,478ms;pendientes7 al cierre y0 finales. Mezcla6000 listados/6000 búsquedas/6000 fichas y9000 por idioma;42slots30rutas y15borradores distintos a60s de intervalo. Fixture9986visibles/1991patrocinios tras14exclusiones;24páginas antes ydespués,56detalles excluidos404. PostgreSQL17/Redis7.4 nativos,4workers/1thread yworker/Beat reales;8CPU8GiBswap0,memoria conservadora2022838272bytes yalmacenamiento4865392640bytes. Fuentes completas,protocolo original,cuotas,readonly yausencia real de recursos/PID verificados antes de editar documentación. Sin observador host ni profiler. PASS limitado a este escenario;no acredita mejora causal,PRODUCTION/checked,proveedor real,archivos grandes ni aceptación global beta. Negativos previos preservados;sin repetición de carga ni nuevas invocaciones ClaudeV1 (ocho históricas yconsumo intactos).
+
+
+## B07-266 — reconciliación de cobertura
+
+B07-266: cobertura reconciliada; corto262 ycontractual265 aceptados en su escenario. Residual: atribución explícita de materialización/validación yrecursos porservicio de la mezcla final;sin repetir carga ni modificar producto. Ocho de18,B07 abierto.
+
+Anterior turno PROGRESO: contractual265 auditado ydocumentado/grafo303. Este corte corrige tabla vigente214 conservando cronología. Inventario de instrumentos: perfil histórico6rutas/fixture distinta; combinado SQL/render/CPU sin contadores explícitos. Siguiente implementación: observación de mezcla confirmada100 con contadores explícitos y controles separados antes de escalar; no optimización de producto sin atribución. Ocho invocacionesClaudeV1 históricas/consumo preservados,ninguna nueva.
+
+
+## B07-267 — instrumento explícito de atribución
+
+B07-267 preparado: instrumento de atribución explícita para mezcla confirmada100; ejecución nativa pendiente. Sin cambios de producto ni repetición contractual. Ocho de18,B07 abierto.
+
+Un nuevo instrumento test-only;from_db calibrado sin atribuir valores/dicts,contadores binding/scalarrows,SQL/render/CPU ycontroles separados. Guardas nativas preservadas. RuffPASS;ejecución pendiente. Turno266PROGRESO:cobertura214 reconciliada/grafo304. Ninguna nueva invocaciónClaudeV1,8históricas yconsumo intactos.
+
+
+## B07-267 negativo ycorrección268
+
+B07-267 negativo auditado: preparación bloqueada por marcas pendientes tras redistribución;sin medición aceptada. B07-268 añade refresh previo nativo sin eludir guardas;ejecución corregida pendiente. Ocho de18,B07 abierto.
+
+Auditoría negativa completa antes de editar;producto628 intacto. Sin nuevas invocacionesClaudeV1. Negativo prelaunch .graphifyignore preservado aparte;no PostgreSQL arrancado enese primer intento.
+
+
+## B07-268 — resultado auditado
+
+B07-268 auditado: atribución explícita de mezcla confirmada100 PASS;192lecturas,24rutas,paridad nativa yrestauración de parches. Listados34SQL/6–24Listings;fichas22SQL/1Listing. Fuentes1702/producto628 ylimpieza verificadas. Ocho de18,B07 abierto.
+
+Corrida20261023-032542-f69db58e:1PASS112,975sJUnit;auditoría attribution268-audit.json. Listado/búsqueda20rutas:mediana descriptiva de100controles172,351ms,otros modelos71–200,bindings12–48,filas escalares6–24. Cuatrofichas:mediana20controles47,698ms,otros modelos20,bindings2,filas escalares1. InstanciasORM no son sujetos únicos ni todas las relaciones;contadores escalares separados. Controles yobservación SQL/render/CPU separados;sinTCP,percentilesSLO ni mejora causal. Guardia sin overridesfrom_db,calibración nativa1Listing,parches restaurados ycontadores inmóviles encontrol posterior. Fuentes1702 completas iguales preregistro/runner/árbol,protocolo original,628producto intacto,PostgreSQL17/Redis7.4,native-build,pasosCI,ausenciaDocker/temporales/PID yTelegram confirmados antes de editar. Negativo267preparación preservado;corrección exacta de doslíneas,no cambio de producto. Siguiente: ampliar instrumento a1000 con páginas inicial/intermedia/última ymisma semántica de contadores,prerregistro ypresupuesto tras coste observado.10000yrecursos porservicio siguen pendientes;no repetir corto262/contractual265.
+
+Turno PROGRESO:instrumento nuevo,negativo267 auditado,corrección mínima y100PASSauditado. OchoClaudeV1 históricos yconsumo preservados;ninguno nuevo.
+
+
+## B07-269 — escala1000 prerregistrada
+
+B07-269 prerregistrado: atribución explícita de mezcla confirmada1000,28rutas/224lecturas;producto intacto,ejecución pendiente. Ocho de18,B07 abierto.
+
+Parametrización100/1000 yselección deduplicadafirst/middle/last;reversiónexacta7ediciones/prueba matemática100 evita repetir100. No producto cambiado. Preparar relevo persistente/compact/samegoal paraesperaprolongada. TurnoanteriorPROGRESO:instrumento100PASSauditado trasnegativo267preservado. OchoClaudeV1históricos/consumo intacto,ninguna nueva.
+
+
+## Resultado269 auditado
+
+B07-269 auditado: atribución explícita a 1.000 perfiles PASS; 224 lecturas, 28 rutas, paridad nativa y restauración verificadas. Fuentes 1.702/producto 628 intactos y limpieza confirmada. Ocho de 18 puntos cerrados; B07 abierto.
+
+Ejecución `20261023-033609-11355e91`: un caso PASS en 531,770 s de JUnit. Auditoría `artifacts/beta-promotion-fix-20261020/attribution269-audit.json`, realizada antes de modificar documentación: fuentes completas idénticas entre prerregistro, lanzamiento, runner y árbol; protocolo original intacto; PostgreSQL 17/Redis 7.4 y compilación nativos; ausencia real de contenedores, procesos y temporal; avisos terminales confirmados. Compactación solicitada y reconocida durante la pausa, reactivación automática del mismo objetivo con consumo conservado y Telegram confirmado.
+
+Fixture sintética: 1.000 perfiles, 200 derechos, 14 exclusiones, 986 visibles y 191 patrocinios. Veinticuatro rutas de listado/búsqueda y cuatro fichas, ES/EN; páginas inicial, intermedia y última por municipio y texto. Por ruta: una lectura de calentamiento, cinco controles, una instrumentada y una posterior a restaurar los parches. Paridad nativa de identificadores, orden, recuento y patrocinios; sin marcas pendientes.
+
+Listados/búsquedas: 34 consultas SQL, 12–24 instancias Listing, 113–200 instancias de otros modelos, 24–48 llamadas de validación de binding y 12–24 filas escalares. Mediana descriptiva de 120 controles: 193,583 ms. Fichas: 22 consultas SQL, una instancia Listing, 20 instancias de otros modelos, dos llamadas de binding y una fila escalar; mediana de 20 controles: 46,336 ms. Instancias no equivalen a sujetos ni relaciones recorridas; llamadas no equivalen a decisiones independientes. SQL del driver y render inclusivo no se suman ni representan CPU PostgreSQL. Cinco controles por ruta no prueban percentiles SLO ni mejora causal.
+
+CI ordinario, sin acreditación de capacidad kernel 8 CPU/8 GiB ni ejecución de worker. No se repitieron el diagnóstico100, el corto262 ni el contractual265. Atribución10000 y recursos por servicio10000 siguen pendientes; decidir su protocolo y presupuesto antes de ejecutar. Negativos conservados, sin cambios de producto ni nuevas invocaciones Claude V1; ocho históricas y consumo preservados.
+
+Turno PROGRESO: auditoría nativa1000 completa y conciliación documental; objetivo general permanece activo.
+
+
+## B07-270 — atribución a diez mil preparada
+
+B07-270 preparado: atribución explícita a 10.000 perfiles, 28 rutas y 224 lecturas; protocolo y límite protector de 10.800 s. Sin cambios de producto ni aceptación de capacidad. Ocho de 18 puntos cerrados; B07 abierto.
+
+Anterior turno PROGRESO: diagnóstico269 nativo1000 PASS auditado; fuentes completas y limpieza verificadas; documentación y grafo309 actualizados. Una edición test-only añade10000; no repetir100/1000/corto262/contractual265. Relevo persistente, compactación y mismo objetivo previstos. Ocho invocaciones Claude V1 históricas y consumo intactos; ninguna nueva.
+
+
+## Resultado270 auditado
+
+B07-270 auditado: atribución explícita a 10.000 perfiles PASS; 224 lecturas en 28 rutas, paridad nativa y restauración verificadas. Fuentes 1.702/producto 628 intactos y limpieza confirmada. Ocho de 18 puntos cerrados; B07 abierto.
+
+Corrida `20261023-035257-16e33ffa`: un caso PASS en 4.810,166 s de JUnit. Auditoría `artifacts/beta-promotion-fix-20261020/attribution270-audit.json`, anterior a estas ediciones: igualdad de las 1.702 fuentes entre prerregistro, lanzamiento, CI y árbol, protocolo original intacto, PostgreSQL 17/Redis 7.4 y compilación nativos; contenedores, procesos y temporal ausentes, Telegram confirmado. Solicitud de compactación reconocida durante la pausa y reactivación automática del mismo objetivo con consumo conservado, sin sondeos del modelo.
+
+Fixture sintética de 10.000 perfiles, 2.000 derechos, 14 exclusiones, 9.986 visibles y 1.991 patrocinios. Veinticuatro rutas de listado/búsqueda y cuatro fichas, ES/EN. Páginas 1/146/292 para 6.986 visibles y 1/63/125 para 3.000; texto vacío/photography. Por ruta: calentamiento, cinco controles, instrumentación y control posterior a restaurar parches. Paridad nativa de IDs, orden, recuento y etiquetas; sin marcas pendientes, identidades restauradas y contadores inmóviles tras restauración.
+
+Listados/búsquedas: 34 SQL, 2–24 instancias Listing, 43–200 instancias de otros modelos, 4–48 llamadas de binding y 2–24 filas escalares; mediana descriptiva de 120 controles 336,156 ms. Cuatro fichas: 22 SQL, una instancia Listing, 20 de otros modelos, dos llamadas de binding y una fila escalar; mediana de 20 controles 49,560 ms. ORM no equivale a sujetos o relaciones recorridas; llamadas no son decisiones independientes, SQL del driver no es CPU PostgreSQL y render inclusivo no se suma a SQL. Cinco controles por ruta no acreditan SLO ni mejora causal. CI ordinario, sin crédito TCP, concurrencia, worker ni capacidad kernel 8 CPU/8 GiB.
+
+La atribución explícita queda observada a 100/1.000/10.000 con 268/269/270. No se repitieron 100/1.000, corto262 ni contractual265. Pendiente: recursos por servicio a 10.000 tras la corrección259 del observador; preservar el negativo257 con cero muestras. Estudiar protocolo, reutilización y presupuesto antes de ejecutar. Sin cambios de producto ni nuevas invocaciones Claude V1; ocho históricas y consumo preservados. Objetivo general activo, sin aceptación beta global.
+
+Turno PROGRESO: auditoría270 nativa completa; conciliación documental después de verificar congelación y limpieza.
+
+
+## Preparación de recursos271
+
+B07-271 preparado: captura de recursos por servicio a 10.000 perfiles tras corrección259; reutiliza atribución270 y contractual265, sin repetir900s ni aceptar capacidad instrumentada. Ocho de18 cerrados; B07 abierto.
+
+Protocolo: docs/240-recursos-mezcla-final-diez-mil-b07-20261023.md. Preparación y captura pendientes; no se ha lanzado nueva batería. Turno anterior PROGRESO:270 PASS auditado y grafo311 verificado. Ocho invocaciones Claude V1 históricas y consumo preservados, ninguna nueva.
+
+
+## Recuperación previa de imagen
+
+B07-271: imagen esperada ausente, negativo preservado; imagen recuperada con 732 archivos históricos verificados y sin red. Preflight nativo pendiente antes de captura10000; B07 abierto, ocho de18.
+
+La comprobación de runtime inicial falló por imagen6936424d ausente; no se ejecutó HTTP. Archivo base SHA0a5e94d8d60aafca23bda3943bd53f6213ce17498f88211a6b6d93190d59497a yconfig261d4b6d verificados; reconstrucción COPY del contexto histórico, sin red ni RUN, con cuotas de construcción. Nueva imagen sha256:385e6dcd16ea7b6a44b7383028093dbf0047488e960a8c08ced1a01582ca0056. Verificación de732archivos históricos, dependencias incluidas, y limpieza del contenedor de extracción. No atribuirlo a aceptación de runtime ni a fuentes actuales embebidas: las fuentes actuales se montan readonly. Causa de desaparición no demostrada. Evidencias resources271-image-negative.json y resources271-recovered-image-proof.json. Preflight nativo necesario con nueva imagen antes del prerregistro largo.
+
+
+## Preflight272 negativo preservado
+
+B07-272 auditado INVALID antes de pytest: imagen fijada de objetos ausente, fuentes/protocolo y limpieza verificados. Recuperación por digest exacto en curso; preflight correctivo273 pendiente, captura10000 no iniciada.
+
+Corrida20261023-052314-d73270f3: fallo image-rustfs_rustfs_sha256 por imagen rustfs/rustfs@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c ausente. Sin JUnit ni pytest; no fallo de producto ni aceptación de runtime. Auditoría resources272-negative-audit.json confirma fuentes1702 completas/prerregistro/CI/árbol/protocolo original y ausencia Docker/PID; TelegramINVALID enviado. Causa de desaparición no demostrada. Recuperar únicamente digest fijado, comprobar todas las imágenes requeridas y repetir sólo preflight afectado; conservar este negativo. Sin nueva carga larga ni cambio de producto. Turno anterior PROGRESO: recuperación de imagenapp y732archivos comprobados. Ocho ClaudeV1 históricos/consumo intactos, ninguno nuevo.
+
+
+## Preflight273 correctivo auditado
+
+B07-273 auditado: preflight nativo PASS con imagen recuperada y objetos restaurados por digest; fuentes1.702/producto628, limpieza y Telegram confirmados. Captura de recursos10000 pendiente; B07 abierto, ocho de18.
+
+Corrida20261023-052602-fab1d4e9:1PASS72,196sJUnit (72,68spytest). Imagenapp385e6dcd yRustFS1803faef fijadas; cinco imágenes disponibles antes del lanzamiento. PostgreSQL/S3/AEAD/proxy/generación ypurga por worker/Beat nativos verificados, dos workersGunicorn propios del preflight, sin crédito de capacidad4workers ni carga10000. Fuentes1702 idénticas prerregistro/CI/árbol, protocolo original intacto,628producto intacto, seis cuotas8CPU/8GiB/swap0 yausencia Docker/PID verificadas antes de esta edición. Auditoría resources273-preflight-audit.json. Negativo272 porimagenobjetos ausente preservado, causa de desaparición no demostrada.
+
+El aviso pytest dentro del contenedor falló; auditoría inicial detectó ausencia de recibo. Se conserva audit_resources273_preflight-initial.py ysu EXIT1. Reenvío terminal explícito desdehost confirmado en resources273-terminal-host-receipt.json, sin repetir prueba. Auditor corregido exige ese recibo, no inventa el aviso original. Para próxima carga envolver run_vps_capacity con run_notified/LOCAL_CI_TELEGRAM_OWNER=runner ycomprobar terminalhost después de limpieza; no depender de accesoTelegram dentrodelcontenedor.
+
+Siguiente: preparar launcher y auditor de recursos271, validar sushelpers yprerregistroconimagen385e6dcd ypreflight273, lanzar persistente captura funcional3s/60dinámicas/1upload a10000 con6servicios yobservadorcorregido259. Pausa/compactación/autoresume del mismo objetivo sólo tras cuatroPIDs yavisos confirmados. No repetir corto262/contractual265 niatribución268269270. OchoClaudeV1históricos yconsumo preservados,ninguno nuevo. Turno PROGRESO: negativo auditado, dependenciaexactarecuperada ypreflightcorrectivoPASS auditado; fullgoalactivo.
+
+
+## Captura271 auditada
+
+B07-271 auditado: captura funcional a 10.000 perfiles PASS, 22 muestras de seis servicios, fuentes1.702/producto628 y limpieza verificadas. Compactación solicitada y reactivación automática del mismo objetivo confirmadas; B07 abierto, ocho de18.
+
+Corrida20261023-053440-560f458d: 1PASS6121,010sJUnit. Sesenta respuestas dinámicas correctas, un upload302 persistido; 9986perfiles visibles y1991patrocinios tras14exclusiones.24páginas antes y24después equivalentes al censo nativo y56detalles excluidos404. Generador válido: p95 2,441ms y máximo3,438ms. Ventana funcional3s; p95HTTP703,284ms descriptivo, sin crédito contractual.
+
+Auditoría resources271-audit.json verifica prerregistro/lanzamiento/CI/árbol1702, protocolo original porbytes,628archivos de producto, PostgreSQL17/Redis7.4, cuotas kernel8CPU8GiBswap0, cuatro workers, seis identidadesPID/start_ticks/cgroup, ausencia Docker/PID y recibos Telegram.22muestras puras:12antes,7durante llegadas/drenaje y3después. Preparación excluida4493,959s; observador4504,856s de duración y18,630sCPU. Deltas compatibles durante llegadas: app2,147núcleos medios y PostgreSQL1,642 en aproximadamente3,072s; no CPU por petición, extrapolación ni causalidad. memory.peak es acumulada y RSS puede compartir páginas; conservar esas limitaciones.
+
+Telegram terminal del host después de limpieza y del wrapper confirmado; solicitud de compactación REQUEST_ACKNOWLEDGED y callback RESUMED_AFTER_TERMINAL conservan objetivo/consumo, sin goal nuevo. Primera auditoría no leyó resultados por ruta incorrecta (vps-measurements); EXIT1 y aviso conservados. Se corrigió el argumento a capacity-environment y la auditoría pasó sin repetir carga ni editar fuentes congeladas.
+
+257 permanece ERROR de observador con cero muestras, sin causa retrospectiva demostrada.271 cubre la serie funcional grande posterior a259. No repetir corto262, contractual265 ni atribución268/269/270. Siguiente: conciliar requisitos originales de B07 y sus límites; esta captura no concede aceptación beta global. Ocho invocacionesClaudeV1 y consumo histórico preservados, ninguna nueva.
+
+
+B07-274 conciliado: ocho evidencias nativas contrastadas con sus artefactos y producto628 actual. Recursos10000 y atribución multiescala cubiertos; siguiente incremento: HTTP con filtros combinados. B07 abierto, ocho de18.
+
+Turno anterior PROGRESO:271 auditado full1702/producto628/recursos/cleanup/Telegram/compactación/autoresume ygrafo316. Turno actual PROGRESO:revisión ocho evidencias rawJUnit/hashes/producto, sin cargas nuevas; decisión finita docs241. No aceptar B07 ni repetir262/265/268/269/270/271. Siguiente implementar varianteHTTPcombinada con censo nativo filtrado yguards; después costePRODUCTIONchecked sin proveedor real. OchoClaudeV1históricos/consumo preservados;ninguna nueva invocación.
+
+
+B07-275 implementado: variante explícita funcional100 de filtros combinados, con censo nativo y verificador HTTP antes/después. Guardas51PASS y RuffPASS; calibración nativa pendiente, sin aceptación B07.
+
+Protocolo docs/242-calibracion-http-filtros-combinados-b07-20261023.md. Nuevo instrumento, sin cambio de producto; no crédito de capacidad ni repetición de cargas válidas.
+
+
+## Negativo276 y correctiva277
+
+B07-276 negativo auditado antes de HTTP: el plan recibió más de dos fichas por selección ampliada. Corregida únicamente la selección a routes[4:6]; calibración277 pendiente, B07 abierto.
+
+Corrida20261023-073547-545240c4:1FAIL52,549sJUnit antes de servidor/carga; resultado externoERROR. combined276-negative-audit.json verifica1703fuentes/protocolo original/producto628, ausencia Docker/PID y TelegramEXIT1. Fuente fallida preservada en combined276-frozen-test.py. El ciclo territorial conserva las fichas en posiciones4y5; el slice abierto incluía slots territoriales adicionales. Se acota únicamente el extremo del slice, sin cambiar población, plan, oráculos, recursos ni límites. Repetir sólo calibración afectada con nuevo prerregistro277; no convertir el negativo en PASS ni repetir cargas válidas.
+
+
+## Calibración277 INVALID preservada
+
+B07-277 auditado INVALID por generador p99=32,880ms>25ms:44oráculos antes/después equivalentes,60dinámicas correctas y1upload. Fuentes1703/producto628/limpieza/Telegram verificados; no repetir sin diagnóstico, B07 abierto.
+
+Corrida20261023-074225-8c1a7812:1FAIL135,067sJUnit; wrapperERROR y ledgerINVALID por generator_delay_p99 únicamente. No reclasificar el nivel externo ni el ensayo comoPASS. Tras corregir el slice,44rutas nativas antes y44después verificaron IDs/orden/recuentoHTML/patrocinio y coincidieron.60slots/38rutas distintas,20porcategoría30poridioma,60respuestas200/0errores/0noemitidas/0pendientesfinales,contabilidad reconciliada,1upload302persistido. P95HTTP275,594ms descriptivo; no aceptación de carga.
+
+Demora generador: p956,412ms, p99/máximo32,880ms. Una emisión d-17 prevista en0,85s supera25ms; d-12 tiene15,486ms. GCObserver no registró colecciones y la política no cambió. Los contadores cgroup muestran throttling acumulado del servicioapp, pero no están alineados con esa emisión; no prueban su causa ni autorizan cambiarCPU/workers/GC. Tampoco hay evidencia para atribuirlo al cuerpo de una respuesta o al transporte. Evidencia combined277-generator-observation.json; tiempoSQL/render no identifica esa demora.
+
+Auditoría negativa combined277-negative-audit.json comprueba1703fuentes prerregistro/runner/árbol, protocolo originalbytes,628producto intacto, JUnit/ledger/oráculos/cuotas8CPU8GiBswap0/4workers, ausencia Docker/PID y reciboTelegramEXIT1. La auditoría negativa tambiénPASSnotificada.276 permanece negativo independiente antes deHTTP; sin reescritura de sus fuentes ni resultados.
+
+Siguiente intervención finita: localizar demora de despertar del emisor frente a despacho de tareas con trace_scheduler existente y, sólo en variante diagnóstica explícita, intervalos del loop observados. scripts/benchmark_async_transport.py ya ofrece trace_scheduler; scripts/benchmark_generator_diagnostic.py está restringido a otro node y no debe habilitarse globalmente. Antes de ejecutar revisar coste/propiedad, guards y artefacto por emisión; mantener mismo100/ciclo/recursos/generador, separar diagnóstico de aceptación. No repetir ensayo limpio sin hipótesis comprobable o cambio pertinente. No avanzar1000/10000/60s/900s desdeINVALID ni variar umbrales. El contraste PRODUCTION/checked sigue posterior conforme241.
+
+
+B07-278 implementado: diagnóstico explícito de despertar y despacho con observador de loop existente;53pruebas locales PASS. Calibración diagnóstica nativa pendiente; INVALID277 preservado y B07 abierto.
+
+Protocolo243:mantener INVALIDgate yclasificación DIAGNOSTIC_NOT_CAPACITY separada. Ruffinicial importformatEXIT1 preservado, corregidoespaciado. Sin producto nuevo.
+
+
+## Diagnóstico279 auditado
+
+B07-279 diagnóstico nativo auditado:60HTTP correctos,44oráculos antes/después y p99generador4,943ms con loop observado. No reprodujo INVALID277 ni resuelve su causa; B07 abierto, ocho18.
+
+Corrida20261023-075736-090ee1e6:1PASS135,026sJUnit, clasificada BETA_HTTP_GENERATOR_DIAGNOSTIC_NOT_CAPACITY. TransportePASS dentro del ensayo instrumentado; no trasladar su validez a una carga limpia ni cambiar277.60respuestas correctas,1upload302persistido,44oráculos antes y44después equivalentes. Generador p953,980ms/p99máximo4,943ms; HTTPp95235,182ms descriptivo. Nada de esto acepta capacidad sostenida.
+
+Observador593iteraciones,0eventos retenidos con umbral existente20ms. Máximos inclusivos:CPU de hilo1,491ms/runqueue13,063ms/overshootselector12,249ms; no se suman ni son causa de277. Wallmáxima48,983ms puede incluir espera solicitada por el temporizador, no equivale a retraso de emisión. La mayor demora total esd-24:4,943ms, con4,274ms antes del despertar y0,665ms de despacho; el pequeño resto es encolado. No hubo intervalo retenido que atribuir a esa emisión. El diagnóstico no reproduce la cola de32,880ms anterior y no prueba su origen.
+
+Auditoría generator279-audit.json verifica1703fuentes prerregistro/CI/árbol, protocolo originalbytes,628producto intacto, clasificación propia, JUnit/ledger/fronterasdeemisión/observador, fuentes del instrumento,4workers/Beatworkerreales/GCsin cambios/cuotas8CPU8GiBswap0,ausenciaDockerPID yTelegramhostPASS. Auditor inicial falló al comparar clave absoluta contra mapa relativo; audit_generator279-initial.py/EXIT1preservados. Se corrigió únicamente normalización de rutas dentro del árbol y se ejecutó de nuevo la auditoría conPASSsent, sin repetir carga ni cambiar fuentes congeladas.
+
+Decisión: mantener277INVALID y su causa abierta. No hay hipótesis causal suficientemente respaldada para cambiar producto, GC,CPU oworkers. No repetir el diagnóstico hasta reproducir ni repetir carga limpia sólo para conseguirPASS. Conservar trazado explícito disponible para la próxima intervención pertinente. Avanzar el frente independiente de costePRODUCTION/checked de241, conprotocolo propio, datos sintéticos explícitos y equivalencia244 reutilizada en su ámbito. Ese frente no desbloquea por sí solo la aceptación HTTP combinada ni el cierreB07. No1000/10000/60s/900s automático para este escenario.
+
+
+B07-280 implementado: coste secuencial100 normal/PRODUCTION con checked, reutilizando sin cambios las aserciones nativas de244. RuffPASS; ejecución PostgreSQL281 pendiente, sin proveedor real ni aceptación B07.
+
+Turno anterior PROGRESO:279 diagnóstico nativo auditado,sin reproducir INVALID277. Incremento actual protocolo244:210observaciones1470lecturas,PGserial,pausa/compactación/autoresume mismo objetivo. OchoClaudeV1históricos/consumo conservados;ninguno nuevo.
+
+
+B07-281 auditado: dos casos PASS/414,401sJUnit con PostgreSQL17 y Redis7.4; 210observaciones y1470lecturas de coste normal/PRODUCTIONchecked100. Fuentes1704, producto628, referencia244, limpieza y Telegram verificados; compactación y reactivación automática del mismo objetivo confirmadas. Diagnóstico local, sin proveedor real ni aceptación B07.
+
+Turno PROGRESO: auditoría terminal281 completa antes de editar fuentes; sin nueva batería nativa. Evidencia policy281-audit.json y resultado nativo20261023-081449-b061710b. Congelación levantada sólo tras auditoría. Preservadas ocho invocacionesClaudeV1 y consumo histórico; ninguna nueva. B07 abierto,8de18; restantes HTTP combinado inválido277 y cobertura pertinente de política, sin aceptar capacidad global.
+
+
+B07-282 preparado: integración HTTP loopback100 normal/PRODUCTIONchecked, con referencia nativa244 sin cambios. Pendiente ejecución PostgreSQL283; sin capacidad, proveedor real ni aceptación B07.
+
+Turno previo PROGRESO:281 nativo auditado antes de edición,2PASS414,401sJUnit,210observaciones1470lecturas,graph324 y cinco recibosPASSsent. Incremento282 incorpora TCP secuencial con LiveServerThread y referencia sin cambios; no relaja guards de capacidad ni modifica producto. Requiere auditar ejecución283, no resultado aún. OchoClaudeV1históricos preservados, ninguna nueva invocación. Preparación documental inicial detectó posición de encabezado distinta; aserción detuvo antes de tocar17; corregida selección a primera línea observada.
+
+
+B07-283 auditado: dos casos PASS/226,406sJUnit,210solicitudes TCP y210lecturas nativas de referencia normal/PRODUCTIONchecked100. Fuentes1705, producto628, limpieza y Telegram verificados; compactación y reactivación del mismo objetivo confirmadas. Integración local sin capacidad ni proveedor real; B07 abierto, ocho de18.
+
+Turno PROGRESO:auditoría283PASSsent antes de editar;2PASS/226,406s,210TCP210referencias,fuentes1705/protocolo/producto628/limpieza/avisos/compactación/autoresume comprobados. No nuevas pruebas nativas ni cambio de producto. Conservadas ocho invocacionesClaudeV1 y consumo anterior; ninguna nueva. Actualización documental dirigida245/214/17 y grafo326, sin AST al no cambiar código.277INVALID permanece abierto; no aceptación B07/global ni repetición para verde.
+
+
+B07-284 preparado: una confirmación funcional combinada100 con marcas de despertar/despacho del emisor, sin observador de loop ni cambio de política.277INVALID y causa desconocida se conservan; ejecución285 pendiente, B07 abierto y ocho de18.
+
+Turno previo PROGRESO:283auditado2PASS ygrafo326/5PASSsent. Revisión284no identifica causa277; protocolo246precisa una única confirmación por incertidumbre con dos marcas de tiempo existentes, sin observadorloop ni cambio política/producto. Comparación exacta de una expresión, no mejora declarada ni nuevo criterio. OchoClaudeV1/consumo preservados; ninguna invocación nueva. Freeze tras pruebas/semántica327; no ejecutar dos intentos ni escalaautomática.
+
+
+B07-285 auditado: confirmación funcional combinada100 PASS, 60 peticiones correctas, un upload y 44 oráculos antes y después. Fuentes1705, producto628, limpieza, Telegram, compactación y reactivación del mismo objetivo verificados.277INVALID y causa desconocida se conservan; sin capacidad ni aceptación B07, ocho de18.
+
+Turno PROGRESO: auditoría285 completa PASSsent antes de modificar fuentes; protocolo original/fuentes/recursos/limpieza/avisos/compactación/autoresume comprobados. No repetición de carga, cambio de producto ni reinterpretación277. Actualización dirigida246/214/17 y grafo328; sin AST porque no cambia código. Se conserva consumo y ocho invocacionesClaudeV1 históricas, ninguna nueva. Pendiente conciliación final de requisitos B07, sin cerrar el objetivo contractual completo.
+
+
+B07-286 conciliado: once evidencias nativas contrastadas con el producto628 actual. Coste281 e integración HTTP283 normal/PRODUCTIONchecked100 cubiertos; calibración combinada285 válida sólo a100. Pendiente contraste HTTP combinado comparable a escala y presupuesto; B07 abierto, ocho de18.
+
+Turno PROGRESO: once identidades/JUnit/huellas archivadas y producto actual revalidados sin nueva carga; no cierre desde calibración100. Consulta grafo328 BFS180/24presupuesto1200truncada y fuentes originales directas; actualización241/214/17 y semántica329. Próximo incremento es instrumento combinado escalable con guards y decisión por escala, sin repetir262/265. OchoClaudeV1históricos y consumo preservados; ninguna invocación nueva.
+
+
+B07-287 preparado: instrumento HTTP combinado admite100/1000/10000 con opción explícita y guards exclusivos;59pruebas PASS. Plan derivado cubre rutas seleccionadas con tercios ESEN; ejecución PostgreSQL1000 pendiente. Sin aceptación de capacidad ni cierre B07, ocho de18.
+
+Turno PROGRESO: cinco archivos del instrumento adaptados, originales preservados,59guardas y planesPASS/RuffPASS. Producto sin cambios; sin nueva ejecución nativa. AST dirigido y semántica330; próximo prerregistro1000, no escala automática. OchoClaudeV1históricos y consumo preservados, ninguna nueva invocación.
+
+
+B07-288 prerregistrado: control funcional combinado1000 con120dinámicas en6s,96slots62rutas y68oráculos antes/después; ejecución y auditoría pendientes. Sin capacidad sostenida ni cierre B07, ocho de18.
+
+Turno previo PROGRESO: instrumento287 cincoarchivos/59PASS/Ruff/ASTdirigido/semántica330/nueverecibosPASSsent/producto628. Este incremento prepara una sola ejecución1000 y relevo persistente; sin10000ni carga sostenida automática. Ninguna nueva invocaciónClaudeV1; ochohistóricas y consumo preservados.
+
+
+B07-288 auditado: funcional combinado de 1.000 perfiles PASS; 120 peticiones correctas, un upload persistido y 68 oráculos antes/después. Fuentes1705/producto628, limpieza, Telegram, compactación y reactivación del mismo objetivo comprobados. Sin capacidad sostenida ni cierre B07; ocho de18.
+
+Turno PROGRESO: auditoría completa288 PASS notificada; resultado nativo677,089s, protocolo original y fuentes congeladas cotejados antes de documentar. No repetición de carga. Grafo332 actualiza sólo documentos248/214 y cabecera17; sin cambios de producto ni AST. Ocho invocacionesClaudeV1 históricas y consumo preservados. Siguiente: presupuesto10000 antes de prerregistro.
+
+
+B07-289 prerregistrado: un control funcional combinado de 10.000 perfiles, 2.000 derechos y 120 peticiones en seis segundos, tras auditoría288 válida. Preparación limitada a18.000s, sin carga sostenida ni aceptación B07; ocho de18.
+Turno previo PROGRESO: auditoría288 completa y cinco controlesPASSsent; grafo332, FINsent. Este corte decide10000 tras revisión de16§16/108/232 y evidencia260/271/288, sin nuevo producto ni repetición100/1000.
+
+
+### B07-289 auditoría terminal
+B07-289 auditado: PASS funcional combinado con 10.000 perfiles y 2.000 derechos; 120 peticiones correctas, una subida persistida y 68 oráculos antes y después. Fuentes, recursos, limpieza, Telegram, compactación y reactivación verificados. No acredita capacidad sostenida ni cierra B07; ocho de18.
+Nativo20261023-093341-ef456f18, JUnit5804,874s; auditoría completa PASS con Telegram confirmado. Compactación ACK y mismo objetivo reactivado automáticamente, consumo preservado. Sin cambios de producto ni nuevas invocaciones Claude (ocho históricas). Pendiente contraste combinado sostenido presupuestado.
+
+
+### B07-290 preparación corto combinado
+B07-290 preparado: corto HTTP combinado habilitado exclusivamente para10.000 perfiles;60guardas PASS y contrato900 aún bloqueado. Conserva fuentes de producto, recursos y criterios; ejecución sostenida pendiente de prerregistro. B07 abierto, ocho de18.
+Turno PROGRESO: cuatro archivos del instrumento adaptados; originales preservados.60PASS1,17s y RuffPASS; no carga nativa repetida. Consulta grafo334 acotada/truncada contrastada con contrato y fuentes. Producto628 y emisor sin cambios. OchoClaudeV1históricos y consumo preservados; ninguna nueva invocación.
+
+
+### B07-291 prerregistro corto combinado
+B07-291 prerregistrado: un corto limpio combinado de10.000 perfiles,60s y1200dinámicas tras funcional289 auditado. Recursos y límites contractuales intactos; fuentes congeladas y relevo persistente con compactación/reactivación. Sin900 automático ni cierre B07; ocho de18.
+Previo PROGRESO: cuatrofuentes instrumento290,60PASS1,17s/Ruff/ASTdirigido/alcanceproducto628emisorintactos/grafo335 y ocho recibosPASSsent/FINsent. Este paso prepara una sola ejecución sostenida60s y relevo;sin900automático ni nuevosClaudeV1.
+
+
+B07-291 auditado: corto combinado de 10.000 perfiles PASS, 1.200 peticiones correctas y cero errores; p95 observable 414,537 ms. Fuentes1.705/producto628, 68 oráculos antes/después, subida persistida, limpieza, Telegram, compactación y reactivación automática verificados. Acepta sólo el corto; contractual combinado pendiente y B07 abierto, ocho de18.
+Nativo20261023-112344-928b8f94:1PASS5717,964s;auditor full1705/protocolo/producto628/cleanup/Telegram/compact/callback PASS. Generador2,442/5,979/17,680ms;pendientes3/final0. Sin nuevas invocaciones Claude; ocho históricas y consumo preservados. Siguiente: decisión contractual combinada después de registrar auditoría; sin900 automático.
+
+
+B07-292: habilitado el instrumento contractual combinado de10.000 perfiles tras corto291 auditado; 61 guardas PASS. Producto628, emisor y recursos conservados. La carga900s no se ha lanzado; B07 abierto, ocho de18.
+Instrumento292: cuatro archivos, originales congelados==291;61PASS1,17s tras2FAILadaptación preservados. Sin nueva carga nativa ni Claude; ocho invocaciones históricas/consumo preservados. Próximo lanzamiento separado exige protocolo/recibos/freeze/helpers/auditor y pausa con compacto/autoresume.
+
+
+B07-293 prerregistrado: contractual combinado de10.000 perfiles,900s y18.000dinámicas tras corto291 auditado. Quinceuploads separados, mismos recursos y límites; relevo persistente con compactación/reactivación del mismo objetivo. B07 abierto, ocho de18.
+Protocolo253: lanzamiento único despuésestático+grafo339; fuente1705/producto628/emisorintactos. Preparar auditor18000/15uploads/900s y persistencia4PIDs con prepausasent; pausar/compact/autoresume mismoobjetivo. Sin nuevasClaude/ochohistóricas preservadas. No narrowcomplete ni repetición262265.
+
+
+## B07-293 auditoría terminal — progreso
+
+B07-293 auditado: JUnit 1 PASS, 18.000 respuestas correctas y 15 uploads; p95 408,957 ms. Controlador EXIT137 sin report.json: ejecución NO aceptada. Fuentes1.705/producto628 y limpieza actual verificados; Telegram, compactación y reactivación confirmados. B07 abierto, ocho de18.
+Auditor negativo PASS y Telegramsent; fuente/protocolo congelados comprobados antes de documentar. EXIT137 sin informe impide aceptación global. OOM temporal del kernel conservado, identidad exacta aún por probar. Recibo HOSTEXIT1sent recuperado sin reenviar; defecto de orden en helper de relevo identificado. Sin repetición nativa, sin cambio de producto, ocho invocacionesClaudeV1 históricas y consumo preservados. Siguiente reproducción terminal acotada.
+
+
+## B07-294 — progreso
+
+B07-294: eliminada una decodificación JSON duplicada y liberadas referencias temporales del controlador. Reproducción terminal aislada con informe idéntico byte a byte: pico RSS de134.246.400 a96.276.480bytes;79pruebasPASS. No reproduce OOM histórico ni acepta293; B07 abierto, ocho de18.
+Dos replays originales no reprodujeron OOM: asercionesEXIT1sent preservadas. Replay corregidoPASSsent con bytes idénticos y cuotas iguales. Causa histórica293 sin demostrar; no aceptación ni nueva carga. Producto628 intacto; ochoClaudeV1 históricos y consumo conservados.
+
+
+## B07-295 — progreso
+
+B07-295: launcher conserva identidad y estado terminal del controlador antes de limpiar; éxito exige exited/0 sin OOM. Tres sondas Docker distinguen normal,137 explícito y OOM real;89pruebasPASS. Sin carga contractual ni aceptación293; B07 abierto, ocho de18.
+89unitPASS9,88s/Ruff y tres sondas Docker reales PASSsent, limpieza confirmada. Sólo launcher y guardas; sin carga900 ni cambio de producto. Estado terminal acotado sinConfig/Error sensible; ochoClaudeV1 y consumo conservados.
+
+
+## B07-296 — preparación
+
+B07-296 prerregistrado: una contractual combinada de10.000 perfiles y900s tras correcciones terminales294/295. Se reutilizan funcionales y corto291; mismos recursos, fuentes congeladas y relevo con Telegram, compactación y reactivación. B07 abierto, ocho de18.
+Una validación completa motivada por correcciones294/295; no aceptación de293 ni cambio de producto. Presupuesto11500s real, fuentes1705 y producto628. Reutilizar funcionales285/288/289 y corto291; no repetir262/265. OchoClaudeV1 históricos y consumo conservados.
+
+
+## B07-296 — resultado auditado
+
+B07-296 auditado: contractual combinado de10.000 perfiles PASS,18.000 respuestas correctas y15subidas persistidas; p95 observable415,657ms. Controlador exited0 sinOOM, fuentes1.705/producto628, recursos y limpieza verificados; Telegram, compactación y reactivación confirmados. B07 pendiente sólo de conciliación final de aceptación; ocho de18.
+Auditor completo PASS y Telegram sent; controlador terminal0sinOOM y limpieza actual. Se libera congelación tras auditoría. Sin nueva carga, producto ni ClaudeV1; consumo previo conservado. Siguiente: conciliar requisitos originales y decidir B07, después B00 por instrucción expresa. Decisiones B15 de bienvenida y almacenamiento se conservan en artefactos ignorados pendientes de integración documental.
+
+
+## B07-297 — aceptación técnica local
+
+B07 aceptado técnicamente en local por acta16: línea base, diversidad y presupuestos conciliados con15evidencias y12requisitos. Contractual combinado296 PASS:18.000respuestas correctas,15subidas,p95415,657ms. Nueve de18puntos cerrados; siguiente B00. Sin aceptación beta global ni producción.
+Quince identidades nativas y producto628verificados sin nueva carga; doce requisitos y límites en acta16/matriz. No aceptación B08/B16global. Siguiente B00por instrucción expresa; decisionesB15preservadas. OchoClaudeV1históricos y consumo intactos.
+
+
+## B00-298 — progreso de conciliación
+
+B00 retomado tras cierre local B07: inventario capturado295 verificado por identidad, texto y huellas;16lecturas completas anteriores reutilizadas y279entradas sin lectura integral acreditada en este registro. Cuatro referencias legales identificadas, dos notas ministeriales localizadas; sentencias originales pendientes. B00 abierto; nueve de18cerrados.
+Registro295identidades/huellasPASSsent; no revisión semántica44millones. Lectura íntegra registro9309caracteres reutilizada, fuentes externas primarias acotadas. DecisionesB15integradas, sin implementación. Próximo: completar cobertura y revisión porfuente, no cerrarB00por metadatos. OchoClaudeV1yconsumo preservados.
+
+
+## B00-299 — progreso verificado
+
+B00-299: inventario remoto y texto de295fuentes conciliados con capturas;97fuentes únicas revisadas y198pendientes. Se conservan contrato romántico y decisiones B15, sin adoptar IA, analítica ni herramientas por referencias. B00 abierto; B07 cerrado local, nueve de18.
+295get_sourceactuales y listado100+100+95+0/notebooks12; huellas ylongitudes iguales a capturas. Tres agentes nativos SOLOLECTURA,nueve asignaciones; sin escritores y sinClaudeV1nuevo(ochohistóricos/consumo preservados). Informes verificados porCodex,82disposiciones/81nuevas únicas;97total,198pendientes. V1wire no invocado. Primer negativo detecta gobernador duplicado; otro error decontadorverificador preservado; ambosEXIT1sent, correccionesPASSsent. No repetirlecturas/cargas ni ampliaralcance porreferencias. Fuentes originales intactas. Estadoagentsreportados/aceptados sólo para disposición documental, no implementación/legalidad. B00sigue abierto; continuar198. NotebookLMerrorconexiónnoausenciaoriginales; OpenNotebookaccesible. Grafo347dirigido sinASTprevisto.
+
+
+## B00-300 — progreso verificado
+
+B00-300: 164 de 295 fuentes únicas conciliadas; quedan 131. Se completa la revisión de las 41 capturas de SEO y los cuatro documentos de control. Se añaden 15 fuentes comerciales y siete de seguridad. B00 sigue abierto; nueve de los 18 puntos de beta están cerrados.
+67fuentes nuevas/164total/131pendientes;63hashes declarados,52mapas ychangelogunido2tramos verificadosPASSsent.295JSONcapturados/628appintactos. Inventarios3parseados completos:291originales,189digestsiguales y102estadosvacíoshistóricos,no carenciaactual. DoceasignacionesROen300,12agentesdistintos y21asignacionesacumuladasdesde299;6reportesincompletepreservados,sólofuentescompletasaceptadas;2reportescompleteacotadosatramos unidos. OchoClaudeV1yconsumointactos,ningunonuevo. Consumoagentes no proporcionado,noestimado. Nuevosagentes usados por límite real decontexto,noreiniciarcapturascompletas. Sinbateríasfuncionales. Siguiente131en6grupos,originalesjudicialesconlímiteexternopreservado. Grafo348dirigido,sinASTporcambiodocumental.
+
+
+B00-301 (2026-10-23): lectura literal completa de Password Storage, 46.218 caracteres en cuatro rangos contiguos; original y huellas conservados. Contraste estático config/settings.py: Argon2/PBKDF2 declarados, sin afirmar parámetros efectivos ni verificación funcional. Registro 165/295, 130 pendientes; B00 abierto y 9/18 beta. Sin agentes nuevos ni Claude V1; consumo histórico preservado. Refresco semántico dirigido349 previsto y comprobaciones notificadas por separado.
+
+B00-301 terminal: cinco comprobaciones PASS con recibo Telegram sent; integridad de 295 capturas y un único incremento comprobados. Grafo349 semántico dirigido: 169 documentos completos y sección vigente de seguimiento, 947 citas; sin refresco AST/global. Documentación: 632 Markdown/4656 enlaces/33 copias. Aviso FIN parcial: sent. Goal activo; sin pruebas largas ni nuevas baterías.
+
+B00-302 en curso: base165 preservada. Tres agentes nativos nuevos de sólo lectura (b00_302_csp_docker_ssrf, b00_302_kubernetes, b00_302_mfa_logging), propiedad: ninguna escritura; principal integra y verifica. AI_ENGINEERING1.0.1 leído completo en esta continuación. V1 sin invocaciones nuevas; ocho históricos y consumo conservados. Tres lecturas propias completas: introducción PostgreSQL17, transacciones Psycopg y Trace Viewer; aún sin crédito hasta auditoría conjunta.
+
+B00-302 integración: siete lecturas nativas más tres propias aceptadas tras auditoría de huellas/rangos/citas y las 295 capturas. 175/295,120 pendientes; cuaderno seguridad27 revisado documentalmente. Cuatro lectores nuevos y cuatro reparaciones formales exitosas; un intento de reparación no lanzado por concurrencia conservado. No V1 nuevo, sin cambios de producto ni evidencia funcional nueva. Doc261 y cortes17/103/104/DAFO/índice actualizados. Semántica dirigida350 preparada; verificaciones terminales pendientes.
+
+B00-302 terminal: seis comprobaciones PASS con Telegram sent, incluida reproducción idempotente que preserva exactamente ledger4b3f21e24c3ec8372420603587391b0f92189cd5496fa03ef1672a82af1de91e. Grafo350 dirigido:170documentos completos+sección vigente17,954citas, cero extremos ausentes/huellas obsoletas; sin refresco AST/global. Documentación633Markdown/4663enlaces/33copias. FINparcial: sent. Goal activo; sin procesos/pruebas pendientes.
+
+B00-303 en curso: base175 preservada. Tres lectores nativos readonly con contrato1: b00_303_django_runtime (4fuentes), b00_303_redis_refs (4), b00_303_crypto_refs (4). Sin escritores niV1 nuevo; consumo histórico preservado. Principal leyó seis capturas completas (metadatos/diagnósticoGraphify,marcadorinit,inventariotecnologías,portadauv,índiceconfigPostgreSQL). Crédito pendiente de auditoría; diferencias históricasGunicorn2/45frenteactual4/60 se registran sin cambiar runtime.
+
+B00-303 integración: 18 fuentes nuevas verificadas (12 nativas, seis propias), 428.393 caracteres; integridad295 capturas. Ledger193/295,102 pendientes, arquitectura75. Tres lectores nuevos y tres seguimientos de metadatos sin diferencias; Redis corrigió SUMMARY. Sin V1 nuevo ni cambios de producto. Doc262,17/103/104/DAFO/índice actualizados; semántica dirigida351 preparada. Comprobaciones terminales pendientes.
+
+B00-303 terminal: siete comprobaciones PASS con recibos Telegram sent: fuente/cobertura, cuatro del grafo y documentación, y dos preparaciones de formato histórico (segunda con JSON estricto). Grafo351 dirigido: 171 documentos completos más sección vigente17, 962 citas, sin extremos ausentes o huellas obsoletas; sin refresco AST/global. Documentación634Markdown/4670enlaces/33copias. Preparación de fuente0cyo: 7000relaciones en dos esquemas; proyección conserva todos los atributos y orden con roundtrip y JSON estricto, reduce2.310.721a1.160.261caracteres. NO leída semánticamente ni acreditada: sigue pendiente. FINparcial sent. Goal activo, sin pruebas o procesos pendientes.
+
+B00-304 en curso: base193 preservada. Tres agentes nativos readonly: b00_304_cookie_captures (tres capturas con dedup exacto verificable), b00_304_legal_captures (cuatro fuentes) y b00_304_image_build_refs (cinco). Principal leyó completas cuatro referencias de faulthandler, pytest, Caddy y RustFS; propuestas pendientes de auditoría. No nuevos V1 ni cambios de producto; consumo histórico conservado.
+
+B00-304 integración: 16 disposiciones nuevas verificadas,12nativas/4propias,676.086 caracteres cubiertos. Tres mapas de líneas exactas comprobados; las variantes de cookies no son autoridades independientes ni PDF visual revisado. Captura titulada STS1231/2022 es interfaz fallida; intentos oficiales de recuperación sin acceso, candidato indexado no leído, original no verificado. Ledger209/295,86pendientes y laguna externa añadida sin aceptar jurisprudencia. Doc263,17/103/104/DAFO/índice actualizados; semántica dirigida352 preparada. Sin producto, V1 o pruebas funcionales nuevos.
+
+B00-304 terminal: cinco comprobaciones PASS con Telegram sent (integridad/rangos/citas/mapas y cuatro de grafo/documentación). Grafo352 dirigido:172documentos completos más sección vigente17,970citas, cero extremos ausentes o huellas obsoletas; sin refresco AST/global. Documentación635Markdown/4677enlaces/33copias. Ledger4a8fd7ffe0bf51d25288be8d1050db2295a005ec05e07773cf280d790853fb81. FINparcial sent. Goal activo; sin pruebas o procesos pendientes.
+
+B00-305 en curso: AI_ENGINEERING1.0.1 leído completo y base209 preservada. Seis lectores nativos nuevos readonly en dos tandas: b00_305_celery_config,cgroup,pillow,html_htmx,redis_connect,compose_boto. Sin propiedad de escritura niV1 nuevo; consumo histórico conservado. Principal leyó Ruff y pip-audit completos, sin ejecutar ejemplos. Inspección estática de opciones Celery, decode_image y CI; versiones instaladas consultadas como metadatos, no runtime funcional. Propuestas pendientes de auditoría e integración.
+
+B00-305 integración: diez disposiciones nuevas verificadas, ocho nativas y dos propias,873.533caracteres y25citas; integridad295capturas. Ledger219/295,76pendientes. Seis lectores readonly y una reparación de esquema Redis sin nueva evidencia; omisiones de salida Redis recuperadas, HTMX original capturado incompleto registrado como límite. No V1/producto/pruebasfuncionales nuevos. Doc264 y17/103/104/DAFO/índice actualizados; semántica353 preparada y checks terminales pendientes.
+
+B00-305 terminal: seis comprobaciones PASS con Telegram sent: integridad/citas/cobertura, literales, precisión del DAFO y literales tras aclarar que el límite es de la captura HTMX y no del documento remoto, semántica, sellado y documentación. Grafo353 dirigido:173documentos completos más sección vigente17,978citas,sin extremos ausentes o huellas obsoletas; sin refresco AST/global. Documentación636Markdown/4684enlaces/33copias. Ledger08062450f99ee926757181b0996dcd1cc5833b3f679b34fef617f051c1f15ba5. FINparcial sent. Goal activo, sin pruebas o procesos pendientes.
+
+B00-306 en curso: base219 preservada. Cuatro lectores nativos readonly: tres partes planificadas de una captura RGPD y un lector de dos portales institucionales. Ninguna parte recibió crédito como fuente separada. Root leyó las87líneas diferentes de segunda captura (todasURLs), y reconstruyó mapas exactos y comparación ordenada del resto; crédito pendiente de auditoría y unión completa. No V1 nuevo, sin producto ni pruebas funcionales; consumo histórico conservado.
+
+B00-306 integración: cuatro fuentes únicas (dos capturas RGPD y dos portales),923.037caracteres cubiertos. Tres partes de primera captura unidas sin huecos y contadas una vez; segunda captura conserva orden exacto noURL y87diferencias URL leídas, mapas íntegros comprobados.13comprobaciones de cita/12intervalos distintos. Ledger223/295,72pendientes. Cuatro lectores readonly, sin V1 nuevo ni producto/pruebasfuncionales. Doc265 y17/103/104/DAFO/índice actualizados; semántica354 preparada.
+
+B00-306 terminal: cinco comprobaciones PASS con Telegram sent (integridad/citas/mapas/unión y cuatro de grafo/documentación). Grafo354 dirigido:174documentos completos más sección vigente17,986citas, sin extremos ausentes o huellas obsoletas; sin refresco AST/global. Documentación637Markdown/4691enlaces/33copias. Ledgerbb8ac21c1e3bdb0871ace10419a166eec407c3e3eb54e77b05d8468e0db9fa1e. Reemplazo atómico preserva modo0640 de copia base, sin cambios de contenido por ajuste de modo. FINparcial sent. Goal activo; no pruebas,procesos o lectores pendientes.
+
+B00-307 en curso: AGENTS/AI_ENGINEERING1.0.1 leídos completos; base223 preservada. Siete lectores nativos readonly (LOPDtrespartes/EIPDcuatropartes), ninguna parte acreditada como fuente separada. Propuestas e informes conservados; sin V1 nuevo y consumo histórico intacto. Detectado y corregido alcance profesional obsoleto en docs06 conforme a contrato14, con copia previa íntegra y diff específico; sin revisión normativa actual o cambios de producto. Auditoría de unión y comprobaciones pendientes.
+
+B00-307 integración: dos fuentes completas desde siete partes,758.822caracteres y23cotejos/21intervalos distintos; integridad295capturas. Ledger225/295,70pendientes; cuaderno privacidad25fuentes con disposición textual, sin EIPDreal o aceptación jurídica. Doc06 corregido contra contrato14 con copia ydiff específicos; sólo objeto delproducto, sin normas actualizadas ni runtime. Doc266 y17/103/104/DAFO/índice actualizados, semántica355 incluye06y266 completos. Verificaciones terminales pendientes.
+
+B00-307 terminal: cinco comprobaciones PASS con Telegram sent (integridad/citas/uniones/corrección06 y cuatro de grafo/documentación). Grafo355 dirigido:176documentos completos más sección vigente17,998citas,sin extremos ausentes o huellas obsoletas; sin refresco AST/global. Doc06 incorporado por primera vez al conjunto semántico dirigido con objeto vigente e historia separada. Documentación638Markdown/4702enlaces/33copias. Ledger9163206e84b3f4f57197aca27a73fe59f1c7087f2e27d767b7acdb20bc17f9fd. FINparcial sent. Goal activo; sin pruebas,procesos o lectores pendientes.
+
+
+B00-308: corrección de precedencia histórica en01/03/05 y del generador de resumen del grafo (B07 ya cerrado poracta16, nueve/18). Copias,diffs,huellas en b00-308-corrections.json. B15 ya documentado en14§6.1; DBvsobjetos no decidido. Ledger225/295 intacto,70pendientes. Sin nueva delegación,V1,pruebas funcionales o cambios de aplicación; consumo previo preservado. Doc267 y encabezado17 actualizados; comprobaciones pendientes.
+
+B00-308 terminal: cinco comprobaciones PASS con recibos Telegram sent. Grafo356 dirigido,180documentos completos y sección vigente17,1007citas; sin extremos ausentes/huellas obsoletas. Resumen del grafo corregido a nueve/18 conformeacta16. Doccheck639Markdown/4709enlaces/33copias. Ledger225/295 intacto,70pendientes. Sin pruebas funcionales o fuentes nuevas; goal activo.
+
+B00-309 en curso: goal activo, turno anterior308 PROGRESO verificado. AGENTS/AI_ENGINEERING1.0.1 consultado ycontrato leído completo. Base225 preservada. Tres lectores nativosreadonly autorizados: dospartesLSSI[0,92982)/[92982,184902), marketing[0,93482). Plan previo yprotocolo conservados. Ningún crédito parcial ni nuevaV1, sin cambiosproducto; consumo histórico preservado. Integración pendiente.
+
+B00-309 integración: LSSI dospartes yconversaciónmarketing completas,278384caracteres,11cotejos/9citas distintas; integridad295capturas. Ledger227/295,68pendientes. Roles ypropuestas históricas no amplían contrato, sin obligaciones adoptadas/aplicaciónmodificada. Corrección puntual cierre roadmap103 conservaB07cerrado yB00prioritario,copia/diff específicos. Doc268 y17/103/104/DAFO/índiceactualizados; semántica357preparada. Sin V1nuevo, consumo previo intacto; checks finalespendientes.
+
+B00-309 terminal: cinco comprobaciones PASS con recibos Telegram sent (fuentes/unión, literales, docs, semántica, sello). Grafo357 dirigido,181docs completos+encabezado17,1016citas,0extremosfaltantes/huellasobsoletas; sin AST/globalnuevo. Doccheck640Markdown4720enlaces33copias. Ledgerc112a71df7882762c5ed2949cac1299ce32ba1e62b33915b72f0761387f46f9a,227/295,68pendientes. Treslectoresreadonly terminados; ninguna prueba/proceso pendiente. B00 abierto; goalactivo; nueve/18cerrados,B15opcional.
+
+B00-310 en curso: anterior309 PROGRESO verificado; goalactivo. AGENTS yAI_ENGINEERING1.0.1 leídos completos; base227preservada. PlanDSAcuatropartes[0,124222)/[124222,249897)/[249897,374598)/[374598,501945),SHAprevios/protocolo. Treslectoresreadonlyiniciados,cuartopendienteplaza; no crédito parcial. No V1nuevo/consumoestimado ni cambiosproducto. Lectura directa de15detecta resumen de envío aúnconserva servicios/tarifas ajenos acontrato14; corrección acotada prevista.
+
+B00-310 integración: DSA501945caracteres desdecuatropartes,13cotejos/12citas distintas,295capturasíntegras; ledger228/295,67pendientes. Considerandos/articulado/ámbitos yexcepcionesseparados,sin dictamenvigente oregímenesadoptados. Corregida única línea de15que mantenía servicios/tarifasenresumen,copia/diff guardados. Doc269,17/103/104/DAFO/índiceysemántica358 preparados,15incluido porprimeravez comosemántica completa. Sin runtime/pruebasfuncionales/V1nuevas,consumopreviointacto. Checksfinalespendientes.
+
+B00-310 terminal: cinco comprobaciones PASS con recibos Telegram sent (integridad/unión/corrección, literales, docs, semántica, sello). Grafo358 dirigido:183 documentos completos más encabezado vigente17,1028 citas, cero extremos ausentes o hashes obsoletos; sin nuevo AST/global. Doccheck641 Markdown/4730 enlaces/33 copias. Ledgere00deb388ae329479d48eb51e8ce7ed44b883d606125977c35ebb081683fdb01,228/295,67 pendientes. Cuatro lectores terminados; sin pruebas, procesos o agentes pendientes. Goal activo, B00 abierto, nueve/18 cerrados y B15 opcional.
+
+B00-311 en curso: anterior310 PROGRESO verificado; goal activo. AGENTS/AI_ENGINEERING1.0.1 leídos completos. Base228 preservada, plan previo seis partes: IA tres/infancia tres. Tres lectores IA readonly iniciados; infancia se lanzará en plazas libres. Ningún crédito parcial. Sin V1 nuevas, consumo histórico intacto; sin producto o pruebas funcionales modificados.
+
+B00-311 integración: IA e infancia completas desde seis partes,730019 caracteres y20cotejos/18intervalos de cita distintos; integridad295 capturas. Ledger230/295,65 pendientes;13 capturas de moderación con disposición textual, sin cumplimiento acreditado. Contraste oficial externo limitado de modificaciónIA2026/1744: tres accesosEUR-Lex bloqueados porJS, identidad/cambio corroborados por índice oficial, noticiaComisión y Explorer; no autenticación íntegra ni fuente296. Doc270 y17/103/104/DAFO/índiceactualizados; semántica359preparada. Sin producto,pruebasfuncionales o V1nuevas; consumo previo intacto. Checksfinalespendientes.
+
+B00-311 terminal: cinco comprobaciones PASS con Telegram sent (integridad/uniones, literales, docs, semántica, sello). Grafo359 dirigido:184 documentos completos más encabezado vigente17,1036 citas, cero extremos ausentes o hashes obsoletos; sin AST/global nuevo. Doccheck642Markdown/4739enlaces/33copias. Ledger04e27a00f87048ab3a4d0ac605135c33bb3619e2607aeb162a1bc10fc4d7bc6b,230/295,65pendientes; cuaderno moderación13 capturas conciliadas documentalmente. Seis lectores terminados; sin pruebas/procesos/agentes pendientes. Goal activo; nueve/18 cerrados,B00 abierto yB15 opcional.
+
+B00-312 en curso: anterior311 PROGRESO verificado; goal activo. AGENTS yAI_ENGINEERING1.0.1 leídos completos. Base230 preservada; plan previo cuatro partes de autónomos/competitiva. Tres lectores readonly iniciados, cuarto pendiente plaza. Sin crédito parcial ni V1 nuevas, consumo histórico preservado. Sólo investigación de capturas; sin cambios de producto/pruebas funcionales.
+
+B00-312 integración: Estatuto y planificación competitiva completos desde cuatro partes,438508caracteres,14cotejos/12intervalos distintos,295capturasíntegras. Ledger232/295,63pendientes. Ámbitos laborales condicionados y planificación/cierre conceptual/negativos históricos preservados,sin tareas de captación o nueva aceptación. Doc271 y17/103/104/DAFO/índice actualizados; semántica360preparada. Cuatro lectores readonly, sinV1nuevas o producto/pruebasfuncionales; consumo histórico conservado. Checksfinalespendientes.
+
+B00-312 terminal: cinco comprobaciones PASS con Telegram sent (integridad/uniones, literales, docs, semántica, sello). Grafo360 dirigido:185 documentos completos más encabezado vigente17,1044 citas, cero extremos ausentes o hashes obsoletos; sin AST/global nuevo. Doccheck643Markdown/4750enlaces/33copias. Ledgera5be390ec111493b2ee24afdf81ff5fce4b826fc0f245c4085a25ae50947571c,232/295,63pendientes. Cuatro lectores terminados; sin pruebas/procesos/agentes pendientes. Goal activo; nueve/18cerrados,B00 abierto,B15 opcional.
+
+B00-313 en curso: anterior312 PROGRESO verificado; goal activo. AGENTS/AI_ENGINEERING1.0.1 leídos completos. Base232 preservada y plan previo seispartes consumidores4/LO10dos. Tres lectoresreadonlyconsumo iniciados; restantes al liberar plazas. Sin crédito parcial, producto/pruebasfuncionales o V1nuevas; consumo histórico conservado.
+
+B00-313 integración: consumidores4partes/LO10dos completas,790705caracteres,20cotejos/18intervalos distintos;295capturasíntegras. Ledger234/295,61pendientes. Condiciones/ámbitos/excepciones ydiscordancia34/1998vs34/1988 preservadas,sin corrección silenciosa o requisitos adoptados. Doc272 y17/103/104/DAFO/índice actualizados; semántica361preparada. Sin cambiosproducto,pruebasfuncionales o V1nuevas; consumo previo preservado. Checksfinalespendientes.
+
+B00-313 terminal: cinco comprobaciones PASS con Telegram sent (integridad/uniones, literales, docs, semántica, sello). Grafo361 dirigido:186 documentos completos más encabezado vigente17,1053 citas, cero extremos ausentes o hashes obsoletos; sin AST/global nuevo. Doccheck644Markdown/4760enlaces/33copias. Ledger8f08423c64dee2d45800b22153bcac47c9ee17d939f373087b5b6b17b52aaebc,234/295,61pendientes. Seis lectores terminados; sin pruebas/procesos/agentes pendientes. Goal activo; nueve/18cerrados,B00 abierto,B15 opcional.
+
+B00-314 en curso: anterior313 PROGRESO verificado; goal activo. AGENTS releído ycontratoAI_ENGINEERING1.0.1 completo ya leído, hashactual idéntico4b857299. Base234 preservada; plan previo diezpartes PI4/Penal6. Tres lectoresPIreadonlyiniciados; restantes al liberar plazas. Informes compactos, lectura completa sin acortar. Sin crédito parcial, producto/pruebasfuncionales o V1nuevas; consumo histórico conservado.
+
+B00-314 integración: PI4partes/Penal6 completas como capturas,1324398caracteres,22cotejos/20citas distintas,295capturasíntegras. Ledger236/295,59pendientes;23capturaslegales con disposición textual. LímiteCP: cuerpos sólohasta340quinquies,cola776271–790452URLs/selectores,art341+noacreditados. Una ronda repara fronteraPI183 sin nueva lectura/credito,original/corregido/contexto preservados. Doc273 y17/103/104/DAFO/índice actualizados,semántica362preparada. Diez lectores+unaronda,sinV1nuevas/producto/pruebasfuncionales;consumo anteriorintacto. Checksfinalespendientes.
+
+B00-314 terminal: cinco comprobaciones PASS con Telegram sent (integridad/uniones/reparación/límite, literales, docs, semántica, sello). Grafo362 dirigido:187 documentos completos más encabezado vigente17,1062 citas, cero extremos ausentes o hashes obsoletos; sin AST/global nuevo. Doccheck645Markdown/4769enlaces/33copias. Ledgerebe15a26cdb35588cffe796b6c7dde9066c41257814d18932f508314f0711e72,236/295,59pendientes;23capturaslegales con disposición textual,no CódigoPenal completo. Diezlectores+unaronda terminados; sin pruebas/procesos/agentes pendientes. Goal activo,nueve/18cerrados,B00abierto,B15opcional.
+
+B00-315: tres lectores readonly PSD2,389548caracteres,33intervalos,7citas;rectificación explícita source_id dellector2 sin nueva lectura/crédito. Extractos seleccionados conservados como tales. Auditoría295capturas/unión/hash/citas PASS;ledger237/295,58pendientes. Doc274 yseguimiento/roadmap/matriz/DAFO/índice actualizados,semántica363preparada. Sin producto/cobros/proveedor/nuevasV1;consumo histórico preservado. Checksdocumentales/grafo pendientes.
+
+B00-315 terminal: PROGRESO efectivo,una captura nueva aceptada documentalmente,237/295,58pendientes. Seis comprobaciones PASS conTelegramsent. Grafo363 dirigido,188docs completos+encabezado17,1070literales,0hashstale/endpoints;sinAST/HTMLglobal. No ejecución funcional/carga/producto. B07cerrado9/18;objetivo íntegro activo. Próximo IVA yRDL19/2018,despuésarquitectura56;límitesoriginales preservados.
+
+B00-316 iniciado: base237 fijada,plan RDL3/IVA6 previo,lectores readonly enondas<=3,rootúnico integrador. INICIOsent,grafo363revalidado;no producto/cobros/pruebasfuncionales. Propietario root de artefactos316/docs275 yencabezados/grafo al integrar;lectores sinarchivos. Evidencia exigida: unión íntegra,hashes declarados,citas/contextos,límites ydisposición;no aceptaciónlegal o beta.
+
+B00-316 integración documental:9informes completos,RDL3/IVA6,1162742caracteres,20cotejos/18citas;295capturas yunion/hash PASS,ledger239/295,56pendientesarquitectura. Cuaderno comercial18conciliado como capturas,nocumplimiento. LímiteIVA:166últimocuerpo,notaeditorialincompleta,cola758593–765920sólo177URLs/selectores,hashregistrado. Doc275 y17/103/104/DAFO/índice actualizados;semántica364preparada. Sin reparación/V1nuevas/producto/cobros/pruebasfuncionales.
+
+B00-316 terminal: PROGRESO,2capturas nuevas/239total/56pendientesarquitectura. Seis comprobaciones PASSsent;grafo364/189docs+encabezado17/1078citas/0hashstale/endpoints;647Markdown/4788enlaces/33copias. Cuaderno comercial18conciliado documentariamente,límiteIVA166ycola177líneaspreservado. No producto/cobros/V1nuevas/funcionales/carga. Nueve lectores terminados,sinprocesospendientes. Próxima arquitectura mapa/config yresto56;9/18beta,goalíntegroactivo.
+
+B00-317 iniciado: base239fijada,mapa2partes/config1lectorreadonly;INICIOsent/grafo364revalidado. Criterio:uniones/hash/citas/contextos yversiones,rootcontrastaráconactualsinatribuirbug desdecaptura. Rootpropietarioartefactos317/docs276/encabezados/grafo;lectoresnoescriben. NoV1nuevas/producto/testsfuncionales.
+
+B00-317 integración:mapa2partes/config1,227088caracteres/21salidas,8cotejos/6citas,295capturas y4contrastesGit/captura/actual PASS;ledger241/295,54pendientes. Original yreparaciónsource_idconservados,invariantes. Representaciónnoejecutable yestadohistóricopreservados;guardrecuperaciónactualal final,sinbugvigentedemostrado/pruebanueva. Doc276 y17/103/104/DAFO/índiceactualizados,semántica365preparada. Sinproducto/V1nuevas/cargas;consumoanteriorintacto.
+
+B00-317 terminal: PROGRESO,241/295,54pendientesarquitectura. SeischecksPASSsent,grafo365/190docs+encabezado17/1087literales/0hashstale/endpoints;648Markdown/4802enlaces/33copias. Treslectores+unarondaidentificaciónterminados;sinprocesos/testsfuncionales/cargas/producto/V1nuevas. DiferenciasrepresentaciónvsGit confirmadas;ordenactualguardrecuperaciónnoeseldecaptura. B07cerrado9/18,goalíntegroactivo. Próximomóduloscatalog/listings yrestoarquitectura,sinreabriraceptacionesporsnapshotviejo.
+
+B00-318 iniciado:base241/plan catalog1,listings2;INICIOsent/grafo365revalidado. Treslectoresreadonly,rootintegradorpropietariodeartefactos318/docs277/encabezados/grafo. Criterio:fuentes/hash/union/citas/contextosycontrastesactualesconcretos,sinbugasumidoporsnapshotviejo. NoV1nuevas/producto/testsfuncionalesdeentrada.
+
+B00-318 integración:catalog1/listings2,257239caracteres/25salidas,8cotejos/6citas,295capturas/15archivosactuales/34literales PASS;ledger243/295,52pendientes. Semillasprofesionales históricas conciliadascon0023/políticaromántica actual;RateFormusa rectificación/validación privada,nopaneldetarifas;promossintéticas/sellableFalse. Sin defectovigentedemostradoencontrasteseleccionado,noproducto/funcionales/cargas/V1nuevas. Doc277 y17/103/104/DAFO/índiceactualizados,semántica366preparada.
+
+B00-318 terminal PROGRESO:243/295,52pendientesarquitectura;seischecksPASSsent;grafo366/191docs+encabezado17/1096literales/0hashstale/endpoints;649Markdown/4827enlaces/33copias. Treslectoresterminados,0reparaciones;sinproducto/funcionales/cargas/V1nuevas. 15archivos/34literalesactualescontrastesestáticos,noauditoríaruntimeglobal. RateFormusosprivadosconfirmadossinreactivartarifas,promossintéticasconservadas. B07cerrado9/18,goalíntegroactivo. Próximocore2partes/media1lector.
+
+B00-319 iniciado:base243/core2partes/media1,INICIOsent/grafo366revalidado. Treslectoresreadonly/rootintegradorartefactos319/docs278/encabezados/grafo. Criterioshash-unión-citas-contextoycontrasteactual;no bugasumido desdecapturavieja. Sinproducto/pruebasfuncionales/V1nuevasdeentrada.
+
+B00-319 integración:core2/media1,221931caracteres/20salidas,8cotejos/6citas,295capturas/16archivosactuales/51literales PASS;ledger245/295,50pendientes. Sesiones/tokens/autoridad/proveedorreal/similitud/borrado separados;bootstrapactualromántico,simuladorespermanecensimuladores,noborradofísiconuevo. Sin defectovigentedemostradoencontraste seleccionado/producto/funcionales/cargas/V1nuevas. Doc278 y17/103/104/DAFO/índiceactualizados,semántica367preparada.
+
+B00-319 terminal PROGRESO:245/295,50pendientesarquitectura;seischecksPASSsent;grafo367/192docs+encabezado17/1105literales/0hashstale/endpoints;650Markdown/4853enlaces/33copias. Treslectoresterminados/0reparaciones;16archivosactuales/51literales estáticos,nuevaruntimeaceptaciónfalse. No defectovigentedemostrado/producto/funcionales/cargas/V1nuevas. B07cerrado9/18,goalíntegroactivo. Próximosafety1–2enpartesfreshacotadas yrestocorpus,nocierreporinventario.
+
+B00-320 iniciado:base245/plan safety1–2,trespartescadauna,seislectoresfreshreadonlyenondas<=3,INICIOsent/grafo367revalidado. Rootintegradorartefactos320/docs279/encabezados/grafo. CriterioSHAs/union/citas/contextos/continuidadmódulo ehipótesisactualescontrastadas,nobugdesdehistoria. No producto/testsfuncionales/V1nuevasdeentrada.
+
+B00-320 reproducciónprerregistrada:regresióncontactoutcome2variantes phone/whatsapp,PG/Redispropios/workers1,native-source/tmp/web-modelos-librdb-v2.4.0. EvidenciaesperadaFAILcompleted_purposesomitephonepurposeporTelegramindependienteconservado. Productoerasure_finalsinmodificación319;backupsypreexistingdiffpreservados. No modificarfuentesnop/docsduranteprueba. GrafoASTdepruebaantesdecongelar.
+
+B00-320 reproducciónterminal20261023-224158-092c7d6f:JUnit2FAIL/0ERROR/0SKIPexactamentecompleted_purposesvacío frenteashared_contact_review;runnerERRORporpytestexit1preservado,sources_unchangedTrue,PG/Redispropiosretirados yTelegramsent. Rootcorrigeúnicoguardfinalphone/WhatsAppsinexigirTelegram,no cambiaejecutor/ámbitos/aplicacambiosprevios. Deltaantes320preservado. Prerregistroregresiónafectada3archivos(workers3),PG/Redis/Chromium,native-source/tmp/web-modelos-librdb-v2.4.0,fuentescongeladashastaterminal. No N3/capacidad/globalbeta. ASTaplicaciónysemántica17antesdecongelar.
+
+B00-320 regresión terminal positiva20261023-225133-c5066483:20PASS/0FAIL/0ERROR/0SKIP,PG17/Redis7.4propios,workers3,JUnit158.942s;fuentescongeladas yhashesprerregistroverificados;contenedores/tmpausentes independientemente;TelegramPASS yFINcorrecciones sent. Ledgerverificado247/295,48pendientes/27578970caracteres;6lectores/55salidas/638858caracteres/14cotejos12intervalos,extractosarchivadosmarcados. Productoerasure_finalcorrigeúnicamentepostcondicióntelefónica,regresiónpruebapreservarTelegram/tercero/reintroducciónphoneWA. Doc279 ysemántica370preparados;noaceptaciónglobal,N3/carga,V1nuevas;9/18,B00abierto,goalactivo.
+
+B00-320 terminal PROGRESO:247/295,48pendientesarquitectura/27578970caracteres;cincoverificacionesdocumentalesPASSsent;grafo370/193docs+encabezado17/1114literales/0hashstale/endpoints;651Markdown/4864enlaces/33copias. Correccióntelefónica20PASS/0fallos/0errores/0omitidas ylimpiezaverificada,recibosterminalesyFINsent.9/18,B00abierto,goalíntegroactivo. Siguiente safety3–4 enpartesacotadas,despuésrestantecorpus;noaceptaciónporinventario.
+
+B00-321 iniciado:base247,6lectoresfreshreadonly,safety3–4/619164caracteres leídos,3reparacionesformato/0lectura,extractospersistidosmarcados. Rootverificófronteras/citas,hipótesiscarga antecaducidadproofdurantebloqueo. Prerregistroregresión1casoPG/Redispropios/workers1,solorelojcontrolado,appsinmodificar;backupsydiffpreviospreservados. ASTtestysemántica371antescongelar. NoV1nuevas/carga/globalbeta.
+
+B00-321 reproducciónterminal20261023-230720-abbda4da:1FAIL/0ERROR/0SKIP,HTTP302frente409trascaducidadproofenlecturadeorigen;runnerERRORpreservado,fuentesintactas,contenedoresausentesyTelegramERRORsent. Corregidascomprobacionesprooftrasorigen yúltimobloqueocarga/descarte;3variantescaducidad(relojcontrolado,DB/HTTPreales). Regresiónafectadaprerregistradauploads/photos/snapshotserialization,3workers,congelarfuenteshastaterminal. PrimerASTcon.venvfallópornetworkxausente;corregidointérpreteGraphify,avisosverificados.
+
+B00-321 regresiónpositiva20261023-231118-5cc92188:15PASS/0FAIL/0ERROR/0SKIP,PG17/Redis7.4propios,3workers,JUnit114.358s;3variantescaducidadrelojcontrolado/DBHTTPreales,limpiezayfuentesverificadas/TelegramPASS+FINsent. Ledgerverificado249/295,46pendientes/26959806caracteres;619164caracteres/56salidas/6lectores/3reparacionesformato/0lectura;14cotejos12intervalos,extractosmarcados. Doc280 ysemántica373preparados;noN3/carga/aceptaciónglobal,V1nuevas,9/18,goalactivo.
+
+B00-321 terminal PROGRESO:249/295,46pendientes/26959806caracteres. Correcciónautorizaciónpostbloqueosrectification_uploads verificada15PASS/0FAIL/0ERROR/0SKIP;negativo1FAILrunnerERRORconservado. CincoverificacionesdocumentalesPASSsent;grafo373/194docs+encabezado17/1123literales/0hashstale/endpoints;652Markdown/4874enlaces/33copias. Todasnotificaciones321sent,incluidoASTEXIT1porintérpreteerróneoysuposteriorPASS;FINprincipalsent. Seislectoresterminados/3reparacionesformato/0lectura/0V1nuevas. Goalíntegroactivo,9/18,B00abierto;continuarsafety5–6 yrestocorpus.
+
+B00-322 iniciado:base249,7lectoresfreshreadonly,safety5–7/683050caracteres reportados;0reparacioneslectura/formato,extractosrootpersistenciaenprogreso. Rootfronteras/contraste12archivos32literales. Hipótesis7consultaReportsinrefrescoactortrasbloqueosconfirmadaestática;4variantesrevocaciónprerregistradasPG/Redispropios,1worker,intercaladocontrolado/DBHTTPreales. Appsinmodificar,backups/diffpreviospreservados. ASTtestysemántica374antescongelar. NoV1nuevas/carga/globalbeta.
+
+B00-322 reproducciónterminal20261023-232549-7314c0f1:4FAIL/0ERROR/0SKIP,HTTP200frente403trasrevocaciónpostbloqueo,runnerERRORpreservado,fuentesintactas,contenedoresausentes/TelegramERRORsent. Compartidaautoridadfrescadesdeurgent_alertsennuevoreport_authority,sinrelajarcomprobaciones;inspectantesdescifraryantesderesponder,rollbackauditantedeniemidread.8variantesrevocaciónscope/payload+flujosprivadosyalertasprerregistrados,3workers,fuentescongeladasduranteCI;ASTysemántica375antescongelar. NoV1/N3/carganuevas.
+
+B00-322 primerintentopositivo20261023-233002-ecb281bfERRORenRuffI001ordenimportviews.py;pytestnoejecutado,fuentesintactas,limpiezaverificada/TelegramERRORsent. Corregidosóloordenimport;planprevioarchivadoynuevoSHAprerregistrado. RefrescoASTdirigido+revalidaciónsemántica375/selloantesrepetirselecciónafectada.
+
+B00-322 regresiónpositiva20261023-233146-c4ca9ca1:31PASS/0FAIL/0ERROR/0SKIP,PG17/Redis7.4propios,3workers,JUnit156.029s;8variantesrevocaciónintercaladocontrolado/DBHTTPcriptoreales,limpiezayfuentesverificadas/TelegramPASS+FINsent. Negativo4FAILrunnerERROR e intentoRuffERRORsinpytestconservados. Ledgerverificado252/295,43pendientes/26276756caracteres;683050caracteres/61salidas/7lectores/0reparaciones,17cotejos14intervalos,extractosmarcados. Doc281 ysemántica376preparados;colaReportordinariapaginaciónSQLcandidataB08,noprobadacapacidad. NoN3/carga/aceptaciónglobal,V1nuevas;9/18,goalactivo.
+
+B00-322 terminal PROGRESO:252/295,43pendientes/26276756caracteres;sietecapturas safety condisposicióntextual,noseguridadglobalaceptada. CorrecciónautoridadconsultaReport/alertascompartida31PASS/0FAIL/0ERROR/0SKIP;negativo4FAILrunnerERROR eintentoRuffERRORsinpytestconservados. CincoverificacionesdocumentalesPASSsent;grafo376/195docs+encabezado17/1132literales/0hashstale/endpoints;653Markdown/4887enlaces/33copias. Todosavisos322 yFINprincipalsent.7lectoresterminados/0reparaciones/0V1nuevas. Goalíntegroactivo,9/18,B00abierto. Siguientedocumentacióncontratoscapturas1–2enpartesfreshacotadas;colaordinariaReportpendientepaginaciónSQLB08.
+
+B00-323 integrado documental:254/295,41pendientes/25253857caracteres;1022899caracteres/91salidas/9lectoresfresh/0reparaciones;20cotejos18intervalos/hash295capturas;extractosmarcados. Contraste11docs25literales yexclusiónhistorydelgrafo/encabezado17 verificados. Noappcambios/funcionales/carganuevas,V1nuevas;historiaprocesos/porcentajes/colasnoseejecuta. Doc282 ysemántica377preparados;9/18,B00abierto,goalíntegroactivo.
+
+B00-323 terminal PROGRESO:254/295,41pendientes/25253857caracteres.9lectores/1022899caracteres/91salidas/0reparaciones,extractosseleccionadosmarcados;20cotejos18intervalos/hash295capturas/11docs25literales.6checksPASSsentincluidografoinicial;final377/196docs+encabezado17/1141literales/0hashstale/endpoints;654Markdown/4907enlaces/33copias. Historialdoc17excluidoactualmente/expansiónhistóricafalse,procesos/porcentajesantiguosnoejecutados. FINprincipalsent. Sinappcambios/funcionales/carganuevas/V1nuevas;9/18,B00abierto,goalíntegroactivo. Siguientedocs3–4capturadasenpartesfreshacotadas yrestocorpus.
+
+
+## B00-324 — 2026-10-24
+
+B00-324: 256 de 295 fuentes únicas conciliadas; quedan 39 de arquitectura. Se incorporan documentación y contratos 3–4, con derechos por etapas y precedencia histórica contrastados. Aclaradas tres páginas sin eliminar su texto original; sin cambios de aplicación o nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seis lectores nativos de sólo lectura; 685344 caracteres, seis partes, 61 intervalos; extractos seleccionados, catorce cotejos/doce citas. Once archivos/veinticinco contrastes estáticos. Tres aclaraciones preservan texto original; sin aplicación, funcionales ni carga nuevas. Cero nuevas invocaciones ClaudeV1; consumo anterior conservado, tokens nativos no estimados. Ver documentación283 y auditoría b00-324.
+
+
+## B00-325 — 2026-10-24
+
+B00-325: 258 de 295 fuentes únicas conciliadas; quedan 37 de arquitectura. Se incorporan documentación y contratos 5–6: conservación, restricciones, portabilidad, recuperación y diseños de capacidad. Aclarada la precedencia de CR09 y de la estimación v10, preservando originales. Sin cambios de aplicación o nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seis lectores nativos readonly,651656caracteres/57intervalos/6partes,14cotejos/12citas. Extractos seleccionados, no informes raw completos. Contraste11archivos/25literales; notas reversibles82/86, originales hashverificados. Sin aplicación, funcionales ni cargas nuevas. Cero nuevasV1, consumo histórico conservado; tokens nativos no estimados. Ver doc284 y auditorías b00-325.
+
+
+## B00-326 — 2026-10-24
+
+B00-326: 260 de 295 fuentes únicas conciliadas; quedan 35 de arquitectura. Completada la disposición de las ocho capturas de documentación y contratos. Se incorporan contratos10–12, diagnósticos y diseños MOD08; aclarados dos relevos históricos sin eliminar originales. Sin cambios de aplicación o nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Cuatro lectores nativos readonly,389218chars/34intervalos/4partes,10cotejos/8citas. Extractos seleccionados,no rawreports completos. Contraste11archivos/25literales; dos notas reversibles en relevosMOD07 con originales íntegros hashverificados. Sin aplicación, funcionales o cargas nuevas. Cero nuevasV1, consumo anterior preservado y sin estimación nativa. Ver doc285 y auditorías b00-326.
+
+
+## B00-327 — 2026-10-24
+
+B00-327: 262 de 295 fuentes únicas conciliadas; quedan 33 de arquitectura. Se incorporan pruebas y verificación 1–2: fixtures, diagnósticos, cuentas, derechos, navegador y capacidad. Contrastadas aserciones actuales sin convertir su presencia en resultados. Sin cambios de aplicación o pruebas, defecto nuevo demostrado ni nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seis lectores readonly fresh,648220chars/57intervalos/6partes,14cotejos/12citas. Extractos seleccionados,no fullrawreports. Contraste11archivos/25literales de pruebas/helper/CI,no aplicación. Cero aclaraciones necesarias,no código/test/funcional/carganuevos. Cero nuevasV1, consumo histórico preservado y sin estimación nativa. Ver doc286 y auditorías b00-327.
+
+
+## B00-328 — 2026-10-24
+
+B00-328: 264 de 295 fuentes únicas conciliadas; quedan 31 de arquitectura. Se incorporan pruebas3–4 de reclamaciones, descubrimiento, supresión, medios y portabilidad. Contrastada la adaptación existente de tarifas públicas al perfil romántico y las guardas seleccionadas. Sin cambios de aplicación o pruebas, defecto nuevo demostrado ni nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seis lectores readonly fresh,653431chars/60intervalos/6partes,14cotejos/12citas. Extractos seleccionados,no rawreports completos. Contraste11archivos/25literales y comparación explícita tarifas públicas históricas frente ausencia actual romántica. Rootlookupnombreactualrecuperadoenfrontera/literales;0truncamientos/reparacionesdelegadas. No nuevasclarificaciones/app/tests/funcionales/cargas. Cero nuevasV1, consumo previo conservado/sinestimación nativa. Ver doc287/auditorías b00-328.
+
+
+## B00-329 — 2026-10-24
+
+B00-329: 266 de 295 fuentes únicas conciliadas; quedan 29 de arquitectura. Se incorporan pruebas5–6 de finalidades, promociones, publicación y recuperación. Corregido consumo de excepción con comprobación caducada durante la lectura de fuente: reproducción con un fallo y regresión PostgreSQL de16pruebas aprobadas. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seisfreshreadonly600897chars/54intervalos/6partes,14cotejos/12citas. Extractos seleccionados,no fullrawreports. Contraste11archivos/25literales(10tests+2funcionesproducción). NegativoPG1FAIL20261024-004232-7a934dc1;correctiva16PASS20261024-004510-b17f1e9c,3workers. Auditoría fuentes/JUnit/limpieza/Telegram;errorcotejomayúsculasDockercorregidosinrerunfuncional. ASTdirigido antescadafreeze;semántica383final. Cero nuevasV1,consumo histórico/noestimación nativa. Verdoc288/evidencia freshness/auditoríasb00-329.
+
+
+## B00-330 — 2026-10-24
+
+B00-330: 268 de 295 fuentes únicas conciliadas; quedan 27 de arquitectura. Se incorporan pruebas7–8 de rectificación, orígenes retenidos, denuncias, conservación y copias. Corregida supresión ordinaria con comprobación caducada tras lecturas: dos fallos reproducidos y35pruebas PostgreSQL aprobadas. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seisfreshreadonly645204chars/54intervalos/6partes,14cotejos/12citas.Extractosseleccionados,no fullrawreports.Contraste11files/25literals.NegativoPG2FAIL20261024-005741-2d9f96b6;correctiva35PASS20261024-010117-d4160478,3workers.Audit sources/JUnit/cleanup/TelegramPASS.Verifiercorpus275errorbeforeledgerwrite restored295;correctedPASS,nofunctionalrerun.ASTdirectedbeforeeachfreeze;sem384final.Cero nuevasV1,consumo anterior/sinestimación nativa.Verdoc289/evidenciaerasurefreshness/artifactsb00-330.
+
+
+## B00-331 — 2026-10-24
+
+B00-331: 271 de 295 fuentes únicas conciliadas; quedan 24 de arquitectura. Completada la lectura de las once capturas de pruebas, con portabilidad, objetos, autoridad e interfaz contrastados en fuentes actuales. Sin cambios de aplicación o pruebas, defecto nuevo demostrado ni nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Nueve lectores nuevos readonly;921203caracteres/85intervalos/9partes,21cotejos/18citas;extractos seleccionados,no informes íntegros. Contraste14archivos/30literales;sin cambios app/tests o nueva ejecución. Corpus295 íntegro;ledger271/24. Cero nuevasV1,consumo anterior conservado,sin estimación nativa. Grafo384 previo/sem385 dirigida. Verdoc290 y artifactsb00-331. Error auxiliar de literal worker/pid corregido antes de guardar contraste/ledger;sin repetición funcional.
+
+
+## B00-332 — 2026-10-24
+
+B00-332: 274 de 295 fuentes únicas conciliadas; quedan 21 de arquitectura. Incorporadas interfaz SSR y las dos capturas de herramientas; contrastadas plantillas románticas, límites de representación y preparación operativa actual. Sin cambios de aplicación o pruebas, defecto nuevo demostrado ni nueva aceptación funcional. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+Seisfreshreadonly529075chars/47intervalos/6partes;15cotejos/12citas,3uniones;295capturas íntegras. Contraste15archivos/30literales y base.html capturado76chars frente actual:omisión de captura,no ausencia de aplicación. No cambios app/tests/nueva ejecución. Graph385pre/sem386dirigida;no fullAST/sem/HTML. Cero nuevasV1/8históricas y consumo conservados,sin estimación nativa. Verdoc291/artefactosb00-332.
+
+
+## B00-333 — 2026-10-24
+
+B00-333: 279 de 295 fuentes únicas conciliadas; quedan 16 de arquitectura. Incorporados el catálogo de documentación y cuatro referencias de herramientas; aclarado el inventario tecnológico histórico y contrastada la instalación local de Graphify. Sin cambios de aplicación o pruebas, defecto funcional nuevo demostrado ni nueva aceptación. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+5freshreadonly211121chars/21intervalos/5fuentes;15cotejos/10citas,295integridades;extractos seleccionados,no informes íntegros. Contraste10repo+1externalquerylog/22literales;metadataGraphifyy0.9.74 y lockresuelto distintos de versiones upstream o procesos. Nota de vigencia en tecnologias.md preserva original;no app/tests/nueva ejecución funcional. Graph386prev/sem387dirigida. Cero nuevasV1,8históricas/consumo preservados,sin estimación nativa. Verdoc292/artifactsb00-333.
+
+
+## B00-334 — 2026-10-24
+
+B00-334: 284 de 295 fuentes únicas conciliadas; quedan 11 de arquitectura. Incorporadas referencias de CSS, GitHub Actions, S3, orjson y Celery, con contraste estático de configuración, serialización y objetos. Sin cambios de aplicación o pruebas, defecto funcional nuevo demostrado ni nueva aceptación. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+8freshreadonly590130chars/52intervalos/8partes,5uniones;21cotejos/16citas/295integridades;extractos seleccionados,no transcripciones completas. Contraste14files/28literales,aserciones no resultados. Sin app/tests/nueva ejecución funcional. Graph387prev/sem388dirigida. Cero nuevasV1,8históricas/consumo preservados,sin estimación nativa. Verdoc293/artifactsb00-334.
+
+B00-334 ampliación temática de sem388: ocho conceptos explícitos sobre norma/ejemplos, CI, S3, borrado, canónico, benchmarks y redelivery; cinco citas directas a fuentes actuales. Nuevas fuentes/enlaces motivan refresco semántico y comprobación documental finales; no se repite producto. Artefacto b00-334-thematic-enrichment.json.
+
+
+## B00-335 — 2026-10-24
+
+B00-335: 286 de 295 fuentes únicas conciliadas; quedan nueve capturas históricas del grafo. Completada la disposición de las referencias ECMAScript y Django Settings, distinguiendo navegación, cuerpos preservados y configuración local. Sin cambios de aplicación o pruebas, defecto funcional nuevo demostrado ni nueva aceptación. B00 sigue abierto; nueve de los 18 puntos de beta cerrados y B15 opcional.
+8freshreadonly775218chars/70intervalos/8partes/2fuentes;18cotejos/16citas/295integridades;extractos seleccionados,no informes íntegros. ECMAnav0–328853+clause25page;no fullstandard. Djangoindex150694/nav164782,presupuestos no settings efectivos. ProsehasherrataDjango1 no dañoenpartsfield;extraquotesselect2 yrootliteralquoteerrorbeforewritepreservados. Contraste14files/30literales,sin app/tests/nueva ejecución funcional. Graph388pre/sem389 con temas/citas al código. Cero nuevasV1,8históricas/consumo conservados,sin estimación nativa. Verdoc294/artifactsb00-335.
+
+
+## B00-336 — 2026-10-24
+
+B00-336: 287 de 295 fuentes únicas conciliadas; quedan ocho fragmentos históricos de nodos y relaciones. Incorporado el informe Graphify del11/10 y contrastada la estructura de sus48.401registros, sin acreditar aún su lectura semántica. Cuatro fragmentos no son JSON estricto por controles dentro de cadenas; originales preservados. Sin cambios funcionales ni nueva aceptación. B00 sigue abierto; nueve de18puntos beta cerrados y B15 opcional.
+Un lector readonly,95499chars/8intervalos/2citas;extracto seleccionado,originaltask errata de hash en ejemplo anotada sin reparar informe. Estructura de8fuentes/48401registros verificada sin crédito semántico;4JSON no estrictos/442campos/202registros con controles. Proyección reversible deatributos4406180bytes con mapas, nolectura ni importación al grafoactual. Contraste9files19literales;nota19reversible. Sem390temas/citas actuales,ASTretenido. Sin nuevasV1,8históricas/consumo preservados ni tokens nativos estimados. Sin app/tests/nueva ejecución funcional;B00abierto. Verdoc295/artifactsb00-336.
+
+
+## B00-337 — 2026-10-24
+
+B00-337: 289 de295fuentes únicas conciliadas; quedan seis capturas históricas del grafo. Revisados14.000registros de relaciones mediante vistas contextuales reversibles y corregida una colisión AST que unía48clases Meta en un nodo. Sin cambios de aplicación ni nueva aceptación funcional. B00 sigue abierto; nueve de18puntos beta cerrados y B15 opcional.
+Revisióncontextualestructurada2fuentes14000registros/700393charsvistas62intervalos/14citas;7freshreaders+1methodreview,3supplements. Original_literal_capture_fully_read=false,nohash-onlycredit. Reconstructionstrict allattrs/keys/types/envelope/membergroups independentlychecked;2initialincompletes+2supprecoverydeclared/2aggregateviewrecoveries retained. Twoauxstreambytesnotindependentlyrecreated. Currentcontrast9files18literals;48Metaqualifiedonefile(+47nodes/+47edges),othergraphrecordsunchanged;initialguardEXIT1beforewrites correctedsourcechildline,PASSaffected;sealregressionguard. Sem391themes/currentcodecitations,fullASTfalse. Ledger289/295SHA3abd1e935e23c7035e30c38d933968e2d1b72e3fa2fc9ee5ebc78fe1c845df78,6pending13233415chars.8historicalV1consumopreserved/0new,nativetokensunknown;noapp/testchanges/newfunctionalruns/globalacceptance.
+
+
+## B00-338 — 2026-10-24
+
+B00-338: 293 de295fuentes únicas conciliadas; quedan dos capturas históricas de nodos. Completada la revisión estructurada de las seis capturas de relaciones y corregidos once destinos de referencias AST del grafo actual, incluidas seis falsas autorrelaciones de herencia. Sin cambios de aplicación ni nueva aceptación funcional. B00 sigue abierto; nueve de18puntos beta cerrados y B15 opcional.
+26freshreadonly+2defaultsupplements:25230records/2432356viewchars215intervals52cites;allattrs/types/layouts/membershipsenvelopes independentlychecked,2malformedcontrols preserved,original_literal_capture_fully_read=false. Sourceledger293/295SHAbb82c74de6c1936cabf566657ce303a537c882c1fa7dc84d647a574604ede366,2nodespending3738548chars. Originalincomplete2defaultouter10000acceptedbudgetequiv;3auxoversizenotstandalonecredit,1wronginitialvenv,1unassignedmaptruncationnocredit,preservednotes. Currentcontrast10files21literals;4decoratortargets+7basesqualified(+11nodes/11retargets/6selfinheritremoved),unrelatedgraphunchanged,48Metapreserved,persistentsealguards,noglobalupstreampatch/runtimeMRO. Sem39212themes/currentcodecites,noapp/testchanges/newfunctionaltests. Unprovenpostlockpredecryptcoverageauthorityhypothesis recordedinternallywithexistingexitguards;reproductionrequiredbeforebugclaim.8historicalV1consumopreserved/0new,nativetokensunknown;no externalactions.
+
+
+## B00-339 — 2026-10-24
+
+B00-339: 295 de295fuentes capturadas con disposición verificada; sin lecturas pendientes en ese inventario. Revisados9.171nodos históricos y corregidas28clases Meta que compartían siete nodos del grafo actual. Sin cambios de aplicación ni nueva aceptación funcional. B00 sigue abierto para conciliación final de requisitos; nueve de18puntos beta cerrados y B15 opcional.
+Treslectores nativos/24asignaciones,9171records/1631354viewchars145intervals48cites3437groups2439singletons;440controlfields200records preserved; full-original-literal-reading=false. Todas295integridades y2uniones sin huecos;24extractos seleccionados,no informes íntegros.1auxoversizenotstandalone,first2groupformatsverified,preliminary92viewsnotreadingcredit;exploratoryNonecensusfailedbeforemutation then1346pathscensuscomplete.28Meta/7files qualified(+21nodes/+21edges),unrelatedgraphidentical,48priorMeta+4decorators+7bases retained;sealguards,noupstreampatch. Sem393/HTMLactualizado con alcance explícito; noapp/testsourcechanges/newfunctionaltests. Ledger295SHA4bcf6d33e29b899e7ac07d28f03e87d6fc884aa2e354320bdf25dc794abc0cd9,0capturedpending;whole_corpus_reviewedfalse/B00false.5B00obligations derived;ADmatrixfinal/coverageauthorityhypothesis/externallimits remain.0newV1/8historicalconsumopreserved,nativetokensunknown.
+
+
+## B00-340 — prerregistro 2026-10-24
+
+B00-340: prerregistrada reproducción de autoridad de revisión de cobertura tras bloqueo PostgreSQL. Cinco casos: control válido y revocación de permiso, sesión, MFA o cuenta activa. Hipótesis no confirmada; aplicación sin corregir y B00 abierto.
+Roottestwriter own tests/test_rights_access_coverage_authority_races.py; aplicación sin corregir. Unlector nativo read-only matrizAD01–11, sin nuevaV1 ni estimaciones;8históricas conservadas. Cinco casosPGcon1worker; noobjetivopausado ni nuevascargas.
+
+B00-340 negativo real20261024-042112-f97c14c6:1PASS4FAIL0ERROR0SKIP,controlvalid/blocksobserved,deniedreturn/rollbackbutcoveragebodydecrypted4variants;runnerERRORpreserved,cleanupsourcesTelegramverified. Patch2lines(contextfreshactorpostlock). Regression25cases4selectors3workers1200s,noncapacity,ownPG/Redis/native/browser.
+
+B00-340 regresión20261024-042842-acce5865:25PASS0FAIL0ERROR0SKIP,3workers,fuentes/hash/JUnit/cleanupactual/Telegramverified;negativo1PASS4FAILconservado. AD01–11rootreconciled;7pathidentitybridge5manifests26B13JUnitcasesverified,notcurrentN3. Native1matrix+1supplement+1formatcorrection(STATUS/objectnotesfixed,no newreading),selectedextractsnotrawreports,0newV1/8historicalconsumopreserved. Cierrepropuestoacta17pendingfinalgraph/docs/perrequirementaudit; diez/18cuandoverificado. Sourceguardpostlockonlyapplicationpatch+one newtest,otherpreexistingworkpreserved.
+
+B00-340 efectivo:finalauditPASS5requirements/11ADrows/295dispositions,acta17B00acceptedlocal;ledgerSHA18a52b1180230daa950f0de2877df5818aa916c657e33df986c4fa769a557a59,whole_corpus_reviewedfalse(original/remotegapsretained). Sem396graphSHA86effdacb238026868f368893a5027e70fd84d34b056863a52a07ebae3171a6a,14001nodes60213relations1746sources215docs1312quotes,76Meta4decorators7basesretained,HTML542communities3293pairsverified. Docs673MD5245links33copiesPASS,1499productprefixfilesmatchN2manifest(not1499tests),gitdiffcheckPASS. Ten/18closed,nextB08–B11,7mandatory+optionalB15remain;fullgoalactive.0newV1,8historicalconsumopreserved. AllCI/readers terminal,Telegramreceiptsconfirmed.
+
+
+B08-341: actualroutealreadyoptimized; noapprewrite. Newtests/test_promotion_inherited_full_parity.py reusesfrozenoracle with32HTTPrequests/12variantsinsideactualRC,beforeafterisolationassertions. Firstinstrumentincludedfixturetransaction;interruptedrun20261024-050202-1eae46ccERROR,9completedcalls(notbatterypass),cleanup/sourcefreeze/Telegramverified. Correctedrequestonlytransactionrun20261024-050815-461b26b4:10PASS/0FAIL/0ERROR/0SKIP,286.126sJUnit/3workers,1711sources/cleanupactual/PIDidentity/Telegramverified.4contractualartifacts+4currentcoresourcehashesand14costartifactsverified,reuselimitsretained. B08notaccepted;nextactualnaturalfallbackmultipagewithpromotions,real1000thresholdandexplicitderivedstatecorruptionguard. B15userdirectionretained,PGrecommendationnotuserdecision.0newV1,8historicalconsumopreserved;goalactive.
+
+
+B08-342 preregistro:tests/test_promotion_natural_fallback.py seis casos ESEN x dirty1001/unknown49/staleguard, 60perfiles/7Top, IDs/orden/count/labels/todas páginas listado+búsqueda, constantes48/1000reales. Huérfanos y missinginvalidation explícitamente sintéticos, no bugs/triggersdemostrados. Unarchivo/unworkerporloadfile,1200s,PGRedis propios. No repetir diez341ni carga contractual; fuentesappintactas. B08pendiente,10/18.0nuevasV1.
+
+
+B08-342: run20261024-051609-ed913bdc 6PASS0FAIL0ERROR0SKIP/124.897sJUnit/36pages/1712sources;12dirty1001+12unknown49+4guardfallback+8statepages,real48/1000,syntheticorphan/missinginvalidationscoped. Actualcleanup/PID/Telegramverified. Two currentregressions match629productfiles,16casescombinedevidencesnotjointfullregression.14historicalcostartifacts/3filterartifacts/4contractualartifactsverified;621oldproductpathsidentical/7safetydifferences/1addedreportauthorityexplicit. RootacceptsB08acta18/matrix303/sixliteralrequirements;11/18closed,6mandatory+optionalB15remain. Noappchange/currentcapacityclaim;B16jointcandidatepending. NextB09costmeasurementfirst.0newV1,8historicalpreserved/fullgoalactive.
+
+
+B08-342finalaccepted:6requirements/16currentcases/629productidentity/21historicalartifacts,graph401b1c32004862fd604a0873439aa869de78e55e5dc9cb726925f675c2d43a0f3ea/14038nodes60289edges,HTML544communities3306pairsverified/docs6775264links33copiesPASS.11/18closed,nextB09. TelegramFINsent;goalactive.
+
+B09-343 starts: currentqueue reportagency+membershipperrowhypothesis, images1600WebPsharedlistingdetailunmeasured. Newtest_report_queue_read_cost2cases10/100SQLcounts/HTTPnativepermittedorder+privacy,PGrequired;fixtureandoracleoutsidecapture,noactualsubmissionproof.1worker600s,datasetagencyreports,notcapacity/noappchange.0newV1.
+
+
+B09-343actualbaseline20261024-053209-77dfeca3:2PASS0FAIL0ERROR0SKIP/51.559sJUnit,1713sources/currentPGRediscleanupPIDs/tmp/Telegramverified.10/100agencyreports=>30/210SQL,10/100agencyreadsand10/100membershipreads;N+1provenforfixture. Times0.598/0.344singlecold/warmuncontrollednotlatencyscaling/causalclaim. NativepermittedorderedIDs/privacyintact;noappchange. DurablebaselineJSON+doc304;nextSQLselectionparityallCOIbeforefix, preserveanyvsactivemembershipdistinction, no prelimit. B09images/assets/backlogremaining. B08accepted11/18;goalactive,0newV1.
+
+
+B09-343finalverified:currentproduct629sameB08/testidentity/CIartifacthashes/JUnitproperties/graph403ba5c67792dcc11ed494f20bb166434ca7cedec313530cf5b3d923d93a8226a03,14053nodes60322edges/545HTMLcommunities3314pairs/0stale.22notificationreceiptsconfirmedbeforefinalFIN. Docs6785267links33copiesPASS/diffPASS. B09open;11/18closed,fullgoalactive. NextCOIparity+SQLN+1fix,imagesassets/backlogstillrequired. NoactiveCI/processes,0newV1.
+
+
+B09-344 preregister:7newnativeCOIparitycasesbeforeappchange,6rolesxESENxrestrictionlevels/45reportshapes+nextrequestmembership/owner6phases.1worker1200s PGRedis; no app change yet; beforeviews snapshot+permitted/inspect ASTsha preserved. Nextcandidate SQLExistsNULL-safewithoutprelimit/projectionqueuefields, onlyqueue/import+newhelper; privateauthorityunchanged. Cost343sameinstrumentfuturecompare, no causal timings.0newV1/fullgoalactive11/18.
+
+
+B09-344baseline054506-67458735:7PASS0FAIL0ERROR0SKIP87.568sJUnit/1714sources,24role/language/restrictioncomparisons+6nextrequestphases;PGRedis/freeze/cleanup/PID/Telegramverified. Applyonlyqueue+import inviews andnewreport_queue helper SQLscope/projection. AllothermoduleASTidentical/permittedinspectunchanged. Regression18cases4selectors3workers1200s:parity7/cost2/originalqueue1/privateauthority8. Noindex/newcache/prelimit,noB09acceptance.0newV1.
+
+
+B09-344corrected055055-56ead958:18PASS0FAIL0ERROR0SKIP235.355sJUnit/94.71spytest3workers,1715sources/PGRedisnative/cleanupPID/tmp/Telegramverified. Costsameinstrument343SHA:30/210=>10/10SQL,0directAgency/Memberreads;24rolecomparisons+6authorityphasesunchangedbeforeafter;private8passed.630currentproduct:628unchangedoldpaths/viewsqueueonlychanged/newreport_queuehelper;entireothermoduleASTsame. NoO1CPU/memory/timeorcapacityclaim,workersdiffer. Durableb09-queue{baseline-audit,corrected-audit,comparison}-20261024.json/docs305;rollbackminimalhunkdefinednotexecuted. B09openimagesassets/backlog11/18;fullgoalactive,0newV1.
+
+
+B09-344finalPASS_SCOPED_QUEUE_OPTIMIZATION:7before/18after,630currentproduct/628preserved/onlyqueueimportchange+newhelper;admissionguards/allothermoduleASTpreserved/10SQLbothsizes/instrumentidentical. Graph40649f5dc9b9eb322b2bd5d22ab58a02f7dd1f4fda7147b8347beb2804a52d64bd3,14080nodes60385edges,546HTMLcommunities3322pairsverified,0stale/14stepreceiptsbeforeFIN. Docs6795274links33copiesPASS/diffPASS. B09open11/18,nextimages/assets/backlogreconcile. No currentCI/agents,fullgoalactive.0newV1.
+
+
+B09-345preregister:currentcardsalreadylazy/galleryeager,2newbrowserdiagnosticcasesmobile390x844/desktop1280x800xESEN,8syntheticapproveddisplayphotos/80linebio<6000,actualfilesHTTP/PG/Chromium. No upload/similarity/providerworkflowcredit. SameURLs/order/bodySHA/dimensions/all8afterscroll/firsteager/no-store/paused404withconditionals; decodedentitybytesandCSSJSdata,notwirecapacity/LCP. Beforeappchange2cases1worker1200s;futurecandidateafterfirstlazyiffbaselineconfirms,requiremobileinitialrequestsdrop/desktopnoincrease/all8sameonview;no posthocfixturetuning. Beforetemplatearchived;0appchange/0newV1/goalactive11of18.
+
+
+B09-345first062444-daa216caERROR2FAIL/0PASS:SynchronousOnlyOperationbeforebrowsernavigation,notappfault/noperfbaseline. Originaltest/preregarchived,sourcefreeze/actualcleanup/Telegramverified. FixharnessORMstatustransitionsinsyncwriterthreadwithownPGconnection/closeall;Client/urlsbeforePlaywright,noasyncunsafeoverride. Fixture/criteriaidentical,2baselinecasesrepreregistered.0appchange.
+
+
+B09-345validbaseline063628-a3c582f1:2PASS0FAIL0ERROR0SKIP73.247sJUnit1716sources,all4viewport/localecombinationsinitial8photos135824entitybytes;all8afterscroll/paused404/static200verified;PGfilesHTTPChromiumreal/cleanupPIDs/tmp/Telegramverified. Applyoneconditionalattrloadinglazyafterfirstphotoonlyinpublic_detail.html. Noimage/backend/storage/CSSJSchange. Regression3cases2selectors2workers1200s,newdiagnostic2(samesourcevalidbaseline)+existingmobilebrowserjourney1. Precriteriaunchanged/no fixturetuning/0newV1/goalactive11of18.
+
+
+B09-345corrected064310-28e0f5bb:3PASS0FAIL0ERROR0SKIP123.754sJUnit1716sources2workers/PGfilesHTTPChromium/cleanupPID/tmp/Telegramverified. All4viewportlocaleinitial8photos135824bytes=>1photo11110bytes;all8afterscroll135824bytes/samebodySHA/dimensions/order/assets/paused404. Exactly1conditionalHTMLattrchange,629otherproductunchanged. Validbaseline2PASS73.247soriginaltemplate retained;initial2FAILinstrumentasyncguardarchived(correctedworker,notappfault). Staticinventory7files69312bytes includesunused-on-detailHTMX52k;actualdetail2assets13374bytesidentity. No latency/LCP/Internet/qualityloss/storage/newvariantclaim. Nextbacklog/fallback currentobservation+requirementreconciliationbeforeB09accept.11of18goalactive0newV1.
+
+
+B09-346preregister:close-reading-delivery evidenceafter305/306;newintegratedrealHTTPstate/fallback1001orphanmarksactual1000->realemitted2events->window0.5observedunknownhealth+readOnlydurablesnapshot1001/age/noqueuechange.3cases3files2workers600s(integrated+snapshotprivacynotices+windowunknown/malformed). CurrentpubpaginationchangedafteroldB12HTTPwitness; targetedcurrentintegrationgapjustifies3cases,nofullB12/capacityrerun. No app change, no transportdurability/worker/domaintriggerworkflowcredit.11of18goalactive0newV1.
+
+
+B09-346070525-bd417543:3PASS0FAIL0ERROR0SKIP86.196sJUnit1717sources2workers,actualHTTP2/1fallback/observed0.5,dirty1001age240.204317/readonly/noqueuemutation/unknownhealth-unverifiedcoverage. Privacy/unknownwindowcontrolsPASS,PGRedis/current630productmatchesgalleryCI/cleanupPID/tmp/Telegramverified. RootacceptsB09acta19/matrix307sixliteralrequirements,24distinctpostwitnesses18+3+3acrosscutsNOTjoint24;before7andfailedgalleryinstrumentretained.12/18closed,5mandatory+optionalB15remain,nextB10provisionalMOD09extremeswithoutunjustifiedFAISS. Budgetsunchanged,no newcapacity/O1memory/CPU/latencycausalclaim.0newV1/8historicalpreserved/fullgoalactive.
+
+
+B09-346effectivefinalacceptancePASS:sixrequirements/24distinctpostwitnessesacross18+3+3NOTjoint/current630product/relativeprivateandgalleryproofs. Graph41264797c1dd04a7b3c7922babc3c66f6b027b366def7facd89b37041bbed571f0a/14121nodes60483relations/549HTMLcommunities3344pairsverified/0stale. Docs6825293links33copiesPASS/diffPASS/26stepreceiptsbeforeFIN.12of18closedB00–B09+B12–B13;5mandatory+optionalB15remain,nextB10MOD09provisional. Fullobjectiveactive,nopublication/prodclaim/noactiveownCI.0newClaudeV1/8historicalconsumopreserved.
+
+
+B10-347 starts:contractMOD09provisionalc92/1500rev16MiBJSON64MiBoriginals2cases/8CPU8GiB preserved rawFAIL,notcurrentwholeperf. Historicalmanifesthashcanonicalsortedmapvalidated(notrawfilehash),selector213949proof10002photos5blobs4returns/same6bodyhashes/testsourcecurrent. fastcanonical/loader/similaritybyteidentityold;rights_exports/serviceschanged,notwholeidentity. Newexplicitdiagnostics distinct10/100Blob actualdetector/currentcanonical100/1500structurednear16MiB;realfilesPGRedis,OpenCV1/pytest1,safety128MiBfiles/processRSS1GiB/1200s,notstackquotas/capacity/p95/adoption. 20cases(2+2+16currentgoldens),noappchange/noindex. B10open12/18,0newV1/goalactive.
+
+B10-347 terminal: first075831-a8a7b146 ERROR2FAIL18PASS/Celerynamespaceinstrument,retained;corrected080216-d5c5b51820PASS109.166sJUnit1719sources1worker/637productstaticunchangedB09/PGRedis/tmpPIDcleanupTelegramverified. Detector10/100distinctcompare10/100,confirm5/5,SQL74/74,wall0.880409/1.026719s;canonical1500rows16446835bytes0.048303s/66003931Pythonpeak. Singlewarmedcalls/notp95/notcapacity/notindexadoption/notfullMOD09. B10open12of18,remainingfull-exportattribution/extremecorpusjustification/stage3reconciliation.0newClaudeV1/8historicalpreserved/fullgoalactive.
+
+B10-348 prereg:realclosedflow10/100history5400chars,wholepageintake/nativebatch/generation/finalapproval/closure/replay/manifestWebPZIP,simulatedidentityprovenanceonly,mostlyexcludedhistoryNOT16MiBtransport. Sourcecopy/canonical/sealunsealJSON/imagecontentsaliasesdelegate;inclusivewallthreadCPU/SQLnotadditive. 2diagnostic+4existingapprovalrejectionprofileaccountcontrols/1worker/PGRedis/timeout1200/processRSS1GiB/notcapacitynotMOD09. Nocodeappchange.12/18B10open/fullgoalactive/0newV1.
+
+B10-348 terminal:first081145-a940c7e2sixPASS177.830sJUnit,butimage_contentsgeneratorcreationonlyprobeinvalidforiteration;retained. Corrected081739-bc754999sixPASS184.852sJUnit1720sources637productstaticunchanged/PGRedis1worker/tmpPIDcleanupTelegramverified. actual_read_image_blob42/132calls0.007510/0.024985s;100historyflow51.887883s18110SQL,coverage111pages31.458253s11766SQL=106/page,sourcecopy79/1245/4.735481s;canonicalstring4411/0.311020snotallcanonicalbytes. CommoncallSQLcountsandtotalSQLsameacrosscuts/noappchange/nocausalimprovement. SmallWebP10516ZIP10696notMOD09extreme. B10open12/18,nextcoveragequerycomposition/extremecorpusjustification/stage3debtconciliation.0newV1/8historicalpreserved/fullgoalactive.
+
+B10-349 prereg:existingflowdiagnostic100historyonly,1case/PGRedis1worker/timeout1200/processRSS1GiB. AddsSQLclassificationonlycoverageintake:staticoperation/modeltables/callerfirstsafetyframe,counts/noSQLparamscontentorIDs,preserveoriginalexecute. CountsreconcilecoverageSQL,noperfcomparisonbecauseprofileroverhead. Four348closurecontrolspreviousNOTnewrun. Noappchange/12of18B10open/fullgoalactive/0newV1.
+
+B10-349 terminal082841-bba147e0onePASS97.753sJUnit1720sources637productstaticunchanged/PGRedis1worker/cleanupPIDtmpDockerTelegramverified.111pages11766SQL=92SELECT+4INSERT+5SAVEPOINT5RELEASEperpage;total18110same348. permits20+agencyconflict14=34SELECT/page,authorize5+permissiongen10=15;nearestsafetycallerincludesnestedcorecalls,notliteralbodyonly. AgencyconflictalreadyonefreshEXISTS/statement;nostalecacheadopted/noguardremoved/noappchange/noperfcausalclaim. B10open12/18;nextjustifyextremesimilarityandstage3debtconciliation.0newV1/8historicalpreserved/fullgoalactive.
+
+B11-350 prereg:4copyformsclassesfromrightsexports66appconsumers->rights_copy_forms,legacyreexportAPIkept/no66consumermigration/noappdomainlogicchange. ASTclassandnonimportotherstmtparitybeforeafter,12sameexistinglocalization/labels/JSON/save/replaytests2workersPGRedis/timeout1200;noCPUspeedclaim. Snapshotbaselinekept,12of18B10debtopen/B11open/fullgoalactive/0newV1.
+
+B11-350 terminal:baseline083917-bb075a5d12PASS173.912sJUnit1720sources/candidate084341-46d1f45712PASS177.655sJUnit1721sources/sameselection2workersPGRedis/cleanupPIDtmpDockerTelegramverified. Productonlyrightsexports+newrights_copy_forms,4classesASTidentical/allothernonimportstmtsidentical/legacyaliasesexplicit/depsforms+caption. Counts corrected66importstatements59uniquemodulesnot66modules. RuffinitialimportorderFAILfixedretained. RootacceptsB11localacta20/notallmaintenance/noCPUimprovement/nojointB16resourcesclaim.13of18B00–B09+B11–B13closed,remainingB10+B14–B17(B15optional),fullgoalactive/0newV1/8historicalpreserved.
+
+B14-351 starts:157alreadyfutureports/norealprovider. FoundphonestartonlyPRODUCTIONgatevsconfirmalsoVERIFICATION_PROVIDERsimulatorgate;maycreate/invalidatechallengeandsendsyntheticmailunderunsupporteddevprovider. New6GETPOST×future/empty/trailingspacecasesseedvalidchallenge,expect503nofurthersideeffects;PG/locmemexplicit/1worker/1200s. ReproductionBEFOREfix,13of18B14open/fullgoalactive/0newV1.
+
+B14-351 terminal:first085456-ae24d24e6FAILinstrumentbootstrapUndefinedTable/noappguardreached,retained. Explicitdjango_dbmarkfix;valid085745-6f0ef8c9sixFAIL49.403sJUnit/1722sources/GET200POST302extraChallengeoldusedmail+1. AuditfirstassumedJUnitfailure.type,correctedmessageformatXMLunchanged;failedauditreceiptsretained. AppONLYphonestartifPRODUCTIONorprovider!=simulator. Corrected090124-aaa54693twelvePASS58.779sJUnit1722sources/1workerPG/locmem/cleanupPIDtmpDockerTelegram,exactonesubstitutionreconstructssource,testunchangedaftervalidnegative. Badgespredicateinventorynotexternalattestation/noadapter/providerschosen/noauthnewoutbound. B14open13of18/fullgoalactive/0newV1/8historicalpreserved.
+
+B16-352 starts:readcurrentB16literal/deltaactual638productpaths;since195459-bacfc54916added20modified,old7FAIL/122SKIP+126correctionnotcurrentcandidate. Latest090124twelvePASSproductidentity638butnarrow. Preparecollectiononlyalltests/nodeidsmarkersfixtures/staticruntimeSkipcalls/longscope;nohoursbatterybyplanning/noSKIPasPASS. B10debt/B14providerselectionpending/B15optional/B17realremain;13of18/fullgoalactive/0newV1.
+
+B16-352 prepterminal:firstcollectexit4missingpinnedRustFS/4146partialitems/sessioncollected0/noexecutedtests,retained. Pinned1803faefrestoredIDf6b228.../63GiBfreebeforepull/noappchange/noS3testclaim. Correctedcollectexit0/4146nodeids677files/0collectskiperror/0runtestreports. Plan3829functional306capacity11officialexcluded/longclosed1500NOTexcluded,77files83skipcalls68heuristicexplicitguardsNOTactualSKIP.11ADrowsproposedmapping+18roadmappointstatuses/178migrationSHA/6versioninputs,notcoverageprooforfreeze. Current638productidentity090124/old19545916added20modified,notoldjointPASS. B16open13of18/fullgoalactive/nohoursbatterybyplan/0newV1/8historicalpreserved.
+
+B16-353 prereg actualcommonfunctional3829exactnodehashda61a38e...4workers/snapshots/brokerisolated/durationhistory567files48unweightednotremoved/timeout21600;fullclosed1500included/306capacity+11officialexcludedseparate. CurrentOpenAIofficialAppServergoalsetomitobjectivepreservesusage/compactstart;readRPCsamegoalcreated1792460924/statusactiveconfirmed. Helperspersistentmain/watcher/resumer/idlecompact,priorconfirmedTG+PIDstartticks+sourceguardbeforeauthorizedgoalpause,autoresumeonlysameobjectivecreated/statuspaused,noanothergoal/nopollmodel. 0newV1/8historical/fullscope13of18;B14userconfirmsNONEselected,notexternalintegrationapproval. AllbookkeepingBEFOREfreeze;doNOTedittrackedsourceafterlaunch.
+
+B16-353 ready:staticlaunchproofPASS/currentproduct+testsscriptsidentity090124/nativecommitsclean/imagesactualpostgres17-alpine+redis7.4-alpine+RustFSdigest/cc/disk>8GiB/RPCsamegoalcreationconfirmed. Firststaticcheckexpectedwrongnonalpinetagsfailed(retained),fixedpreflightonly/noimagesruntimechanged. Expected3829setSHAda61a38e2a4b1152dc10630a491d289ef10cae2e99fcd69628bae0045bc0f210/orderonlyproof/4workers/21600s. StaticdocsgraphdiffTGconfirmed. Followinglaunchfreezesall1722sourcesincluding.ai;NOeditsuntilterminal. GoalpauseafterpersistentPIDandprepauseTGconfirmed,compactonpausedidle,autoresumesamecreated1792460924objectiveomittedpreserveusage,cancelmarker_supported. Userno providerschosenexplicitnotintegrationapproval.13of18/fullgoalpending/0newV1/8historicalconsumptionpreserved.

@@ -1,12 +1,14 @@
 # Marco legal y plan de cumplimiento
 
-Actualizado: 2026-10-03. Estado: análisis preliminar, no dictamen jurídico ni acreditación de cumplimiento.
+Alcance actualizado: 2026-10-23, según el [contrato funcional vigente](14-contrato-funcional-v1.md) y el [roadmap beta](103-roadmap-beta-clasificados-20261020.md). Las referencias jurídicas conservan carácter preliminar: esta adaptación del producto no es una revisión de vigencia normativa, un dictamen o una acreditación de cumplimiento.
 
 ## Alcance y cuestiones determinantes
 
-Confirmado: plataforma de anuncios de modelos y acompañantes con cuentas, fotos, tarifas y contactos. Pendiente: significado y categorías de acompañamiento, contenido explícito, establecimiento del operador, países destinatarios, agencias, pagos y contratación entre usuarios.
+Confirmado: portal nacional de clasificados de perfiles de personas adultas que buscan citas románticas, con fotos, contacto externo, renovación y promociones de visibilidad. El panel particular se centra en completar y mantener un perfil. Se conserva la representación autorizada por agencias y sus controles conforme al contrato. No hay anuncios de encuentros sexuales, catálogo profesional ni tarifas por servicios. El lanzamiento funcional es gratuito, sin cobros activos.
 
-No equiparar modelaje, acompañamiento social y publicidad de servicios sexuales. La admisibilidad de cada actividad y su publicidad debe evaluarse por territorio y por funcionamiento real. Un aviso de mayores de edad o una cláusula de exención no convierte en lícita una actividad ni elimina la responsabilidad del operador.
+El contrato fija España y la interfaz ES–EN. Siguen pendientes para producción la identidad y el establecimiento del operador, las condiciones efectivas de proveedores y la evaluación jurídica del funcionamiento real. Las recomendaciones físicas B15 siguen siendo opcionales; no se decide aquí su catálogo, base jurídica o almacenamiento.
+
+La admisibilidad y las obligaciones deben evaluarse por funcionamiento real y territorio. Presentar el servicio como clasificados románticos no constituye por sí solo una exención. La declaración de mayoría de edad, los términos y las decisiones de cookies y personalización tienen finalidades distintas; no sustituyen las comprobaciones y fundamentos que correspondan.
 
 La siguiente matriz sirve para preparar producto y revisión jurídica. Las normas, sus versiones consolidadas, jurisprudencia y disposiciones territoriales deberán revisarse antes de lanzar y cuando cambie el servicio.
 
@@ -29,13 +31,13 @@ No dar por aplicables automáticamente todas las obligaciones de un mercado con 
 
 ## LEG-001 — Legalidad del servicio y contenido
 
-Preparar categorías permitidas, prohibiciones y países de publicación. Analizar especialmente publicación por agencias o terceros, lucro y participación del operador, anuncios de servicios sexuales y cambios en legislación territorial. La documentación actual no concluye que esos anuncios sean admisibles.
+Aplicar el catálogo de perfiles para citas románticas y las prohibiciones ya fijadas en el contrato. Revisar publicación por terceros, participación del operador, promociones y contenido efectivo en el ámbito nacional acordado. Los anuncios de encuentros sexuales quedan excluidos por el alcance del producto; no permanecen como una categoría pendiente de habilitar. Mantener la evaluación jurídica de admisibilidad y responsabilidades antes de producción.
 
 Propuesta de política: excluir menores y personas representadas menores, explotación, trata, coacción, suplantación y material sin autorización. Definir cómo detectar, revisar y responder a indicios, sin convertir las denuncias en acusaciones públicas.
 
-Resultado necesario: revisión jurídica del modelo y política de contenido utilizable por moderación, incluyendo límites sobre contenido explícito.
+Resultado necesario: revisión jurídica del modelo vigente y política de contenido utilizable por moderación, coherente con perfiles románticos, exclusión de encuentros sexuales y controles de publicación.
 
-Revisión adicional del 2026-10-03: la [Ley General de Publicidad](https://www.boe.es/buscar/act.php?id=BOE-A-1988-26156) incluye en el art. 3 publicidad que promueva la prostitución. El contrato v1 limita lanzamiento a modelaje, acompañamiento social y masajes no sexuales con contenido no explícito. No presumir que excluir desnudos o usar eufemismos hace admisible una oferta sexual remunerada. Validar actividad real, anuncios y política antes de producción.
+Antecedente del 2026-10-03: el catálogo profesional de aquella versión ha sido sustituido por el contrato beta. Su texto se conserva en el apartado histórico final y no define categorías vigentes.
 
 ## LEG-002 — RGPD y LOPDGDD
 
@@ -49,9 +51,9 @@ No establecer ahora plazos universales de borrado: diferenciar cuenta, anuncio, 
 
 ## LEG-003 — Edad, identidad y autorización
 
-Propuesta de producto: participantes y personas representadas exclusivamente adultas. Separar mayoría de edad, control de cuenta, identidad y autorización para publicar: son comprobaciones distintas.
+Requisito del contrato: participantes y personas representadas exclusivamente adultas. Separar mayoría de edad, control de cuenta, identidad y autorización para publicar: son comprobaciones distintas.
 
-Comparar verificadores por eficacia, proporcionalidad, datos retenidos, seguridad y contratos. Evitar conservar documentos completos o biometría sin necesidad y análisis específico. El acceso de visitantes a contenido adulto requiere evaluación propia; verificar anunciantes no resuelve ese acceso.
+Comparar verificadores por eficacia, proporcionalidad, datos retenidos, seguridad y contratos. Evitar conservar documentos completos o biometría sin necesidad y análisis específico. El acceso de visitantes y sus comprobaciones de edad requieren evaluación propia según el contenido real y el diseño del servicio; verificar anunciantes no resuelve ese acceso.
 
 En publicación por terceros, acreditar autoridad y autorización de cada persona representada, con mecanismos de retirada. El titular de una cuenta puede no ser titular de los derechos de imagen o de autor.
 
@@ -81,7 +83,7 @@ Revisar marcas de agua, reutilización en marketing, miniaturas y distribución 
 
 ## LEG-007 — Cobros y consumidores
 
-Si se monetizan publicaciones, destacados o suscripciones, definir quién contrata y si actúa como consumidor o profesional. Preparar precios totales, impuestos, duración, renovación, cancelación, facturación, soporte y reclamaciones. Analizar desistimiento y condiciones de sus excepciones; no asumir pérdida del derecho por marcar una casilla.
+El lanzamiento vigente es gratuito y sólo prepara promociones de visibilidad, sin cobros reales. Para una activación comercial posterior, definir quién contrata y si actúa como consumidor o profesional; concretar precios, impuestos, duración, renovación, cancelación, facturación, soporte y reclamaciones. Esa preparación no incorpora suscripciones por su mera mención histórica. Analizar desistimiento y condiciones aplicables sin asumir pérdida del derecho por marcar una casilla.
 
 Separar cobros de servicios de la plataforma y posibles pagos entre anunciantes y visitantes. Estos últimos cambian el análisis legal, fiscal y de proveedores. No están incluidos en el alcance confirmado.
 
@@ -101,7 +103,8 @@ No aplicar ese plazo a toda denuncia ni a toda obligación de comunicar. No desc
 
 | Entregable | Estado |
 | --- | --- |
-| Definición de operador, territorios, categorías y monetización | Pendiente |
+| Alcance funcional: clasificados románticos, España, ES–EN y lanzamiento gratuito | Definido en contrato14; sin aceptación jurídica por este documento |
+| Identidad y establecimiento del operador, condiciones efectivas de proveedores y documentación preproducción | Pendiente |
 | Evaluación jurídica de admisibilidad y responsabilidades | Pendiente |
 | Matriz definitiva de normas, obligaciones y excepciones | Pendiente |
 | Aviso legal y condiciones del servicio/publicación | Pendiente |
@@ -134,3 +137,10 @@ Referencias consultadas o identificadas el 2026-10-03. Los enlaces adicionales i
 Contraste específico de acceso, 2026-10-06: las [Directrices EDPB01/2022, versión2, apartado4.2.2, párrafo110](https://www.edpb.europa.eu/system/files/2023-04/edpb_guidelines_202201_data_subject_rights_access_v2_en.pdf) distinguen archivos históricos de backups para recuperación. Si estos últimos conservan datos del interesado diferentes o adicionales respecto del sistema activo, requieren transparencia y acceso cuando sea técnicamente viable. Decisión de ingeniería: contrastar origen y contenido, reutilizar la copia cuando cubra los mismos datos y tratar diferencias; ni excluir todos los backups automáticamente ni exigir duplicar una copia idéntica por cada archivo. La búsqueda por identificadores en logs produce candidatos, no demuestra por sí sola cobertura completa o ausencia de datos. Esta decisión no acredita revisión jurídica ni cumplimiento global.
 
 Actualizar este documento al resolver preguntas de producto, seleccionar proveedores, introducir nuevas categorías o territorios, monetizar o modificar la verificación. Registrar responsable de cada obligación, evidencia y fecha de revisión cuando exista equipo definido. Mantener sincronía con `03-seguridad-privacidad.md` y las decisiones; no marcar cumplimiento hasta comprobar documentos, procedimientos e implementación.
+
+
+## Antecedente del alcance anterior — 2026-10-03
+
+Se conserva el siguiente texto como antecedente. Su referencia al contrato v1 corresponde al alcance profesional anterior y no autoriza esas categorías en la beta vigente. Para el producto actual prevalece contrato14.
+
+> Revisión adicional del 2026-10-03: la [Ley General de Publicidad](https://www.boe.es/buscar/act.php?id=BOE-A-1988-26156) incluye en el art. 3 publicidad que promueva la prostitución. El contrato v1 limita lanzamiento a modelaje, acompañamiento social y masajes no sexuales con contenido no explícito. No presumir que excluir desnudos o usar eufemismos hace admisible una oferta sexual remunerada. Validar actividad real, anuncios y política antes de producción.

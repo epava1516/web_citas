@@ -1,0 +1,73 @@
+{
+  "result": "PASS_NEGATIVE_REPRODUCTION_AUDIT_NOT_FUNCTIONAL_ACCEPTANCE",
+  "run_id": "20261020-211147-81c22d4c",
+  "passed": 8,
+  "failed": 7,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_622_identical_to_wide": true,
+  "fresh_cleanup_verified": true,
+  "notification_receipt": "1792531070271030987-3218934.json",
+  "failures": [
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-accepted-False-None]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.13852087687701,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-rejected-False-None]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 18.567260395735502,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-None]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 16.17134438920766,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-True-None]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 12.889616780914366,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-accepted-True-None]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 13.128567058593035,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-True]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 14.445700217038393,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    },
+    {
+      "nodeid": "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-False]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 14.867125196382403,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_rectification_review.py:1596: in test_reviewed_correction_communication_requires_new_proof_and_is_idempotent\n    assert b\"Create a new romantic profile revision\" in resume.content\nE   assert b'Create a new romantic profile revision' in b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n'\nE    +  where b'<!doctype html>\\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, init...xc2\\xb7 Romantic dating \\xc2\\xb7 <a href=\"/en/safety/complaints/\">Request decision review</a></footer></body></html>\\n' = <HttpResponse status_code=409, \"text/html; charset=utf-8\">.content"
+    }
+  ],
+  "evidence_sha256": {
+    "result.json": "8c0dc34e2758a1b80cec4773f8ed3693a181371834ef3ec75c58749dcf2745da",
+    "runner.json": "176ca793994a98d5ac294728a7d8c280b6ae265565601ca3b2e25a8d96cc181b",
+    "source-hashes.json": "d364851d50e3170edf0da25d8564ac05c273593b7779590f2db13b2ef29aec13",
+    "pytest.xml": "61d20aeb4e2234bc6a05dd11387a7bc07ba6ba86ea3365f7f08716183109931d",
+    "pytest-reports.jsonl": "fe767aa95e6b11dace1e060c7de63cad10556419054eca2541bce59f1cfd03a8",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  },
+  "scope": "First historical rejection expectation now passes; seven approved variants reach a later409resume rejection with another stale message expectation. Preserve negative; no acceptance."
+}

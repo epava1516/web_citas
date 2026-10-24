@@ -1,3 +1,56 @@
+- [B11 aceptado: interfaz de formularios separada, doce pruebas antes/después y límites locales](actas/20-beta-b11-aceptacion-local-20261024.md).
+
+- [B09 aceptado: SQL, galería, activos y observación, con límites por evidencia](actas/19-beta-b09-aceptacion-local-20261024.md).
+
+- [B09: cola SQL equivalente y N+1 corregido, 30/210 a 10/10 consultas](305-seleccion-sql-cola-denuncias-b09-20261024.md).
+
+- [B09: N+1 medido en cola de denuncias; referencia 10/100 y límites](304-diagnostico-lecturas-cola-denuncias-b09-20261024.md).
+
+- [B08 aceptado: paginación promocional, referencia congelada y fallback con umbrales reales](actas/18-beta-b08-aceptacion-local-20261024.md).
+
+- [B00aceptado: matriz final, autoridad previa al descifrado y alcance local](actas/17-beta-b00-aceptacion-local-20261024.md).
+
+- [B00: nodos históricos completos, corpus capturado conciliado y ámbitos Meta, corte339](298-conciliacion-nodos-corpus-capturado-b00-20261024.md).
+
+- [B00: relaciones capturadas completas, decoradores y bases cualificadas, corte338](297-conciliacion-relaciones-restantes-ast-b00-20261024.md).
+
+- [B00: relaciones históricas por revisión contextual y corrección de ámbitos Meta, corte337](296-conciliacion-relaciones-ambitos-ast-b00-20261024.md).
+
+- [B00: informe histórico, fidelidad de capturas y preparación de lectura, corte336](295-conciliacion-informe-grafo-historico-b00-20261024.md).
+
+- [B00: ECMAScript/Django, navegación frente a cuerpos y configuración, corte335](294-conciliacion-ecmascript-django-b00-20261024.md).
+- [B00: CSS, Actions y referencias de objetos/serialización/workers, corte334](293-conciliacion-css-ci-backend-b00-20261024.md).
+- [B00: catálogo, referencias de herramientas y vigencia del inventario, corte333](292-conciliacion-referencias-herramientas-b00-20261024.md).
+- [B00: interfaz SSR, límites de captura y herramientas operativas, corte332](291-conciliacion-interfaz-operacion-b00-20261024.md).
+- [B00: pruebas9–11, portabilidad, objetos y autoridad, corte331](290-conciliacion-pruebas-portabilidad-b00-20261024.md).
+- [B00: pruebas7–8 y comprobación vigente antes de supresión, corte330](289-conciliacion-derechos-supresion-b00-20261024.md).
+- [B00: pruebas5–6 y corrección de caducidad al consumir excepción, corte329](288-conciliacion-excepciones-recuperacion-b00-20261024.md).
+- [B00: pruebas3–4, privacidad y descubrimiento adaptado, corte328](287-conciliacion-pruebas-privacidad-b00-20261024.md).
+- [B00: pruebas1–2 y límites de evidencia, corte327](286-conciliacion-pruebas-alcances-b00-20261024.md).
+- [B00: contratos10–12, diagnósticos y relevos históricos, corte326](285-conciliacion-contratos-relevos-b00-20261024.md).
+- [B00: conservación, portabilidad y diseños de capacidad, corte325](284-conciliacion-conservacion-portabilidad-b00-20261024.md).
+- [B00: derechos por etapas y precedencia del grafo, corte324](283-conciliacion-derechos-grafo-b00-20261024.md).
+- [B00: contratos e historial 1–2, precedencia vigente, corte323](282-conciliacion-contratos-historial-b00-20261023.md).
+- [B00: seguridad 5–7 y revocación en consulta privada, corte322](281-conciliacion-seguridad-portabilidad-b00-20261023.md).
+- [B00: seguridad y acceso 3–4; autorización de imágenes tras bloqueos, corte321](280-conciliacion-seguridad-acceso-b00-20261023.md).
+- [B00: seguridad y derechos 1–2; corrección telefónica verificada, corte320](279-conciliacion-seguridad-derechos-b00-20261023.md).
+- [B00: núcleo y medios históricos contrastados, corte319](278-conciliacion-nucleo-medios-b00-20261023.md).
+- [B00: catálogo y anuncios históricos contrastados, corte318](277-conciliacion-catalogo-anuncios-b00-20261023.md).
+- [B00: mapa y configuración históricos contrastados, corte317](276-conciliacion-mapa-configuracion-b00-20261023.md).
+- [B00: IVA y servicios de pago, corte316](275-conciliacion-iva-servicios-pago-b00-20261023.md).
+- [B00: PSD2 histórica y roles de pagos, corte315](274-conciliacion-psd2-b00-20261023.md).
+- [B00: propiedad intelectual y límite de captura penal, corte314](273-conciliacion-propiedad-intelectual-penal-b00-20261023.md).
+- [B00: consumidores y libertad sexual, corte313](272-conciliacion-consumidores-libertad-sexual-b00-20261023.md).
+- [B00: Estatuto y planificación de inteligencia competitiva, corte312](271-conciliacion-autonomos-inteligencia-competitiva-b00-20261023.md).
+- [B00: Reglamento IA, infancia y corroboración limitada, corte311](270-conciliacion-ia-infancia-b00-20261023.md).
+- [B00: DSA completo y alcance del apartado legal, corte310](269-conciliacion-dsa-moderacion-b00-20261023.md).
+- [B00: LSSI y propuestas históricas de marketing, corte309](268-conciliacion-lssi-marketing-b00-20261023.md).
+- [B00: LOPDGDD, riesgo y marco legal alineado, corte307](266-conciliacion-lopdgdd-riesgo-marco-legal-b00-20261023.md).
+- [B00: RGPD por partes y portales institucionales, corte306](265-conciliacion-rgpd-partes-portales-b00-20261023.md).
+- [B00: concurrencia, recursos y medios, corte305](264-conciliacion-concurrencia-recursos-medios-b00-20261023.md).
+- [B00: cookies, legislación y diagnóstico, corte304](263-conciliacion-cookies-legislacion-diagnostico-b00-20261023.md).
+- [B00: runtime, criptografía e inventarios, corte303](262-conciliacion-runtime-criptografia-inventarios-b00-20261023.md).
+- [B00: seguridad, transacciones y trazas, corte302](261-conciliacion-seguridad-transacciones-trazas-b00-20261023.md).
 # Documentación del proyecto
 
 Entrada de consulta y mantenimiento. Idioma: español. Organización: 2026-10-09. Las rutas existentes se conservan; las copias históricas y evidencias tienen fecha, fuente y límites propios.
@@ -10,6 +63,9 @@ Entrada de consulta y mantenimiento. Idioma: español. Organización: 2026-10-09
 | Retomar el desarrollo o conocer el estado | [Seguimiento vigente](17-seguimiento-desarrollo.md) | [Pendientes e insumos](83-auditoria-pendientes-cr09.md), [alcances reutilizables](88-matriz-cierre-derechos.md). |
 | Entender módulos y publicación | [Arquitectura implementada](02-arquitectura.md) | [ADR](adr/001-base-tecnica.md), [MOD-05](16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05). |
 | Saber qué debe hacer el producto | [Contrato funcional](14-contrato-funcional-v1.md) | [Apartado legal](15-apartado-legal-publico.md), [contratos de interacción](#contratos-de-interacción). |
+| Evaluar el modelo de clasificados para citas románticas | [DAFO actualizado del alfa](98-dafo-clasificados-citas-romanticas-20261020.md) | Orientación del usuario, capacidades actuales, riesgos y prioridades; adaptación contractual pendiente. |
+| Planificar correcciones y optimización hacia beta | [Roadmap de beta](103-roadmap-beta-clasificados-20261020.md) | Etapas, dependencias, criterios de salida y separación entre beta local y apertura con usuarios. |
+| Consultar las decisiones y cambios contractuales de beta | [Consolidación B00–B01](104-consolidacion-contrato-beta-b00b01-20261020.md) | Contrato1.1, contraste de fuentes, matriz de adaptación; B02–B03 aceptados localmente por acta12. |
 | Desbloquear un pendiente | [Matriz única de pendientes](83-auditoria-pendientes-cr09.md) | Entrada faltante, rol responsable, evidencia y condición de cierre; registrar la acción en seguimiento. |
 | Verificar una entrega | [Actas y evidencias](#verificar-una-entrega) | [Contrato de ejecución](16-contrato-ejecucion-desarrollo.md), [criterios de carga](criterios-revision-benchmark-carga.md). |
 | Recuperar datos/medios y recursos | [Instrucciones de recuperación](85-operacion-registro-recuperacion.md) | [Recursos](87-recursos-locales-recuperacion.md), [diseño](84-restauracion-sin-reintroduccion.md), [incidentes](12-operacion-seguridad.md). |
@@ -32,6 +88,8 @@ Las instrucciones expresas del usuario prevalecen. Conservar la distinción entr
 | Resultado observado | Artefacto original con versión, huella, escenario y límites. | No se extrapola a otras versiones ni se suma como batería común. |
 
 ## Verificar una entrega
+
+- [Aceptación local beta B02–B03](actas/12-beta-b02b03-aceptacion-local-20261020.md), [matriz de criterios](106-matriz-aceptacion-perfil-beta-b02b03-20261020.md) y [auditoría192casos](evidencias/b02b03-common-terminal-audit-20261020.json).
 
 - [Acta BASE/CR-06 local](actas/01-base-cr06-local.md).
 - [Acta CR-07 local](actas/02-cr07-local.md).
@@ -222,3 +280,23 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 ## Propuestas técnicas pendientes
 
 - [CC-05: índice de similitud de fotos](97-propuesta-indice-similitud-fotos-cc05.md): evaluación futura solicitada el2026-10-10; alternativas, medición y preservación de detecciones/guards. No elección tecnológica ni implementación.
+
+- [Aceptación local beta B04–B06](actas/13-beta-b04b06-aceptacion-local-20261020.md), [matriz F01–F07](107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md) y [auditoría139casos](evidencias/b04b06-common-terminal-audit-20261020.json). Siguiente B07; seis de18puntos cerrados, B00 residual.
+
+- [Aceptación técnica local B12](actas/14-beta-b12-aceptacion-local-20261021.md), [conciliación de purgas e inventario](140-conciliacion-purgas-beta-b12-20261021.md) y [matriz de requisitos](evidencias/b12-local-requirement-acceptance-matrix-20261021.json). Siete de18puntos cerrados; B07 mantieneFAIL y no hay aceptación beta global.
+
+- [Continuidad y moderación B13](141-continuidad-moderacion-beta-b13-20261021.md): caída real de worker/broker propios verificada; rotación, restauración, retirada y rollback siguen abiertos.
+
+- [Transición local de claves de cifrado B13](142-rotacion-secretos-beta-b13-20261021.md): escritura con activa y lectura anterior verificadas; no rotación general, retirada automática ni aceptación B13.
+
+- [Censo privado de columnas cifradas y productores HMAC B13](143-inventario-claves-hmac-beta-b13-20261021.md):54columnas registradas/8productores directos,36PASS; lectura acotada sin autorización de retirada de claves.
+
+- [Aceptación técnica local B13](actas/15-beta-b13-aceptacion-local-20261021.md), [conciliación160](160-conciliacion-final-beta-b13-20261021.md) y [matriz de siete requisitos](evidencias/b13-local-requirement-acceptance-matrix-20261021.json). Ocho de18puntos cerrados; no apertura, proveedor real ni aceptación B07/B16.
+
+- [Acta16: aceptación técnica local B07](actas/16-beta-b07-aceptacion-local-20261023.md).
+
+- [B00: inventario conciliado y decisiones B15](257-inventario-conciliado-decisiones-b00-20261023.md).
+
+- [B00: fuentes y precedencia contractual, corte299](258-conciliacion-fuentes-precedencia-b00-20261023.md).
+
+- [B00: SEO, seguridad y fuentes comerciales, corte300](259-conciliacion-seo-seguridad-comercial-b00-20261023.md).

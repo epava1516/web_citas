@@ -1,5 +1,9 @@
 # Evidencias de desarrollo
 
+## Lectura del registro histórico — 2026-10-24
+
+Las evidencias siguientes conservan fecha, versión, alcance, fallos y límites de cada ejecución. El estado y la próxima acción se consultan en [seguimiento17](17-seguimiento-desarrollo.md) y el [roadmap beta](103-roadmap-beta-clasificados-20261020.md). Las menciones a goals pausados, procesos activos o pendientes pertenecen a sus cortes; no constituyen una cola actual ni una aceptación de versiones posteriores.
+
 ## Corte de pausa y relevo, 2026-10-09
 
 La [correctiva N2 terminal](evidencias/revision-binaria-candidatos-n2-correctiva-20261009.json) confirma63PASS/0FAIL/0ERROR/0SKIP,467,214s JUnit, incluidas lecturas reales de fotos, auditoría vigente al final y rollback ante eliminación tardía, paginación/ESEN y esperas PostgreSQL observadas. Se verificaron las1.020 fuentes del archivo y su SHA-256; la aplicación sigue igual. No es capacidad ni N3.

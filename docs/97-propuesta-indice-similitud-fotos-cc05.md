@@ -33,3 +33,7 @@ Las fuentes externas se consultaron el 2026-10-10; describen capacidades, no res
 ## Punto de retoma
 
 Revisar esta propuesta cuando el seguimiento priorice CC-05/procesamiento de medios, después de terminar y medir la integración actual. El [seguimiento](17-seguimiento-desarrollo.md) sigue siendo la cola de ejecución; esta nota no incorpora una nueva tecnología ni declara cerrado el hallazgo.
+
+## Nota de vigencia — B10, 2026-10-24
+
+El selector usa actualmente EXISTS desde la corrección medida el15/10; conserva el recorrido de todos los blobs admisibles. El contraste10002Photo/cincoBlob no es una evaluación de recuperación con muchos blobs diferentes. La [descomposición308](308-descomposicion-extremos-exportacion-similitud-b10-20261024.md) separa esa evidencia y prepara diagnósticos actuales; FAISS, pgvector, BK-tree y LSH siguen sin adoptarse. Las alternativas y condiciones anteriores conservan carácter de propuesta.

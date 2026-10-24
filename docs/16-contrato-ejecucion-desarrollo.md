@@ -1,5 +1,7 @@
 # Contrato de ejecución del desarrollo — versión 1.9
 
+Continuación beta, 2026-10-20: la adaptación funcional 1.1 de [contrato14](14-contrato-funcional-v1.md) y la [matriz B00–B01](104-consolidacion-contrato-beta-b00b01-20261020.md) sustituyen el contenido profesional para el nuevo alcance. El alfa aceptado, MOD09 provisional y sus evidencias permanecen en su corte. La continuación sigue el [roadmap](103-roadmap-beta-clasificados-20261020.md), conservando las garantías de ejecución, PostgreSQL, pruebas, permisos y gates de este contrato. No reiniciar CR01–CR10 por editar requisitos ni extender su aceptación al producto adaptado.
+
 Versión vigente 1.9/MOD-09: aceptación provisional de los tiempos actuales del escenario MOD-08 y continuación del contrato, por instrucción del usuario del 2026-10-12. La excepción acotada se detalla al final; las garantías y los demás criterios se conservan.
 
 Origen: 2026-10-03. Formulación consolidada: 2026-10-09, **MOD-06**, autorizada por el usuario al solicitar consolidar el contrato y adoptar CI propio sin presupuesto para alojamiento. Tipo: especificación de ejecución y aceptación. El proyecto es nuevo y no tiene producción real.

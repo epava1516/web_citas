@@ -1,0 +1,53 @@
+{
+  "run_id": "20261020-213833-09ff4c65",
+  "phase": "global-rights-parity",
+  "result": "PASS",
+  "audit_time": "2026-10-20T21:41:04.219376+00:00",
+  "scope": "Experimental global-rights candidate initial native-reference parity and private authority; no product adoption, selective-cost evidence or capacity acceptance",
+  "passed": 8,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/beta_global_rights_parity_diagnostic.py"
+  ],
+  "pytest_seconds": 110.77412059251219,
+  "junit_seconds": 108.676,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "86ee33a0d51cfbe55da7a8d468cb13247d94d67f0d58c4db7a9ba0370311cb93",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792532452198625707-3397029.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "9cb7091ca5fd22f62844e38495ff9d8e1fdf21ffbf0600fd093941a6f9d1e922",
+    "runner.json": "885740ee7c21c9842a69e7f6be2f048e8a287077b21a96dafbc48df804c23f97",
+    "source-hashes.json": "21f64b651b0304f07f4740a0118116daf6c4607a32a0bc526dac290a8bc12681",
+    "pytest.xml": "3f9c639378c931f33d033fdb8a3ce5f827c5b554ab7debce2316e6af17084b8b",
+    "pytest-reports.jsonl": "7fbbccb4bcbf4d0c5e1bf8a37b68d49c06e1fd641fdcc99afe9e8c228ae0c61d",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "worker_scope": {
+    "scope": "No worker/Beat claimed for focused regression"
+  },
+  "experimental_candidate_only": true,
+  "nodeids": [
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_all_pages_native_reference",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_checked_pending[en]",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_checked_pending[es]",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_inherited_transaction",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_revocation[editor]",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_revocation[individual]",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_revocation[owner]",
+    "tests/beta_global_rights_parity_diagnostic.py::test_candidate_snapshot_boundary"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

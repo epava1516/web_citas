@@ -1,0 +1,557 @@
+{
+  "result": "VERIFIED_SCOPED_B10_COVERAGE_SQL_COMPOSITION",
+  "run": "20261024-082841-bba147e0",
+  "cases": 1,
+  "junit_seconds": 97.753,
+  "source_hashes_verified": 1720,
+  "unchanged_product_and_static_paths": 637,
+  "observations": [
+    {
+      "corpus_version": "retained-history-closed-flow-v1",
+      "retained_revisions": 100,
+      "stages": {
+        "selection_preparation": {
+          "calls": 1,
+          "wall_seconds": 5.625864002853632,
+          "thread_cpu_seconds": 3.161553837999996,
+          "sql_calls": 1577
+        },
+        "seal_json": {
+          "calls": 299,
+          "wall_seconds": 0.08386451099067926,
+          "thread_cpu_seconds": 0.08218230299993223,
+          "sql_calls": 0
+        },
+        "unseal_json": {
+          "calls": 3473,
+          "wall_seconds": 0.6110688149929047,
+          "thread_cpu_seconds": 0.5868700560000022,
+          "sql_calls": 0
+        },
+        "source_copy": {
+          "calls": 80,
+          "wall_seconds": 5.572034392505884,
+          "thread_cpu_seconds": 3.2315065950000275,
+          "sql_calls": 1261
+        },
+        "canonical": {
+          "calls": 4411,
+          "wall_seconds": 0.2979726027697325,
+          "thread_cpu_seconds": 0.2895014010003081,
+          "sql_calls": 0
+        },
+        "image_blob_read": {
+          "calls": 132,
+          "wall_seconds": 0.0229569086804986,
+          "thread_cpu_seconds": 0.022294416999976363,
+          "sql_calls": 0
+        },
+        "coverage_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.8428770760074258,
+          "thread_cpu_seconds": 0.41855316800000253,
+          "sql_calls": 238
+        },
+        "coverage_page_intake": {
+          "calls": 111,
+          "wall_seconds": 29.827396663837135,
+          "thread_cpu_seconds": 16.903391401000015,
+          "sql_calls": 11766
+        },
+        "coverage_approval": {
+          "calls": 1,
+          "wall_seconds": 0.42209417279809713,
+          "thread_cpu_seconds": 0.28833773200000223,
+          "sql_calls": 105
+        },
+        "covered_generation": {
+          "calls": 1,
+          "wall_seconds": 2.6237665340304375,
+          "thread_cpu_seconds": 1.6307278969999999,
+          "sql_calls": 678
+        },
+        "final_draft_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.6822475790977478,
+          "thread_cpu_seconds": 0.39737534700000765,
+          "sql_calls": 168
+        },
+        "final_draft_inspection": {
+          "calls": 1,
+          "wall_seconds": 0.4903861666098237,
+          "thread_cpu_seconds": 0.2231982830000021,
+          "sql_calls": 217
+        },
+        "final_approval": {
+          "calls": 1,
+          "wall_seconds": 0.661149313673377,
+          "thread_cpu_seconds": 0.3393959149999972,
+          "sql_calls": 301
+        },
+        "closure": {
+          "calls": 1,
+          "wall_seconds": 0.834446812979877,
+          "thread_cpu_seconds": 0.5274918719999988,
+          "sql_calls": 239
+        },
+        "closure_replay": {
+          "calls": 1,
+          "wall_seconds": 0.42334008775651455,
+          "thread_cpu_seconds": 0.2029998359999894,
+          "sql_calls": 182
+        },
+        "manifest_download": {
+          "calls": 1,
+          "wall_seconds": 0.4123412389308214,
+          "thread_cpu_seconds": 0.19139326400001266,
+          "sql_calls": 173
+        },
+        "image_download": {
+          "calls": 1,
+          "wall_seconds": 0.33692188654094934,
+          "thread_cpu_seconds": 0.18594882699999005,
+          "sql_calls": 171
+        },
+        "zip_download": {
+          "calls": 1,
+          "wall_seconds": 0.36725412402302027,
+          "thread_cpu_seconds": 0.18891009900001166,
+          "sql_calls": 171
+        }
+      },
+      "observed_module_aliases": {
+        "source_copy": 13,
+        "canonical": 2,
+        "seal_json": 28,
+        "unseal_json": 26,
+        "image_blob_read": 1
+      },
+      "sql_calls": 18110,
+      "coverage_sql_composition": [
+        {
+          "operation": "INSERT",
+          "tables": [
+            "safety_rightsaction"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "INSERT",
+          "tables": [
+            "safety_rightsaction"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "INSERT",
+          "tables": [
+            "safety_rightsportabilitycoverageread"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "INSERT",
+          "tables": [
+            "safety_rightsportabilityselectionread"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "RELEASE",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_coverage_batch.inspect_batch",
+          "count": 111
+        },
+        {
+          "operation": "RELEASE",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 333
+        },
+        {
+          "operation": "RELEASE",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "SAVEPOINT",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_coverage_batch.inspect_batch",
+          "count": 111
+        },
+        {
+          "operation": "SAVEPOINT",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 333
+        },
+        {
+          "operation": "SAVEPOINT",
+          "tables": [],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "auth_group",
+            "auth_permission",
+            "django_content_type"
+          ],
+          "caller": "apps.safety.rights_portability_review.<genexpr>",
+          "count": 555
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "auth_permission",
+            "django_content_type"
+          ],
+          "caller": "apps.safety.rights_portability_review.<genexpr>",
+          "count": 555
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_agency"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_agency"
+          ],
+          "caller": "apps.safety.rights_scope.permitted",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_agency",
+            "core_agencymember"
+          ],
+          "caller": "apps.safety.rights_scope.agency_conflict",
+          "count": 1554
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_agencymember"
+          ],
+          "caller": "apps.safety.rights_scope.permitted",
+          "count": 777
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_legalacceptance"
+          ],
+          "caller": "apps.safety.rights_scope.permitted",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_legalacceptance",
+            "core_person",
+            "listings_revision",
+            "safety_rightsrequest"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_person"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_representationaction"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_representationaction"
+          ],
+          "caller": "apps.safety.rights_scope.permitted",
+          "count": 777
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_user"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_user"
+          ],
+          "caller": "apps.safety.rights_portability_review.authorize",
+          "count": 555
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "core_user"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "listings_listing"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "listings_listing",
+            "listings_revision",
+            "mediafiles_photo"
+          ],
+          "caller": "apps.safety.rights_exports.image_contents",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "listings_revision"
+          ],
+          "caller": "apps.safety.rights_scope.permitted",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "mediafiles_blob"
+          ],
+          "caller": "apps.safety.rights_exports.image_contents",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaccess"
+          ],
+          "caller": "apps.safety.rights_responses.complete_response_read",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaccess"
+          ],
+          "caller": "apps.safety.rights_verification.complete_read",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction"
+          ],
+          "caller": "apps.safety.rights_portability_selection_store.validate_selection_evidence",
+          "count": 333
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction",
+            "safety_rightsportabilityassessment",
+            "safety_rightsportabilityread",
+            "safety_rightsportabilityreview",
+            "safety_rightsportabilityselection"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.record",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction",
+            "safety_rightsportabilitycoverage",
+            "safety_rightsportabilityselection",
+            "safety_rightsportabilityselectionread",
+            "safety_rightsportabilityselectionreview"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction",
+            "safety_rightsportabilityimageread",
+            "safety_rightsportabilityselectionread"
+          ],
+          "caller": "apps.safety.rights_portability_image_read.required_reads",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction",
+            "safety_rightsportabilityread"
+          ],
+          "caller": "apps.safety.rights_portability_review.validate_approved_assessment",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsaction",
+            "safety_rightsportabilityselectionread"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.validate_evidence",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsimageaccess"
+          ],
+          "caller": "apps.safety.rights_portability_images.audited_images",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsmessage"
+          ],
+          "caller": "apps.safety.rights_verification.complete_read",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilityassessment"
+          ],
+          "caller": "apps.safety.rights_portability_review.validate_approved_assessment",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilityassessment"
+          ],
+          "caller": "apps.safety.rights_portability_selection_store.validate_selection_evidence",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilitycoverageread"
+          ],
+          "caller": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilityread"
+          ],
+          "caller": "apps.safety.rights_portability_selection_store.validate_selection_evidence",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilityreview"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.validate_approved_selection",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsportabilityselection"
+          ],
+          "caller": "apps.safety.rights_portability_selection_review.validate_approved_selection",
+          "count": 111
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsproof"
+          ],
+          "caller": "apps.safety.rights_verification.authorized_proof",
+          "count": 555
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsrequest"
+          ],
+          "caller": "apps.safety.rights_scope.locked_case",
+          "count": 222
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "safety_rightsresponse"
+          ],
+          "caller": "apps.safety.rights_responses.complete_response_read",
+          "count": 111
+        }
+      ],
+      "wall_seconds": 51.5801774058491,
+      "thread_cpu_seconds": 28.648600176000002,
+      "process_maxrss_kib": 294208,
+      "delivered_manifest_bytes": 2336,
+      "delivered_image_bytes": 10516,
+      "delivered_zip_bytes": 10696,
+      "limits": "Instrumented single flow per size, nested stages not additive; history mostly excluded from delivered fields; fixture simulated identity/provenance, not provider/legal attestation; not 1500 revisions/16MiB JSON/64MiB originals, concurrency, p95, capacity or MOD09 reassessment"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifact_sha256": {
+    "result.json": "ea2efc269d9dc1a2ff246ad6077f9298c433d0b07d255b865656d8a1d4eaac26",
+    "source-hashes.json": "453587bf86b5154e3bfb489a4d682a8f82b37f9f0b9e18b872470b603701df41",
+    "pytest.xml": "6d2ccf9d82a0bd95bde5a0038cad10017ef84d0dd59b2ed1f81f902f3f997f5e",
+    "runner.json": "38658345e84d1f766ed87578e560bb5499a5d2a331e43f122ee129f11d8fa6cf",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "One instrumented flow per size, inclusive/nested timings and SQL not additive",
+    "Simulated fixture identity/provenance; not provider/legal attestation",
+    "Mostly excluded historical fields, not large selected-history or massive binary transport",
+    "Not MOD09 extreme, full human elapsed time, concurrent capacity, percentiles or production"
+  ]
+}

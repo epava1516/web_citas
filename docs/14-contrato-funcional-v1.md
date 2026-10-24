@@ -1,20 +1,24 @@
-# Contrato funcional de desarrollo — versión 1
+# Contrato funcional de desarrollo — versión 1.1 hacia beta
 
-Fecha: 2026-10-03. Estado: especificación base definida por delegación expresa del usuario. Este contrato define comportamiento requerido; la implementación y aceptación se registran en [seguimiento17](17-seguimiento-desarrollo.md), bajo el [contrato de ejecución](16-contrato-ejecucion-desarrollo.md). No autoriza contratación ni despliegue externo.
+Origen: 2026-10-03. Consolidación: 2026-10-20. Estado: especificación funcional vigente hacia beta, adaptada por instrucción expresa del usuario; implementación de los cambios en curso, sin aceptación beta. Este contrato define comportamiento requerido; la implementación y aceptación se registran en [seguimiento17](17-seguimiento-desarrollo.md), bajo el [contrato de ejecución](16-contrato-ejecucion-desarrollo.md). No autoriza contratación ni despliegue externo.
 
 ## Autoridad y precedencia
 
-El usuario autoriza decidir los pendientes buscando equilibrio y una experiencia familiar para quienes usan LoquoSex, Destacamos y MálagaCitas. Este documento cierra las decisiones funcionales de la primera versión. Sus decisiones sustituyen propuestas y preguntas anteriores sobre estos mismos puntos; conservarlas como contexto histórico, no como pendientes duplicados.
+Las aclaraciones expresas del usuario del 2026-10-20 fijan el producto como clasificados de perfiles adultos que buscan citas románticas, sin anuncios de encuentros sexuales; incluyen renovación, Top y otras promociones, panel centrado en rellenar el perfil y posibles recomendaciones por gustos físicos. Las referencias LoquoSex, Destacamos y MálagaCitas informan mecánicas de clasificados; no aprueban su contenido, categorías, lenguaje o prácticas comerciales.
 
-Se mantienen los acuerdos explícitos del usuario: toda España, inglés, una publicación por persona también bajo agencia, CP recomendado, control global de imágenes/teléfonos, observación de duplicados sin suspensión inmediata y preparación para monetizar con tarifas posteriores.
+Esta versión sustituye el catálogo profesional, las tarifas de servicios y el recorrido correspondiente de la versión anterior. [Copia íntegra anterior](17-historial/2026-10-20-14-contrato-funcional-v1-antes-beta-b00b01.md), [matriz de decisiones y adaptación](104-consolidacion-contrato-beta-b00b01-20261020.md), [roadmap](103-roadmap-beta-clasificados-20261020.md). El [alfa aceptado](actas/10-entrega-tecnica-local-alpha-20261020.md) se conserva según su corte: adaptar el requisito no acredita que el código ya lo implemente ni reabre retroactivamente su aceptación.
+
+Se mantienen los acuerdos explícitos del usuario: toda España, inglés, una publicación por persona también bajo agencia, CP recomendado, control global de imágenes/teléfonos, observación de duplicados sin suspensión inmediata y preparación para monetizar visibilidad con precios posteriores.
 
 La delegación no permite inventar identidad del operador, comprar servicios, dar por cumplida la normativa ni declarar verificadas integraciones. Los pendientes externos se enumeran al final.
 
-Formulación aclarada2026-10-09: desarrollo local autorizado desde 2026-10-03; [ejecución v1.6](16-contrato-ejecucion-desarrollo.md) consolida aceptación técnica con datos sintéticos y preparación de producción separada. Proveedores, políticas e identidades reales condicionan producción; los mecanismos locales deben funcionar y probarse con fixtures explícitos. [Copia anterior](17-historial/2026-10-09-14-contrato-funcional-v1-antes-consolidacion-contrato.md). El comportamiento MVP y sus objetivos se conservan.
+Formulación aclarada2026-10-09: desarrollo local autorizado desde 2026-10-03; [ejecución v1.6](16-contrato-ejecucion-desarrollo.md) consolida aceptación técnica con datos sintéticos y preparación de producción separada. Proveedores, políticas e identidades reales condicionan producción; los mecanismos locales deben funcionar y probarse con fixtures explícitos. [Copia anterior](17-historial/2026-10-09-14-contrato-funcional-v1-antes-consolidacion-contrato.md). Las garantías técnicas y objetivos no modificados se conservan. Las diferencias funcionales hacia beta se identifican en esta versión y en la matriz B00–B01.
 
 ## 1. Producto, territorio y lenguaje
 
-Directorio nacional de perfiles/anuncios de personas adultas, gestionados directamente o por agencias, con descubrimiento por tipo, categoría, texto y geografía y contacto externo.
+Portal nacional de clasificados de perfiles de personas adultas que buscan citas románticas. El visitante consulta anuncios y contacta por los canales externos autorizados; el anunciante completa y mantiene su perfil y gestiona su exposición. No se exige matching recíproco, chat interno ni un perfil público del visitante.
+
+La gestión directa es el recorrido principal. Se conserva la representación por agencias previamente autorizada, con una publicación por cada persona, consentimiento directo y controles vigentes; una agencia no ofrece servicios profesionales ni vende citas a través del perfil. Sus herramientas de equipo no complican el panel particular.
 
 Interfaz, correos esenciales y mensajes de sistema en español e inglés. Español por defecto, selector persistente. Rutas públicas localizadas `/es/` y `/en/`; nombres de personas y lugares no se traducen arbitrariamente. Slugs con IDs internos estables para evitar perder enlaces al renombrar.
 
@@ -26,23 +30,19 @@ Canonicalización, sitemap y `hreflang` según versiones realmente disponibles; 
 
 Tipo de perfil declarado para navegación: mujeres, hombres y opción trans, con asignación voluntaria y sin inferencias biométricas. Una mujer trans puede indicar mujer y etiqueta trans opcional; no exigir clasificación incompatible con su identidad. El dato puede tener especial sensibilidad: justificar finalidad, base jurídica y exposición antes de operar con datos reales. No presentarlo como servicio ni exigirlo para verificar edad.
 
-Categorías iniciales:
+Catálogo público de beta: perfiles para citas románticas. Modelaje, acompañamiento profesional, masajes y sus catálogos de servicios dejan de ser categorías de publicación. Profesión o aficiones mencionadas en la descripción no constituyen una oferta de servicios. No crear planes, servicios o nuevas categorías obligatorias para sustituir artificialmente los anteriores.
 
-| ID | Categoría | Oferta admitida en MVP |
-| --- | --- | --- |
-| CAT-001 | Modelaje | Fotografía, eventos y presentación de trabajos, con autorización de imágenes |
-| CAT-002 | Acompañamiento social | Conversación, cenas, eventos y planes sociales sin oferta sexual |
-| CAT-003 | Masajes de bienestar | Masaje relajante, deportivo no clínico y otras técnicas no sexuales, sin afirmaciones sanitarias no acreditadas |
+La adaptación B02 versionará el catálogo y revisará sus referencias antes de desactivar opciones antiguas. No renombrar un ID profesional para atribuirle retrospectivamente un significado romántico; conservar trazabilidad y bloquear la republicación automática de revisiones incompatibles. No borrar historial ni suprimir evidencias de autorización por cambiar categorías.
 
-«Premium» es visibilidad comercial, no categoría ni garantía de calidad de la persona. No crear «acompañantes de lujo» como duplicado de categoría: se puede describir posicionamiento sin generar otra publicación.
+«Premium» y «Top» significan exposición comercial, sin garantía de identidad, conducta, disponibilidad o éxito romántico. La renovación y las autosubidas mantienen reglas distintas de vigencia y ordenación.
 
-Servicios iniciales configurables: fotografía/eventos para modelaje; conversación, acompañamiento a cena/evento y planes culturales para acompañamiento; masaje relajante, deportivo no clínico y técnicas de bienestar admitidas para masajes. Catálogo administrado, versionado y traducido; no tags libres que creen nuevos servicios sin revisión.
+Atributos básicos de descubrimiento: tipo de perfil declarado, ubicación, texto, idiomas y canales autorizados. Días/franjas y «disponible ahora» son opcionales; sólo expresan información declarada para contactar o quedar, nunca una reserva o garantía de respuesta. Disponible ahora caduca a las cuatro horas y exige confirmación explícita. Recepción/desplazamiento profesional y tarifas no forman parte del perfil romántico.
 
-Atributos filtrables: idiomas, días de disponibilidad, franja horaria, recepción/desplazamiento cuando corresponda, WhatsApp/Telegram, perfil con verificación específica y disponibilidad reciente. «Disponible ahora» es opt-in, caduca a las cuatro horas y requiere renovación explícita; no implica respuesta garantizada. No añadir filtros por raza, etnia o nacionalidad al MVP. Altura, peso u otros datos profesionales solo opcionales y pertinentes al modelaje, no filtros generales del directorio.
+Los atributos físicos pueden declararse voluntariamente para presentación y descubrimiento. Altura, complexión, color de pelo u ojos son ejemplos candidatos, no una lista de campos obligatorios ya implementada. Antes de añadir cada atributo se concretan opciones/unidades, finalidad, visibilidad y validación en CR04/CR07; «no indicado» no equivale a «no coincide». No inferir atributos de fotos, exigir medidas para publicar ni crear filtros por raza, etnia o nacionalidad. La comprobación privada de mayoría de edad y un eventual rango público de edad son datos distintos; no publicar fecha de nacimiento por esta ampliación.
 
-Contenido público inicial: fotos no explícitas, descripción sin oferta de actos sexuales y contacto autorizado. Excluir pornografía, desnudos íntimos explícitos, ofertas sexuales remuneradas, captación de personas para explotación, trabajo/alquiler del sector, terapias sanitarias no acreditadas, videollamadas adultas y venta de packs de contenido en esta versión. Tampoco valen eufemismos para publicar una oferta excluida.
+Contenido permitido: presentación personal, intención romántica, fotografías no explícitas y canales de contacto autorizados. Excluir anuncios que propongan encuentros sexuales, remunerados o no; ofertas de servicios profesionales, precios por citas, pornografía, desnudos íntimos explícitos, explotación, coacción, suplantación, imágenes sin autorización, videollamadas adultas y venta de packs. No aceptar eufemismos o enlaces para eludir la política. El portal no promete controlar la vida privada de las personas fuera de los anuncios.
 
-Fundamento material: la [Ley General de Publicidad, art. 3](https://www.boe.es/buscar/act.php?id=BOE-A-1988-26156) incluye entre la publicidad ilícita la que promueva la prostitución. La existencia de competidoras o un aviso de «citas» no resuelve la admisibilidad de un anuncio. Este alcance conservador debe contrastarse sobre categorías, textos y operación real por asesoría antes de lanzamiento.
+La política y los textos reales deben revisarse con la operación y el contenido antes de abrir a usuarios. La denominación «citas» o la ausencia de contenido explícito no acredita cumplimiento ni compatibilidad con proveedores.
 
 ## 3. Cuentas, personas y agencias
 
@@ -64,17 +64,17 @@ No afirmar que hashes de fotos permiten identificar de forma inequívoca a perso
 
 ## 4. Anuncio, campos y ubicación
 
-Una publicación activa por persona en toda la plataforma, sin duplicados por ciudad, categoría o agencia. Permitir varios servicios/categorías pertinentes en la misma publicación. Historial y revisiones no se muestran como anuncios activos adicionales.
+Una publicación activa por persona en toda la plataforma, sin duplicados por ciudad, tipo, preferencia o agencia. Cuenta y persona son entidades distintas: una agencia autorizada puede gestionar varias personas, una publicación por cada una. Historial, revisiones, renovación y promociones no crean anuncios activos adicionales.
 
-Obligatorio: nombre público/alias, título, descripción, categorías/servicios, idioma, localidad/municipio, teléfono principal autorizado, al menos una foto aprobada y estado de verificación requerido. Tarifas admiten importe/moneda/duración/concepto, «desde» o «consultar»; la fila «consultar» no exige importe.
+Obligatorio para publicar: nombre público/alias, título, descripción personal y romántica, idioma, localidad/municipio, teléfono principal autorizado, al menos una foto aprobada y controles de verificación/autorización requeridos. La agrupación romántica se resuelve por el sistema, sin obligar a seleccionar categorías o servicios profesionales. El perfil no muestra tarifas por tiempo, por encuentro ni por servicios; los precios de promoción pertenecen al catálogo comercial del portal.
 
-Opcional: descripción en otro idioma, CP, zona controlada, idiomas de atención, disponibilidad, tarifas múltiples, WhatsApp y Telegram. Email de cuenta privado; contacto por correo no público en MVP. No incluir URLs arbitrarias u otros canales en el campo de contactos; moderar su inclusión en texto para evitar eludir reglas.
+Opcional: descripción en otro idioma, CP, zona controlada, idiomas para comunicarse, disponibilidad declarada, atributos físicos definidos y habilitados conforme a la sección 2, WhatsApp y Telegram. Email de cuenta privado; contacto por correo no público en MVP. No incluir URLs arbitrarias u otros canales en el campo de contactos; moderar su inclusión en texto para evitar eludir reglas.
 
 Contacto público: teléfono y botones de WhatsApp/Telegram habilitados por anunciante. Antes de publicar explicar exposición y posibilidad de copia. Verificar control del teléfono; un número de agencia puede repetirse solo en sus publicaciones autorizadas. No anunciar protección total frente a scraping ni guardar contenido de conversaciones externas.
 
 Ubicación: comunidad → provincia → municipio/localidad; no seleccionar libremente combinaciones incompatibles. Ciudad/localidad obligatoria; CP opcional con recomendación destacada y validación de correspondencia. Barrio/zona opcional. Sin domicilio, puerta ni coordenadas exactas.
 
-Una ubicación principal. Zonas de desplazamiento se registran aparte; visita temporal cambia ubicación/vigencia sin duplicar anuncio. La precisión filtrable también es observable; comprobar riesgo de CP de baja población antes de exponerlo. No hay mapa o solicitud de geolocalización en MVP.
+Una ubicación principal. Un cambio temporal de localidad cambia ubicación/vigencia sin duplicar anuncio; no publicar zonas de prestación de servicios como atributo del perfil romántico. La precisión filtrable también es observable; comprobar riesgo de CP de baja población antes de exponerlo. No hay mapa o solicitud de geolocalización en MVP.
 
 Fotos: hasta ocho aprobadas por anuncio, máximo inicial diez MiB por archivo y cuarenta megapíxeles, JPEG/PNG/WebP estáticos; sin GIF animado, SVG o PDF en fotos. Valores configurables a calibrar con pruebas de capacidad. Derivados públicos recodificados sin EXIF, originales privados según retención. Sin vídeos en MVP.
 
@@ -86,9 +86,9 @@ Verificar correo y teléfono; comprobar mayoría de edad y autorización de publ
 
 Guardar identificador de comprobación, resultado, fecha y versión de procedimiento; los documentos originales no van a logs ni a la carpeta de documentación. Si el proveedor no satisface el flujo, ese requisito queda sin cumplir: no sustituirlo por una casilla para lanzar.
 
-Estados: borrador → procesando → pendiente de revisión → publicado. Pausado, rechazado, retirado y caducado son estados explícitos. Cambios sensibles producen nueva revisión: fotos, descripción, categorías/servicios, tarifas, gestor y contactos. Una revisión menor de horario/zona solo se publica si valida reglas y no hay señales de conflicto. La versión aprobada anterior permanece salvo retirada, compromiso o riesgo que exija pausar.
+Estados: borrador → procesando → pendiente de revisión → publicado. Pausado, rechazado, retirado y caducado son estados explícitos. Cambios sensibles producen nueva revisión: fotos, descripción, tipo de perfil, atributos públicos habilitados, gestor y contactos. La migración de categorías antiguas también requiere revisión cuando cambie el contenido o significado público. Una revisión menor de horario/zona solo se publica si valida reglas y no hay señales de conflicto. La versión aprobada anterior permanece salvo retirada, compromiso o riesgo que exija pausar.
 
-Vigencia inicial treinta días, renovación gratuita con confirmación de datos. Renovar no crea anuncio nuevo ni compra posición. Caducado no aparece en búsqueda/sitemap. Revisión de historial no impide borrado/retención legalmente procedente.
+Vigencia inicial treinta días. Renovación gratuita con confirmación de los datos aprobados, disponible desde los últimos siete días o tras caducidad: conserva persona/anuncio/revisión, fija nueva vigencia de treinta días y fecha real de renovación para el orden orgánico. Un anuncio pausado conserva la pausa al renovar; uno caducado y elegible vuelve a publicado; uno retirado requiere nueva revisión. Renovar no crea anuncio ni compra Top o autosubida. Caducado no aparece en búsqueda/sitemap ni recomendaciones. Revisión de historial no impide borrado/retención legalmente procedente.
 
 Duplicación: comparación global exacta/visual, independientemente de cuenta/número/tipo. No suspender cuenta inmediatamente por imagen; permitir correcciones y hasta tres revisiones/borradores pendientes por persona, sin crear personas ficticias para eludir límite. Conflictos entre perfiles no se publican mientras se revisan. Cuotas por agencia y velocidad de creación configurables, distintas de la unicidad de personas.
 
@@ -100,15 +100,23 @@ Organización mínima antes de producción: moderador identificado con sustituto
 
 ## 6. Búsqueda y experiencia familiar
 
-Portada con selector territorial/categoría y acceso visible a publicar, entrar y gestionar. Tarjetas con foto, alias/título, zona, tarifa resumida y etiquetas concretas de contacto/verificación/promoción.
+Portada de clasificados con búsqueda territorial y por tipo de perfil, acceso visible a publicar, entrar y «Mi perfil». Tarjetas con foto, alias/título, zona y etiquetas concretas de contacto, comprobación y patrocinio; sin tarifas o servicios profesionales.
 
-Filtros combinables: tipos de perfil declarados, categorías, servicios, territorio, CP, idiomas, disponibilidad y canal. OR dentro de una selección múltiple, AND entre dimensiones. Servicios con selector «cualquiera/todos»; por defecto cualquiera, con explicación visible. Texto sobre título/descripciones públicas disponibles.
+Filtros combinables: tipo de perfil declarado, territorio, CP permitido, idiomas, disponibilidad opcional y canal. Atributos físicos sólo después de definir e implementar su contrato específico. OR dentro de selección múltiple y AND entre dimensiones. Texto sobre título y descripciones públicas aprobadas. Categorías/servicios profesionales y sus parámetros dejan de ser filtros públicos; entradas antiguas deben tratarse explícitamente, sin relajar condiciones ni redirigir silenciosamente a resultados distintos.
 
 Orden: con texto, relevancia; sin texto, fecha real de publicación/renovación, con desempate estable. Promociones solo dentro de resultados compatibles. No actualizar fecha editorial al comprar destacado. Paginación, veinticuatro resultados por página inicialmente, consultas indexadas y límites.
 
 Favoritos incluidos con cuenta de visitante; no hay perfil público del visitante, reseñas o historial personal de búsquedas. Favoritos son privados, eliminables y sujetos a retención/derechos. No crear filtros de «verificado completo»: mostrar qué se comprobó realmente.
 
-Interfaz responsive única, sin separar portales móvil/escritorio. Formularios guiados con pasos: datos/ubicación → contactos/tarifas → fotos → revisión/envío. Borrador guardado y errores claros. Navegación y publicación básica funcionan con HTML; HTMX mejora interacción.
+Interfaz responsive única, sin separar portales móvil/escritorio. Panel particular centrado en «Mi perfil»: completar datos y ubicación → contactos → fotos → revisar/enviar, con borrador guardado, previsualización privada y errores claros. La interfaz puede agrupar o guiar estos pasos sin imponer un número nuevo de pantallas. El anunciante no gestiona un catálogo profesional ni rellena tarifas de servicios. Estado, motivo de revisión y acciones de pausa, renovación y retirada permanecen accesibles; promociones son secundarias y no obligatorias. Navegación y publicación básica funcionan con HTML; HTMX mejora interacción.
+
+### 6.1 Recomendaciones físicas opcionales
+
+Posible ampliación B15, no requisito de aceptación de beta: perfiles que coincidan con preferencias físicas del visitante. Diferenciar atributos públicos declarados por el anunciante, filtros de búsqueda y preferencias privadas del visitante. El modo inicial propuesto usa preferencias explícitas y modificables; persistencia, catálogo exacto y reglas de ranking se decidirán antes de implementarlo. Este contrato no autoriza aprendizaje conductual, historiales íntimos persistentes ni inferencia por imágenes.
+
+Recomendación, patrocinio y verificación deben identificarse por separado. Aplicar elegibilidad y retirada antes de mostrar o contar; excluir caducados, pausados y retirados aunque existan cachés o derechos promocionales. No relajar filtros obligatorios silenciosamente, inventar valores ausentes o prometer atracción recíproca. Sin resultados puede ofrecerse ampliar voluntariamente preferencias. No registrar gustos en logs, URLs públicas indexables o enlaces a mensajería.
+
+Decisión posterior del usuario2026-10-23: ofrecer personalización opcional en la primera entrada, con decisiones diferenciadas de mayoría de edad/términos,cookies ypersonalización; configurable posteriormente y búsqueda normal disponible sin activarla. Para visitantes sin cuenta, recordar mediante cookies propias; contenido cifrado o identificador opaco y duración pendientes de diseño. Para cuentas registradas, evaluar preferencias cifradas en almacenamiento privado propio; no se decide aún entre base de datos y objetos. Prever modificación,borrado ydesactivación; no importar automáticamente preferencias del navegador a la cuenta. Cifrar no acredita por sí solo RGPD ni sustituye finalidad,base jurídica yconsentimiento aplicables. No se autoriza seguimiento conductual,inferencia desde fotos ni implementación inmediata. Catálogo,ranking,persistencia,claves yretención siguen pendientes. B15continúa opcional para beta.
 
 ## 7. Monetización preparada
 
@@ -124,7 +132,7 @@ Los precios no se inventan ni se muestran como cero/gratis: oferta sin precio/co
 
 Modelo preparado: producto/version, precio/moneda/impuestos, duración, pedido, intento de pago, estado de cobro y derecho de promoción. Importe fijado servidor al pedir, no recalculado retroactivamente cuando cambie tarifa. Idempotencia y webhooks firmados al integrar pasarela; interfaz de proveedor y modo de pruebas, sin cobro real en v1.
 
-No monedero/créditos, suscripciones recurrentes o pagos por servicios de anunciantes en MVP. Elegir pasarela compatible con sector y definir devoluciones/fiscalidad/condiciones antes de activar ventas. Si anuncio se retira o pausa, no sigue promocionado; política de tiempo/reembolso pendiente de activación comercial y no se resuelve arbitrariamente en código.
+No monedero/créditos ni suscripciones recurrentes en beta. No pagos entre usuarios ni cobros por citas o servicios de anunciantes. La monetización preparada corresponde exclusivamente a visibilidad en el portal; autosubida no significa cargo recurrente. Elegir pasarela compatible con sector y definir devoluciones/fiscalidad/condiciones antes de activar ventas. Si anuncio se retira o pausa, no sigue promocionado; política de tiempo/reembolso pendiente de activación comercial y no se resuelve arbitrariamente en código.
 
 Las autosubidas no crean revisiones o clones; su ejecución y ranking deben ser medibles y no recalcular todo el catálogo por tarea. Lo observado en competidoras informa duración/tipos, no acredita conveniencia de sus precios o textos legales.
 
@@ -134,21 +142,21 @@ MVP: primera versión usable y operable, no una demo sin controles.
 
 | Pantalla/flujo | Resultado esperado |
 | --- | --- |
-| Inicio y listados | Elegir categoría/zona, buscar, filtrar, paginar y guardar favorito |
-| Ficha pública | Consultar fotos, descripción, tarifas, contactos autorizados y denunciar |
+| Inicio y listados | Elegir tipo/zona, buscar, filtrar, paginar y guardar favorito |
+| Ficha pública | Consultar presentación personal, fotos, contactos autorizados y denunciar |
 | Registro/acceso/recuperación | Verificar correo, iniciar sesión y recuperar acceso con límites |
 | Verificación/representación | Conocer requisitos y completar controles sin exponer identidad |
 | Publicar/editar | Guardar borrador, añadir datos/fotos y enviar a revisión |
-| Panel particular | Ver estado, motivo de revisión, pausar, renovar o retirar |
+| Mi perfil | Completar/editar un perfil, conocer estado y motivo; pausar, renovar o retirar; gestionar exposición por separado |
 | Perfil/panel de agencia | Ver equipo y personas asignadas, gestionar una publicación por persona |
 | Favoritos/cuenta | Gestionar preferencias privadas, sesiones, MFA y privacidad |
 | Moderación | Revisiones, coincidencias, denuncias, decisiones y reclamaciones |
 | Administración | Catálogos, territorios, productos inactivos y auditoría restringida |
 | Legal/ayuda | Condiciones, privacidad, cookies, publicación, derechos y denuncias |
 
-Incluidos: tarifas, fotos, favoritos, agencias, ES/EN, filtros, verificación, moderación, privacidad y preparación comercial.
+Incluidos hacia beta: perfil romántico, fotos, favoritos, representación autorizada, ES/EN, filtros básicos, verificación, moderación, privacidad, renovación y preparación de promociones. Recomendaciones físicas opcionales según sección 6.1. Las tarifas por servicios y el catálogo profesional quedan fuera del perfil.
 
-Fuera de v1: mapa/geolocalización, chat interno, reseñas, reservas, vídeos, packs, pagos entre usuarios, traducción automática, app móvil, microservicios y cobros reales. Documentar futuras ampliaciones sin construirlas por anticipación.
+Fuera de beta: mapa/geolocalización, chat interno, reseñas, reservas, vídeos, packs, pagos entre usuarios, traducción automática, app móvil, microservicios y cobros reales. Documentar futuras ampliaciones sin construirlas por anticipación.
 
 Wireframes antes de implementar cada flujo, sin pedir al usuario decidir cada componente. Usar muestras sintéticas; no copiar anuncios o imágenes de personas de competidoras.
 
@@ -185,7 +193,7 @@ Copias, retención, incidentes, seguridad y gates conforme a documentos 03, 06, 
 
 ## 11. Hitos y aceptación
 
-Orden vigente de ejecución: [contrato de ejecución](16-contrato-ejecucion-desarrollo.md). Sustituye la secuencia inicial que sigue por entregas cruzadas CR-01 a CR-10, gate de separación GS-01, terminación frontend/backend y validación final común. Los criterios funcionales y gates de producción se mantienen.
+La entrega del alfa queda aceptada en su corte y con sus límites. La continuación hacia beta sigue el [roadmap B00–B17](103-roadmap-beta-clasificados-20261020.md) y conserva las garantías del [contrato de ejecución](16-contrato-ejecucion-desarrollo.md). La secuencia original siguiente describe la entrega del alfa y no es una nueva cola; las referencias profesionales o a tarifas de servicios en ella quedan sustituidas para beta por las secciones anteriores. Los gates de producción se mantienen.
 
 No hay fecha contractual de calendario: no se conoce disponibilidad de equipo. Se fija secuencia para no inventar una promesa:
 

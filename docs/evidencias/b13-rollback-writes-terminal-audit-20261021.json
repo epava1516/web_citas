@@ -1,0 +1,51 @@
+{
+  "result": "PASS_LOCAL_SCOPED",
+  "cycle": [
+    {
+      "version": "current",
+      "image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9",
+      "consumer": "previous",
+      "consumer_image": "sha256:980bcc133069c8fd798e48810274451498a2ea40d43044576a0e123e81b3f288",
+      "queued_messages_before_worker": 5
+    },
+    {
+      "version": "previous",
+      "image": "sha256:980bcc133069c8fd798e48810274451498a2ea40d43044576a0e123e81b3f288",
+      "consumer": "current",
+      "consumer_image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9",
+      "queued_messages_before_worker": 3
+    },
+    {
+      "version": "current",
+      "image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9",
+      "consumer": "current",
+      "consumer_image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9",
+      "queued_messages_before_worker": 3
+    }
+  ],
+  "draft_edits": 3,
+  "lifecycle_actions": [
+    "pause",
+    "resume",
+    "available"
+  ],
+  "idempotent_replays": 6,
+  "identified_real_worker_tasks_succeeded": 3,
+  "peer_and_approved_content_preserved": true,
+  "stored_states_equal_native": true,
+  "eight_media_files_preserved": true,
+  "nine_tables_compared_between_stages": true,
+  "timestamp_preserved_when_derived_values_unchanged": true,
+  "tcp_details": 18,
+  "tcp_photos": 6,
+  "runtime_sources_fresh": 724,
+  "fresh_cleanup_and_terminal_telegram": true,
+  "limits": [
+    "controlled sequential version switch, no concurrent requests or rolling-availability guarantee",
+    "authenticated writes via Django Client WSGI; public routes verified via real Gunicorn TCP",
+    "explicit refresh task queued; not proof of every automatic enqueue signal",
+    "previous image cannot reconcile restored grants"
+  ],
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

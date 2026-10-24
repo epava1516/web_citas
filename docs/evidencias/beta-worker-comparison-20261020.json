@@ -1,0 +1,60 @@
+{
+  "result": "PASS_SCOPED_COMPARISON_NOT_GLOBAL_ACCEPTANCE",
+  "audit_time": "2026-10-20T19:46:24.285643+00:00",
+  "scope": "Same frozen40files/363unique cases, including explicit detector; sequential2then4 workers. Not complete regression, product latency or beta acceptance.",
+  "arms": [
+    {
+      "workers": 2,
+      "run_id": "20261020-192749-1b6418af",
+      "passed_unique": 363,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_process_seconds": 624.180322792381,
+      "junit_seconds": 622.263,
+      "gate_steps_seconds": 640.0662447856739,
+      "complete_runner_wall_seconds": 653.9553019125015,
+      "audit_sha256": "b273df56573c3e787717f9f0349b1e1da499c11e2fb7e7b8dad9b653a05ca1cc",
+      "notification_receipt": "1792525123147586677-2469309.json",
+      "audit_receipt": "1792525133427541148-2544721.json"
+    },
+    {
+      "workers": 4,
+      "run_id": "20261020-193902-5d573925",
+      "passed_unique": 363,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_process_seconds": 349.88233392871916,
+      "junit_seconds": 347.997,
+      "gate_steps_seconds": 365.71421483065933,
+      "complete_runner_wall_seconds": 379.6669217804447,
+      "audit_sha256": "e7c36350f1f5c01cf1028749f9cdde67f82f21b9b24b4a54fb00ca237726041c",
+      "notification_receipt": "1792525522035410118-2547350.json",
+      "audit_receipt": "1792525532144781855-2598415.json"
+    }
+  ],
+  "reduction_percent": {
+    "pytest_process_seconds": 43.94531177089039,
+    "junit_seconds": 44.07557576137421,
+    "gate_steps_seconds": 42.86306803241613,
+    "complete_runner_wall_seconds": 41.94298590895992
+  },
+  "identical_source_freeze": true,
+  "fresh_source_comparison": true,
+  "identical_selection_and_nodeids": true,
+  "runner_arguments_differ_only_workers": true,
+  "same_history_and_file_local_order_verified_by_arm_audits": true,
+  "all94_original_negative_nodeids_passed_in_both": true,
+  "all52_original_storage_setup_error_nodeids_passed_in_both": true,
+  "fresh_resource_absence": true,
+  "source_set_sha256": "284a8e45b3e66abeec9c13d9e151285b9c63d20279dcb2ee76ad3752bf1d6b44",
+  "product_sources": 622,
+  "limits": [
+    "Single pair, fixed2then4 order; no reproducibility or isolated causal claim",
+    "Shared OS caches and external host activity not controlled",
+    "No per-worker report attribution or memory/RSS comparison",
+    "Global runner default6 unchanged; product4sync and capacity serial unchanged",
+    "Wide regression and contractual capacity remain pending; TCPshortFAIL remains"
+  ]
+}

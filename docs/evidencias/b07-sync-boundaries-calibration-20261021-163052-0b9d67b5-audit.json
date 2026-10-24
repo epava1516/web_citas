@@ -1,0 +1,396 @@
+{
+  "run_id": "20261021-163052-0b9d67b5",
+  "result": "PASS_SYNC_BOUNDARIES_TCP10_CALIBRATION_NOT_CAPACITY",
+  "unit_run": "20261021-162928-c1053578",
+  "unit_passed": 10,
+  "dynamic_successful": 60,
+  "upload_successful": 1,
+  "all61_phase_payloads_monotonic_complete": true,
+  "emitter_ast_unchanged": true,
+  "p95_observable_ms": 214.9285739287734,
+  "image_sources_unchanged": 724,
+  "image_tool_sources_changed": [
+    "scripts/benchmark_async_transport.py",
+    "scripts/run_local_ci.py"
+  ],
+  "application_sources_unchanged": 628,
+  "sources_cleanup_all_owned_pids_telegram_verified": true,
+  "raw_sample_accounting_replayed": true,
+  "B07_accepted": false,
+  "causal_instrumentation_overhead": "not_measured",
+  "server_boundary_samples": 61,
+  "server_workers_observed": 4,
+  "client_server_monotonic_order_verified": true,
+  "per_worker_nonoverlap_verified": true,
+  "all_native_handles_returned": true,
+  "new_diagnostic_source": "scripts/benchmark_sync_boundaries.py",
+  "segments": [
+    {
+      "id": "d-0",
+      "send_to_handler_ms": -0.40916725993156433,
+      "handler_to_pre_request_ms": 0.6186431273818016,
+      "native_handle_ms": 144.7829930111766
+    },
+    {
+      "id": "d-3",
+      "send_to_handler_ms": -0.33792201429605484,
+      "handler_to_pre_request_ms": 0.40712766349315643,
+      "native_handle_ms": 134.59378015249968
+    },
+    {
+      "id": "d-5",
+      "send_to_handler_ms": 34.37685687094927,
+      "handler_to_pre_request_ms": 0.13051461428403854,
+      "native_handle_ms": 68.71928460896015
+    },
+    {
+      "id": "d-7",
+      "send_to_handler_ms": 3.1759655103087425,
+      "handler_to_pre_request_ms": 0.1190081238746643,
+      "native_handle_ms": 105.40161561220884
+    },
+    {
+      "id": "d-10",
+      "send_to_handler_ms": -0.08503720164299011,
+      "handler_to_pre_request_ms": 0.24789012968540192,
+      "native_handle_ms": 65.76975341886282
+    },
+    {
+      "id": "d-13",
+      "send_to_handler_ms": -0.1634415239095688,
+      "handler_to_pre_request_ms": 0.29578153043985367,
+      "native_handle_ms": 108.75872801989317
+    },
+    {
+      "id": "d-17",
+      "send_to_handler_ms": 0.1642601564526558,
+      "handler_to_pre_request_ms": 0.18693134188652039,
+      "native_handle_ms": 139.89938981831074
+    },
+    {
+      "id": "d-20",
+      "send_to_handler_ms": 0.572575256228447,
+      "handler_to_pre_request_ms": 0.13606995344161987,
+      "native_handle_ms": 106.08798079192638
+    },
+    {
+      "id": "d-24",
+      "send_to_handler_ms": -0.16422849148511887,
+      "handler_to_pre_request_ms": 0.25048665702342987,
+      "native_handle_ms": 119.63948886841536
+    },
+    {
+      "id": "d-27",
+      "send_to_handler_ms": -0.08470471948385239,
+      "handler_to_pre_request_ms": 0.1736711710691452,
+      "native_handle_ms": 224.68817420303822
+    },
+    {
+      "id": "d-35",
+      "send_to_handler_ms": -0.12289918959140778,
+      "handler_to_pre_request_ms": 0.21336786448955536,
+      "native_handle_ms": 43.93746983259916
+    },
+    {
+      "id": "d-37",
+      "send_to_handler_ms": -0.15552248805761337,
+      "handler_to_pre_request_ms": 0.25374535471200943,
+      "native_handle_ms": 137.6411970704794
+    },
+    {
+      "id": "d-40",
+      "send_to_handler_ms": -0.26130862534046173,
+      "handler_to_pre_request_ms": 0.3897417336702347,
+      "native_handle_ms": 61.39565631747246
+    },
+    {
+      "id": "d-42",
+      "send_to_handler_ms": -0.19521638751029968,
+      "handler_to_pre_request_ms": 0.30579231679439545,
+      "native_handle_ms": 115.57445768266916
+    },
+    {
+      "id": "d-45",
+      "send_to_handler_ms": -0.13030320405960083,
+      "handler_to_pre_request_ms": 0.7068868726491928,
+      "native_handle_ms": 131.98929466307163
+    },
+    {
+      "id": "d-50",
+      "send_to_handler_ms": -0.17534289509058,
+      "handler_to_pre_request_ms": 0.3681918606162071,
+      "native_handle_ms": 114.91560004651546
+    },
+    {
+      "id": "d-53",
+      "send_to_handler_ms": -0.1447591930627823,
+      "handler_to_pre_request_ms": 0.24725031107664108,
+      "native_handle_ms": 37.881492637097836
+    },
+    {
+      "id": "d-54",
+      "send_to_handler_ms": -0.3386707976460457,
+      "handler_to_pre_request_ms": 0.40190108120441437,
+      "native_handle_ms": 147.06833474338055
+    },
+    {
+      "id": "d-58",
+      "send_to_handler_ms": -0.1999400556087494,
+      "handler_to_pre_request_ms": 0.3303671255707741,
+      "native_handle_ms": 57.13568348437548
+    },
+    {
+      "id": "d-2",
+      "send_to_handler_ms": -0.1569017767906189,
+      "handler_to_pre_request_ms": 0.4527801647782326,
+      "native_handle_ms": 255.57691417634487
+    },
+    {
+      "id": "d-8",
+      "send_to_handler_ms": 0.18028263002634048,
+      "handler_to_pre_request_ms": 0.1543276011943817,
+      "native_handle_ms": 112.58008610457182
+    },
+    {
+      "id": "d-11",
+      "send_to_handler_ms": 0.1520952209830284,
+      "handler_to_pre_request_ms": 0.18931366503238678,
+      "native_handle_ms": 77.39663496613503
+    },
+    {
+      "id": "d-15",
+      "send_to_handler_ms": 1.9604610279202461,
+      "handler_to_pre_request_ms": 0.1600785180926323,
+      "native_handle_ms": 144.69194132834673
+    },
+    {
+      "id": "d-18",
+      "send_to_handler_ms": -0.20856503397226334,
+      "handler_to_pre_request_ms": 0.28549134731292725,
+      "native_handle_ms": 175.25237798690796
+    },
+    {
+      "id": "d-23",
+      "send_to_handler_ms": -0.14950614422559738,
+      "handler_to_pre_request_ms": 0.2621626481413841,
+      "native_handle_ms": 71.08780927956104
+    },
+    {
+      "id": "d-28",
+      "send_to_handler_ms": -0.2765245735645294,
+      "handler_to_pre_request_ms": 0.3726361319422722,
+      "native_handle_ms": 67.33785942196846
+    },
+    {
+      "id": "d-30",
+      "send_to_handler_ms": -0.3051711246371269,
+      "handler_to_pre_request_ms": 0.3829086199402809,
+      "native_handle_ms": 131.09534047544003
+    },
+    {
+      "id": "d-33",
+      "send_to_handler_ms": -0.29530469328165054,
+      "handler_to_pre_request_ms": 3.6088405176997185,
+      "native_handle_ms": 113.98399341851473
+    },
+    {
+      "id": "d-38",
+      "send_to_handler_ms": -0.2754833549261093,
+      "handler_to_pre_request_ms": 0.3563622012734413,
+      "native_handle_ms": 104.36475928872824
+    },
+    {
+      "id": "d-41",
+      "send_to_handler_ms": -0.17739087343215942,
+      "handler_to_pre_request_ms": 0.2764342352747917,
+      "native_handle_ms": 67.90530681610107
+    },
+    {
+      "id": "d-43",
+      "send_to_handler_ms": -0.2498198300600052,
+      "handler_to_pre_request_ms": 0.3507472574710846,
+      "native_handle_ms": 214.22672178596258
+    },
+    {
+      "id": "d-47",
+      "send_to_handler_ms": 13.106714934110641,
+      "handler_to_pre_request_ms": 0.15884265303611755,
+      "native_handle_ms": 68.07311624288559
+    },
+    {
+      "id": "d-52",
+      "send_to_handler_ms": -0.13774260878562927,
+      "handler_to_pre_request_ms": 0.23786257952451706,
+      "native_handle_ms": 46.12549766898155
+    },
+    {
+      "id": "d-57",
+      "send_to_handler_ms": -0.2582157030701637,
+      "handler_to_pre_request_ms": 0.3412123769521713,
+      "native_handle_ms": 108.08049328625202
+    },
+    {
+      "id": "u-0",
+      "send_to_handler_ms": -0.3050602972507477,
+      "handler_to_pre_request_ms": 0.6393129006028175,
+      "native_handle_ms": 691.2706224247813
+    },
+    {
+      "id": "d-14",
+      "send_to_handler_ms": -0.1834416761994362,
+      "handler_to_pre_request_ms": 0.30706077814102173,
+      "native_handle_ms": 335.9655821695924
+    },
+    {
+      "id": "d-21",
+      "send_to_handler_ms": -0.245729461312294,
+      "handler_to_pre_request_ms": 0.337342731654644,
+      "native_handle_ms": 178.8263926282525
+    },
+    {
+      "id": "d-25",
+      "send_to_handler_ms": -0.19247736781835556,
+      "handler_to_pre_request_ms": 0.3102356567978859,
+      "native_handle_ms": 158.11027865856886
+    },
+    {
+      "id": "d-29",
+      "send_to_handler_ms": 0.1561138778924942,
+      "handler_to_pre_request_ms": 0.1845080405473709,
+      "native_handle_ms": 96.28539625555277
+    },
+    {
+      "id": "d-32",
+      "send_to_handler_ms": -0.47733448445796967,
+      "handler_to_pre_request_ms": 0.5436092615127563,
+      "native_handle_ms": 147.51438796520233
+    },
+    {
+      "id": "d-36",
+      "send_to_handler_ms": -0.11703278869390488,
+      "handler_to_pre_request_ms": 0.21920166909694672,
+      "native_handle_ms": 203.9104336872697
+    },
+    {
+      "id": "d-44",
+      "send_to_handler_ms": -0.247148796916008,
+      "handler_to_pre_request_ms": 0.38129929453134537,
+      "native_handle_ms": 167.83736553043127
+    },
+    {
+      "id": "d-48",
+      "send_to_handler_ms": -0.3708628937602043,
+      "handler_to_pre_request_ms": 0.4584500566124916,
+      "native_handle_ms": 105.09809292852879
+    },
+    {
+      "id": "d-51",
+      "send_to_handler_ms": -0.12164004147052765,
+      "handler_to_pre_request_ms": 0.23488979786634445,
+      "native_handle_ms": 157.12826047092676
+    },
+    {
+      "id": "d-56",
+      "send_to_handler_ms": -0.26684999465942383,
+      "handler_to_pre_request_ms": 0.3846175968647003,
+      "native_handle_ms": 151.56033262610435
+    },
+    {
+      "id": "d-1",
+      "send_to_handler_ms": -0.299183651804924,
+      "handler_to_pre_request_ms": 0.4930896684527397,
+      "native_handle_ms": 187.75607366114855
+    },
+    {
+      "id": "d-4",
+      "send_to_handler_ms": 37.15917561203241,
+      "handler_to_pre_request_ms": 0.10691303759813309,
+      "native_handle_ms": 94.8287807404995
+    },
+    {
+      "id": "d-6",
+      "send_to_handler_ms": 31.01519774645567,
+      "handler_to_pre_request_ms": 0.164874829351902,
+      "native_handle_ms": 114.38718065619469
+    },
+    {
+      "id": "d-9",
+      "send_to_handler_ms": -0.13386737555265427,
+      "handler_to_pre_request_ms": 0.21593086421489716,
+      "native_handle_ms": 148.79546966403723
+    },
+    {
+      "id": "d-12",
+      "send_to_handler_ms": -0.2454528585076332,
+      "handler_to_pre_request_ms": 0.37317629903554916,
+      "native_handle_ms": 164.75808434188366
+    },
+    {
+      "id": "d-16",
+      "send_to_handler_ms": -0.26483647525310516,
+      "handler_to_pre_request_ms": 0.3533577546477318,
+      "native_handle_ms": 60.11809967458248
+    },
+    {
+      "id": "d-19",
+      "send_to_handler_ms": -0.17575453966856003,
+      "handler_to_pre_request_ms": 0.2683950588107109,
+      "native_handle_ms": 135.76955068856478
+    },
+    {
+      "id": "d-22",
+      "send_to_handler_ms": -0.17539504915475845,
+      "handler_to_pre_request_ms": 0.2864040434360504,
+      "native_handle_ms": 56.23634718358517
+    },
+    {
+      "id": "d-26",
+      "send_to_handler_ms": -0.14365650713443756,
+      "handler_to_pre_request_ms": 0.26282016187906265,
+      "native_handle_ms": 169.5761876180768
+    },
+    {
+      "id": "d-31",
+      "send_to_handler_ms": -0.3125779330730438,
+      "handler_to_pre_request_ms": 0.38034282624721527,
+      "native_handle_ms": 118.81374195218086
+    },
+    {
+      "id": "d-34",
+      "send_to_handler_ms": -0.164019875228405,
+      "handler_to_pre_request_ms": 0.32731983810663223,
+      "native_handle_ms": 45.91835755854845
+    },
+    {
+      "id": "d-39",
+      "send_to_handler_ms": 0.14406070113182068,
+      "handler_to_pre_request_ms": 0.15381909906864166,
+      "native_handle_ms": 139.58920259028673
+    },
+    {
+      "id": "d-46",
+      "send_to_handler_ms": 0.15417858958244324,
+      "handler_to_pre_request_ms": 0.15798956155776978,
+      "native_handle_ms": 71.46487385034561
+    },
+    {
+      "id": "d-49",
+      "send_to_handler_ms": -0.36207400262355804,
+      "handler_to_pre_request_ms": 0.510290265083313,
+      "native_handle_ms": 187.23236117511988
+    },
+    {
+      "id": "d-55",
+      "send_to_handler_ms": -0.24006608873605728,
+      "handler_to_pre_request_ms": 0.38335099816322327,
+      "native_handle_ms": 156.456989236176
+    },
+    {
+      "id": "d-59",
+      "send_to_handler_ms": -0.11507980525493622,
+      "handler_to_pre_request_ms": 0.2370830625295639,
+      "native_handle_ms": 53.39784547686577
+    }
+  ],
+  "boundary_limits": "Same-host time.monotonic: handler entry after native accept/setblocking/cloexec, pre_request entry after HTTP parser, handler exit after native response cleanup. No exact TCP accept timestamp, socket-only queue, app/DB CPU or causal observer overhead. Only synthetic IDs; file append after handler exit."
+}

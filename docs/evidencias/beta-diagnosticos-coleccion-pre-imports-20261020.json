@@ -1,0 +1,100 @@
+{
+  "result": "COLLECTION_SCOPE_AND_BYTE_PRESERVATION_VERIFIED",
+  "functional_tests_executed": 0,
+  "capacity_acceptance": false,
+  "before_collection": 3769,
+  "ordinary_after_collection": 3760,
+  "explicit_diagnostic_collection": 9,
+  "other_nodeids_unchanged": true,
+  "sampling_functions_AST_identical": true,
+  "product_sources_unchanged": 622,
+  "archived_original_bytes_verified": true,
+  "removed_from_default_not_deleted": [
+    "tests/test_beta_post_tcp_profile.py::test_post_tcp_sequential_attribution[10000]",
+    "tests/test_beta_post_tcp_profile.py::test_post_tcp_sequential_attribution[1000]",
+    "tests/test_beta_promotion_plans.py::test_promotional_ordering_read_only_plans",
+    "tests/test_beta_promotion_profile.py::test_promotional_read_attribution",
+    "tests/test_beta_read_baseline.py::test_sequential_read_diagnostic[10000]",
+    "tests/test_beta_read_baseline.py::test_sequential_read_diagnostic[1000]",
+    "tests/test_beta_read_baseline.py::test_sequential_read_diagnostic[100]",
+    "tests/test_beta_rights_materialization_roi.py::test_rights_materialization_balanced_roi",
+    "tests/test_beta_rights_materialization_uuid_roi.py::test_rights_materialization_uuid_balanced_roi"
+  ],
+  "explicit_diagnostics_available": [
+    "tests/beta_post_tcp_profile_diagnostic.py::test_post_tcp_sequential_attribution[10000]",
+    "tests/beta_post_tcp_profile_diagnostic.py::test_post_tcp_sequential_attribution[1000]",
+    "tests/beta_promotion_plans_diagnostic.py::test_promotional_ordering_read_only_plans",
+    "tests/beta_promotion_profile_diagnostic.py::test_promotional_read_attribution",
+    "tests/beta_read_baseline_diagnostic.py::test_sequential_read_diagnostic[10000]",
+    "tests/beta_read_baseline_diagnostic.py::test_sequential_read_diagnostic[1000]",
+    "tests/beta_read_baseline_diagnostic.py::test_sequential_read_diagnostic[100]",
+    "tests/beta_rights_materialization_roi_diagnostic.py::test_rights_materialization_balanced_roi",
+    "tests/beta_rights_materialization_uuid_roi_diagnostic.py::test_rights_materialization_uuid_balanced_roi"
+  ],
+  "file_moves": [
+    {
+      "old": "tests/test_beta_read_baseline.py",
+      "current": "tests/beta_read_baseline_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_read_baseline.py.txt",
+      "old_sha256": "0b00f237cf83d97fe0215de8e7b8c5148bc570df2dc54e24902a00cfe07edc4c",
+      "current_sha256": "0b00f237cf83d97fe0215de8e7b8c5148bc570df2dc54e24902a00cfe07edc4c",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    },
+    {
+      "old": "tests/test_beta_promotion_profile.py",
+      "current": "tests/beta_promotion_profile_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_promotion_profile.py.txt",
+      "old_sha256": "0a88fd79fee1ca54f2c7a8fdeea87758fb4f7b29c6cb52c60887fd65591a0e09",
+      "current_sha256": "80e19a55b86a46ea26a7de4313a646d925c04e9c09abafc40cdc6269b0a7083c",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    },
+    {
+      "old": "tests/test_beta_promotion_plans.py",
+      "current": "tests/beta_promotion_plans_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_promotion_plans.py.txt",
+      "old_sha256": "26e104660408137742ede4175d6d0a49ed921ae388bbb4c38dc901a41479652d",
+      "current_sha256": "26e104660408137742ede4175d6d0a49ed921ae388bbb4c38dc901a41479652d",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    },
+    {
+      "old": "tests/test_beta_post_tcp_profile.py",
+      "current": "tests/beta_post_tcp_profile_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_post_tcp_profile.py.txt",
+      "old_sha256": "3dbad4b0f2efd4b295fa923eb6db633d8ec346cb534d316e8297966aa42d4ab4",
+      "current_sha256": "f7675a3017887d74413947193d30bd5fd99818067123844794588e1d3c314474",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    },
+    {
+      "old": "tests/test_beta_rights_materialization_roi.py",
+      "current": "tests/beta_rights_materialization_roi_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_rights_materialization_roi.py.txt",
+      "old_sha256": "22761d0ffac37d9b6538d6f809f9d543f301b89b67410d4ab2c118596e44c12c",
+      "current_sha256": "9d641771398d8060d2a894eb08051544b261ad9908a04d69b4dc6d564a5f9589",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    },
+    {
+      "old": "tests/test_beta_rights_materialization_uuid_roi.py",
+      "current": "tests/beta_rights_materialization_uuid_roi_diagnostic.py",
+      "archive": "docs/evidencias/beta-diagnosticos-20261020/test_beta_rights_materialization_uuid_roi.py.txt",
+      "old_sha256": "8a81dc0b729167455c439509f33508afaa0be2df35ee6be27b9887aceeebbee3",
+      "current_sha256": "c1739ad6d07b1fc78e56b4988655ace53ad84eeb6c85bcb8eed82973c84a7c7e",
+      "functions_AST_identical": true,
+      "change": "Path and only two possible top-level diagnostic import names; no function/decorator/sampling/threshold change"
+    }
+  ],
+  "notification_receipts": {
+    "Beta inventario de colección antes de separar diagnósticos": "1792502856756726385-129966.json",
+    "Beta colección ordinaria tras separar diagnósticos": "1792502904522607198-134533.json",
+    "Beta colección explícita de los nueve escenarios diagnósticos conservados": "1792502924450538792-136846.json"
+  },
+  "limits": [
+    "Collection proof only, not3760tests passed",
+    "Diagnostics remain manual sequential runs against their stated frozen source",
+    "Historical ROI replays require original promotion module SHA; failed candidates remain rejected"
+  ]
+}

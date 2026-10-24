@@ -1,0 +1,71 @@
+{
+  "result": "VERIFIED_SCOPED_QUERY_REDUCTION_AND_COI_PARITY",
+  "before_cost_run": "20261024-053209-77dfeca3",
+  "before_authority_run": "20261024-054506-67458735",
+  "after_run": "20261024-055055-56ead958",
+  "same_cost_instrument_sha256": "6c5b56707a5d4d764b8c43e9730cff4154081c812a59f6523ef831ce64b99c5b",
+  "same_authority_test_sha256": "275645a2579f34f9f7027d532077ff1aa0f1b6dae98724bd7a4f157b6fffb34d",
+  "same_role_outcomes": true,
+  "same_next_request_authority_counts": [
+    2,
+    1,
+    0,
+    2,
+    0,
+    2
+  ],
+  "changed_product_paths": [
+    "apps/safety/views.py"
+  ],
+  "added_product_paths": [
+    "apps/safety/report_queue.py"
+  ],
+  "same_product_paths": 628,
+  "before_observations": [
+    {
+      "reports": 10,
+      "native_allowed": 10,
+      "sql_calls": 30,
+      "primary_agency_reads": 10,
+      "primary_membership_reads": 10,
+      "elapsed_seconds": 0.5980402790009975,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    },
+    {
+      "reports": 100,
+      "native_allowed": 100,
+      "sql_calls": 210,
+      "primary_agency_reads": 100,
+      "primary_membership_reads": 100,
+      "elapsed_seconds": 0.3437266992405057,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    }
+  ],
+  "after_observations": [
+    {
+      "reports": 10,
+      "native_allowed": 10,
+      "sql_calls": 10,
+      "primary_agency_reads": 0,
+      "primary_membership_reads": 0,
+      "elapsed_seconds": 0.46152185183018446,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    },
+    {
+      "reports": 100,
+      "native_allowed": 100,
+      "sql_calls": 10,
+      "primary_agency_reads": 0,
+      "primary_membership_reads": 0,
+      "elapsed_seconds": 0.0445132227614522,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    }
+  ],
+  "queue_only_diff_sha256": "a8045bf3af01fe1aae90feaf4b6ea99aaf3e5c73ce6e7298ed8d6decfe48519d",
+  "limits": [
+    "Reduced application query round trips, not constant database work or memory",
+    "Only isolated sequential times; no causal latency/CPU improvement or capacity claim",
+    "Whole B09 still open for delivery assets and backlog/fallback review",
+    "Original cost CI used one worker and corrected CI three; scheduling and isolated times are not a controlled latency comparison"
+  ]
+}

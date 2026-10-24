@@ -1,0 +1,44 @@
+{
+  "result": "AUDITED_REPORT_QUEUE_READ_DIAGNOSTIC",
+  "run": "20261024-053209-77dfeca3",
+  "cases": 2,
+  "junit_seconds": 51.559000000000005,
+  "source_hashes_verified": 1713,
+  "observations": [
+    {
+      "reports": 10,
+      "native_allowed": 10,
+      "sql_calls": 30,
+      "primary_agency_reads": 10,
+      "primary_membership_reads": 10,
+      "elapsed_seconds": 0.5980402790009975,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    },
+    {
+      "reports": 100,
+      "native_allowed": 100,
+      "sql_calls": 210,
+      "primary_agency_reads": 100,
+      "primary_membership_reads": 100,
+      "elapsed_seconds": 0.3437266992405057,
+      "limits": "Sequential synthetic Django Client; SQL counts are diagnostic, not TCP capacity or causal CPU attribution"
+    }
+  ],
+  "one_agency_read_per_report": true,
+  "one_membership_read_per_report": true,
+  "sql_calls_growth": 180,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifacts_sha256": {
+    "result.json": "8e3d7737b44a2472f552d7763f7a58099a490d7a35c744cb647a0c4eb667cedb",
+    "source-hashes.json": "8096fedcd8f1e804df3c705016da8fda2033b7cc83fe8f5660f50f20323cd0d3",
+    "pytest.xml": "96248fd662fdaed4d4286ede3cf2e56d498af27ba87b94980fcac19513bcd148",
+    "runner.json": "05803028bd533d6ad891ff749fddb001b908fc202aa721b79e5ac5b18cfeb8bb",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "Sequential synthetic HTTPClient diagnostic, not TCP capacity or new performance acceptance",
+    "Only agency-target reports with unaffiliated reviewer; other COI classes need relevant parity before changing authorization",
+    "No application optimization applied"
+  ]
+}

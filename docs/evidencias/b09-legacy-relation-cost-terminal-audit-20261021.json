@@ -1,0 +1,36 @@
+{
+  "result": "PASS_ATTRIBUTION_NOT_SPEEDUP",
+  "run_id": "20261021-131409-e1275874",
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "warnings_summary_present": false,
+  "routes": [
+    {
+      "route": "directory_es",
+      "control_wall_median_ms": 182.76682030409575,
+      "observed_http_wall_median_ms": 190.32201264053583,
+      "legacy_phase_sum_median_ms": 19.515326246619225,
+      "legacy_observed_share_median": 0.10253846087408779,
+      "context_wall_median_ms": 100.67245922982693
+    },
+    {
+      "route": "search_en",
+      "control_wall_median_ms": 192.49704107642174,
+      "observed_http_wall_median_ms": 176.27933993935585,
+      "legacy_phase_sum_median_ms": 13.689534738659859,
+      "legacy_observed_share_median": 0.07824186356320918,
+      "context_wall_median_ms": 78.95297929644585
+    }
+  ],
+  "prototype_cost_gate": false,
+  "source_hashes_cleanup_pids_and_terminal_telegram_verified": true,
+  "runtime_sources_unchanged": 726,
+  "observed_http_reads": 6,
+  "unobserved_http_reads": 14,
+  "rights": 0,
+  "profiles": 1000,
+  "product_changed": false,
+  "promotional20percent_or_TCP_capacity_verified": false,
+  "B07_B09_accepted": false
+}

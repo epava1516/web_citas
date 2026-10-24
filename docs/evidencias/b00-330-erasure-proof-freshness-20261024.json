@@ -1,0 +1,56 @@
+{
+  "result": "PASS",
+  "negative_failures": 2,
+  "positive_passed": 35,
+  "new_runtime_acceptance": false,
+  "notification_receipts_verified": true,
+  "runs": [
+    {
+      "run": "artifacts/local-ci/20261024-005741-2d9f96b6",
+      "result": "ERROR",
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "sources_unchanged": true,
+      "cleanup_independently_absent": true,
+      "notification": {
+        "delivery": "sent",
+        "result": "ERROR",
+        "name": "CI focused"
+      },
+      "result_sha256": "27def2f38b5d2f521ac566a120b52a75b44945d7759cd25115f3cb9c300b51de",
+      "junit_sha256": "a279b2b80c91a8dc418c4993f0a3b53bab4253c296b3f3a4ca355ce7842db409"
+    },
+    {
+      "run": "artifacts/local-ci/20261024-010117-d4160478",
+      "result": "PASS",
+      "tests": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sources_unchanged": true,
+      "cleanup_independently_absent": true,
+      "notification": {
+        "delivery": "sent",
+        "result": "PASS",
+        "name": "CI focused"
+      },
+      "result_sha256": "53f02df9310c9f26285612b5efc26f2cc5f9141f9e9d8dff75555ea6aa534e37",
+      "junit_sha256": "df24f237e17d9a82923844d87bf0705f28d751366e13d7a1dece61a6c4c09e63"
+    }
+  ],
+  "scope": "Controlled proof expiry after source/recovery reads in actual PostgreSQL/domain. Existing profile/account erasure, HTTP/mobile, observed-lock revocations, replay and exception consumers; not real callback or global beta/capacity acceptance.",
+  "acceptance_scope": "Finite ordinary-erasure proof freshness plus affected35-case regression; not complete rights/beta/production acceptance",
+  "sources": {
+    "apps/safety/erasure_execution.py": "b1137ce3a1adb7820b07c44ecb6ef472261dc06b3ce972562850074f046bb593",
+    "apps/safety/purpose_exceptions.py": "719c415913547105313b4b9e2d15e9e123b09ab66f743c142062864b8a0d5a83",
+    "tests/test_erasure_execution_freshness.py": "6248eee8aaffb823530d61396fff4bc3f92a726a9ff666e04063617a8ef9fd50",
+    "tests/test_erasure_execution.py": "3e8f8284ac61b673073bc7dc3556bb8a1b03ebe38c7d2a67d115bc8857833b91",
+    "tests/test_account_erasure_execution.py": "b6e42d37b4a27b6fde1f723bc7522616cbc2aaae1b75eb9d69ebaa41ec2239fd",
+    "tests/test_erasure_execution_revocation_races.py": "79001444bbb9a3091ccd066bd678d93261897c00cce3967476cd32a4591682f3",
+    "tests/test_purpose_exception_consumer_freshness.py": "0f9368dcba99959f5bbc33825590c01167b8252d3adf3e75f9858b61f5b67c5e",
+    "tests/test_purpose_exception_consumption.py": "deb5349ff754b89ed49f3561063c5e349d941ad42adb38ad52c267c3e4130722",
+    "tests/test_purpose_exception_late_authority.py": "32b4cc7f55dd8bab4c3772756afb4bae0eccae1b8bc4e71221cd2ea83170e6de"
+  }
+}

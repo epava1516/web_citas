@@ -1,0 +1,143 @@
+{
+  "run_id": "20261020-215057-a1cc4608",
+  "phase": "global-rights-selective",
+  "result": "PASS",
+  "audit_time": "2026-10-20T21:52:49.973692+00:00",
+  "scope": "Experimental global-rights candidate initial native-reference parity and private authority; no product adoption, selective-cost evidence or capacity acceptance",
+  "passed": 1,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/beta_global_rights_parity_diagnostic.py::test_global_rights_outside_selective_population"
+  ],
+  "pytest_seconds": 79.02215343993157,
+  "junit_seconds": 77.043,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "86ee33a0d51cfbe55da7a8d468cb13247d94d67f0d58c4db7a9ba0370311cb93",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792533164272344163-3478972.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "d51c4faebe66e55e9d2624ec17484b99bc7f4265fd26577e1054e8fd567c7bdf",
+    "runner.json": "5464495494e5ac3316fae39554c598e57954efc440a5bc083221d2ef9136ad2a",
+    "source-hashes.json": "c70bc44fab957230c946a5f50e00607f2cc4a5f52282ac2228546377d98023a0",
+    "pytest.xml": "185180744a9ba77316d282aa6e3542cf8e365d49ec31d492c2ba690e2c405612",
+    "pytest-reports.jsonl": "906bde6240ac172f821670191c6ab6d3ce455775de15d6ecf2f08677a7a90109",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "worker_scope": {
+    "scope": "No worker/Beat claimed for focused regression"
+  },
+  "experimental_candidate_only": true,
+  "selective_comparisons": [
+    {
+      "cohort": "all",
+      "text_search": false,
+      "population": 45,
+      "global_rights": 56,
+      "filtered_rights": 52
+    },
+    {
+      "cohort": "all",
+      "text_search": true,
+      "population": 45,
+      "global_rights": 56,
+      "filtered_rights": 52
+    },
+    {
+      "cohort": "empty",
+      "text_search": false,
+      "population": 0,
+      "global_rights": 56,
+      "filtered_rights": 0
+    },
+    {
+      "cohort": "empty",
+      "text_search": true,
+      "population": 0,
+      "global_rights": 56,
+      "filtered_rights": 0
+    },
+    {
+      "cohort": "organic_only",
+      "text_search": false,
+      "population": 13,
+      "global_rights": 56,
+      "filtered_rights": 0
+    },
+    {
+      "cohort": "organic_only",
+      "text_search": true,
+      "population": 13,
+      "global_rights": 56,
+      "filtered_rights": 0
+    },
+    {
+      "cohort": "mixed",
+      "text_search": false,
+      "population": 8,
+      "global_rights": 56,
+      "filtered_rights": 11
+    },
+    {
+      "cohort": "mixed",
+      "text_search": true,
+      "population": 8,
+      "global_rights": 56,
+      "filtered_rights": 11
+    },
+    {
+      "cohort": "bump_and_organic",
+      "text_search": false,
+      "population": 13,
+      "global_rights": 56,
+      "filtered_rights": 8
+    },
+    {
+      "cohort": "bump_and_organic",
+      "text_search": true,
+      "population": 13,
+      "global_rights": 56,
+      "filtered_rights": 8
+    },
+    {
+      "cohort": "single_organic",
+      "text_search": false,
+      "population": 1,
+      "global_rights": 56,
+      "filtered_rights": 0
+    },
+    {
+      "cohort": "single_organic",
+      "text_search": true,
+      "population": 1,
+      "global_rights": 56,
+      "filtered_rights": 0
+    }
+  ],
+  "prior_eight_reuse": {
+    "source_prefix_reconstructed": true,
+    "changed_source_paths": [
+      ".ai/tasks/beta-contrato-20261020.md",
+      "tests/beta_global_rights_parity_diagnostic.py"
+    ],
+    "fresh_passed": 1,
+    "reused_passed": 8,
+    "covered_unique": 9,
+    "single_run": false
+  },
+  "nodeids": [
+    "tests/beta_global_rights_parity_diagnostic.py::test_global_rights_outside_selective_population"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

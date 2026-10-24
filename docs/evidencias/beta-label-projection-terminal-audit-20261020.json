@@ -1,0 +1,98 @@
+{
+  "run_id": "20261020-220121-9c5b3e67",
+  "phase": "label-projection",
+  "result": "PASS",
+  "audit_time": "2026-10-20T22:04:02.356323+00:00",
+  "scope": "Experimental label projection SQL shape and native-reference parity; no memory/ROI measurement, product adoption or capacity acceptance",
+  "passed": 10,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/beta_promotion_label_projection_diagnostic.py"
+  ],
+  "pytest_seconds": 119.3336347527802,
+  "junit_seconds": 117.259,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "86ee33a0d51cfbe55da7a8d468cb13247d94d67f0d58c4db7a9ba0370311cb93",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792533828952154248-3542904.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "10c7e8225a0e112179ef6099f4943c241ab24b9d3b8f05659ee8e61f4029c39c",
+    "runner.json": "a750add09cd66a51074c6209c0c51c31c411167da8502ad28e94a8e8e57445f9",
+    "source-hashes.json": "78ab6b6e6cb62e46a71cb3bd7d319daf5ea5dcbbad9a1a0ca6679d3476f91888",
+    "pytest.xml": "354d88410f91ad05344232a370e55a718ce6b35ee2c83cf4e143087031668dfc",
+    "pytest-reports.jsonl": "43d7e6e45aa0c60243f27a0d8cdd0273aecb60ab8560ccf5383b82e2084fc12e",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "worker_scope": {
+    "scope": "No worker/Beat claimed for focused regression"
+  },
+  "experimental_candidate_only": true,
+  "sql_shapes": [
+    {
+      "surface": "listing",
+      "kind": "premium",
+      "original_map_parameters": 3,
+      "candidate_map_parameters": 1,
+      "original_json_bytes": 126,
+      "candidate_json_bytes": 42,
+      "original_json_extracts": 3,
+      "candidate_json_extracts": 1
+    },
+    {
+      "surface": "state",
+      "kind": "premium",
+      "original_map_parameters": 3,
+      "candidate_map_parameters": 1,
+      "original_json_bytes": 126,
+      "candidate_json_bytes": 42,
+      "original_json_extracts": 3,
+      "candidate_json_extracts": 1
+    },
+    {
+      "surface": "listing",
+      "kind": "autobump",
+      "original_map_parameters": 3,
+      "candidate_map_parameters": 1,
+      "original_json_bytes": 126,
+      "candidate_json_bytes": 42,
+      "original_json_extracts": 3,
+      "candidate_json_extracts": 1
+    },
+    {
+      "surface": "state",
+      "kind": "autobump",
+      "original_map_parameters": 3,
+      "candidate_map_parameters": 1,
+      "original_json_bytes": 126,
+      "candidate_json_bytes": 42,
+      "original_json_extracts": 3,
+      "candidate_json_extracts": 1
+    }
+  ],
+  "candidate_sha256": "94e6551329d339f48bfc1a932af8dd0b2fb381dcaf700af569c56ba6c3a1cd30",
+  "nodeids": [
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_all_pages_native_reference",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_checked_pending[en]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_checked_pending[es]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_inherited_transaction",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_revocation[editor]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_revocation[individual]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_revocation[owner]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_candidate_snapshot_boundary",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_sql_shape_and_empty_or_populated_hint[autobump]",
+    "tests/beta_promotion_label_projection_diagnostic.py::test_sql_shape_and_empty_or_populated_hint[premium]"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

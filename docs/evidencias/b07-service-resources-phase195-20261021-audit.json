@@ -1,0 +1,68 @@
+{
+  "phase_labels_ordered_idle_after_verified": true,
+  "result": "PASS_OWNED_SERVICE_RESOURCE_PHASE_CALIBRATION_ONLY",
+  "run": "20261021-220724-a0bf8808",
+  "cases": 1,
+  "junit_seconds": 86.327,
+  "samples": 35,
+  "sampled_interval_seconds": 33.57636322733015,
+  "processes": {
+    "web": {
+      "persistent_pids": 5,
+      "persistent_cpu_seconds": 5.01,
+      "sampled_rss_sum_max_bytes": 558469120
+    },
+    "worker": {
+      "persistent_pids": 3,
+      "persistent_cpu_seconds": 1.49,
+      "sampled_rss_sum_max_bytes": 401240064
+    },
+    "beat": {
+      "persistent_pids": 1,
+      "persistent_cpu_seconds": 0.05,
+      "sampled_rss_sum_max_bytes": 137764864
+    }
+  },
+  "containers": {
+    "postgres": {
+      "elapsed_seconds": 33.57663816213608,
+      "execution_cpu_cores": 0.06479835740236556,
+      "counter_delta": {
+        "usage_usec": 2175711,
+        "user_usec": 1163501,
+        "system_usec": 1012210,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0
+      }
+    },
+    "redis": {
+      "elapsed_seconds": 33.57649331819266,
+      "execution_cpu_cores": 0.008601047085626541,
+      "counter_delta": {
+        "usage_usec": 288793,
+        "user_usec": 252738,
+        "system_usec": 36055,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0
+      }
+    }
+  },
+  "collector_thread_cpu_seconds": 0.15503766900000002,
+  "p95_observable_ms": 277.63690147548914,
+  "dynamic_successful": 60,
+  "uploads_successful": 1,
+  "complete_geography_total": 10,
+  "app_config_template_sources_unchanged": 628,
+  "source_cleanup_sample_pids_telegram_verified": true,
+  "kernel_8cpu_8gib_verified": false,
+  "rss_shared_pages_double_count": true,
+  "exact_workload_interval": false,
+  "capacity_accepted": false,
+  "artifact_sha256": {
+    "service-resources.jsonl": "1f2f645441a8bc8f846c7227c4349abaed7b20f4b1a7a8f86ca4b44006413b0f",
+    "service-resources.summary.json": "39454ee49cccaacf026f5e086c81b7344cfd184a08ba595b88cc3c76fa339356",
+    "benchmark-manifest.json": "8cf06302c064c31cb15840923f7663bac918220e9cc5db7489519c4e05ea40e2"
+  }
+}

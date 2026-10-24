@@ -1,5 +1,11 @@
 # CR-06 — Moderación y publicación, interfaz v1 en curso
 
+## Política objetivo beta consolidada el 2026-10-20
+
+La [versión funcional 1.1](../14-contrato-funcional-v1.md) admite perfiles personales románticos y excluye anuncios de encuentros sexuales, remunerados o no, así como ofertas profesionales y precios por cita. Aplicar la regla a texto, fotos, categorías heredadas y enlaces; conservar revisión humana, comprobaciones, consentimiento, conflictos y autoridad vigente.
+
+Al adaptar B02–B06, validar el formulario romántico sin exigir tarifas o servicios antiguos; cambios sensibles en atributos públicos definidos requieren revisión. Migrar catálogo no republica automáticamente perfiles ni autoriza una versión distinta de la aprobada. La declaración de publicación y los documentos deben versionarse por el flujo existente antes de exigir nueva aceptación; una edición Markdown no cambia aceptaciones runtime. [Matriz B00–B01](../104-consolidacion-contrato-beta-b00b01-20261020.md). El resto describe evidencia del alfa y sus interfaces, no aceptación del cambio beta.
+
 Entrega verificada localmente en acta01 (docs/actas/01-base-cr06-local.md). Las notas de pendientes de los primeros apartados reflejan iteraciones históricas; los apartados posteriores y el acta registran su resolución. Descubrimiento/ficha completa continúa CR-07; derechos/reclamación pública sin cuenta CR-09. No preparación real de producción.
 
 ## Envío y estados privados

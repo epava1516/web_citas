@@ -1,0 +1,1175 @@
+{
+  "run_id": "20261020-100301-0264595f",
+  "result": "PASS_LOCAL_CORRECTIVE",
+  "passed": 9,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "nodeids": [
+    "tests/test_beta_read_baseline.py::test_sequential_read_diagnostic[100]",
+    "tests/test_promotion_paged_equivalence.py::test_all_pages_match_frozen_native_with_overlapping_rights",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[editor]",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[individual]",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[owner]",
+    "tests/test_promotion_snapshot_ordering.py::test_inherited_read_committed_does_not_reuse_a_rights_map",
+    "tests/test_promotion_snapshot_ordering.py::test_positive_checked_filter_with_promotions_and_delayed_refresh[en]",
+    "tests/test_promotion_snapshot_ordering.py::test_positive_checked_filter_with_promotions_and_delayed_refresh[es]",
+    "tests/test_promotion_snapshot_ordering.py::test_snapshot_map_does_not_survive_next_request"
+  ],
+  "frozen_native_comparisons": [
+    {
+      "day": 0,
+      "language": "es",
+      "params": {},
+      "count": 49
+    },
+    {
+      "day": 0,
+      "language": "es",
+      "params": {
+        "q": "photography"
+      },
+      "count": 49
+    },
+    {
+      "day": 0,
+      "language": "es",
+      "params": {
+        "profile": [
+          "woman"
+        ],
+        "language": [
+          "en"
+        ]
+      },
+      "count": 25
+    },
+    {
+      "day": 0,
+      "language": "en",
+      "params": {},
+      "count": 49
+    },
+    {
+      "day": 0,
+      "language": "en",
+      "params": {
+        "q": "photography"
+      },
+      "count": 49
+    },
+    {
+      "day": 0,
+      "language": "en",
+      "params": {
+        "profile": [
+          "woman"
+        ],
+        "language": [
+          "en"
+        ]
+      },
+      "count": 25
+    },
+    {
+      "day": 1,
+      "language": "es",
+      "params": {},
+      "count": 49
+    },
+    {
+      "day": 1,
+      "language": "es",
+      "params": {
+        "q": "photography"
+      },
+      "count": 49
+    },
+    {
+      "day": 1,
+      "language": "es",
+      "params": {
+        "profile": [
+          "woman"
+        ],
+        "language": [
+          "en"
+        ]
+      },
+      "count": 25
+    },
+    {
+      "day": 1,
+      "language": "en",
+      "params": {},
+      "count": 49
+    },
+    {
+      "day": 1,
+      "language": "en",
+      "params": {
+        "q": "photography"
+      },
+      "count": 49
+    },
+    {
+      "day": 1,
+      "language": "en",
+      "params": {
+        "profile": [
+          "woman"
+        ],
+        "language": [
+          "en"
+        ]
+      },
+      "count": 25
+    }
+  ],
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "notification_receipt": "1792490750602672292-3081450.json",
+  "unchanged_diagnostic_instrument": true,
+  "product_files_changed": [
+    "apps/catalog/promotion_exposure.py",
+    "apps/catalog/promotion_paging.py",
+    "apps/listings/discovery.py",
+    "apps/listings/publication_state.py"
+  ],
+  "eligible_and_bump_ast_unchanged": true,
+  "diagnostic100": {
+    "run_id": "20261020-100301-0264595f",
+    "count": 100,
+    "result": "DIAGNOSTIC_COMPLETE",
+    "synthetic_only": true,
+    "concurrency": 1,
+    "transport": "Django test client in process",
+    "promoted_count": 20,
+    "withdrawn_count": 1,
+    "geography": {
+      "4": 99
+    },
+    "dataset": "Existing diverse synthetic clone fixture; shared photos and agency",
+    "reports": [
+      {
+        "mode": "organic",
+        "scenario": "first_es",
+        "path": "/es/",
+        "query": {},
+        "fingerprint": {
+          "ids": [
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb",
+            "0924a355-25e9-452d-9248-64e351dcb7f2",
+            "8eda5fad-bd2d-4371-a13f-ede7f873fd35",
+            "3fcd64e8-05d4-4069-9d29-607519247304",
+            "7272c087-983c-40ed-bda9-3643a9cd2748",
+            "f343bfb5-48d6-43f6-91bd-c091f4fcdfc7",
+            "7cbee076-43ca-4a2c-84f0-df1dcfc84c47",
+            "bc5fddea-7d80-4619-8150-c8c5d53dc89f",
+            "8acd55c5-e58d-4a1f-b718-77d3af74ef3c",
+            "47e8d6f9-cded-4e5f-b568-7a35f16f6bb4",
+            "e95bb6c4-f955-4be2-9483-1d9d904242b2",
+            "b17bb1e6-5dc1-4e76-8874-8b23835a8600",
+            "d71ad204-a025-403b-b32c-ca848871d39c",
+            "7d292e85-c5be-4e8c-9b9e-c8102b896edf",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "9fd04f83-2a09-40a5-8613-5a95af6887c9",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "b0c33c2d-1592-4189-84e2-0c7e80b3c6b1",
+            "4e12dc75-173a-4167-a1a7-7c0243311208",
+            "d08a0e28-c560-4ddc-b443-15031e53bffc"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.22188556101173162,
+          0.16242030076682568,
+          0.15862010139971972,
+          0.13302510790526867,
+          0.12397877592593431
+        ],
+        "descriptive_p50_seconds": 0.15862010139971972,
+        "descriptive_p95_seconds": 0.22188556101173162,
+        "descriptive_p99_seconds": 0.22188556101173162,
+        "process_cpu_seconds": [
+          0.1415117290000012,
+          0.11618435900000179,
+          0.11920609300000251,
+          0.09862979899999402,
+          0.08796576200001027
+        ],
+        "instrumented_seconds": 0.3451056173071265,
+        "render_seconds": 0.03694382216781378,
+        "sql": {
+          "calls": 32,
+          "driver_seconds": 0.03458863124251366
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "organic",
+        "scenario": "text_en",
+        "path": "/en/",
+        "query": {
+          "q": "photography"
+        },
+        "fingerprint": {
+          "ids": [
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "8eda5fad-bd2d-4371-a13f-ede7f873fd35",
+            "3fcd64e8-05d4-4069-9d29-607519247304",
+            "7272c087-983c-40ed-bda9-3643a9cd2748",
+            "f343bfb5-48d6-43f6-91bd-c091f4fcdfc7",
+            "7cbee076-43ca-4a2c-84f0-df1dcfc84c47",
+            "bc5fddea-7d80-4619-8150-c8c5d53dc89f",
+            "8acd55c5-e58d-4a1f-b718-77d3af74ef3c",
+            "47e8d6f9-cded-4e5f-b568-7a35f16f6bb4",
+            "e95bb6c4-f955-4be2-9483-1d9d904242b2",
+            "b17bb1e6-5dc1-4e76-8874-8b23835a8600",
+            "d71ad204-a025-403b-b32c-ca848871d39c",
+            "7d292e85-c5be-4e8c-9b9e-c8102b896edf",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "9fd04f83-2a09-40a5-8613-5a95af6887c9",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "b0c33c2d-1592-4189-84e2-0c7e80b3c6b1",
+            "4e12dc75-173a-4167-a1a7-7c0243311208",
+            "d08a0e28-c560-4ddc-b443-15031e53bffc",
+            "3aeae6e0-428f-49f6-be48-ba1e3cd4140d",
+            "2e892f11-b324-4747-8ed6-eeb8a6dd90c1"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.1424455028027296,
+          0.15024123433977365,
+          0.12313326355069876,
+          0.12494766805320978,
+          0.13527163956314325
+        ],
+        "descriptive_p50_seconds": 0.13527163956314325,
+        "descriptive_p95_seconds": 0.15024123433977365,
+        "descriptive_p99_seconds": 0.15024123433977365,
+        "process_cpu_seconds": [
+          0.11469491399999754,
+          0.1169878409999967,
+          0.09594968899999401,
+          0.09215503500000466,
+          0.10726888300000326
+        ],
+        "instrumented_seconds": 0.18564096186310053,
+        "render_seconds": 0.04317732900381088,
+        "sql": {
+          "calls": 32,
+          "driver_seconds": 0.04408863186836243
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "organic",
+        "scenario": "last_es",
+        "path": "/es/",
+        "query": {
+          "page": 5
+        },
+        "fingerprint": {
+          "ids": [
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "2b4f5695-b654-47f0-a603-923dcd688fef",
+            "d1a683d0-5c0b-4042-b8f0-0f7c0f9d96e8",
+            "548eb00e-dc64-48ac-be0a-fa0b52a9f8fd"
+          ],
+          "count": 100,
+          "page": 5,
+          "sponsorship": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.14374892227351665,
+          0.11501482594758272,
+          0.11950662732124329,
+          0.12910719774663448,
+          0.12879952508956194
+        ],
+        "descriptive_p50_seconds": 0.12879952508956194,
+        "descriptive_p95_seconds": 0.14374892227351665,
+        "descriptive_p99_seconds": 0.14374892227351665,
+        "process_cpu_seconds": [
+          0.08998444200000222,
+          0.07381968199999278,
+          0.08213673099999141,
+          0.08069322900000486,
+          0.07599044600000582
+        ],
+        "instrumented_seconds": 0.12797918170690536,
+        "render_seconds": 0.04597699735313654,
+        "sql": {
+          "calls": 32,
+          "driver_seconds": 0.04444810561835766
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "organic",
+        "scenario": "combined_en",
+        "path": "/en/",
+        "query": {
+          "city": 4,
+          "language": "en"
+        },
+        "fingerprint": {
+          "ids": [
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb",
+            "0924a355-25e9-452d-9248-64e351dcb7f2",
+            "8eda5fad-bd2d-4371-a13f-ede7f873fd35",
+            "3fcd64e8-05d4-4069-9d29-607519247304",
+            "7272c087-983c-40ed-bda9-3643a9cd2748",
+            "f343bfb5-48d6-43f6-91bd-c091f4fcdfc7",
+            "7cbee076-43ca-4a2c-84f0-df1dcfc84c47",
+            "bc5fddea-7d80-4619-8150-c8c5d53dc89f",
+            "8acd55c5-e58d-4a1f-b718-77d3af74ef3c",
+            "47e8d6f9-cded-4e5f-b568-7a35f16f6bb4",
+            "e95bb6c4-f955-4be2-9483-1d9d904242b2",
+            "b17bb1e6-5dc1-4e76-8874-8b23835a8600",
+            "d71ad204-a025-403b-b32c-ca848871d39c",
+            "7d292e85-c5be-4e8c-9b9e-c8102b896edf",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "9fd04f83-2a09-40a5-8613-5a95af6887c9",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "b0c33c2d-1592-4189-84e2-0c7e80b3c6b1",
+            "4e12dc75-173a-4167-a1a7-7c0243311208",
+            "d08a0e28-c560-4ddc-b443-15031e53bffc"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.2011531349271536,
+          0.13528587576001883,
+          0.13871509488672018,
+          0.12937597651034594,
+          0.30637321807444096
+        ],
+        "descriptive_p50_seconds": 0.13871509488672018,
+        "descriptive_p95_seconds": 0.30637321807444096,
+        "descriptive_p99_seconds": 0.30637321807444096,
+        "process_cpu_seconds": [
+          0.10772203900000932,
+          0.10172818700000619,
+          0.09821904199999665,
+          0.09315255499998898,
+          0.25954285399998867
+        ],
+        "instrumented_seconds": 0.13437510561197996,
+        "render_seconds": 0.033710635267198086,
+        "sql": {
+          "calls": 33,
+          "driver_seconds": 0.04776859935373068
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "promoted",
+        "scenario": "first_es",
+        "path": "/es/",
+        "query": {},
+        "fingerprint": {
+          "ids": [
+            "027018d2-9179-4ee0-8277-48e8863b666f",
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.1474510496482253,
+          0.15305888280272484,
+          0.13931569550186396,
+          0.17622861918061972,
+          0.18556179385632277
+        ],
+        "descriptive_p50_seconds": 0.15305888280272484,
+        "descriptive_p95_seconds": 0.18556179385632277,
+        "descriptive_p99_seconds": 0.18556179385632277,
+        "process_cpu_seconds": [
+          0.099639861,
+          0.10193284500000743,
+          0.10119412699999941,
+          0.1229913960000033,
+          0.1320993660000056
+        ],
+        "instrumented_seconds": 0.20842561963945627,
+        "render_seconds": 0.04951950255781412,
+        "sql": {
+          "calls": 33,
+          "driver_seconds": 0.08204937167465687
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "promoted",
+        "scenario": "text_en",
+        "path": "/en/",
+        "query": {
+          "q": "photography"
+        },
+        "fingerprint": {
+          "ids": [
+            "027018d2-9179-4ee0-8277-48e8863b666f",
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "8eda5fad-bd2d-4371-a13f-ede7f873fd35"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.16424672026187181,
+          0.1783301066607237,
+          0.15013823006302118,
+          0.17208273708820343,
+          0.19405222963541746
+        ],
+        "descriptive_p50_seconds": 0.17208273708820343,
+        "descriptive_p95_seconds": 0.19405222963541746,
+        "descriptive_p99_seconds": 0.19405222963541746,
+        "process_cpu_seconds": [
+          0.10852766799999358,
+          0.1050309730000123,
+          0.10676834199999519,
+          0.10588295499999845,
+          0.11700109299999895
+        ],
+        "instrumented_seconds": 0.3954090513288975,
+        "render_seconds": 0.05155826173722744,
+        "sql": {
+          "calls": 33,
+          "driver_seconds": 0.04217848926782608
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "promoted",
+        "scenario": "last_es",
+        "path": "/es/",
+        "query": {
+          "page": 5
+        },
+        "fingerprint": {
+          "ids": [
+            "6343297e-3b4b-4298-9581-d76bf76ee598",
+            "2b4f5695-b654-47f0-a603-923dcd688fef",
+            "d1a683d0-5c0b-4042-b8f0-0f7c0f9d96e8",
+            "548eb00e-dc64-48ac-be0a-fa0b52a9f8fd"
+          ],
+          "count": 100,
+          "page": 5,
+          "sponsorship": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "projection"
+          }
+        },
+        "controls_seconds": [
+          0.1204282958060503,
+          0.11086408235132694,
+          0.12624510005116463,
+          0.16093777120113373,
+          0.10914292186498642
+        ],
+        "descriptive_p50_seconds": 0.1204282958060503,
+        "descriptive_p95_seconds": 0.16093777120113373,
+        "descriptive_p99_seconds": 0.16093777120113373,
+        "process_cpu_seconds": [
+          0.08371193499999663,
+          0.07258229499998947,
+          0.08701102999999932,
+          0.11438261400000727,
+          0.0772301949999985
+        ],
+        "instrumented_seconds": 0.1166900796815753,
+        "render_seconds": 0.036596113815903664,
+        "sql": {
+          "calls": 33,
+          "driver_seconds": 0.033264569006860256
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "promoted",
+        "scenario": "combined_en",
+        "path": "/en/",
+        "query": {
+          "city": 4,
+          "language": "en"
+        },
+        "fingerprint": {
+          "ids": [
+            "027018d2-9179-4ee0-8277-48e8863b666f",
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb"
+          ],
+          "count": 100,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.1607467820867896,
+          0.16998150572180748,
+          0.1948609445244074,
+          0.18756657093763351,
+          0.20131562557071447
+        ],
+        "descriptive_p50_seconds": 0.18756657093763351,
+        "descriptive_p95_seconds": 0.20131562557071447,
+        "descriptive_p99_seconds": 0.20131562557071447,
+        "process_cpu_seconds": [
+          0.11017005400000812,
+          0.11811407299998677,
+          0.11661351699999045,
+          0.11882542200000046,
+          0.13216820499999926
+        ],
+        "instrumented_seconds": 0.2586784027516842,
+        "render_seconds": 0.0498399818316102,
+        "sql": {
+          "calls": 34,
+          "driver_seconds": 0.08234910387545824
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "backlog",
+        "scenario": "first_es",
+        "path": "/es/",
+        "query": {},
+        "fingerprint": {
+          "ids": [
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb",
+            "0924a355-25e9-452d-9248-64e351dcb7f2"
+          ],
+          "count": 99,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.16897449269890785,
+          0.18538462463766336,
+          0.22990542650222778,
+          0.3396695051342249,
+          0.16296208649873734
+        ],
+        "descriptive_p50_seconds": 0.18538462463766336,
+        "descriptive_p95_seconds": 0.3396695051342249,
+        "descriptive_p99_seconds": 0.3396695051342249,
+        "process_cpu_seconds": [
+          0.11643466799999658,
+          0.12604505000000188,
+          0.12245689700000639,
+          0.29487548299999844,
+          0.11361446200000103
+        ],
+        "instrumented_seconds": 0.15316940285265446,
+        "render_seconds": 0.03928710799664259,
+        "sql": {
+          "calls": 34,
+          "driver_seconds": 0.04986944422125816
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "backlog",
+        "scenario": "text_en",
+        "path": "/en/",
+        "query": {
+          "q": "photography"
+        },
+        "fingerprint": {
+          "ids": [
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "8eda5fad-bd2d-4371-a13f-ede7f873fd35",
+            "3fcd64e8-05d4-4069-9d29-607519247304"
+          ],
+          "count": 99,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.15560304652899504,
+          0.14340922981500626,
+          0.17272803001105785,
+          0.14377300068736076,
+          0.15099956188350916
+        ],
+        "descriptive_p50_seconds": 0.15099956188350916,
+        "descriptive_p95_seconds": 0.17272803001105785,
+        "descriptive_p99_seconds": 0.17272803001105785,
+        "process_cpu_seconds": [
+          0.11049597899999242,
+          0.10062289199998986,
+          0.11491447500000618,
+          0.10160875800001179,
+          0.10095770800000992
+        ],
+        "instrumented_seconds": 0.1892442051321268,
+        "render_seconds": 0.04515475034713745,
+        "sql": {
+          "calls": 34,
+          "driver_seconds": 0.07240689732134342
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "backlog",
+        "scenario": "last_es",
+        "path": "/es/",
+        "query": {
+          "page": 5
+        },
+        "fingerprint": {
+          "ids": [
+            "2b4f5695-b654-47f0-a603-923dcd688fef",
+            "d1a683d0-5c0b-4042-b8f0-0f7c0f9d96e8",
+            "548eb00e-dc64-48ac-be0a-fa0b52a9f8fd"
+          ],
+          "count": 99,
+          "page": 5,
+          "sponsorship": [
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.1138332849368453,
+          0.11457988619804382,
+          0.11025681532919407,
+          0.12338326498866081,
+          0.1149942958727479
+        ],
+        "descriptive_p50_seconds": 0.11457988619804382,
+        "descriptive_p95_seconds": 0.12338326498866081,
+        "descriptive_p99_seconds": 0.12338326498866081,
+        "process_cpu_seconds": [
+          0.07701659699999652,
+          0.07108323599999267,
+          0.0733913709999996,
+          0.08089128399998913,
+          0.07427036600000747
+        ],
+        "instrumented_seconds": 0.11369036138057709,
+        "render_seconds": 0.03679612558335066,
+        "sql": {
+          "calls": 34,
+          "driver_seconds": 0.03165036905556917
+        },
+        "process_maxrss_kib": 319816
+      },
+      {
+        "mode": "backlog",
+        "scenario": "combined_en",
+        "path": "/en/",
+        "query": {
+          "city": 4,
+          "language": "en"
+        },
+        "fingerprint": {
+          "ids": [
+            "2721573f-9912-41ea-94de-fb878a2695b0",
+            "14dc5265-aa1c-46dd-b637-bee7e1825250",
+            "21b4a88f-a885-40f5-bca4-4d3e9006738b",
+            "0b279f25-8f0f-4e26-a31a-bde678e1a712",
+            "1845da75-7d21-4fed-828c-bd146c6c831d",
+            "23720c5b-f718-4c9b-afcd-6cc88d070d61",
+            "299cab06-cdac-46d2-89fa-1f5a305e7fef",
+            "1e14c275-011c-4b63-b411-b9dfd5fe51ad",
+            "17fe3f3c-c1a8-4c60-b706-e846fd1caf85",
+            "2357f06c-dab2-4c3b-983d-0e128fd36a97",
+            "1e15ae35-0bc2-4f28-913d-d393b0a0399f",
+            "172da79c-e75a-45fa-b8fb-379b8eaa106b",
+            "140d42bd-08f4-4db7-9af2-3d39336cd45f",
+            "24bf9b86-fa5a-457d-8ca7-b666e8c75942",
+            "135b185d-d5b8-49d2-aa7c-21678451b13b",
+            "0abc373f-dd96-46f7-a008-b2652f91df7d",
+            "22ac2d7d-c6ae-4f65-b8b2-8ebbf3a82073",
+            "2674160b-42ed-4141-ba5c-e9350e62073d",
+            "0972b4bc-592d-4eea-aa8c-bd1eee1fbfee",
+            "d9dbb1d5-cc75-4d77-8b75-028b6feaab85",
+            "edd3258f-3493-48ad-a380-97b645cc00ff",
+            "72230768-d9ff-4114-8973-9374e49a4d6a",
+            "fb08e993-124a-4936-b48f-47bbb0f5dccb",
+            "0924a355-25e9-452d-9248-64e351dcb7f2"
+          ],
+          "count": 99,
+          "page": 1,
+          "sponsorship": [
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "premium",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            "top",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "route": {
+            "route": "state",
+            "reason": "trusted_state",
+            "native_unknown": 0,
+            "population": "native_query"
+          }
+        },
+        "controls_seconds": [
+          0.2212321562692523,
+          0.31835986860096455,
+          0.20486049074679613,
+          0.15424154233187437,
+          0.15299199614673853
+        ],
+        "descriptive_p50_seconds": 0.20486049074679613,
+        "descriptive_p95_seconds": 0.31835986860096455,
+        "descriptive_p99_seconds": 0.31835986860096455,
+        "process_cpu_seconds": [
+          0.13579648699999325,
+          0.2690131020000024,
+          0.14020416600000374,
+          0.11297202900000514,
+          0.10111712999999156
+        ],
+        "instrumented_seconds": 0.21574495360255241,
+        "render_seconds": 0.046301767230033875,
+        "sql": {
+          "calls": 35,
+          "driver_seconds": 0.08634647354483604
+        },
+        "process_maxrss_kib": 319816
+      }
+    ],
+    "limits": [
+      "Five controls: p95/p99 descriptive nearest rank, no statistical tail acceptance",
+      "Process CPU/RSS cover pytest process; SQL driver elapsed is not PostgreSQL CPU",
+      "No TCP, throughput, host resource isolation, queue capacity or production verdict",
+      "No national geographic coverage or independent photo corpus"
+    ]
+  },
+  "capacity_verdict": "NOT_MEASURED",
+  "evidence_sha256": {
+    "result.json": "73610bd9f09a6499ac06a0e4ed9e87ae57d42d058a07ae4a921c43337be69e64",
+    "pytest.xml": "b25a31d821c10c50c366482febcdb367414b9127fefa1a5ee18c9c56e093174b",
+    "pytest-reports.jsonl": "2088aaa0571c911986f12c1af19c01eaf1dc60d883c0ed79783febf844d4aa4a",
+    "source-hashes.json": "dd16381c97954d7e6b70879f4b375cbd341a8f881335b2660c8ac13ecf0ef080",
+    "beta-read-diagnostic-100.json": "454274c626b99fdf3112fddded1ad0b40e676a3af8b040ee26f5f6b7c24cea15",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

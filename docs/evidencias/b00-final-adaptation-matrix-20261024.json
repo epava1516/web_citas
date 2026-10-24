@@ -1,0 +1,262 @@
+{
+  "result": "ROOT_RECONCILED_MATRIX_ACCEPTED_FOR_B00_LOCAL_SCOPE",
+  "rows": [
+    {
+      "id": "AD01",
+      "decision": "CB01/CB06: catálogo romántico; IDs e historia conservados",
+      "current_behavior": "Seed crea romantic-dating; migración0023 desactiva categorías/servicios previos e invalida elegibilidad. Revisiones legadas no se renombran ni republican.",
+      "target": "Publicar perfiles románticos sin selección profesional obligatoria.",
+      "affected_files": [
+        "apps/catalog/management/commands/seed_catalog.py",
+        "apps/listings/profile_contract.py",
+        "apps/listings/revisions.py",
+        "apps/listings/migrations/0023_romantic_profile_contract.py",
+        "apps/listings/migrations/0024_optional_profile_type.py",
+        "apps/listings/migrations/0025_optional_trans_label.py"
+      ],
+      "migration": "0023preserva legado;0024tipo voluntario;0025descenso bloqueado ante etiqueta seleccionada.",
+      "acceptance_criterion": "Ida/vuelta conserva IDs/tarifas/historia; legado privado; nuevo borrador limpio.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "docs/actas/12-beta-b02b03-aceptacion-local-20261020.md",
+        "tests/test_beta_profile_contract.py::test_migration_preserves_old_content_and_requires_new_romantic_revision"
+      ],
+      "version_and_scope_limit": "Acta12en candidata034242; testigo de migración posterior B13verificado. No esquema aplicado en servicios normales o cobertura nacional.",
+      "remaining": "Sin cambio nuevo de catálogo requerido por la conciliación. B16 conserva candidata común.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD02",
+      "decision": "CB02/CB06: panel de perfil sin precios por cita/servicio",
+      "current_behavior": "DetailsForm limita campos personales y rechaza POSTprofesional; nuevo recorrido no crea Rate. El guard romántico rechaza tarifas/servicios/desplazamiento almacenados.",
+      "target": "Rellenar datos, ubicación, contactos, fotos y revisión.",
+      "affected_files": [
+        "apps/listings/forms.py",
+        "apps/listings/profile_contract.py",
+        "apps/listings/views.py",
+        "templates/listings/draft.html"
+      ],
+      "migration": "Sin borrar tablas/evidencias; revisión versionada separa legado.",
+      "acceptance_criterion": "Publicar sin campos profesionales; manipulación400sin mutación y sin tablas eliminadas.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "tests/test_beta_profile_contract.py::test_panel_reaches_existing_profile_and_omits_professional_fields",
+        "tests/test_beta_profile_contract.py::test_professional_post_fields_rejected_without_mutation"
+      ],
+      "version_and_scope_limit": "Aserciones actuales contrastadas por root; aceptación histórica P02en su corte, no nueva ejecución de esos casos.",
+      "remaining": "Estado profesional de la matriz inicial deja de describirse como actual.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD03",
+      "decision": "CB01/CB05: público romántico ES–EN y GETantiguo explícito",
+      "current_behavior": "Listado/ficha presentan perfiles; filtros profesionales conocidos se rechazan. Las superficies privadas/incompatibles se excluyen con perfil par preservado.",
+      "target": "Filtros/URL/paginación coherentes y contactos autorizados sin exposición profesional.",
+      "affected_files": [
+        "templates/listings/results.html",
+        "templates/listings/public_detail.html",
+        "apps/listings/discovery.py"
+      ],
+      "migration": "No traducción silenciosa de filtros viejos a resultados amplios.",
+      "acceptance_criterion": "GETprofesional400/recuento0; sólo elegibles; ES–EN/filtros/páginas coherentes.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "docs/107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md",
+        "docs/actas/16-beta-b07-aceptacion-local-20261023.md"
+      ],
+      "version_and_scope_limit": "Discovery cambió después de actas12/13. SHAactual coincide con B13/B07; carga pública B07cubre lectura/filtros/elegibilidad, no todos los formularios.",
+      "remaining": "B08–B11optimizaciones y B16integración mantienen sus alcances.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD04",
+      "decision": "CB10: validación única, estado conservador y autoridad actual",
+      "current_behavior": "Envío reconstruye DetailsForm y valida contrato; publicly_visible comparte guardas. Estado derivado conserva caducidad SQL, versiones e invalidación; página revalidada.",
+      "target": "Paridad envío/aprobación/lectura sin cachear autoridad.",
+      "affected_files": [
+        "apps/listings/submissions.py",
+        "apps/listings/moderation.py",
+        "apps/listings/public_validation.py",
+        "apps/listings/publication_state.py",
+        "apps/listings/profile_contract.py"
+      ],
+      "migration": "0023invalida estado anterior; cambios posteriores de regla siguen versión/dependencias.",
+      "acceptance_criterion": "Mismo rechazo nativo/contextual; retirada inmediata, integridad de dependencias y pruebas afectadas.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "docs/107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md",
+        "tests/test_beta_public_surfaces.py",
+        "docs/actas/16-beta-b07-aceptacion-local-20261023.md"
+      ],
+      "version_and_scope_limit": "Submissions/publication_state tienen SHAposterior a acta13, igual a B13/B07. No se generaliza una carga pública a todas las rutas privadas.",
+      "remaining": "La corrección privada de cobertura B00-340 tiene reproducción/regresión propia y no se atribuye a estos testigos públicos.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD05",
+      "decision": "CB02: Mi perfil como entrada principal",
+      "current_behavior": "Se reutiliza persona/listing/borrador; nueva revisión no altera aprobado ni copia legado incompatible. Navegación y acciones dependen de estado/rol.",
+      "target": "Guardar, retomar, corregir, revisar y publicar sin perder datos.",
+      "affected_files": [
+        "apps/core/accounts.py",
+        "apps/listings/views.py",
+        "apps/listings/revisions.py",
+        "apps/listings/profile_status.py",
+        "templates/listings/lifecycle.html",
+        "templates/listings/draft.html"
+      ],
+      "migration": "Sin crear otra persona/anuncio por navegar; historia conservada.",
+      "acceptance_criterion": "Recarga, teclado, ES–EN390/1280 y roles con separación borrador/aprobado.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "docs/actas/12-beta-b02b03-aceptacion-local-20261020.md"
+      ],
+      "version_and_scope_limit": "Acta12acredita recorrido local sintético. Panel posterior vinculado por SHAa acta13/B13/B07; no participantes reales ni regresión conjunta actual.",
+      "remaining": "B16mantiene candidata común; no queda la simplificación de panel íntegra por implementar.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD06",
+      "decision": "CB03: renovar gratuito7/30 separado de autosubida",
+      "current_behavior": "Renovar exige revisión aprobada/confirmación y ventana7d; fija30d/fecha editorial, conserva pausa y no reanuda retirado. No concede Top ni pedido.",
+      "target": "Mismo ID/revisión, estados y reintentos/carreras correctos.",
+      "affected_files": [
+        "apps/listings/lifecycle.py",
+        "templates/listings/lifecycle.html",
+        "apps/catalog/promotion_exposure.py"
+      ],
+      "migration": "Sin cambio de duraciones; autosubida sólo señal comercial separada.",
+      "acceptance_criterion": "Orden orgánico renovado, reintento único y carreras con caducidad; disponible4h sin promesa de cita.",
+      "evidence": [
+        "docs/107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md",
+        "docs/actas/13-beta-b04b06-aceptacion-local-20261020.md",
+        "tests/test_beta_public_surfaces.py::test_free_renewal_changes_organic_order_without_creating_a_promotion"
+      ],
+      "version_and_scope_limit": "Lifecycle/panel coinciden con corte043105; B07ya aceptado por acta16, sin reabrir renovación ni atribuir capacidad global.",
+      "remaining": "Siguiente paso vigente no es empezar B07: tras B00, B08–B11.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD07",
+      "decision": "CB03/CB09: promoción sintética de elegibles",
+      "current_behavior": "PRODUCTION/RECOVERY_MODE excluyen promociones; elegibilidad exige comprador activo/gestión actual/snapshot/visibilidad. Ranking revalida lote y deduplica publicaciones.",
+      "target": "Patrocinio explícito y filtros/rotación/paginación sin eludir moderación.",
+      "affected_files": [
+        "apps/catalog/promotion_orders.py",
+        "apps/catalog/promotion_exposure.py",
+        "apps/catalog/tasks.py",
+        "tests/test_promotion_recovery.py"
+      ],
+      "migration": "Snapshots/derechos/importes históricos no se recalculan por nombres.",
+      "acceptance_criterion": "Worker/Beatpropios, cuotas/replay/carreras; restauración conserva evidencia sin reactivar exposición/bump.",
+      "evidence": [
+        "docs/107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md",
+        "docs/actas/13-beta-b04b06-aceptacion-local-20261020.md",
+        "docs/actas/15-beta-b13-aceptacion-local-20261021.md",
+        "docs/actas/16-beta-b07-aceptacion-local-20261023.md"
+      ],
+      "version_and_scope_limit": "Exposure/recoverytest cambiaron respecto043105; SHAactuales iguales a B13/B07. JUnitB13incluye restauración comercial real propia; B07no ejecuta el archivo de test por incluirlo en manifest.",
+      "remaining": "Ventas/proveedor/condiciones reales no activadas; no nuevo defecto por código histórico privado.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD08",
+      "decision": "CB07/CB08: atributos y preferencias opcionales separados",
+      "current_behavior": "Tipo voluntario y etiqueta trans independiente implementados. No acreditan recomendador; cookies propias y preferencias cifradas de cuentas siguen diseño opcional.",
+      "target": "Si B15se incorpora, contrato por atributo/preferencia y control de usuario sin inferencias implícitas.",
+      "affected_files": [
+        "docs/14-contrato-funcional-v1.md",
+        "docs/103-roadmap-beta-clasificados-20261020.md",
+        "apps/listings/models.py",
+        "apps/listings/forms.py",
+        "apps/listings/migrations/0025_optional_trans_label.py"
+      ],
+      "migration": "Ninguna migración de recomendación aprobada por esta conciliación.",
+      "acceptance_criterion": "Definir datos/unidades/desconocidos, visibilidad, finalidad, persistencia, claves, retención, modificación/borrado/desactivación y utilidad.",
+      "evidence": [
+        "docs/14-contrato-funcional-v1.md#61-recomendaciones-físicas-opcionales",
+        "docs/103-roadmap-beta-clasificados-20261020.md",
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md"
+      ],
+      "version_and_scope_limit": "Dato voluntario aceptado localmente no prueba consentimiento productivo/RGPD o recomendación. No ausencia universal de personalización acreditada por búsqueda.",
+      "remaining": "B15opcional no bloquea beta local. DBvsobjetos/cookiepayloadvsIDopaco pendientes; no seguimiento conductual/importación automática autorizados.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD09",
+      "decision": "CB04/CB05/CB10: persona/cuenta/gestor/finalidad distintos",
+      "current_behavior": "Mecanismos locales de verificación/representación/MFA/revocación conservados. Superficies prueban doce causas de exclusión antes/después de refresco.",
+      "target": "Autorización individual actual; teléfono o casilla no sustituyen identidad/representación.",
+      "affected_files": [
+        "apps/core/verification.py",
+        "apps/core/agencies.py",
+        "apps/listings/submissions.py",
+        "apps/listings/moderation.py",
+        "apps/catalog/promotion_exposure.py"
+      ],
+      "migration": "Sin nuevo cambio de identidad o grants por redefinir el producto.",
+      "acceptance_criterion": "Permisos/gestión/edad/contacto/consentimiento obsoletos excluyen superficies y operaciones afectadas.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "docs/107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md",
+        "tests/test_beta_public_surfaces.py"
+      ],
+      "version_and_scope_limit": "Identidad/comunicaciones sintéticas; superficies públicas no prueban toda autoridad privada. Bugde cobertura tiene prueba propia B00-340.",
+      "remaining": "B14/B17/G01–G08conservan integración/realidad de apertura; no se aceptan proveedores leyendo tests.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD10",
+      "decision": "CB01/CB10: textos románticos versionados sin reescribir aceptación",
+      "current_behavior": "Bootstrapcrea dev-romantic-1en publishing/content por get_or_create, conserva cuerpos/aceptaciones previos y bloquea PRODUCTION.",
+      "target": "Runtime sintético romántico ES–EN con versión actual exigible.",
+      "affected_files": [
+        "apps/core/management/commands/bootstrap.py",
+        "apps/core/accounts.py",
+        "apps/listings/submissions.py",
+        "docs/15-apartado-legal-publico.md"
+      ],
+      "migration": "Nueva versión por mecanismo existente, no edición retroactiva de LegalAcceptance.",
+      "acceptance_criterion": "Aceptaciones siguen ligadas al cuerpo original; publicación exige nuevo documento aplicable.",
+      "evidence": [
+        "docs/106-matriz-aceptacion-perfil-beta-b02b03-20261020.md",
+        "tests/test_beta_profile_contract.py",
+        "docs/15-apartado-legal-publico.md"
+      ],
+      "version_and_scope_limit": "Bootstrap/testigo iguales a actas12/13; no demuestra instalación en servicio normal ni revisión jurídica real.",
+      "remaining": "Operador/textos definitivos/revisión jurídica son B17/G01–G08; no falta implementación sintética por la frase original cuando se implementen.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    },
+    {
+      "id": "AD11",
+      "decision": "CB10: historia y derechos conservan ámbito y significado",
+      "current_behavior": "Tablas/tarifas legadas permanecen como evidencia privada; dato voluntario participa en derechos; restauración comercial conserva hash sin ranking/bump del suprimido.",
+      "target": "Inventarios/huellas/cobertura coherentes, sin borrar terceros ni resucitar contenido.",
+      "affected_files": [
+        "apps/safety/rights_rectification.py",
+        "apps/safety/rights_copy_data.py",
+        "apps/safety/promotion_order_inventory.py",
+        "apps/safety/recovery_apply.py",
+        "tests/test_declared_profile_label.py",
+        "tests/test_promotion_recovery.py"
+      ],
+      "migration": "0023–0025y lectores históricos conservados; descenso destructivo de etiqueta seleccionado bloqueado.",
+      "acceptance_criterion": "Copia histórica compatible, invalidación ante cambios, supresión scoped y restauración sin exposición indebida.",
+      "evidence": [
+        "docs/actas/12-beta-b02b03-aceptacion-local-20261020.md",
+        "docs/actas/13-beta-b04b06-aceptacion-local-20261020.md",
+        "docs/actas/15-beta-b13-aceptacion-local-20261021.md",
+        "tests/test_promotion_recovery.py"
+      ],
+      "version_and_scope_limit": "B13incluye restauración real propia y testigos; no offsite/PITR/guardia/proveedor. Monitoreo B12no equivale a inventario universal.",
+      "remaining": "B16candidata común y B17preparación real se mantienen; no eliminar historia para simplificar UI.",
+      "reconciliation_status": "CURRENT_SCOPE_RECONCILED_NOT_B16_ACCEPTANCE"
+    }
+  ],
+  "source_policy": "Native report is input, not acceptance. Root checked selected current code, assertions, historical witness JUnit and seven-file identity bridge; no new execution by reading.",
+  "version_bridge": "docs/evidencias/b00-ad-identity-bridge-20261024.json",
+  "B00_accepted": true,
+  "B16_accepted": false,
+  "native_report_archival_scope": "Root-selected extracts, not full raw reports; initial supplement malformed, format-only corrected, no new evidence.",
+  "acceptance_acta": "docs/actas/17-beta-b00-aceptacion-local-20261024.md"
+}

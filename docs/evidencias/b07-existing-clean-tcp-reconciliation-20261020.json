@@ -1,0 +1,89 @@
+{
+  "result": "PASS_EXISTING_EVIDENCE_RECONCILIATION_NOT_NEW_CAPACITY_RUN",
+  "original_run": "20261020-112359-fecdad59",
+  "http_service": {
+    "directory": {
+      "count": 400,
+      "service_sum_seconds": 113.738559,
+      "p95_seconds": 0.388722
+    },
+    "search": {
+      "count": 400,
+      "service_sum_seconds": 116.071118,
+      "p95_seconds": 0.38179
+    },
+    "detail": {
+      "count": 400,
+      "service_sum_seconds": 19.60482,
+      "p95_seconds": 0.075647
+    }
+  },
+  "service_total_seconds": 249.41449699999998,
+  "offered_worker_seconds_per_second_descriptive": 4.156908283333333,
+  "matched_unique_requests": 1200,
+  "publication_dirty_samples": {
+    "0": 94,
+    "1": 3
+  },
+  "max_observed_dirty": 1,
+  "profile_sql_driver_phase_seconds": {
+    "directory_es": {
+      "other": 0.0008402587845921516,
+      "state_membership_page_guard": 0.03737971931695938,
+      "commercial_rights": 0.005685526877641678,
+      "publication_context": 0.0048543307930231094,
+      "context_hydration": 0.012052278965711594,
+      "presentation": 0.0049379197880625725,
+      "render_search_form_and_cards": 0.005114968866109848
+    },
+    "directory_en": {
+      "other": 0.0010456312447786331,
+      "state_membership_page_guard": 0.06844295747578144,
+      "commercial_rights": 0.010731019079685211,
+      "publication_context": 0.002644101157784462,
+      "context_hydration": 0.015467921271920204,
+      "presentation": 0.00948608759790659,
+      "render_search_form_and_cards": 0.010218147188425064
+    },
+    "search_es": {
+      "other": 0.003298996016383171,
+      "state_membership_page_guard": 0.07736826129257679,
+      "commercial_rights": 0.010427029803395271,
+      "publication_context": 0.005656727589666843,
+      "context_hydration": 0.02180894184857607,
+      "presentation": 0.01024231780320406,
+      "render_search_form_and_cards": 0.00635038036853075
+    },
+    "search_en": {
+      "other": 0.0007300479337573051,
+      "state_membership_page_guard": 0.041860586032271385,
+      "commercial_rights": 0.0055615706369280815,
+      "publication_context": 0.0034865867346525192,
+      "context_hydration": 0.018001028336584568,
+      "presentation": 0.01056764181703329,
+      "render_search_form_and_cards": 0.010355138219892979
+    },
+    "detail_es": {
+      "other": 0.004271061159670353,
+      "publication_context": 0.0034755030646920204,
+      "context_hydration": 0.0169701986014843
+    },
+    "detail_en": {
+      "other": 0.002070336602628231,
+      "publication_context": 0.0016228985041379929,
+      "context_hydration": 0.010260057635605335
+    }
+  },
+  "source_artifact_sha256": {
+    "artifacts/local-ci/20261020-112359-fecdad59/benchmark-samples.json": "577f55e8be7758d53a37177fdd6ea375f75dc24f3646283fa9d6bf272598788e",
+    "artifacts/local-ci/20261020-112359-fecdad59/benchmark-server-service.json": "80c9ec85e14cd272efa9ea7a793b6e1b76ac7b4f4aa3c88d1d332caaa82857cf",
+    "artifacts/local-ci/20261020-112359-fecdad59/publication-samples.jsonl": "b044c83f3244e3a392f2fce70f54f5287c3f44f38abe4efe12a7b68d1d563076",
+    "docs/evidencias/b08-post-tcp-profile10000-audit-20261020.json": "154b6b187bbc13587e8b01fbc3c939fa20324354dd170045313c3346feb68a23"
+  },
+  "limits": [
+    "Service times overlap and are not CPU or an exact queue decomposition",
+    "Execute wrappers omit cursor FETCH and are separate instrumented requests",
+    "Old product cut; no current capacity acceptance",
+    "1Hz census does not exclude every transient"
+  ]
+}

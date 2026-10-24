@@ -1,0 +1,43 @@
+{
+  "result": "VERIFIED_RECOVERED_IMAGE_PREFLIGHT_NOT_CAPACITY",
+  "run": "20261022-072004-e12543e5",
+  "image": "sha256:6936424d8c105237645efd3424be6ef31c74f7cb32904db3c963ddf9a7e1f44e",
+  "source_files_image_verified": 732,
+  "product_sources": 628,
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "cpu_budget_cores": 8,
+  "preflight": {
+    "s3_aead": true,
+    "s3_purge": true,
+    "async_generation": {
+      "generation_job": {
+        "id": "030f5125-d061-411f-8b15-a84ca03e6e45",
+        "state": "succeeded",
+        "export": "b504050a-debd-45e9-ac77-0adc54f52faa",
+        "attempts": 1,
+        "polls": 14,
+        "enqueue_http_seconds": 0.3434999864548445,
+        "queue_to_ready_seconds": 4.317116611637175,
+        "worker_scope": "Real Celery worker in the same constrained app cgroup",
+        "profile_scope": "Parent HTTP/polling only; worker generation is not parent cProfile"
+      },
+      "success": true,
+      "image_bytes": 4300958,
+      "image_sha256": "218838b2b33dd22f66270dd1b044e1e0fbcd507f9c3452f89a5fa1e28779b1e9",
+      "observation_seconds": 5.803674774244428,
+      "normal_generation_objective_seconds": 120,
+      "scope": "One small synthetic real Celery/LOGIN/S3 generation; no capacity verdict"
+    },
+    "caddy_bytes": true,
+    "caddy_replay_denied": true,
+    "worker_purge": true,
+    "beat_purge": true,
+    "scope": "Finite synthetic PG/S3/Caddy/worker topology only; no target1500 fixture or capacity"
+  },
+  "artifacts_sha256": {
+    "report.json": "58d1e55c3db0803b96eb7cd8242da0930369fd0c605b2f7575b6d8657f91725e",
+    "launcher.json": "5c72aa345215a1a57fb0a19ec65fb60e897eb653901abacefebaa859a4384dc7",
+    "source-hashes.json": "6f7e96577d44b74b6a92fdbedfc99ae76e24f3cc9a76f6ba03738284aa82eaa8"
+  }
+}

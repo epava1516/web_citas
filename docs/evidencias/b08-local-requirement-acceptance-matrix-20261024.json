@@ -1,0 +1,113 @@
+{
+  "decision": "B08_ACCEPTED_TECHNICALLY_LOCAL",
+  "requirements": [
+    {
+      "id": "P01",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "Medir coste con crecimiento de inventario y filtros antes de modificarla.",
+      "acceptance_reason": "Diagnósticos1000/10000 con el mismo instrumento y matriz de filtros239 verificados por hashes. El coste original motivó la corrección histórica; no se atribuye causalidad a UUIDs distintos.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-341-historical-cost-reuse.json",
+          "sha256": "2c68d996e95dd2d50ce6e1115d72ca6c5bac59e5c1516b4ef99a2d9959adfae3"
+        },
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-342-filter-identity.json",
+          "sha256": "6d0cb6aa1387c629233c315bdef5a287a796cc77cbdb5f33e99d9a4ca843c39e"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "selección acotada y ranking paginable",
+      "acceptance_reason": "Discovery usa state_page también con promociones; pertenencia y orden permanecen completos en SQL y la guarda nativa hidrata la página. El mapa propio contiene valores escalares de derechos compatibles, O(derechos), no memoria constante.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-341-contractual-identity.json",
+          "sha256": "1fd59f0ad92c55a270e7147613afa79cd616af2f8834da7021ef8130e89d2a38"
+        },
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-342-regression-source-bridge.json",
+          "sha256": "699690fba5b157ca35affe2ca8d0c2ddbc648a6ba78251a4eb0061eeda2464c8"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "paridad de IDs, orden, rotación y exclusiones frente a la referencia",
+      "acceptance_reason": "Diez casos actuales: referencia congelada completa, solapamientos Premium/Top/Autosubida, empates, filtros, ES/EN, dos días y32peticiones en READ COMMITTED heredado; filtros239 complementa atributos y fases.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-341-regression-audit.json",
+          "sha256": "8815b0c4dcf287d980ee75e7bfd73bf72b771759767e98f2f175a8aea7597ff0"
+        },
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-342-filter-identity.json",
+          "sha256": "6d0cb6aa1387c629233c315bdef5a287a796cc77cbdb5f33e99d9a4ca843c39e"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "No aplicar límites previos que oculten resultados elegibles ni introducir caché sin invalidación de derechos.",
+      "acceptance_reason": "Sin prelimit arbitrario; mapa sólo en snapshot propio RR, SQL en transacción heredada. Revocaciones de particular/propietario/editor y cambio comercial entre peticiones comprobados en341; la petición conserva su snapshot, no promete ver cambios posteriores dentro de ella.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-341-regression-audit.json",
+          "sha256": "8815b0c4dcf287d980ee75e7bfd73bf72b771759767e98f2f175a8aea7597ff0"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "No aplicar límites previos que oculten resultados elegibles",
+      "acceptance_reason": "Seis casos actuales y36páginas verifican fallback íntegro por1001marcas,49desconocidos heredados y guarda final. Escenarios huérfano y divergencia derivada deliberadamente sintéticos; sin declarar falla de triggers o producción.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-342-regression-audit.json",
+          "sha256": "acb50f807737f3c916b9d9ef5d270a8329bfe017f7d3d9105f6934dade333507"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "status": "PASS_SCOPED_LOCAL",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "literal": "recursos dentro de presupuesto y mecanismo de reversión",
+      "acceptance_reason": "Contractual296 aceptado en B07 aporta presupuesto local:18000respuestas/15subidas/p95415,657ms. Cuatro archivos promocionales actuales idénticos; no nueva capacidad conjunta tras cambios privados. El estado no confiable cae a autoridad nativa; retirada de versión sigue el rollback B13. Negativos históricos preservados.",
+      "evidence": [
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-341-contractual-identity.json",
+          "sha256": "1fd59f0ad92c55a270e7147613afa79cd616af2f8834da7021ef8130e89d2a38"
+        },
+        {
+          "path": "artifacts/beta-promotion-fix-20261020/b08-342-product-reference-delta.json",
+          "sha256": "09183dc45a53d7bc5b469213044105a26a06ea905fa55c4be8e8698eebf34049"
+        }
+      ]
+    }
+  ],
+  "current_runs": [
+    "20261024-050815-461b26b4",
+    "20261024-051609-ed913bdc"
+  ],
+  "current_functional_cases": 16,
+  "matched_product_files_between_current_runs": 629,
+  "scope_limits": [
+    "No global beta or production acceptance; B16 joint candidate remains open",
+    "B09-B11 and B14-B17 remain, B15 optional",
+    "Historical measurements retain own sources/resources/fixtures and negative outcomes",
+    "Stage3 output not declared globally complete by B08 acceptance"
+  ],
+  "claude_v1_new": 0,
+  "historical_claude_v1_preserved": 8
+}

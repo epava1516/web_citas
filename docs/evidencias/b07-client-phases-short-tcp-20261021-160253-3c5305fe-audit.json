@@ -1,0 +1,82 @@
+{
+  "run_id": "20261021-160253-3c5305fe",
+  "result": "VERIFIED_CLIENT_PHASES_SHORT_TCP_FAIL",
+  "benchmark_verdict": "FAIL",
+  "checks_replayed": {
+    "generator_p95": true,
+    "generator_p99": true,
+    "generator_max": true,
+    "p95": false,
+    "errors": true,
+    "window_pending": false,
+    "final_pending": true,
+    "drain": true,
+    "upload": true
+  },
+  "p95_observable_ms": 1359.6746874973178,
+  "dynamic_successful": 1200,
+  "unexpected": 0,
+  "window_pending": 25,
+  "post_preparation_statistics": {
+    "method": "Explicit ANALYZE after promotional issuance and publication refresh",
+    "tables": [
+      "catalog_promotionentitlement",
+      "catalog_promotionorder",
+      "core_person",
+      "core_representationaction",
+      "core_user",
+      "core_verificationcheck",
+      "listings_publicationstate",
+      "listings_revision_categories"
+    ],
+    "seconds": 0.2582819275557995,
+    "owned_synthetic_postgresql_verified": true,
+    "domain_rows_mutated": false,
+    "request_policy_changed": false
+  },
+  "image_sources_unchanged": 724,
+  "application_sources_unchanged": 628,
+  "image_tool_sources_changed": [
+    "scripts/benchmark_async_transport.py",
+    "scripts/run_local_ci.py"
+  ],
+  "sources_cleanup_owned_pids_telegram_verified": true,
+  "original_tcp_fail_preserved": true,
+  "B07_accepted": false,
+  "contract_900_seconds_executed": false,
+  "client_phase_complete": 1201,
+  "client_phase_partial": 0,
+  "client_phase_missing": 0,
+  "phase_stats_completed_bodies_only": {
+    "listing": {
+      "count": 400,
+      "p95_ms": {
+        "connect": 0.7579242810606956,
+        "drain_to_status_line": 1378.6053005605936,
+        "headers_to_body": 0.15804078429937363,
+        "total": 1379.4135535135865
+      }
+    },
+    "search": {
+      "count": 400,
+      "p95_ms": {
+        "connect": 0.8748611435294151,
+        "drain_to_status_line": 1363.0616879090667,
+        "headers_to_body": 0.1639844849705696,
+        "total": 1363.6566307395697
+      }
+    },
+    "detail": {
+      "count": 400,
+      "p95_ms": {
+        "connect": 0.7836902514100075,
+        "drain_to_status_line": 1218.5869002714753,
+        "headers_to_body": 0.12563541531562805,
+        "total": 1219.3623250350356
+      }
+    }
+  },
+  "phase_population_limit": "Completed bodies only for phase quantiles; all emitted requests remain in observable latency verdict; client stages are not exact server admission or socket queue time",
+  "instrumentation_causal_overhead": "not_measured",
+  "instrumented_short_never_enables_contract": true
+}

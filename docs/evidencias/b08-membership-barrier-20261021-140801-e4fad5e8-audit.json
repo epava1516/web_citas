@@ -1,0 +1,49 @@
+{
+  "run_id": "20261021-140801-e4fad5e8",
+  "result": "PASS_PARITY_NOT_SPEEDUP",
+  "cases": 8,
+  "bad_cases": [],
+  "properties": {
+    "test_membership_all_pages": {
+      "frozen_native_comparisons": "[{'day': 0, 'language': 'es', 'params': {}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 0, 'language': 'en', 'params': {}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'es', 'params': {}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'en', 'params': {}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}]",
+      "membership_fence_rights_comparisons": "32",
+      "product_changed": "False"
+    },
+    "test_membership_revocation[individual]": {
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_revocation[owner]": {
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_revocation[editor]": {
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_snapshot_boundary": {
+      "commercial_snapshot_boundary": "Concurrent buyer revocation after map read; first response retains its read snapshot, next request denies sponsorship; no persistent result cache",
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_checked[es]": {
+      "synthetic_contact_rule_only": "True",
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_checked[en]": {
+      "synthetic_contact_rule_only": "True",
+      "membership_fence_rights_comparisons": "2",
+      "product_changed": "False"
+    },
+    "test_membership_inherited": {
+      "membership_fence_rights_comparisons": "0",
+      "product_changed": "False"
+    }
+  },
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_telegram_verified": true,
+  "cursor_mechanism_gate": null,
+  "route_summaries": [],
+  "B07_B08_accepted": false
+}

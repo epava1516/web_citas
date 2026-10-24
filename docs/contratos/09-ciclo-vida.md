@@ -1,4 +1,10 @@
-# CR-08 — Favoritos y ciclo de vida, diseño pendiente de implementación
+# CR-08 — Favoritos y ciclo de vida, interfaz del alfa y objetivo beta
+
+## Continuidad de reglas hacia beta el 2026-10-20
+
+La [versión funcional 1.1](../14-contrato-funcional-v1.md) conserva el ciclo de vida implementado: renovación gratuita con confirmación de revisión aprobada, últimos siete días o caducado, nueva vigencia de treinta días y fecha real para orden orgánico. Renovar pausado conserva pausa; caducado elegible vuelve a publicado; retirado requiere nueva revisión. Ni renovaciones ni Top/autosubidas crean otra persona o anuncio. Autosubida modifica su señal comercial, no la fecha editorial ni la vigencia; no implica cobro recurrente.
+
+El panel pasa a «Mi perfil», manteniendo acciones de estado e historia autorizada. «Disponible ahora» sigue siendo opt-in de cuatro horas, sin promesa de respuesta/cita. Recomendaciones, favoritos y promociones no exponen perfiles inelegibles. No se ha cambiado código ni duraciones por esta adaptación. [Matriz B00–B01](../104-consolidacion-contrato-beta-b00b01-20261020.md).
 
 Estado: CR-08 verificado localmente; acta03 con regresión común, límites finales y Docker/worker/Beat. CR-07 cerrado localmente en acta02. ES/EN SSR y PostgreSQL, acciones POST con CSRF; GET no cambia estados.
 

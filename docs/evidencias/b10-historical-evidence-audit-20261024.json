@@ -1,0 +1,59 @@
+{
+  "result": "VERIFIED_SCOPED_HISTORICAL_EVIDENCE",
+  "mod09_user_decision": "USER_PROVISIONALLY_ACCEPTS_CURRENT_MOD08_PERFORMANCE_AS_SUFFICIENT_AND_IMPROVABLE; NOT_GLOBAL_OR_N3",
+  "original_measure_verdict": "FAIL_DELIVERY_STAGE_LIMITS",
+  "original_measure": "20261012-150109-89880182",
+  "source_manifest_canonical_sha256": "a5b64f53eb2610d4450b398a6a5d8fb0aec08a8329418e9521120f3564c6bfa0",
+  "source_manifest_raw_file_sha256": "7cb4cb43cb6f09cb27e38027a0cdfd4ddec011fff266055ec9bdd57e61d17aec",
+  "manifest_hash_definition": "sha256(json.dumps(mapping,sort_keys=True).encode()), producer run_capacity_environment.py",
+  "first_validation_assumption_corrected": "Raw file hash is not the producer canonical mapping hash; archived bytes untouched",
+  "original_junit_sha256": "e1ab007c018d6b89c6346a9c9c67e41f6dd265a32c484cd714b502a7b86f2646",
+  "selected_current_identity": [
+    {
+      "path": "apps/safety/fast_canonical.py",
+      "measured_sha256": "77d627daf429db0e3394cc1ce5c309a44b0f497fca5d5cb5e491ec9ea0ac7989",
+      "current_sha256": "77d627daf429db0e3394cc1ce5c309a44b0f497fca5d5cb5e491ec9ea0ac7989",
+      "same": true
+    },
+    {
+      "path": "apps/safety/rights_exports.py",
+      "measured_sha256": "942f355f701ec6c0c88571abaa02f6e9c2e0aa7b7c7df9eebdf7866fc8d7e985",
+      "current_sha256": "d27a87483caccbdb19be10b6be06ed75ac5a7c438f501af6b4cb36cbebd4c151",
+      "same": false
+    },
+    {
+      "path": "apps/safety/canonical_kernel_loader.py",
+      "measured_sha256": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6",
+      "current_sha256": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6",
+      "same": true
+    },
+    {
+      "path": "apps/mediafiles/services.py",
+      "measured_sha256": "9d5ee3917d9f9dca2fc9070307b62cfef7b4dc880c7337baf7fa86f9d53f36f5",
+      "current_sha256": "6fd427a388659b0fc2338f00cef4dde39f2d30416552ef967289063e44395bbe",
+      "same": false
+    },
+    {
+      "path": "apps/mediafiles/similarity.py",
+      "measured_sha256": "2e722818420ec2592bda126bad219a00cd997dc90fb83f17c93bcfe61f1351e1",
+      "current_sha256": "2e722818420ec2592bda126bad219a00cd997dc90fb83f17c93bcfe61f1351e1",
+      "same": true
+    }
+  ],
+  "selector_run": "20261015-213949-b87873e3",
+  "selector_photos": 10002,
+  "selector_blobs": 5,
+  "selector_body_hashes": [
+    "04bd1dcbe33c35669c45ef49aeb86aad36dd903e2892f6072078d19309fe54b6"
+  ],
+  "selector_artifacts_sha256": {
+    "source-hashes.json": "04905fda7abf6e84f6e1edd6c1069e7cd77939db8000b125f417244635b765b2",
+    "pytest.xml": "33883b912985ca4ddf3d94153d8cace808cb8d1d95c7dbf318f3f170f0a3b04f",
+    "media-candidates-cpu.json": "f11ee7834502bed903ec99060ccc910cdc68d5d3353c1a19415b9d7ca8fe5827"
+  },
+  "limits": [
+    "Original FAIL retained, not current performance pass",
+    "Selector returned four blobs, not a distinct-blob growth benchmark",
+    "Selective source identity is not a current full-export acceptance"
+  ]
+}

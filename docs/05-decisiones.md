@@ -1,6 +1,8 @@
 # Decisiones y preguntas pendientes
 
-Actualizado: 2026-10-03.
+Registro inicial: 2026-10-03. Aclaración de precedencia: 2026-10-23.
+
+El alcance vigente es el de [contrato14](14-contrato-funcional-v1.md): clasificados de perfiles adultos que buscan citas románticas, sin anuncios de encuentros sexuales, catálogo profesional ni tarifas por servicios. Las decisiones iniciales se conservan como historia y no amplían ese alcance. La implementación y aceptación se consultan en [seguimiento17](17-seguimiento-desarrollo.md); este registro no las sustituye.
 
 Estado vigente: el usuario delega cerrar las decisiones. [Contrato funcional v1](14-contrato-funcional-v1.md) consolida la especificación y sustituye estados históricos pendientes sobre los puntos resueltos. Pendientes externos en su sección 12.
 
@@ -46,8 +48,10 @@ La tabla conserva los estados iniciales de cada decisión. Las decisiones funcio
 | DEC-034 | Definido por delegación | MVP con favoritos, sin mapas/chat/reseñas/vídeos ni cobros reales | Concretado en contrato v1 |
 | DEC-035 | Confirmado | Condiciones de publicación y apartado legal público que expliquen responsabilidades, normas y postura de la plataforma | Confirmación del usuario; especificación en documento 15 |
 | DEC-036 | Confirmado | Desarrollo cruzado frontend/backend y tests tempranos; terminación separada al estabilizar interacciones, bajo un contrato de inicio a final | Petición del usuario; documento 16 fija gate GS-01 y validación final |
+| DEC-037 | Vigente por instrucción posterior del usuario | Clasificados de perfiles adultos para citas románticas; panel centrado en el perfil, renovación y promociones de visibilidad | Contrato14 consolidado el 2026-10-20; sustituye el catálogo profesional de DEC-032 y limita la equivalencia con referencias de DEC-015 |
+| DEC-038 | Dirección acordada; diseño e implementación pendientes | B15 opcional: preferencias explícitas, cookies propias sin cuenta y evaluación de almacenamiento privado cifrado con cuenta; modificación, borrado y desactivación | Contrato14§6.1 recoge la aclaración del 2026-10-23; no decide base de datos frente a objetos, plazos, claves o habilitación jurídica, ni autoriza seguimiento conductual |
 
-La aceptación de la base tecnológica no resuelve las preguntas funcionales o legales ni constituye una instrucción para empezar a implementar. La fase actual sigue siendo planificación.
+La aceptación inicial de la base tecnológica no resolvía por sí sola las preguntas funcionales o legales. La afirmación original de que la fase era sólo planificación pertenece al 2026-10-03: el desarrollo local fue autorizado posteriormente y dispone de aceptaciones en seguimiento17. No constituye aceptación global de beta o producción.
 
 ## Preguntas prioritarias
 
@@ -70,9 +74,9 @@ La tabla siguiente es histórica: la delegación posterior resuelve decisiones f
 
 ## Plan de seguridad preparado
 
-Documentados paquetes IMP-001 a IMP-011 y gates G-01 a G-08 en `11-plan-seguridad-validacion.md`, y procedimientos OP-001 a OP-009 en `12-operacion-seguridad.md`. Todos pendientes de ejecución. Pedir documentación no equivale a seleccionar herramientas, aprobar umbrales o comenzar implementación.
+En el corte inicial se documentaron paquetes IMP-001 a IMP-011 y gates G-01 a G-08 en `11-plan-seguridad-validacion.md`, y procedimientos OP-001 a OP-009 en `12-operacion-seguridad.md`, entonces pendientes de ejecución. Esa descripción histórica no determina su estado actual: consultar seguimiento17 y sus evidencias. Pedir documentación no equivale por sí solo a seleccionar herramientas o aprobar umbrales.
 
-## Próximos entregables
+## Entregables previstos en la planificación inicial — histórico
 
 Lista de cierre del contrato funcional en [Decisiones para el contrato de desarrollo](13-cierre-contrato-desarrollo.md): CON-001 a CON-012. Diferencia decisiones de alcance, elecciones técnicas delegables y condiciones previas a producción.
 
@@ -83,4 +87,4 @@ Lista de cierre del contrato funcional en [Decisiones para el contrato de desarr
 5. Registrar arquitectura elegida mediante ADR.
 6. Preparar plan de implementación, despliegue y criterios de lanzamiento.
 
-La aplicación, infraestructura y controles siguen sin implementar.
+La afirmación inicial de que aplicación, infraestructura y controles estaban sin implementar queda conservada como antecedente del 2026-10-03, sustituido por el desarrollo y las aceptaciones locales de seguimiento17. Los pendientes actuales se rigen por contrato16 y roadmap103; no se reabren por esta lista histórica.

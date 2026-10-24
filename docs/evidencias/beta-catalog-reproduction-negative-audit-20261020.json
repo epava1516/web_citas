@@ -1,0 +1,38 @@
+{
+  "result": "PASS_NEGATIVE_REPRODUCTION_AUDIT_NOT_FUNCTIONAL_ACCEPTANCE",
+  "run_id": "20261020-182919-e96bbda9",
+  "passed": 1,
+  "failed": 2,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_unchanged_from_consent_focal": true,
+  "fresh_cleanup_verified": true,
+  "notification_receipt": "1792521046254711986-2067687.json",
+  "failures": [
+    {
+      "nodeid": "tests/test_native_submission_relation_reads.py::test_native_validation_still_observes_catalog_change_after_initialization[categories]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 6.680929673835635,
+      "longrepr": "tests/test_native_submission_relation_reads.py:81: in test_native_validation_still_observes_catalog_change_after_initialization\n    with pytest.raises(ValidationError, match=message):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValidationError"
+    },
+    {
+      "nodeid": "tests/test_native_submission_relation_reads.py::test_native_validation_still_observes_catalog_change_after_initialization[services]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 1.1289119506254792,
+      "longrepr": "tests/test_native_submission_relation_reads.py:81: in test_native_validation_still_observes_catalog_change_after_initialization\n    with pytest.raises(ValidationError, match=message):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE ValidationError"
+    }
+  ],
+  "evidence_sha256": {
+    "result.json": "7ab2dbbb2847893fd510cc3db8ff5884ec39586a93ffcfee93b65c59e669a721",
+    "runner.json": "f6ef9737dcd26b9c427fcc50ef6e5232c504254f303f491ceadc7604d148cb55",
+    "source-hashes.json": "a27b4c6c153af5954ce87d463480544765f0fe319d7a18daed17f31efb4ae855",
+    "pytest.xml": "bff603534a28d657ea303112930f39a57aaeab7ba7dff89bd71f39fbff2fee39",
+    "pytest-reports.jsonl": "6c10d68df322f5921d8ba943d989a5bbb345abca6910011b40fbba5717a1c7b3",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  },
+  "scope": "Native submission misses catalogue deactivation and forbidden service inserted during DetailsForm initialization; no beta acceptance"
+}

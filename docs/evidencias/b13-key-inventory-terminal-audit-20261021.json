@@ -1,0 +1,34 @@
+{
+  "result": "PASS_B13_BOUNDED_DATABASE_KEY_CENSUS_NOT_RETIREMENT",
+  "run_id": "20261021-033513-5fb473ba",
+  "passed": 36,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "workers": 4,
+  "junit_seconds": 67.235,
+  "by_module": {
+    "test_secret_dependencies": 6,
+    "test_secret_rotation": 16,
+    "test_encryption_inventory": 14
+  },
+  "existing_product_unchanged_from_rotation_cut": true,
+  "added_product_sources": [
+    "apps/core/encryption_inventory.py",
+    "apps/core/encryption_inventory_registry.py",
+    "apps/core/management/commands/encryption_key_inventory.py"
+  ],
+  "fresh_sources_cleanup_and_terminal_telegram": true,
+  "worker_collections_identical": true,
+  "registered_columns": 54,
+  "direct_hmac_producers": 8,
+  "retirement_authorized": false,
+  "limits": [
+    "Current registered DB columns only; encrypted naming convention plus explicit independent JSON ledger case",
+    "Bounded sampling and oversized values are explicitly unmeasured",
+    "Decryptable envelope is not domain authority or semantic validation",
+    "No storage/tombstone/archive/backup/external-ledger inventory or real-key retirement",
+    "Direct HMAC producers do not prove complete transitive consumer coverage",
+    "B13 remains open; beta global and B07 capacity remain unaccepted"
+  ]
+}

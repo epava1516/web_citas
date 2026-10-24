@@ -1,0 +1,233 @@
+{
+  "scope": "Current product source identity bridge, not functional acceptance or full dependency equivalence",
+  "current_all_source_paths": 1722,
+  "current_product_paths": 638,
+  "current_manifest_canonical_sha256": "19366db6ecee58d5ef43a02eb13c3cd072c41a9af1ba69b123b5504c6d524c49",
+  "comparisons": [
+    {
+      "run": "20261020-034242-6e8e508e",
+      "original_result": "PASS",
+      "original_junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "192",
+          "time": "568.920",
+          "timestamp": "2026-10-20T05:43:01.739895+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "product_paths_then": 622,
+      "product_paths_now": 638,
+      "delta": {
+        "added": [
+          "apps/catalog/promotion_paging.py",
+          "apps/core/domain_signing.py",
+          "apps/core/encryption.py",
+          "apps/core/encryption_inventory.py",
+          "apps/core/encryption_inventory_registry.py",
+          "apps/core/management/commands/encryption_key_inventory.py",
+          "apps/core/management/commands/operational_assessment.py",
+          "apps/core/management/commands/operational_events_report.py",
+          "apps/core/management/commands/operational_snapshot.py",
+          "apps/core/operational_assessment.py",
+          "apps/core/operational_event_handler.py",
+          "apps/core/operational_events.py",
+          "apps/core/operational_snapshot.py",
+          "apps/core/operational_window.py",
+          "apps/safety/report_authority.py",
+          "apps/safety/report_queue.py",
+          "apps/safety/rights_copy_forms.py"
+        ],
+        "removed": [
+          "templates/core/home.html"
+        ],
+        "modified": [
+          "apps/catalog/promotion_exposure.py",
+          "apps/core/mfa.py",
+          "apps/core/verification.py",
+          "apps/listings/discovery.py",
+          "apps/listings/publication_state.py",
+          "apps/listings/submissions.py",
+          "apps/safety/crypto.py",
+          "apps/safety/erasure_execution.py",
+          "apps/safety/erasure_final.py",
+          "apps/safety/management/commands/apply_recovery_ledger.py",
+          "apps/safety/object_storage/read_clients.py",
+          "apps/safety/purpose_exceptions.py",
+          "apps/safety/rectification_uploads.py",
+          "apps/safety/rights.py",
+          "apps/safety/rights_access_coverage_review.py",
+          "apps/safety/rights_exports.py",
+          "apps/safety/rights_operation_fingerprints.py",
+          "apps/safety/rights_portability_batch_projection.py",
+          "apps/safety/urgent_alerts.py",
+          "apps/safety/views.py",
+          "config/celery.py",
+          "config/settings.py",
+          "templates/base.html",
+          "templates/listings/lifecycle.html",
+          "templates/listings/public_detail.html"
+        ]
+      },
+      "source_manifest_sha256": "49224f2bb678e755f281a0e39df07a8a5f1432ebe6dd74b4d43d7876c1b237fd"
+    },
+    {
+      "run": "20261020-043105-4bdc27be",
+      "original_result": "PASS",
+      "original_junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "139",
+          "time": "385.688",
+          "timestamp": "2026-10-20T06:31:25.057344+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "product_paths_then": 622,
+      "product_paths_now": 638,
+      "delta": {
+        "added": [
+          "apps/catalog/promotion_paging.py",
+          "apps/core/domain_signing.py",
+          "apps/core/encryption.py",
+          "apps/core/encryption_inventory.py",
+          "apps/core/encryption_inventory_registry.py",
+          "apps/core/management/commands/encryption_key_inventory.py",
+          "apps/core/management/commands/operational_assessment.py",
+          "apps/core/management/commands/operational_events_report.py",
+          "apps/core/management/commands/operational_snapshot.py",
+          "apps/core/operational_assessment.py",
+          "apps/core/operational_event_handler.py",
+          "apps/core/operational_events.py",
+          "apps/core/operational_snapshot.py",
+          "apps/core/operational_window.py",
+          "apps/safety/report_authority.py",
+          "apps/safety/report_queue.py",
+          "apps/safety/rights_copy_forms.py"
+        ],
+        "removed": [
+          "templates/core/home.html"
+        ],
+        "modified": [
+          "apps/catalog/promotion_exposure.py",
+          "apps/core/mfa.py",
+          "apps/core/verification.py",
+          "apps/listings/discovery.py",
+          "apps/listings/publication_state.py",
+          "apps/listings/submissions.py",
+          "apps/safety/crypto.py",
+          "apps/safety/erasure_execution.py",
+          "apps/safety/erasure_final.py",
+          "apps/safety/management/commands/apply_recovery_ledger.py",
+          "apps/safety/object_storage/read_clients.py",
+          "apps/safety/purpose_exceptions.py",
+          "apps/safety/rectification_uploads.py",
+          "apps/safety/rights.py",
+          "apps/safety/rights_access_coverage_review.py",
+          "apps/safety/rights_exports.py",
+          "apps/safety/rights_operation_fingerprints.py",
+          "apps/safety/rights_portability_batch_projection.py",
+          "apps/safety/urgent_alerts.py",
+          "apps/safety/views.py",
+          "config/celery.py",
+          "config/settings.py",
+          "templates/base.html",
+          "templates/listings/public_detail.html"
+        ]
+      },
+      "source_manifest_sha256": "f885153f27b22ba1e3734ce7e60c434dcaa6f2151f2d1264ff1dbd179b8e6b0c"
+    },
+    {
+      "run": "20261020-195459-bacfc549",
+      "original_result": "ERROR",
+      "original_junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "7",
+          "skipped": "122",
+          "tests": "3464",
+          "time": "4168.465",
+          "timestamp": "2026-10-20T21:55:18.805347+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "product_paths_then": 622,
+      "product_paths_now": 638,
+      "delta": {
+        "added": [
+          "apps/core/domain_signing.py",
+          "apps/core/encryption.py",
+          "apps/core/encryption_inventory.py",
+          "apps/core/encryption_inventory_registry.py",
+          "apps/core/management/commands/encryption_key_inventory.py",
+          "apps/core/management/commands/operational_assessment.py",
+          "apps/core/management/commands/operational_events_report.py",
+          "apps/core/management/commands/operational_snapshot.py",
+          "apps/core/operational_assessment.py",
+          "apps/core/operational_event_handler.py",
+          "apps/core/operational_events.py",
+          "apps/core/operational_snapshot.py",
+          "apps/core/operational_window.py",
+          "apps/safety/report_authority.py",
+          "apps/safety/report_queue.py",
+          "apps/safety/rights_copy_forms.py"
+        ],
+        "removed": [],
+        "modified": [
+          "apps/core/mfa.py",
+          "apps/core/verification.py",
+          "apps/listings/publication_state.py",
+          "apps/safety/crypto.py",
+          "apps/safety/erasure_execution.py",
+          "apps/safety/erasure_final.py",
+          "apps/safety/management/commands/apply_recovery_ledger.py",
+          "apps/safety/object_storage/read_clients.py",
+          "apps/safety/purpose_exceptions.py",
+          "apps/safety/rectification_uploads.py",
+          "apps/safety/rights.py",
+          "apps/safety/rights_access_coverage_review.py",
+          "apps/safety/rights_exports.py",
+          "apps/safety/rights_operation_fingerprints.py",
+          "apps/safety/rights_portability_batch_projection.py",
+          "apps/safety/urgent_alerts.py",
+          "apps/safety/views.py",
+          "config/celery.py",
+          "config/settings.py",
+          "templates/listings/public_detail.html"
+        ]
+      },
+      "source_manifest_sha256": "60d1ac5763357591e36865dbb8e17ea8843e7a33798ebccb79889d962a88f8d6"
+    },
+    {
+      "run": "20261024-090124-aaa54693",
+      "original_result": "PASS",
+      "original_junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "12",
+          "time": "59.252",
+          "timestamp": "2026-10-24T11:01:44.585965+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "product_paths_then": 638,
+      "product_paths_now": 638,
+      "delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      },
+      "source_manifest_sha256": "2496c51fb1253b057dee0938b6cbbca55366298e9ab79b76610a25f10bb0b57e"
+    }
+  ]
+}

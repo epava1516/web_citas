@@ -1,0 +1,125 @@
+{
+  "result": "PASS_B12_LOCAL_REQUIREMENT_MATRIX",
+  "functional_run": "20261021-022632-91e875b1",
+  "current_functional_passed": 60,
+  "cost_run": "20261021-023008-a83a296a",
+  "current_cost_integrity_passed": 1,
+  "reused_run": "20261020-232949-2d2b26df",
+  "reused_unique_cases": 41,
+  "reused_by_module": {
+    "test_operational_events": 5,
+    "test_operational_event_handler": 7,
+    "test_private_logging": 27,
+    "test_recovery_task_gate": 2
+  },
+  "combined_unique_cases": 102,
+  "single_run_102_claim": false,
+  "reused_test_fixture_closure": [
+    "tests/directory_snapshot.py",
+    "tests/test_discovery.py",
+    "tests/test_drafts.py",
+    "tests/test_operational_event_handler.py",
+    "tests/test_operational_events.py",
+    "tests/test_photos.py",
+    "tests/test_private_logging.py",
+    "tests/test_recovery_task_gate.py"
+  ],
+  "existing_product_delta_since_reused": [
+    "apps/core/operational_snapshot.py"
+  ],
+  "current_sampler_p95_ms": [
+    149.731181,
+    224.160669
+  ],
+  "criteria": [
+    {
+      "id": "C01",
+      "requirement": "Errores HTTP y tareas con vocabulario fijo",
+      "evidence": "41casos reutilizados; emisores y producto observado idénticos salvo snapshot no importado",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C02",
+      "requirement": "Edad de colas y elegibilidad",
+      "evidence": "snapshot y assessment actuales; fechas exigibles distintas de creación",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C03",
+      "requirement": "Backlog de publicación",
+      "evidence": "worker real en test_notice_worker_recovery actual; dirty0 tras tarea normal",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C04",
+      "requirement": "Frecuencia observada de fallback",
+      "evidence": "9casos de ventanas actuales y HTTP real reutilizado; fracción observada no cobertura global",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C05",
+      "requirement": "Purgas vencidas y tareas configuradas",
+      "evidence": "16tareas conciliadas; temporales/confirmación/caché/medios y backend opcional explícito",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C06",
+      "requirement": "Fallos de entrega y recuperación",
+      "evidence": "prefork actual, backoff60s natural y recibo simulado único; proveedor no acreditado",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C07",
+      "requirement": "Tareas fallidas detectadas",
+      "evidence": "worker real reutilizado y fallo/recuperación RustFS actual con hooks eager explícitos",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C08",
+      "requirement": "Umbrales y presupuesto",
+      "evidence": "política actual verificada10casos; 48SELECT y p95<1s medidos en dos estados",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C09",
+      "requirement": "Responsable y respuesta",
+      "evidence": "Ingeniería local y respuestas fijas en docs137–140; guardia real separadaB17",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C10",
+      "requirement": "Privacidad y telemetría acotada",
+      "evidence": "27logging+7transporte reutilizados; snapshot/ventanas actuales y eventos sin payloads",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C11",
+      "requirement": "Lógico y físico separados",
+      "evidence": "medios/caché/RustFS actuales; ausencia por testigos locales y API, no universal",
+      "status": "proved_in_local_scope"
+    },
+    {
+      "id": "C12",
+      "requirement": "Coste y retención del transporte",
+      "evidence": "microbenchmark303recibidos y rotación50001 propia; fuentes emisoras/configuración intactas",
+      "status": "proved_in_local_scope"
+    }
+  ],
+  "limits": [
+    "No beta global, production acceptance, deployment, providers or guard coverage",
+    "No universal storage inventory: warning when optional backend enabled, never all-clear",
+    "Manual local administrative monitoring; real receiver/oncall operation belongs to B17",
+    "Real worker evidence and eager storage-hook evidence remain distinct",
+    "B07 capacity FAIL remains unchanged"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261021-022632-91e875b1/result.json": "6a4ee9ad232002ff6ea43dcab32d3ca809f3a1bd3e53fec76dd41b46405cabdb",
+    "artifacts/local-ci/20261021-022632-91e875b1/source-hashes.json": "42cb4d5c4499cb351340ce6af00d7e56ba90ca61572da7085fedb9fc82798f95",
+    "artifacts/local-ci/20261021-022632-91e875b1/pytest.xml": "db863160f3e9ccb58ccf709367a701d6afa949dd698d548ec1a30b42ead1373f",
+    "artifacts/local-ci/20261021-023008-a83a296a/snapshot-cost.json": "525929f6630405cf1f7df21f1cd4a540f3746f3006d8ca1de5be0f3d6bd49d01",
+    "artifacts/local-ci/20261020-232949-2d2b26df/pytest.xml": "ee4a621aaad8a6761228186a3f8d346e6166ba4e48eb77fff89d8811c96ec772",
+    "docs/evidencias/b12-purge-task-reconciliation-20261021.json": "20ae79c9735f4b180623cc432e26daf006145941466ac3078aab794f36cec00d",
+    "docs/evidencias/b12-rotation-20261021.json": "4eef94f78b87ff4ea43df70ca480cfd0a27d7d950460325330e14ac8896b0c2f",
+    "docs/evidencias/b12-normal-transport-measurement-20261020.json": "cbebb4ca3d6cdc78b921b6747dab17343551c29ec9fc11545982ecf917da98ba"
+  }
+}

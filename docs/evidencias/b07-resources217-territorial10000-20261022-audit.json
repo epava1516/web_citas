@@ -1,0 +1,284 @@
+{
+  "result": "VERIFIED_INSTRUMENTED_TERRITORIAL10000_NOT_CAPACITY",
+  "run": "20261022-072726-ccf3ae57",
+  "cases": 1,
+  "junit_seconds": 900.148,
+  "published": 10000,
+  "geography": {
+    "1": 7000,
+    "2": 3000
+  },
+  "native_rights": 2000,
+  "dynamic_successful": 1200,
+  "mix": {
+    "listing": 400,
+    "search": 400,
+    "detail": 400
+  },
+  "languages": {
+    "es": 600,
+    "en": 600
+  },
+  "route_slots": 42,
+  "unique_routes": 30,
+  "uploads_successful": 1,
+  "generator_delay_ms": {
+    "p95": 3.4519191831350327,
+    "p99": 7.428598590195179,
+    "max": 15.662144310772064
+  },
+  "cpu_aggregate_cores": 8,
+  "memory_aggregate_bytes": 8589934592,
+  "swap_zero": true,
+  "conservative_memory_upper_bound_bytes": 1743192064,
+  "storage_ceiling_bytes": 4865392640,
+  "product_sources_unchanged": 628,
+  "sources_protocol_ledgers_kernel_cleanup_notices_verified": true,
+  "minimal_container_identity_manifest_verified": true,
+  "idle_after_cpu_interval_verified": true,
+  "resource_samples": 182,
+  "fully_within_phase_samples": {
+    "before_arrivals": 62,
+    "arrivals_and_drain": 117,
+    "idle_after": 3
+  },
+  "resource_cpu_intervals": {
+    "before_arrivals": {
+      "controller": {
+        "elapsed_seconds": 31.776719353161752,
+        "execution_cpu_cores": 5.3812981163829825e-06,
+        "counter_delta": {
+          "usage_usec": 171,
+          "user_usec": 107,
+          "system_usec": 64,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 31.77409100998193,
+        "execution_cpu_cores": 0.20911877535419002,
+        "counter_delta": {
+          "usage_usec": 6644559,
+          "user_usec": 5946680,
+          "system_usec": 697878,
+          "nr_periods": 318,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 31.77531585469842,
+        "execution_cpu_cores": 0.15854825875019818,
+        "counter_delta": {
+          "usage_usec": 5037921,
+          "user_usec": 3975044,
+          "system_usec": 1062876,
+          "nr_periods": 132,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 31.778454505838454,
+        "execution_cpu_cores": 0.009389411934591732,
+        "counter_delta": {
+          "usage_usec": 298381,
+          "user_usec": 269545,
+          "system_usec": 28835,
+          "nr_periods": 308,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 31.774500397965312,
+        "execution_cpu_cores": 0.0013886921728854485,
+        "counter_delta": {
+          "usage_usec": 44125,
+          "user_usec": 34753,
+          "system_usec": 9373,
+          "nr_periods": 26,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "caddy": {
+        "elapsed_seconds": 31.77552303671837,
+        "execution_cpu_cores": 1.5892736035106164e-05,
+        "counter_delta": {
+          "usage_usec": 505,
+          "user_usec": 129,
+          "system_usec": 377,
+          "nr_periods": 1,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    },
+    "arrivals_and_drain": {
+      "controller": {
+        "elapsed_seconds": 59.615125245414674,
+        "execution_cpu_cores": 6.372543854199488e-05,
+        "counter_delta": {
+          "usage_usec": 3799,
+          "user_usec": 3799,
+          "system_usec": 0,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 59.616544276475906,
+        "execution_cpu_cores": 1.9103571564267843,
+        "counter_delta": {
+          "usage_usec": 113888892,
+          "user_usec": 107011236,
+          "system_usec": 6877656,
+          "nr_periods": 597,
+          "nr_throttled": 2,
+          "throttled_usec": 35426
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 59.614221120253205,
+        "execution_cpu_cores": 1.5323313512011212,
+        "counter_delta": {
+          "usage_usec": 91348740,
+          "user_usec": 78321444,
+          "system_usec": 13027295,
+          "nr_periods": 597,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 59.61273511033505,
+        "execution_cpu_cores": 0.005953761379059214,
+        "counter_delta": {
+          "usage_usec": 354920,
+          "user_usec": 308686,
+          "system_usec": 46234,
+          "nr_periods": 516,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 59.61472130008042,
+        "execution_cpu_cores": 0.0013260147540083084,
+        "counter_delta": {
+          "usage_usec": 79050,
+          "user_usec": 61161,
+          "system_usec": 17888,
+          "nr_periods": 48,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "caddy": {
+        "elapsed_seconds": 59.61549380235374,
+        "execution_cpu_cores": 0.000107589480366709,
+        "counter_delta": {
+          "usage_usec": 6414,
+          "user_usec": 5970,
+          "system_usec": 444,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    },
+    "idle_after": {
+      "controller": {
+        "elapsed_seconds": 1.0415531657636166,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 1.0421373480930924,
+        "execution_cpu_cores": 0.03832508265161247,
+        "counter_delta": {
+          "usage_usec": 39940,
+          "user_usec": 29207,
+          "system_usec": 10733,
+          "nr_periods": 10,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 1.0418920926749706,
+        "execution_cpu_cores": 0.00126308665672016,
+        "counter_delta": {
+          "usage_usec": 1316,
+          "user_usec": 259,
+          "system_usec": 1057,
+          "nr_periods": 3,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 1.0416624564677477,
+        "execution_cpu_cores": 0.007458270144768865,
+        "counter_delta": {
+          "usage_usec": 7769,
+          "user_usec": 6582,
+          "system_usec": 1187,
+          "nr_periods": 8,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 1.041748526506126,
+        "execution_cpu_cores": 0.00020830363036632906,
+        "counter_delta": {
+          "usage_usec": 217,
+          "user_usec": 43,
+          "system_usec": 174,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "caddy": {
+        "elapsed_seconds": 1.0416141031309962,
+        "execution_cpu_cores": 0.00014400726674985848,
+        "counter_delta": {
+          "usage_usec": 150,
+          "user_usec": 150,
+          "system_usec": 0,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    }
+  },
+  "host_observer_outside_runtime_budget": true,
+  "observer_thread_cpu_seconds": 6.301407955,
+  "observer_elapsed_seconds": 982.6674585221335,
+  "observer_process_rss_bytes": 23781376,
+  "B07_accepted": false,
+  "artifacts_sha256": {
+    "report.json": "e374e337ec5e59caadd7716965685eba45780e4d1957d1bdc085cab3c721056d",
+    "launcher.json": "c1f832a99d0b09bc4b8918800ca0e30660e8ad2f37c5f0b83bbf18058dfd523e",
+    "source-hashes.json": "1fc401d3519cf79dcd08c0fded06e772015eed7e130adab3b9be9e402487c465",
+    "pytest.xml": "3d8202729187dc9ad8ec88912c330d64b56a9dfa215fa94696d5ddd707757b07",
+    "host-service-resources.jsonl": "586a85fe9c78da0944f9f1538a2793b83768cfab3aae565f9438fedcf23db5c4",
+    "host-service-resources.summary.json": "e23cdc4b0e3cd1691c717e25b0bee783668740520e10b669441212c9e36cf2e9"
+  },
+  "p95_observable_ms": 538.8764282688498,
+  "compaction_and_same_goal_resume_verified": true
+}

@@ -1,0 +1,187 @@
+{
+  "result": "VERIFIED_BASELINE",
+  "phase": "baseline",
+  "run": "20261024-054506-67458735",
+  "cases": 7,
+  "junit_seconds": 87.568,
+  "source_hashes_verified": 1714,
+  "queue_coi_comparisons": [
+    {
+      "role": "moderator",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 10
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 10
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 20
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 20
+        }
+      ]
+    },
+    {
+      "role": "individual",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 8
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 8
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 16
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 16
+        }
+      ]
+    },
+    {
+      "role": "owner",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 4
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 4
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 8
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 8
+        }
+      ]
+    },
+    {
+      "role": "subject",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 6
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 6
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 12
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 12
+        }
+      ]
+    },
+    {
+      "role": "active_editor",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 4
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 4
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 8
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 8
+        }
+      ]
+    },
+    {
+      "role": "inactive_editor",
+      "comparisons": [
+        {
+          "language": "es",
+          "restrictions": false,
+          "count": 6
+        },
+        {
+          "language": "en",
+          "restrictions": false,
+          "count": 6
+        },
+        {
+          "language": "es",
+          "restrictions": true,
+          "count": 12
+        },
+        {
+          "language": "en",
+          "restrictions": true,
+          "count": 12
+        }
+      ]
+    }
+  ],
+  "next_request_authority_counts": [
+    2,
+    1,
+    0,
+    2,
+    0,
+    2
+  ],
+  "cost_observations": [],
+  "private_authority_functions_unchanged": {
+    "permitted": "d0d90e01896a843bcd1d113ec180db5735998e790e8deafb2e59b5be21f75de4",
+    "inspect": "a7f0a245b79b35a1bb331cfc0310d564d941696a172fb95420dc6b5dc4902efe"
+  },
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifacts_sha256": {
+    "result.json": "63f5927258c8893e828b2c6d50346f89e7ef1a01164ab78a8d91a9de6c856455",
+    "source-hashes.json": "5b5cb44d28ef10e14e3cc078b6414ed9a0706164cdf062977e1dbd3c01775433",
+    "pytest.xml": "03916c7ee75e895933db0fd7db30fd3d44877d40a1ed7d6031cbf8cc8b60e2b1",
+    "runner.json": "1b54de32c90add548120a80687496c9419fda5034e83d69661454b9697f6e4f2",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "Synthetic local PostgreSQL selection and query-count evidence; not production or full beta acceptance",
+    "Authority writes are fixtures, not a transfer workflow verification",
+    "No latency/CPU improvement claimed from isolated time samples"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "result": "PASS_LOCAL_SCOPED",
+  "cycle": [
+    {
+      "version": "current",
+      "image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9"
+    },
+    {
+      "version": "previous",
+      "image": "sha256:980bcc133069c8fd798e48810274451498a2ea40d43044576a0e123e81b3f288"
+    },
+    {
+      "version": "current",
+      "image": "sha256:80d66b10e1f454d103e937a30fe08b1fdd1abe22d546b884d7df50315ac134c9"
+    }
+  ],
+  "business_tables_preserved": 9,
+  "media_files_preserved": 8,
+  "tcp_detail_checks": 18,
+  "tcp_photo_checks": 6,
+  "schema_downgrade_executed": false,
+  "runtime_source_files_fresh": 724,
+  "own_resources_fresh_absent": true,
+  "terminal_telegram_sent": true,
+  "negative_attempts_preserved": [
+    "missing-images",
+    "probe-permissions",
+    "queue-generation",
+    "port-publication",
+    "http-host"
+  ],
+  "limits": [
+    "read compatibility cycle; no concurrent business writes or worker turnover",
+    "no restoration with previous image: known grant invalidation omission",
+    "not general compatibility with Alpha or future destructive migrations"
+  ],
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

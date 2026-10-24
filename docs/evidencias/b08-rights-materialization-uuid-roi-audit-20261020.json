@@ -1,0 +1,3224 @@
+{
+  "run_id": "20261020-130958-cc984087",
+  "result": "PASS_FINITE_EXPERIMENT_INTEGRITY",
+  "candidate_eligible": false,
+  "passed": 1,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "notification_receipt": "1792502752921317372-29244.json",
+  "unchanged_product_since_focused_copy_run": true,
+  "common162_reuse_scope": "621 unchanged sources plus exact two-template delta separately verified; not blanket acceptance",
+  "experiment": {
+    "run_id": "20261020-130958-cc984087",
+    "result": "EXPERIMENT_COMPLETE",
+    "count": 10000,
+    "rights": 2000,
+    "source_sha256": "79665c4cd351f668f4f8378ead3ce514b6fdd6491f737e1b6c8294b31913009e",
+    "candidate_sha256": "eae9a9e37292cb1fc43e3a9d29acd3c2d40f6d2ebd90fb07927d4c6c9225cd10",
+    "records": [
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3006851226091385,
+            "thread_cpu_seconds": 0.16127930599998308
+          },
+          {
+            "wall_seconds": 0.27927641198039055,
+            "thread_cpu_seconds": 0.14549029400001245
+          },
+          {
+            "wall_seconds": 0.2874427642673254,
+            "thread_cpu_seconds": 0.1642845480000119
+          }
+        ],
+        "backend_cpu_seconds": 0.289391093,
+        "backend_wait_seconds": 0.036904998,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114023,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422329005,
+          "monotonic": 4223290.995574372,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 165,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114023,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422329005,
+          "monotonic": 4223290.995817437,
+          "runtime_ns": 203594577,
+          "wait_ns": 10025367
+        },
+        "after": {
+          "pid": 114023,
+          "user_ticks": 37,
+          "system_ticks": 11,
+          "start_ticks": 422329005,
+          "monotonic": 4223291.863681511,
+          "runtime_ns": 492985670,
+          "wait_ns": 46930365
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.38648138102144003,
+            "thread_cpu_seconds": 0.19416638299998112
+          },
+          {
+            "wall_seconds": 0.5365506801754236,
+            "thread_cpu_seconds": 0.34700629000002436
+          },
+          {
+            "wall_seconds": 0.33045267686247826,
+            "thread_cpu_seconds": 0.1725386809999918
+          }
+        ],
+        "backend_cpu_seconds": 0.443689324,
+        "backend_wait_seconds": 0.04336574,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114276,
+          "user_ticks": 14,
+          "system_ticks": 8,
+          "start_ticks": 422329187,
+          "monotonic": 4223292.440258523,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 166,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114276,
+          "user_ticks": 14,
+          "system_ticks": 8,
+          "start_ticks": 422329187,
+          "monotonic": 4223292.440700511,
+          "runtime_ns": 226460054,
+          "wait_ns": 28464464
+        },
+        "after": {
+          "pid": 114276,
+          "user_ticks": 51,
+          "system_ticks": 15,
+          "start_ticks": 422329187,
+          "monotonic": 4223293.694934139,
+          "runtime_ns": 670149378,
+          "wait_ns": 71830204
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.32087103370577097,
+            "thread_cpu_seconds": 0.15344998500000884
+          },
+          {
+            "wall_seconds": 0.3160765329375863,
+            "thread_cpu_seconds": 0.14215411200001427
+          },
+          {
+            "wall_seconds": 0.24930032901465893,
+            "thread_cpu_seconds": 0.1413867580000101
+          }
+        ],
+        "backend_cpu_seconds": 0.330048908,
+        "backend_wait_seconds": 0.035072777,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114415,
+          "user_ticks": 12,
+          "system_ticks": 8,
+          "start_ticks": 422329370,
+          "monotonic": 4223294.211822126,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 167,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114415,
+          "user_ticks": 12,
+          "system_ticks": 8,
+          "start_ticks": 422329370,
+          "monotonic": 4223294.212117846,
+          "runtime_ns": 205969883,
+          "wait_ns": 31035766
+        },
+        "after": {
+          "pid": 114415,
+          "user_ticks": 38,
+          "system_ticks": 14,
+          "start_ticks": 422329370,
+          "monotonic": 4223295.098853547,
+          "runtime_ns": 536018791,
+          "wait_ns": 66108543
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.27744032070040703,
+            "thread_cpu_seconds": 0.14647043599995868
+          },
+          {
+            "wall_seconds": 0.25113479793071747,
+            "thread_cpu_seconds": 0.12292944600000055
+          },
+          {
+            "wall_seconds": 0.42032949533313513,
+            "thread_cpu_seconds": 0.1993494769999984
+          }
+        ],
+        "backend_cpu_seconds": 0.359751016,
+        "backend_wait_seconds": 0.018993603,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114526,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329510,
+          "monotonic": 4223295.675543456,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 168,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114526,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329510,
+          "monotonic": 4223295.675947779,
+          "runtime_ns": 192276050,
+          "wait_ns": 8758989
+        },
+        "after": {
+          "pid": 114526,
+          "user_ticks": 42,
+          "system_ticks": 12,
+          "start_ticks": 422329510,
+          "monotonic": 4223296.625828905,
+          "runtime_ns": 552027066,
+          "wait_ns": 27752592
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.37916918471455574,
+            "thread_cpu_seconds": 0.19855969200000345
+          },
+          {
+            "wall_seconds": 0.33469846937805414,
+            "thread_cpu_seconds": 0.18609697200002984
+          },
+          {
+            "wall_seconds": 0.3319801492616534,
+            "thread_cpu_seconds": 0.179350420999981
+          }
+        ],
+        "backend_cpu_seconds": 0.339310345,
+        "backend_wait_seconds": 0.022425888,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114698,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329663,
+          "monotonic": 4223297.155662258,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 170,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114698,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329663,
+          "monotonic": 4223297.156164701,
+          "runtime_ns": 189725807,
+          "wait_ns": 4170452
+        },
+        "after": {
+          "pid": 114698,
+          "user_ticks": 38,
+          "system_ticks": 14,
+          "start_ticks": 422329663,
+          "monotonic": 4223298.202770044,
+          "runtime_ns": 529036152,
+          "wait_ns": 26596340
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.2514298055320978,
+            "thread_cpu_seconds": 0.12991094400001657
+          },
+          {
+            "wall_seconds": 0.49458293337374926,
+            "thread_cpu_seconds": 0.3181172449999963
+          },
+          {
+            "wall_seconds": 0.405153083615005,
+            "thread_cpu_seconds": 0.21898985399997173
+          }
+        ],
+        "backend_cpu_seconds": 0.387097205,
+        "backend_wait_seconds": 0.01779011,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114748,
+          "user_ticks": 14,
+          "system_ticks": 10,
+          "start_ticks": 422329821,
+          "monotonic": 4223298.791500696,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 171,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114748,
+          "user_ticks": 14,
+          "system_ticks": 10,
+          "start_ticks": 422329821,
+          "monotonic": 4223298.79195704,
+          "runtime_ns": 247757988,
+          "wait_ns": 6645485
+        },
+        "after": {
+          "pid": 114748,
+          "user_ticks": 47,
+          "system_ticks": 16,
+          "start_ticks": 422329821,
+          "monotonic": 4223299.94384339,
+          "runtime_ns": 634855193,
+          "wait_ns": 24435595
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.31474125664681196,
+            "thread_cpu_seconds": 0.15083382099999199
+          },
+          {
+            "wall_seconds": 0.3481565425172448,
+            "thread_cpu_seconds": 0.1752924900000039
+          },
+          {
+            "wall_seconds": 0.3101242370903492,
+            "thread_cpu_seconds": 0.17445055799998954
+          }
+        ],
+        "backend_cpu_seconds": 0.338373391,
+        "backend_wait_seconds": 0.038891639,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 114858,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329995,
+          "monotonic": 4223300.399187926,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 172,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 114858,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422329995,
+          "monotonic": 4223300.399553737,
+          "runtime_ns": 195650134,
+          "wait_ns": 14319537
+        },
+        "after": {
+          "pid": 114858,
+          "user_ticks": 40,
+          "system_ticks": 13,
+          "start_ticks": 422329995,
+          "monotonic": 4223301.373342072,
+          "runtime_ns": 534023525,
+          "wait_ns": 53211176
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.2360936077311635,
+            "thread_cpu_seconds": 0.1259969779999892
+          },
+          {
+            "wall_seconds": 0.40613336954265833,
+            "thread_cpu_seconds": 0.22139911099998244
+          },
+          {
+            "wall_seconds": 0.33577356953173876,
+            "thread_cpu_seconds": 0.1664983680000205
+          }
+        ],
+        "backend_cpu_seconds": 0.358850253,
+        "backend_wait_seconds": 0.033269412,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115207,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 422330138,
+          "monotonic": 4223301.889307884,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 173,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115207,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 422330138,
+          "monotonic": 4223301.889503948,
+          "runtime_ns": 192412314,
+          "wait_ns": 21255292
+        },
+        "after": {
+          "pid": 115207,
+          "user_ticks": 41,
+          "system_ticks": 13,
+          "start_ticks": 422330138,
+          "monotonic": 4223302.868039708,
+          "runtime_ns": 551262567,
+          "wait_ns": 54524704
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3251132182776928,
+            "thread_cpu_seconds": 0.16445133400003442
+          },
+          {
+            "wall_seconds": 0.24504096060991287,
+            "thread_cpu_seconds": 0.13354606500001864
+          },
+          {
+            "wall_seconds": 0.2604967411607504,
+            "thread_cpu_seconds": 0.1570094430000495
+          }
+        ],
+        "backend_cpu_seconds": 0.304523295,
+        "backend_wait_seconds": 0.02514718,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115385,
+          "user_ticks": 10,
+          "system_ticks": 7,
+          "start_ticks": 422330287,
+          "monotonic": 4223303.391668404,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 174,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115385,
+          "user_ticks": 10,
+          "system_ticks": 7,
+          "start_ticks": 422330287,
+          "monotonic": 4223303.392262877,
+          "runtime_ns": 177793552,
+          "wait_ns": 4284176
+        },
+        "after": {
+          "pid": 115385,
+          "user_ticks": 34,
+          "system_ticks": 14,
+          "start_ticks": 422330287,
+          "monotonic": 4223304.223495241,
+          "runtime_ns": 482316847,
+          "wait_ns": 29431356
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.4468469312414527,
+            "thread_cpu_seconds": 0.22132305500002758
+          },
+          {
+            "wall_seconds": 0.2837912477552891,
+            "thread_cpu_seconds": 0.14692229700000325
+          },
+          {
+            "wall_seconds": 0.309062828309834,
+            "thread_cpu_seconds": 0.15898737700001675
+          }
+        ],
+        "backend_cpu_seconds": 0.380716185,
+        "backend_wait_seconds": 0.038093046,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115454,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422330423,
+          "monotonic": 4223304.708446252,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 175,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115454,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422330423,
+          "monotonic": 4223304.708677371,
+          "runtime_ns": 201663800,
+          "wait_ns": 10422197
+        },
+        "after": {
+          "pid": 115454,
+          "user_ticks": 44,
+          "system_ticks": 14,
+          "start_ticks": 422330423,
+          "monotonic": 4223305.74896525,
+          "runtime_ns": 582379985,
+          "wait_ns": 48515243
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.32279688585549593,
+            "thread_cpu_seconds": 0.1741096940000375
+          },
+          {
+            "wall_seconds": 0.3779788566753268,
+            "thread_cpu_seconds": 0.190495516999988
+          },
+          {
+            "wall_seconds": 0.2763299085199833,
+            "thread_cpu_seconds": 0.1525054019999743
+          }
+        ],
+        "backend_cpu_seconds": 0.387429592,
+        "backend_wait_seconds": 0.026599979,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115584,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422330575,
+          "monotonic": 4223306.53781017,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 176,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115584,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422330575,
+          "monotonic": 4223306.53816311,
+          "runtime_ns": 243260136,
+          "wait_ns": 22441609
+        },
+        "after": {
+          "pid": 115584,
+          "user_ticks": 44,
+          "system_ticks": 18,
+          "start_ticks": 422330575,
+          "monotonic": 4223307.516314407,
+          "runtime_ns": 630689728,
+          "wait_ns": 49041588
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.4372603390365839,
+            "thread_cpu_seconds": 0.22237499000004846
+          },
+          {
+            "wall_seconds": 0.34571655932813883,
+            "thread_cpu_seconds": 0.16471054999999524
+          },
+          {
+            "wall_seconds": 0.38142798002809286,
+            "thread_cpu_seconds": 0.18591317800002116
+          }
+        ],
+        "backend_cpu_seconds": 0.460234823,
+        "backend_wait_seconds": 0.027551068,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115715,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 422330752,
+          "monotonic": 4223308.004888985,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 177,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115715,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 422330752,
+          "monotonic": 4223308.005440028,
+          "runtime_ns": 160822640,
+          "wait_ns": 17743632
+        },
+        "after": {
+          "pid": 115715,
+          "user_ticks": 49,
+          "system_ticks": 12,
+          "start_ticks": 422330752,
+          "monotonic": 4223309.170399986,
+          "runtime_ns": 621057463,
+          "wait_ns": 45294700
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.250761017203331,
+            "thread_cpu_seconds": 0.13434936600003766
+          },
+          {
+            "wall_seconds": 0.3632543031126261,
+            "thread_cpu_seconds": 0.19754268299999467
+          },
+          {
+            "wall_seconds": 0.2494349917396903,
+            "thread_cpu_seconds": 0.1411086250000153
+          }
+        ],
+        "backend_cpu_seconds": 0.300393624,
+        "backend_wait_seconds": 0.017881349,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 115796,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422330917,
+          "monotonic": 4223309.641319425,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 178,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 115796,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422330917,
+          "monotonic": 4223309.641505979,
+          "runtime_ns": 184770103,
+          "wait_ns": 10471058
+        },
+        "after": {
+          "pid": 115796,
+          "user_ticks": 35,
+          "system_ticks": 12,
+          "start_ticks": 422330917,
+          "monotonic": 4223310.505399061,
+          "runtime_ns": 485163727,
+          "wait_ns": 28352407
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.2979055754840374,
+            "thread_cpu_seconds": 0.152657185999999
+          },
+          {
+            "wall_seconds": 0.26270498242229223,
+            "thread_cpu_seconds": 0.1381626720000213
+          },
+          {
+            "wall_seconds": 0.24243369791656733,
+            "thread_cpu_seconds": 0.1254505439999889
+          }
+        ],
+        "backend_cpu_seconds": 0.274111676,
+        "backend_wait_seconds": 0.028407114,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116010,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422331051,
+          "monotonic": 4223311.027272992,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 179,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116010,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422331051,
+          "monotonic": 4223311.02759876,
+          "runtime_ns": 195650505,
+          "wait_ns": 8251599
+        },
+        "after": {
+          "pid": 116010,
+          "user_ticks": 35,
+          "system_ticks": 11,
+          "start_ticks": 422331051,
+          "monotonic": 4223311.831322317,
+          "runtime_ns": 469762181,
+          "wait_ns": 36658713
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.29127885587513447,
+            "thread_cpu_seconds": 0.14904382299999952
+          },
+          {
+            "wall_seconds": 0.33658651355654,
+            "thread_cpu_seconds": 0.1955770140000368
+          },
+          {
+            "wall_seconds": 0.3021103674545884,
+            "thread_cpu_seconds": 0.16499463400003833
+          }
+        ],
+        "backend_cpu_seconds": 0.331455012,
+        "backend_wait_seconds": 0.049142237,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116238,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 422331183,
+          "monotonic": 4223312.399118618,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 181,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116238,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 422331183,
+          "monotonic": 4223312.39933733,
+          "runtime_ns": 180919147,
+          "wait_ns": 12408491
+        },
+        "after": {
+          "pid": 116238,
+          "user_ticks": 40,
+          "system_ticks": 10,
+          "start_ticks": 422331183,
+          "monotonic": 4223313.32976339,
+          "runtime_ns": 512374159,
+          "wait_ns": 61550728
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.22450908739119768,
+            "thread_cpu_seconds": 0.12269563899997138
+          },
+          {
+            "wall_seconds": 0.3232785388827324,
+            "thread_cpu_seconds": 0.15580270599997448
+          },
+          {
+            "wall_seconds": 0.3410375639796257,
+            "thread_cpu_seconds": 0.20016209599998547
+          }
+        ],
+        "backend_cpu_seconds": 0.30731008,
+        "backend_wait_seconds": 0.018337706,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116355,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422331333,
+          "monotonic": 4223313.794032314,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 182,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116355,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422331333,
+          "monotonic": 4223313.794347112,
+          "runtime_ns": 162798205,
+          "wait_ns": 13726449
+        },
+        "after": {
+          "pid": 116355,
+          "user_ticks": 34,
+          "system_ticks": 12,
+          "start_ticks": 422331333,
+          "monotonic": 4223314.683773996,
+          "runtime_ns": 470108285,
+          "wait_ns": 32064155
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.27292270213365555,
+            "thread_cpu_seconds": 0.13649591200004352
+          },
+          {
+            "wall_seconds": 0.33703743387013674,
+            "thread_cpu_seconds": 0.18125763699998743
+          },
+          {
+            "wall_seconds": 0.29631964676082134,
+            "thread_cpu_seconds": 0.14886085799997772
+          }
+        ],
+        "backend_cpu_seconds": 0.326610066,
+        "backend_wait_seconds": 0.047021658,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116471,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422331470,
+          "monotonic": 4223315.157618765,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 183,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116471,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422331470,
+          "monotonic": 4223315.157837948,
+          "runtime_ns": 176250211,
+          "wait_ns": 21127148
+        },
+        "after": {
+          "pid": 116471,
+          "user_ticks": 36,
+          "system_ticks": 13,
+          "start_ticks": 422331470,
+          "monotonic": 4223316.064641934,
+          "runtime_ns": 502860277,
+          "wait_ns": 68148806
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.4042026260867715,
+            "thread_cpu_seconds": 0.2197887869999704
+          },
+          {
+            "wall_seconds": 0.39134994335472584,
+            "thread_cpu_seconds": 0.21449270799996611
+          },
+          {
+            "wall_seconds": 0.5456038331612945,
+            "thread_cpu_seconds": 0.35572793899996213
+          }
+        ],
+        "backend_cpu_seconds": 0.439097458,
+        "backend_wait_seconds": 0.039198982,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116683,
+          "user_ticks": 13,
+          "system_ticks": 6,
+          "start_ticks": 422331607,
+          "monotonic": 4223316.565845978,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 184,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116683,
+          "user_ticks": 13,
+          "system_ticks": 6,
+          "start_ticks": 422331607,
+          "monotonic": 4223316.566122591,
+          "runtime_ns": 196677432,
+          "wait_ns": 8345899
+        },
+        "after": {
+          "pid": 116683,
+          "user_ticks": 49,
+          "system_ticks": 13,
+          "start_ticks": 422331607,
+          "monotonic": 4223317.907787919,
+          "runtime_ns": 635774890,
+          "wait_ns": 47544881
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3444717861711979,
+            "thread_cpu_seconds": 0.1954939139999965
+          },
+          {
+            "wall_seconds": 0.30050874780863523,
+            "thread_cpu_seconds": 0.16670131000000765
+          },
+          {
+            "wall_seconds": 0.33455637842416763,
+            "thread_cpu_seconds": 0.17714896299997918
+          }
+        ],
+        "backend_cpu_seconds": 0.354642555,
+        "backend_wait_seconds": 0.019362605,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116795,
+          "user_ticks": 17,
+          "system_ticks": 9,
+          "start_ticks": 422331792,
+          "monotonic": 4223318.5308465,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 185,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116795,
+          "user_ticks": 17,
+          "system_ticks": 9,
+          "start_ticks": 422331792,
+          "monotonic": 4223318.531152804,
+          "runtime_ns": 271574016,
+          "wait_ns": 7595842
+        },
+        "after": {
+          "pid": 116795,
+          "user_ticks": 47,
+          "system_ticks": 15,
+          "start_ticks": 422331792,
+          "monotonic": 4223319.511302201,
+          "runtime_ns": 626216571,
+          "wait_ns": 26958447
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.3775822753086686,
+            "thread_cpu_seconds": 0.18424790000000257
+          },
+          {
+            "wall_seconds": 0.3017019983381033,
+            "thread_cpu_seconds": 0.1623404169999958
+          },
+          {
+            "wall_seconds": 0.31849872693419456,
+            "thread_cpu_seconds": 0.1344065179999916
+          }
+        ],
+        "backend_cpu_seconds": 0.372571338,
+        "backend_wait_seconds": 0.060154494,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 116908,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422331951,
+          "monotonic": 4223320.035823468,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 186,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 116908,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422331951,
+          "monotonic": 4223320.036376924,
+          "runtime_ns": 193173167,
+          "wait_ns": 22029823
+        },
+        "after": {
+          "pid": 116908,
+          "user_ticks": 43,
+          "system_ticks": 12,
+          "start_ticks": 422331951,
+          "monotonic": 4223321.034752383,
+          "runtime_ns": 565744505,
+          "wait_ns": 82184317
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3703761612996459,
+            "thread_cpu_seconds": 0.2095912660000181
+          },
+          {
+            "wall_seconds": 0.3490583850070834,
+            "thread_cpu_seconds": 0.16389778900003193
+          },
+          {
+            "wall_seconds": 0.32600589748471975,
+            "thread_cpu_seconds": 0.17288159999998243
+          }
+        ],
+        "backend_cpu_seconds": 0.38989773,
+        "backend_wait_seconds": 0.020492102,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117113,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422332104,
+          "monotonic": 4223321.474067494,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 187,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117113,
+          "user_ticks": 9,
+          "system_ticks": 7,
+          "start_ticks": 422332104,
+          "monotonic": 4223321.474361949,
+          "runtime_ns": 167700305,
+          "wait_ns": 9454834
+        },
+        "after": {
+          "pid": 117113,
+          "user_ticks": 40,
+          "system_ticks": 15,
+          "start_ticks": 422332104,
+          "monotonic": 4223322.520445558,
+          "runtime_ns": 557598035,
+          "wait_ns": 29946936
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.4215710982680321,
+            "thread_cpu_seconds": 0.22218854699997337
+          },
+          {
+            "wall_seconds": 0.31277845706790686,
+            "thread_cpu_seconds": 0.18103631899998618
+          },
+          {
+            "wall_seconds": 0.30443607922643423,
+            "thread_cpu_seconds": 0.15931733800005077
+          }
+        ],
+        "backend_cpu_seconds": 0.374061615,
+        "backend_wait_seconds": 0.015947485,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117367,
+          "user_ticks": 10,
+          "system_ticks": 6,
+          "start_ticks": 422332253,
+          "monotonic": 4223323.164224299,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 188,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117367,
+          "user_ticks": 10,
+          "system_ticks": 6,
+          "start_ticks": 422332253,
+          "monotonic": 4223323.164680088,
+          "runtime_ns": 173314087,
+          "wait_ns": 16242364
+        },
+        "after": {
+          "pid": 117367,
+          "user_ticks": 42,
+          "system_ticks": 12,
+          "start_ticks": 422332253,
+          "monotonic": 4223324.203959527,
+          "runtime_ns": 547375702,
+          "wait_ns": 32189849
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3221437195315957,
+            "thread_cpu_seconds": 0.18284376600001906
+          },
+          {
+            "wall_seconds": 0.37112024426460266,
+            "thread_cpu_seconds": 0.20092352000000346
+          },
+          {
+            "wall_seconds": 0.45733068510890007,
+            "thread_cpu_seconds": 0.2408974180000314
+          }
+        ],
+        "backend_cpu_seconds": 0.426793585,
+        "backend_wait_seconds": 0.052931117,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117489,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422332421,
+          "monotonic": 4223324.669097925,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 189,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117489,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 422332421,
+          "monotonic": 4223324.669303658,
+          "runtime_ns": 207412502,
+          "wait_ns": 9236848
+        },
+        "after": {
+          "pid": 117489,
+          "user_ticks": 48,
+          "system_ticks": 14,
+          "start_ticks": 422332421,
+          "monotonic": 4223325.820461666,
+          "runtime_ns": 634206087,
+          "wait_ns": 62167965
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.26646783854812384,
+            "thread_cpu_seconds": 0.14781599999997752
+          },
+          {
+            "wall_seconds": 0.41337210964411497,
+            "thread_cpu_seconds": 0.22569285200000877
+          },
+          {
+            "wall_seconds": 0.32584188133478165,
+            "thread_cpu_seconds": 0.1738101760000177
+          }
+        ],
+        "backend_cpu_seconds": 0.357003841,
+        "backend_wait_seconds": 0.020781737,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117588,
+          "user_ticks": 13,
+          "system_ticks": 5,
+          "start_ticks": 422332582,
+          "monotonic": 4223326.315352311,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 190,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117588,
+          "user_ticks": 13,
+          "system_ticks": 5,
+          "start_ticks": 422332582,
+          "monotonic": 4223326.315548893,
+          "runtime_ns": 193117019,
+          "wait_ns": 15432913
+        },
+        "after": {
+          "pid": 117588,
+          "user_ticks": 44,
+          "system_ticks": 10,
+          "start_ticks": 422332582,
+          "monotonic": 4223327.321730046,
+          "runtime_ns": 550120860,
+          "wait_ns": 36214650
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.4615070689469576,
+            "thread_cpu_seconds": 0.25536106200001996
+          },
+          {
+            "wall_seconds": 0.28171534463763237,
+            "thread_cpu_seconds": 0.1419081770000048
+          },
+          {
+            "wall_seconds": 0.3600902231410146,
+            "thread_cpu_seconds": 0.1667059299999778
+          }
+        ],
+        "backend_cpu_seconds": 0.42102527,
+        "backend_wait_seconds": 0.012054538,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117785,
+          "user_ticks": 17,
+          "system_ticks": 9,
+          "start_ticks": 422332732,
+          "monotonic": 4223327.995711223,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 192,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117785,
+          "user_ticks": 17,
+          "system_ticks": 9,
+          "start_ticks": 422332732,
+          "monotonic": 4223327.996176297,
+          "runtime_ns": 272920405,
+          "wait_ns": 22904963
+        },
+        "after": {
+          "pid": 117785,
+          "user_ticks": 53,
+          "system_ticks": 16,
+          "start_ticks": 422332732,
+          "monotonic": 4223329.100012463,
+          "runtime_ns": 693945675,
+          "wait_ns": 34959501
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.5167567227035761,
+            "thread_cpu_seconds": 0.3299130089999949
+          },
+          {
+            "wall_seconds": 0.3644530223682523,
+            "thread_cpu_seconds": 0.16263034799999332
+          },
+          {
+            "wall_seconds": 0.24629068095237017,
+            "thread_cpu_seconds": 0.13010967600001777
+          }
+        ],
+        "backend_cpu_seconds": 0.393702012,
+        "backend_wait_seconds": 0.020618734,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 117855,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 422332910,
+          "monotonic": 4223329.629687381,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 193,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 117855,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 422332910,
+          "monotonic": 4223329.629900111,
+          "runtime_ns": 164927981,
+          "wait_ns": 4423181
+        },
+        "after": {
+          "pid": 117855,
+          "user_ticks": 43,
+          "system_ticks": 12,
+          "start_ticks": 422332910,
+          "monotonic": 4223330.758024441,
+          "runtime_ns": 558629993,
+          "wait_ns": 25041915
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.23207004833966494,
+            "thread_cpu_seconds": 0.12720343199998752
+          },
+          {
+            "wall_seconds": 0.2970046987757087,
+            "thread_cpu_seconds": 0.16609173099999452
+          },
+          {
+            "wall_seconds": 0.32479105703532696,
+            "thread_cpu_seconds": 0.1568244030000301
+          }
+        ],
+        "backend_cpu_seconds": 0.305507434,
+        "backend_wait_seconds": 0.028710515,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118015,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422333076,
+          "monotonic": 4223331.379337177,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 194,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118015,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422333076,
+          "monotonic": 4223331.379531334,
+          "runtime_ns": 245807010,
+          "wait_ns": 6853915
+        },
+        "after": {
+          "pid": 118015,
+          "user_ticks": 39,
+          "system_ticks": 16,
+          "start_ticks": 422333076,
+          "monotonic": 4223332.23383676,
+          "runtime_ns": 551314444,
+          "wait_ns": 35564430
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.2879140814766288,
+            "thread_cpu_seconds": 0.1435212459999775
+          },
+          {
+            "wall_seconds": 0.2659067753702402,
+            "thread_cpu_seconds": 0.1277194240000199
+          },
+          {
+            "wall_seconds": 0.3478155070915818,
+            "thread_cpu_seconds": 0.19632952299997442
+          }
+        ],
+        "backend_cpu_seconds": 0.329801568,
+        "backend_wait_seconds": 0.033255397,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118313,
+          "user_ticks": 14,
+          "system_ticks": 6,
+          "start_ticks": 422333224,
+          "monotonic": 4223332.812486233,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 195,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118313,
+          "user_ticks": 14,
+          "system_ticks": 6,
+          "start_ticks": 422333224,
+          "monotonic": 4223332.812681216,
+          "runtime_ns": 208683287,
+          "wait_ns": 12677555
+        },
+        "after": {
+          "pid": 118313,
+          "user_ticks": 42,
+          "system_ticks": 11,
+          "start_ticks": 422333224,
+          "monotonic": 4223333.714789804,
+          "runtime_ns": 538484855,
+          "wait_ns": 45932952
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.2583900084719062,
+            "thread_cpu_seconds": 0.14149930599995741
+          },
+          {
+            "wall_seconds": 0.28537958581000566,
+            "thread_cpu_seconds": 0.16038957299997492
+          },
+          {
+            "wall_seconds": 0.6079234881326556,
+            "thread_cpu_seconds": 0.3744879179999998
+          }
+        ],
+        "backend_cpu_seconds": 0.347966954,
+        "backend_wait_seconds": 0.046897747,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118466,
+          "user_ticks": 10,
+          "system_ticks": 7,
+          "start_ticks": 422333372,
+          "monotonic": 4223334.190423449,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 196,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118466,
+          "user_ticks": 10,
+          "system_ticks": 7,
+          "start_ticks": 422333372,
+          "monotonic": 4223334.190621735,
+          "runtime_ns": 175214702,
+          "wait_ns": 7778411
+        },
+        "after": {
+          "pid": 118466,
+          "user_ticks": 37,
+          "system_ticks": 14,
+          "start_ticks": 422333372,
+          "monotonic": 4223335.342796091,
+          "runtime_ns": 523181656,
+          "wait_ns": 54676158
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.41635269112885,
+            "thread_cpu_seconds": 0.22388343200003646
+          },
+          {
+            "wall_seconds": 0.3469149209558964,
+            "thread_cpu_seconds": 0.1829852760000108
+          },
+          {
+            "wall_seconds": 0.4555292120203376,
+            "thread_cpu_seconds": 0.2604201309999894
+          }
+        ],
+        "backend_cpu_seconds": 0.417231292,
+        "backend_wait_seconds": 0.045902956,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118551,
+          "user_ticks": 16,
+          "system_ticks": 10,
+          "start_ticks": 422333535,
+          "monotonic": 4223336.008745305,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 197,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118551,
+          "user_ticks": 16,
+          "system_ticks": 10,
+          "start_ticks": 422333535,
+          "monotonic": 4223336.009202875,
+          "runtime_ns": 262783665,
+          "wait_ns": 7073264
+        },
+        "after": {
+          "pid": 118551,
+          "user_ticks": 51,
+          "system_ticks": 16,
+          "start_ticks": 422333535,
+          "monotonic": 4223337.22885332,
+          "runtime_ns": 680014957,
+          "wait_ns": 52976220
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3418596154078841,
+            "thread_cpu_seconds": 0.1636163229999852
+          },
+          {
+            "wall_seconds": 0.3167491788044572,
+            "thread_cpu_seconds": 0.15299610800002483
+          },
+          {
+            "wall_seconds": 0.3711910117417574,
+            "thread_cpu_seconds": 0.1680269430000294
+          }
+        ],
+        "backend_cpu_seconds": 0.43450894,
+        "backend_wait_seconds": 0.045623354,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118732,
+          "user_ticks": 13,
+          "system_ticks": 9,
+          "start_ticks": 422333724,
+          "monotonic": 4223337.812753918,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 198,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118732,
+          "user_ticks": 13,
+          "system_ticks": 9,
+          "start_ticks": 422333724,
+          "monotonic": 4223337.813014211,
+          "runtime_ns": 232069655,
+          "wait_ns": 5548366
+        },
+        "after": {
+          "pid": 118732,
+          "user_ticks": 49,
+          "system_ticks": 17,
+          "start_ticks": 422333724,
+          "monotonic": 4223338.843371336,
+          "runtime_ns": 666578595,
+          "wait_ns": 51171720
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3496434176340699,
+            "thread_cpu_seconds": 0.1906949069999655
+          },
+          {
+            "wall_seconds": 0.3547609467059374,
+            "thread_cpu_seconds": 0.15911111499997332
+          },
+          {
+            "wall_seconds": 0.26443881914019585,
+            "thread_cpu_seconds": 0.1370549050000136
+          }
+        ],
+        "backend_cpu_seconds": 0.365041429,
+        "backend_wait_seconds": 0.024152872,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118804,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422333885,
+          "monotonic": 4223339.320793058,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 199,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118804,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 422333885,
+          "monotonic": 4223339.320982588,
+          "runtime_ns": 187433967,
+          "wait_ns": 2808268
+        },
+        "after": {
+          "pid": 118804,
+          "user_ticks": 41,
+          "system_ticks": 13,
+          "start_ticks": 422333885,
+          "monotonic": 4223340.29029108,
+          "runtime_ns": 552475396,
+          "wait_ns": 26961140
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.609567672945559,
+            "thread_cpu_seconds": 0.3864082940000344
+          },
+          {
+            "wall_seconds": 0.24487789068371058,
+            "thread_cpu_seconds": 0.12251560400000017
+          },
+          {
+            "wall_seconds": 0.2790749268606305,
+            "thread_cpu_seconds": 0.14353439399997114
+          }
+        ],
+        "backend_cpu_seconds": 0.383735872,
+        "backend_wait_seconds": 0.025693026,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 118902,
+          "user_ticks": 14,
+          "system_ticks": 8,
+          "start_ticks": 422334029,
+          "monotonic": 4223340.823781807,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 200,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 118902,
+          "user_ticks": 14,
+          "system_ticks": 8,
+          "start_ticks": 422334029,
+          "monotonic": 4223340.824211827,
+          "runtime_ns": 224690135,
+          "wait_ns": 15345766
+        },
+        "after": {
+          "pid": 118902,
+          "user_ticks": 45,
+          "system_ticks": 14,
+          "start_ticks": 422334029,
+          "monotonic": 4223341.958239244,
+          "runtime_ns": 608426007,
+          "wait_ns": 41038792
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3707472626119852,
+            "thread_cpu_seconds": 0.21876127799998812
+          },
+          {
+            "wall_seconds": 0.36418400797992945,
+            "thread_cpu_seconds": 0.20815598299998328
+          },
+          {
+            "wall_seconds": 0.3507906859740615,
+            "thread_cpu_seconds": 0.16943912900001123
+          }
+        ],
+        "backend_cpu_seconds": 0.367530297,
+        "backend_wait_seconds": 0.034950081,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 119241,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 422334197,
+          "monotonic": 4223342.470201855,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 202,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 119241,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 422334197,
+          "monotonic": 4223342.470434355,
+          "runtime_ns": 183671688,
+          "wait_ns": 3646316
+        },
+        "after": {
+          "pid": 119241,
+          "user_ticks": 39,
+          "system_ticks": 15,
+          "start_ticks": 422334197,
+          "monotonic": 4223343.556621302,
+          "runtime_ns": 551201985,
+          "wait_ns": 38596397
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.2885127551853657,
+            "thread_cpu_seconds": 0.161230761000013
+          },
+          {
+            "wall_seconds": 0.25715290382504463,
+            "thread_cpu_seconds": 0.14350529400002188
+          },
+          {
+            "wall_seconds": 0.23344770725816488,
+            "thread_cpu_seconds": 0.1306443520000471
+          }
+        ],
+        "backend_cpu_seconds": 0.2856679,
+        "backend_wait_seconds": 0.009200078,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 119377,
+          "user_ticks": 10,
+          "system_ticks": 6,
+          "start_ticks": 422334356,
+          "monotonic": 4223344.048171162,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 203,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 119377,
+          "user_ticks": 10,
+          "system_ticks": 6,
+          "start_ticks": 422334356,
+          "monotonic": 4223344.048536785,
+          "runtime_ns": 177290099,
+          "wait_ns": 8993175
+        },
+        "after": {
+          "pid": 119377,
+          "user_ticks": 34,
+          "system_ticks": 11,
+          "start_ticks": 422334356,
+          "monotonic": 4223344.828266435,
+          "runtime_ns": 462957999,
+          "wait_ns": 18193253
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3637189017608762,
+            "thread_cpu_seconds": 0.20314171800004033
+          },
+          {
+            "wall_seconds": 0.318967841565609,
+            "thread_cpu_seconds": 0.14324980799995046
+          },
+          {
+            "wall_seconds": 0.46360220201313496,
+            "thread_cpu_seconds": 0.3298251819999791
+          }
+        ],
+        "backend_cpu_seconds": 0.370235665,
+        "backend_wait_seconds": 0.03029262,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 119497,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422334483,
+          "monotonic": 4223345.361587457,
+          "container_id": "5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76",
+          "sql_pid": 204,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-5f0d979e5e8c9aa814c6997196f65cd2b2da9f9c3b1e7e00d9adbe2fa3829a76.scope"
+        },
+        "before": {
+          "pid": 119497,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 422334483,
+          "monotonic": 4223345.362024964,
+          "runtime_ns": 238285888,
+          "wait_ns": 9866160
+        },
+        "after": {
+          "pid": 119497,
+          "user_ticks": 47,
+          "system_ticks": 13,
+          "start_ticks": 422334483,
+          "monotonic": 4223346.508973225,
+          "runtime_ns": 608521553,
+          "wait_ns": 40158780
+        }
+      }
+    ],
+    "comparisons": {
+      "directory_es": {
+        "metrics": {
+          "A": {
+            "wall": 0.3182293460704386,
+            "app_cpu": 0.16449754900000357,
+            "pg_cpu_per_read": 0.12119090661111111
+          },
+          "B": {
+            "wall": 0.3225969667546451,
+            "app_cpu": 0.17349461949999068,
+            "pg_cpu_per_read": 0.12266339905555555
+          },
+          "C": {
+            "wall": 0.32183395978063345,
+            "app_cpu": 0.15640607450001198,
+            "pg_cpu_per_read": 0.10938976911111112
+          }
+        },
+        "ratios_C_to_AB": {
+          "wall": 1.0044342853583148,
+          "app_cpu": 0.925501174741063,
+          "pg_cpu_per_read": 0.8971731609335616
+        },
+        "AA_stable": true,
+        "nonregressing_blocks": 6,
+        "eligible": false
+      },
+      "search_en": {
+        "metrics": {
+          "A": {
+            "wall": 0.34827916929498315,
+            "app_cpu": 0.1820107974999985,
+            "pg_cpu_per_read": 0.12638414266666664
+          },
+          "B": {
+            "wall": 0.2951073767617345,
+            "app_cpu": 0.15452338049999526,
+            "pg_cpu_per_read": 0.11943365494444443
+          },
+          "C": {
+            "wall": 0.34545900020748377,
+            "app_cpu": 0.16873303600002032,
+            "pg_cpu_per_read": 0.12623360777777778
+          }
+        },
+        "ratios_C_to_AB": {
+          "wall": 1.0738769790098468,
+          "app_cpu": 1.0027690917029144,
+          "pg_cpu_per_read": 1.02705018924205
+        },
+        "AA_stable": false,
+        "nonregressing_blocks": 2,
+        "eligible": false
+      }
+    },
+    "gc_policy_unchanged": [
+      true,
+      [
+        700,
+        10,
+        10
+      ],
+      0
+    ],
+    "separate_fetch_observations": [
+      {
+        "route": "directory_es",
+        "arm": "A",
+        "execute_calls": 1,
+        "execute_seconds": 0.015417232178151608,
+        "stream_fetch_calls": 5,
+        "stream_fetch_seconds": 0.08488341886550188,
+        "stream_rows": 2000,
+        "commercial_uuid_str_calls": 6000,
+        "commercial_wall_seconds": 0.2546299919486046,
+        "commercial_thread_cpu_seconds": 0.185139563000007,
+        "commercial_python_peak_increment_bytes": 886303,
+        "commercial_python_retained_increment_bytes": 414091
+      },
+      {
+        "route": "directory_es",
+        "arm": "C",
+        "execute_calls": 1,
+        "execute_seconds": 0.056461877189576626,
+        "stream_fetch_calls": 0,
+        "stream_fetch_seconds": 0.0,
+        "stream_rows": 0,
+        "commercial_uuid_str_calls": 2000,
+        "commercial_wall_seconds": 0.16408947948366404,
+        "commercial_thread_cpu_seconds": 0.10823664600002303,
+        "commercial_python_peak_increment_bytes": 883190,
+        "commercial_python_retained_increment_bytes": 408156
+      },
+      {
+        "route": "search_en",
+        "arm": "A",
+        "execute_calls": 1,
+        "execute_seconds": 0.010854411870241165,
+        "stream_fetch_calls": 5,
+        "stream_fetch_seconds": 0.08479776605963707,
+        "stream_rows": 2000,
+        "commercial_uuid_str_calls": 6000,
+        "commercial_wall_seconds": 0.28758520167320967,
+        "commercial_thread_cpu_seconds": 0.23343867200003388,
+        "commercial_python_peak_increment_bytes": 777198,
+        "commercial_python_retained_increment_bytes": 297275
+      },
+      {
+        "route": "search_en",
+        "arm": "C",
+        "execute_calls": 1,
+        "execute_seconds": 0.027834076434373856,
+        "stream_fetch_calls": 0,
+        "stream_fetch_seconds": 0.0,
+        "stream_rows": 0,
+        "commercial_uuid_str_calls": 2000,
+        "commercial_wall_seconds": 0.17515305988490582,
+        "commercial_thread_cpu_seconds": 0.14645711700006814,
+        "commercial_python_peak_increment_bytes": 887159,
+        "commercial_python_retained_increment_bytes": 405984
+      }
+    ],
+    "planning_only_after_controls": {
+      "directory_es": {
+        "ordinary_select": [
+          {
+            "Plan": {
+              "Node Type": "Merge Join",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Join Type": "Inner",
+              "Startup Cost": 2985.41,
+              "Total Cost": 3655.3,
+              "Plan Rows": 1999,
+              "Plan Width": 29,
+              "Inner Unique": false,
+              "Merge Cond": "(u0.listing_id = catalog_promotionorder.listing_id)",
+              "Plans": [
+                {
+                  "Node Type": "Index Scan",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Scan Direction": "Forward",
+                  "Index Name": "listings_publicationstate_pkey",
+                  "Relation Name": "listings_publicationstate",
+                  "Alias": "u0",
+                  "Startup Cost": 0.29,
+                  "Total Cost": 3256.14,
+                  "Plan Rows": 9998,
+                  "Plan Width": 16,
+                  "Filter": "(eligible AND (expires_at > '<redacted>'::timestamp with time zone) AND ((rules_version)::text = '<redacted>'::text))"
+                },
+                {
+                  "Node Type": "Sort",
+                  "Parent Relationship": "Inner",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Startup Cost": 2985.13,
+                  "Total Cost": 2990.13,
+                  "Plan Rows": 2000,
+                  "Plan Width": 45,
+                  "Sort Key": [
+                    "catalog_promotionorder.listing_id"
+                  ],
+                  "Plans": [
+                    {
+                      "Node Type": "Hash Join",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 2372.43,
+                      "Total Cost": 2875.47,
+                      "Plan Rows": 2000,
+                      "Plan Width": 45,
+                      "Inner Unique": true,
+                      "Hash Cond": "(catalog_promotionorder.id = catalog_promotionentitlement.order_id)",
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Join Type": "Inner",
+                          "Startup Cost": 2298.43,
+                          "Total Cost": 2796.26,
+                          "Plan Rows": 1979,
+                          "Plan Width": 53,
+                          "Inner Unique": true,
+                          "Plans": [
+                            {
+                              "Node Type": "Hash Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Semi",
+                              "Startup Cost": 2298.14,
+                              "Total Cost": 2745.33,
+                              "Plan Rows": 1979,
+                              "Plan Width": 61,
+                              "Inner Unique": false,
+                              "Hash Cond": "(listings_listing.person_id = v0.id)",
+                              "Join Filter": "((v0.individual_id = catalog_promotionorder.buyer_id) OR (v2.owner_id = catalog_promotionorder.buyer_id) OR (v4.active AND (v4.user_id = catalog_promotionorder.buyer_id) AND (v0.assigned_editor_id = catalog_promotionorder.buyer_id)))",
+                              "Plans": [
+                                {
+                                  "Node Type": "Hash Join",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Inner",
+                                  "Startup Cost": 525.16,
+                                  "Total Cost": 912.98,
+                                  "Plan Rows": 1979,
+                                  "Plan Width": 93,
+                                  "Inner Unique": false,
+                                  "Hash Cond": "((core_person.id = listings_listing.person_id) AND (core_person.manager_version = catalog_promotionorder.manager_version))",
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Relation Name": "core_person",
+                                      "Alias": "core_person",
+                                      "Startup Cost": 0.0,
+                                      "Total Cost": 293.02,
+                                      "Plan Rows": 10002,
+                                      "Plan Width": 20
+                                    },
+                                    {
+                                      "Node Type": "Hash",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Startup Cost": 495.47,
+                                      "Total Cost": 495.47,
+                                      "Plan Rows": 1979,
+                                      "Plan Width": 81,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Merge Join",
+                                          "Parent Relationship": "Outer",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Join Type": "Inner",
+                                          "Startup Cost": 0.56,
+                                          "Total Cost": 495.47,
+                                          "Plan Rows": 1979,
+                                          "Plan Width": 81,
+                                          "Inner Unique": true,
+                                          "Merge Cond": "(catalog_promotionorder.listing_id = listings_listing.id)",
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Parent Relationship": "Outer",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Scan Direction": "Forward",
+                                              "Index Name": "catalog_promotionorder_listing_id_89d80882",
+                                              "Relation Name": "catalog_promotionorder",
+                                              "Alias": "catalog_promotionorder",
+                                              "Startup Cost": 0.28,
+                                              "Total Cost": 137.66,
+                                              "Plan Rows": 1979,
+                                              "Plan Width": 49,
+                                              "Filter": "(synthetic AND ((status)::text = '<redacted>'::text))"
+                                            },
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Parent Relationship": "Inner",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Scan Direction": "Forward",
+                                              "Index Name": "listings_listing_pkey",
+                                              "Relation Name": "listings_listing",
+                                              "Alias": "listings_listing",
+                                              "Startup Cost": 0.29,
+                                              "Total Cost": 1682.24,
+                                              "Plan Rows": 10002,
+                                              "Plan Width": 32
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Hash",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Startup Cost": 1035.33,
+                                  "Total Cost": 1035.33,
+                                  "Plan Rows": 59012,
+                                  "Plan Width": 49,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Join Type": "Left",
+                                      "Startup Cost": 52.29,
+                                      "Total Cost": 1035.33,
+                                      "Plan Rows": 59012,
+                                      "Plan Width": 49,
+                                      "Inner Unique": false,
+                                      "Hash Cond": "(v0.agency_id = v2.id)",
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Parent Relationship": "Outer",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Relation Name": "core_person",
+                                          "Alias": "v0",
+                                          "Startup Cost": 0.0,
+                                          "Total Cost": 293.02,
+                                          "Plan Rows": 10002,
+                                          "Plan Width": 48,
+                                          "Filter": "(publication_erased_at IS NULL)"
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Parent Relationship": "Inner",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Startup Cost": 39.01,
+                                          "Total Cost": 39.01,
+                                          "Plan Rows": 1062,
+                                          "Plan Width": 33,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Parent Relationship": "Outer",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Join Type": "Right",
+                                              "Startup Cost": 14.05,
+                                              "Total Cost": 39.01,
+                                              "Plan Rows": 1062,
+                                              "Plan Width": 33,
+                                              "Inner Unique": true,
+                                              "Hash Cond": "(v4.agency_id = v2.id)",
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Parent Relationship": "Outer",
+                                                  "Parallel Aware": false,
+                                                  "Async Capable": false,
+                                                  "Relation Name": "core_agencymember",
+                                                  "Alias": "v4",
+                                                  "Startup Cost": 0.0,
+                                                  "Total Cost": 21.8,
+                                                  "Plan Rows": 1180,
+                                                  "Plan Width": 25
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Parent Relationship": "Inner",
+                                                  "Parallel Aware": false,
+                                                  "Async Capable": false,
+                                                  "Startup Cost": 11.8,
+                                                  "Total Cost": 11.8,
+                                                  "Plan Rows": 180,
+                                                  "Plan Width": 24,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Parent Relationship": "Outer",
+                                                      "Parallel Aware": false,
+                                                      "Async Capable": false,
+                                                      "Relation Name": "core_agency",
+                                                      "Alias": "v2",
+                                                      "Startup Cost": 0.0,
+                                                      "Total Cost": 11.8,
+                                                      "Plan Rows": 180,
+                                                      "Plan Width": 24
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Memoize",
+                              "Parent Relationship": "Inner",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Startup Cost": 0.3,
+                              "Total Cost": 0.74,
+                              "Plan Rows": 1,
+                              "Plan Width": 8,
+                              "Cache Key": "catalog_promotionorder.buyer_id",
+                              "Cache Mode": "logical",
+                              "Plans": [
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "core_user_pkey",
+                                  "Relation Name": "core_user",
+                                  "Alias": "core_user",
+                                  "Startup Cost": 0.29,
+                                  "Total Cost": 0.73,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 8,
+                                  "Index Cond": "(id = catalog_promotionorder.buyer_id)",
+                                  "Filter": "((account_erased_at IS NULL) AND is_active)"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Hash",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Startup Cost": 49.0,
+                          "Total Cost": 49.0,
+                          "Plan Rows": 2000,
+                          "Plan Width": 24,
+                          "Plans": [
+                            {
+                              "Node Type": "Seq Scan",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Relation Name": "catalog_promotionentitlement",
+                              "Alias": "catalog_promotionentitlement",
+                              "Startup Cost": 0.0,
+                              "Total Cost": 49.0,
+                              "Plan Rows": 2000,
+                              "Plan Width": 24,
+                              "Filter": "((suspended_at IS NULL) AND (ends_at > '<redacted>'::timestamp with time zone) AND (starts_at <= '<redacted>'::timestamp with time zone))"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "cursor": [
+          {
+            "Plan": {
+              "Node Type": "Merge Join",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Join Type": "Inner",
+              "Startup Cost": 2.29,
+              "Total Cost": 5230.52,
+              "Plan Rows": 1999,
+              "Plan Width": 29,
+              "Inner Unique": true,
+              "Merge Cond": "(catalog_promotionorder.listing_id = u0.listing_id)",
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Join Type": "Inner",
+                  "Startup Cost": 2.0,
+                  "Total Cost": 4565.35,
+                  "Plan Rows": 2000,
+                  "Plan Width": 45,
+                  "Inner Unique": true,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 1.73,
+                      "Total Cost": 3851.73,
+                      "Plan Rows": 1979,
+                      "Plan Width": 53,
+                      "Inner Unique": true,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Join Type": "Semi",
+                          "Startup Cost": 1.43,
+                          "Total Cost": 3800.8,
+                          "Plan Rows": 1979,
+                          "Plan Width": 61,
+                          "Inner Unique": false,
+                          "Join Filter": "((v0.individual_id = catalog_promotionorder.buyer_id) OR (v2.owner_id = catalog_promotionorder.buyer_id) OR (v4.active AND (v4.user_id = catalog_promotionorder.buyer_id) AND (v0.assigned_editor_id = catalog_promotionorder.buyer_id)))",
+                          "Plans": [
+                            {
+                              "Node Type": "Merge Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Inner",
+                              "Startup Cost": 0.85,
+                              "Total Cost": 1282.34,
+                              "Plan Rows": 1979,
+                              "Plan Width": 93,
+                              "Inner Unique": false,
+                              "Merge Cond": "(listings_listing.id = catalog_promotionorder.listing_id)",
+                              "Join Filter": "(catalog_promotionorder.manager_version = core_person.manager_version)",
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Inner",
+                                  "Startup Cost": 0.57,
+                                  "Total Cost": 5691.73,
+                                  "Plan Rows": 10002,
+                                  "Plan Width": 52,
+                                  "Inner Unique": true,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "listings_listing_pkey",
+                                      "Relation Name": "listings_listing",
+                                      "Alias": "listings_listing",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 1682.24,
+                                      "Plan Rows": 10002,
+                                      "Plan Width": 32
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_person_pkey",
+                                      "Relation Name": "core_person",
+                                      "Alias": "core_person",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 0.4,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 20,
+                                      "Index Cond": "(id = listings_listing.person_id)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "catalog_promotionorder_listing_id_89d80882",
+                                  "Relation Name": "catalog_promotionorder",
+                                  "Alias": "catalog_promotionorder",
+                                  "Startup Cost": 0.28,
+                                  "Total Cost": 137.66,
+                                  "Plan Rows": 1979,
+                                  "Plan Width": 49,
+                                  "Filter": "(synthetic AND ((status)::text = '<redacted>'::text))"
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Nested Loop",
+                              "Parent Relationship": "Inner",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Left",
+                              "Startup Cost": 0.58,
+                              "Total Cost": 1.15,
+                              "Plan Rows": 6,
+                              "Plan Width": 49,
+                              "Inner Unique": false,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Left",
+                                  "Startup Cost": 0.43,
+                                  "Total Cost": 0.57,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 56,
+                                  "Inner Unique": true,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_person_pkey",
+                                      "Relation Name": "core_person",
+                                      "Alias": "v0",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 0.4,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 48,
+                                      "Index Cond": "(id = listings_listing.person_id)",
+                                      "Filter": "(publication_erased_at IS NULL)"
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_agency_pkey",
+                                      "Relation Name": "core_agency",
+                                      "Alias": "v2",
+                                      "Startup Cost": 0.14,
+                                      "Total Cost": 0.17,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 24,
+                                      "Index Cond": "(id = v0.agency_id)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "core_agencymember_agency_id_4e9cc52e",
+                                  "Relation Name": "core_agencymember",
+                                  "Alias": "v4",
+                                  "Startup Cost": 0.15,
+                                  "Total Cost": 0.52,
+                                  "Plan Rows": 6,
+                                  "Plan Width": 25,
+                                  "Index Cond": "(agency_id = v2.id)"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Memoize",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Startup Cost": 0.3,
+                          "Total Cost": 0.74,
+                          "Plan Rows": 1,
+                          "Plan Width": 8,
+                          "Cache Key": "catalog_promotionorder.buyer_id",
+                          "Cache Mode": "logical",
+                          "Plans": [
+                            {
+                              "Node Type": "Index Scan",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Scan Direction": "Forward",
+                              "Index Name": "core_user_pkey",
+                              "Relation Name": "core_user",
+                              "Alias": "core_user",
+                              "Startup Cost": 0.29,
+                              "Total Cost": 0.73,
+                              "Plan Rows": 1,
+                              "Plan Width": 8,
+                              "Index Cond": "(id = catalog_promotionorder.buyer_id)",
+                              "Filter": "((account_erased_at IS NULL) AND is_active)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Index Scan",
+                      "Parent Relationship": "Inner",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Scan Direction": "Forward",
+                      "Index Name": "catalog_promotionentitlement_order_id_key",
+                      "Relation Name": "catalog_promotionentitlement",
+                      "Alias": "catalog_promotionentitlement",
+                      "Startup Cost": 0.28,
+                      "Total Cost": 0.36,
+                      "Plan Rows": 1,
+                      "Plan Width": 24,
+                      "Index Cond": "(order_id = catalog_promotionorder.id)",
+                      "Filter": "((suspended_at IS NULL) AND (ends_at > '<redacted>'::timestamp with time zone) AND (starts_at <= '<redacted>'::timestamp with time zone))"
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Index Scan",
+                  "Parent Relationship": "Inner",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Scan Direction": "Forward",
+                  "Index Name": "listings_publicationstate_pkey",
+                  "Relation Name": "listings_publicationstate",
+                  "Alias": "u0",
+                  "Startup Cost": 0.29,
+                  "Total Cost": 3256.14,
+                  "Plan Rows": 9998,
+                  "Plan Width": 16,
+                  "Filter": "(eligible AND (expires_at > '<redacted>'::timestamp with time zone) AND ((rules_version)::text = '<redacted>'::text))"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "search_en": {
+        "ordinary_select": [
+          {
+            "Plan": {
+              "Node Type": "Merge Join",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Join Type": "Inner",
+              "Startup Cost": 2985.41,
+              "Total Cost": 3659.91,
+              "Plan Rows": 1999,
+              "Plan Width": 29,
+              "Inner Unique": false,
+              "Merge Cond": "(u0.listing_id = catalog_promotionorder.listing_id)",
+              "Plans": [
+                {
+                  "Node Type": "Index Scan",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Scan Direction": "Forward",
+                  "Index Name": "listings_publicationstate_pkey",
+                  "Relation Name": "listings_publicationstate",
+                  "Alias": "u0",
+                  "Startup Cost": 0.29,
+                  "Total Cost": 3281.15,
+                  "Plan Rows": 9997,
+                  "Plan Width": 16,
+                  "Filter": "(eligible AND (expires_at > '<redacted>'::timestamp with time zone) AND (search_document @@ '<redacted>'::tsquery) AND ((rules_version)::text = '<redacted>'::text))"
+                },
+                {
+                  "Node Type": "Sort",
+                  "Parent Relationship": "Inner",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Startup Cost": 2985.13,
+                  "Total Cost": 2990.13,
+                  "Plan Rows": 2000,
+                  "Plan Width": 45,
+                  "Sort Key": [
+                    "catalog_promotionorder.listing_id"
+                  ],
+                  "Plans": [
+                    {
+                      "Node Type": "Hash Join",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 2372.43,
+                      "Total Cost": 2875.47,
+                      "Plan Rows": 2000,
+                      "Plan Width": 45,
+                      "Inner Unique": true,
+                      "Hash Cond": "(catalog_promotionorder.id = catalog_promotionentitlement.order_id)",
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Join Type": "Inner",
+                          "Startup Cost": 2298.43,
+                          "Total Cost": 2796.26,
+                          "Plan Rows": 1979,
+                          "Plan Width": 53,
+                          "Inner Unique": true,
+                          "Plans": [
+                            {
+                              "Node Type": "Hash Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Semi",
+                              "Startup Cost": 2298.14,
+                              "Total Cost": 2745.33,
+                              "Plan Rows": 1979,
+                              "Plan Width": 61,
+                              "Inner Unique": false,
+                              "Hash Cond": "(listings_listing.person_id = v0.id)",
+                              "Join Filter": "((v0.individual_id = catalog_promotionorder.buyer_id) OR (v2.owner_id = catalog_promotionorder.buyer_id) OR (v4.active AND (v4.user_id = catalog_promotionorder.buyer_id) AND (v0.assigned_editor_id = catalog_promotionorder.buyer_id)))",
+                              "Plans": [
+                                {
+                                  "Node Type": "Hash Join",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Inner",
+                                  "Startup Cost": 525.16,
+                                  "Total Cost": 912.98,
+                                  "Plan Rows": 1979,
+                                  "Plan Width": 93,
+                                  "Inner Unique": false,
+                                  "Hash Cond": "((core_person.id = listings_listing.person_id) AND (core_person.manager_version = catalog_promotionorder.manager_version))",
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Relation Name": "core_person",
+                                      "Alias": "core_person",
+                                      "Startup Cost": 0.0,
+                                      "Total Cost": 293.02,
+                                      "Plan Rows": 10002,
+                                      "Plan Width": 20
+                                    },
+                                    {
+                                      "Node Type": "Hash",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Startup Cost": 495.47,
+                                      "Total Cost": 495.47,
+                                      "Plan Rows": 1979,
+                                      "Plan Width": 81,
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Merge Join",
+                                          "Parent Relationship": "Outer",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Join Type": "Inner",
+                                          "Startup Cost": 0.56,
+                                          "Total Cost": 495.47,
+                                          "Plan Rows": 1979,
+                                          "Plan Width": 81,
+                                          "Inner Unique": true,
+                                          "Merge Cond": "(catalog_promotionorder.listing_id = listings_listing.id)",
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Parent Relationship": "Outer",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Scan Direction": "Forward",
+                                              "Index Name": "catalog_promotionorder_listing_id_89d80882",
+                                              "Relation Name": "catalog_promotionorder",
+                                              "Alias": "catalog_promotionorder",
+                                              "Startup Cost": 0.28,
+                                              "Total Cost": 137.66,
+                                              "Plan Rows": 1979,
+                                              "Plan Width": 49,
+                                              "Filter": "(synthetic AND ((status)::text = '<redacted>'::text))"
+                                            },
+                                            {
+                                              "Node Type": "Index Scan",
+                                              "Parent Relationship": "Inner",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Scan Direction": "Forward",
+                                              "Index Name": "listings_listing_pkey",
+                                              "Relation Name": "listings_listing",
+                                              "Alias": "listings_listing",
+                                              "Startup Cost": 0.29,
+                                              "Total Cost": 1682.24,
+                                              "Plan Rows": 10002,
+                                              "Plan Width": 32
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Hash",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Startup Cost": 1035.33,
+                                  "Total Cost": 1035.33,
+                                  "Plan Rows": 59012,
+                                  "Plan Width": 49,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Join Type": "Left",
+                                      "Startup Cost": 52.29,
+                                      "Total Cost": 1035.33,
+                                      "Plan Rows": 59012,
+                                      "Plan Width": 49,
+                                      "Inner Unique": false,
+                                      "Hash Cond": "(v0.agency_id = v2.id)",
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Parent Relationship": "Outer",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Relation Name": "core_person",
+                                          "Alias": "v0",
+                                          "Startup Cost": 0.0,
+                                          "Total Cost": 293.02,
+                                          "Plan Rows": 10002,
+                                          "Plan Width": 48,
+                                          "Filter": "(publication_erased_at IS NULL)"
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Parent Relationship": "Inner",
+                                          "Parallel Aware": false,
+                                          "Async Capable": false,
+                                          "Startup Cost": 39.01,
+                                          "Total Cost": 39.01,
+                                          "Plan Rows": 1062,
+                                          "Plan Width": 33,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Hash Join",
+                                              "Parent Relationship": "Outer",
+                                              "Parallel Aware": false,
+                                              "Async Capable": false,
+                                              "Join Type": "Right",
+                                              "Startup Cost": 14.05,
+                                              "Total Cost": 39.01,
+                                              "Plan Rows": 1062,
+                                              "Plan Width": 33,
+                                              "Inner Unique": true,
+                                              "Hash Cond": "(v4.agency_id = v2.id)",
+                                              "Plans": [
+                                                {
+                                                  "Node Type": "Seq Scan",
+                                                  "Parent Relationship": "Outer",
+                                                  "Parallel Aware": false,
+                                                  "Async Capable": false,
+                                                  "Relation Name": "core_agencymember",
+                                                  "Alias": "v4",
+                                                  "Startup Cost": 0.0,
+                                                  "Total Cost": 21.8,
+                                                  "Plan Rows": 1180,
+                                                  "Plan Width": 25
+                                                },
+                                                {
+                                                  "Node Type": "Hash",
+                                                  "Parent Relationship": "Inner",
+                                                  "Parallel Aware": false,
+                                                  "Async Capable": false,
+                                                  "Startup Cost": 11.8,
+                                                  "Total Cost": 11.8,
+                                                  "Plan Rows": 180,
+                                                  "Plan Width": 24,
+                                                  "Plans": [
+                                                    {
+                                                      "Node Type": "Seq Scan",
+                                                      "Parent Relationship": "Outer",
+                                                      "Parallel Aware": false,
+                                                      "Async Capable": false,
+                                                      "Relation Name": "core_agency",
+                                                      "Alias": "v2",
+                                                      "Startup Cost": 0.0,
+                                                      "Total Cost": 11.8,
+                                                      "Plan Rows": 180,
+                                                      "Plan Width": 24
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Memoize",
+                              "Parent Relationship": "Inner",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Startup Cost": 0.3,
+                              "Total Cost": 0.74,
+                              "Plan Rows": 1,
+                              "Plan Width": 8,
+                              "Cache Key": "catalog_promotionorder.buyer_id",
+                              "Cache Mode": "logical",
+                              "Plans": [
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "core_user_pkey",
+                                  "Relation Name": "core_user",
+                                  "Alias": "core_user",
+                                  "Startup Cost": 0.29,
+                                  "Total Cost": 0.73,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 8,
+                                  "Index Cond": "(id = catalog_promotionorder.buyer_id)",
+                                  "Filter": "((account_erased_at IS NULL) AND is_active)"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Hash",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Startup Cost": 49.0,
+                          "Total Cost": 49.0,
+                          "Plan Rows": 2000,
+                          "Plan Width": 24,
+                          "Plans": [
+                            {
+                              "Node Type": "Seq Scan",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Relation Name": "catalog_promotionentitlement",
+                              "Alias": "catalog_promotionentitlement",
+                              "Startup Cost": 0.0,
+                              "Total Cost": 49.0,
+                              "Plan Rows": 2000,
+                              "Plan Width": 24,
+                              "Filter": "((suspended_at IS NULL) AND (ends_at > '<redacted>'::timestamp with time zone) AND (starts_at <= '<redacted>'::timestamp with time zone))"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "cursor": [
+          {
+            "Plan": {
+              "Node Type": "Merge Join",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Join Type": "Inner",
+              "Startup Cost": 2.29,
+              "Total Cost": 5235.13,
+              "Plan Rows": 1999,
+              "Plan Width": 29,
+              "Inner Unique": true,
+              "Merge Cond": "(catalog_promotionorder.listing_id = u0.listing_id)",
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Join Type": "Inner",
+                  "Startup Cost": 2.0,
+                  "Total Cost": 4565.35,
+                  "Plan Rows": 2000,
+                  "Plan Width": 45,
+                  "Inner Unique": true,
+                  "Plans": [
+                    {
+                      "Node Type": "Nested Loop",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 1.73,
+                      "Total Cost": 3851.73,
+                      "Plan Rows": 1979,
+                      "Plan Width": 53,
+                      "Inner Unique": true,
+                      "Plans": [
+                        {
+                          "Node Type": "Nested Loop",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Join Type": "Semi",
+                          "Startup Cost": 1.43,
+                          "Total Cost": 3800.8,
+                          "Plan Rows": 1979,
+                          "Plan Width": 61,
+                          "Inner Unique": false,
+                          "Join Filter": "((v0.individual_id = catalog_promotionorder.buyer_id) OR (v2.owner_id = catalog_promotionorder.buyer_id) OR (v4.active AND (v4.user_id = catalog_promotionorder.buyer_id) AND (v0.assigned_editor_id = catalog_promotionorder.buyer_id)))",
+                          "Plans": [
+                            {
+                              "Node Type": "Merge Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Inner",
+                              "Startup Cost": 0.85,
+                              "Total Cost": 1282.34,
+                              "Plan Rows": 1979,
+                              "Plan Width": 93,
+                              "Inner Unique": false,
+                              "Merge Cond": "(listings_listing.id = catalog_promotionorder.listing_id)",
+                              "Join Filter": "(catalog_promotionorder.manager_version = core_person.manager_version)",
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Inner",
+                                  "Startup Cost": 0.57,
+                                  "Total Cost": 5691.73,
+                                  "Plan Rows": 10002,
+                                  "Plan Width": 52,
+                                  "Inner Unique": true,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "listings_listing_pkey",
+                                      "Relation Name": "listings_listing",
+                                      "Alias": "listings_listing",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 1682.24,
+                                      "Plan Rows": 10002,
+                                      "Plan Width": 32
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_person_pkey",
+                                      "Relation Name": "core_person",
+                                      "Alias": "core_person",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 0.4,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 20,
+                                      "Index Cond": "(id = listings_listing.person_id)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "catalog_promotionorder_listing_id_89d80882",
+                                  "Relation Name": "catalog_promotionorder",
+                                  "Alias": "catalog_promotionorder",
+                                  "Startup Cost": 0.28,
+                                  "Total Cost": 137.66,
+                                  "Plan Rows": 1979,
+                                  "Plan Width": 49,
+                                  "Filter": "(synthetic AND ((status)::text = '<redacted>'::text))"
+                                }
+                              ]
+                            },
+                            {
+                              "Node Type": "Nested Loop",
+                              "Parent Relationship": "Inner",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Join Type": "Left",
+                              "Startup Cost": 0.58,
+                              "Total Cost": 1.15,
+                              "Plan Rows": 6,
+                              "Plan Width": 49,
+                              "Inner Unique": false,
+                              "Plans": [
+                                {
+                                  "Node Type": "Nested Loop",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Join Type": "Left",
+                                  "Startup Cost": 0.43,
+                                  "Total Cost": 0.57,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 56,
+                                  "Inner Unique": true,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_person_pkey",
+                                      "Relation Name": "core_person",
+                                      "Alias": "v0",
+                                      "Startup Cost": 0.29,
+                                      "Total Cost": 0.4,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 48,
+                                      "Index Cond": "(id = listings_listing.person_id)",
+                                      "Filter": "(publication_erased_at IS NULL)"
+                                    },
+                                    {
+                                      "Node Type": "Index Scan",
+                                      "Parent Relationship": "Inner",
+                                      "Parallel Aware": false,
+                                      "Async Capable": false,
+                                      "Scan Direction": "Forward",
+                                      "Index Name": "core_agency_pkey",
+                                      "Relation Name": "core_agency",
+                                      "Alias": "v2",
+                                      "Startup Cost": 0.14,
+                                      "Total Cost": 0.17,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 24,
+                                      "Index Cond": "(id = v0.agency_id)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Node Type": "Index Scan",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Async Capable": false,
+                                  "Scan Direction": "Forward",
+                                  "Index Name": "core_agencymember_agency_id_4e9cc52e",
+                                  "Relation Name": "core_agencymember",
+                                  "Alias": "v4",
+                                  "Startup Cost": 0.15,
+                                  "Total Cost": 0.52,
+                                  "Plan Rows": 6,
+                                  "Plan Width": 25,
+                                  "Index Cond": "(agency_id = v2.id)"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Node Type": "Memoize",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Startup Cost": 0.3,
+                          "Total Cost": 0.74,
+                          "Plan Rows": 1,
+                          "Plan Width": 8,
+                          "Cache Key": "catalog_promotionorder.buyer_id",
+                          "Cache Mode": "logical",
+                          "Plans": [
+                            {
+                              "Node Type": "Index Scan",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Async Capable": false,
+                              "Scan Direction": "Forward",
+                              "Index Name": "core_user_pkey",
+                              "Relation Name": "core_user",
+                              "Alias": "core_user",
+                              "Startup Cost": 0.29,
+                              "Total Cost": 0.73,
+                              "Plan Rows": 1,
+                              "Plan Width": 8,
+                              "Index Cond": "(id = catalog_promotionorder.buyer_id)",
+                              "Filter": "((account_erased_at IS NULL) AND is_active)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Index Scan",
+                      "Parent Relationship": "Inner",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Scan Direction": "Forward",
+                      "Index Name": "catalog_promotionentitlement_order_id_key",
+                      "Relation Name": "catalog_promotionentitlement",
+                      "Alias": "catalog_promotionentitlement",
+                      "Startup Cost": 0.28,
+                      "Total Cost": 0.36,
+                      "Plan Rows": 1,
+                      "Plan Width": 24,
+                      "Index Cond": "(order_id = catalog_promotionorder.id)",
+                      "Filter": "((suspended_at IS NULL) AND (ends_at > '<redacted>'::timestamp with time zone) AND (starts_at <= '<redacted>'::timestamp with time zone))"
+                    }
+                  ]
+                },
+                {
+                  "Node Type": "Index Scan",
+                  "Parent Relationship": "Inner",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Scan Direction": "Forward",
+                  "Index Name": "listings_publicationstate_pkey",
+                  "Relation Name": "listings_publicationstate",
+                  "Alias": "u0",
+                  "Startup Cost": 0.29,
+                  "Total Cost": 3281.15,
+                  "Plan Rows": 9997,
+                  "Plan Width": 16,
+                  "Filter": "(eligible AND (expires_at > '<redacted>'::timestamp with time zone) AND (search_document @@ '<redacted>'::tsquery) AND ((rules_version)::text = '<redacted>'::text))"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "eligible": false,
+    "requests": 148,
+    "warm_reads": 36,
+    "measured_reads": 108,
+    "observed_reads": 4,
+    "limits": [
+      "Candidate materializes narrow rights and reuses one UUID text per right within the request",
+      "Same authority, population, ordering and native page guard; exact bytes/IDs/count/labels",
+      "A/B identical; six balanced permutations, new owned backend and one warm read per arm",
+      "App thread CPU and identified PG backend schedstat outside control boundaries",
+      "No profiler/SQL wrapper inside controls, normal GC, host shared",
+      "Four separate observed reads attribute commercial execute versus stream fetch",
+      "Tracemalloc only in observed reads, commercial Python peak is not service RSS",
+      "Planning-only SELECT/DECLARE comparison after controls, no runtime/CPU inferred",
+      "Owned local sequential experiment, not TCP/SLO or full host memory measurement",
+      "PASS pytest means experiment integrity; eligible false rejects adoption"
+    ]
+  },
+  "capacity_verdict": "NOT_MEASURED_ADOPTION_NOT_AUTOMATIC",
+  "evidence_sha256": {
+    "result.json": "db28e5f6df089c61ce053f1931ee1087cb1f8b5b99a0f2901964d27ffcc34e26",
+    "pytest.xml": "2e258a178a772b256c618855a1395aba5662a5a0f0f2b581bec2c41efd8cbd21",
+    "pytest-reports.jsonl": "7a4c6983ebaeb3710ff2805337a8294a9c2d924ad1595117b83f6e97098a47dd",
+    "source-hashes.json": "464de6d31b0a0e729e159c501c5f1b713623fcfc9ba59a6d7db219522e56ba53",
+    "beta-rights-materialization-uuid-roi.json": "0c21b09bc7acbc7631f854dda142d1a66e5f2ecf65ed239e27c8ff490d902eba",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

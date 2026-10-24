@@ -1,0 +1,4947 @@
+{
+  "schema_version": 1,
+  "scope": "resolved_static_application_function_calls",
+  "roots": [
+    "apps.safety.crypto.digest",
+    "apps.safety.rights.fingerprint"
+  ],
+  "consumers": [
+    {
+      "consumer": "apps.catalog.management.commands.import_geography.Command.handle",
+      "source": "apps/catalog/management/commands/import_geography.py",
+      "line": 18,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.management.commands.import_geography.Command.handle",
+          "apps.listings.publication_state.refresh_all",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.management.commands.seed_catalog.Command.handle",
+      "source": "apps/catalog/management/commands/seed_catalog.py",
+      "line": 19,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.management.commands.seed_catalog.Command.handle",
+          "apps.listings.publication_state.refresh_all",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_exposure.bump_one",
+      "source": "apps/catalog/promotion_exposure.py",
+      "line": 121,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_exposure.bump_one",
+          "apps.catalog.promotion_exposure.eligible",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_exposure.eligible",
+      "source": "apps/catalog/promotion_exposure.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_exposure.eligible",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_exposure.ranked",
+      "source": "apps/catalog/promotion_exposure.py",
+      "line": 57,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_exposure.ranked",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_order_views.detail",
+      "source": "apps/catalog/promotion_order_views.py",
+      "line": 150,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_order_views.detail",
+          "apps.catalog.promotion_orders.receive_event",
+          "apps.catalog.promotion_orders.authorize",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_order_views.orders",
+      "source": "apps/catalog/promotion_order_views.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_order_views.orders",
+          "apps.catalog.promotion_orders.create_order",
+          "apps.catalog.promotion_orders.authorize",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_orders.authorize",
+      "source": "apps/catalog/promotion_orders.py",
+      "line": 68,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_orders.authorize",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_orders.create_order",
+      "source": "apps/catalog/promotion_orders.py",
+      "line": 77,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_orders.create_order",
+          "apps.catalog.promotion_orders.authorize",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.promotion_orders.receive_event",
+      "source": "apps/catalog/promotion_orders.py",
+      "line": 163,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.promotion_orders.receive_event",
+          "apps.catalog.promotion_orders.authorize",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.catalog.tasks.bump_promotions",
+      "source": "apps/catalog/tasks.py",
+      "line": 10,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.catalog.tasks.bump_promotions",
+          "apps.catalog.promotion_exposure.bump_one",
+          "apps.catalog.promotion_exposure.eligible",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.core.accounts.dashboard",
+      "source": "apps/core/accounts.py",
+      "line": 367,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.core.accounts.dashboard",
+          "apps.listings.profile_status.publication_summary",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.core.management.commands.bootstrap.Command.handle",
+      "source": "apps/core/management/commands/bootstrap.py",
+      "line": 59,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.core.management.commands.bootstrap.Command.handle",
+          "apps.listings.publication_state.refresh_all",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.core.management.commands.seed_demo.Command.handle",
+      "source": "apps/core/management/commands/seed_demo.py",
+      "line": 69,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.core.management.commands.seed_demo.Command.handle",
+          "apps.listings.moderation.decide",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.core.sitemaps.listings",
+      "source": "apps/core/sitemaps.py",
+      "line": 81,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.core.sitemaps.listings",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.core.views.home",
+      "source": "apps/core/views.py",
+      "line": 16,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.core.views.home",
+          "apps.listings.discovery.results",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.discovery.results",
+      "source": "apps/listings/discovery.py",
+      "line": 264,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.discovery.results",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.favorites.add",
+      "source": "apps/listings/favorites.py",
+      "line": 40,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.favorites.add",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.favorites.index",
+      "source": "apps/listings/favorites.py",
+      "line": 18,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.favorites.index",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.lifecycle.act",
+      "source": "apps/listings/lifecycle.py",
+      "line": 69,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.lifecycle.act",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.lifecycle.panel",
+      "source": "apps/listings/lifecycle.py",
+      "line": 162,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.lifecycle.panel",
+          "apps.listings.lifecycle.act",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.management.commands.refresh_publication_state.Command.handle",
+      "source": "apps/listings/management/commands/refresh_publication_state.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.management.commands.refresh_publication_state.Command.handle",
+          "apps.listings.publication_state.refresh_all",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation.decide",
+      "source": "apps/listings/moderation.py",
+      "line": 53,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation.decide",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation.publicly_visible",
+      "source": "apps/listings/moderation.py",
+      "line": 125,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation_views._native_public_detail",
+      "source": "apps/listings/moderation_views.py",
+      "line": 184,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation_views._native_public_detail",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation_views.public_detail",
+      "source": "apps/listings/moderation_views.py",
+      "line": 162,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation_views.public_detail",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation_views.public_photo",
+      "source": "apps/listings/moderation_views.py",
+      "line": 220,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation_views.public_photo",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.moderation_views.review",
+      "source": "apps/listings/moderation_views.py",
+      "line": 77,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.moderation_views.review",
+          "apps.listings.moderation.decide",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.profile_status.publication_summary",
+      "source": "apps/listings/profile_status.py",
+      "line": 51,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.profile_status.publication_summary",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state._state_page",
+      "source": "apps/listings/publication_state.py",
+      "line": 399,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state._state_page",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.eligible_ignoring_expiry",
+      "source": "apps/listings/publication_state.py",
+      "line": 103,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.expected_states",
+      "source": "apps/listings/publication_state.py",
+      "line": 121,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.refresh",
+      "source": "apps/listings/publication_state.py",
+      "line": 185,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.refresh_all",
+      "source": "apps/listings/publication_state.py",
+      "line": 266,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.refresh_all",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.repair",
+      "source": "apps/listings/publication_state.py",
+      "line": 341,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.repair",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.state_page",
+      "source": "apps/listings/publication_state.py",
+      "line": 357,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.state_page",
+          "apps.listings.publication_state._state_page",
+          "apps.listings.moderation.publicly_visible",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.publication_state.sweep",
+      "source": "apps/listings/publication_state.py",
+      "line": 230,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.publication_state.sweep",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.submissions.submit",
+      "source": "apps/listings/submissions.py",
+      "line": 164,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.submissions.submit",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.submissions.validate_submission",
+      "source": "apps/listings/submissions.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.tasks.refresh_publication_state",
+      "source": "apps/listings/tasks.py",
+      "line": 51,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.tasks.refresh_publication_state",
+          "apps.listings.publication_state.refresh",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.tasks.sweep_publication_state",
+      "source": "apps/listings/tasks.py",
+      "line": 66,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.tasks.sweep_publication_state",
+          "apps.listings.publication_state.sweep",
+          "apps.listings.publication_state.expected_states",
+          "apps.listings.publication_state.eligible_ignoring_expiry",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.views.edit",
+      "source": "apps/listings/views.py",
+      "line": 112,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.views.edit",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.listings.views.send_for_review",
+      "source": "apps/listings/views.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.listings.views.send_for_review",
+          "apps.listings.submissions.submit",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.account_email_confirmation.inspect_token",
+      "source": "apps/safety/account_email_confirmation.py",
+      "line": 127,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.account_email_confirmation.inspect_token",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.account_email_confirmation.start",
+      "source": "apps/safety/account_email_confirmation.py",
+      "line": 33,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.account_email_confirmation.start",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.account_email_views.confirm",
+      "source": "apps/safety/account_email_views.py",
+      "line": 57,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.account_email_views.confirm",
+          "apps.safety.account_email_confirmation.inspect_token",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.account_email_views.exchange",
+      "source": "apps/safety/account_email_views.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.account_email_views.exchange",
+          "apps.safety.account_email_confirmation.inspect_token",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.account_erasure_inventory.source",
+      "source": "apps/safety/account_erasure_inventory.py",
+      "line": 17,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.account_erasure_inventory.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.broker_message_projection.project_message",
+      "source": "apps/safety/broker_message_projection.py",
+      "line": 154,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.broker_message_projection.project_message",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notice_views.inbox",
+      "source": "apps/safety/communication_notice_views.py",
+      "line": 89,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notice_views.inbox",
+          "apps.safety.communication_notices.acknowledge",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.acknowledge",
+      "source": "apps/safety/communication_notices.py",
+      "line": 296,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.acknowledge",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.approved",
+      "source": "apps/safety/communication_notices.py",
+      "line": 89,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.approved",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.checked_ack",
+      "source": "apps/safety/communication_notices.py",
+      "line": 364,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.checked_ack",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.checked_delivery",
+      "source": "apps/safety/communication_notices.py",
+      "line": 346,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.checked_delivery",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.deliver",
+      "source": "apps/safety/communication_notices.py",
+      "line": 191,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.deliver",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.delivery_evidence",
+      "source": "apps/safety/communication_notices.py",
+      "line": 64,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.delivery_evidence",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.communication_notices.inspect_notice",
+      "source": "apps/safety/communication_notices.py",
+      "line": 259,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.communication_notices.inspect_notice",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_actions.act",
+      "source": "apps/safety/complaint_actions.py",
+      "line": 14,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaint_actions.act",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_messages.append",
+      "source": "apps/safety/complaint_messages.py",
+      "line": 71,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaint_messages.append",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_messages.submit",
+      "source": "apps/safety/complaint_messages.py",
+      "line": 125,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaint_messages.submit",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_resolutions.resolve",
+      "source": "apps/safety/complaint_resolutions.py",
+      "line": 42,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaint_resolutions.resolve",
+          "apps.safety.crypto.digest"
+        ],
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.complaint_resolutions.resolve",
+          "apps.safety.complaint_resolutions.resolve_listing",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_resolutions.resolve_listing",
+      "source": "apps/safety/complaint_resolutions.py",
+      "line": 242,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.complaint_resolutions.resolve_listing",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaint_resolutions.resolve_report",
+      "source": "apps/safety/complaint_resolutions.py",
+      "line": 190,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaint_resolutions.resolve_report",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaints.action",
+      "source": "apps/safety/complaints.py",
+      "line": 416,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaints.action",
+          "apps.safety.complaint_actions.act",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaints.receipt",
+      "source": "apps/safety/complaints.py",
+      "line": 140,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaints.receipt",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaints.resolve",
+      "source": "apps/safety/complaints.py",
+      "line": 558,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaints.resolve",
+          "apps.safety.complaint_resolutions.resolve",
+          "apps.safety.crypto.digest"
+        ],
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.complaints.resolve",
+          "apps.safety.complaint_resolutions.resolve",
+          "apps.safety.complaint_resolutions.resolve_listing",
+          "apps.listings.submissions.validate_submission",
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.complaints.submit",
+      "source": "apps/safety/complaints.py",
+      "line": 78,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.complaints.submit",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.decisions.act",
+      "source": "apps/safety/decisions.py",
+      "line": 34,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.decisions.act",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_execution.apply",
+      "source": "apps/safety/erasure_execution.py",
+      "line": 587,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_execution.apply",
+          "apps.safety.erasure_execution.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_execution.execute",
+      "source": "apps/safety/erasure_execution.py",
+      "line": 77,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_execution.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_final.snapshot",
+      "source": "apps/safety/erasure_final.py",
+      "line": 30,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_final.snapshot",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_inventory.inspect",
+      "source": "apps/safety/erasure_inventory.py",
+      "line": 1308,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_inventory.inspect",
+          "apps.safety.erasure_inventory.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_inventory.prepare",
+      "source": "apps/safety/erasure_inventory.py",
+      "line": 1239,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_inventory.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_inventory.source_manifest",
+      "source": "apps/safety/erasure_inventory.py",
+      "line": 35,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_inventory.source_manifest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_plans.authorized_inventory",
+      "source": "apps/safety/erasure_plans.py",
+      "line": 127,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_plans.authorized_inventory",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_plans.prepare",
+      "source": "apps/safety/erasure_plans.py",
+      "line": 264,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_plans.prepare",
+          "apps.safety.erasure_plans.authorized_inventory",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.erasure_plans.record",
+      "source": "apps/safety/erasure_plans.py",
+      "line": 174,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.erasure_plans.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.management.commands.restore_publication_calendar.Command.handle",
+      "source": "apps/safety/management/commands/restore_publication_calendar.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.management.commands.restore_publication_calendar.Command.handle",
+          "apps.safety.publication_calendar_upgrade.restore_calendar",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.media_operations.recover",
+      "source": "apps/safety/media_operations.py",
+      "line": 145,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.media_operations.recover",
+          "apps.safety.media_operations.requeue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.media_operations.requeue",
+      "source": "apps/safety/media_operations.py",
+      "line": 38,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.media_operations.requeue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.notice_operations.recover",
+      "source": "apps/safety/notice_operations.py",
+      "line": 191,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.notice_operations.recover",
+          "apps.safety.notice_operations.requeue",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.notice_operations.requeue",
+      "source": "apps/safety/notice_operations.py",
+      "line": 72,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.notice_operations.requeue",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_review.decide",
+      "source": "apps/safety/photo_reintroduction_review.py",
+      "line": 174,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_review.decide",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_review.inspect",
+      "source": "apps/safety/photo_reintroduction_review.py",
+      "line": 143,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_review.inspect",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_review.publication_pending",
+      "source": "apps/safety/photo_reintroduction_review.py",
+      "line": 79,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_review.publication_pending",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_review.source",
+      "source": "apps/safety/photo_reintroduction_review.py",
+      "line": 32,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_views.image",
+      "source": "apps/safety/photo_reintroduction_views.py",
+      "line": 115,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_views.image",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.photo_reintroduction_views.review",
+      "source": "apps/safety/photo_reintroduction_views.py",
+      "line": 63,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.photo_reintroduction_views.review",
+          "apps.safety.photo_reintroduction_review.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_holds.apply",
+      "source": "apps/safety/privacy_holds.py",
+      "line": 129,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_holds.apply",
+          "apps.safety.privacy_holds.hold",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_holds.hold",
+      "source": "apps/safety/privacy_holds.py",
+      "line": 34,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_holds.hold",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_release.current",
+      "source": "apps/safety/privacy_release.py",
+      "line": 91,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_release.current",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_release.execute",
+      "source": "apps/safety/privacy_release.py",
+      "line": 181,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_release.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_release.propose",
+      "source": "apps/safety/privacy_release.py",
+      "line": 114,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_release.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_release.review",
+      "source": "apps/safety/privacy_release.py",
+      "line": 284,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_release.review",
+          "apps.safety.privacy_release.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.privacy_release.source",
+      "source": "apps/safety/privacy_release.py",
+      "line": 27,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.privacy_release.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_execution.execute",
+      "source": "apps/safety/processing_execution.py",
+      "line": 29,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_execution.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_final.snapshot",
+      "source": "apps/safety/processing_final.py",
+      "line": 20,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_final.snapshot",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_plans.prepare",
+      "source": "apps/safety/processing_plans.py",
+      "line": 59,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_plans.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_plans.preview",
+      "source": "apps/safety/processing_plans.py",
+      "line": 147,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_plans.preview",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_review.contents",
+      "source": "apps/safety/processing_review.py",
+      "line": 74,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_review.contents",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_review.current",
+      "source": "apps/safety/processing_review.py",
+      "line": 41,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_review.current",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_review.record",
+      "source": "apps/safety/processing_review.py",
+      "line": 109,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_views.execution",
+      "source": "apps/safety/processing_views.py",
+      "line": 303,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_views.execution",
+          "apps.safety.processing_execution.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_views.preparation",
+      "source": "apps/safety/processing_views.py",
+      "line": 79,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_views.preparation",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.processing_views.review",
+      "source": "apps/safety/processing_views.py",
+      "line": 202,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.processing_views.review",
+          "apps.safety.processing_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_calendar_upgrade.restore_calendar",
+      "source": "apps/safety/publication_calendar_upgrade.py",
+      "line": 20,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_calendar_upgrade.restore_calendar",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_calendar.follow_up",
+      "source": "apps/safety/publication_purpose_calendar.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_calendar.follow_up",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_calendar.history",
+      "source": "apps/safety/publication_purpose_calendar.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_calendar.history",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_release.decision",
+      "source": "apps/safety/publication_purpose_release.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_release.decision",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_release.digest",
+      "source": "apps/safety/publication_purpose_release.py",
+      "line": 77,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_release.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_release.execute",
+      "source": "apps/safety/publication_purpose_release.py",
+      "line": 294,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_release.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_release.inspect",
+      "source": "apps/safety/publication_purpose_release.py",
+      "line": 93,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_release.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_release.propose",
+      "source": "apps/safety/publication_purpose_release.py",
+      "line": 155,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_release.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.publication_purpose_views.release",
+      "source": "apps/safety/publication_purpose_views.py",
+      "line": 81,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.publication_purpose_views.release",
+          "apps.safety.publication_purpose_calendar.follow_up",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_calendar.record",
+      "source": "apps/safety/purpose_calendar.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_calendar.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_calendar_views.detail",
+      "source": "apps/safety/purpose_calendar_views.py",
+      "line": 69,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_calendar_views.detail",
+          "apps.safety.purpose_calendar.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exception_views.prepare",
+      "source": "apps/safety/purpose_exception_views.py",
+      "line": 73,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exception_views.prepare",
+          "apps.safety.purpose_exceptions.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exception_views.review",
+      "source": "apps/safety/purpose_exception_views.py",
+      "line": 189,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exception_views.review",
+          "apps.safety.purpose_exceptions.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exceptions.consume",
+      "source": "apps/safety/purpose_exceptions.py",
+      "line": 408,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exceptions.consume",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exceptions.proposal_contents",
+      "source": "apps/safety/purpose_exceptions.py",
+      "line": 206,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exceptions.proposal_contents",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exceptions.propose",
+      "source": "apps/safety/purpose_exceptions.py",
+      "line": 35,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exceptions.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_exceptions.record",
+      "source": "apps/safety/purpose_exceptions.py",
+      "line": 264,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_exceptions.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.current",
+      "source": "apps/safety/purpose_release.py",
+      "line": 161,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.current",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.execute",
+      "source": "apps/safety/purpose_release.py",
+      "line": 327,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.inspect",
+      "source": "apps/safety/purpose_release.py",
+      "line": 180,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.original_plan",
+      "source": "apps/safety/purpose_release.py",
+      "line": 87,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.original_plan",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.propose",
+      "source": "apps/safety/purpose_release.py",
+      "line": 226,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release.source",
+      "source": "apps/safety/purpose_release.py",
+      "line": 30,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.purpose_release_views.release",
+      "source": "apps/safety/purpose_release_views.py",
+      "line": 105,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.purpose_release_views.release",
+          "apps.safety.purpose_release.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessment_views.prepare",
+      "source": "apps/safety/recipient_assessment_views.py",
+      "line": 152,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessment_views.prepare",
+          "apps.safety.recipient_assessments.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessments.inspect",
+      "source": "apps/safety/recipient_assessments.py",
+      "line": 169,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessments.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessments.propose",
+      "source": "apps/safety/recipient_assessments.py",
+      "line": 71,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessments.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessments.read_stamp",
+      "source": "apps/safety/recipient_assessments.py",
+      "line": 227,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessments.read_stamp",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessments.targets",
+      "source": "apps/safety/recipient_assessments.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessments.targets",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_assessments.validate_decisions",
+      "source": "apps/safety/recipient_assessments.py",
+      "line": 33,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_assessments.validate_decisions",
+          "apps.safety.recipient_assessments.targets",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_review.current",
+      "source": "apps/safety/recipient_review.py",
+      "line": 32,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_review.current",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_review.inspect",
+      "source": "apps/safety/recipient_review.py",
+      "line": 103,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_review.inspect",
+          "apps.safety.recipient_review.current",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_review.review",
+      "source": "apps/safety/recipient_review.py",
+      "line": 121,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_review.review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_review.stamp",
+      "source": "apps/safety/recipient_review.py",
+      "line": 87,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_review.stamp",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.recipient_review_views.prepare",
+      "source": "apps/safety/recipient_review_views.py",
+      "line": 66,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.recipient_review_views.prepare",
+          "apps.safety.recipient_assessments.targets",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_account.apply",
+      "source": "apps/safety/rectification_account.py",
+      "line": 70,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_account.apply",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_execution.execute",
+      "source": "apps/safety/rectification_execution.py",
+      "line": 111,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_execution.execute",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_execution.notify",
+      "source": "apps/safety/rectification_execution.py",
+      "line": 25,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_execution.notify",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.close",
+      "source": "apps/safety/rectification_final.py",
+      "line": 368,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.close",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.context",
+      "source": "apps/safety/rectification_final.py",
+      "line": 53,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.context",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.digest",
+      "source": "apps/safety/rectification_final.py",
+      "line": 38,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.draft_context",
+      "source": "apps/safety/rectification_final.py",
+      "line": 251,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.draft_context",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.evidence",
+      "source": "apps/safety/rectification_final.py",
+      "line": 70,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.inspect",
+      "source": "apps/safety/rectification_final.py",
+      "line": 291,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.inspect",
+          "apps.safety.rectification_final.draft_context",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.prepare",
+      "source": "apps/safety/rectification_final.py",
+      "line": 225,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.prepare",
+          "apps.safety.rectification_final.evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.record",
+      "source": "apps/safety/rectification_final.py",
+      "line": 198,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.record",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final.review",
+      "source": "apps/safety/rectification_final.py",
+      "line": 323,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final.review",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_final_views.final",
+      "source": "apps/safety/rectification_final_views.py",
+      "line": 103,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_final_views.final",
+          "apps.safety.rectification_final.close",
+          "apps.safety.rectification_final.digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_photos.available",
+      "source": "apps/safety/rectification_photos.py",
+      "line": 61,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_photos.available",
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_photos.changes",
+      "source": "apps/safety/rectification_photos.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_photos.changes",
+          "apps.safety.rectification_photos.validate",
+          "apps.safety.rectification_photos.available",
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_photos.validate",
+      "source": "apps/safety/rectification_photos.py",
+      "line": 36,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_photos.validate",
+          "apps.safety.rectification_photos.available",
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_recipients.execution_scope_matches",
+      "source": "apps/safety/rectification_recipients.py",
+      "line": 37,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_recipients.execution_scope_matches",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_recipients.prepare",
+      "source": "apps/safety/rectification_recipients.py",
+      "line": 135,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_recipients.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_recipients.prepare_view",
+      "source": "apps/safety/rectification_recipients.py",
+      "line": 226,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_recipients.prepare_view",
+          "apps.safety.rectification_recipients.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_recipients.snapshot",
+      "source": "apps/safety/rectification_recipients.py",
+      "line": 74,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_recipients.snapshot",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_review.current",
+      "source": "apps/safety/rectification_review.py",
+      "line": 46,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_review.current",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_review.inspect",
+      "source": "apps/safety/rectification_review.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_review.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_review.prepare",
+      "source": "apps/safety/rectification_review.py",
+      "line": 244,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_review.prepare",
+          "apps.safety.account_email_confirmation.start",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_review.review",
+      "source": "apps/safety/rectification_review.py",
+      "line": 121,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_review.review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_uploads.baseline",
+      "source": "apps/safety/rectification_uploads.py",
+      "line": 56,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_uploads.check_current",
+      "source": "apps/safety/rectification_uploads.py",
+      "line": 75,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_uploads.check_current",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_uploads.discard",
+      "source": "apps/safety/rectification_uploads.py",
+      "line": 187,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_uploads.discard",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_uploads.prepare",
+      "source": "apps/safety/rectification_uploads.py",
+      "line": 258,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_uploads.prepare",
+          "apps.safety.rectification_uploads.discard",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rectification_uploads.upload",
+      "source": "apps/safety/rectification_uploads.py",
+      "line": 107,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rectification_uploads.upload",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.redis_history_scope.history_records",
+      "source": "apps/safety/redis_history_scope.py",
+      "line": 188,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.redis_history_scope.history_records",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.redis_history_scope.scoped_history.results_visit",
+      "source": "apps/safety/redis_history_scope.py",
+      "line": 116,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.redis_history_scope.scoped_history.results_visit",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.redis_history_scope.scoped_history.visit",
+      "source": "apps/safety/redis_history_scope.py",
+      "line": 29,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.redis_history_scope.scoped_history.visit",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.redis_result_projection.project_result",
+      "source": "apps/safety/redis_result_projection.py",
+      "line": 33,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.redis_result_projection.project_result",
+          "apps.safety.redis_result_projection.task_reference",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.redis_result_projection.task_reference",
+      "source": "apps/safety/redis_result_projection.py",
+      "line": 20,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.redis_result_projection.task_reference",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retained_rdb_physical_metadata.physical_review",
+      "source": "apps/safety/retained_rdb_physical_metadata.py",
+      "line": 95,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retained_rdb_physical_metadata.physical_review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retained_redis_metadata.review_material",
+      "source": "apps/safety/retained_redis_metadata.py",
+      "line": 43,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retained_redis_metadata.review_material",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retained_redis_origins.read_bundle",
+      "source": "apps/safety/retained_redis_origins.py",
+      "line": 138,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retained_redis_origins.read_bundle",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retained_redis_origins.snapshot_expirations.visit",
+      "source": "apps/safety/retained_redis_origins.py",
+      "line": 97,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retained_redis_origins.snapshot_expirations.visit",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retention_reviews.plan_decisions",
+      "source": "apps/safety/retention_reviews.py",
+      "line": 43,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retention_reviews.plan_decisions",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retention_reviews.reconcile",
+      "source": "apps/safety/retention_reviews.py",
+      "line": 251,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retention_reviews.reconcile",
+          "apps.safety.retention_reviews.plan_decisions",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retention_reviews.record",
+      "source": "apps/safety/retention_reviews.py",
+      "line": 103,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retention_reviews.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.retention_views.inspect",
+      "source": "apps/safety/retention_views.py",
+      "line": 120,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.retention_views.inspect",
+          "apps.safety.retention_reviews.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights.action",
+      "source": "apps/safety/rights.py",
+      "line": 772,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights.action",
+          "apps.safety.rights_actions.act",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights.receipt",
+      "source": "apps/safety/rights.py",
+      "line": 204,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights.receipt",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights.submit",
+      "source": "apps/safety/rights.py",
+      "line": 129,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights.submit",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_close.close",
+      "source": "apps/safety/rights_access_close.py",
+      "line": 137,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_close.close",
+          "apps.safety.rights_access_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_close.signature",
+      "source": "apps/safety/rights_access_close.py",
+      "line": 27,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_close.validate_closure",
+      "source": "apps/safety/rights_access_close.py",
+      "line": 73,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_close.validate_closure",
+          "apps.safety.rights_access_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_close_views.close_response",
+      "source": "apps/safety/rights_access_close_views.py",
+      "line": 29,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_close_views.close_response",
+          "apps.safety.rights_access_close.close",
+          "apps.safety.rights_access_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage.compile_coverage",
+      "source": "apps/safety/rights_access_coverage.py",
+      "line": 53,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage.compile_coverage",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_review.context",
+      "source": "apps/safety/rights_access_coverage_review.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_review.context",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_review.inspect",
+      "source": "apps/safety/rights_access_coverage_review.py",
+      "line": 98,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_review.inspect",
+          "apps.safety.rights_access_coverage_review.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_review.record",
+      "source": "apps/safety/rights_access_coverage_review.py",
+      "line": 158,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_review.signature",
+      "source": "apps/safety/rights_access_coverage_review.py",
+      "line": 51,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_review.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_review_views.review",
+      "source": "apps/safety/rights_access_coverage_review_views.py",
+      "line": 25,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_review_views.review",
+          "apps.safety.rights_access_coverage_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_store.required_references",
+      "source": "apps/safety/rights_access_coverage_store.py",
+      "line": 25,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_store.required_references",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_store.save",
+      "source": "apps/safety/rights_access_coverage_store.py",
+      "line": 38,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_store.save",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_use.consume",
+      "source": "apps/safety/rights_access_coverage_use.py",
+      "line": 223,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_use.consume",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_coverage_use.validate_approval",
+      "source": "apps/safety/rights_access_coverage_use.py",
+      "line": 30,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_coverage_use.validate_approval",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.broker_records",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 262,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.broker_records",
+          "apps.safety.broker_message_projection.project_message",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.compile_package",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 1012,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.compile_package",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.log_records",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 348,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.log_records",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.mail_records",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 201,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.mail_records",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.projected_fields",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 1174,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.projected_fields",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.retained_resource_records",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 565,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.retained_resource_records",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.session_records",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 92,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.session_records",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.snapshot",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 743,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.snapshot",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.snapshot.capture",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 785,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.snapshot.capture",
+          "apps.safety.rights_access_delivery.projected_fields",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_delivery.validate_package",
+      "source": "apps/safety/rights_access_delivery.py",
+      "line": 1144,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_delivery.validate_package",
+          "apps.safety.rights_access_delivery.compile_package",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_evidence_refs.bind_references",
+      "source": "apps/safety/rights_access_evidence_refs.py",
+      "line": 13,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_evidence_refs.bind_references",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision.consume",
+      "source": "apps/safety/rights_access_field_decision.py",
+      "line": 289,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision.consume",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision.inspect_decision",
+      "source": "apps/safety/rights_access_field_decision.py",
+      "line": 179,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision.inspect_decision",
+          "apps.safety.rights_access_field_decision.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision.propose",
+      "source": "apps/safety/rights_access_field_decision.py",
+      "line": 49,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision.review",
+      "source": "apps/safety/rights_access_field_decision.py",
+      "line": 234,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision.review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision.review_digest",
+      "source": "apps/safety/rights_access_field_decision.py",
+      "line": 158,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision.review_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision_views.independent",
+      "source": "apps/safety/rights_access_field_decision_views.py",
+      "line": 140,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision_views.independent",
+          "apps.safety.rights_access_field_decision.review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_decision_views.prepare",
+      "source": "apps/safety/rights_access_field_decision_views.py",
+      "line": 78,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_decision_views.prepare",
+          "apps.safety.rights_access_field_decision.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_field_read.read",
+      "source": "apps/safety/rights_access_field_read.py",
+      "line": 62,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_field_read.read",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_reference_bodies.validated_bodies",
+      "source": "apps/safety/rights_access_reference_bodies.py",
+      "line": 19,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_reference_bodies.validated_bodies",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_draft.prepare",
+      "source": "apps/safety/rights_access_response_draft.py",
+      "line": 33,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_draft.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_evidence.validate_draft",
+      "source": "apps/safety/rights_access_response_evidence.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_evidence.validate_draft",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_evidence.validate_review",
+      "source": "apps/safety/rights_access_response_evidence.py",
+      "line": 171,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_evidence.validate_review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_review.inspect",
+      "source": "apps/safety/rights_access_response_review.py",
+      "line": 30,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_review.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_review.record",
+      "source": "apps/safety/rights_access_response_review.py",
+      "line": 146,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_views.prepare_response",
+      "source": "apps/safety/rights_access_response_views.py",
+      "line": 111,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_views.prepare_response",
+          "apps.safety.rights_access_response_draft.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_response_views.review_response",
+      "source": "apps/safety/rights_access_response_views.py",
+      "line": 286,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_response_views.review_response",
+          "apps.safety.rights_access_response_review.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_scope_inventory.source",
+      "source": "apps/safety/rights_access_scope_inventory.py",
+      "line": 54,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_scope_inventory.source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_scope_inventory.source.capture",
+      "source": "apps/safety/rights_access_scope_inventory.py",
+      "line": 66,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_scope_inventory.source.capture",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_scope_store.inspect",
+      "source": "apps/safety/rights_access_scope_store.py",
+      "line": 22,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_scope_store.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_scope_views.inventory",
+      "source": "apps/safety/rights_access_scope_views.py",
+      "line": 39,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_scope_views.inventory",
+          "apps.safety.rights_access_field_read.read",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_supplement.prepare",
+      "source": "apps/safety/rights_access_supplement.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_supplement.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_access_supplement_views.preview",
+      "source": "apps/safety/rights_access_supplement_views.py",
+      "line": 60,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_access_supplement_views.preview",
+          "apps.safety.rights_access_supplement.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_account_copy.scope_matches",
+      "source": "apps/safety/rights_account_copy.py",
+      "line": 53,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_account_copy.scope_matches",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_actions.act",
+      "source": "apps/safety/rights_actions.py",
+      "line": 41,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_actions.act",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communication_views.communications",
+      "source": "apps/safety/rights_communication_views.py",
+      "line": 97,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communication_views.communications",
+          "apps.safety.recipient_assessments.targets",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.current",
+      "source": "apps/safety/rights_communications.py",
+      "line": 195,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.current",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.final_material",
+      "source": "apps/safety/rights_communications.py",
+      "line": 321,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.final_material",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.inspect",
+      "source": "apps/safety/rights_communications.py",
+      "line": 238,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.inspect",
+          "apps.safety.rights_communications.current",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.inspect_source",
+      "source": "apps/safety/rights_communications.py",
+      "line": 99,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.inspect_source",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.propose",
+      "source": "apps/safety/rights_communications.py",
+      "line": 166,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.propose",
+          "apps.safety.recipient_assessments.validate_decisions",
+          "apps.safety.recipient_assessments.targets",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.review",
+      "source": "apps/safety/rights_communications.py",
+      "line": 275,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.review",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.snapshot",
+      "source": "apps/safety/rights_communications.py",
+      "line": 37,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.snapshot",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_communications.source_read",
+      "source": "apps/safety/rights_communications.py",
+      "line": 138,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_communications.source_read",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_information.inspect",
+      "source": "apps/safety/rights_copy_information.py",
+      "line": 222,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_information.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_information.record",
+      "source": "apps/safety/rights_copy_information.py",
+      "line": 73,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_information.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_information.validate_saved_evidence",
+      "source": "apps/safety/rights_copy_information.py",
+      "line": 305,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_information.validate_saved_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_information_views.prepare",
+      "source": "apps/safety/rights_copy_information_views.py",
+      "line": 143,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_information_views.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_inspection.inspect_page",
+      "source": "apps/safety/rights_copy_inspection.py",
+      "line": 52,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_inspection.inspect_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_inspection.inspection_binding",
+      "source": "apps/safety/rights_copy_inspection.py",
+      "line": 37,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_inspection.inspection_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_page_review.compile_pages",
+      "source": "apps/safety/rights_copy_page_review.py",
+      "line": 293,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_page_review.compile_pages",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_page_review.generate_pages",
+      "source": "apps/safety/rights_copy_page_review.py",
+      "line": 430,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_page_review.generate_pages",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_page_review.inspect_saved",
+      "source": "apps/safety/rights_copy_page_review.py",
+      "line": 206,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_page_review.inspect_saved",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_page_review.record",
+      "source": "apps/safety/rights_copy_page_review.py",
+      "line": 69,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_page_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_copy_page_review.validate_generated_scope",
+      "source": "apps/safety/rights_copy_page_review.py",
+      "line": 399,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_copy_page_review.validate_generated_scope",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.can_prepare",
+      "source": "apps/safety/rights_exports.py",
+      "line": 253,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.can_prepare",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.download",
+      "source": "apps/safety/rights_exports.py",
+      "line": 820,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.download",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.generate",
+      "source": "apps/safety/rights_exports.py",
+      "line": 289,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.generate",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.inspect_image",
+      "source": "apps/safety/rights_exports.py",
+      "line": 1066,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.inspect_image",
+          "apps.safety.rights_exports.can_prepare",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.prepare",
+      "source": "apps/safety/rights_exports.py",
+      "line": 635,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.prepare",
+          "apps.safety.rights_copy_inspection.inspect_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_exports.preview",
+      "source": "apps/safety/rights_exports.py",
+      "line": 269,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_exports.preview",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response._digest",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 67,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response._draft",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 140,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response._draft",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response._material",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 100,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response._material",
+          "apps.safety.rights_communications.final_material",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response._record",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 71,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response._record",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response.inspect",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 190,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response.inspect",
+          "apps.safety.rights_final_response._draft",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response.issue",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 283,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response.issue",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response.prepare",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 110,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response.prepare",
+          "apps.safety.rights_final_response._record",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response.purge_unissued_drafts",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 454,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response.purge_unissued_drafts",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_final_response.review",
+      "source": "apps/safety/rights_final_response.py",
+      "line": 231,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_final_response.review",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_export.consume_approved",
+      "source": "apps/safety/rights_information_export.py",
+      "line": 20,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_export.consume_approved",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_export.validate_export_binding",
+      "source": "apps/safety/rights_information_export.py",
+      "line": 96,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_export.validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_policy.published_policy",
+      "source": "apps/safety/rights_information_policy.py",
+      "line": 13,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_policy.published_policy",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_review.record",
+      "source": "apps/safety/rights_information_review.py",
+      "line": 48,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_review.validate_action_evidence",
+      "source": "apps/safety/rights_information_review.py",
+      "line": 191,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_review.validate_action_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_review.validate_approved_evidence",
+      "source": "apps/safety/rights_information_review.py",
+      "line": 240,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_review.validate_approved_evidence",
+          "apps.safety.rights_copy_information.validate_saved_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_information_review_views.review",
+      "source": "apps/safety/rights_information_review_views.py",
+      "line": 49,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_information_review_views.review",
+          "apps.safety.rights_information_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_inspection_source._InspectionSource.__init__",
+      "source": "apps/safety/rights_inspection_source.py",
+      "line": 37,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_inspection_source._InspectionSource.__init__",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_inspection_source.inspection_source",
+      "source": "apps/safety/rights_inspection_source.py",
+      "line": 100,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_inspection_source.source_digest",
+      "source": "apps/safety/rights_inspection_source.py",
+      "line": 86,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_inspection_source.source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_object_delivery._fresh",
+      "source": "apps/safety/rights_object_delivery.py",
+      "line": 82,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_object_delivery._fresh",
+          "apps.safety.rights_information_export.validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_object_delivery.authorize_token",
+      "source": "apps/safety/rights_object_delivery.py",
+      "line": 243,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_object_delivery.authorize_token",
+          "apps.safety.rights_object_delivery._fresh",
+          "apps.safety.rights_information_export.validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_object_views.authorize",
+      "source": "apps/safety/rights_object_views.py",
+      "line": 17,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_object_views.authorize",
+          "apps.safety.rights_object_delivery.authorize_token",
+          "apps.safety.rights_object_delivery._fresh",
+          "apps.safety.rights_information_export.validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability.inspect_assessment",
+      "source": "apps/safety/rights_portability.py",
+      "line": 214,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability.inspect_assessment",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability.save_assessment",
+      "source": "apps/safety/rights_portability.py",
+      "line": 90,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability.save_assessment",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability.validate_assessment_evidence",
+      "source": "apps/safety/rights_portability.py",
+      "line": 301,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability.validate_assessment_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_catalog.inspect_catalog",
+      "source": "apps/safety/rights_portability_catalog.py",
+      "line": 40,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_catalog.inspect_catalog",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_close.close",
+      "source": "apps/safety/rights_portability_close.py",
+      "line": 138,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_close.close",
+          "apps.safety.rights_portability_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_close.signature",
+      "source": "apps/safety/rights_portability_close.py",
+      "line": 28,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_close.validate_closure",
+      "source": "apps/safety/rights_portability_close.py",
+      "line": 74,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_close.validate_closure",
+          "apps.safety.rights_portability_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_batch.inspect_batch",
+      "source": "apps/safety/rights_portability_coverage_batch.py",
+      "line": 25,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_batch.inspect_batch",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_evidence.validate_approved_coverage",
+      "source": "apps/safety/rights_portability_coverage_evidence.py",
+      "line": 209,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_evidence.validate_approved_coverage",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_evidence.validate_coverage_pages",
+      "source": "apps/safety/rights_portability_coverage_evidence.py",
+      "line": 63,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_evidence.validate_coverage_pages",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_images.prepare_images",
+      "source": "apps/safety/rights_portability_coverage_images.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_images.prepare_images",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_images.save_images",
+      "source": "apps/safety/rights_portability_coverage_images.py",
+      "line": 191,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_images.save_images",
+          "apps.safety.rights_portability_coverage_images.prepare_images",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_inspection.inspect_page",
+      "source": "apps/safety/rights_portability_coverage_inspection.py",
+      "line": 29,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_inspection.inspect_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages._prepare_page",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 143,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages._prepare_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages._save_page",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 361,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages._save_page",
+          "apps.safety.rights_portability_coverage_pages._prepare_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages.baseline_body",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 48,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages.baseline_body",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages.prepare_page",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages.prepare_page",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages.recheck_authority",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 33,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages.recheck_authority",
+          "apps.safety.rights_exports.can_prepare",
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_pages.save_page",
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "line": 333,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_pages.save_page",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_read_gate.require_complete_reads",
+      "source": "apps/safety/rights_portability_coverage_read_gate.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_read_gate.require_complete_reads",
+          "apps.safety.rights_portability_coverage_evidence.validate_coverage_pages",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_review.record",
+      "source": "apps/safety/rights_portability_coverage_review.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_review_views.review",
+      "source": "apps/safety/rights_portability_coverage_review_views.py",
+      "line": 105,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_review_views.review",
+          "apps.safety.rights_portability_coverage_batch.inspect_batch",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_store.save_coverage",
+      "source": "apps/safety/rights_portability_coverage_store.py",
+      "line": 28,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_store.save_coverage",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_use.consume_approved_coverage",
+      "source": "apps/safety/rights_portability_coverage_use.py",
+      "line": 25,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_use.consume_approved_coverage",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_views.prepare",
+      "source": "apps/safety/rights_portability_coverage_views.py",
+      "line": 127,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_views.prepare",
+          "apps.safety.rights_portability_coverage_images.prepare_images",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_coverage_views.prepare_image_omissions",
+      "source": "apps/safety/rights_portability_coverage_views.py",
+      "line": 338,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_coverage_views.prepare_image_omissions",
+          "apps.safety.rights_portability_coverage_views.prepare",
+          "apps.safety.rights_portability_coverage_images.prepare_images",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_covered_export.validate_binding",
+      "source": "apps/safety/rights_portability_covered_export.py",
+      "line": 20,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_covered_export.validate_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export._sealed_or_full",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 295,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export._sealed_or_full",
+          "apps.safety.rights_portability_export._validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export._validate_export_binding",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 332,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export._validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export.generate",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 412,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export.generate",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export.legacy_signature",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 63,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export.legacy_signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export.signature",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 84,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export.validate_export_binding",
+      "source": "apps/safety/rights_portability_export.py",
+      "line": 267,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export.validate_export_binding",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_export_views.prepare",
+      "source": "apps/safety/rights_portability_export_views.py",
+      "line": 88,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_export_views.prepare",
+          "apps.safety.rights_portability_jobs.enqueue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_read._inspect",
+      "source": "apps/safety/rights_portability_image_read.py",
+      "line": 154,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_read._inspect",
+          "apps.safety.rights_inspection_source.source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_read.inspect",
+      "source": "apps/safety/rights_portability_image_read.py",
+      "line": 137,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_read.inspect",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_read.required_reads",
+      "source": "apps/safety/rights_portability_image_read.py",
+      "line": 85,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_read.required_reads",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_read.signature",
+      "source": "apps/safety/rights_portability_image_read.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_read.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_read.validate_read",
+      "source": "apps/safety/rights_portability_image_read.py",
+      "line": 44,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_read.validate_read",
+          "apps.safety.rights_portability_image_read.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_selection.catalog",
+      "source": "apps/safety/rights_portability_image_selection.py",
+      "line": 32,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_selection.catalog",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_selection.prepare",
+      "source": "apps/safety/rights_portability_image_selection.py",
+      "line": 90,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_selection.prepare",
+          "apps.safety.rights_portability_image_selection.catalog",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_selection.save",
+      "source": "apps/safety/rights_portability_image_selection.py",
+      "line": 127,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_selection.save",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_image_views.prepare_images",
+      "source": "apps/safety/rights_portability_image_views.py",
+      "line": 50,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_image_views.prepare_images",
+          "apps.safety.rights_portability_image_selection.save",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_jobs.enqueue",
+      "source": "apps/safety/rights_portability_jobs.py",
+      "line": 65,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_jobs.enqueue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_jobs.run",
+      "source": "apps/safety/rights_portability_jobs.py",
+      "line": 202,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_jobs.run",
+          "apps.safety.rights_portability_export.generate",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_page_selection.prepare_page",
+      "source": "apps/safety/rights_portability_page_selection.py",
+      "line": 32,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_page_selection.prepare_page",
+          "apps.safety.rights_portability_catalog.inspect_catalog",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_page_selection.save_page",
+      "source": "apps/safety/rights_portability_page_selection.py",
+      "line": 93,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_page_selection.save_page",
+          "apps.safety.rights_portability_catalog.inspect_catalog",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_prepare_selection_views.prepare",
+      "source": "apps/safety/rights_portability_prepare_selection_views.py",
+      "line": 187,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_prepare_selection_views.prepare",
+          "apps.safety.rights_portability_reset_selection.reset_selection",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_reset_selection.reset_selection",
+      "source": "apps/safety/rights_portability_reset_selection.py",
+      "line": 19,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_reset_selection.reset_selection",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_draft.prepare",
+      "source": "apps/safety/rights_portability_response_draft.py",
+      "line": 34,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_draft.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_evidence.validate_draft",
+      "source": "apps/safety/rights_portability_response_evidence.py",
+      "line": 23,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_evidence.validate_draft",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_evidence.validate_review",
+      "source": "apps/safety/rights_portability_response_evidence.py",
+      "line": 121,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_evidence.validate_review",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_review.inspect",
+      "source": "apps/safety/rights_portability_response_review.py",
+      "line": 31,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_review.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_review.record",
+      "source": "apps/safety/rights_portability_response_review.py",
+      "line": 145,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_views.close_response",
+      "source": "apps/safety/rights_portability_response_views.py",
+      "line": 314,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_views.close_response",
+          "apps.safety.rights_portability_close.close",
+          "apps.safety.rights_portability_close.signature",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_views.prepare_response",
+      "source": "apps/safety/rights_portability_response_views.py",
+      "line": 56,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_views.prepare_response",
+          "apps.safety.rights_portability_response_draft.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_response_views.review_response",
+      "source": "apps/safety/rights_portability_response_views.py",
+      "line": 188,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_response_views.review_response",
+          "apps.safety.rights_portability_response_review.inspect",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_review.record",
+      "source": "apps/safety/rights_portability_review.py",
+      "line": 48,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_review.validate_approved_assessment",
+      "source": "apps/safety/rights_portability_review.py",
+      "line": 234,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_review.validate_approved_assessment",
+          "apps.safety.rights_portability.validate_assessment_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_review.validate_review_evidence",
+      "source": "apps/safety/rights_portability_review.py",
+      "line": 188,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_review.validate_review_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_review_views.review",
+      "source": "apps/safety/rights_portability_review_views.py",
+      "line": 49,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_review_views.review",
+          "apps.safety.rights_portability_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selected_use.consume_selected",
+      "source": "apps/safety/rights_portability_selected_use.py",
+      "line": 6,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selected_use.consume_selected",
+          "apps.safety.rights_portability_selection_store.inspect_selection",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_pages.complete_pages",
+      "source": "apps/safety/rights_portability_selection_pages.py",
+      "line": 61,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_pages.complete_pages",
+          "apps.safety.rights_portability_selection_review.validate_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_pages.project_page",
+      "source": "apps/safety/rights_portability_selection_pages.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_pages.project_page",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_review.inspect",
+      "source": "apps/safety/rights_portability_selection_review.py",
+      "line": 283,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_review.inspect",
+          "apps.safety.rights_portability_selection_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_review.record",
+      "source": "apps/safety/rights_portability_selection_review.py",
+      "line": 30,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_review.validate_approved_selection",
+      "source": "apps/safety/rights_portability_selection_review.py",
+      "line": 357,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_review.validate_approved_selection",
+          "apps.safety.rights_portability_image_read.required_reads",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_review.validate_evidence",
+      "source": "apps/safety/rights_portability_selection_review.py",
+      "line": 288,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_review.validate_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_store.inspect_selection",
+      "source": "apps/safety/rights_portability_selection_store.py",
+      "line": 164,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_store.inspect_selection",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_store.save_selection",
+      "source": "apps/safety/rights_portability_selection_store.py",
+      "line": 26,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_store.save_selection",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_store.validate_selection_evidence",
+      "source": "apps/safety/rights_portability_selection_store.py",
+      "line": 249,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_store.validate_selection_evidence",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_views.inspect_image",
+      "source": "apps/safety/rights_portability_selection_views.py",
+      "line": 227,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_views.inspect_image",
+          "apps.safety.rights_portability_image_read.inspect",
+          "apps.safety.rights_inspection_source.inspection_source",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_selection_views.review",
+      "source": "apps/safety/rights_portability_selection_views.py",
+      "line": 69,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_selection_views.review",
+          "apps.safety.rights_portability_selection_review.record",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_use.consume_approved",
+      "source": "apps/safety/rights_portability_use.py",
+      "line": 21,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_use.consume_approved",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_portability_views.prepare",
+      "source": "apps/safety/rights_portability_views.py",
+      "line": 141,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_portability_views.prepare",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.prepare",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 532,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.prepare",
+          "apps.safety.rights_rectification.preview",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.preview",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 333,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.preview",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.propose",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 115,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.propose",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.source_photo",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 660,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.source_photo",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.source_snapshot",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 194,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.source_snapshot",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.validate_copy",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 104,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.validate_copy",
+          "apps.safety.rectification_photos.validate",
+          "apps.safety.rectification_photos.available",
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_rectification.validated_changes",
+      "source": "apps/safety/rights_rectification.py",
+      "line": 54,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_rectification.validated_changes",
+          "apps.safety.rectification_photos.validate",
+          "apps.safety.rectification_photos.available",
+          "apps.safety.rectification_uploads.baseline",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_responses.acknowledge",
+      "source": "apps/safety/rights_responses.py",
+      "line": 324,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_responses.acknowledge",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_responses.issue",
+      "source": "apps/safety/rights_responses.py",
+      "line": 73,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_responses.issue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_responses.respond",
+      "source": "apps/safety/rights_responses.py",
+      "line": 257,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_responses.respond",
+          "apps.safety.rights_responses.issue",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_validation_seal.caller_digest",
+      "source": "apps/safety/rights_validation_seal.py",
+      "line": 88,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_validation_seal.caller_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_validation_seal.create",
+      "source": "apps/safety/rights_validation_seal.py",
+      "line": 319,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_validation_seal.create",
+          "apps.safety.rights_validation_seal.caller_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_validation_seal.holds",
+      "source": "apps/safety/rights_validation_seal.py",
+      "line": 344,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_validation_seal.holds",
+          "apps.safety.rights_validation_seal.caller_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_validation_seal.rule_version",
+      "source": "apps/safety/rights_validation_seal.py",
+      "line": 54,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_validation_seal.rule_version",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.account_source_digest",
+      "source": "apps/safety/rights_verification.py",
+      "line": 51,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.authorized_proof",
+      "source": "apps/safety/rights_verification.py",
+      "line": 111,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.authorized_proof",
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.compatible",
+      "source": "apps/safety/rights_verification.py",
+      "line": 78,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.compatible",
+          "apps.safety.rights_verification.account_source_digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.receive_event",
+      "source": "apps/safety/rights_verification.py",
+      "line": 219,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.receive_event",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.start",
+      "source": "apps/safety/rights_verification.py",
+      "line": 139,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.start",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.rights_verification.verification",
+      "source": "apps/safety/rights_verification.py",
+      "line": 311,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.rights_verification.verification",
+          "apps.safety.rights_verification.receive_event",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.tasks.generate_portability_export",
+      "source": "apps/safety/tasks.py",
+      "line": 254,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.tasks.generate_portability_export",
+          "apps.safety.rights_portability_jobs.run",
+          "apps.safety.rights_portability_export.generate",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "source": "apps/safety/tasks.py",
+      "line": 172,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.tasks.purge_expired_access_response_drafts",
+          "apps.safety.rights_final_response.purge_unissued_drafts",
+          "apps.safety.rights_final_response._digest",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.tasks.reconcile_retention_reviews",
+      "source": "apps/safety/tasks.py",
+      "line": 57,
+      "resolved_paths": {
+        "apps.safety.rights.fingerprint": [
+          "apps.safety.tasks.reconcile_retention_reviews",
+          "apps.safety.retention_reviews.reconcile",
+          "apps.safety.retention_reviews.plan_decisions",
+          "apps.safety.rights.fingerprint"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.views.decision",
+      "source": "apps/safety/views.py",
+      "line": 491,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.views.decision",
+          "apps.safety.decisions.act",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.views.receipt",
+      "source": "apps/safety/views.py",
+      "line": 226,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.views.receipt",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    },
+    {
+      "consumer": "apps.safety.views.submit",
+      "source": "apps/safety/views.py",
+      "line": 131,
+      "resolved_paths": {
+        "apps.safety.crypto.digest": [
+          "apps.safety.views.submit",
+          "apps.safety.crypto.digest"
+        ]
+      }
+    }
+  ],
+  "unresolved_call_sites": 14634,
+  "source_sha256": {
+    "apps/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/catalog/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/catalog/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/catalog/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/catalog/management/commands/import_geography.py": "b3cd769a3a15e0ddf2b0f93ec43a363523d30296e62ccce1329d78dbf4a84b38",
+    "apps/catalog/management/commands/seed_catalog.py": "fd39590bba5ee0b03bbebef8964c5bbfb481de45e5abbd984b28137a787140ca",
+    "apps/catalog/models.py": "f96dedd539aea7b5a844fa8dd9b8364f308c26c92e335d5c7071e4400abe7c38",
+    "apps/catalog/promotion_exposure.py": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+    "apps/catalog/promotion_forms.py": "432de87f3e903ccb2fbdfe1f2a76053f1be27283de64448c5ddabe21a5c06a8e",
+    "apps/catalog/promotion_models.py": "7e714ec43f68e0ef6a8d9efa874f924fdbede3816cfc72f2c31fc1ff5b051824",
+    "apps/catalog/promotion_order_models.py": "a9a1e972125063b52aa6aab16a5651cfaa1310cc193bb9131a76913fa10b3628",
+    "apps/catalog/promotion_order_urls.py": "a368864f7cb61e577d90642ed9a29143a4f98c336bfdc5f7c0f1eaa5bc7a44d3",
+    "apps/catalog/promotion_order_views.py": "da5b0680ce1f6fbf90dcad50bfec2a5bad892402e966a7a00d52ee48e64bc418",
+    "apps/catalog/promotion_orders.py": "223dad9f7083f90c6c9ff853ac6dab30f03fd72336fa7a8b64a89d48d06fb16c",
+    "apps/catalog/promotion_paging.py": "79665c4cd351f668f4f8378ead3ce514b6fdd6491f737e1b6c8294b31913009e",
+    "apps/catalog/promotion_services.py": "a773a17575e59784cd45db9808cd9e6da6fd04e109e355fb48a584e5b9839fc4",
+    "apps/catalog/promotion_urls.py": "5e787a20ffc9a3832172675f9a628d4589b4aa0a7897d52172870ea92bf01cea",
+    "apps/catalog/promotion_views.py": "5c54f34e2ff3cdf88ee27ce8499aa39f10226db60a93db077de00c3be2962114",
+    "apps/catalog/tasks.py": "33e56ddd5584235fb8df2bd29a794c3912d1498faa5d26f9acbdf92c774f5ac7",
+    "apps/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/core/accounts.py": "878021a6788af106ec7105d582a5a27eed0888afce79cbb44be4f546b1a83e73",
+    "apps/core/agencies.py": "a212af9c9d501041cd2f152dbb702af29c3a2a3577f3e9a7ddc516cc809ec5c0",
+    "apps/core/agency_appeals.py": "e56cba54358fd1689a8c6ef99ca9da48378f0f3425ba8060cd28bb1c5c971ac4",
+    "apps/core/apps.py": "0d6d052afd7a4ddd6868a9ebcefc98606b3df8fe42c23dac03376f1441109562",
+    "apps/core/context.py": "3dad264c271941bec680f1e62c9e0dcb121da6d9589d4ed8b127c261047dac39",
+    "apps/core/encryption.py": "de7629a6762b48271c20b669e96069233504377610a3b517e970a6558bc5d47d",
+    "apps/core/encryption_inventory.py": "486ae19a3a9290b0e522fbc55a5d889ceb456df93ef27c88176ba2b19dabdb06",
+    "apps/core/encryption_inventory_registry.py": "820ab1d57d4e6fe73148f5ac5bc6f4d2154feb74c528aa824beca91933c8aa96",
+    "apps/core/legal.py": "1728d7465698566aaf6e7b3bcfda2719e51243492850caeb76469ecd35c1bdbc",
+    "apps/core/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/core/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/core/management/commands/bootstrap.py": "b94f692a2fc7a8c0489d729d52b17724f600533446904f8b9f9a9c01d468ebbe",
+    "apps/core/management/commands/encryption_key_inventory.py": "315ae1b1501aa48d6745a02d4a100edbed32bf5eb889beb6bd6f556c23d8bde6",
+    "apps/core/management/commands/operational_assessment.py": "7884f65d6acd710a931416bc3decf97c22af6de26508ea8544a700f05619777d",
+    "apps/core/management/commands/operational_events_report.py": "2f82e6b7188ec57cf6d08073166c8ca96aafa77c3b453eeee2bc648c74225465",
+    "apps/core/management/commands/operational_snapshot.py": "90c2b22963f2bc47a193ed177f68aa6d1e4ce31cbfdbc02d7f2244b38f9b0e31",
+    "apps/core/management/commands/seed_demo.py": "88eb0ce4244fb88e99e965f95d05d70ba6a8df25cd089cc2cef3baea747a4778",
+    "apps/core/manager_appeals.py": "9c8f60ea1b65b22155fc08e19c12a1d920a8e1356a7b581c9a5d980f51b42151",
+    "apps/core/manager_review.py": "8567f9aa81194aab302608fa4a64aa7e4a19d32fda865df7937dbb129c4b53d5",
+    "apps/core/mfa.py": "6410b1c16ecb79d00ebd6c05d3130fd4d9f8c9cf093089ec64563e82315b3402",
+    "apps/core/middleware.py": "e26f0a7ba9b8561e44f7c83423ca4eb70013ef11890013a227cf6891665045fd",
+    "apps/core/models.py": "e9110dee9a2964512c0e70c603ab04563739d524f733fc5eec04912b160e681c",
+    "apps/core/operational_assessment.py": "ad3a7590dc5c9cf33122a0e368d6e13b92538e8c4b7581e88fd7f500f21c974c",
+    "apps/core/operational_event_handler.py": "cc14e85f038af344ba575d4faaeabcfffd6ee8b3779a4edc402fdbb32f08a061",
+    "apps/core/operational_events.py": "c2b88212433a0d37d78464859d234968b4bbf57651a2e4a636f76a74af682ed4",
+    "apps/core/operational_snapshot.py": "4149a62d95371df5120c6c8f75038ea5e2b1dd827a44759d7c508e01d675b8ad",
+    "apps/core/operational_window.py": "eb3622ed2b2c1fe3e5932c396df8987d470cf79e800884404d7af85443192f62",
+    "apps/core/organization_review.py": "2c5b1c87ed0ffb1520a2ca7af5088aa72a4a45c294c98ebe70dbe116b1d1ddbd",
+    "apps/core/sitemaps.py": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+    "apps/core/urls.py": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+    "apps/core/verification.py": "6d18e5667c5506247864b1f32ad26081887236af1907d0e3b58619b8161ef9d4",
+    "apps/core/verification_services.py": "0bf2e249b04f80ff47a4d998d5de8059e118a02e783574827243397773fdcbc3",
+    "apps/core/views.py": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+    "apps/listings/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/listings/appeals.py": "fb3521ffe4bdcd92d561d38da5c1f4db39f61f810620b1e40a61b96b4ac200ee",
+    "apps/listings/apps.py": "234ee48567f11b8f6ab3eacd038f9ab99b53ad769d97930c8d2217a2faf31877",
+    "apps/listings/discovery.py": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+    "apps/listings/favorites.py": "e4fe5cac54dc2507838457b7fd472e32e4756749b8ed28958e08b1d4234f5429",
+    "apps/listings/forms.py": "33c972773584584c0775d103bdacb1340d17d0927a975a6d7b0255c074adf193",
+    "apps/listings/history.py": "c115ad2abe7a2963b2ee4feff89dd048ef1dbcc9cf349dcf8ffbbf83f4218193",
+    "apps/listings/lifecycle.py": "6656ae04b120c900143b723356bf53b647bc9d1dbf7173e9f2b98d843cceb639",
+    "apps/listings/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/listings/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/listings/management/commands/refresh_publication_state.py": "3b9289001a078c5d7ce6aea3c3a5e613e533ef2243342a750793c00cbe7997a4",
+    "apps/listings/match_review.py": "f1e0cccac75cc8871c87f56871090cd94b3535d0509b1a72c20c72f4e0ff1310",
+    "apps/listings/match_views.py": "5e4cd05700bc4142f2c36bdaf723b11c9eb184e4219231ceef3db65591845083",
+    "apps/listings/models.py": "8cffcfcd1fc35c0c4228a22d2685cc2187a9df8199564a294b68264c51f94937",
+    "apps/listings/moderation.py": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+    "apps/listings/moderation_views.py": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+    "apps/listings/photo_appeals.py": "b8c023aae1cf2ca56a2371b9cc7decd47b8773739d3859be979f8a1ccb58a36f",
+    "apps/listings/photo_restrictions.py": "fade6b3f2670f5ced547820b0b92793b3e7de72220589a2571656f8f9478e461",
+    "apps/listings/presentation.py": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+    "apps/listings/presentation_reads.py": "f6106bf01047504d29c702dcf67aae9a745f264fbbb3126166aa1103637d5642",
+    "apps/listings/profile_contract.py": "5e642d93aad3480e67218c06d6fd767e17d5e61bbede75739e4d70fe4eb577e5",
+    "apps/listings/profile_status.py": "7febb77067637b5811ddb789484fc8f0be2a820353cd6c2a6d119dd90e90c350",
+    "apps/listings/public_validation.py": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+    "apps/listings/publication_signals.py": "e632b9887a9156199bf502d70cd3c038f7e53507b6b24ec70ee582e0060f7c90",
+    "apps/listings/publication_state.py": "282f88e5af3c3f49f618aaf9bf3c5949e0d038f7699bfe6ca79ac880998703c6",
+    "apps/listings/revisions.py": "a7f9cb3ce5387fc6b0a8d0edd835bea3a7748b719a098d17214faee4a6519df3",
+    "apps/listings/search.py": "cb53c5af6287b9667c7c4aa2db87ee30da569f74aed01a0becd66fcbac0f9e54",
+    "apps/listings/seo.py": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+    "apps/listings/submissions.py": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+    "apps/listings/tasks.py": "bd5f71dfd4ac81e5c6a56216d3e1d1475b19821300381d845bf8460e5274f121",
+    "apps/listings/templatetags/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/listings/templatetags/structured_data.py": "d9b010020155b6b3e2a76922bd4973c9c4a095bf1cd0bae028958141c06ab37a",
+    "apps/listings/views.py": "79aeb2fa86fb226fc0b1bb0aa89a9549e683ff628bf34eaed6274b336a5fb8f7",
+    "apps/mediafiles/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/mediafiles/erasure.py": "c2de7f4c096892d04268a4b0ad69c8e00de235949fa7334fb120d30d9ea0483e",
+    "apps/mediafiles/models.py": "3c447459f195b2795b26b8003a0cef82d2bd851db310d8a4aa5474b26efe77b5",
+    "apps/mediafiles/preparation_cleanup.py": "8a7981dd7269e06b5332530a69d5362af505b528a517ab8ffcc0e6fadd64e841",
+    "apps/mediafiles/services.py": "6fd427a388659b0fc2338f00cef4dde39f2d30416552ef967289063e44395bbe",
+    "apps/mediafiles/similarity.py": "2e722818420ec2592bda126bad219a00cd997dc90fb83f17c93bcfe61f1351e1",
+    "apps/mediafiles/tasks.py": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104",
+    "apps/mediafiles/views.py": "3a7e31e28881de89973cccf401e211e9161577af1f15c90e645c406f1390aad2",
+    "apps/safety/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/safety/account_email_confirmation.py": "2ea5e868051f8143afd04df93ffcea849fcfccf5917b50b842e77bfe401467ad",
+    "apps/safety/account_email_views.py": "d56bcdcead4153c69ba440b7944a841294ef3d8ea466c6454b6cbdd5964dcf00",
+    "apps/safety/account_erasure_inventory.py": "c7ae36367b861c9c49be3c97809aea1196702163372b96ff09fd8cd06733e7f5",
+    "apps/safety/broker_message_projection.py": "e8ef48f0f4bf84f81f33fc54bcd2d2f4f99fc3364e496fb548378044f754d6a2",
+    "apps/safety/canonical_kernel_loader.py": "3b341c9b0410d849a2d2c8c0c8b8650e7da7ae10c264d5be3e50c709bc2327b6",
+    "apps/safety/communication_notice_views.py": "a4d0233340467a1c07e9bf9b8ba7190f01e093af274840fa9b0c2f67bcf569c3",
+    "apps/safety/communication_notices.py": "3ce0bc564fd36e5b60fda3aee761fa4e44919826add1e08d2cd791b4b8a5937d",
+    "apps/safety/complaint_actions.py": "6c20eb98cd74876736a70852dd6a0042e269bcc167725e0a88e30692fae1b6be",
+    "apps/safety/complaint_messages.py": "1c5f1288911d1d86bea3ed63b68b917d28e452e314b9a68c5986a6c8946736c1",
+    "apps/safety/complaint_reassessment.py": "65e25c43d736f4b060b1de8a0b12db25a7914018e522a5727cd8732900cf26c8",
+    "apps/safety/complaint_resolutions.py": "bdb38b2ffff9aa014773ade85a5440a416e4232d6d8035d3ebbf120001949c2c",
+    "apps/safety/complaint_scope.py": "d5e1bf61b58009f9a83aa824d3fa2da9bde4448d6385991bd994159b297bf652",
+    "apps/safety/complaints.py": "760bbb105895d26520ba31ea55a4147528dba5674df81de79354eadb26a462e5",
+    "apps/safety/console_mail_projection.py": "a766851c9b683025ca9f0733c4b69ba2122d35204770d6849c7049589260b86d",
+    "apps/safety/copy_error_presentation.py": "3ed2cb819066a9877c0489a94708454c941bddbd4cf3e216a78508f3a0105ec3",
+    "apps/safety/crypto.py": "2470923e43b11e51d1b2b0a40429e7660c3ce208dc40b057adb342182c11271b",
+    "apps/safety/decisions.py": "c97fc7b90a729adbb5eadc81718e10783464f7074c9e63afc2acc0f11084c293",
+    "apps/safety/erasure_execution.py": "01cbf098eb4f0e52d540be5f14270b7880c363b5b0f60a222462722b05d7dc5e",
+    "apps/safety/erasure_final.py": "3c13bfd4f795b7fe8e237d1f678aa7603332d7d268a0ca9835b2090e2e8bffb0",
+    "apps/safety/erasure_final_views.py": "afd7f70dcffea9ed56e43945060aed491cc8fab7f81b7bdeae834a54a8248ef8",
+    "apps/safety/erasure_inventory.py": "564a648af115be55432423bc593367798f656d0592cb70e12f51ab52be97788d",
+    "apps/safety/erasure_plans.py": "82e6766feae32ad464920c6ad1eb4852d9b6d64dac97d7514f64007259afb471",
+    "apps/safety/evidence_chain.py": "b09f85f2d8e320825dc6a6a502a640f1e16d52ff4f4aaeb378448d55b8ec8f48",
+    "apps/safety/evidence_chain_bulk_sql_v1.py": "d8b7cf8d17ad397868b3eaa030626f37e617e00307d49c4fbeb67458c958bbb9",
+    "apps/safety/evidence_chain_models.py": "8a98a7c384cb25c0901ffe6bb7ba470dac4af5251f6bf166c95b2bdc41ec8760",
+    "apps/safety/evidence_chain_sql_v1.py": "6e5035838d31a0e1be34388e630cfe4aec1a278698fa21769a5235a4b6115d20",
+    "apps/safety/fast_canonical.py": "77d627daf429db0e3394cc1ce5c309a44b0f497fca5d5cb5e491ec9ea0ac7989",
+    "apps/safety/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/safety/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "apps/safety/management/commands/apply_recovery_ledger.py": "790af3d8977bf046266d25cc05680897de1f3d5d7b10740420aa464bd06de670",
+    "apps/safety/management/commands/check_recovery_ledger.py": "6337a5522b3dd0864589c800e4cb0bf56f17607ef925d6961dfd294ef74cd68a",
+    "apps/safety/management/commands/clear_recovery_sessions.py": "e4f107c60594d65902ac89f8a5527fd05abac58f99495354c0fce56628373c0c",
+    "apps/safety/management/commands/configure_rights_evidence_role.py": "05ea113926c8bd0fb6b6dbb7e32298ef8a3c224c3765ccad9c47831518e108ce",
+    "apps/safety/management/commands/initialize_rights_runtime.py": "2e0ff08a85e04af365c6d6903e868747ccc6241c450ed0442c9f34c75e33dadd",
+    "apps/safety/management/commands/restore_publication_calendar.py": "648e6fa5bc8e1aea28a73c07ca08bb277ba1125417ff63ad08e17f9bfe0b9676",
+    "apps/safety/media_operations.py": "f37a8ad0b62cbe43685eaf9bcbd9365066748e09c6a6305f7cdd309098cf46ee",
+    "apps/safety/models.py": "e2eb6206cef2ae3be75e10be51acc6bdb56b119762940d008752fd657903bff2",
+    "apps/safety/notice_delivery.py": "bef8bb3aff08b641c18158ac7048f9879870560d8330ba4a923c61254694751c",
+    "apps/safety/notice_operations.py": "3ce2b8f92c55ca51079f8e89be324f04c1edc1941f603498d246a7091a4ac3f7",
+    "apps/safety/notices.py": "54ece51f0f0d8d91562d53831ade4c5ba78e54a58abd828bac796d6b09f111ec",
+    "apps/safety/object_storage/__init__.py": "62f234a2f58f00ce5ea822d97ca6eeea7a423437181c54ef2837addfc369c36b",
+    "apps/safety/object_storage/codec.py": "a90e112c3ba93de403423accdafab97493b4d40500f260ff9f22db5851c33a56",
+    "apps/safety/object_storage/factory.py": "e16953d93ab2c966f0ac3eb3b8a8c860cb88fd3bdea40bba9eeedddf133b1385",
+    "apps/safety/object_storage/read_clients.py": "b77e045aaae3e732575331db9433f6dc67d3324465d1bc9e3275e76fdc02a1a3",
+    "apps/safety/object_storage/repository.py": "f3b4186923ace223055c254981fcfe16383074cba3e8e009915b893f22a005d2",
+    "apps/safety/photo_dispositions.py": "1e57763d4c28c12d50166594c54f34541e0cd0c4b29bb6c36df2c814b9f0472f",
+    "apps/safety/photo_reintroduction.py": "01e49a9ccee66717502479cb264f18ec3d6be906384593ecdd88481168cb8c2b",
+    "apps/safety/photo_reintroduction_review.py": "b53cd0fb945d92ea8f05a8848fc7b422dbd94960505b97a493798c6397249a15",
+    "apps/safety/photo_reintroduction_views.py": "a523d7aa79fb430e446d4ab90053b8cd8231db533649033d9688e6937b0a5e4a",
+    "apps/safety/privacy_holds.py": "8d1a5b7ed71a704b9ce61e206f09e1721572db031832075d77e05ce0796ea4ae",
+    "apps/safety/privacy_release.py": "cf8f7ee8511bbdc5ccfdc0e1a8c42f8ba8dd084838faad1b7fa921eff05c47dd",
+    "apps/safety/processing_execution.py": "c97e7ef19c0036b8d9aa8f26280a805cd81b555b1d95e83b2a4e68d10c640cce",
+    "apps/safety/processing_final.py": "8ae8c099162e94cbe707e8dede5ad70af83a75057e6722b650af931ad876450c",
+    "apps/safety/processing_final_views.py": "7fa128ed5cc04ad4af015ea323125de70ef7c2d316c411a219deb7462ee24733",
+    "apps/safety/processing_plans.py": "05127519cd941b188ad92d12058fe02be093c363766e74ec38cc1ae9893c8c18",
+    "apps/safety/processing_review.py": "0fa174b582dafefcb7c34bad11bd9b44af85747d9ec342fa824fc05b199c6866",
+    "apps/safety/processing_views.py": "aa70459c23fadb3046f7767806db22cfad85f72e06473ad2b874f2e010ffcd72",
+    "apps/safety/promotion_order_inventory.py": "001af8c8ad3c9847253906836224495375a48d9e4cd05db78ec1c14aca3cdb61",
+    "apps/safety/publication_calendar_queue.py": "c000b5b987aae0ca52f7d6e0aa102bdd7d81360046304ba870c1648340ae3d25",
+    "apps/safety/publication_calendar_upgrade.py": "e9e30dc6546603b262b7842c044c92da17659ced0b6bdf12fe06dad428c936aa",
+    "apps/safety/publication_purpose_calendar.py": "4255a8c6f917f9835278ad81a1397b9672fc2623e2ca2d69d91b947beea5bd67",
+    "apps/safety/publication_purpose_release.py": "4b150363f0ab1776a448e761e78d050896e0a6f95d99aeef8e1dce62e4feb8a8",
+    "apps/safety/publication_purpose_views.py": "eedd9267799eedd55c1b653c734aa00a103353498747549c584f7474ddad9a45",
+    "apps/safety/purpose_calendar.py": "b5f97eaaf04316540596eb8586b01464fb2ebaf222d5bbb4f5bbf748e4ce7abf",
+    "apps/safety/purpose_calendar_views.py": "dbdaec06b21af8850d4df973fc68918623660bcf57ad8e0de75ffff955ef64f1",
+    "apps/safety/purpose_exception_views.py": "b52ada460abe7835be4be4a379fb494cb9a43250094b8c08fefb182ef7e21358",
+    "apps/safety/purpose_exceptions.py": "2c3010604c82d35257aaa623f75884d27215308fe17d59594310a7179ba767d6",
+    "apps/safety/purpose_release.py": "320f20f80cc86c7a8002169d0bf06efe8b928f4e4dcf2ff2324d20c515d9c895",
+    "apps/safety/purpose_release_views.py": "61fd71c1186c5feada4498518d60bc2f3f61fafa0f3c6d388bb0034e20d0acb4",
+    "apps/safety/purpose_restrictions.py": "f6116b2da1e124a33d69edaf0aaf7720874b5604a91106ffa81e356670a0b00b",
+    "apps/safety/recipient_assessment_views.py": "7e159d5e95aca63ad9adc27c7c79eac964e175773c6f5958b997ab8e5e0a72e4",
+    "apps/safety/recipient_assessments.py": "6248362fe2f8e3df3bf3d64a336ef9d2ae2ba21f5391e7dcb75815efa9323b61",
+    "apps/safety/recipient_candidates.py": "ce16c6301199e1642ac5122a3ca3c050e21ef23b38b89307ab939cdb6a7af834",
+    "apps/safety/recipient_review.py": "926064fd5d7533848d8844ccf8a9d6c1a73b20ee05b3096d3e607c511fe30eb9",
+    "apps/safety/recipient_review_views.py": "66b103d913a16ca8246d6a6890a75a996778b707dc44eaa7a2857ff1c86b438c",
+    "apps/safety/recovery_apply.py": "3fd43c29fc9a7542326ca2d8916c867c6efbaadd7c6050815f0c9849bcb980ff",
+    "apps/safety/recovery_effects.py": "2ca6bfb9e73356d51d96413f146e42355dfccc4417e7b30bb1766b2363025a97",
+    "apps/safety/recovery_ledger_export.py": "598c79aae9456b190e22371152ffa0fba4099eddef6b022d8fa27d8ac93b6d31",
+    "apps/safety/recovery_ledger_producer.py": "fd2d01ade56007ddd14acc6ed76e236495831baba404e40a5b6d7ed574ebbbba",
+    "apps/safety/recovery_media.py": "887f41699420b6323b6f923e8b4c8150612dc7f02b3d72c52cee727e190ab2ca",
+    "apps/safety/recovery_ownership.py": "44d0afb6b4dbc1f91ccbf4c571602558121c018894bd1986144237f5a4ed64a9",
+    "apps/safety/rectification_account.py": "96717a22242ba8b9fc9cff265628aec0b71e56f35e8424a2b62d25e300b424ea",
+    "apps/safety/rectification_catalog.py": "2c1ed3e36c320b769859ba0f7584b19165cd69dbcfb5527f86d0017ddd9af7e2",
+    "apps/safety/rectification_contacts.py": "ccd1f09e17756b0fa2370dd6b9d2d3b62a3c99dab46f77cdc228f9beb4c9be7d",
+    "apps/safety/rectification_details.py": "938bacbb2774374865259add34ef35e32655111ff9fb5c43e83aaf5bb72baf6f",
+    "apps/safety/rectification_execution.py": "140a56b8cb2a9a3126b448fe5acc49b2750bbb4a5c399c8d17c86c90a5a070d4",
+    "apps/safety/rectification_final.py": "10bd1c70f69546372194e18bad3cd8b275adf0bec4d51f4489c746f9cc7d54e7",
+    "apps/safety/rectification_final_views.py": "bda1851dd16ef78003d5add520dd95c84b3b6ee99e89463be5a82a094f2ca7cf",
+    "apps/safety/rectification_location.py": "5296a4a8698511662c23cf6adf784f6134f1c272d3ea91043416a35cb92df83f",
+    "apps/safety/rectification_notices.py": "865cefcde89882df9c2caa2d66b18997d1fc417b7c8e26b71f5a807b2472813b",
+    "apps/safety/rectification_photos.py": "798a8483f9e5959ef7b8f8c213ebced422953af69200266e6ee6e26e28a10df4",
+    "apps/safety/rectification_presentation.py": "601c2d1d6e192cb7279c69a0f57e8725e99baef6da88b02a74e4aa620d5ae13d",
+    "apps/safety/rectification_rates.py": "4649f3fb6f44e04b7daae8ea0147b7ebf3eff422196f39fb46940113a6fc018b",
+    "apps/safety/rectification_recipients.py": "8c9d5290ef7da57af79dc33c24cfbc7fecbf93ac3e2eed81ac97651265e69449",
+    "apps/safety/rectification_review.py": "1239c961f56252c40b3286ac74f3c8b34a4d861f522b96c8d96bed6d2031d20f",
+    "apps/safety/rectification_uploads.py": "20ca53215a2c056d483f30155e8c6dd2dd5af8c229f41e97aae73183505430b0",
+    "apps/safety/redis_history_scope.py": "5933aa4c7cfc4ddc1e6ba80efda49cf9e9573fa65d9b29a1bb3324036dc63f03",
+    "apps/safety/redis_result_projection.py": "571e807009416ba1cfa7d2b31f7777cacebb49ad8a837f0366c53574651f0993",
+    "apps/safety/redis_retained_history.py": "226f10d2af40066c28a6298192d9efdd1d8d3ea02755aba216f227958665b961",
+    "apps/safety/retained_log_origins.py": "fa7d29a2c2e209f8b7cf4ad97d1689287314a63089ec18fed9be7d3e07d4a102",
+    "apps/safety/retained_rdb_physical_metadata.py": "c9cab8c6c589bcd1a13fa6b39f3deec32e6112128100cc50fa975c4ad25b61e0",
+    "apps/safety/retained_redis_metadata.py": "6d22ddbd9fcc03d53db87bb7cd6b93eb4a546f00bec0091aef9f35e15af778f5",
+    "apps/safety/retained_redis_origins.py": "dea008c15e96d8d1aeb3121a8132852f142243ee6b724e71f29790f62e71c044",
+    "apps/safety/retention_calendar.py": "96b6f2518bf78fb89e9d1b2e0e94b7ae587cb545efdbd795d4c8049aeb094f33",
+    "apps/safety/retention_reviews.py": "cbc69acd23a9280f48d6a19c4a8b0c557191fdefb72a1fd256fefbcffa57027c",
+    "apps/safety/retention_views.py": "c6f55ba536878e1de899823f53934498e6a15c21c80267a7905b918ae760b9f9",
+    "apps/safety/rights.py": "57e18fd49e92106cb060c24fb7de432b7f4fb875889a5621ce57c95a5522b72b",
+    "apps/safety/rights_access_close.py": "fe97ee944f7ed470529868b9837b6a6fefd303557c06594a5d603e29bbb2e7a2",
+    "apps/safety/rights_access_close_views.py": "7c99fa5bb21a54b03e7f9e05eb8d807fc0808bb0359b28a8159a8a78e9fffea4",
+    "apps/safety/rights_access_coverage.py": "c3d545ea2f71e2b5a7e1ee7f802b58f96f98cb6042d06a9109406700e023a4a1",
+    "apps/safety/rights_access_coverage_review.py": "fc1be0ce4bbcfe4ea17d14a6c56cb438474db6410f382c7bd4ed552ec8cd9f0f",
+    "apps/safety/rights_access_coverage_review_views.py": "046f6eb697a07f55ce4161cca363c497067da8ac485b1145ffff0d2c5eeec85c",
+    "apps/safety/rights_access_coverage_store.py": "fe17c4b25fbb787adfbbf88d7abb3ae42646dfe8a9e698acf7f52ec8c36959f3",
+    "apps/safety/rights_access_coverage_use.py": "a21eb6199543b42b21e81a9ab49bd281036a8ebf3ac2c3b5e8a836c946e22b47",
+    "apps/safety/rights_access_delivery.py": "ec17bb43b52fa27e54dcc91151db88dfa941ba332d6b37ce015ce82d69506611",
+    "apps/safety/rights_access_evidence_refs.py": "c7dbc8dad65409804acb03007e2d674d2f1d7cf14e7687d8b1c39c6580d508af",
+    "apps/safety/rights_access_field_decision.py": "94e74723964707cf7616d3d87936291efe3bbac3ebb28a8b0ce62fb4174b7016",
+    "apps/safety/rights_access_field_decision_views.py": "55805836d5d3cbc6e45c5fc2cec04c73f574fc07ece8fc4957954434e3e3dc9a",
+    "apps/safety/rights_access_field_read.py": "2340e9d8cccfcaca644abdd894ae7f67a2ebef18973cded0bad4c1bf83d146d0",
+    "apps/safety/rights_access_reference_bodies.py": "413de8382a0e0b32b4786939a6b18c1a1b63407f8279ad5cec6192126e02969f",
+    "apps/safety/rights_access_response_draft.py": "86c39de17f930c8886f356027433b4533bc51894eed5a7d9ef2fe22a28656e1a",
+    "apps/safety/rights_access_response_evidence.py": "94fe45ed18a48ed2e89da0e605faf15af10915f54fd1b72b4b31b245124cae74",
+    "apps/safety/rights_access_response_review.py": "de1194933f3dca4dc2a92fd4c883fd65da4836c2402cbb1f6d2e74e5fda30e22",
+    "apps/safety/rights_access_response_views.py": "adbbb321570d68edc8fece62802741e0b24fc9e38dfd90d67f09f07b2f637160",
+    "apps/safety/rights_access_scope_inventory.py": "56761a6a4bb28ddfe0e77c4c005a9aa8af7c372a97d16da9bc04661cfd1d54b5",
+    "apps/safety/rights_access_scope_store.py": "1a9dc751c105113037f8bfa392aa5d8f2cb47044b6515590371a2531816ca6d1",
+    "apps/safety/rights_access_scope_views.py": "1bdfd0b5ef483852f8ac53d7ff9cdcc68331c3f728a99bf0a15c32ff4a6d9208",
+    "apps/safety/rights_access_supplement.py": "f583661957a61b9633853ed29019d64ca62e5e7980d9b82a57c44fb976e33631",
+    "apps/safety/rights_access_supplement_views.py": "7504f20b032e569a9f564758715163192542a9445521005f3001f0bf5a7e8299",
+    "apps/safety/rights_account_copy.py": "9d48d5bdea52912a6ec3d3a0641c965b37e97120d7106036adfec0b3b53e03dc",
+    "apps/safety/rights_actions.py": "7f6f277db9ba4aaeb4e2de861e7aaa955da57a7596e531423fa40c1f80cd8d4b",
+    "apps/safety/rights_communication_views.py": "97e886f5196d5d5d3a9ab4257922e7b5be4457a168ba592651ee57f5d2353115",
+    "apps/safety/rights_communications.py": "e66ad8c7b4b879c8b0de56a27c364698016eeb7a6da48baf4aa919c1c34f6cd8",
+    "apps/safety/rights_copy_data.py": "196cdf0e714d8e41a956337d5d3740f6cb263e9963d94f208a65020e07ff8d35",
+    "apps/safety/rights_copy_information.py": "82b10e1c4924cb3d2276364d62fb594d9bc8f8170e1342372888af077a3ea0ec",
+    "apps/safety/rights_copy_information_views.py": "26174f829a7c821439598bfbe769a78a6209b85e08b1fb833a48845d445c47c9",
+    "apps/safety/rights_copy_inspection.py": "64d880931cafe7e0d0c94d1dfdeace9cad0f24ad41e1e168c0ccb7e22c820bc4",
+    "apps/safety/rights_copy_page_review.py": "8d046a0c15c517c1772bbf678dee5ca2d2ba204be0d110aed228cb00b1fae4f9",
+    "apps/safety/rights_copy_parts.py": "1abf86e7a0acaae3fa2d6f79ff7e59e4a84d15a9a07b78237598d82b0efcfd7b",
+    "apps/safety/rights_copy_revision_batches.py": "9d80c9278488fa7b62226f7571821297e43639268543a1ccd0af41704dc5301a",
+    "apps/safety/rights_data_parts.py": "e1265c83473b9dc3fe414967822f31962bcbb7b5793e36d1f62826a2cd6584c9",
+    "apps/safety/rights_evidence_inventory.py": "8a993637839915d6ffaf3e2b17d99b8bdf64fe9639d8d2de082cba6e92aa67ae",
+    "apps/safety/rights_exports.py": "d27a87483caccbdb19be10b6be06ed75ac5a7c438f501af6b4cb36cbebd4c151",
+    "apps/safety/rights_final_response.py": "8d889a2ae088e658fccb689fc1a22f9c2d5b4c04d17812a2ab4724c2a346577d",
+    "apps/safety/rights_information_export.py": "6a9b471db3f5d5f106887991342ccc50df756b54c961cf24d687a4eb4ae805f3",
+    "apps/safety/rights_information_policy.py": "4bb6e4950148e3833cd22704a6407895a125102f24e6024128f87e57af14eb27",
+    "apps/safety/rights_information_review.py": "a4c52db27cbf44eca0915c795fde4547842752fc54b2d44fa1230398682c2186",
+    "apps/safety/rights_information_review_views.py": "8574704b3c2dc08e4b0c025a52ada9a2c24971b0f659050faef0174ea362a6a7",
+    "apps/safety/rights_inspection_source.py": "de70a8b2c237f1a4a691e1e4300783516af64c918025b3f7551d33afa6117764",
+    "apps/safety/rights_notice_inventory.py": "948b843bd525940595fefbf5e6ee93711354cbdedf72a8a92c37b519821b3f14",
+    "apps/safety/rights_object_content.py": "39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+    "apps/safety/rights_object_delivery.py": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+    "apps/safety/rights_object_models.py": "4cea4e52ab76743cca61ab16f91922bc023b095b603ef9213af0dda206834ae5",
+    "apps/safety/rights_object_urls.py": "0d0d00ed8b67836b73cad11c5910ff81b3c13649a15c6c42c3c2289a674b853e",
+    "apps/safety/rights_object_views.py": "c0f1b7ac49f48936a1d8263c85e45fb9e6f151040a4b9d1b140dc7ae43a119ea",
+    "apps/safety/rights_operation_content_digests.py": "3a6bb808b2e1f3374dcd0cd5129fd19020031a736f7b1cf7f4d50d8be09cfced",
+    "apps/safety/rights_operation_fingerprints.py": "527bd0dcb5f5dcbb5bbf5405e2a562113a1b9614e661fe8f6770f295eb220ef3",
+    "apps/safety/rights_portability.py": "2c4e8681b7aabe89c830ef675761459a0e9b91c6a20d326f338b3b21c02f70c9",
+    "apps/safety/rights_portability_batch_projection.py": "7682d581a0eb01c06e3ea23f141d3996535ac4841793a5723f2074c710f31916",
+    "apps/safety/rights_portability_catalog.py": "3200c5b55e5b05b4723c9a1b7e82a83bcd5de759b1859e79760e8256bbf5febd",
+    "apps/safety/rights_portability_close.py": "d9d0e6f50813aa030bb435faee832b00144aa73f137d1ec2cec3618a894670d1",
+    "apps/safety/rights_portability_coverage.py": "f232494fb5dc838b5f33a86617de5c8ea00f8b27852d05c26b190678ab6d2960",
+    "apps/safety/rights_portability_coverage_batch.py": "c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd",
+    "apps/safety/rights_portability_coverage_evidence.py": "11436a0410c5a547b94a52c9e23f61729269dedabc69a776c4e7e2a80b8c3105",
+    "apps/safety/rights_portability_coverage_images.py": "2efdbb714bbfd5ef389eca98e59d5651491d3949bbb58d5d1c4291c7d49e006e",
+    "apps/safety/rights_portability_coverage_inspection.py": "5b56adae4b46076d27c6635120097bef0770a198025263809cff83cf75a37771",
+    "apps/safety/rights_portability_coverage_page.py": "be0641ff39513ff901c99e92362928659f210ffb7da4b09bb7d2283ef2d558e0",
+    "apps/safety/rights_portability_coverage_pages.py": "e8899878596246e07eb22ddbb0d8e802c5231e2251782565c5ce44eee058ce97",
+    "apps/safety/rights_portability_coverage_read_gate.py": "02047b4d1e7669aeb0db0f789eae0557fac88abee911219197bc0ccdd929ffa2",
+    "apps/safety/rights_portability_coverage_review.py": "042ba708776a5fa003e0a99ad398868ccd459444f017edd112cbc89660a608ea",
+    "apps/safety/rights_portability_coverage_review_views.py": "1ac66680c4c1f2ce3164b5db8153e3b49369543fc614fc57026b8bec400ad3b9",
+    "apps/safety/rights_portability_coverage_store.py": "e48d04a18d1447829f568a678a6afc1ff08ee4403181a9b34814b609467c3870",
+    "apps/safety/rights_portability_coverage_use.py": "64c20636811d9317cbd27234e53f87c2074e1cdc4495d8624f188077ee34f29d",
+    "apps/safety/rights_portability_coverage_views.py": "4a9ec96dabeb1302e6e8f433fadf9a046ee1c7e36ae05bf00d5e779eefb7b7b7",
+    "apps/safety/rights_portability_covered_export.py": "562336fa4a1c83b7bb495ccc4baefcb036665f12c7e1b5bf080451bae952c994",
+    "apps/safety/rights_portability_export.py": "d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15",
+    "apps/safety/rights_portability_export_views.py": "ac6d6b4e5a6cab7e74e9cf10f8dae2476c7e3963b13610f70f4a630c80afc127",
+    "apps/safety/rights_portability_image_read.py": "6c1eeaa84a4d263e597407dddd14f83dae1969bbc7486bec9bf509b6a1981bd8",
+    "apps/safety/rights_portability_image_selection.py": "8cd98c7bdfa634366a7bd22a38a2dfdf5fb954918bc86fa425243eb80de2ce82",
+    "apps/safety/rights_portability_image_views.py": "4b4e3b247ab88bc2880e4999977e16b907dffbc3c74d61f13ec7678bfd08e12c",
+    "apps/safety/rights_portability_images.py": "e34e31e465eb5ae5a0dfe3c329a0656e55ba53bd712532a21f25a82453bff336",
+    "apps/safety/rights_portability_job_inventory.py": "79c7a2e08f5babcc875417bce0ef70de7353f4aaabe1b2c763e8f1861520c406",
+    "apps/safety/rights_portability_jobs.py": "81224ce3f37c06b27dbce6037b0705033be5ae7f4dccc11b840b1da7a007f9fa",
+    "apps/safety/rights_portability_page_selection.py": "794c9ef5ecf5bdf8b969ea742bf4b7421b21c357e6f4a910111fb928aa5a76c4",
+    "apps/safety/rights_portability_paths.py": "3209b0dc76b5d82c8a697ff0b9edc97c29e0f77f296abc27231093f2ac8198b4",
+    "apps/safety/rights_portability_prepare_selection_views.py": "2554efbf63a80deac6493fcc77f85140962a610a2c27d99ce0f91ddfe7f540aa",
+    "apps/safety/rights_portability_reset_selection.py": "3cc7e5f2b36bce533b34f7bbdcb2e7383c68bd5727de9021b393db8edcfc36a1",
+    "apps/safety/rights_portability_response_draft.py": "202a91e246dc17789de5ad7886ef20d07492b6079854914f2299baf9e45ea1d3",
+    "apps/safety/rights_portability_response_evidence.py": "37230f7f2c17ede91810355b6165e259439e4b66e7f015a2e98cd5ee251ca0d0",
+    "apps/safety/rights_portability_response_review.py": "e0016dfc0420f2a1c2f8482371620b76e537cc4f8ada76bd08333617d04ad136",
+    "apps/safety/rights_portability_response_views.py": "aa59310e74e6057fa62655210d3ef17dda07a92c552305a6de41ae7924fd2c08",
+    "apps/safety/rights_portability_review.py": "a9f372eecf1918d21d519a2facc2b9ad2028df92b32707e04a5614942a1f1955",
+    "apps/safety/rights_portability_review_views.py": "7e0623da957f272bb10612013d7627a915dd8f1008b540f189dd8a4ab7255c4a",
+    "apps/safety/rights_portability_selected_use.py": "0f2c8d1ce43889c2c9241e5a71e95012a4b8f2172c10b53e9390607f5089d674",
+    "apps/safety/rights_portability_selection.py": "35417512597ed8539e5773ad84b8702913afd249673201511271705745a5961d",
+    "apps/safety/rights_portability_selection_pages.py": "4f1fc62b8ad53f85b1681a5e0ee12003f0dcf998c1f133cd7377eb75c18b23cb",
+    "apps/safety/rights_portability_selection_review.py": "9dfd1e5c55bb9c094b4af2a853d79441ae8c51f012f6f8e2348a6d4feb38bcf2",
+    "apps/safety/rights_portability_selection_store.py": "047e62680b84f8eee54400467e1c4c0f823f97e2bcc5bf45b0dc833a8b156ded",
+    "apps/safety/rights_portability_selection_views.py": "9d75cd688c12bbc13784afd1b1ce0d26b2f7932bfe840d8da84fb2d9e061f3a9",
+    "apps/safety/rights_portability_use.py": "0c9196798350b092608e1e3d4905808faf0be764e9b63a0c128857ceab97ca82",
+    "apps/safety/rights_portability_views.py": "e14c35cc7ebe40d4ea575759a9abdff8b63171067abf47d12c8af72e0d4c6b79",
+    "apps/safety/rights_prompts.py": "8581bbae7f9f8a0b862ca6c3b8b5404a0b4666714dacfa972524a03ae0e4859f",
+    "apps/safety/rights_rectification.py": "e48dbe0ba02a6690a56dd9bbcba4849be800eb8e7af9e997240e99594ebd0684",
+    "apps/safety/rights_response_text.py": "c4878f295eeb1bedda71e1019ff08159d09e22a5b008575f8bf35179df0ab6ee",
+    "apps/safety/rights_responses.py": "071c06d02e546056808a2a60fe750cec95b8d2285f850ee63c176e8c6ece78f8",
+    "apps/safety/rights_scope.py": "739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+    "apps/safety/rights_source_fingerprint.py": "8acb68dde539be69dbe06f6e8e6a60bc2e6e115fc0e98e49df325144226fdb3f",
+    "apps/safety/rights_validation_seal.py": "636c435d4532bdfa7809a47ae36929ae3aa67c13d997039f90b81e1af251a2b0",
+    "apps/safety/rights_verification.py": "a4dac22bdef79a8b3f2dca6328c1d432b6c18cbccf5abab7dbec1a1e10b69b34",
+    "apps/safety/tasks.py": "cb407b93166ecf53a98d5d093864343acaab61c2c2bce167b6370377fe6765d0",
+    "apps/safety/urgent_alerts.py": "ccac06980b06b9eed8091058de291c4f542f81e0c72649401491ba87911e2703",
+    "apps/safety/urls.py": "f9956a8fc68c53a8a5aafb638ee2ddc81b5a8faf275c35015b73d3222c3d04b0",
+    "apps/safety/views.py": "4c2a2c38095049a7993a91863e9cafd8298ae0a22bddd9e994421ded489a0e8b"
+  },
+  "complete_transitive_coverage": false,
+  "retirement_authorized": false,
+  "unmeasured": [
+    "dynamic dispatch, callbacks, assigned aliases and reflection",
+    "framework internals, module initializers and external packages",
+    "runtime branch reachability and persisted historical values",
+    "consumer-specific revocation, revalidation and retention classification"
+  ]
+}

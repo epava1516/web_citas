@@ -1,0 +1,32 @@
+{
+  "result": "PASS_PRODUCT_WITNESS_REUSE",
+  "witnesses": [
+    {
+      "run_id": "20261020-100815-26b3c0f2",
+      "proof_file": "docs/evidencias/b08-snapshot-common-terminal-audit-20261020.json",
+      "proof_sha256": "537c0ec5eb62b2cdb64a37f0b2ad575137aac67d95f2b6d6c7791bf87243eb4a",
+      "all_product_sources_equal": true,
+      "selected_test_sources_equal": true,
+      "scope": "Historical audited witness retained for unchanged product and original test selection; new instruments not covered"
+    },
+    {
+      "run_id": "20261020-101809-cf28f74a",
+      "proof_file": "docs/evidencias/b08-snapshot1000-10000-audit-20261020.json",
+      "proof_sha256": "5172417778a40903e54247be1c719dbb1be6021643ee7cc0a13960a2ac9ecc7a",
+      "all_product_sources_equal": true,
+      "selected_test_sources_equal": true,
+      "scope": "Historical audited witness retained for unchanged product and original test selection; new instruments not covered"
+    }
+  ],
+  "product_sources": 623,
+  "product_source_set_sha256": "be7cb59793446619ff4b18d4575b73052b9e9047951cc83d6ff00cc8aadef4f9",
+  "phase1_sql_reference_sha256": "3663de3391f2ba93c8aaa1fc4168039ec7547d06acd8a0cc41294b167fd2ba38",
+  "inherited_sql_function_ast_equal": true,
+  "live_entitlements_module_equal_to_phase1": true,
+  "diagnostic_instrument_equal_to_original": true,
+  "limits": [
+    "Runner and independent instruments have changed; this is not a complete regression verdict for them",
+    "New plans/TCP instruments require their own executions",
+    "No beta or capacity acceptance"
+  ]
+}

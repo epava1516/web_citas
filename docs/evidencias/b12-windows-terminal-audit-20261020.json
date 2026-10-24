@@ -1,0 +1,39 @@
+{
+  "result": "PASS_SCOPED_OBSERVED_WINDOWS_NOT_B12_ACCEPTANCE",
+  "run_id": "20261020-235519-c96ad4c1",
+  "passed": 20,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 60.607,
+  "by_module": {
+    "test_operational_events": 5,
+    "test_operational_snapshot": 6,
+    "test_operational_window": 9
+  },
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "terminal_telegram_sent": true,
+  "changed_existing_product_sources": [],
+  "added_product_sources": [
+    "apps/core/management/commands/operational_events_report.py",
+    "apps/core/operational_window.py"
+  ],
+  "witnesses": [
+    "Nine window cases: real bounded writer output and command; fixed vocab, half-open bounds, gap markers without false cumulative sum, no health/coverage assertion, malformed/private inputs, actual byte/line limits and nonblocking FIFO rejection",
+    "Five existing events cases including owned actual Celery worker and HTTP state/fallback parity",
+    "Six snapshot cases against PostgreSQL"
+  ],
+  "limits": [
+    "File aggregation is observed-only, no completeness/deduplication or worker-health proof",
+    "No continuous receiver/rotation runtime, snapshot cost/cadence or operational thresholds/runbook acceptance",
+    "No new capacity TCP; B12 remains open"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261020-235519-c96ad4c1/result.json": "0df497cf6d352c446483fb1aeab6ce53ab27a8315171eba1c1c7584de8295b94",
+    "artifacts/local-ci/20261020-235519-c96ad4c1/source-hashes.json": "3e67355cab5b83ac57ad7b80ec30eddc83b12a8c2e0b3bcc63f423f3acc9fb2f",
+    "artifacts/local-ci/20261020-235519-c96ad4c1/pytest.xml": "f686cbf5b37a72e8cf825be093fdd7d7700a4f92fd45f158a609c1b9888de2f0",
+    "artifacts/local-ci/20261020-235519-c96ad4c1/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

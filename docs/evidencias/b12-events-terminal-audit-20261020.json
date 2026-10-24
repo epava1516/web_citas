@@ -1,0 +1,46 @@
+{
+  "result": "PASS_SCOPED_EVENTS_AND_REGRESSION_NOT_B12_ACCEPTANCE",
+  "run_id": "20261020-230352-2b173502",
+  "passed": 40,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 73.778,
+  "by_module": {
+    "test_operational_events": 5,
+    "test_operational_snapshot": 6,
+    "test_recovery_task_gate": 2,
+    "test_private_logging": 27
+  },
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "terminal_telegram_sent": true,
+  "changed_existing_product_sources": [
+    "compose.yaml",
+    "config/celery.py",
+    "config/settings.py"
+  ],
+  "added_product_sources": [
+    "apps/core/operational_events.py"
+  ],
+  "witnesses": [
+    "Real owned Celery poolsolo retry/failure/success against PostgreSQL/Redis",
+    "Actual HTTP state/fallback preserves ordered IDs and count",
+    "Actual worker and Beat recovery gates",
+    "Six snapshot cases repeated under new configuration",
+    "27existing private logging checks"
+  ],
+  "limits": [
+    "Task worker probe is synthetic, not external delivery or prefork process-loss recovery",
+    "No verified deployed Docker log rotation or hard storage ceiling",
+    "No measured logger sink latency/cost, alert thresholds or transport health",
+    "Events are best effort, not durable accounting; B12 remains open"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261020-230352-2b173502/result.json": "b6b3f523a0d6ddb0ca40ae2cdf2a68d3a78b5a37d33fd59e1ebf0cba9c85c250",
+    "artifacts/local-ci/20261020-230352-2b173502/source-hashes.json": "e9797d58cd6b796da80094167f61edcccb331affb47cc5fe74999173c8290b8a",
+    "artifacts/local-ci/20261020-230352-2b173502/pytest.xml": "cddb13985367615866882b7237d1a77ee30796aa7f03d91b2d98aad1bb255d24",
+    "artifacts/local-ci/20261020-230352-2b173502/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

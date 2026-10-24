@@ -1,0 +1,120 @@
+{
+  "result": "VERIFIED_NATIVE_PREPARATION_CONTRAST",
+  "decision": "REJECTED_GATE",
+  "run": "20261021-174846-0b37a4f5",
+  "cases": 4,
+  "junit_seconds": 391.91999999999996,
+  "records": [
+    {
+      "run": "20261021-174846-0b37a4f5",
+      "arm": "original",
+      "repeat": 0,
+      "wall": 81.67286199703813,
+      "cpu": 44.279147612,
+      "query_count": 30213,
+      "domain_counts": {
+        "published": 1000,
+        "paid_orders": 200,
+        "orders": 200,
+        "rights": 200,
+        "attempts": 200,
+        "events": 200,
+        "audits": 400
+      },
+      "scope": "Post-bootstrap native preparation and refresh, 1000 profiles/200 rights; ABBA repeats share host/cache; no provider, HTTP, capacity or adoption; SQL counter overhead unmeasured, repeated fresh cohort IDs/times vary."
+    },
+    {
+      "run": "20261021-174846-0b37a4f5",
+      "arm": "candidate",
+      "repeat": 0,
+      "wall": 83.36024487763643,
+      "cpu": 43.159178551,
+      "query_count": 30213,
+      "domain_counts": {
+        "published": 1000,
+        "paid_orders": 200,
+        "orders": 200,
+        "rights": 200,
+        "attempts": 200,
+        "events": 200,
+        "audits": 400
+      },
+      "scope": "Post-bootstrap native preparation and refresh, 1000 profiles/200 rights; ABBA repeats share host/cache; no provider, HTTP, capacity or adoption; SQL counter overhead unmeasured, repeated fresh cohort IDs/times vary."
+    },
+    {
+      "run": "20261021-174846-0b37a4f5",
+      "arm": "candidate",
+      "repeat": 1,
+      "wall": 85.33303818106651,
+      "cpu": 44.31764699300001,
+      "query_count": 30213,
+      "domain_counts": {
+        "published": 1000,
+        "paid_orders": 200,
+        "orders": 200,
+        "rights": 200,
+        "attempts": 200,
+        "events": 200,
+        "audits": 400
+      },
+      "scope": "Post-bootstrap native preparation and refresh, 1000 profiles/200 rights; ABBA repeats share host/cache; no provider, HTTP, capacity or adoption; SQL counter overhead unmeasured, repeated fresh cohort IDs/times vary."
+    },
+    {
+      "run": "20261021-174846-0b37a4f5",
+      "arm": "original",
+      "repeat": 1,
+      "wall": 88.730618853122,
+      "cpu": 47.032896792,
+      "query_count": 30213,
+      "domain_counts": {
+        "published": 1000,
+        "paid_orders": 200,
+        "orders": 200,
+        "rights": 200,
+        "attempts": 200,
+        "events": 200,
+        "audits": 400
+      },
+      "scope": "Post-bootstrap native preparation and refresh, 1000 profiles/200 rights; ABBA repeats share host/cache; no provider, HTTP, capacity or adoption; SQL counter overhead unmeasured, repeated fresh cohort IDs/times vary."
+    }
+  ],
+  "medians": {
+    "original": {
+      "wall": 85.20174042508006,
+      "cpu": 45.656022202
+    },
+    "candidate": {
+      "wall": 84.34664152935147,
+      "cpu": 43.738412772000004
+    }
+  },
+  "dispersion": {
+    "original": {
+      "wall": 0.08283582965408935,
+      "cpu": 0.06031513581749067
+    },
+    "candidate": {
+      "wall": 0.023389115057338417,
+      "cpu": 0.026486293593663064
+    }
+  },
+  "reduction": {
+    "wall": 0.010036167001547303,
+    "cpu": 0.04200123746032336
+  },
+  "query_parity": true,
+  "domain_counts_verified": true,
+  "stable": true,
+  "gain_gate": false,
+  "eligible": false,
+  "fresh_source_cleanup_pids_telegram_verified": true,
+  "initial_lint_failure_preserved": true,
+  "candidate_adopted": false,
+  "capacity_accepted": false,
+  "artifact_hashes": {
+    "history-preparation-original-0.json": "a714911697a3f121614c1400d1871df6d81d1668d962250470c7ecbfeb6294cf",
+    "history-preparation-candidate-0.json": "618b3717331a2ffd84aab206a69384cfcd59b2c84c77b69033a9ad887f74755c",
+    "history-preparation-candidate-1.json": "5a80050609de1da1222aa5f4bf85c542781c8a91b0896e586edca3b411efcb2d",
+    "history-preparation-original-1.json": "ec9b9b53d2d027b96e67d23419e971500d01159f948f49aed57f77c3f2509bb1"
+  }
+}

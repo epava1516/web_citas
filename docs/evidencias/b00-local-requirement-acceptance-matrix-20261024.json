@@ -1,0 +1,65 @@
+{
+  "result": "PASS_LOCAL_B00_REQUIREMENT_ACCEPTANCE",
+  "B00_accepted": true,
+  "requirements": [
+    {
+      "id": "B00-R1",
+      "criterion": "Available captured corpus reviewed with provenance and access limits",
+      "evidence": "docs/evidencias/b00-current-source-review-ledger-20261023.json",
+      "limit": "295captured dispositions, no live remote census or missing linked original bodies",
+      "status": "PASS_SCOPED_LOCAL",
+      "roadmap_line": 204,
+      "literal_requirement_context": "**B00 — Reconciliar fuentes y decisiones. Prioridad P0, habilitante.** Conservar la revisión integral de Open Notebook ya acordada como pendiente explícito; no se declara realizada. Antes de cambiar producto, cruzar sus hallazgos disponibles con contrato, DAFO y fuentes actuales. Si el corpus no es accesible, registrar la limitación y avanzar sólo sobre decisiones explícitas y fuentes verificables, sin afirmar auditoría completa. Corregir imprecisiones del grafo en una capa identificada, sin alterar evidencias originales ni confundir extracción AST con semántica completa."
+    },
+    {
+      "id": "B00-R2",
+      "criterion": "Cross findings with current contract/DAFO/decisions/code/evidence",
+      "evidence": "docs/300-matriz-final-conciliacion-b00-20261024.md",
+      "limit": "No commercial/provider/legal or global current runtime acceptance",
+      "status": "PASS_SCOPED_LOCAL",
+      "roadmap_line": 204,
+      "literal_requirement_context": "**B00 — Reconciliar fuentes y decisiones. Prioridad P0, habilitante.** Conservar la revisión integral de Open Notebook ya acordada como pendiente explícito; no se declara realizada. Antes de cambiar producto, cruzar sus hallazgos disponibles con contrato, DAFO y fuentes actuales. Si el corpus no es accesible, registrar la limitación y avanzar sólo sobre decisiones explícitas y fuentes verificables, sin afirmar auditoría completa. Corregir imprecisiones del grafo en una capa identificada, sin alterar evidencias originales ni confundir extracción AST con semántica completa."
+    },
+    {
+      "id": "B00-R3",
+      "criterion": "Identified graph corrections and current affected sources verified",
+      "evidence": "graphify-out/GRAPH_VERIFICATION.json",
+      "limit": "Targeted AST/doc semantics; not global extractor correctness",
+      "status": "PASS_SCOPED_LOCAL",
+      "roadmap_line": 204,
+      "literal_requirement_context": "**B00 — Reconciliar fuentes y decisiones. Prioridad P0, habilitante.** Conservar la revisión integral de Open Notebook ya acordada como pendiente explícito; no se declara realizada. Antes de cambiar producto, cruzar sus hallazgos disponibles con contrato, DAFO y fuentes actuales. Si el corpus no es accesible, registrar la limitación y avanzar sólo sobre decisiones explícitas y fuentes verificables, sin afirmar auditoría completa. Corregir imprecisiones del grafo en una capa identificada, sin alterar evidencias originales ni confundir extracción AST con semántica completa."
+    },
+    {
+      "id": "B00-R4",
+      "criterion": "All eleven adaptation rows have decision/current/target/files/migration/criterion",
+      "evidence": "docs/evidencias/b00-final-adaptation-matrix-20261024.json",
+      "limit": "B16common candidate and scope of historical witnesses retained",
+      "status": "PASS_SCOPED_LOCAL",
+      "roadmap_line": 212,
+      "literal_requirement_context": "**Salida:** matriz con decisión, estado actual, comportamiento objetivo, archivos afectados, migración y criterio de aceptación. No borrar datos o modelos por simplificación visual. Para cada asunto sin decidir, indicar si bloquea su implementación o puede quedar fuera de beta."
+    },
+    {
+      "id": "B00-R5",
+      "criterion": "Every open decision states implementation blocking versus beta exclusion",
+      "evidence": "docs/300-matriz-final-conciliacion-b00-20261024.md",
+      "limit": "B15optional; G01–G08real opening remains pending",
+      "status": "PASS_SCOPED_LOCAL",
+      "roadmap_line": 212,
+      "literal_requirement_context": "**Salida:** matriz con decisión, estado actual, comportamiento objetivo, archivos afectados, migración y criterio de aceptación. No borrar datos o modelos por simplificación visual. Para cada asunto sin decidir, indicar si bloquea su implementación o puede quedar fuera de beta."
+    }
+  ],
+  "corrective_regression": "docs/evidencias/b00-coverage-authority-regression-20261024.json",
+  "acta": "docs/actas/17-beta-b00-aceptacion-local-20261024.md",
+  "ledger_source_dispositions": 295,
+  "beta_global_accepted": false,
+  "production_accepted": false,
+  "whole_corpus_reviewed": false,
+  "whole_corpus_scope_flag_preserved": true,
+  "graph_sha256": "86effdacb238026868f368893a5027e70fd84d34b056863a52a07ebae3171a6a",
+  "semantic_cut": 396,
+  "regression_passed": 25,
+  "roadmap_sha256": "dec24cf5d2cee8b85ab9416e87d39acc31a8716356c4dac220b05323a1915646",
+  "acceptance_scope": "Local captured source and decision reconciliation, with explicit unavailable originals/remote and production gaps; not full beta or N3",
+  "ledger_before_sha256": "4bcf6d33e29b899e7ac07d28f03e87d6fc884aa2e354320bdf25dc794abc0cd9",
+  "ledger_after_sha256": "18a52b1180230daa950f0de2877df5818aa916c657e33df986c4fa769a557a59"
+}

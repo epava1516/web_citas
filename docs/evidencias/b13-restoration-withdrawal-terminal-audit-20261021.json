@@ -1,0 +1,49 @@
+{
+  "result": "PASS_LOCAL_SCOPED",
+  "run_id": "20261021-041741-ed5d7449",
+  "passed": 32,
+  "failed": 0,
+  "skipped": 0,
+  "workers": 4,
+  "junit_seconds": 111.253,
+  "real_restore_witnesses": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+      "class": "tests.test_recovery_pg_restore",
+      "retained_key_transition": "False",
+      "encrypted": "False"
+    },
+    {
+      "name": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+      "class": "tests.test_promotion_recovery",
+      "retained_key_transition": "True",
+      "encrypted": "True"
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+      "class": "tests.test_recovery_pg_restore",
+      "retained_key_transition": "True",
+      "encrypted": "False"
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+      "class": "tests.test_recovery_pg_restore",
+      "retained_key_transition": "False",
+      "encrypted": "True"
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+      "class": "tests.test_recovery_pg_restore",
+      "retained_key_transition": "True",
+      "encrypted": "True"
+    }
+  ],
+  "urgent_es_en": 2,
+  "fresh_sources_cleanup_and_terminal_telegram": true,
+  "changed_existing_product": [
+    "apps/safety/management/commands/apply_recovery_ledger.py"
+  ],
+  "B13_accepted": false,
+  "closed_roadmap_points": 7,
+  "total_roadmap_points": 18
+}

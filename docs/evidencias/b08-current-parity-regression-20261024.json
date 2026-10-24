@@ -1,0 +1,36 @@
+{
+  "result": "VERIFIED_10_PASS_SCOPED",
+  "run": "20261024-050815-461b26b4",
+  "cases": 10,
+  "source_hashes_verified": 1711,
+  "case_names": [
+    "test_sponsored_rotation_preserves_filtered_public_pagination",
+    "test_inherited_read_committed_does_not_reuse_a_rights_map",
+    "test_all_pages_match_frozen_native_with_overlapping_rights",
+    "test_snapshot_map_does_not_survive_next_request",
+    "test_positive_checked_filter_with_promotions_and_delayed_refresh[es]",
+    "test_positive_checked_filter_with_promotions_and_delayed_refresh[en]",
+    "test_inherited_read_committed_full_frozen_parity",
+    "test_commercial_revocation_is_fresh_in_sql_and_batch[individual]",
+    "test_commercial_revocation_is_fresh_in_sql_and_batch[owner]",
+    "test_commercial_revocation_is_fresh_in_sql_and_batch[editor]"
+  ],
+  "inherited_reference_properties": {
+    "frozen_native_comparisons": "[{'day': 0, 'language': 'es', 'params': {}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 0, 'language': 'en', 'params': {}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'es', 'params': {}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'en', 'params': {}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}]",
+    "inherited_read_committed_requests": "32"
+  },
+  "junit_seconds": 286.126,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifacts_sha256": {
+    "result.json": "dafc5dcafd8d061367a2613a0cc36108e716386a18562e46dbeabe06fc97632d",
+    "source-hashes.json": "8d84466c6e9a7c72e8fb8421699e0b753e1f3f24df3092cd048953fac9254be5",
+    "pytest.xml": "8e652c96f61fac67cb3b131218a6857df0891410f9a8af4a89227766ede88029",
+    "runner.json": "b697e8319ac88fa588d13ab0e72390bc4333fee6e6a76c3fc63425fbb38c72bb",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "Functional PostgreSQL regression, not TCP capacity",
+    "B08 acceptance pending natural fallback reconciliation"
+  ]
+}

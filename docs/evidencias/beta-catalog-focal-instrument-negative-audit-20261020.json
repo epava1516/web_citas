@@ -1,0 +1,31 @@
+{
+  "result": "PASS_NEGATIVE_REPRODUCTION_AUDIT_NOT_FUNCTIONAL_ACCEPTANCE",
+  "run_id": "20261020-183249-592bd6b5",
+  "passed": 51,
+  "failed": 1,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_delta_only_submissions": true,
+  "fresh_cleanup_verified": true,
+  "notification_receipt": "1792521360482456893-2097895.json",
+  "failures": [
+    {
+      "nodeid": "tests/test_native_submission_relation_reads.py::test_native_validation_still_observes_catalog_change_after_initialization[services]",
+      "when": "call",
+      "outcome": "failed",
+      "duration": 0.862718709744513,
+      "longrepr": "[gw1] linux -- Python 3.12.15 /home/felidae/proyectos/web_modelos_mod08_vps/.venv/bin/python\ntests/test_native_submission_relation_reads.py:83: in test_native_validation_still_observes_catalog_change_after_initialization\n    assert observed == [True]\nE   assert [True, True] == [True]\nE     \nE     Left contains one more item: True\nE     Use -v to get more diff"
+    }
+  ],
+  "evidence_sha256": {
+    "result.json": "661ef6ace6aaa00fc18dd57a3c18dac26feac85e832cde5eb3febaa20b39ddcc",
+    "runner.json": "49e50ff38da49f00daf1c00897da187f9210eb9e0b2758f5f7add42d64c6c6e5",
+    "source-hashes.json": "826cbc52e61081c37d61bd28a6352b60491adbc64a0b6d424dbdd47d89394125",
+    "pytest.xml": "c4c6a2fda862a317e5e7f35ab981734dfaf97885d47b86d36d079c23813a8763",
+    "pytest-reports.jsonl": "777cde0545fc31072c972dd4213b2dd160e110fea4d754fec6cd2a3c4c6150fe",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  },
+  "scope": "Catalogue rejects both mutations; services case fails instrumentation count after a second form constructed by refresh side effect. Preserve raw negative; no functional acceptance."
+}

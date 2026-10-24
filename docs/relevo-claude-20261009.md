@@ -1,5 +1,9 @@
 # Relevo técnico local — 2026-10-09
 
+## Precedencia del relevo posterior — 2026-10-24
+
+Las afirmaciones de pausa y dirección MOD07 que siguen pertenecen al corte del 2026-10-09. El relevo posterior autorizado en AGENTS establece la continuación local por Codex de MOD08; esta página no pausa su objetivo activo ni restablece dirección exclusiva anterior. Estado y próxima acción: [seguimiento17](17-seguimiento-desarrollo.md), bajo el [contrato vigente](16-contrato-ejecucion-desarrollo.md). Se conservan los commits, fallos, resultados y límites originales; su presencia aquí no acredita procesos vivos o verificaciones actuales.
+
 **Actualización MOD-07 vigente:** por aclaración posterior del usuario, Claude continúa directamente como agente principal con lectura/escritura/herramientas/pruebas/commits e integración/aceptación local. No limitar su goal a propuestas. Codex sigue pausado; reglas vigentes en AGENTS y docs16§15. Las secciones de incompatibilidad/autorización no adoptada inferiores describen el corte previo. No se modifica el adaptador V1 ni el contrato externo; se registra excepción local de autoridad para el agente principal. [Prompt actualizado](prompt-relevo-claude-20261009.md).
 
 Goal **pausado** por orden del usuario. No se avanzó a otro bloque ni se invocó a Claude. El inventario de Docker/redes/systemd y procesos confirma ausencia de verificaciones propias vivas y de recursos de sus runs; servicios normales intactos. No se ha publicado, hecho push, contratado, usado datos reales ni reescrito historia.

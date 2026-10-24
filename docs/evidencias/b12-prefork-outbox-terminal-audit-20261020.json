@@ -1,0 +1,45 @@
+{
+  "result": "PASS_SCOPED_PREFORK_OUTBOX_RECOVERY_NOT_B12_ACCEPTANCE",
+  "run_id": "20261020-234058-4b2f9db3",
+  "passed": 8,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 111.857,
+  "by_module": {
+    "test_notice_worker_recovery": 1,
+    "test_operational_event_handler": 7
+  },
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "observed_owned_prefork_pids_absent": [
+    4166112,
+    4166196,
+    4166198
+  ],
+  "terminal_telegram_sent": true,
+  "changed_existing_product_sources": [],
+  "added_product_sources": [],
+  "witnesses": [
+    "Actual domain complaint/resolution creates one queued notice",
+    "Actual delivery task in owned prefork2 worker fails once into durable retry with no simulated receipt",
+    "Snapshot scheduled1/due0 and immediate task processed0",
+    "Natural60second backoff without clock/DB timestamp edits",
+    "Recovery attempts2/simulated/cleared error and unique receipt; subsequent task processed0",
+    "Four actual task_result succeeded body events distinguish retry delivery count",
+    "Seven transport cases repeat under owned-prefork integration selection"
+  ],
+  "limits": [
+    "Local simulator is not external provider delivery",
+    "Manual task dispatch is not Beat scheduling or crash recovery",
+    "No normal cost/RSS, rotation runtime, receiver windows or thresholds acceptance",
+    "B12 remains open; no new TCP capacity"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261020-234058-4b2f9db3/result.json": "1feb93a713e46af21e86fab0e25feb788c762b03328fa52739b7c23118d8e938",
+    "artifacts/local-ci/20261020-234058-4b2f9db3/source-hashes.json": "2f4352c7b80d16beb5c39c4b48235740df32c0661efb0d7b2f7f3aab4a6c2fe0",
+    "artifacts/local-ci/20261020-234058-4b2f9db3/pytest.xml": "254216728a4dac45e893911f373fb22e7ade8b873053c8aa92d819fad2b35933",
+    "artifacts/local-ci/20261020-234058-4b2f9db3/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

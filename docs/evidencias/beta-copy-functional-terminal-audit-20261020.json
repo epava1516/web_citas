@@ -1,0 +1,60 @@
+{
+  "run_id": "20261020-130446-378a1c88",
+  "phase": "copy-functional",
+  "result": "PASS",
+  "audit_time": "2026-10-20T13:07:02.467840+00:00",
+  "scope": "Two-template romantic copy/unused home delta; existing account/SEO/browser regression only",
+  "passed": 17,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/test_accounts.py",
+    "tests/test_public_seo.py",
+    "tests/test_browser_accounts.py::test_real_browser_account_flow"
+  ],
+  "pytest_seconds": 78.06627022009343,
+  "junit_seconds": 76.175,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "3ee42e6027c3bd154bc94c7939cf65336896ab516d7c8d33c482a8df7d6145c6",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792501594226363191-4185203.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "feffdc0b636fc78981528bb8de42c6b0efc51f5580d22e3dd9dc68244bd8a5e3",
+    "runner.json": "575599aab11ff90f0c7a80e72add6e34f45007f9920713d85eca5b7a66b3e940",
+    "source-hashes.json": "88775e592745a2fc0964005686e63a53195adee923ba1a8f7b6f2a35304c68d3",
+    "pytest.xml": "85598ace9f9578769443d85b2bb99cd9ea240b97aa4d1a207139735fbe99c18c",
+    "pytest-reports.jsonl": "cf0646693ebafa80cd926b7934298445df38b8e9b27bf8360e1a7b38fc402102",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "nodeids": [
+    "tests/test_accounts.py::test_concurrent_signup_email_unicity",
+    "tests/test_accounts.py::test_concurrent_token_consumption",
+    "tests/test_accounts.py::test_csrf_throttle_and_token_headers",
+    "tests/test_accounts.py::test_email_delivery_failure_generic_response",
+    "tests/test_accounts.py::test_existing_email_and_recovery_do_not_enumerate",
+    "tests/test_accounts.py::test_resend_invalidates_older_token",
+    "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+    "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+    "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation",
+    "tests/test_accounts.py::test_token_invalid_after_email_or_password_change",
+    "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+    "tests/test_browser_accounts.py::test_real_browser_account_flow[en]",
+    "tests/test_browser_accounts.py::test_real_browser_account_flow[es]",
+    "tests/test_public_seo.py::test_browser_metadata_navigation_and_retirement",
+    "tests/test_public_seo.py::test_only_available_listing_languages_are_indexable_and_pending_content_excluded",
+    "tests/test_public_seo.py::test_public_metadata_localization_filters_privacy_and_origin[en]",
+    "tests/test_public_seo.py::test_public_metadata_localization_filters_privacy_and_origin[es]"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

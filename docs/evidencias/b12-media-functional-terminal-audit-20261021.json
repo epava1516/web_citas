@@ -1,0 +1,30 @@
+{
+  "result": "PASS_FUNCTIONAL_MEDIA_SUPERVISION_NOT_B12_ACCEPTANCE",
+  "run_id": "20261021-012300-9149ce62",
+  "passed": 42,
+  "workers": 4,
+  "junit_seconds": 132.868,
+  "by_module": {
+    "test_operational_assessment": 8,
+    "test_operational_snapshot": 8,
+    "test_operational_window": 9,
+    "test_media_erasure": 5,
+    "test_preparation_cleanup": 11,
+    "test_notice_worker_recovery": 1
+  },
+  "fresh_source_and_cleanup_checks": true,
+  "owned_pytest_group_absent": true,
+  "owned_probe_commandline_absent": true,
+  "prefork_live_identities_not_captured": true,
+  "terminal_telegram_sent": true,
+  "changed_product_sources": [
+    "apps/core/operational_assessment.py",
+    "apps/core/operational_snapshot.py"
+  ],
+  "source_hashes_sha256": "6532ec54bb0a1cfd7465fd5d962ebda76e71ceb8016c23215c80f2ba0e2ebfe4",
+  "limits": [
+    "Real local filesystem tests with injected storage failure; eligibility advanced by fixture, not natural physical retry timing",
+    "Durable queue counters are not universal storage absence proof",
+    "No external provider/deployment or B12 acceptance"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "run_id": "20261020-090243-86dbf0ae",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "154.803",
+      "timestamp": "2026-10-20T11:03:03.505390+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261020-090243-86dbf0ae": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261020-090243-86dbf0ae": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "notification": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "cause": "Attribution asserted 84 ranked calls, but 28 organic requests use state_page and never call ranked; actual count56. Existing twelve diagnostic scenarios completed before assertion. No product change.",
+  "evidence_sha256": {
+    "result.json": "209e458f22cd8ff88eaabad7b2f5248e53bbbff3d6756a62ecefc51f4a5318ad",
+    "pytest.xml": "ae713b6bacd50874f2a0aa29417d2e000f0cef39bf9e3afc9dede48204fa932b",
+    "pytest-reports.jsonl": "7e67b90ecc3f9c6dc7ee26dc3d15fea5f8f86aba994c8a77496b52a44b29baad",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c",
+    "beta-read-diagnostic-100.json": "c9ba2beeeedc6af26cab5195d407227d7c92d5cf664ab2b212125f51cd1c3ecb"
+  }
+}

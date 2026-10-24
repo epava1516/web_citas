@@ -1,0 +1,49 @@
+{
+  "result": "PASS_SCOPED_ASSESSMENT_AND_LOCAL_SAMPLER_BUDGET",
+  "run_id": "20261021-003401-3523ed4d",
+  "passed": 26,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 142.568,
+  "by_module": {
+    "test_operational_assessment": 8,
+    "test_operational_snapshot": 7,
+    "beta_snapshot_cost_diagnostic": 1,
+    "test_notice_worker_recovery": 1,
+    "test_operational_window": 9
+  },
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "terminal_telegram_sent": true,
+  "changed_existing_product_sources": [
+    "apps/core/management/commands/operational_events_report.py",
+    "apps/core/operational_snapshot.py",
+    "apps/core/operational_window.py"
+  ],
+  "added_product_sources": [
+    "apps/core/management/commands/operational_assessment.py",
+    "apps/core/operational_assessment.py"
+  ],
+  "sampler_p95_budget_seconds": 1.0,
+  "sampler_budget_met": true,
+  "runbook_witnesses": [
+    "Actual prefork2/PG/Redis outbox failure and natural60second recovery with unique local simulated receipt; body succeeded distinct from delivery retry",
+    "Fixture-controlled300second publication lag detected and actual worker task clears dirty queue; no manual mark deletion",
+    "Fresh post-recovery windows retain unknown health/unverified coverage"
+  ],
+  "limits": [
+    "Not provider delivery or universal health/coverage",
+    "No automatic alert delivery/scheduler or real on-call assignment",
+    "No public capacity acceptance; B12 completion audit remains separate"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261021-003401-3523ed4d/result.json": "a257d3dea1a3f6ff3e671317c00e7c70272c89b559d10c30d67fcb6a2145ae51",
+    "artifacts/local-ci/20261021-003401-3523ed4d/source-hashes.json": "fde2ae057988571565de1d73e1080aedcb3ec394b9dfc6776a4d3cbd05b36e61",
+    "artifacts/local-ci/20261021-003401-3523ed4d/pytest.xml": "426a3f64d31464a8ec7a975bf3b5f365f6c25899bcacd664c2f6368a3dd9738e",
+    "artifacts/local-ci/20261021-003401-3523ed4d/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed",
+    "artifacts/local-ci/20261021-003401-3523ed4d/snapshot-cost.json": "d437b0ce0bbcc8574dda79961a2663edcb51b05bf9ebe78ec5d646a62aa8218d",
+    "artifacts/local-ci/20261021-003401-3523ed4d/assessment-outbox-runbook.json": "4be53256e9255022ef9ea7a43fa97e702d6c23331ae739c3fe8112cdf7c70224"
+  }
+}

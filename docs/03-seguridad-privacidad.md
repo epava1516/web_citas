@@ -24,7 +24,7 @@ Suplantación, publicación sin autorización, presencia de menores, explotació
 
 ## Controles de seguridad adicionales para el lanzamiento
 
-Evaluación del 2026-10-03. Propuestas pendientes de implementación y validación. La detección de duplicados no sustituye estos controles.
+Evaluación inicial del 2026-10-03. La tabla conserva propuestas y evidencias requeridas en ese corte; no es un inventario actualizado de controles pendientes. El estado de implementación y aceptación se consulta en seguimiento17 y matriz88. La detección de duplicados no sustituye estos controles.
 
 | ID | Riesgo | Control propuesto | Evidencia requerida |
 | --- | --- | --- | --- |
@@ -69,7 +69,7 @@ No exponer PostgreSQL, Redis, cola ni paneles de métricas. No montar el socket 
 
 Priorizar pruebas de autorización entre agencias, recuperación, cambios de titularidad, subidas, publicación concurrente, cachés privadas, retirada y restauración. Revisión independiente de seguridad propuesta antes de producción por sensibilidad del dominio; alcance y presupuesto pendientes. Un escaneo automático no acredita por sí solo seguridad.
 
-Ningún control figura implementado. Convertir esta matriz en criterios verificables de aceptación, con responsable y evidencia al desarrollar.
+En el corte inicial del 2026-10-03 esta matriz no registraba controles implementados. Esa ausencia histórica no describe la implementación actual. Para cada control deben contrastarse el requisito, su alcance y la evidencia de aceptación en seguimiento17 y matriz88; no se acredita seguridad global por esta aclaración.
 
 Fuentes técnicas oficiales consultadas:
 

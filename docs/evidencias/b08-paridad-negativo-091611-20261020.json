@@ -1,0 +1,43 @@
+{
+  "run_id": "20261020-091611-52a7dcfe",
+  "result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "9",
+      "time": "112.278",
+      "timestamp": "2026-10-20T11:16:30.643320+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261020-091611-52a7dcfe": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261020-091611-52a7dcfe": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "notification": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "cause": "Frozen reference runpy loader omitted package context; relative import fails before comparison. Eight other cases passed, including diagnostic100 and three fresh role revocations. Correct loader run_name without changing frozen bytes or product.",
+  "evidence_sha256": {
+    "result.json": "0a9af00228eb0ab4357538261df5255e5406dd29b5a082cc2261e3582eaaf77b",
+    "pytest.xml": "5bb03247f0664ee8e0573ea29e4c17ba419723909dabdb14b3055875e666bcce",
+    "source-hashes.json": "691b81496e99dffe0b744a81b357bf29bfab183c5776cb15e018991d1879c5e3",
+    "pytest-reports.jsonl": "4c8f475c806f0bce54d3abec987cad525c94ccbb3088cbcd37a0b992f82effe5",
+    "beta-read-diagnostic-100.json": "8b8f835659586a82b3300a79e50deff9e451a316473327bc1987709b1e38b477",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  }
+}

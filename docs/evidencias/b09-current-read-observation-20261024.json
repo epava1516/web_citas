@@ -1,0 +1,34 @@
+{
+  "result": "VERIFIED_CURRENT_READ_OBSERVATION",
+  "run": "20261024-070525-bd417543",
+  "cases": 3,
+  "junit_seconds": 86.19600000000001,
+  "source_hashes_verified": 1717,
+  "observation": {
+    "actual_http_reads": 2,
+    "fallback_reads": 1,
+    "fallback_fraction_observed": 0.5,
+    "dirty_limit": 1000,
+    "durable_mark_count": 1001,
+    "oldest_age_seconds": 240.204317,
+    "snapshot_scope": "durable_database_work_only",
+    "window_scope": "observed_input_only",
+    "coverage": "unverified",
+    "health": "unknown",
+    "limits": "Synthetic orphan backlog, observed input only; not full traffic, broker, worker repair or production health"
+  },
+  "product_same_as_gallery_regression": 630,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifacts_sha256": {
+    "result.json": "ea42570a76144a027586d105ae4b333d6b192b71867f4192a44dbeeded2047bf",
+    "source-hashes.json": "08f81378bea42c2a37f021564f9fdda1054908ccaeb15faa85faf84c1adc7ef3",
+    "pytest.xml": "36e6a663bdffafa238aab8988e396cee52c4f8283ea543af915bb4c3322d84a2",
+    "runner.json": "486e06f9e95d89434469d2524008ee909b3903a60541c0bbc4b3aa75bcc81bec",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "Controlled synthetic orphan backlog and exactly two observed HTTP reads, not a production fallback rate",
+    "No broker/worker/repair or complete traffic coverage claimed"
+  ]
+}

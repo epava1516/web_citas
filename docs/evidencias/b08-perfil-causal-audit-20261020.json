@@ -1,0 +1,50 @@
+{
+  "run_id": "20261020-090757-4a9d1275",
+  "result": "PASS_ATTRIBUTION_AUDIT",
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "notification_receipt": "1792487457234782884-2736571.json",
+  "attribution": {
+    "result": "ATTRIBUTION_COMPLETE",
+    "run_id": "20261020-090757-4a9d1275",
+    "count": 100,
+    "requests": 84,
+    "stats": {
+      "population_context": {
+        "calls": 84,
+        "inclusive_seconds": 10.619982465170324,
+        "exclusive_sql_calls": 1484
+      },
+      "ranked": {
+        "calls": 56,
+        "inclusive_seconds": 77.50467382650822,
+        "exclusive_sql_calls": 56
+      },
+      "eligible": {
+        "calls": 1092,
+        "inclusive_seconds": 76.44002332910895,
+        "exclusive_sql_calls": 1092
+      },
+      "can_manage_person": {
+        "calls": 1092,
+        "inclusive_seconds": 4.343211286701262,
+        "exclusive_sql_calls": 1092
+      },
+      "publicly_visible": {
+        "calls": 1092,
+        "inclusive_seconds": 69.9170793350786,
+        "exclusive_sql_calls": 16380
+      }
+    },
+    "limits": "Inclusive wall times overlap and include instrumentation; do not add or compare to clean latency. SQL counts attributed exclusively to innermost observed function. No raw SQL/parameters retained."
+  },
+  "evidence_sha256": {
+    "result.json": "35e66e516492ab68fc750918a8e1cd894e50b6e0cdef2781b56978235af33e1b",
+    "pytest.xml": "97e6758bd702f7959d96e69006e7850003dc6aaaa01e2bcd069623aec99d9aee",
+    "pytest-reports.jsonl": "a7aa4d05dcb76b39f0035864ac41d745b968f54e9ae2d3d96ba762f3873bbaa9",
+    "source-hashes.json": "c746bd9b35c4178807e92528df1cc5872e0ab815d5bd15fc92f9ae0024cdb624",
+    "beta-promotion-attribution.json": "391012198d43d4bbe73dce8a3b6e40e218169e0b2bfd148df34212111d4ec410",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

@@ -1,0 +1,1998 @@
+{
+  "run_id": "20261020-221617-820d771a",
+  "result": "PASS_FINITE_EXPERIMENT_INTEGRITY",
+  "candidate_eligible": false,
+  "passed": 1,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "notification_receipt": "1792535569604552652-3633213.json",
+  "product_unchanged_since_label_parity": true,
+  "experiment": {
+    "run_id": "20261020-221617-820d771a",
+    "result": "EXPERIMENT_COMPLETE",
+    "count": 10000,
+    "rights": 2000,
+    "source_sha256": {
+      "ranking": "79665c4cd351f668f4f8378ead3ce514b6fdd6491f737e1b6c8294b31913009e",
+      "page": "282f88e5af3c3f49f618aaf9bf3c5949e0d038f7699bfe6ca79ac880998703c6"
+    },
+    "candidate_sha256": "94e6551329d339f48bfc1a932af8dd0b2fb381dcaf700af569c56ba6c3a1cd30",
+    "records": [
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3531507970765233,
+            "thread_cpu_seconds": 0.21122320599999966
+          },
+          {
+            "wall_seconds": 0.3842408126220107,
+            "thread_cpu_seconds": 0.18904743800004553
+          },
+          {
+            "wall_seconds": 0.21976096834987402,
+            "thread_cpu_seconds": 0.1207241129999943
+          }
+        ],
+        "backend_cpu_seconds": 0.324447626,
+        "backend_wait_seconds": 0.038809417,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3722489,
+          "user_ticks": 15,
+          "system_ticks": 8,
+          "start_ticks": 425609896,
+          "monotonic": 4256099.850386785,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 167,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3722489,
+          "user_ticks": 15,
+          "system_ticks": 8,
+          "start_ticks": 425609896,
+          "monotonic": 4256099.850574065,
+          "runtime_ns": 245723828,
+          "wait_ns": 13850608
+        },
+        "after": {
+          "pid": 3722489,
+          "user_ticks": 43,
+          "system_ticks": 13,
+          "start_ticks": 425609896,
+          "monotonic": 4256100.808283854,
+          "runtime_ns": 570171454,
+          "wait_ns": 52660025
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.382973357103765,
+            "thread_cpu_seconds": 0.201650098000016
+          },
+          {
+            "wall_seconds": 0.5305838324129581,
+            "thread_cpu_seconds": 0.32776513800001794
+          },
+          {
+            "wall_seconds": 0.4493934605270624,
+            "thread_cpu_seconds": 0.2324546109999801
+          }
+        ],
+        "backend_cpu_seconds": 0.469832604,
+        "backend_wait_seconds": 0.03713383,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3722739,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425610081,
+          "monotonic": 4256101.323419117,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 168,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3722739,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425610081,
+          "monotonic": 4256101.323644004,
+          "runtime_ns": 189989421,
+          "wait_ns": 18311209
+        },
+        "after": {
+          "pid": 3722739,
+          "user_ticks": 50,
+          "system_ticks": 15,
+          "start_ticks": 425610081,
+          "monotonic": 4256102.687329908,
+          "runtime_ns": 659822025,
+          "wait_ns": 55445039
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 0,
+        "order": "ABC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3757402142509818,
+            "thread_cpu_seconds": 0.18926032100000612
+          },
+          {
+            "wall_seconds": 0.2608942147344351,
+            "thread_cpu_seconds": 0.13878072699998256
+          },
+          {
+            "wall_seconds": 0.35496208164840937,
+            "thread_cpu_seconds": 0.1749229909999599
+          }
+        ],
+        "backend_cpu_seconds": 0.388498167,
+        "backend_wait_seconds": 0.049572714,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3722941,
+          "user_ticks": 14,
+          "system_ticks": 12,
+          "start_ticks": 425610269,
+          "monotonic": 4256103.339114997,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 169,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3722941,
+          "user_ticks": 14,
+          "system_ticks": 12,
+          "start_ticks": 425610269,
+          "monotonic": 4256103.339570474,
+          "runtime_ns": 270962993,
+          "wait_ns": 7688112
+        },
+        "after": {
+          "pid": 3722941,
+          "user_ticks": 47,
+          "system_ticks": 18,
+          "start_ticks": 425610269,
+          "monotonic": 4256104.33172445,
+          "runtime_ns": 659461160,
+          "wait_ns": 57260826
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.4195538954809308,
+            "thread_cpu_seconds": 0.24050002799998538
+          },
+          {
+            "wall_seconds": 0.3606023211032152,
+            "thread_cpu_seconds": 0.19344183399999793
+          },
+          {
+            "wall_seconds": 0.3007156113162637,
+            "thread_cpu_seconds": 0.14658496099997365
+          }
+        ],
+        "backend_cpu_seconds": 0.413891608,
+        "backend_wait_seconds": 0.02369034,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723137,
+          "user_ticks": 9,
+          "system_ticks": 5,
+          "start_ticks": 425610434,
+          "monotonic": 4256104.71494293,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 170,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723137,
+          "user_ticks": 9,
+          "system_ticks": 5,
+          "start_ticks": 425610434,
+          "monotonic": 4256104.715150256,
+          "runtime_ns": 150869142,
+          "wait_ns": 6285465
+        },
+        "after": {
+          "pid": 3723137,
+          "user_ticks": 44,
+          "system_ticks": 12,
+          "start_ticks": 425610434,
+          "monotonic": 4256105.796559413,
+          "runtime_ns": 564760750,
+          "wait_ns": 29975805
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.263571142219007,
+            "thread_cpu_seconds": 0.13971557200000007
+          },
+          {
+            "wall_seconds": 0.5543614346534014,
+            "thread_cpu_seconds": 0.35544956000001093
+          },
+          {
+            "wall_seconds": 0.3994361683726311,
+            "thread_cpu_seconds": 0.22527551700000004
+          }
+        ],
+        "backend_cpu_seconds": 0.346644211,
+        "backend_wait_seconds": 0.051702296,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723340,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 425610580,
+          "monotonic": 4256106.260766133,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 172,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723340,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 425610580,
+          "monotonic": 4256106.261050762,
+          "runtime_ns": 158105344,
+          "wait_ns": 28232846
+        },
+        "after": {
+          "pid": 3723340,
+          "user_ticks": 39,
+          "system_ticks": 10,
+          "start_ticks": 425610580,
+          "monotonic": 4256107.479065326,
+          "runtime_ns": 504749555,
+          "wait_ns": 79935142
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 1,
+        "order": "ACB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.3160469699651003,
+            "thread_cpu_seconds": 0.1547972820000041
+          },
+          {
+            "wall_seconds": 0.36221437342464924,
+            "thread_cpu_seconds": 0.18811718500001007
+          },
+          {
+            "wall_seconds": 0.25384684279561043,
+            "thread_cpu_seconds": 0.12939906900004416
+          }
+        ],
+        "backend_cpu_seconds": 0.34882317,
+        "backend_wait_seconds": 0.031391136,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723435,
+          "user_ticks": 13,
+          "system_ticks": 10,
+          "start_ticks": 425610748,
+          "monotonic": 4256108.101059125,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 173,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723435,
+          "user_ticks": 13,
+          "system_ticks": 10,
+          "start_ticks": 425610748,
+          "monotonic": 4256108.101498451,
+          "runtime_ns": 239722863,
+          "wait_ns": 2630329
+        },
+        "after": {
+          "pid": 3723435,
+          "user_ticks": 42,
+          "system_ticks": 16,
+          "start_ticks": 425610748,
+          "monotonic": 4256109.034127712,
+          "runtime_ns": 588546033,
+          "wait_ns": 34021465
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.4131700834259391,
+            "thread_cpu_seconds": 0.23943702500002928
+          },
+          {
+            "wall_seconds": 0.3056624811142683,
+            "thread_cpu_seconds": 0.1664019589999839
+          },
+          {
+            "wall_seconds": 0.41111170686781406,
+            "thread_cpu_seconds": 0.2155577469999912
+          }
+        ],
+        "backend_cpu_seconds": 0.409064536,
+        "backend_wait_seconds": 0.025242719,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723603,
+          "user_ticks": 11,
+          "system_ticks": 8,
+          "start_ticks": 425610904,
+          "monotonic": 4256109.541444552,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 174,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723603,
+          "user_ticks": 11,
+          "system_ticks": 8,
+          "start_ticks": 425610904,
+          "monotonic": 4256109.542171983,
+          "runtime_ns": 200708973,
+          "wait_ns": 5558603
+        },
+        "after": {
+          "pid": 3723603,
+          "user_ticks": 47,
+          "system_ticks": 13,
+          "start_ticks": 425610904,
+          "monotonic": 4256110.672688351,
+          "runtime_ns": 609773509,
+          "wait_ns": 30801322
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.25237707886844873,
+            "thread_cpu_seconds": 0.12878605600002402
+          },
+          {
+            "wall_seconds": 0.325475606136024,
+            "thread_cpu_seconds": 0.18546317300001647
+          },
+          {
+            "wall_seconds": 0.3308604536578059,
+            "thread_cpu_seconds": 0.16740386899999748
+          }
+        ],
+        "backend_cpu_seconds": 0.336435333,
+        "backend_wait_seconds": 0.025031288,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723725,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 425611067,
+          "monotonic": 4256111.170690822,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 175,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723725,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 425611067,
+          "monotonic": 4256111.170872482,
+          "runtime_ns": 190355052,
+          "wait_ns": 31576281
+        },
+        "after": {
+          "pid": 3723725,
+          "user_ticks": 39,
+          "system_ticks": 12,
+          "start_ticks": 425611067,
+          "monotonic": 4256112.080183064,
+          "runtime_ns": 526790385,
+          "wait_ns": 56607569
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 2,
+        "order": "BAC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.5501230079680681,
+            "thread_cpu_seconds": 0.3595724659999746
+          },
+          {
+            "wall_seconds": 0.2579762293025851,
+            "thread_cpu_seconds": 0.1484191019999912
+          },
+          {
+            "wall_seconds": 0.2535421857610345,
+            "thread_cpu_seconds": 0.13408747600004745
+          }
+        ],
+        "backend_cpu_seconds": 0.308801373,
+        "backend_wait_seconds": 0.017791136,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3723938,
+          "user_ticks": 11,
+          "system_ticks": 8,
+          "start_ticks": 425611208,
+          "monotonic": 4256112.564330368,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 176,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3723938,
+          "user_ticks": 11,
+          "system_ticks": 8,
+          "start_ticks": 425611208,
+          "monotonic": 4256112.564696665,
+          "runtime_ns": 197678610,
+          "wait_ns": 17585716
+        },
+        "after": {
+          "pid": 3723938,
+          "user_ticks": 36,
+          "system_ticks": 13,
+          "start_ticks": 425611208,
+          "monotonic": 4256113.626875847,
+          "runtime_ns": 506479983,
+          "wait_ns": 35376852
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.31806397903710604,
+            "thread_cpu_seconds": 0.16184160599999586
+          },
+          {
+            "wall_seconds": 0.2575758611783385,
+            "thread_cpu_seconds": 0.14731366299997717
+          },
+          {
+            "wall_seconds": 0.3082504980266094,
+            "thread_cpu_seconds": 0.16214061300001958
+          }
+        ],
+        "backend_cpu_seconds": 0.339381754,
+        "backend_wait_seconds": 0.015665659,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724016,
+          "user_ticks": 13,
+          "system_ticks": 7,
+          "start_ticks": 425611363,
+          "monotonic": 4256114.178855366,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 177,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724016,
+          "user_ticks": 13,
+          "system_ticks": 7,
+          "start_ticks": 425611363,
+          "monotonic": 4256114.179307529,
+          "runtime_ns": 215061493,
+          "wait_ns": 12677216
+        },
+        "after": {
+          "pid": 3724016,
+          "user_ticks": 43,
+          "system_ticks": 12,
+          "start_ticks": 425611363,
+          "monotonic": 4256115.063704294,
+          "runtime_ns": 554443247,
+          "wait_ns": 28342875
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.343986589461565,
+            "thread_cpu_seconds": 0.1632479490000378
+          },
+          {
+            "wall_seconds": 0.24057971313595772,
+            "thread_cpu_seconds": 0.12414406999999983
+          },
+          {
+            "wall_seconds": 0.2867527576163411,
+            "thread_cpu_seconds": 0.1496933039999817
+          }
+        ],
+        "backend_cpu_seconds": 0.339734278,
+        "backend_wait_seconds": 0.029218688,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724198,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 425611507,
+          "monotonic": 4256115.550855295,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 178,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724198,
+          "user_ticks": 12,
+          "system_ticks": 7,
+          "start_ticks": 425611507,
+          "monotonic": 4256115.551192204,
+          "runtime_ns": 191715981,
+          "wait_ns": 9647693
+        },
+        "after": {
+          "pid": 3724198,
+          "user_ticks": 40,
+          "system_ticks": 12,
+          "start_ticks": 425611507,
+          "monotonic": 4256116.423014693,
+          "runtime_ns": 531450259,
+          "wait_ns": 38866381
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 3,
+        "order": "BCA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.5713077243417501,
+            "thread_cpu_seconds": 0.36900122699995563
+          },
+          {
+            "wall_seconds": 0.379481116309762,
+            "thread_cpu_seconds": 0.1831086899999832
+          },
+          {
+            "wall_seconds": 0.4539670832455158,
+            "thread_cpu_seconds": 0.22971079799998506
+          }
+        ],
+        "backend_cpu_seconds": 0.486383796,
+        "backend_wait_seconds": 0.018259975,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724310,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 425611643,
+          "monotonic": 4256116.84662657,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 179,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724310,
+          "user_ticks": 10,
+          "system_ticks": 5,
+          "start_ticks": 425611643,
+          "monotonic": 4256116.846842681,
+          "runtime_ns": 158325098,
+          "wait_ns": 7490520
+        },
+        "after": {
+          "pid": 3724310,
+          "user_ticks": 50,
+          "system_ticks": 13,
+          "start_ticks": 425611643,
+          "monotonic": 4256118.252173712,
+          "runtime_ns": 644708894,
+          "wait_ns": 25750495
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.377655316144228,
+            "thread_cpu_seconds": 0.19821991600002775
+          },
+          {
+            "wall_seconds": 0.33570883609354496,
+            "thread_cpu_seconds": 0.17658595099999275
+          },
+          {
+            "wall_seconds": 0.40969960391521454,
+            "thread_cpu_seconds": 0.20532459699995798
+          }
+        ],
+        "backend_cpu_seconds": 0.422564421,
+        "backend_wait_seconds": 0.01228308,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724442,
+          "user_ticks": 12,
+          "system_ticks": 10,
+          "start_ticks": 425611825,
+          "monotonic": 4256118.858427053,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 180,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724442,
+          "user_ticks": 12,
+          "system_ticks": 10,
+          "start_ticks": 425611825,
+          "monotonic": 4256118.858685894,
+          "runtime_ns": 226526789,
+          "wait_ns": 20148737
+        },
+        "after": {
+          "pid": 3724442,
+          "user_ticks": 47,
+          "system_ticks": 17,
+          "start_ticks": 425611825,
+          "monotonic": 4256119.982489808,
+          "runtime_ns": 649091210,
+          "wait_ns": 32431817
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.243752951733768,
+            "thread_cpu_seconds": 0.1243538660000354
+          },
+          {
+            "wall_seconds": 0.24012811854481697,
+            "thread_cpu_seconds": 0.1312126490000196
+          },
+          {
+            "wall_seconds": 0.28212708607316017,
+            "thread_cpu_seconds": 0.13101924099998996
+          }
+        ],
+        "backend_cpu_seconds": 0.293569217,
+        "backend_wait_seconds": 0.032970218,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724540,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425611999,
+          "monotonic": 4256120.51009768,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 182,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724540,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425611999,
+          "monotonic": 4256120.510283541,
+          "runtime_ns": 220141976,
+          "wait_ns": 34881799
+        },
+        "after": {
+          "pid": 3724540,
+          "user_ticks": 37,
+          "system_ticks": 13,
+          "start_ticks": 425611999,
+          "monotonic": 4256121.276753307,
+          "runtime_ns": 513711193,
+          "wait_ns": 67852017
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 4,
+        "order": "CAB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.2870047613978386,
+            "thread_cpu_seconds": 0.13719613699998945
+          },
+          {
+            "wall_seconds": 0.3910676194354892,
+            "thread_cpu_seconds": 0.25550538699997105
+          },
+          {
+            "wall_seconds": 0.2311907997354865,
+            "thread_cpu_seconds": 0.12253433600000108
+          }
+        ],
+        "backend_cpu_seconds": 0.299344249,
+        "backend_wait_seconds": 0.016616588,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724804,
+          "user_ticks": 14,
+          "system_ticks": 10,
+          "start_ticks": 425612128,
+          "monotonic": 4256121.8740945,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 183,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724804,
+          "user_ticks": 14,
+          "system_ticks": 10,
+          "start_ticks": 425612128,
+          "monotonic": 4256121.874313241,
+          "runtime_ns": 250787329,
+          "wait_ns": 5006160
+        },
+        "after": {
+          "pid": 3724804,
+          "user_ticks": 40,
+          "system_ticks": 14,
+          "start_ticks": 425612128,
+          "monotonic": 4256122.784082359,
+          "runtime_ns": 550131578,
+          "wait_ns": 21622748
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3476208709180355,
+            "thread_cpu_seconds": 0.16580992800004424
+          },
+          {
+            "wall_seconds": 0.35553884878754616,
+            "thread_cpu_seconds": 0.16665555399998766
+          },
+          {
+            "wall_seconds": 0.27075643837451935,
+            "thread_cpu_seconds": 0.13509361800004172
+          }
+        ],
+        "backend_cpu_seconds": 0.402291651,
+        "backend_wait_seconds": 0.029330637,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3724907,
+          "user_ticks": 15,
+          "system_ticks": 9,
+          "start_ticks": 425612279,
+          "monotonic": 4256123.418475664,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 184,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3724907,
+          "user_ticks": 15,
+          "system_ticks": 9,
+          "start_ticks": 425612279,
+          "monotonic": 4256123.418823328,
+          "runtime_ns": 250356364,
+          "wait_ns": 6238335
+        },
+        "after": {
+          "pid": 3724907,
+          "user_ticks": 50,
+          "system_ticks": 15,
+          "start_ticks": 425612279,
+          "monotonic": 4256124.393237695,
+          "runtime_ns": 652648015,
+          "wait_ns": 35568972
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.24743114598095417,
+            "thread_cpu_seconds": 0.12436075699997673
+          },
+          {
+            "wall_seconds": 0.41657877527177334,
+            "thread_cpu_seconds": 0.21015803099999175
+          },
+          {
+            "wall_seconds": 0.28367503732442856,
+            "thread_cpu_seconds": 0.16658042300002762
+          }
+        ],
+        "backend_cpu_seconds": 0.329524596,
+        "backend_wait_seconds": 0.016266751,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3725081,
+          "user_ticks": 15,
+          "system_ticks": 8,
+          "start_ticks": 425612440,
+          "monotonic": 4256124.963534624,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 185,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3725081,
+          "user_ticks": 15,
+          "system_ticks": 8,
+          "start_ticks": 425612440,
+          "monotonic": 4256124.963721115,
+          "runtime_ns": 237767447,
+          "wait_ns": 17627032
+        },
+        "after": {
+          "pid": 3725081,
+          "user_ticks": 43,
+          "system_ticks": 13,
+          "start_ticks": 425612440,
+          "monotonic": 4256125.91188669,
+          "runtime_ns": 567292043,
+          "wait_ns": 33893783
+        }
+      },
+      {
+        "route": "directory_es",
+        "block": 5,
+        "order": "CBA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.25447953399270773,
+            "thread_cpu_seconds": 0.13059821500002045
+          },
+          {
+            "wall_seconds": 0.25812737736850977,
+            "thread_cpu_seconds": 0.14076159299997926
+          },
+          {
+            "wall_seconds": 0.48533128947019577,
+            "thread_cpu_seconds": 0.3319914399999675
+          }
+        ],
+        "backend_cpu_seconds": 0.28413752,
+        "backend_wait_seconds": 0.016760161,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3725253,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 425612592,
+          "monotonic": 4256126.502448081,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 186,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3725253,
+          "user_ticks": 14,
+          "system_ticks": 9,
+          "start_ticks": 425612592,
+          "monotonic": 4256126.502667835,
+          "runtime_ns": 232907402,
+          "wait_ns": 9386118
+        },
+        "after": {
+          "pid": 3725253,
+          "user_ticks": 38,
+          "system_ticks": 13,
+          "start_ticks": 425612592,
+          "monotonic": 4256127.501301106,
+          "runtime_ns": 517044922,
+          "wait_ns": 26146279
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.8788194162771106,
+            "thread_cpu_seconds": 0.2406233039999961
+          },
+          {
+            "wall_seconds": 0.9308277796953917,
+            "thread_cpu_seconds": 0.24556318899999496
+          },
+          {
+            "wall_seconds": 0.8237180691212416,
+            "thread_cpu_seconds": 0.13836792500001138
+          }
+        ],
+        "backend_cpu_seconds": 1.845365014,
+        "backend_wait_seconds": 0.077226566,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3725377,
+          "user_ticks": 58,
+          "system_ticks": 9,
+          "start_ticks": 425612753,
+          "monotonic": 4256128.62927923,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 187,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3725377,
+          "user_ticks": 58,
+          "system_ticks": 9,
+          "start_ticks": 425612753,
+          "monotonic": 4256128.629672679,
+          "runtime_ns": 680092665,
+          "wait_ns": 22923434
+        },
+        "after": {
+          "pid": 3725377,
+          "user_ticks": 235,
+          "system_ticks": 16,
+          "start_ticks": 425612753,
+          "monotonic": 4256131.263590877,
+          "runtime_ns": 2525457679,
+          "wait_ns": 100150000
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.82778743468225,
+            "thread_cpu_seconds": 0.21853131600005327
+          },
+          {
+            "wall_seconds": 0.878357264213264,
+            "thread_cpu_seconds": 0.23667803799997955
+          },
+          {
+            "wall_seconds": 0.754018934443593,
+            "thread_cpu_seconds": 0.1466827279999734
+          }
+        ],
+        "backend_cpu_seconds": 1.728878243,
+        "backend_wait_seconds": 0.063634268,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3725789,
+          "user_ticks": 51,
+          "system_ticks": 5,
+          "start_ticks": 425613127,
+          "monotonic": 4256132.106523655,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 188,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3725789,
+          "user_ticks": 51,
+          "system_ticks": 5,
+          "start_ticks": 425613127,
+          "monotonic": 4256132.106856995,
+          "runtime_ns": 569656411,
+          "wait_ns": 13653090
+        },
+        "after": {
+          "pid": 3725789,
+          "user_ticks": 217,
+          "system_ticks": 12,
+          "start_ticks": 425613127,
+          "monotonic": 4256134.567475309,
+          "runtime_ns": 2298534654,
+          "wait_ns": 77287358
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 0,
+        "order": "ABC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.7475746469572186,
+            "thread_cpu_seconds": 0.1470925369999918
+          },
+          {
+            "wall_seconds": 0.24089790601283312,
+            "thread_cpu_seconds": 0.1303676429999996
+          },
+          {
+            "wall_seconds": 0.2899389322847128,
+            "thread_cpu_seconds": 0.15233082699995748
+          }
+        ],
+        "backend_cpu_seconds": 0.720682172,
+        "backend_wait_seconds": 0.056991761,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3726099,
+          "user_ticks": 64,
+          "system_ticks": 5,
+          "start_ticks": 425613457,
+          "monotonic": 4256135.618164091,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 189,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3726099,
+          "user_ticks": 64,
+          "system_ticks": 5,
+          "start_ticks": 425613457,
+          "monotonic": 4256135.618803494,
+          "runtime_ns": 698164307,
+          "wait_ns": 40478506
+        },
+        "after": {
+          "pid": 3726099,
+          "user_ticks": 130,
+          "system_ticks": 11,
+          "start_ticks": 425613457,
+          "monotonic": 4256136.89765755,
+          "runtime_ns": 1418846479,
+          "wait_ns": 97470267
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.26660616137087345,
+            "thread_cpu_seconds": 0.13121240399999579
+          },
+          {
+            "wall_seconds": 0.34080320596694946,
+            "thread_cpu_seconds": 0.17726877500001592
+          },
+          {
+            "wall_seconds": 0.5097218304872513,
+            "thread_cpu_seconds": 0.3508155389999956
+          }
+        ],
+        "backend_cpu_seconds": 0.360731285,
+        "backend_wait_seconds": 0.040158437,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3726643,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425613690,
+          "monotonic": 4256137.406308129,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 191,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3726643,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425613690,
+          "monotonic": 4256137.40654727,
+          "runtime_ns": 194947969,
+          "wait_ns": 25138925
+        },
+        "after": {
+          "pid": 3726643,
+          "user_ticks": 43,
+          "system_ticks": 12,
+          "start_ticks": 425613690,
+          "monotonic": 4256138.524160249,
+          "runtime_ns": 555679254,
+          "wait_ns": 65297362
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3062642114236951,
+            "thread_cpu_seconds": 0.1439612039999929
+          },
+          {
+            "wall_seconds": 0.3768790401518345,
+            "thread_cpu_seconds": 0.2062260210000204
+          },
+          {
+            "wall_seconds": 0.27748698461800814,
+            "thread_cpu_seconds": 0.17187829699997792
+          }
+        ],
+        "backend_cpu_seconds": 0.352644083,
+        "backend_wait_seconds": 0.03036859,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3726753,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425613853,
+          "monotonic": 4256139.012761679,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 192,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3726753,
+          "user_ticks": 11,
+          "system_ticks": 7,
+          "start_ticks": 425613853,
+          "monotonic": 4256139.013013784,
+          "runtime_ns": 190465242,
+          "wait_ns": 13394341
+        },
+        "after": {
+          "pid": 3726753,
+          "user_ticks": 41,
+          "system_ticks": 13,
+          "start_ticks": 425613853,
+          "monotonic": 4256139.97415247,
+          "runtime_ns": 543109325,
+          "wait_ns": 43762931
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 1,
+        "order": "ACB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.36558565590530634,
+            "thread_cpu_seconds": 0.1882856619999984
+          },
+          {
+            "wall_seconds": 0.32659730687737465,
+            "thread_cpu_seconds": 0.1527549119999776
+          },
+          {
+            "wall_seconds": 0.2991147134453058,
+            "thread_cpu_seconds": 0.13254403500002354
+          }
+        ],
+        "backend_cpu_seconds": 0.319324604,
+        "backend_wait_seconds": 0.07020775,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3726885,
+          "user_ticks": 11,
+          "system_ticks": 5,
+          "start_ticks": 425613998,
+          "monotonic": 4256140.399314228,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 193,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3726885,
+          "user_ticks": 11,
+          "system_ticks": 5,
+          "start_ticks": 425613998,
+          "monotonic": 4256140.399513595,
+          "runtime_ns": 167869907,
+          "wait_ns": 8312130
+        },
+        "after": {
+          "pid": 3726885,
+          "user_ticks": 38,
+          "system_ticks": 10,
+          "start_ticks": 425613998,
+          "monotonic": 4256141.391293742,
+          "runtime_ns": 487194511,
+          "wait_ns": 78519880
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.3545753341168165,
+            "thread_cpu_seconds": 0.162017861000038
+          },
+          {
+            "wall_seconds": 0.39459046721458435,
+            "thread_cpu_seconds": 0.2755898400000092
+          },
+          {
+            "wall_seconds": 0.4613777995109558,
+            "thread_cpu_seconds": 0.2438264880000247
+          }
+        ],
+        "backend_cpu_seconds": 0.367885597,
+        "backend_wait_seconds": 0.05339686,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3727148,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 425614140,
+          "monotonic": 4256141.915843052,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 194,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3727148,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 425614140,
+          "monotonic": 4256141.916035549,
+          "runtime_ns": 180981732,
+          "wait_ns": 41697487
+        },
+        "after": {
+          "pid": 3727148,
+          "user_ticks": 42,
+          "system_ticks": 12,
+          "start_ticks": 425614140,
+          "monotonic": 4256143.127167463,
+          "runtime_ns": 548867329,
+          "wait_ns": 95094347
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.46883818972855806,
+            "thread_cpu_seconds": 0.25030062100000805
+          },
+          {
+            "wall_seconds": 0.2908434048295021,
+            "thread_cpu_seconds": 0.14932561699998814
+          },
+          {
+            "wall_seconds": 0.2738743918016553,
+            "thread_cpu_seconds": 0.16667656899994654
+          }
+        ],
+        "backend_cpu_seconds": 0.335398355,
+        "backend_wait_seconds": 0.026115998,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3727297,
+          "user_ticks": 12,
+          "system_ticks": 8,
+          "start_ticks": 425614313,
+          "monotonic": 4256143.643491266,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 195,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3727297,
+          "user_ticks": 12,
+          "system_ticks": 8,
+          "start_ticks": 425614313,
+          "monotonic": 4256143.643877776,
+          "runtime_ns": 212827102,
+          "wait_ns": 12852627
+        },
+        "after": {
+          "pid": 3727297,
+          "user_ticks": 39,
+          "system_ticks": 15,
+          "start_ticks": 425614313,
+          "monotonic": 4256144.67798288,
+          "runtime_ns": 548225457,
+          "wait_ns": 38968625
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 2,
+        "order": "BAC",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3535543270409107,
+            "thread_cpu_seconds": 0.19807379699994954
+          },
+          {
+            "wall_seconds": 0.43997635692358017,
+            "thread_cpu_seconds": 0.20818406500006859
+          },
+          {
+            "wall_seconds": 0.36329433880746365,
+            "thread_cpu_seconds": 0.1958223450000105
+          }
+        ],
+        "backend_cpu_seconds": 0.415739977,
+        "backend_wait_seconds": 0.041879588,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3727448,
+          "user_ticks": 17,
+          "system_ticks": 10,
+          "start_ticks": 425614468,
+          "monotonic": 4256145.347238439,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 196,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3727448,
+          "user_ticks": 17,
+          "system_ticks": 10,
+          "start_ticks": 425614468,
+          "monotonic": 4256145.347688571,
+          "runtime_ns": 282096500,
+          "wait_ns": 9067063
+        },
+        "after": {
+          "pid": 3727448,
+          "user_ticks": 52,
+          "system_ticks": 17,
+          "start_ticks": 425614468,
+          "monotonic": 4256146.505102147,
+          "runtime_ns": 697836477,
+          "wait_ns": 50946651
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.43888252042233944,
+            "thread_cpu_seconds": 0.20619668400001956
+          },
+          {
+            "wall_seconds": 0.4011556329205632,
+            "thread_cpu_seconds": 0.21902661100000387
+          },
+          {
+            "wall_seconds": 0.5260256929323077,
+            "thread_cpu_seconds": 0.33294225699989966
+          }
+        ],
+        "backend_cpu_seconds": 0.477541865,
+        "backend_wait_seconds": 0.041163886,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3727629,
+          "user_ticks": 14,
+          "system_ticks": 7,
+          "start_ticks": 425614651,
+          "monotonic": 4256147.024417572,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 197,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3727629,
+          "user_ticks": 14,
+          "system_ticks": 7,
+          "start_ticks": 425614651,
+          "monotonic": 4256147.024696679,
+          "runtime_ns": 220573580,
+          "wait_ns": 10990658
+        },
+        "after": {
+          "pid": 3727629,
+          "user_ticks": 55,
+          "system_ticks": 14,
+          "start_ticks": 425614651,
+          "monotonic": 4256148.391309288,
+          "runtime_ns": 698115445,
+          "wait_ns": 52154544
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.44658417254686356,
+            "thread_cpu_seconds": 0.24976024099998995
+          },
+          {
+            "wall_seconds": 0.37044918444007635,
+            "thread_cpu_seconds": 0.19270551500005695
+          },
+          {
+            "wall_seconds": 0.3729336215183139,
+            "thread_cpu_seconds": 0.1848052130000042
+          }
+        ],
+        "backend_cpu_seconds": 0.434411725,
+        "backend_wait_seconds": 0.071393881,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3727945,
+          "user_ticks": 9,
+          "system_ticks": 6,
+          "start_ticks": 425614840,
+          "monotonic": 4256148.827132091,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 198,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3727945,
+          "user_ticks": 9,
+          "system_ticks": 6,
+          "start_ticks": 425614840,
+          "monotonic": 4256148.827521675,
+          "runtime_ns": 160969467,
+          "wait_ns": 8264354
+        },
+        "after": {
+          "pid": 3727945,
+          "user_ticks": 46,
+          "system_ticks": 13,
+          "start_ticks": 425614840,
+          "monotonic": 4256150.018222625,
+          "runtime_ns": 595381192,
+          "wait_ns": 79658235
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 3,
+        "order": "BCA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3355857916176319,
+            "thread_cpu_seconds": 0.16859572300006676
+          },
+          {
+            "wall_seconds": 0.4235143680125475,
+            "thread_cpu_seconds": 0.23187142000006133
+          },
+          {
+            "wall_seconds": 0.34332729037851095,
+            "thread_cpu_seconds": 0.18373529200005123
+          }
+        ],
+        "backend_cpu_seconds": 0.397500768,
+        "backend_wait_seconds": 0.022910933,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728144,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425615002,
+          "monotonic": 4256150.559516982,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 200,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728144,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425615002,
+          "monotonic": 4256150.559758067,
+          "runtime_ns": 226271368,
+          "wait_ns": 2470246
+        },
+        "after": {
+          "pid": 3728144,
+          "user_ticks": 47,
+          "system_ticks": 14,
+          "start_ticks": 425615002,
+          "monotonic": 4256151.662664869,
+          "runtime_ns": 623772136,
+          "wait_ns": 25381179
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.3298625694587827,
+            "thread_cpu_seconds": 0.20363147600005505
+          },
+          {
+            "wall_seconds": 0.574232135899365,
+            "thread_cpu_seconds": 0.3475261199999977
+          },
+          {
+            "wall_seconds": 0.2941645784303546,
+            "thread_cpu_seconds": 0.1476080899999488
+          }
+        ],
+        "backend_cpu_seconds": 0.367633115,
+        "backend_wait_seconds": 0.039566017,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728353,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 425615167,
+          "monotonic": 4256152.130289229,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 201,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728353,
+          "user_ticks": 11,
+          "system_ticks": 6,
+          "start_ticks": 425615167,
+          "monotonic": 4256152.130792322,
+          "runtime_ns": 189565534,
+          "wait_ns": 26398041
+        },
+        "after": {
+          "pid": 3728353,
+          "user_ticks": 43,
+          "system_ticks": 12,
+          "start_ticks": 425615167,
+          "monotonic": 4256153.329665007,
+          "runtime_ns": 557198649,
+          "wait_ns": 65964058
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.3241736739873886,
+            "thread_cpu_seconds": 0.16121949699993365
+          },
+          {
+            "wall_seconds": 0.2950393231585622,
+            "thread_cpu_seconds": 0.16709358299999622
+          },
+          {
+            "wall_seconds": 0.2951123910024762,
+            "thread_cpu_seconds": 0.15702598800010037
+          }
+        ],
+        "backend_cpu_seconds": 0.333075375,
+        "backend_wait_seconds": 0.01262225,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728511,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425615333,
+          "monotonic": 4256153.848238608,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 202,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728511,
+          "user_ticks": 13,
+          "system_ticks": 8,
+          "start_ticks": 425615333,
+          "monotonic": 4256153.848543336,
+          "runtime_ns": 218355032,
+          "wait_ns": 7400737
+        },
+        "after": {
+          "pid": 3728511,
+          "user_ticks": 42,
+          "system_ticks": 13,
+          "start_ticks": 425615333,
+          "monotonic": 4256154.763445582,
+          "runtime_ns": 551430407,
+          "wait_ns": 20022987
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 4,
+        "order": "CAB",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.47093461733311415,
+            "thread_cpu_seconds": 0.24475729200003116
+          },
+          {
+            "wall_seconds": 0.3988951025530696,
+            "thread_cpu_seconds": 0.19835832600006142
+          },
+          {
+            "wall_seconds": 0.3727724961936474,
+            "thread_cpu_seconds": 0.20915436600000703
+          }
+        ],
+        "backend_cpu_seconds": 0.441317888,
+        "backend_wait_seconds": 0.049169616,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728706,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 425615477,
+          "monotonic": 4256155.350628887,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 203,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728706,
+          "user_ticks": 12,
+          "system_ticks": 6,
+          "start_ticks": 425615477,
+          "monotonic": 4256155.351131208,
+          "runtime_ns": 187954578,
+          "wait_ns": 26689535
+        },
+        "after": {
+          "pid": 3728706,
+          "user_ticks": 49,
+          "system_ticks": 13,
+          "start_ticks": 425615477,
+          "monotonic": 4256156.59423843,
+          "runtime_ns": 629272466,
+          "wait_ns": 75859151
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "C",
+        "samples": [
+          {
+            "wall_seconds": 0.2922178003937006,
+            "thread_cpu_seconds": 0.15823164800008271
+          },
+          {
+            "wall_seconds": 0.22809735592454672,
+            "thread_cpu_seconds": 0.1255797750000056
+          },
+          {
+            "wall_seconds": 0.46442133747041225,
+            "thread_cpu_seconds": 0.31898694499989233
+          }
+        ],
+        "backend_cpu_seconds": 0.305822932,
+        "backend_wait_seconds": 0.029583655,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728844,
+          "user_ticks": 16,
+          "system_ticks": 8,
+          "start_ticks": 425615660,
+          "monotonic": 4256157.107590381,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 204,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728844,
+          "user_ticks": 16,
+          "system_ticks": 8,
+          "start_ticks": 425615660,
+          "monotonic": 4256157.107822884,
+          "runtime_ns": 247905287,
+          "wait_ns": 10333749
+        },
+        "after": {
+          "pid": 3728844,
+          "user_ticks": 42,
+          "system_ticks": 12,
+          "start_ticks": 425615660,
+          "monotonic": 4256158.093261037,
+          "runtime_ns": 553728219,
+          "wait_ns": 39917404
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "B",
+        "samples": [
+          {
+            "wall_seconds": 0.2526227943599224,
+            "thread_cpu_seconds": 0.1288770429999886
+          },
+          {
+            "wall_seconds": 0.3938815901055932,
+            "thread_cpu_seconds": 0.2106124130000353
+          },
+          {
+            "wall_seconds": 0.331812241114676,
+            "thread_cpu_seconds": 0.1564006830000153
+          }
+        ],
+        "backend_cpu_seconds": 0.38183058,
+        "backend_wait_seconds": 0.022298808,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3728940,
+          "user_ticks": 15,
+          "system_ticks": 10,
+          "start_ticks": 425615810,
+          "monotonic": 4256158.774969929,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 205,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3728940,
+          "user_ticks": 15,
+          "system_ticks": 10,
+          "start_ticks": 425615810,
+          "monotonic": 4256158.775187547,
+          "runtime_ns": 261624610,
+          "wait_ns": 22733249
+        },
+        "after": {
+          "pid": 3728940,
+          "user_ticks": 49,
+          "system_ticks": 14,
+          "start_ticks": 425615810,
+          "monotonic": 4256159.75392991,
+          "runtime_ns": 643455190,
+          "wait_ns": 45032057
+        }
+      },
+      {
+        "route": "search_en",
+        "block": 5,
+        "order": "CBA",
+        "arm": "A",
+        "samples": [
+          {
+            "wall_seconds": 0.34072401374578476,
+            "thread_cpu_seconds": 0.1710485169999174
+          },
+          {
+            "wall_seconds": 0.2677157297730446,
+            "thread_cpu_seconds": 0.14233736900007443
+          },
+          {
+            "wall_seconds": 0.24442915339022875,
+            "thread_cpu_seconds": 0.12662765200002468
+          }
+        ],
+        "backend_cpu_seconds": 0.318862219,
+        "backend_wait_seconds": 0.006544153,
+        "cursor_tuple_fraction": "0.1",
+        "backend_identity": {
+          "pid": 3729107,
+          "user_ticks": 15,
+          "system_ticks": 9,
+          "start_ticks": 425615976,
+          "monotonic": 4256160.382154695,
+          "container_id": "e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78",
+          "sql_pid": 206,
+          "cgroup": "/sys/fs/cgroup/system.slice/docker-e194543c16b40e23221911fd74422ef82827c2384547304e0c3c731558c58a78.scope"
+        },
+        "before": {
+          "pid": 3729107,
+          "user_ticks": 15,
+          "system_ticks": 9,
+          "start_ticks": 425615976,
+          "monotonic": 4256160.382546624,
+          "runtime_ns": 251373916,
+          "wait_ns": 33712550
+        },
+        "after": {
+          "pid": 3729107,
+          "user_ticks": 43,
+          "system_ticks": 13,
+          "start_ticks": 425615976,
+          "monotonic": 4256161.235969907,
+          "runtime_ns": 570236135,
+          "wait_ns": 40256703
+        }
+      }
+    ],
+    "comparisons": {
+      "directory_es": {
+        "metrics": {
+          "A": {
+            "wall": 0.32816802989691496,
+            "app_cpu": 0.17525627949999034,
+            "pg_cpu_per_read": 0.11882583888888888
+          },
+          "B": {
+            "wall": 0.31705547450110316,
+            "app_cpu": 0.16649119100000576,
+            "pg_cpu_per_read": 0.12199838383333333
+          },
+          "C": {
+            "wall": 0.34580373018980026,
+            "app_cpu": 0.16623274100001595,
+            "pg_cpu_per_read": 0.12269633894444446
+          }
+        },
+        "ratios_C_to_AB": {
+          "wall": 1.0718881994617628,
+          "app_cpu": 0.9728396277918777,
+          "pg_cpu_per_read": 1.0189700816430587
+        },
+        "AA_stable": true,
+        "nonregressing_blocks": 3,
+        "eligible": false
+      },
+      "search_en": {
+        "metrics": {
+          "A": {
+            "wall": 0.33815490268170834,
+            "app_cpu": 0.16784465300003149,
+            "pg_cpu_per_read": 0.19949627866666667
+          },
+          "B": {
+            "wall": 0.39674278488382697,
+            "app_cpu": 0.2076755250000133,
+            "pg_cpu_per_read": 0.20648770983333334
+          },
+          "C": {
+            "wall": 0.3584243329241872,
+            "app_cpu": 0.18875536400003057,
+            "pg_cpu_per_read": 0.14427411133333334
+          }
+        },
+        "ratios_C_to_AB": {
+          "wall": 0.9754400891136953,
+          "app_cpu": 1.0053007804017822,
+          "pg_cpu_per_read": 0.7107379375545662
+        },
+        "AA_stable": false,
+        "nonregressing_blocks": 5,
+        "eligible": false
+      }
+    },
+    "gc_policy_unchanged": [
+      true,
+      [
+        700,
+        10,
+        10
+      ],
+      0
+    ],
+    "separate_full_request_observations": [
+      {
+        "route": "directory_es",
+        "arm": "A",
+        "sql_execute_calls": 33,
+        "sql_driver_execute_seconds": 0.09559307619929314,
+        "jsonb_map_parameters": 3,
+        "jsonb_parameter_bytes": 260673,
+        "full_request_python_retained_bytes": 1068562,
+        "full_request_python_peak_bytes": 1160330
+      },
+      {
+        "route": "directory_es",
+        "arm": "C",
+        "sql_execute_calls": 33,
+        "sql_driver_execute_seconds": 0.0933688934892416,
+        "jsonb_map_parameters": 1,
+        "jsonb_parameter_bytes": 86891,
+        "full_request_python_retained_bytes": 984024,
+        "full_request_python_peak_bytes": 1353315
+      },
+      {
+        "route": "search_en",
+        "arm": "A",
+        "sql_execute_calls": 33,
+        "sql_driver_execute_seconds": 0.12003060895949602,
+        "jsonb_map_parameters": 3,
+        "jsonb_parameter_bytes": 260673,
+        "full_request_python_retained_bytes": 1061116,
+        "full_request_python_peak_bytes": 1149093
+      },
+      {
+        "route": "search_en",
+        "arm": "C",
+        "sql_execute_calls": 33,
+        "sql_driver_execute_seconds": 0.07081996742635965,
+        "jsonb_map_parameters": 1,
+        "jsonb_parameter_bytes": 86891,
+        "full_request_python_retained_bytes": 1089957,
+        "full_request_python_peak_bytes": 1465677
+      }
+    ],
+    "eligible": false,
+    "requests": 152,
+    "warm_reads": 36,
+    "measured_reads": 108,
+    "observed_reads": 8,
+    "sql_observed_reads": 4,
+    "heap_observed_reads": 4,
+    "limits": [
+      "Only experimental label projection changes; original rights filter/iterator/UUID unchanged",
+      "Same authority, population, ordering and native page guard; exact bytes/IDs/count/labels",
+      "A/B identical; six balanced permutations, new owned backend and one warm read per arm",
+      "App thread CPU and identified PG backend schedstat outside control boundaries",
+      "No profiler/SQL wrapper inside controls, normal GC, host shared",
+      "Eight separate reads measure SQL parameter volume and full-request heap independently",
+      "Python heap is not service RSS; execute excludes FETCH; serialized bytes are not TCP traffic",
+      "Single sequential local experiment, not TCP/SLO or whole-service memory acceptance",
+      "PASS pytest means experiment integrity; eligible false rejects adoption",
+      "Eligible true still requires memory review, affected regression and clean TCP before capacity"
+    ]
+  },
+  "capacity_verdict": "NOT_MEASURED_ADOPTION_NOT_AUTOMATIC",
+  "evidence_sha256": {
+    "result.json": "a8181a47eb9eb1e7407a0a702fc3e3029d5d8cd6ee7153d094246ced49bc1189",
+    "pytest.xml": "3893b537fe88c2f019e687bb1d06f2c57a89d122d688addd261a2a793cfe90d9",
+    "pytest-reports.jsonl": "f2b08eb7c50851e98e7d5c01f1a98490fc5aeada25f35f66d9e64c2027939f2c",
+    "source-hashes.json": "8d0c182faf17bcd8db6e80f42dbdba9fe1114f22f8f732f57f91d45c3ccf6b5b",
+    "beta-label-projection-roi.json": "30d161897242f29610a8fded2a4f033e86bfd739f5ba9803b19d009d8e7256e4",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "result": "PASS_STATIC_RECONCILIATION_NOT_RUNTIME_HEALTH",
+  "configured_tasks": 16,
+  "unmapped_tasks": [],
+  "rows": [
+    {
+      "task": "apps.mediafiles.tasks.cleanup_prepared_media",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "media.physical_jobs.MediaPreparationCleanup",
+      "kind": "durable_physical_jobs_not_universal_absence",
+      "response": "inspect_retention_before_physical_cleanup"
+    },
+    {
+      "task": "apps.mediafiles.tasks.erase_media_files",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "media.physical_jobs.MediaErasure",
+      "kind": "durable_physical_jobs_not_universal_absence",
+      "response": "inspect_physical_media_job_without_forcing_delete"
+    },
+    {
+      "task": "apps.safety.rights_object_content.purge_orphan_export_objects",
+      "schedule_seconds": 3600.0,
+      "failure_event_allowlisted": true,
+      "signal": "object_storage.orphan_inventory",
+      "kind": "explicitly_unmeasured_inventory_with_failure_events",
+      "response": "inspect_object_inventory_in_authorized_storage"
+    },
+    {
+      "task": "apps.safety.rights_object_delivery.purge_object_deliveries",
+      "schedule_seconds": 10.0,
+      "failure_event_allowlisted": true,
+      "signal": "private_delivery_cache",
+      "kind": "durable_delivery_eligibility",
+      "response": "inspect_delivery_cache_cleanup"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_coverage",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsAccessCoverage",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_field_decision",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsAccessFieldDecision",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_response_drafts",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsAccessResponseDraft",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_access_scope_inventory",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsAccessScopeInventory",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_account_confirmation_delivery",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_account_confirmation_delivery",
+      "kind": "durable_payload_expiry",
+      "response": "inspect_confirmation_delivery_retention"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_information",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsCopyInformation",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_copy_page_reviews",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsCopyPageReview",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_exports",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsExport",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_assessments",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsPortabilityAssessment",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_coverage",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsPortabilityCoverage",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_response_drafts",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsPortabilityResponseDraft",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    },
+    {
+      "task": "apps.safety.tasks.purge_expired_portability_selections",
+      "schedule_seconds": 60.0,
+      "failure_event_allowlisted": true,
+      "signal": "expired_temporaries.RightsPortabilitySelection",
+      "kind": "durable_expiry",
+      "response": "inspect_purge_and_physical_storage_separately"
+    }
+  ],
+  "source_sha256": {
+    "config/settings.py": "73f2bf374b287bfbe6a2f6d9b6ee74f5916d02148fea21ecd9def8dd435452b7",
+    "apps/core/operational_snapshot.py": "4149a62d95371df5120c6c8f75038ea5e2b1dd827a44759d7c508e01d675b8ad",
+    "apps/core/operational_events.py": "c2b88212433a0d37d78464859d234968b4bbf57651a2e4a636f76a74af682ed4"
+  },
+  "limits": [
+    "AST inspection of literal current configuration, not proof Beat or worker alive",
+    "Orphan inventory remains explicitly unmeasured",
+    "No universal physical absence or provider verification"
+  ]
+}

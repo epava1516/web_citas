@@ -1,5 +1,13 @@
 # CR-07 — Descubrimiento, contrato de interacción
 
+## Descubrimiento objetivo beta consolidado el 2026-10-20
+
+La [versión funcional 1.1](../14-contrato-funcional-v1.md) requiere listado y ficha de perfiles románticos, sin categorías/servicios profesionales ni tarifas por encuentro. Conservar texto aprobado, tipo, ubicación autorizada, idiomas/canales, orden estable, paginación, elegibilidad antes de contar y retirada inmediata. Los parámetros heredados se tratan explícitamente: no ignorarlos para devolver un conjunto más amplio sin avisar. B02/B06 definirán compatibilidad antes de cambiar rutas o slugs.
+
+Los atributos físicos públicos y sus filtros requieren contrato y pruebas propios antes de habilitarse. Las recomendaciones B15 son opcionales, sujetas a las mismas guardas; no equivalen a patrocinio o verificación ni prueban reciprocidad. Sin inferencia por fotos ni nuevas preferencias persistentes por esta consolidación. La ausencia de recomendaciones no impide beta técnica. [Matriz B00–B01](../104-consolidacion-contrato-beta-b00b01-20261020.md).
+
+Las interfaces, campos y evidencias siguientes describen el alfa; no acreditan adaptación ya implementada. [Copia anterior](../17-historial/2026-10-20-08-descubrimiento-antes-beta-b00b01.md).
+
 Estado: aceptación técnica local de CR-07 registrada en el [acta](../actas/02-cr07-local.md); revisión documental del 2026-10-09. Las notas de implementación inicial se conservan como historia del flujo. La lectura vigente usa el estado derivado MOD-05 con invalidación/versionado y fallback nativo, manteniendo la elegibilidad antes de contar/paginar y la revalidación de la página. CR09-REND-LECTURA tiene aceptación local posterior; alcance y límites en [seguimiento17](../17-seguimiento-desarrollo.md) y [contrato16 §17](../16-contrato-ejecucion-desarrollo.md#17-estado-de-publicación-almacenado--mod-05). Cobertura nacional real, fases de acabado y aceptación integral conservan sus pendientes.
 
 GET /{es|en}/ conecta listado y filtros SSR. GET únicamente, datos reales PostgreSQL; formulario incorrecto400, página fuera de resultados404. No normalizar una página inválida hacia otra silenciosamente. Sin historial personal de búsquedas ni trackers. Cache-Control no-store mientras se conserva retirada inmediata.

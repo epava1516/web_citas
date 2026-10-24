@@ -1,0 +1,172 @@
+{
+  "scope": "Actual prefork2 outbox failure/recovery, local simulator only",
+  "interrupted": {
+    "schema_version": 1,
+    "policy_version": "local-attention-v1",
+    "status": "attention_required",
+    "health": "unknown",
+    "coverage": "unverified",
+    "findings": [
+      {
+        "code": "delivery_retry_observed",
+        "severity": "warning",
+        "scope": "notices",
+        "response": "inspect_outbox_worker_and_backend",
+        "count": 1,
+        "age_seconds": null,
+        "threshold_seconds": null
+      }
+    ],
+    "snapshot_collection_seconds": 0.04923850949853659,
+    "policy": {
+      "sampling_interval_seconds": 60,
+      "snapshot_warning_duration_seconds": 1.0,
+      "publication_warning_age_seconds": 110.0,
+      "notice_due_warning_age_seconds": 120.0,
+      "unissued_final_draft_warning_age_seconds": 86520.0,
+      "temporary_warning_age_seconds": {
+        "RightsExport": 120.0,
+        "RightsCopyPageReview": 120.0,
+        "RightsCopyInformation": 120.0,
+        "RightsPortabilityAssessment": 120.0,
+        "RightsPortabilitySelection": 120.0,
+        "RightsPortabilityCoverage": 120.0,
+        "RightsPortabilityResponseDraft": 120.0,
+        "RightsAccessResponseDraft": 120.0,
+        "RightsAccessCoverage": 120.0,
+        "RightsAccessScopeInventory": 120.0,
+        "RightsAccessFieldDecision": 120.0
+      },
+      "kind": "local_attention_not_contractual_slo"
+    },
+    "limitations": [
+      "Manual administrative evaluation, no automatic scheduler or alert delivery",
+      "Absence of findings does not establish health or complete coverage",
+      "No broker/worker liveness or physical purge proof",
+      "No automatic replays, authority changes or external provider calls"
+    ]
+  },
+  "after_recovery_new_window": {
+    "schema_version": 1,
+    "policy_version": "local-attention-v1",
+    "status": "unknown",
+    "health": "unknown",
+    "coverage": "unverified",
+    "findings": [],
+    "snapshot_collection_seconds": 0.0981676746159792,
+    "policy": {
+      "sampling_interval_seconds": 60,
+      "snapshot_warning_duration_seconds": 1.0,
+      "publication_warning_age_seconds": 110.0,
+      "notice_due_warning_age_seconds": 120.0,
+      "unissued_final_draft_warning_age_seconds": 86520.0,
+      "temporary_warning_age_seconds": {
+        "RightsExport": 120.0,
+        "RightsCopyPageReview": 120.0,
+        "RightsCopyInformation": 120.0,
+        "RightsPortabilityAssessment": 120.0,
+        "RightsPortabilitySelection": 120.0,
+        "RightsPortabilityCoverage": 120.0,
+        "RightsPortabilityResponseDraft": 120.0,
+        "RightsAccessResponseDraft": 120.0,
+        "RightsAccessCoverage": 120.0,
+        "RightsAccessScopeInventory": 120.0,
+        "RightsAccessFieldDecision": 120.0
+      },
+      "kind": "local_attention_not_contractual_slo"
+    },
+    "limitations": [
+      "Manual administrative evaluation, no automatic scheduler or alert delivery",
+      "Absence of findings does not establish health or complete coverage",
+      "No broker/worker liveness or physical purge proof",
+      "No automatic replays, authority changes or external provider calls"
+    ]
+  },
+  "publication_interrupted": {
+    "schema_version": 1,
+    "policy_version": "local-attention-v1",
+    "status": "attention_required",
+    "health": "unknown",
+    "coverage": "unverified",
+    "findings": [
+      {
+        "code": "publication_backlog_old",
+        "severity": "warning",
+        "scope": "publication",
+        "response": "inspect_worker_then_reconcile_publication",
+        "count": 4,
+        "age_seconds": 300.0053,
+        "threshold_seconds": 110.0
+      }
+    ],
+    "snapshot_collection_seconds": 0.08229481149464846,
+    "policy": {
+      "sampling_interval_seconds": 60,
+      "snapshot_warning_duration_seconds": 1.0,
+      "publication_warning_age_seconds": 110.0,
+      "notice_due_warning_age_seconds": 120.0,
+      "unissued_final_draft_warning_age_seconds": 86520.0,
+      "temporary_warning_age_seconds": {
+        "RightsExport": 120.0,
+        "RightsCopyPageReview": 120.0,
+        "RightsCopyInformation": 120.0,
+        "RightsPortabilityAssessment": 120.0,
+        "RightsPortabilitySelection": 120.0,
+        "RightsPortabilityCoverage": 120.0,
+        "RightsPortabilityResponseDraft": 120.0,
+        "RightsAccessResponseDraft": 120.0,
+        "RightsAccessCoverage": 120.0,
+        "RightsAccessScopeInventory": 120.0,
+        "RightsAccessFieldDecision": 120.0
+      },
+      "kind": "local_attention_not_contractual_slo"
+    },
+    "limitations": [
+      "Manual administrative evaluation, no automatic scheduler or alert delivery",
+      "Absence of findings does not establish health or complete coverage",
+      "No broker/worker liveness or physical purge proof",
+      "No automatic replays, authority changes or external provider calls"
+    ]
+  },
+  "publication_after_worker": {
+    "schema_version": 1,
+    "policy_version": "local-attention-v1",
+    "status": "unknown",
+    "health": "unknown",
+    "coverage": "unverified",
+    "findings": [],
+    "snapshot_collection_seconds": 0.11957871913909912,
+    "policy": {
+      "sampling_interval_seconds": 60,
+      "snapshot_warning_duration_seconds": 1.0,
+      "publication_warning_age_seconds": 110.0,
+      "notice_due_warning_age_seconds": 120.0,
+      "unissued_final_draft_warning_age_seconds": 86520.0,
+      "temporary_warning_age_seconds": {
+        "RightsExport": 120.0,
+        "RightsCopyPageReview": 120.0,
+        "RightsCopyInformation": 120.0,
+        "RightsPortabilityAssessment": 120.0,
+        "RightsPortabilitySelection": 120.0,
+        "RightsPortabilityCoverage": 120.0,
+        "RightsPortabilityResponseDraft": 120.0,
+        "RightsAccessResponseDraft": 120.0,
+        "RightsAccessCoverage": 120.0,
+        "RightsAccessScopeInventory": 120.0,
+        "RightsAccessFieldDecision": 120.0
+      },
+      "kind": "local_attention_not_contractual_slo"
+    },
+    "limitations": [
+      "Manual administrative evaluation, no automatic scheduler or alert delivery",
+      "Absence of findings does not establish health or complete coverage",
+      "No broker/worker liveness or physical purge proof",
+      "No automatic replays, authority changes or external provider calls"
+    ]
+  },
+  "publication_lag_age": "fixture-controlled300seconds",
+  "publication_dirty_after_worker": 0,
+  "backoff": "natural60seconds",
+  "unique_simulated_receipt_count": 1,
+  "no_all_clear_claim": true
+}

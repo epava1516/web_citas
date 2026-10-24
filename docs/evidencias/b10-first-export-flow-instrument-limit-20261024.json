@@ -1,0 +1,284 @@
+{
+  "result": "VERIFIED_SCOPED_B10_CLOSED_FLOW_ATTRIBUTION",
+  "run": "20261024-081145-a940c7e2",
+  "cases": 6,
+  "junit_seconds": 177.83,
+  "source_hashes_verified": 1720,
+  "unchanged_product_and_static_paths": 637,
+  "observations": [
+    {
+      "corpus_version": "retained-history-closed-flow-v1",
+      "retained_revisions": 10,
+      "stages": {
+        "selection_preparation": {
+          "calls": 1,
+          "wall_seconds": 4.550760768353939,
+          "thread_cpu_seconds": 2.636328211999995,
+          "sql_calls": 1577
+        },
+        "seal_json": {
+          "calls": 96,
+          "wall_seconds": 0.026855912059545517,
+          "thread_cpu_seconds": 0.026391101000008632,
+          "sql_calls": 0
+        },
+        "unseal_json": {
+          "calls": 930,
+          "wall_seconds": 0.13296625949442387,
+          "thread_cpu_seconds": 0.13032015599996782,
+          "sql_calls": 0
+        },
+        "source_copy": {
+          "calls": 57,
+          "wall_seconds": 2.3265709159895778,
+          "thread_cpu_seconds": 1.363897286999979,
+          "sql_calls": 893
+        },
+        "canonical": {
+          "calls": 1148,
+          "wall_seconds": 0.06383970752358437,
+          "thread_cpu_seconds": 0.06284606699998818,
+          "sql_calls": 0
+        },
+        "image_contents": {
+          "calls": 28,
+          "wall_seconds": 0.00031181424856185913,
+          "thread_cpu_seconds": 0.00025614800000539617,
+          "sql_calls": 0
+        },
+        "coverage_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.5282260943204165,
+          "thread_cpu_seconds": 0.28915867000000617,
+          "sql_calls": 238
+        },
+        "coverage_page_intake": {
+          "calls": 21,
+          "wall_seconds": 4.93012104742229,
+          "thread_cpu_seconds": 2.8297922459999967,
+          "sql_calls": 2226
+        },
+        "coverage_approval": {
+          "calls": 1,
+          "wall_seconds": 0.2424494093284011,
+          "thread_cpu_seconds": 0.1549698190000015,
+          "sql_calls": 105
+        },
+        "covered_generation": {
+          "calls": 1,
+          "wall_seconds": 1.5925305858254433,
+          "thread_cpu_seconds": 0.9419971259999969,
+          "sql_calls": 678
+        },
+        "final_draft_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.5492681637406349,
+          "thread_cpu_seconds": 0.25416513899999416,
+          "sql_calls": 168
+        },
+        "final_draft_inspection": {
+          "calls": 1,
+          "wall_seconds": 0.3444859767332673,
+          "thread_cpu_seconds": 0.1549577920000047,
+          "sql_calls": 217
+        },
+        "final_approval": {
+          "calls": 1,
+          "wall_seconds": 0.4848483595997095,
+          "thread_cpu_seconds": 0.23333511399999907,
+          "sql_calls": 301
+        },
+        "closure": {
+          "calls": 1,
+          "wall_seconds": 0.6485035680234432,
+          "thread_cpu_seconds": 0.3559488470000005,
+          "sql_calls": 239
+        },
+        "closure_replay": {
+          "calls": 1,
+          "wall_seconds": 0.300771108828485,
+          "thread_cpu_seconds": 0.16337493900000055,
+          "sql_calls": 182
+        },
+        "manifest_download": {
+          "calls": 1,
+          "wall_seconds": 0.40043954737484455,
+          "thread_cpu_seconds": 0.18913110300000113,
+          "sql_calls": 173
+        },
+        "image_download": {
+          "calls": 1,
+          "wall_seconds": 0.2962450906634331,
+          "thread_cpu_seconds": 0.1447163519999961,
+          "sql_calls": 171
+        },
+        "zip_download": {
+          "calls": 1,
+          "wall_seconds": 0.3178732115775347,
+          "thread_cpu_seconds": 0.15720343699999972,
+          "sql_calls": 171
+        }
+      },
+      "observed_module_aliases": {
+        "source_copy": 13,
+        "canonical": 2,
+        "seal_json": 28,
+        "unseal_json": 26,
+        "image_contents": 1
+      },
+      "sql_calls": 7374,
+      "wall_seconds": 17.657238309271634,
+      "thread_cpu_seconds": 9.740576873000002,
+      "process_maxrss_kib": 294484,
+      "delivered_manifest_bytes": 2334,
+      "delivered_image_bytes": 10516,
+      "delivered_zip_bytes": 10696,
+      "limits": "Instrumented single flow per size, nested stages not additive; history mostly excluded from delivered fields; fixture simulated identity/provenance, not provider/legal attestation; not 1500 revisions/16MiB JSON/64MiB originals, concurrency, p95, capacity or MOD09 reassessment"
+    },
+    {
+      "corpus_version": "retained-history-closed-flow-v1",
+      "retained_revisions": 100,
+      "stages": {
+        "selection_preparation": {
+          "calls": 1,
+          "wall_seconds": 4.8406202383339405,
+          "thread_cpu_seconds": 2.667798413,
+          "sql_calls": 1577
+        },
+        "seal_json": {
+          "calls": 295,
+          "wall_seconds": 0.0674308342859149,
+          "thread_cpu_seconds": 0.06556839200000297,
+          "sql_calls": 0
+        },
+        "unseal_json": {
+          "calls": 3342,
+          "wall_seconds": 0.5354989031329751,
+          "thread_cpu_seconds": 0.5221523089999209,
+          "sql_calls": 0
+        },
+        "source_copy": {
+          "calls": 79,
+          "wall_seconds": 4.998037138953805,
+          "thread_cpu_seconds": 2.7837700059999335,
+          "sql_calls": 1245
+        },
+        "canonical": {
+          "calls": 4411,
+          "wall_seconds": 0.291440486907959,
+          "thread_cpu_seconds": 0.28260679899986485,
+          "sql_calls": 0
+        },
+        "image_contents": {
+          "calls": 118,
+          "wall_seconds": 0.0013207662850618362,
+          "thread_cpu_seconds": 0.0011121100000437423,
+          "sql_calls": 0
+        },
+        "coverage_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.6377315204590559,
+          "thread_cpu_seconds": 0.3925783480000007,
+          "sql_calls": 238
+        },
+        "coverage_page_intake": {
+          "calls": 111,
+          "wall_seconds": 27.8112092288211,
+          "thread_cpu_seconds": 15.830980502000017,
+          "sql_calls": 11766
+        },
+        "coverage_approval": {
+          "calls": 1,
+          "wall_seconds": 0.3951514074578881,
+          "thread_cpu_seconds": 0.26787887400000443,
+          "sql_calls": 105
+        },
+        "covered_generation": {
+          "calls": 1,
+          "wall_seconds": 2.495290845632553,
+          "thread_cpu_seconds": 1.4680305300000072,
+          "sql_calls": 678
+        },
+        "final_draft_preparation": {
+          "calls": 1,
+          "wall_seconds": 0.7068058708682656,
+          "thread_cpu_seconds": 0.43083828299999993,
+          "sql_calls": 168
+        },
+        "final_draft_inspection": {
+          "calls": 1,
+          "wall_seconds": 0.47163320425897837,
+          "thread_cpu_seconds": 0.22264484500000492,
+          "sql_calls": 217
+        },
+        "final_approval": {
+          "calls": 1,
+          "wall_seconds": 0.6277642175555229,
+          "thread_cpu_seconds": 0.30830479700000524,
+          "sql_calls": 301
+        },
+        "closure": {
+          "calls": 1,
+          "wall_seconds": 0.8550693485885859,
+          "thread_cpu_seconds": 0.5056624139999997,
+          "sql_calls": 239
+        },
+        "closure_replay": {
+          "calls": 1,
+          "wall_seconds": 0.3262941651046276,
+          "thread_cpu_seconds": 0.14049160600001187,
+          "sql_calls": 182
+        },
+        "manifest_download": {
+          "calls": 1,
+          "wall_seconds": 0.3567766547203064,
+          "thread_cpu_seconds": 0.18141155800000774,
+          "sql_calls": 173
+        },
+        "image_download": {
+          "calls": 1,
+          "wall_seconds": 0.3348905136808753,
+          "thread_cpu_seconds": 0.15971312499999613,
+          "sql_calls": 171
+        },
+        "zip_download": {
+          "calls": 1,
+          "wall_seconds": 0.32457692362368107,
+          "thread_cpu_seconds": 0.15664957100000265,
+          "sql_calls": 171
+        }
+      },
+      "observed_module_aliases": {
+        "source_copy": 13,
+        "canonical": 2,
+        "seal_json": 28,
+        "unseal_json": 26,
+        "image_contents": 1
+      },
+      "sql_calls": 18110,
+      "wall_seconds": 47.19420854281634,
+      "thread_cpu_seconds": 26.227603420999998,
+      "process_maxrss_kib": 319776,
+      "delivered_manifest_bytes": 2336,
+      "delivered_image_bytes": 10516,
+      "delivered_zip_bytes": 10696,
+      "limits": "Instrumented single flow per size, nested stages not additive; history mostly excluded from delivered fields; fixture simulated identity/provenance, not provider/legal attestation; not 1500 revisions/16MiB JSON/64MiB originals, concurrency, p95, capacity or MOD09 reassessment"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifact_sha256": {
+    "result.json": "5099b0f9bbd79145b89820a5197a97a206abf5199fd8296c978280cb10ef8f70",
+    "source-hashes.json": "fc0b74080c2a8fd2b8d3c2a6be722bb407324abef1c3a1a53ad7ce9fd75528a5",
+    "pytest.xml": "8c8f0eaa8b6f621cbc8e222b69d7bff8be573cebb59acf0214911ae29ab57c80",
+    "runner.json": "a26f95bffb8a4acb413d08bafa7fcfd84a51f795f52e28396f2e15d49cde5dae",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "limits": [
+    "One instrumented flow per size, inclusive/nested timings and SQL not additive",
+    "Simulated fixture identity/provenance; not provider/legal attestation",
+    "Mostly excluded historical fields, not large selected-history or massive binary transport",
+    "Not MOD09 extreme, full human elapsed time, concurrent capacity, percentiles or production"
+  ],
+  "instrument_limit_discovered": "image_contents is generator; observed call creation only, not iteration/physical image reads. Whole-flow/other plain-function witnesses valid; zero SQL/time from this probe must not be attributed to image work."
+}

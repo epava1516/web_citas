@@ -1,5 +1,7 @@
 # Tecnologías utilizadas
 
+Nota de vigencia — 2026-10-24: el inventario inferior conserva su corte del 2026-10-11. Las menciones a MOD-08 pausado, Graphify 0.9.64, procesos y versiones pertenecen a ese corte; no fijan el estado actual. Para ejecución y aceptación prevalece [seguimiento17](17-seguimiento-desarrollo.md); para el grafo, su sello y [procedimiento19](19-graphify-analisis-local.md). Las versiones actuales deben contrastarse con los manifiestos y metadatos del entorno correspondiente, sin sustituir el historial.
+
 Fecha de corte: 2026-10-11. Repositorio `web_citas`, HEAD `7e04016d8ece6cf52388e283eb06cf0a6040fd2b`. Inventario contrastado con `pyproject.toml`, `uv.lock`, `Dockerfile`, `compose.yaml`, configuración y código. Las versiones de paquetes son las resueltas en el lockfile, no una comprobación de los procesos activos. El estado de aceptación se consulta en [seguimiento](17-seguimiento-desarrollo.md); el diseño en [arquitectura](02-arquitectura.md).
 
 ## Aplicación y lenguajes

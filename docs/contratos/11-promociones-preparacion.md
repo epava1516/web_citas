@@ -1,5 +1,13 @@
 # CR-10 — Contrato de preparación comercial
 
+## Alcance comercial beta consolidado el 2026-10-20
+
+La [versión funcional 1.1](../14-contrato-funcional-v1.md) prepara exclusivamente visibilidad del perfil: Premium, Top y autosubida. No precios de citas o servicios, pagos entre usuarios, créditos ni suscripciones recurrentes. Renovación de vigencia gratuita y autosubida comercial son operaciones distintas. Mantener pedidos/versiones/idempotencia, patrocinio explícito y elegibilidad; el pago no evita controles ni crea otra publicación.
+
+Regla de exposición local de la beta: Premium precede a Top dentro del conjunto compatible y elegible; rotación estable por día UTC/ID dentro de cada tipo. La página admite veinticuatro resultados; el modo sintético no reserva un cupo adicional de posiciones por tipo ni garantiza una posición. Una publicación aparece una sola vez aunque tenga varios derechos. Los cupos diarios e intervalos de autosubida se fijan en el snapshot del pedido. Esta precisión conserva el ranking existente para verificar B04–B06; no define la oferta comercial real ni habilita ventas. [Matriz de verificación107](../107-matriz-fiabilidad-exposicion-beta-b04b06-20261020.md).
+
+Lanzamiento gratuito y modo comercial sintético siguen vigentes. Las duraciones iniciales existentes se conservan; precios, cupos de exposición, política de tiempo/reembolso y pasarela reales se configuran y validan antes de activar ventas, con autorización separada. Una recomendación física patrocinada debe identificarse; no se compra coincidencia con preferencias. Adaptación y medición pendientes B04–B08/B15; no se declara rendimiento de ranking ni integración real por este texto. [Matriz B00–B01](../104-consolidacion-contrato-beta-b00b01-20261020.md).
+
 Fecha:2026-10-06. Estado vigente2026-10-19: **CR10 aceptado técnicamente en local**, [acta06](../actas/06-cr10-aceptacion-tecnica-local-20261019.md) y [siete criterios](../evidencias/cr10-local-acceptance-matrix-20261019.json). Los estados de preparación/no aceptación inferiores conservan sus cortes históricos; esta decisión posterior y seguimiento17 prevalecen. Catálogo y entrega comercial completa integrados/verificados originalmente en8388bef; dependencia CR09 aceptada localmente en acta05. Evidencias/cola vigentes en seguimiento17. Vinculantes: contrato funcional14 §7 y ejecución16 §4/§13. No cambia el alcance, activa ventas ni acredita proveedor, fiscalidad o condiciones comerciales. La cola y aceptación vigentes están en seguimiento17.
 
 ## Entrega independiente inicial: catálogo sin datos de clientes

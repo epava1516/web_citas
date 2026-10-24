@@ -1,0 +1,135 @@
+{
+  "result": "PASS_FINITE_EXPERIMENT_INTEGRITY",
+  "run_id": "20261021-074147-0ae01cbc",
+  "candidate_eligible": false,
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "requests": 148,
+  "fresh_sources_cleanup_backend_identities_and_telegram": true,
+  "runtime_sources_unchanged": 726,
+  "same_candidate_as_parity": true,
+  "comparisons": {
+    "directory_es": {
+      "metrics": {
+        "A": {
+          "wall": 0.3013866897672415,
+          "app_cpu": 0.15253662999998596,
+          "pg_cpu_per_read": 0.11422201255555556
+        },
+        "B": {
+          "wall": 0.2769945040345192,
+          "app_cpu": 0.13873210750000453,
+          "pg_cpu_per_read": 0.10099586744444444
+        },
+        "C": {
+          "wall": 0.36727870255708694,
+          "app_cpu": 0.19808872149999956,
+          "pg_cpu_per_read": 0.12326927449999998
+        }
+      },
+      "ratios_C_to_AB": {
+        "wall": 1.270022976172255,
+        "app_cpu": 1.3601783919567134,
+        "pg_cpu_per_read": 1.1455300507560058
+      },
+      "AA_stable": false,
+      "nonregressing_blocks": 2,
+      "eligible": false
+    },
+    "search_en": {
+      "metrics": {
+        "A": {
+          "wall": 0.35578305134549737,
+          "app_cpu": 0.1892647464999868,
+          "pg_cpu_per_read": 0.13235373194444444
+        },
+        "B": {
+          "wall": 0.3573470446281135,
+          "app_cpu": 0.18759108849999961,
+          "pg_cpu_per_read": 0.12720105294444445
+        },
+        "C": {
+          "wall": 0.34959977958351374,
+          "app_cpu": 0.1730768845000057,
+          "pg_cpu_per_read": 0.1274931383888889
+        }
+      },
+      "ratios_C_to_AB": {
+        "wall": 0.9804656445082933,
+        "app_cpu": 0.9185310053644886,
+        "pg_cpu_per_read": 0.9823986750501756
+      },
+      "AA_stable": true,
+      "nonregressing_blocks": 3,
+      "eligible": false
+    }
+  },
+  "separate_fetch_observations": [
+    {
+      "route": "directory_es",
+      "arm": "A",
+      "execute_calls": 1,
+      "execute_seconds": 0.011546442285180092,
+      "stream_fetch_calls": 5,
+      "stream_fetch_seconds": 0.0869818739593029,
+      "stream_rows": 2000,
+      "commercial_wall_seconds": 0.2511113593354821,
+      "commercial_thread_cpu_seconds": 0.18991771600008178,
+      "commercial_python_peak_increment_bytes": 760629,
+      "commercial_python_retained_increment_bytes": 287474
+    },
+    {
+      "route": "directory_es",
+      "arm": "C",
+      "execute_calls": 1,
+      "execute_seconds": 0.017681676894426346,
+      "stream_fetch_calls": 5,
+      "stream_fetch_seconds": 0.07863279711455107,
+      "stream_rows": 2000,
+      "commercial_wall_seconds": 0.25986958108842373,
+      "commercial_thread_cpu_seconds": 0.19342869399997653,
+      "commercial_python_peak_increment_bytes": 755229,
+      "commercial_python_retained_increment_bytes": 286338
+    },
+    {
+      "route": "search_en",
+      "arm": "A",
+      "execute_calls": 1,
+      "execute_seconds": 0.008055586367845535,
+      "stream_fetch_calls": 5,
+      "stream_fetch_seconds": 0.06522674486041069,
+      "stream_rows": 2000,
+      "commercial_wall_seconds": 0.25006202422082424,
+      "commercial_thread_cpu_seconds": 0.20604598900001747,
+      "commercial_python_peak_increment_bytes": 776317,
+      "commercial_python_retained_increment_bytes": 295394
+    },
+    {
+      "route": "search_en",
+      "arm": "C",
+      "execute_calls": 1,
+      "execute_seconds": 0.01098824106156826,
+      "stream_fetch_calls": 5,
+      "stream_fetch_seconds": 0.05580975487828255,
+      "stream_rows": 2000,
+      "commercial_wall_seconds": 0.22962135262787342,
+      "commercial_thread_cpu_seconds": 0.19495991600001616,
+      "commercial_python_peak_increment_bytes": 766017,
+      "commercial_python_retained_increment_bytes": 291677
+    }
+  ],
+  "planning_only_plans": 8,
+  "product_candidate_adopted": false,
+  "TCP_capacity_measured": false,
+  "B07_B08_accepted": false,
+  "B13_rollback_accepted": false,
+  "evidence_sha256": {
+    "result.json": "95c1b8bb64b87b312b4cf07f7b9836ec7e44d5df78d1e74b51c9171d00e7022a",
+    "source-hashes.json": "1c0f64c0ca46d441c01c0bc281b14887917afc50f2e2223c502b7989bac20e72",
+    "pytest.xml": "e2263fe368864c68a3727a79db8c4b8894e159b70c25187f2dd4b527d0c4e359",
+    "pytest-reports.jsonl": "0241e1b82a5e4f53914fc6a778f187a9601af385cb8f18cccf038e4c22de1834",
+    "beta-joined-authority-roi.json": "25d810664f5dc9b9c4f70037429b5fb171d539659b4cb7dc95f0a8f8dad4444b",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

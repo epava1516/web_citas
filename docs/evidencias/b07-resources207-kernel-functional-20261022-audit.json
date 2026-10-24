@@ -1,0 +1,206 @@
+{
+  "result": "VERIFIED_FUNCTIONAL_RESOURCE_OBSERVER_NOT_CAPACITY",
+  "run": "20261022-003814-d8291aba",
+  "cases": 1,
+  "junit_seconds": 93.336,
+  "published": 10,
+  "geography": {
+    "1": 7,
+    "2": 3
+  },
+  "native_rights": 2,
+  "dynamic_successful": 60,
+  "mix": {
+    "listing": 20,
+    "search": 20,
+    "detail": 20
+  },
+  "languages": {
+    "es": 30,
+    "en": 30
+  },
+  "route_slots": 18,
+  "unique_routes": 14,
+  "uploads_successful": 1,
+  "generator_delay_ms": {
+    "p95": 2.990979701280594,
+    "p99": 17.27917715907101,
+    "max": 17.27917715907101
+  },
+  "cpu_aggregate_cores": 8,
+  "memory_aggregate_bytes": 8589934592,
+  "swap_zero": true,
+  "conservative_memory_upper_bound_bytes": 1347985408,
+  "storage_ceiling_bytes": 4865392640,
+  "product_sources_unchanged": 628,
+  "sources_protocol_ledgers_kernel_cleanup_notices_verified": true,
+  "resource_samples": 69,
+  "fully_within_phase_samples": {
+    "before_arrivals": 62,
+    "arrivals_and_drain": 6,
+    "idle_after": 1
+  },
+  "resource_cpu_intervals": {
+    "before_arrivals": {
+      "objects": {
+        "elapsed_seconds": 31.615880112163723,
+        "execution_cpu_cores": 0.0011024206783536753,
+        "counter_delta": {
+          "usage_usec": 34854,
+          "user_usec": 25670,
+          "system_usec": 9184,
+          "nr_periods": 32,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "caddy": {
+        "elapsed_seconds": 31.615809286013246,
+        "execution_cpu_cores": 0.00031291307176427833,
+        "counter_delta": {
+          "usage_usec": 9893,
+          "user_usec": 9072,
+          "system_usec": 820,
+          "nr_periods": 3,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 31.61744672898203,
+        "execution_cpu_cores": 0.09244253734508004,
+        "counter_delta": {
+          "usage_usec": 2922797,
+          "user_usec": 2505108,
+          "system_usec": 417690,
+          "nr_periods": 316,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "controller": {
+        "elapsed_seconds": 31.61585991550237,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 31.61108674108982,
+        "execution_cpu_cores": 0.008552695521491556,
+        "counter_delta": {
+          "usage_usec": 270360,
+          "user_usec": 231889,
+          "system_usec": 38470,
+          "nr_periods": 305,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 31.615446018986404,
+        "execution_cpu_cores": 0.042136587261807974,
+        "counter_delta": {
+          "usage_usec": 1332167,
+          "user_usec": 714611,
+          "system_usec": 617555,
+          "nr_periods": 54,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    },
+    "arrivals_and_drain": {
+      "objects": {
+        "elapsed_seconds": 2.5731484685093164,
+        "execution_cpu_cores": 0.00026115865766164085,
+        "counter_delta": {
+          "usage_usec": 672,
+          "user_usec": 0,
+          "system_usec": 672,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "caddy": {
+        "elapsed_seconds": 2.573813167400658,
+        "execution_cpu_cores": 5.983340280892551e-05,
+        "counter_delta": {
+          "usage_usec": 154,
+          "user_usec": 155,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 2.5748331006616354,
+        "execution_cpu_cores": 2.008364347448848,
+        "counter_delta": {
+          "usage_usec": 5171203,
+          "user_usec": 4719929,
+          "system_usec": 451275,
+          "nr_periods": 26,
+          "nr_throttled": 2,
+          "throttled_usec": 248594
+        }
+      },
+      "controller": {
+        "elapsed_seconds": 2.5735675226897,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 2.5710515044629574,
+        "execution_cpu_cores": 0.006761435922160252,
+        "counter_delta": {
+          "usage_usec": 17384,
+          "user_usec": 10500,
+          "system_usec": 6884,
+          "nr_periods": 24,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 2.5729304710403085,
+        "execution_cpu_cores": 0.7315564960599016,
+        "counter_delta": {
+          "usage_usec": 1882244,
+          "user_usec": 1102789,
+          "system_usec": 779455,
+          "nr_periods": 25,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    }
+  },
+  "host_observer_outside_runtime_budget": true,
+  "observer_thread_cpu_seconds": 1.6536452979999998,
+  "observer_elapsed_seconds": 172.89415651746094,
+  "observer_process_rss_bytes": 23252992,
+  "B07_accepted": false,
+  "artifacts_sha256": {
+    "report.json": "043d1f27bd00fc010db38bb4a10edec2ba7621bc7fd891dbbd2c036f0a7a1fda",
+    "launcher.json": "4ed74a3f1958759d88e7d7d07454859be8c5c46dc039273feb5c7fcf870630d1",
+    "source-hashes.json": "bb3ec9c948c94c51fd167ffb9cbb4212d0127fab045907ce6369d42dd8347146",
+    "pytest.xml": "2408039b597befec654169b5b693c0357b9ee2f212fb8cde0db31b148afe4133",
+    "host-service-resources.jsonl": "97994d68036c190b9bbec34b6776736bdd99e114cbe3798c35683a236e65536c",
+    "host-service-resources.summary.json": "4f9f1d8cf413817dfd10f8fd6d523c224672e7cafe3a89828a7018b5e4aa5535"
+  }
+}

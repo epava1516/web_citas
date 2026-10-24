@@ -1,0 +1,53 @@
+{
+  "result": "PASS_B13_ENCRYPTION_TRANSITION_WITH_STRICT_SCOPED_REUSE",
+  "negative_cohort": "20261021-030427-5c12b873",
+  "original_passed": 149,
+  "original_failed": 1,
+  "corrective_run": "20261021-031135-ec7bc9c2",
+  "corrective_passed": 1,
+  "corrective_junit_seconds": 38.983,
+  "combined_unique_passed": 150,
+  "single_run_150_claim": false,
+  "by_module": {
+    "test_account_email_confirmation": 10,
+    "test_preparation_cleanup": 11,
+    "test_rights_portability_batch_projection": 16,
+    "test_rights_object_delivery": 5,
+    "test_media_erasure": 5,
+    "test_accounts": 11,
+    "test_agencies_mfa": 5,
+    "test_rights_object_store": 9,
+    "test_rights_object_read_clients": 24,
+    "test_rights_orphan_objects_retention": 1,
+    "test_deployment_profile": 9,
+    "test_operational_snapshot": 8,
+    "test_notice_worker_recovery": 1,
+    "test_operational_window": 9,
+    "test_secret_rotation": 16,
+    "test_operational_assessment": 10
+  },
+  "all_product_sources_identical_between_cuts": true,
+  "ast_delta_only_verified_account_fixture": true,
+  "assertions_and_shared_helpers_unchanged": true,
+  "fresh_sources_cleanup_and_terminal_telegrams": true,
+  "changed_product_sources": [
+    ".env.example",
+    "apps/core/mfa.py",
+    "apps/safety/crypto.py",
+    "apps/safety/object_storage/read_clients.py",
+    "apps/safety/rights_portability_batch_projection.py",
+    "compose.production.example.yaml",
+    "config/settings.py"
+  ],
+  "added_product_sources": [
+    "apps/core/encryption.py"
+  ],
+  "limits": [
+    "Staged encryption transition, not full key retirement or ciphertext migration",
+    "Synthetic keys and real local PostgreSQL/RustFS only; no production secrets or provider rotation",
+    "Lifecycle mocks are separate from real storage cases",
+    "Signing rotation changes HMAC and invalidates session; not transparent migration of persistent fingerprints",
+    "No new performance or capacity acceptance; B07 remains FAIL",
+    "B13 still requires full rotation inventory, restore, withdrawal and rollback audit"
+  ]
+}

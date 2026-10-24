@@ -1,0 +1,30 @@
+{
+  "result": "PASS_SCOPED_SNAPSHOT_UNIT_NOT_B12_ACCEPTANCE",
+  "run_id": "20261020-224828-eb4d76fa",
+  "passed": 6,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 53.709,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "runner_and_pytest_terminal": true,
+  "terminal_telegram_sent": true,
+  "existing_product_subset_unchanged": true,
+  "added_product_sources": [
+    "apps/core/management/commands/operational_snapshot.py",
+    "apps/core/operational_snapshot.py"
+  ],
+  "limits": [
+    "No real worker failure injection or continuous signal collector",
+    "No alert thresholds or collector cost comparison",
+    "Database state is not broker/worker liveness or object absence",
+    "B12 remains pending; prior capacity FAIL unchanged"
+  ],
+  "evidence_sha256": {
+    "artifacts/local-ci/20261020-224828-eb4d76fa/result.json": "5ef5444af2aed39f9046493bfffa0eb09f0a5a046031d994f51416164d78854a",
+    "artifacts/local-ci/20261020-224828-eb4d76fa/source-hashes.json": "ea7ad5471b3715989433a10d478d3cd1bc903b581074ccc07c14e098f835357a",
+    "artifacts/local-ci/20261020-224828-eb4d76fa/pytest.xml": "57cc8eb2287c95b6d099b7d0f5036f14f957fb2ac3decd5a7227b6398880f751",
+    "artifacts/local-ci/20261020-224828-eb4d76fa/telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

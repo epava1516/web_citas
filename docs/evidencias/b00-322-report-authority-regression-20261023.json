@@ -1,0 +1,78 @@
+{
+  "result": "PASS",
+  "scope": "AFFECTED_REPORT_INSPECTION_AUTHORITY_REGRESSION_NOT_GLOBAL_BETA",
+  "run": "artifacts/local-ci/20261023-233146-c4ca9ca1",
+  "tests": 31,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "junit_seconds": 156.029,
+  "workers": 3,
+  "source_hashes": {
+    "apps/safety/report_authority.py": "88a011735249717e8d971c63a55813ba98829ce93223a76add2cad27448599b7",
+    "apps/safety/views.py": "ebbde4849d313d1bb9f3f0a4a4a8af411944b2a662101534baa0223076161c5c",
+    "apps/safety/urgent_alerts.py": "8b03f43c0ec69dedd1b7fa28fe76dd4d4c388e04d3ef09fc224c4c9c9a58a995",
+    "tests/test_report_inspection_authority.py": "42a6ae53ff6f756d0b56ce894f55ddbe391f041a75568c6848c59786e3338e59",
+    "tests/test_report_inspection.py": "82b939fb94ea6868e74682cfec35bd67a6e1cff34f6c62021a933741dd83317e",
+    "tests/test_urgent_report_alerts.py": "d6c24420f0d452608adc2ad1d29a454a468ac9deb1089ba357e43f5de9446e46"
+  },
+  "sources_unchanged": true,
+  "testcases": [
+    "test_report_inspection_rechecks_authority_after_scope_wait[scope-permission]",
+    "test_intake_atomic_alert_replay_and_bounded_reconciliation",
+    "test_sensitive_data_requires_explicit_audited_access_and_valid_purpose",
+    "test_private_acknowledgement_does_not_read_assign_or_resolve",
+    "test_report_inspection_rechecks_authority_after_scope_wait[scope-session]",
+    "test_original_agency_and_revoked_editor_cannot_inspect_after_transfer",
+    "test_concurrent_acknowledgement_preserves_single_first_attention",
+    "test_report_inspection_rechecks_authority_after_scope_wait[scope-mfa]",
+    "test_mobile_moderator_inspection_requires_reason_then_hides_on_get",
+    "test_mobile_attention_persists_after_reload",
+    "test_report_inspection_rechecks_authority_after_scope_wait[scope-inactive]",
+    "test_transfer_between_initial_check_and_lock_does_not_expose_payload",
+    "test_report_inspection_rechecks_authority_after_scope_wait[payload-permission]",
+    "test_reconciler_batch_limit_and_intake_rollback",
+    "test_inspection_denies_missing_permission_or_current_mfa[permission]",
+    "test_report_inspection_rechecks_authority_after_scope_wait[payload-session]",
+    "test_acknowledgement_rechecks_management_and_historical_conflict",
+    "test_inspection_denies_missing_permission_or_current_mfa[disabled_mfa]",
+    "test_report_inspection_rechecks_authority_after_scope_wait[payload-mfa]",
+    "test_acknowledgement_rechecks_revoked_authority[False-permission]",
+    "test_inspection_denies_missing_permission_or_current_mfa[stale_mfa]",
+    "test_report_inspection_rechecks_authority_after_scope_wait[payload-inactive]",
+    "test_acknowledgement_rechecks_revoked_authority[False-session]",
+    "test_acknowledgement_rechecks_revoked_authority[False-mfa]",
+    "test_acknowledgement_rechecks_revoked_authority[False-active]",
+    "test_acknowledgement_rechecks_revoked_authority[True-permission]",
+    "test_acknowledgement_rechecks_revoked_authority[True-session]",
+    "test_acknowledgement_rechecks_revoked_authority[True-mfa]",
+    "test_acknowledgement_rechecks_revoked_authority[True-active]",
+    "test_acknowledged_alert_remains_in_scoped_followup_until_terminal[es]",
+    "test_acknowledged_alert_remains_in_scoped_followup_until_terminal[en]"
+  ],
+  "cleanup": [
+    {
+      "name": "web-modelos-ci-pg-20261023-233146-c4ca9ca1",
+      "currently_absent": true
+    },
+    {
+      "name": "web-modelos-ci-redis-20261023-233146-c4ca9ca1",
+      "currently_absent": true
+    }
+  ],
+  "temporary_directory_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "controlled_interleavings": true,
+  "database_http_domain_crypto_and_authorization_real": true,
+  "negative_reproduction": "artifacts/beta-promotion-fix-20261020/b00-322-report-repro-audit.json",
+  "prior_setup_error": "artifacts/beta-promotion-fix-20261020/b00-322-report-fix-ruff-attempt.json",
+  "evidence_sha256": {
+    "result.json": "50f73ab2ad17be512b88a903bb23f5c493d9ea90deb2615f3c0931c028d73953",
+    "pytest.xml": "3c195a0a0278f362fbf99d58eda4d0eac1a8dc97c4b3d1458fcea407e641901d",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

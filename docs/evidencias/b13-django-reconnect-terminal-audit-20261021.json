@@ -1,0 +1,23 @@
+{
+  "result": "PASS_LOCAL_OWNED_POSTGRESQL",
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "junit_seconds": 3.78,
+  "verified_properties": {
+    "login_gate_rejects_new_connections_and_reopens": true,
+    "old_password_rejected_for_new_connections": true,
+    "old_session_survives_password_change": true,
+    "targeted_termination_revokes_old_session": true,
+    "new_session_and_acl_and_data_preserved": true,
+    "owned_postgres_removed": true,
+    "django_persistent_connection_survives_password_change": true,
+    "django_health_check_reconnect_with_stale_secret_fails": true,
+    "django_updated_secret_reconnects_with_data_preserved": true
+  },
+  "fresh_sources_and_terminal_telegram": true,
+  "existing_product_unchanged": true,
+  "scope": "synthetic SQL login and isolated Django DatabaseWrapper with current persistent-connection settings; not deployed worker reload or full runtime ACL",
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

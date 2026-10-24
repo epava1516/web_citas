@@ -1,0 +1,35 @@
+{
+  "result": "VERIFIED_B11_FORMS_CORRECTED",
+  "run": "20261024-084341-46d1f457",
+  "phase": "corrected",
+  "cases": 12,
+  "witnesses": [
+    "tests.test_access_copy_preparation_localization::test_audited_preparation_and_page_decisions[False-en]",
+    "tests.test_access_copy_preparation_localization::test_audited_preparation_and_page_decisions[False-es]",
+    "tests.test_access_copy_preparation_localization::test_audited_preparation_and_page_decisions[True-en]",
+    "tests.test_access_copy_preparation_localization::test_audited_preparation_and_page_decisions[True-es]",
+    "tests.test_access_copy_preparation_localization::test_schema_and_literal_json_unchanged[en]",
+    "tests.test_access_copy_preparation_localization::test_schema_and_literal_json_unchanged[es]",
+    "tests.test_copy_page_label_association::test_auto_id_changes_only_html_identifiers[en]",
+    "tests.test_copy_page_label_association::test_auto_id_changes_only_html_identifiers[es]",
+    "tests.test_copy_page_label_association::test_native_page_labels_error_save_and_replay[False-en]",
+    "tests.test_copy_page_label_association::test_native_page_labels_error_save_and_replay[False-es]",
+    "tests.test_copy_page_label_association::test_native_page_labels_error_save_and_replay[True-en]",
+    "tests.test_copy_page_label_association::test_native_page_labels_error_save_and_replay[True-es]"
+  ],
+  "junit_seconds": 177.655,
+  "source_hashes_verified": 1721,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "artifact_sha256": {
+    "result.json": "2c6c74bcdd44d411b67f062018deea393ea0725e9430493f49f1b1f9fbd613c8",
+    "source-hashes.json": "1a2083f11bf52ff3360b13401a237a4a7e4b81f688a4354196375448e7ed66d3",
+    "pytest.xml": "70167aea5b7020b026af2f6f5846ef3aad024d5f855c19d3cb6bf470cd835c8b",
+    "runner.json": "683054ca5e6c3ebc5cdaac6a54d715d7392f1b3294c20b7431ca0bb44499515b",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "changed_product_paths": [
+    "apps/safety/rights_copy_forms.py",
+    "apps/safety/rights_exports.py"
+  ]
+}

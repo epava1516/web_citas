@@ -1,0 +1,20 @@
+{
+  "result": "PASS_LOCAL_OWNED_POSTGRESQL",
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "junit_seconds": 3.944,
+  "verified_properties": {
+    "login_gate_rejects_new_connections_and_reopens": true,
+    "old_password_rejected_for_new_connections": true,
+    "old_session_survives_password_change": true,
+    "targeted_termination_revokes_old_session": true,
+    "new_session_and_acl_and_data_preserved": true,
+    "owned_postgres_removed": true
+  },
+  "fresh_sources_and_terminal_telegram": true,
+  "existing_product_unchanged": true,
+  "scope": "synthetic SQL login, sessions and SELECT-only ACL, not deployed Django pools or full runtime role acceptance",
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

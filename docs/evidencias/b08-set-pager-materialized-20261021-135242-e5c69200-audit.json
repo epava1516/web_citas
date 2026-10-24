@@ -1,0 +1,128 @@
+{
+  "run_id": "20261021-135242-e5c69200",
+  "result": "PASS_COMMON23_NOT_SPEEDUP",
+  "cases": 23,
+  "bad_cases": [],
+  "properties": {
+    "test_set_pager_all_pages": {
+      "frozen_native_comparisons": "[{'day': 0, 'language': 'es', 'params': {}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 0, 'language': 'en', 'params': {}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'es', 'params': {}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'en', 'params': {}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}]",
+      "set_pager_selected_calls": "32",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[False-none]": {
+      "set_pager_boundary": "none",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[False-future]": {
+      "set_pager_boundary": "future",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[False-starts_now]": {
+      "set_pager_boundary": "starts_now",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[False-ends_now]": {
+      "set_pager_boundary": "ends_now",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[False-suspended]": {
+      "set_pager_boundary": "suspended",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[False-active]": {
+      "set_pager_boundary": "active",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_temporal_and_empty_rights[True-none]": {
+      "set_pager_boundary": "none",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_revocation[individual]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[True-future]": {
+      "set_pager_boundary": "future",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_revocation[owner]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[True-starts_now]": {
+      "set_pager_boundary": "starts_now",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_revocation[editor]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[True-ends_now]": {
+      "set_pager_boundary": "ends_now",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_snapshot_boundary": {
+      "commercial_snapshot_boundary": "Concurrent buyer revocation after map read; first response retains its read snapshot, next request denies sponsorship; no persistent result cache",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[True-suspended]": {
+      "set_pager_boundary": "suspended",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_checked_pending[es]": {
+      "synthetic_contact_rule_only": "True",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_temporal_and_empty_rights[True-active]": {
+      "set_pager_boundary": "active",
+      "set_pager_used": "True",
+      "native_and_http_parity": "True"
+    },
+    "test_set_pager_checked_pending[en]": {
+      "synthetic_contact_rule_only": "True",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_unknown_shapes_preserve_original_behavior[distinct]": {
+      "original_shape_behavior_preserved": "distinct",
+      "set_pager_used": "False"
+    },
+    "test_set_pager_inherited_transaction": {
+      "set_pager_selected_calls": "0",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_unknown_shapes_preserve_original_behavior[unknown_order]": {
+      "original_shape_behavior_preserved": "unknown_order",
+      "set_pager_used": "False"
+    },
+    "test_unknown_shapes_preserve_original_behavior[sliced]": {
+      "original_shape_behavior_preserved": "sliced",
+      "set_pager_used": "False"
+    }
+  },
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_telegram_verified": true,
+  "candidate_only_delta_materialized_grouping": true,
+  "B07_B08_B11_accepted": false
+}

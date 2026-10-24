@@ -1,5 +1,9 @@
 # Portabilidad: vincular cobertura, entrega y respuesta final
 
+## Precedencia de aceptación — 2026-10-24
+
+Los estados y pendientes siguientes conservan el corte de esta entrega. CR09 fue aceptado técnicamente en su alcance local por [acta05](actas/05-cr09-aceptacion-tecnica-local-20261018.md), con límites y excepción MOD09; el [alfa consolidado](actas/10-entrega-tecnica-local-alpha-20261020.md) pertenece a su versión posterior. La mención antigua de CR09 abierto no reabre esas decisiones ni acredita la beta adaptada o producción. El estado y la próxima acción actuales se consultan en [seguimiento17](17-seguimiento-desarrollo.md) y el [roadmap beta](103-roadmap-beta-clasificados-20261020.md). No se vuelven a ejecutar ni se suman las baterías históricas por esta aclaración.
+
 Estado vigente: cobertura/entrega0094 y respuesta independiente/cierre0095–97 implementados y verificados localmente. Regresión original393 correcta;124 pruebas de integración posterior y48 de recuperación/exportación finales correctas en ejecuciones separadas. RuntimeDocker0099 actualizado. [Seguimiento vigente](17-seguimiento-desarrollo.md) y [resultados](evidencias/recuperacion-final0099-resultados.json). CR-09 y el contrato completo siguen abiertos. Los hallazgos/diseños/resultados posteriores se preservan como historial; las menciones antiguas de “sin implementar”, “activa” o “runtime pendiente” no prevalecen sobre este estado.
 
 

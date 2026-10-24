@@ -1,12 +1,14 @@
 # Producto y alcance
 
+Consolidación posterior, 2026-10-20: el producto vigente es un portal de clasificados de perfiles adultos para citas románticas, sin anuncios de encuentros sexuales. Panel centrado en rellenar el perfil; renovación y promociones de visibilidad; recomendaciones físicas opcionales. [Contrato funcional 1.1](14-contrato-funcional-v1.md) y [matriz B00–B01](104-consolidacion-contrato-beta-b00b01-20261020.md). Las tablas siguientes conservan requisitos y propuestas de la captura inicial; sus referencias a modelos, servicios y tarifas no amplían el alcance romántico actual.
+
 Actualizado: 2026-10-03.
 
 Especificación vigente: [Contrato funcional v1](14-contrato-funcional-v1.md), definida por delegación expresa del usuario. Sustituye las propuestas anteriores en puntos resueltos: MVP, catálogo, publicación, cuentas, contactos y monetización preparada.
 
 Nota de lectura, 2026-10-09: las tablas y propuestas siguientes conservan la captura inicial de requisitos del 2026-10-03. Sus pendientes funcionales ya resueltos no constituyen una nueva cola. Implementación, aceptación local y dependencias aún abiertas en [seguimiento17](17-seguimiento-desarrollo.md); orden y gates en [contrato16](16-contrato-ejecucion-desarrollo.md).
 
-## Requisitos confirmados
+## Requisitos confirmados en la captura inicial — histórico
 
 | ID | Requisito |
 | --- | --- |
@@ -47,7 +49,7 @@ Nota de lectura, 2026-10-09: las tablas y propuestas siguientes conservan la cap
 
 Propuesta: reservar chat, reseñas, reservas, pagos y recomendaciones personalizadas para fases posteriores, salvo que el modelo de negocio los haga imprescindibles.
 
-## Modelo de dominio preliminar
+## Modelo de dominio preliminar — histórico
 
 Separar cuenta privada, perfil público y anuncio. Se admite gestión de varias personas desde un mismo perfil de agencia cuando comparten teléfono de gestión. Cada persona representada debe mantener sus datos y verificaciones separados; ver `10-unicidad-antiduplicados.md`. Una publicación por persona/modelo, tanto independiente como representada por agencia. Versiones, archivo y renovación no crean otra publicación activa de esa misma persona. Transferencias, miembros de agencia y verificaciones siguen pendientes.
 
@@ -55,7 +57,7 @@ Entidades candidatas: cuenta, perfil público, anuncio, fotografía, tarifa, con
 
 La identidad legal y las evidencias de verificación no forman parte del perfil público. La ubicación inicial propuesta es ciudad o zona, sin domicilio ni coordenadas exactas.
 
-## Condiciones de lanzamiento propuestas
+## Condiciones de lanzamiento propuestas inicialmente — histórico
 
 Definir contenido admitido, territorios y tratamiento de anuncios de acompañamiento o servicios sexuales. Propuesta: participación y personas representadas exclusivamente adultas, prohibición de explotación, coacción, suplantación e imágenes sin autorización. No se ha definido todavía si se admite contenido explícito.
 

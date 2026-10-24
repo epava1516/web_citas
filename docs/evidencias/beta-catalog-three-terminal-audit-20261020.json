@@ -1,0 +1,47 @@
+{
+  "run_id": "20261020-183847-cb56f54c",
+  "phase": "catalog-three",
+  "result": "PASS",
+  "audit_time": "2026-10-20T18:40:18.752314+00:00",
+  "scope": "Beta catalogue current three-case verification; no capacity or global acceptance",
+  "passed": 3,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/test_native_submission_relation_reads.py"
+  ],
+  "pytest_seconds": 56.85655058640987,
+  "junit_seconds": 54.685,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "86ee33a0d51cfbe55da7a8d468cb13247d94d67f0d58c4db7a9ba0370311cb93",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792521613768522436-2142844.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "b9f60dede8e037b53464224770c9fecba8b2199da0c4c20e338091226de53b65",
+    "runner.json": "83a8d3b9c0435463451b624f33625a65e03ba501f1702ace740ef1b65c3730a1",
+    "source-hashes.json": "88c83cd58c902fa7b5c104f89223269da29bf4d1d611ccce392299dbba83a88d",
+    "pytest.xml": "9dda55c5ce1b4888288ba25e7508088236e7fedddfec8cdb811be09f11d73e4e",
+    "pytest-reports.jsonl": "b9784bd09ef8e821d96fe243e5b291fc3b6959b09d54c200985883d558bdc14b",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "worker_scope": {
+    "scope": "No worker/Beat claimed for focused regression"
+  },
+  "nodeids": [
+    "tests/test_native_submission_relation_reads.py::test_native_validation_does_not_read_each_input_membership_twice",
+    "tests/test_native_submission_relation_reads.py::test_native_validation_still_observes_catalog_change_after_initialization[categories]",
+    "tests/test_native_submission_relation_reads.py::test_native_validation_still_observes_catalog_change_after_initialization[services]"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

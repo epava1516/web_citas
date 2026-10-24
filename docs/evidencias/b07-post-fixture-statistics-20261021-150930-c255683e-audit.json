@@ -1,0 +1,91 @@
+{
+  "run_id": "20261021-150930-c255683e",
+  "result": "PASS_PREPARATION_DIAGNOSIS_NOT_ROI",
+  "cases": 1,
+  "bad_cases": [],
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_backends_telegram_verified": true,
+  "stale_estimates_before": [
+    "catalog_promotionentitlement",
+    "catalog_promotionorder",
+    "listings_publicationstate"
+  ],
+  "initial_estimates": [
+    {
+      "table": "catalog_promotionentitlement",
+      "before_reltuples": 121.0,
+      "actual_rows": 200
+    },
+    {
+      "table": "catalog_promotionorder",
+      "before_reltuples": 121.0,
+      "actual_rows": 200
+    },
+    {
+      "table": "core_person",
+      "before_reltuples": 1002.0,
+      "actual_rows": 1002
+    },
+    {
+      "table": "core_representationaction",
+      "before_reltuples": 1002.0,
+      "actual_rows": 1002
+    },
+    {
+      "table": "core_user",
+      "before_reltuples": 1006.0,
+      "actual_rows": 1006
+    },
+    {
+      "table": "core_verificationcheck",
+      "before_reltuples": 1002.0,
+      "actual_rows": 1002
+    },
+    {
+      "table": "listings_publicationstate",
+      "before_reltuples": -1.0,
+      "actual_rows": 1002
+    },
+    {
+      "table": "listings_revision_categories",
+      "before_reltuples": 1002.0,
+      "actual_rows": 1002
+    }
+  ],
+  "summary": [
+    {
+      "stage": "native_preparation",
+      "route": "directory_es",
+      "wall_median_ms": 213.54955900460482,
+      "app_cpu_median_ms": 123.91664649999257,
+      "backend_cpu_median_ms": 43.934725,
+      "prepared_statements_final": 17
+    },
+    {
+      "stage": "native_preparation",
+      "route": "search_en",
+      "wall_median_ms": 215.90973809361458,
+      "app_cpu_median_ms": 141.09632999999633,
+      "backend_cpu_median_ms": 51.289698,
+      "prepared_statements_final": 17
+    },
+    {
+      "stage": "explicit_post_preparation_analyze",
+      "route": "directory_es",
+      "wall_median_ms": 169.8678177781403,
+      "app_cpu_median_ms": 112.52858950000189,
+      "backend_cpu_median_ms": 38.3588715,
+      "prepared_statements_final": 17
+    },
+    {
+      "stage": "explicit_post_preparation_analyze",
+      "route": "search_en",
+      "wall_median_ms": 205.3907481022179,
+      "app_cpu_median_ms": 132.5835294999962,
+      "backend_cpu_median_ms": 49.998931,
+      "prepared_statements_final": 17
+    }
+  ],
+  "fixture_adopted": false,
+  "B07_B09_accepted": false
+}

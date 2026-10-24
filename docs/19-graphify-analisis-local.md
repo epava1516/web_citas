@@ -1,5 +1,15 @@
 # Graphify: instalación, uso y límites
 
+## Referencia del estado actual — 2026-10-24
+
+El corte verificable del grafo actual se consulta en `graphify-out/GRAPH_VERIFICATION.json`, `SOURCE_MANIFEST.json` y `ESTADO_ACTUAL.md`; [seguimiento17](17-seguimiento-desarrollo.md) fija el estado de ejecución. Las instalaciones, cifras y revisiones de 2026-10-04/09/11 conservadas abajo son antecedentes fechados, incluidos los apartados que entonces se denominaron vigentes. No describen automáticamente el grafo, la versión instalada o los permisos actuales.
+
+Las actualizaciones recientes distinguen AST dirigido, semántica seleccionada y cobertura global; el sello registra sus límites. Consultar un grafo o conservar sus nodos no acredita lectura semántica completa, pruebas funcionales, capacidad o aceptación de beta. El historial de coste y la incidencia de delegación se conservan; las instrucciones posteriores y el contrato de ejecución rigen las invocaciones actuales.
+
+## Capturas históricas en Open Notebook — conciliación 2026-10-24
+
+La [conciliación295](295-conciliacion-informe-grafo-historico-b00-20261024.md) distingue el informe histórico del11/10 de sus ocho fragmentos de nodos/relaciones. Cuatro fragmentos contienen controles sin escapar dentro de cadenas y no son JSON estricto, pese al encabezado «sin pérdida de atributos». El inventario estructural preserva esos valores y sus posiciones; no demuestra identidad con los bytes del graph.json original, lectura semántica de los registros ni restaurabilidad. No se reparan rutas o etiquetas por conjetura ni se importa el grafo antiguo al actual. Los originales capturados se conservan intactos.
+
 Fecha: 2026-10-04. Código analizado: `35b1f534`. Herramienta de desarrollo; no dependencia de la aplicación ni servicio de producción.
 
 ## Uso y límites vigentes — revisión documental 2026-10-09
@@ -85,3 +95,23 @@ Los nodos más conectados son User (137), Person (131), Revision (72), Listing (
 Instalación y consultas verificadas; herramienta utilizable en esta sesión. El grafo ayuda a localizar dependencias. **No acredita seguridad global, cumplimiento jurídico, aceptación CR-09 o entrega completa.** La regresión común sobre 35b1f53 terminó con 285 passed y 1 failed en969.51s, sin skips. El fallo fue Page.reload «Not attached to an active page» en test_browser_listing_review_and_public_version; la reproducción aislada del código original pasó1/15.84s. Se añadió comprobación visible de la decisión y ausencia del formulario antes de iniciar recarga, conservando la prueba de persistencia y acceso público. No se presenta la reproducción aislada como286 pruebas correctas comunes ni se atribuye causa definitiva al navegador. Se continúa el contrato completo y la auditoría de requisitos pendientes, sin nuevas invocaciones Claude.
 
 Verificación afectada tras sincronizar el navegador: **20 passed95.28s**, PostgreSQL/Chromium sin skips. Ruff, formato, manage.py check y diff-check pasan. La aplicación no se modificó por el grafo; no dar la común fallida por aprobada sumando esta batería.
+
+## Grafo limpio del alfa desde cero — 2026-10-20
+
+Por instrucción expresa del usuario, se eliminaron todos los directorios Graphify detectados en los worktrees registrados, incluidas cachés, memorias, snapshots, copias históricas y alias. También se retiró el archivo de traslado que contenía el grafo anterior de este checkout y del alfa. No se guardó una copia de los grafos eliminados. El ledger numérico de consumo se conserva aparte en `docs/evidencias/graphify-consumo-historico-20261020.json` del checkout inicial, sin contenido de nodos/aristas y sin incorporarse al corpus. Las referencias de archivo/huellas en evidencias históricas siguen describiendo su corte original; ese archivo de grafo fue retirado ahora por el usuario.
+
+Fuente única vigente: `/home/felidae/proyectos/web_modelos_mod08_vps`, commit `920ea36b6f4d0e8c0a60d030730de5aed1cf1781`. El checkout inicial conserva su rama/código y cambios del usuario. Corpus explícito de **1410 fuentes actuales**: **1226 código**, **129 plantillas**, **14 configuración/activos** y **41 documentos**. Excluidos `.ai`, seguimiento cronológico, historial, evidencias antiguas, comprimidos, propuestas y fuentes descartadas, secretos, medios, entornos y dependencias instaladas. No expandir citas excluidas. `.graphifyignore` fija la frontera y la detección ordinaria confirmó cero entradas históricas. Las dos plantillas token se revisaron como código estático sin credenciales y se incluyen.
+
+Extracción AST íntegramente nueva sin caché; lectura y razonamiento semántico nuevos de los41documentos con citas/huellas verificadas. Resultado: **10,972 nodos, 55,014 relaciones dirigidas, 501 comunidades**, en capas de aplicación/interfaz/documentación/configuración/pruebas/herramientas. MultiDiGraph conserva relaciones paralelas. Las 170rutas declaradas conectan con las plantillas; cero nombres URL explícitos sin resolver. Cero extremos ausentes, **174 referencias externas/sin resolver** y **126 autorrelaciones** conservadas como límites, no defectos acreditados. Semántica seleccionada, sin prometer cada proposición documental ni exhaustividad dinámica.
+
+Estado: Alpha técnico local aceptado según acta10 del2026-10-20, producciónG01–08 pendiente según acta11; MOD09 mantiene deuda de rendimiento. Pruebas incluidas como fuentes no se convierten en PASS por aparecer en el grafo. No nuevas pruebas de aplicación/cargas/aceptaciones/despliegues ni cambios de producto. Sin llamadas Claude ni API LLM externa; consumo nuevo nativo no medido. Avisos de pasos y verificaciones por Telegram con recibos.
+
+Grafo canónico y salidas en `graphify-out/` del alfa, accesibles también desde `graphify-out/` de este checkout mediante enlaces a las mismas salidas actuales: `graph.json`, `graph.html`, `GRAPH_REPORT.md`, `CORPUS_POLICY.json`, `SOURCE_MANIFEST.json`, `GRAPH_HEALTH.json`, `GRAPH_VERIFICATION.json` y `RESET_RECEIPT.json`. No snapshots previos. La receta/fragmentos de `rebuild/` pertenecen únicamente a esta generación.
+
+## Actualización contractual B00–B01 del 2026-10-20
+
+Antes de adaptar el contrato se incorporaron semánticamente el DAFO y el roadmap nuevos. Después se refrescaron trece documentos: producto01, taxonomía09, contrato14, apartado15, ejecución16, CR04/06/07/08/10, DAFO98, roadmap103 y [consolidación104](104-consolidacion-contrato-beta-b00b01-20261020.md). Dos extracciones nativas de sólo lectura, con revisión independiente de huellas y citas; ninguna invocación Claude V1 ni consumo nativo inventado. La consulta global de Open Notebook es contraste externo parcial, no la extracción semántica del grafo ni una auditoría exhaustiva del corpus.
+
+Resultado dirigido actual: **11.016 nodos, 55.047 relaciones y 1.413 fuentes**. Se comprobaron69citas literales del refresco final; no se reextrajo AST porque el código no cambió. Sin expansión a historial/evidencias ni copia de grafos anteriores. Se conserva la pertenencia anterior de los nodos restantes y se añade una comunidad documental Beta:501grupos no vacíos, sin nueva detección global. El HTML vuelve a generarse como vista agregada por superar5000nodos. Los fragmentos de reconstrucción inicial conservan su corte; no describen por sí solos esta actualización incremental.
+
+El contrato1.1 está consolidado documentalmente y la implementación beta sigue pendiente. El corte original del alfa, sus actas y su aceptación no cambian. [Evidencia de alcance del refresco](evidencias/b00b01-grafo-actualizacion-20261020.json).

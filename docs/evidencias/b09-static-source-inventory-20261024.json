@@ -1,0 +1,50 @@
+{
+  "result": "STATIC_SOURCE_INVENTORY_NOT_PROXY_RUNTIME",
+  "assets": [
+    {
+      "path": "static/app.css",
+      "bytes": 12412,
+      "sha256": "db85d6055ad8a12e9087557999c5ea6f71a0d684a2f10387b61eae00514918a3"
+    },
+    {
+      "path": "static/form-errors.js",
+      "bytes": 962,
+      "sha256": "e1e1c5829d4b1e07df3a43dc43da0116cd151f15101681c496eb6e5020b448b4"
+    },
+    {
+      "path": "static/geography.js",
+      "bytes": 1179,
+      "sha256": "0ba31f32ff04069e163baa2374567bd2e9f62579339a39541ae5bc4bb473063d"
+    },
+    {
+      "path": "static/search-geography.js",
+      "bytes": 1553,
+      "sha256": "99cc9a4004cea7e87f6752f26524c9bb500117116ff604ba12f98ea1ab059865"
+    },
+    {
+      "path": "static/vendor/HTMX-LICENSE",
+      "bytes": 642,
+      "sha256": "d3d2456f76414f2456104660ebd65aff1c04cd7966b942bdabd63f3cdb316a38"
+    },
+    {
+      "path": "static/vendor/HTMX-README.md",
+      "bytes": 382,
+      "sha256": "c9abe83b2d847c6cbf1335ce0a51688f96ed56c26ff1d3e639c47909b3ad6e3f"
+    },
+    {
+      "path": "static/vendor/htmx.min.js",
+      "bytes": 52182,
+      "sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+    }
+  ],
+  "total_bytes": 69312,
+  "proxy_configs": {
+    "Caddyfile": "e945651e9694c1107c47af452e31842f6b4ff3cb3dc5f704e28ada7f49aad453",
+    "Caddyfile.production.example": "81301889f988739bfbe0f996c05f4878bbfb1e9fe5455266731ff3d48424dcc1"
+  },
+  "observations": [
+    "Base page references app.css and deferred form-errors.js; listing additionally deferred search-geography.js",
+    "No encode directive in the inspected static Caddy blocks; no proxy compression or caching runtime credited",
+    "Static inventory does not establish transfer, LCP or capacity; browser diagnostic records actual delivered entity bodies"
+  ]
+}

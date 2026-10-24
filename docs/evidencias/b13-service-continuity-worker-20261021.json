@@ -1,0 +1,55 @@
+{
+  "scope": "Owned real services, local simulator only",
+  "outage": "worker",
+  "pending_before": 1,
+  "pending_after": 0,
+  "attempts_after_replay": 1,
+  "unique_simulated_receipts": 1,
+  "worker_processes": 2,
+  "worker_identities": [
+    {
+      "pid": 1105230,
+      "start_ticks": 427138230
+    },
+    {
+      "pid": 1105477,
+      "start_ticks": 427138386
+    }
+  ],
+  "owned_redis_container": "web-modelos-continuity-5daac5462c80411f",
+  "events": [
+    {
+      "delivery_counts": {
+        "failed": 0,
+        "processed": 1,
+        "retry": 0,
+        "simulated": 1
+      },
+      "event": "task_result",
+      "outcome": "succeeded",
+      "processor_disabled": false,
+      "schema_version": 1,
+      "task": "apps.safety.tasks.deliver_safety_notices",
+      "timestamp_seconds": 1792550775
+    },
+    {
+      "delivery_counts": {
+        "failed": 0,
+        "processed": 0,
+        "retry": 0,
+        "simulated": 0
+      },
+      "event": "task_result",
+      "outcome": "succeeded",
+      "processor_disabled": false,
+      "schema_version": 1,
+      "task": "apps.safety.tasks.deliver_safety_notices",
+      "timestamp_seconds": 1792550775
+    }
+  ],
+  "age_seconds": "fixture-controlled180",
+  "limits": [
+    "No host reboot, mid-task crash or external delivery guarantee",
+    "Broker has no persistence; PostgreSQL outbox is recovered by normal dispatch"
+  ]
+}

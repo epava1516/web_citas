@@ -1,5 +1,9 @@
 # Prompt autónomo para Claude principal — MOD-07
 
+## Documento histórico de relevo — 2026-10-24
+
+Este prompt conserva el relevo MOD07 del 2026-10-09; no es una orden actual de invocación, pausa o dirección exclusiva. El relevo posterior autorizado en AGENTS devolvió a Codex la dirección y ejecución local de MOD08. Para continuar prevalecen las instrucciones posteriores, el [contrato de ejecución vigente](16-contrato-ejecucion-desarrollo.md) y [seguimiento17](17-seguimiento-desarrollo.md). El bloque se preserva íntegro como antecedente; sus procesos, colas, límites de progreso y próximos pasos no se reanudan desde esta página.
+
 Autorización vigente por aclaración del usuario; sustituye la propuesta acotada. Copiar solo el bloque. Codex sigue pausado y no ha invocado a Claude.
 
 ```text

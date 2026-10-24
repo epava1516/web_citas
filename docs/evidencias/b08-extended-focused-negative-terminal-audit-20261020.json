@@ -1,0 +1,59 @@
+{
+  "run_id": "20261020-145121-b0b597fc",
+  "phase": "extended-focused",
+  "result": "EXPECTED_PRE_BETA_MIGRATION_ASSERTION_FAILURE_VERIFIED",
+  "audit_time": "2026-10-20T14:55:50.757484+00:00",
+  "scope": "Integrated bounded pending-stage regression; obsolete full-upgrade eligibility preservation assumption",
+  "passed": 13,
+  "failed": 1,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/test_publication_pending_batch.py",
+    "tests/test_promotion_paged_equivalence.py",
+    "tests/test_promotion_snapshot_ordering.py",
+    "tests/test_publication_state_membership.py",
+    "tests/test_publication_state_upgrade.py"
+  ],
+  "pytest_seconds": 222.45940698496997,
+  "junit_seconds": 219.911,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "f3f975ca24acca0046eb41b42dc47ab7e299c04ce25aa2fb69f5fb642d2387be",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792508132681264415-635249.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "16b12e6f4300ebd257d261f1ef8ef81d8f2c45c15c4a4303a9d4fd8772b00890",
+    "runner.json": "78000ca9e661d281745976c370e85d42cc6ebe2bee9e1e22caf9730adab36761",
+    "source-hashes.json": "75785f6720832de98bba7515c5c0c5eb644fafdeaf6fae4efa703127bcc708d9",
+    "pytest.xml": "1b3049e64de87e8b6472cda0c291e006f68883f7de1dacc11751431f5dcab5d3",
+    "pytest-reports.jsonl": "f70b090d8793c7a1c52eda4f07ef5b0d16a330bfa532a02cdcba1b0a651582e1",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  },
+  "nodeids": [
+    "tests/test_promotion_paged_equivalence.py::test_all_pages_match_frozen_native_with_overlapping_rights",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[editor]",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[individual]",
+    "tests/test_promotion_paged_equivalence.py::test_commercial_revocation_is_fresh_in_sql_and_batch[owner]",
+    "tests/test_promotion_snapshot_ordering.py::test_inherited_read_committed_does_not_reuse_a_rights_map",
+    "tests/test_promotion_snapshot_ordering.py::test_positive_checked_filter_with_promotions_and_delayed_refresh[en]",
+    "tests/test_promotion_snapshot_ordering.py::test_positive_checked_filter_with_promotions_and_delayed_refresh[es]",
+    "tests/test_promotion_snapshot_ordering.py::test_snapshot_map_does_not_survive_next_request",
+    "tests/test_publication_pending_batch.py::test_pending_batch_preserves_pages_guards_and_concurrent_authority",
+    "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[dirty_eligible]",
+    "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[dirty_revoked]",
+    "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[missing]",
+    "tests/test_publication_state_membership.py::test_membership_preserves_native_population_at_trust_boundary[old_version]",
+    "tests/test_publication_state_upgrade.py::test_conditional_migration_invalidates_existing_state"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

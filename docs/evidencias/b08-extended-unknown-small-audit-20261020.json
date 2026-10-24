@@ -1,0 +1,45 @@
+{
+  "result": "PASS_SAFETY_INTEGRITY",
+  "run_id": "20261020-143211-5ce55a8f",
+  "passed": 1,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "fresh_cleanup": true,
+  "notification_receipt": "1792506827832097517-515226.json",
+  "product_sources_unchanged": 622,
+  "experiment": {
+    "result": "SMALL_SAFETY_COMPLETE",
+    "candidate": {
+      "source_sha256": "35d6b1e9b8d7a9a04e1218263416cc6025173da55aee9d638dd67507a6e50010",
+      "candidate_sha256": "3670922e4bbfe154cd60853f8c56516765757045b88b5405543931c3a9762cd4",
+      "native_unknown_limit": 48,
+      "dirty_limit": 1000
+    },
+    "count": 100,
+    "initial_unknown": 49,
+    "routes_all_pages": [
+      "directory_es",
+      "search_en"
+    ],
+    "inherited_read_committed_preserved": true,
+    "cloned_query_declined": true,
+    "incomplete_census_declined": true,
+    "own_repeatable_read_read_only_verified": true,
+    "concurrent_revocation_snapshot_then_fresh_next_request": true,
+    "native_complete_after_revocation": true,
+    "personal_consent_and_buyer_sponsorship_revoked": true,
+    "capacity_acceptance": false
+  },
+  "capacity_verdict": "NOT_MEASURED_ADOPTION_NOT_AUTOMATIC",
+  "evidence_sha256": {
+    "result.json": "21326605e416c79fe5fc518bf1f107e8153ce60a172dc5565ae18dea0d44dfe5",
+    "pytest.xml": "85494de40f1c0ce35aab651d2a3ef7c8fd53c10528c4219856c4b909c85553c7",
+    "pytest-reports.jsonl": "4e511b74f1f7f8c49594c6f7a15c336c981e2f75a94114cc9073bdb1b45f656d",
+    "source-hashes.json": "21238c59a1f204356bdb0f744115f3c1770645f2bc8b19bdc323e4a136b4c167",
+    "beta-extended-unknown-small.json": "fa70f898a670631acefecb970a935f970f90a9ff0bd05eaa097cd9e4335fd8c9",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

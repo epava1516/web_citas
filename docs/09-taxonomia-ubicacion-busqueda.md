@@ -1,5 +1,7 @@
 # Taxonomía, ubicación y búsqueda
 
+Consolidación posterior, 2026-10-20: [contrato14 v1.1](14-contrato-funcional-v1.md) y [matriz B00–B01](104-consolidacion-contrato-beta-b00b01-20261020.md) sustituyen la taxonomía profesional para beta por perfiles personales románticos. Mantener geografía y una publicación por persona; no crear servicios obligatorios. Atributos físicos voluntarios y preferencias privadas son ámbitos distintos y requieren contrato antes de persistirse. Las categorías y pendientes de las secciones siguientes son diseño histórico en los puntos sustituidos.
+
 Actualizado: 2026-10-03. Estado: alcance general confirmado; modelo detallado propuesto.
 
 Nota de lectura, 2026-10-09: diseño inicial conservado. El catálogo, ES/EN, cardinalidades y semántica de filtros se concretaron en [contrato14](14-contrato-funcional-v1.md), [contrato de borradores](contratos/04-borradores-catalogo-geografia.md) y [contrato de descubrimiento](contratos/08-descubrimiento.md), con aceptación local [CR-07](actas/02-cr07-local.md). La cobertura nacional real y su dataset/licencia siguen pendientes; próximos pasos únicamente en [seguimiento17](17-seguimiento-desarrollo.md).

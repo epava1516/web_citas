@@ -1,0 +1,27 @@
+{
+  "result": "PASS_OWNED_WORKER_AND_BROKER_OUTAGE_RECOVERY_NOT_B13_ACCEPTANCE",
+  "run_id": "20261021-024508-3f025827",
+  "passed": 2,
+  "workers": 1,
+  "junit_seconds": 68.186,
+  "outages": [
+    {
+      "outage": "worker",
+      "artifact_sha256": "b77e61d0429410f14e5486af6e4121abf3dcd913ceec7b256f1cc8f1eb686ec3"
+    },
+    {
+      "outage": "broker",
+      "artifact_sha256": "ed25a984fd7771d3238a77bdfd222d5fa8854b6f331e3384d06113cc409e8fac"
+    }
+  ],
+  "product_unchanged_from_b12_functional": true,
+  "fresh_sources_cleanup_and_terminal_telegram": true,
+  "owned_continuity_workers_and_redis_absent": true,
+  "limits": [
+    "Worker killed before processing, not a mid-task crash",
+    "Broker without persistence; PostgreSQL outbox retained and normal task dispatched after recovery",
+    "One simulated receipt per scenario, not external provider delivery",
+    "Outbox age controlled by fixture180s, not natural outage detection latency",
+    "B13 secret rotation, restore, urgent withdrawal and rollback still require audit"
+  ]
+}

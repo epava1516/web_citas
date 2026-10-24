@@ -1,0 +1,67 @@
+{
+  "result": "PASS_OWNED_SERVICE_RESOURCE_CALIBRATION_ONLY",
+  "run": "20261021-181039-62ac893b",
+  "cases": 1,
+  "junit_seconds": 87.679,
+  "samples": 35,
+  "sampled_interval_seconds": 33.693918630480766,
+  "processes": {
+    "web": {
+      "persistent_pids": 5,
+      "persistent_cpu_seconds": 4.47,
+      "sampled_rss_sum_max_bytes": 558047232
+    },
+    "worker": {
+      "persistent_pids": 3,
+      "persistent_cpu_seconds": 1.44,
+      "sampled_rss_sum_max_bytes": 401543168
+    },
+    "beat": {
+      "persistent_pids": 1,
+      "persistent_cpu_seconds": 0.06,
+      "sampled_rss_sum_max_bytes": 137269248
+    }
+  },
+  "containers": {
+    "postgres": {
+      "elapsed_seconds": 33.69520769827068,
+      "execution_cpu_cores": 0.05996499615296031,
+      "counter_delta": {
+        "usage_usec": 2020533,
+        "user_usec": 1136522,
+        "system_usec": 884011,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0
+      }
+    },
+    "redis": {
+      "elapsed_seconds": 33.69509831350297,
+      "execution_cpu_cores": 0.008349523048794804,
+      "counter_delta": {
+        "usage_usec": 281338,
+        "user_usec": 237820,
+        "system_usec": 43518,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0
+      }
+    }
+  },
+  "collector_thread_cpu_seconds": 0.156885218,
+  "p95_observable_ms": 229.27054949104786,
+  "dynamic_successful": 60,
+  "uploads_successful": 1,
+  "complete_geography_total": 10,
+  "app_config_template_sources_unchanged": 628,
+  "source_cleanup_sample_pids_telegram_verified": true,
+  "kernel_8cpu_8gib_verified": false,
+  "rss_shared_pages_double_count": true,
+  "exact_workload_interval": false,
+  "capacity_accepted": false,
+  "artifact_sha256": {
+    "service-resources.jsonl": "9152327d0167568c20e73575326ab47df017e23d6e3ee77741532cc6248ef185",
+    "service-resources.summary.json": "0026c91b2a8487ff711c5b053b282716f55d22e00dc83416d62471e8bac1bb53",
+    "benchmark-manifest.json": "2d29a4cd80561485f5fe672c0b02aeb6712a1e0673e3dde5b6873d721b84ec77"
+  }
+}

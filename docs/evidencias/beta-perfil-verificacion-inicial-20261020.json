@@ -1,0 +1,542 @@
+{
+  "scope": "B02-B03 implementación parcial; no aceptación beta ni cobertura global",
+  "runs": [
+    {
+      "run_id": "20261020-020212-c8902cbe",
+      "result": "ERROR",
+      "result_sha256": "533d1370e695c23931ae14c29baa740931735194f1b9aa31737f1c46644c2d71",
+      "selection": [
+        "tests/test_beta_profile_contract.py",
+        "tests/test_drafts.py",
+        "tests/test_submissions.py",
+        "tests/test_listing_moderation.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "46",
+          "time": "170.720",
+          "timestamp": "2026-10-20T04:02:33.059066+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-020212-c8902cbe": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-020212-c8902cbe": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      }
+    },
+    {
+      "run_id": "20261020-020757-a8f1023d",
+      "result": "PASS",
+      "result_sha256": "dcaa09eeb37e1bccb4e2a6b352e5bc9693d1097e2a92dad4b97a0bb88d9ff9e2",
+      "selection": [
+        "tests/test_beta_profile_contract.py::test_new_publishing_terms_preserve_previously_accepted_text"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "39.446",
+          "timestamp": "2026-10-20T04:08:17.292166+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-020757-a8f1023d": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-020757-a8f1023d": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      }
+    },
+    {
+      "run_id": "20261020-020950-9493b4bd",
+      "result": "PASS",
+      "result_sha256": "a4091823e0f5862a4d293bf65d69505d8893b4e3d24c6f3c70b7ac54afd62509",
+      "selection": [
+        "tests/test_discovery.py",
+        "tests/test_public_validation_context.py",
+        "tests/test_browser_drafts.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "19",
+          "time": "115.067",
+          "timestamp": "2026-10-20T04:10:09.899909+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-020950-9493b4bd": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-020950-9493b4bd": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      }
+    },
+    {
+      "run_id": "20261020-021300-c69afe85",
+      "result": "PASS",
+      "result_sha256": "6e1d8e43286c03b575567d32e70c59b4c4d607713d24d0511c245afa6adcac9b",
+      "selection": [
+        "tests/test_browser_drafts.py",
+        "tests/test_browser_listing_moderation.py",
+        "tests/test_lifecycle.py",
+        "tests/test_photos.py",
+        "tests/test_agency_publication.py",
+        "tests/test_verification.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "32",
+          "time": "173.125",
+          "timestamp": "2026-10-20T04:13:19.946088+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-021300-c69afe85": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-021300-c69afe85": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      }
+    },
+    {
+      "run_id": "20261020-021658-7ef1571b",
+      "result": "PASS",
+      "result_sha256": "abc1e474388342be62bf1ec2233c1d686b7abf1dcccdc511076e7bbbbdd8a2f4",
+      "selection": [
+        "tests/test_publication_state.py",
+        "tests/test_rights_exports.py",
+        "tests/test_rights_access_field_decision.py",
+        "tests/test_rights_portability_mixed_fields.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "51",
+          "time": "619.306",
+          "timestamp": "2026-10-20T04:17:17.562388+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-021658-7ef1571b": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-021658-7ef1571b": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792463269107417569-211565.json"
+    },
+    {
+      "run_id": "20261020-023414-68362bfb",
+      "result": "PASS",
+      "result_sha256": "1b89f2087f2551854867a84734997e2879e00076615438b46a9982486feb3814",
+      "selection": [
+        "tests/test_rights_exports.py::test_encrypted_reviewed_copy_download_without_account_excludes_other_data"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "46.520",
+          "timestamp": "2026-10-20T04:34:34.457605+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-023414-68362bfb": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-023414-68362bfb": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792463731922691273-317442.json"
+    },
+    {
+      "run_id": "20261020-024215-306f6524",
+      "result": "PASS",
+      "result_sha256": "a7e1ceb6e16ba44abbb8dea9b796bfdfc41d3795230ddbfdea1d15c6dbf459e6",
+      "selection": [
+        "tests/test_profile_status.py",
+        "tests/test_lifecycle.py",
+        "tests/test_browser_drafts.py",
+        "tests/test_browser_submissions.py",
+        "tests/test_browser_listing_moderation.py",
+        "tests/test_beta_profile_contract.py::test_panel_reaches_existing_profile_and_omits_professional_fields"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "41",
+          "time": "180.301",
+          "timestamp": "2026-10-20T04:42:34.821144+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-024215-306f6524": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-024215-306f6524": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792464346151208985-368765.json"
+    },
+    {
+      "run_id": "20261020-025250-084b9c50",
+      "result": "PASS",
+      "result_sha256": "5ca25bf2df72aa51ab282a561dd447653308e49b0fc170bc44bdc8376fb7569b",
+      "selection": [
+        "tests/test_optional_profile_type.py",
+        "tests/test_beta_profile_contract.py::test_migration_preserves_old_content_and_requires_new_romantic_revision",
+        "tests/test_discovery.py",
+        "tests/test_public_validation_context.py",
+        "tests/test_browser_drafts.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "27",
+          "time": "149.347",
+          "timestamp": "2026-10-20T04:53:09.451248+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-025250-084b9c50": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-025250-084b9c50": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792464950015966678-436042.json"
+    },
+    {
+      "run_id": "20261020-030036-4f65eb63",
+      "result": "ERROR",
+      "result_sha256": "901ce2b2190009989a9f7211dd803a97c29570fa673cf936ca19e6410de3b1d3",
+      "selection": [
+        "tests/test_browser_beta_profile_journey.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "4",
+          "time": "87.702",
+          "timestamp": "2026-10-20T05:00:55.445842+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-030036-4f65eb63": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-030036-4f65eb63": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792465353516051659-483448.json",
+      "cause": "Test harness attempted synchronous Django ORM inside Playwright async context; product outcome not accepted."
+    },
+    {
+      "run_id": "20261020-030452-507b53e0",
+      "result": "PASS",
+      "result_sha256": "c8a9f9d42cb5aa90a8d3e6d1d8831eb75908858971293e9ca241b18ed3ec1b38",
+      "selection": [
+        "tests/test_browser_beta_profile_journey.py"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "4",
+          "time": "126.751",
+          "timestamp": "2026-10-20T05:05:12.161036+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-030452-507b53e0": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-030452-507b53e0": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792465651329654369-511305.json",
+      "limits": "Synthetic initial account/consent/photo; real browser actions and DB. Only fixture expires_at changed to open renewal window."
+    },
+    {
+      "run_id": "20261020-032355-b46cac41",
+      "result": "PASS",
+      "result_sha256": "af4d8ec5223a2447f0a0ea99f25edae7c772051f5d84a1a96de99d26030d5e4e",
+      "selection": [
+        "tests/test_declared_profile_label.py",
+        "tests/test_beta_profile_contract.py",
+        "tests/test_rights_exports.py::test_encrypted_reviewed_copy_download_without_account_excludes_other_data",
+        "tests/test_browser_beta_profile_journey.py",
+        "tests/test_rectification_review_localization.py::test_display_preserves_data_native_validation_and_unknown_raw_values"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "32",
+          "time": "199.767",
+          "timestamp": "2026-10-20T05:24:14.726310+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-032355-b46cac41": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-032355-b46cac41": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792466866067111748-752876.json"
+    },
+    {
+      "run_id": "20261020-032848-c5101953",
+      "result": "ERROR",
+      "result_sha256": "e6fc6c54d14f9d6abef3c92c47387eff643e8039c329d9cc1bd5617fd11d1202",
+      "selection": [
+        "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "7",
+          "skipped": "0",
+          "tests": "8",
+          "time": "119.209",
+          "timestamp": "2026-10-20T05:29:08.489172+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-032848-c5101953": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-032848-c5101953": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792467078258543663-790524.json"
+    },
+    {
+      "run_id": "20261020-033237-fa109852",
+      "result": "ERROR",
+      "result_sha256": "92eda49b2dd57596b66316c7047a3681c669439ecf7d18ea7f95ca99ab8dbc38",
+      "selection": [
+        "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "7",
+          "skipped": "0",
+          "tests": "8",
+          "time": "156.524",
+          "timestamp": "2026-10-20T05:32:57.327622+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-033237-fa109852": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-033237-fa109852": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792467344285965220-817252.json"
+    },
+    {
+      "run_id": "20261020-033629-a25fad14",
+      "result": "ERROR",
+      "result_sha256": "1e44cc2d31c29008574dcaed92908ec365e756aced6290b6dc6b43049f07ccc8",
+      "selection": [
+        "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-False]"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "58.789",
+          "timestamp": "2026-10-20T05:36:48.519108+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-033629-a25fad14": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-033629-a25fad14": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792467479468018147-843447.json"
+    },
+    {
+      "run_id": "20261020-033853-204961b1",
+      "result": "PASS",
+      "result_sha256": "3865afb292580854e29fbafe069eb7f3302253b46e94b813bd82772df2a4a0de",
+      "selection": [
+        "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-False]"
+      ],
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "62.367",
+          "timestamp": "2026-10-20T05:39:13.578769+02:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "sources_unchanged": true,
+      "cleanup": {
+        "web-modelos-ci-pg-20261020-033853-204961b1": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        },
+        "web-modelos-ci-redis-20261020-033853-204961b1": {
+          "absent": true,
+          "removal_exit": 0,
+          "inventory_exit": 1
+        }
+      },
+      "notification_receipt": "1792467627442002603-859197.json"
+    }
+  ],
+  "negative": "Negativos de fixtures, guardia async y regresión real de precedencia del historial conservados por ejecución. No sumar selecciones/candidatas como una batería común.",
+  "graph": "Salidas reconciliadas con refresco AST/templates dirigido y semántica nativa de documentos actuales; no actualización semántica exhaustiva.",
+  "external_gates": "Sin publicación, proveedores ni datos reales."
+}

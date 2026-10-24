@@ -1,0 +1,282 @@
+{
+  "result": "VERIFIED_FUNCTIONAL_RESOURCE_IDENTITIES_AND_IDLE_NOT_CAPACITY",
+  "run": "20261022-004759-9c053c74",
+  "cases": 1,
+  "junit_seconds": 92.221,
+  "published": 10,
+  "geography": {
+    "1": 7,
+    "2": 3
+  },
+  "native_rights": 2,
+  "dynamic_successful": 60,
+  "mix": {
+    "listing": 20,
+    "search": 20,
+    "detail": 20
+  },
+  "languages": {
+    "es": 30,
+    "en": 30
+  },
+  "route_slots": 18,
+  "unique_routes": 14,
+  "uploads_successful": 1,
+  "generator_delay_ms": {
+    "p95": 2.51856502145531,
+    "p99": 6.501155719160989,
+    "max": 6.501155719160989
+  },
+  "cpu_aggregate_cores": 8,
+  "memory_aggregate_bytes": 8589934592,
+  "swap_zero": true,
+  "conservative_memory_upper_bound_bytes": 1344958464,
+  "storage_ceiling_bytes": 4865392640,
+  "product_sources_unchanged": 628,
+  "sources_protocol_ledgers_kernel_cleanup_notices_verified": true,
+  "minimal_container_identity_manifest_verified": true,
+  "idle_after_cpu_interval_verified": true,
+  "resource_samples": 70,
+  "fully_within_phase_samples": {
+    "before_arrivals": 62,
+    "arrivals_and_drain": 5,
+    "idle_after": 3
+  },
+  "resource_cpu_intervals": {
+    "before_arrivals": {
+      "caddy": {
+        "elapsed_seconds": 31.78656519111246,
+        "execution_cpu_cores": 0.000413350732329949,
+        "counter_delta": {
+          "usage_usec": 13139,
+          "user_usec": 11968,
+          "system_usec": 1171,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "controller": {
+        "elapsed_seconds": 31.785488296300173,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 31.780898216180503,
+        "execution_cpu_cores": 0.03908589969831534,
+        "counter_delta": {
+          "usage_usec": 1242185,
+          "user_usec": 685253,
+          "system_usec": 556932,
+          "nr_periods": 50,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 31.7907190406695,
+        "execution_cpu_cores": 0.09109567469345957,
+        "counter_delta": {
+          "usage_usec": 2895997,
+          "user_usec": 2510380,
+          "system_usec": 385616,
+          "nr_periods": 318,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 31.780714629217982,
+        "execution_cpu_cores": 0.008738223895843006,
+        "counter_delta": {
+          "usage_usec": 277707,
+          "user_usec": 246252,
+          "system_usec": 31455,
+          "nr_periods": 310,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 31.78150778543204,
+        "execution_cpu_cores": 0.0008709152563456243,
+        "counter_delta": {
+          "usage_usec": 27679,
+          "user_usec": 20790,
+          "system_usec": 6890,
+          "nr_periods": 34,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    },
+    "arrivals_and_drain": {
+      "caddy": {
+        "elapsed_seconds": 2.0512261735275388,
+        "execution_cpu_cores": 6.971439904848706e-05,
+        "counter_delta": {
+          "usage_usec": 143,
+          "user_usec": 91,
+          "system_usec": 51,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "controller": {
+        "elapsed_seconds": 2.0511831883341074,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 2.051141700707376,
+        "execution_cpu_cores": 0.6868267558083165,
+        "counter_delta": {
+          "usage_usec": 1408779,
+          "user_usec": 831735,
+          "system_usec": 577044,
+          "nr_periods": 21,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 2.051363341510296,
+        "execution_cpu_cores": 2.0260204108649567,
+        "counter_delta": {
+          "usage_usec": 4156104,
+          "user_usec": 3856713,
+          "system_usec": 299391,
+          "nr_periods": 21,
+          "nr_throttled": 2,
+          "throttled_usec": 152950
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 2.0503143817186356,
+        "execution_cpu_cores": 0.006908208870937785,
+        "counter_delta": {
+          "usage_usec": 14164,
+          "user_usec": 13731,
+          "system_usec": 433,
+          "nr_periods": 21,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 2.0511453803628683,
+        "execution_cpu_cores": 0.00024474130639691227,
+        "counter_delta": {
+          "usage_usec": 502,
+          "user_usec": 249,
+          "system_usec": 253,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    },
+    "idle_after": {
+      "caddy": {
+        "elapsed_seconds": 1.0374970342963934,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "controller": {
+        "elapsed_seconds": 1.0380163807421923,
+        "execution_cpu_cores": 0.0,
+        "counter_delta": {
+          "usage_usec": 0,
+          "user_usec": 0,
+          "system_usec": 0,
+          "nr_periods": 0,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "pg": {
+        "elapsed_seconds": 1.0398170612752438,
+        "execution_cpu_cores": 0.00015387322054878974,
+        "counter_delta": {
+          "usage_usec": 160,
+          "user_usec": 90,
+          "system_usec": 70,
+          "nr_periods": 1,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "app": {
+        "elapsed_seconds": 1.0358183411881328,
+        "execution_cpu_cores": 0.03329830977933562,
+        "counter_delta": {
+          "usage_usec": 34491,
+          "user_usec": 27762,
+          "system_usec": 6729,
+          "nr_periods": 10,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "redis": {
+        "elapsed_seconds": 1.0394054520875216,
+        "execution_cpu_cores": 0.00775828141347962,
+        "counter_delta": {
+          "usage_usec": 8064,
+          "user_usec": 8064,
+          "system_usec": 0,
+          "nr_periods": 10,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      },
+      "objects": {
+        "elapsed_seconds": 1.0384423155337572,
+        "execution_cpu_cores": 0.0002725235631933379,
+        "counter_delta": {
+          "usage_usec": 283,
+          "user_usec": 141,
+          "system_usec": 142,
+          "nr_periods": 2,
+          "nr_throttled": 0,
+          "throttled_usec": 0
+        }
+      }
+    }
+  },
+  "host_observer_outside_runtime_budget": true,
+  "observer_thread_cpu_seconds": 1.795039325,
+  "observer_elapsed_seconds": 172.59227196034044,
+  "observer_process_rss_bytes": 23576576,
+  "B07_accepted": false,
+  "artifacts_sha256": {
+    "report.json": "b7fff4bc95f4d9802199e27e68d3dd0ea96d5a2c7aeba434e914ed0e7909b596",
+    "launcher.json": "b5fdd4709d0c78a786200f511522dd85f46968dd45c094e3141f8a1f26ef0774",
+    "source-hashes.json": "8946a8cf834785c2cd81f9fcfb6c15c480742a111559a4539eeb45f0d3f0f54c",
+    "pytest.xml": "b268a06a6f20394f19300020766b7f66e7ac5145013fec4b2fa60c023f309aff",
+    "host-service-resources.jsonl": "316fece5ac56121b57ff3ec216ead74d5efe035a9f1b510806598c13c37b1f1d",
+    "host-service-resources.summary.json": "ae992635f78bb27ba5bdf494f1ef1ce0e3bebbb19fee86ad269cada695fd2382"
+  }
+}

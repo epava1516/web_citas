@@ -1,0 +1,937 @@
+{
+  "run_id": "20261021-145342-bcc902c1",
+  "result": "PASS_HYDRATION_ATTRIBUTION_NOT_SPEEDUP",
+  "cases": 1,
+  "bad_cases": [],
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_telegram_verified": true,
+  "routes": [
+    {
+      "route": "directory_es",
+      "controls_wall_median_ms": 208.45644176006317,
+      "median_phases_ms": {
+        "sql_execute": {
+          "wall_inclusive": 16.315586864948273,
+          "cpu_inclusive": 3.2249829999813073,
+          "wall_exclusive": 16.315586864948273,
+          "cpu_exclusive": 3.2249829999813073
+        },
+        "sql_compile": {
+          "wall_inclusive": 26.368997059762478,
+          "cpu_inclusive": 25.79341800000634,
+          "wall_exclusive": 17.353061586618423,
+          "cpu_exclusive": 17.0104960000117
+        },
+        "model_init": {
+          "wall_inclusive": 2.253284677863121,
+          "cpu_inclusive": 2.2448090000111165,
+          "wall_exclusive": 2.253284677863121,
+          "cpu_exclusive": 2.2448090000111165
+        },
+        "prefetch:person__agency:1": {
+          "wall_inclusive": 2.3894021287560463,
+          "cpu_inclusive": 1.4988420000037195,
+          "wall_exclusive": 0.636078417301178,
+          "cpu_exclusive": 0.6355660000068042
+        },
+        "prefetch:approved_revision__publisher_acceptance:1": {
+          "wall_inclusive": 2.3534931242465973,
+          "cpu_inclusive": 1.960975000002918,
+          "wall_exclusive": 0.5466202273964882,
+          "cpu_exclusive": 0.5391350000181205
+        },
+        "prefetch:approved_revision__municipality:1": {
+          "wall_inclusive": 2.992626279592514,
+          "cpu_inclusive": 2.5744369999998185,
+          "wall_exclusive": 0.550384633243084,
+          "cpu_exclusive": 0.5502429999992842
+        },
+        "prefetch:approved_revision__categories:1": {
+          "wall_inclusive": 4.63541503995657,
+          "cpu_inclusive": 4.002298999999709,
+          "wall_exclusive": 2.7361828833818436,
+          "cpu_exclusive": 2.6978729999953543
+        },
+        "prefetch:approved_revision__services:1": {
+          "wall_inclusive": 4.197471775114536,
+          "cpu_inclusive": 3.7472850000028757,
+          "wall_exclusive": 2.6800017803907394,
+          "cpu_exclusive": 2.6624169999962533
+        },
+        "prefetch:approved_revision__travel_areas:1": {
+          "wall_inclusive": 4.828853532671928,
+          "cpu_inclusive": 4.269290000003423,
+          "wall_exclusive": 2.949614077806473,
+          "cpu_exclusive": 2.9089880000015
+        },
+        "prefetch:approved_revision__rates:1": {
+          "wall_inclusive": 4.069698043167591,
+          "cpu_inclusive": 3.3397730000004344,
+          "wall_exclusive": 2.444249577820301,
+          "cpu_exclusive": 2.4291090000048143
+        },
+        "prefetch:blob:0": {
+          "wall_inclusive": 2.1215230226516724,
+          "cpu_inclusive": 1.5698710000009442,
+          "wall_exclusive": 1.0919999331235886,
+          "cpu_exclusive": 1.0769239999959268
+        },
+        "prefetch:approved_revision___pv_photos:1": {
+          "wall_inclusive": 6.781540811061859,
+          "cpu_inclusive": 5.5700759999979255,
+          "wall_exclusive": 1.8802247941493988,
+          "cpu_exclusive": 1.8236090000200988
+        },
+        "hydration": {
+          "wall_inclusive": 60.10998319834471,
+          "cpu_inclusive": 41.33575600000228,
+          "wall_exclusive": 4.936123266816139,
+          "cpu_exclusive": 4.87622600005011
+        }
+      },
+      "model_counts": {
+        "listings.Listing": 24,
+        "core.Person": 24,
+        "core.PhoneClaim": 24,
+        "listings.Revision": 24,
+        "core.Agency": 1,
+        "core.LegalAcceptance": 1,
+        "core.LegalDocument": 1,
+        "catalog.Municipality": 1,
+        "catalog.Province": 1,
+        "catalog.Region": 1,
+        "catalog.Category": 24,
+        "mediafiles.Photo": 24,
+        "mediafiles.Blob": 1
+      },
+      "profile_top_self": [
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/connection.py",
+          "line": 479,
+          "function": "wait",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.019105857,
+          "inclusive_seconds": 0.022508806000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py",
+          "line": 2748,
+          "function": "get_prep_value",
+          "primitive_calls": 240,
+          "total_calls": 240,
+          "self_seconds": 0.002647032,
+          "inclusive_seconds": 0.0029073470000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/base.py",
+          "line": 462,
+          "function": "__init__",
+          "primitive_calls": 151,
+          "total_calls": 151,
+          "self_seconds": 0.001678646,
+          "inclusive_seconds": 0.003659933
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 572,
+          "function": "compile",
+          "primitive_calls": 185,
+          "total_calls": 513,
+          "self_seconds": 0.00125839,
+          "inclusive_seconds": 0.019174628000000003
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.getattr>",
+          "primitive_calls": 2554,
+          "total_calls": 3015,
+          "self_seconds": 0.0012162610000000002,
+          "inclusive_seconds": 0.0046367560000000006
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+          "line": 378,
+          "function": "clone",
+          "primitive_calls": 115,
+          "total_calls": 115,
+          "self_seconds": 0.0009073480000000001,
+          "inclusive_seconds": 0.0017786210000000002
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.setattr>",
+          "primitive_calls": 2112,
+          "total_calls": 2112,
+          "self_seconds": 0.000875523,
+          "inclusive_seconds": 0.001937087
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/lookups.py",
+          "line": 367,
+          "function": "<genexpr>",
+          "primitive_calls": 150,
+          "total_calls": 150,
+          "self_seconds": 0.000841839,
+          "inclusive_seconds": 0.000963856
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.isinstance>",
+          "primitive_calls": 3943,
+          "total_calls": 3943,
+          "self_seconds": 0.0008391410000000001,
+          "inclusive_seconds": 0.000876097
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.hasattr>",
+          "primitive_calls": 3057,
+          "total_calls": 3057,
+          "self_seconds": 0.0008136560000000001,
+          "inclusive_seconds": 0.0008136560000000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py",
+          "line": 1044,
+          "function": "__init__",
+          "primitive_calls": 75,
+          "total_calls": 75,
+          "self_seconds": 0.0007953350000000001,
+          "inclusive_seconds": 0.00197683
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/types/datetime.py",
+          "line": 496,
+          "function": "_load_iso",
+          "primitive_calls": 197,
+          "total_calls": 197,
+          "self_seconds": 0.0007706760000000001,
+          "inclusive_seconds": 0.001199142
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/postgresql/compiler.py",
+          "line": 29,
+          "function": "quote_name_unless_alias",
+          "primitive_calls": 656,
+          "total_calls": 656,
+          "self_seconds": 0.000765802,
+          "inclusive_seconds": 0.001955356
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+          "line": 275,
+          "function": "_maybe_prepare_gen",
+          "primitive_calls": 34,
+          "total_calls": 34,
+          "self_seconds": 0.0007563450000000001,
+          "inclusive_seconds": 0.002219373
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2307,
+          "function": "prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 0.0007490620000000001,
+          "inclusive_seconds": 0.038865973000000005
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 550,
+          "function": "quote_name_unless_alias",
+          "primitive_calls": 656,
+          "total_calls": 656,
+          "self_seconds": 0.000710677,
+          "inclusive_seconds": 0.001189554
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/where.py",
+          "line": 246,
+          "function": "_contains_aggregate",
+          "primitive_calls": 25,
+          "total_calls": 104,
+          "self_seconds": 0.0007015540000000001,
+          "inclusive_seconds": 0.001736808
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+          "line": 583,
+          "function": "_send_query_prepared",
+          "primitive_calls": 13,
+          "total_calls": 13,
+          "self_seconds": 0.0006770540000000001,
+          "inclusive_seconds": 0.0006770540000000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 230,
+          "function": "get_select",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.0006349200000000001,
+          "inclusive_seconds": 0.017534175000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py",
+          "line": 91,
+          "function": "__set__",
+          "primitive_calls": 417,
+          "total_calls": 417,
+          "self_seconds": 0.000631437,
+          "inclusive_seconds": 0.001059438
+        }
+      ],
+      "profile_top_inclusive": [
+        {
+          "source": "apps/listings/public_validation.py",
+          "line": 274,
+          "function": "read_publication_values",
+          "primitive_calls": 1,
+          "total_calls": 1,
+          "self_seconds": 6.5684e-05,
+          "inclusive_seconds": 0.07777051800000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 371,
+          "function": "__iter__",
+          "primitive_calls": 1,
+          "total_calls": 12,
+          "self_seconds": 1.4060000000000001e-05,
+          "inclusive_seconds": 0.074622013
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 1952,
+          "function": "_fetch_all",
+          "primitive_calls": 2,
+          "total_calls": 22,
+          "self_seconds": 0.00018184,
+          "inclusive_seconds": 0.07462026000000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 87,
+          "function": "__iter__",
+          "primitive_calls": 86,
+          "total_calls": 86,
+          "self_seconds": 0.000590605,
+          "inclusive_seconds": 0.055230535000000004
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 1593,
+          "function": "execute_sql",
+          "primitive_calls": 10,
+          "total_calls": 10,
+          "self_seconds": 0.000109889,
+          "inclusive_seconds": 0.048100603000000006
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 1328,
+          "function": "_prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 1.8385e-05,
+          "inclusive_seconds": 0.038880462000000005
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2307,
+          "function": "prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 0.0007490620000000001,
+          "inclusive_seconds": 0.038865973000000005
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2541,
+          "function": "prefetch_one_level",
+          "primitive_calls": 8,
+          "total_calls": 9,
+          "self_seconds": 0.000623788,
+          "inclusive_seconds": 0.036895619000000004
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 755,
+          "function": "as_sql",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.000438794,
+          "inclusive_seconds": 0.024501369000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 78,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 3.1853e-05,
+          "inclusive_seconds": 0.022897811
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 88,
+          "function": "_execute_with_wrappers",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 4.2096000000000005e-05,
+          "inclusive_seconds": 0.022865958000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 94,
+          "function": "_execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 7.090400000000001e-05,
+          "inclusive_seconds": 0.022823862
+        },
+        {
+          "source": "apps/listings/public_validation.py",
+          "line": 228,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.000102256,
+          "inclusive_seconds": 0.022727855
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/cursor.py",
+          "line": 100,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 5.6959e-05,
+          "inclusive_seconds": 0.022576847
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/connection.py",
+          "line": 479,
+          "function": "wait",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.019105857,
+          "inclusive_seconds": 0.022508806000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 79,
+          "function": "pre_sql_setup",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.00024060500000000002,
+          "inclusive_seconds": 0.019656206000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 572,
+          "function": "compile",
+          "primitive_calls": 185,
+          "total_calls": 513,
+          "self_seconds": 0.00125839,
+          "inclusive_seconds": 0.019174628000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 71,
+          "function": "setup_query",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.000201902,
+          "inclusive_seconds": 0.017678498
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 230,
+          "function": "get_select",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.0006349200000000001,
+          "inclusive_seconds": 0.017534175000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+          "line": 1779,
+          "function": "as_sql",
+          "primitive_calls": 10,
+          "total_calls": 13,
+          "self_seconds": 6.316e-05,
+          "inclusive_seconds": 0.013407753000000001
+        }
+      ]
+    },
+    {
+      "route": "search_en",
+      "controls_wall_median_ms": 152.52418350428343,
+      "median_phases_ms": {
+        "sql_execute": {
+          "wall_inclusive": 22.555681876838207,
+          "cpu_inclusive": 3.37739000001136,
+          "wall_exclusive": 22.555681876838207,
+          "cpu_exclusive": 3.37739000001136
+        },
+        "sql_compile": {
+          "wall_inclusive": 25.406490080058575,
+          "cpu_inclusive": 25.02177299999886,
+          "wall_exclusive": 16.325529664754868,
+          "cpu_exclusive": 16.113694999994266
+        },
+        "model_init": {
+          "wall_inclusive": 1.7441445961594582,
+          "cpu_inclusive": 1.7241330000103972,
+          "wall_exclusive": 1.7441445961594582,
+          "cpu_exclusive": 1.7241330000103972
+        },
+        "prefetch:person__agency:1": {
+          "wall_inclusive": 2.663102000951767,
+          "cpu_inclusive": 1.5656370000058928,
+          "wall_exclusive": 0.7143048569560051,
+          "cpu_exclusive": 0.7067880000022342
+        },
+        "prefetch:approved_revision__publisher_acceptance:1": {
+          "wall_inclusive": 2.453192137181759,
+          "cpu_inclusive": 2.019783999998026,
+          "wall_exclusive": 0.5007656291127205,
+          "cpu_exclusive": 0.5012779999944428
+        },
+        "prefetch:approved_revision__municipality:1": {
+          "wall_inclusive": 2.68707238137722,
+          "cpu_inclusive": 2.0850840000008475,
+          "wall_exclusive": 0.5092397332191467,
+          "cpu_exclusive": 0.49700000000285627
+        },
+        "prefetch:approved_revision__categories:1": {
+          "wall_inclusive": 4.668140783905983,
+          "cpu_inclusive": 3.5306830000010336,
+          "wall_exclusive": 2.408592961728573,
+          "cpu_exclusive": 2.3314490000174715
+        },
+        "prefetch:approved_revision__services:1": {
+          "wall_inclusive": 4.059541039168835,
+          "cpu_inclusive": 3.314719999998772,
+          "wall_exclusive": 2.393200062215328,
+          "cpu_exclusive": 2.318221000003007
+        },
+        "prefetch:approved_revision__travel_areas:1": {
+          "wall_inclusive": 3.3466247841715813,
+          "cpu_inclusive": 2.8575910000014915,
+          "wall_exclusive": 2.0177271217107773,
+          "cpu_exclusive": 1.911968000001707
+        },
+        "prefetch:approved_revision__rates:1": {
+          "wall_inclusive": 3.283720463514328,
+          "cpu_inclusive": 2.8417119999986085,
+          "wall_exclusive": 2.01304629445076,
+          "cpu_exclusive": 1.9482679999995867
+        },
+        "prefetch:blob:0": {
+          "wall_inclusive": 1.919063739478588,
+          "cpu_inclusive": 1.4252210000051946,
+          "wall_exclusive": 0.9629568085074425,
+          "cpu_exclusive": 0.9454989999966301
+        },
+        "prefetch:approved_revision___pv_photos:1": {
+          "wall_inclusive": 6.121953018009663,
+          "cpu_inclusive": 5.139354999997181,
+          "wall_exclusive": 1.7027342692017555,
+          "cpu_exclusive": 1.658610999982102
+        },
+        "hydration": {
+          "wall_inclusive": 56.785193271934986,
+          "cpu_inclusive": 37.41221800000005,
+          "wall_exclusive": 3.612896427512169,
+          "cpu_exclusive": 3.5386439999811614
+        }
+      },
+      "model_counts": {
+        "listings.Listing": 24,
+        "core.Person": 24,
+        "core.PhoneClaim": 24,
+        "listings.Revision": 24,
+        "core.Agency": 1,
+        "core.LegalAcceptance": 1,
+        "core.LegalDocument": 1,
+        "catalog.Municipality": 1,
+        "catalog.Province": 1,
+        "catalog.Region": 1,
+        "catalog.Category": 24,
+        "mediafiles.Photo": 24,
+        "mediafiles.Blob": 1
+      },
+      "profile_top_self": [
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/connection.py",
+          "line": 479,
+          "function": "wait",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.016692931,
+          "inclusive_seconds": 0.022912845
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py",
+          "line": 2748,
+          "function": "get_prep_value",
+          "primitive_calls": 240,
+          "total_calls": 240,
+          "self_seconds": 0.003070826,
+          "inclusive_seconds": 0.0033644150000000004
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/_queries.py",
+          "line": 376,
+          "function": "_split_query",
+          "primitive_calls": 1,
+          "total_calls": 1,
+          "self_seconds": 0.0020440510000000003,
+          "inclusive_seconds": 0.002136643
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 572,
+          "function": "compile",
+          "primitive_calls": 185,
+          "total_calls": 513,
+          "self_seconds": 0.0014264920000000001,
+          "inclusive_seconds": 0.021220156
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.getattr>",
+          "primitive_calls": 2554,
+          "total_calls": 3015,
+          "self_seconds": 0.001318418,
+          "inclusive_seconds": 0.004867596
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/base.py",
+          "line": 462,
+          "function": "__init__",
+          "primitive_calls": 151,
+          "total_calls": 151,
+          "self_seconds": 0.001271447,
+          "inclusive_seconds": 0.0027857090000000004
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/query.py",
+          "line": 378,
+          "function": "clone",
+          "primitive_calls": 115,
+          "total_calls": 115,
+          "self_seconds": 0.0010232940000000001,
+          "inclusive_seconds": 0.001904705
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.isinstance>",
+          "primitive_calls": 3943,
+          "total_calls": 3943,
+          "self_seconds": 0.0009023820000000001,
+          "inclusive_seconds": 0.000944473
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/postgresql/compiler.py",
+          "line": 29,
+          "function": "quote_name_unless_alias",
+          "primitive_calls": 656,
+          "total_calls": 656,
+          "self_seconds": 0.0008798320000000001,
+          "inclusive_seconds": 0.002170042
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/types/datetime.py",
+          "line": 496,
+          "function": "_load_iso",
+          "primitive_calls": 197,
+          "total_calls": 197,
+          "self_seconds": 0.000867352,
+          "inclusive_seconds": 0.00140566
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.hasattr>",
+          "primitive_calls": 3057,
+          "total_calls": 3057,
+          "self_seconds": 0.0008658880000000001,
+          "inclusive_seconds": 0.0008658880000000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+          "line": 583,
+          "function": "_send_query_prepared",
+          "primitive_calls": 13,
+          "total_calls": 13,
+          "self_seconds": 0.00085148,
+          "inclusive_seconds": 0.00085148
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py",
+          "line": 1044,
+          "function": "__init__",
+          "primitive_calls": 75,
+          "total_calls": 75,
+          "self_seconds": 0.0008411130000000001,
+          "inclusive_seconds": 0.002015812
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 550,
+          "function": "quote_name_unless_alias",
+          "primitive_calls": 656,
+          "total_calls": 656,
+          "self_seconds": 0.0007799230000000001,
+          "inclusive_seconds": 0.0012902100000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/lookups.py",
+          "line": 367,
+          "function": "<genexpr>",
+          "primitive_calls": 150,
+          "total_calls": 150,
+          "self_seconds": 0.000772406,
+          "inclusive_seconds": 0.000907115
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/_cursor_base.py",
+          "line": 275,
+          "function": "_maybe_prepare_gen",
+          "primitive_calls": 34,
+          "total_calls": 34,
+          "self_seconds": 0.0007651940000000001,
+          "inclusive_seconds": 0.002526616
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2307,
+          "function": "prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 0.0007556860000000001,
+          "inclusive_seconds": 0.042936993
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 230,
+          "function": "get_select",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.0006932920000000001,
+          "inclusive_seconds": 0.019671155000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/where.py",
+          "line": 246,
+          "function": "_contains_aggregate",
+          "primitive_calls": 25,
+          "total_calls": 104,
+          "self_seconds": 0.000673107,
+          "inclusive_seconds": 0.0018242470000000002
+        },
+        {
+          "source": "~",
+          "line": 0,
+          "function": "<built-in method builtins.setattr>",
+          "primitive_calls": 2112,
+          "total_calls": 2112,
+          "self_seconds": 0.000660091,
+          "inclusive_seconds": 0.001429437
+        }
+      ],
+      "profile_top_inclusive": [
+        {
+          "source": "apps/listings/public_validation.py",
+          "line": 274,
+          "function": "read_publication_values",
+          "primitive_calls": 1,
+          "total_calls": 1,
+          "self_seconds": 4.8696e-05,
+          "inclusive_seconds": 0.080824668
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 371,
+          "function": "__iter__",
+          "primitive_calls": 1,
+          "total_calls": 12,
+          "self_seconds": 1.5403e-05,
+          "inclusive_seconds": 0.07759022900000001
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 1952,
+          "function": "_fetch_all",
+          "primitive_calls": 2,
+          "total_calls": 22,
+          "self_seconds": 0.000182134,
+          "inclusive_seconds": 0.077588315
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 87,
+          "function": "__iter__",
+          "primitive_calls": 86,
+          "total_calls": 86,
+          "self_seconds": 0.000545236,
+          "inclusive_seconds": 0.057407124000000004
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 1593,
+          "function": "execute_sql",
+          "primitive_calls": 10,
+          "total_calls": 10,
+          "self_seconds": 0.000159366,
+          "inclusive_seconds": 0.051364156
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 1328,
+          "function": "_prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 1.5578000000000002e-05,
+          "inclusive_seconds": 0.042949075
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2307,
+          "function": "prefetch_related_objects",
+          "primitive_calls": 1,
+          "total_calls": 2,
+          "self_seconds": 0.0007556860000000001,
+          "inclusive_seconds": 0.042936993
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/query.py",
+          "line": 2541,
+          "function": "prefetch_one_level",
+          "primitive_calls": 8,
+          "total_calls": 9,
+          "self_seconds": 0.0006179460000000001,
+          "inclusive_seconds": 0.04082094
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 755,
+          "function": "as_sql",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.000502749,
+          "inclusive_seconds": 0.027015835000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 78,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 3.4606e-05,
+          "inclusive_seconds": 0.023303136000000002
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 88,
+          "function": "_execute_with_wrappers",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 4.4957000000000003e-05,
+          "inclusive_seconds": 0.023268530000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/backends/utils.py",
+          "line": 94,
+          "function": "_execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 7.909900000000001e-05,
+          "inclusive_seconds": 0.023223573
+        },
+        {
+          "source": "apps/listings/public_validation.py",
+          "line": 228,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.000106373,
+          "inclusive_seconds": 0.023134509
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/cursor.py",
+          "line": 100,
+          "function": "execute",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 5.4803000000000004e-05,
+          "inclusive_seconds": 0.022978934000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/psycopg/connection.py",
+          "line": 479,
+          "function": "wait",
+          "primitive_calls": 15,
+          "total_calls": 15,
+          "self_seconds": 0.016692931,
+          "inclusive_seconds": 0.022912845
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 79,
+          "function": "pre_sql_setup",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.000276972,
+          "inclusive_seconds": 0.021804745
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 572,
+          "function": "compile",
+          "primitive_calls": 185,
+          "total_calls": 513,
+          "self_seconds": 0.0014264920000000001,
+          "inclusive_seconds": 0.021220156
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 71,
+          "function": "setup_query",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.000215798,
+          "inclusive_seconds": 0.019822378
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py",
+          "line": 230,
+          "function": "get_select",
+          "primitive_calls": 10,
+          "total_calls": 25,
+          "self_seconds": 0.0006932920000000001,
+          "inclusive_seconds": 0.019671155000000003
+        },
+        {
+          "source": ".venv/lib/python3.12/site-packages/django/db/models/expressions.py",
+          "line": 1779,
+          "function": "as_sql",
+          "primitive_calls": 10,
+          "total_calls": 13,
+          "self_seconds": 6.8367e-05,
+          "inclusive_seconds": 0.015135554
+        }
+      ]
+    }
+  ],
+  "B07_B09_accepted": false
+}

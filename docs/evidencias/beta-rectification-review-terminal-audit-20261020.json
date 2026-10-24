@@ -1,0 +1,60 @@
+{
+  "run_id": "20261020-212138-85190e87",
+  "phase": "rectification-review",
+  "result": "PASS",
+  "audit_time": "2026-10-20T21:30:09.647438+00:00",
+  "scope": "Full rectification review file after historical rejection expectation correction; not global beta or capacity acceptance",
+  "passed": 15,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "selection": [
+    "tests/test_rectification_review.py"
+  ],
+  "pytest_seconds": 357.01782813854516,
+  "junit_seconds": 355.187,
+  "source_freeze": true,
+  "fresh_source_comparison": true,
+  "product_sources": 622,
+  "product_source_set_sha256": "86ee33a0d51cfbe55da7a8d468cb13247d94d67f0d58c4db7a9ba0370311cb93",
+  "fresh_container_absence": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_pid_reused": true,
+  "notification_receipt": "1792531683284410461-3282073.json",
+  "notification_delivery": "sent",
+  "evidence_sha256": {
+    "result.json": "1ffc380e3d429f85883f455d9d9c17b1a309720becd854e84b466af105d773a0",
+    "runner.json": "e4e421b1f463350f0575ad806ef5fdd1987b29ab742f50c608ba5b0177bf3f58",
+    "source-hashes.json": "7d63ec929ff71bd8f32a4a560c70a032ebc31dc79888d96c5ffe92cd6a93e095",
+    "pytest.xml": "82ed2ff9ee827d54cb210a59d5ba13bd048a777fbfea69aca27c4a8c69fce302",
+    "pytest-reports.jsonl": "7ea35062e95bd28b9cd97a7d1f48c009d2ddcfa1978fb5ab0f64631f41b268fd",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "worker_scope": {
+    "scope": "No worker/Beat claimed for focused regression"
+  },
+  "all_seven_prior_failed_cases_passed": true,
+  "nodeids": [
+    "tests/test_rectification_review.py::test_independent_audited_review_needs_fresh_source_and_preserves_publication[approved]",
+    "tests/test_rectification_review.py::test_independent_audited_review_needs_fresh_source_and_preserves_publication[rejected]",
+    "tests/test_rectification_review.py::test_mobile_final_profile_correction_response_and_close[en]",
+    "tests/test_rectification_review.py::test_mobile_final_profile_correction_response_and_close[es]",
+    "tests/test_rectification_review.py::test_mobile_independent_source_and_proposal_review[en]",
+    "tests/test_rectification_review.py::test_mobile_independent_source_and_proposal_review[es]",
+    "tests/test_rectification_review.py::test_proposal_history_pages_do_not_reveal_proposed_text",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-False]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-None]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-False-True]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-individual-accepted-True-None]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-accepted-False-None]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-accepted-True-None]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[approved-fixture-v1-model-a-rejected-False-None]",
+    "tests/test_rectification_review.py::test_reviewed_correction_communication_requires_new_proof_and_is_idempotent[rejected-fixture-v1-model-a-accepted-False-None]"
+  ],
+  "limits": [
+    "Identity/payment adapters are explicitly simulated",
+    "Synthetic fixtures and owned local services only",
+    "No capacity or global beta acceptance",
+    "B00 audit and B07-B17/G01-G08 remain separate"
+  ]
+}

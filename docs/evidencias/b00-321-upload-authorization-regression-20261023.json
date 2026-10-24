@@ -1,0 +1,59 @@
+{
+  "result": "PASS",
+  "scope": "AFFECTED_UPLOAD_POST_LOCK_AUTHORIZATION_REGRESSION_NOT_GLOBAL_BETA",
+  "run": "artifacts/local-ci/20261023-231118-5cc92188",
+  "tests": 15,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "junit_seconds": 114.358,
+  "workers": 3,
+  "source_hashes": {
+    "apps/safety/rectification_uploads.py": "31d19dae64ab92d09d865f6963ac97c8a6ebf5f136fa6a1a9b7a19707acf0fdd",
+    "tests/test_rectification_uploads.py": "3ebbceb77a1d8da59627e0048775e93ca6b5ef77c739de3368b16fcab72bdb80",
+    "tests/test_rectification_photos.py": "2413cee24c9519b78ee99958c6c81137081cb08f0fb86a6ace89e52a17ae154f",
+    "tests/test_rights_rectification.py": "2522be53d8660ad0a31fdbc2af6df8471dab3490409fa482b405a40881918c26"
+  },
+  "sources_unchanged": true,
+  "testcases": [
+    "test_upload_private_pipeline_replay_and_selected_replacement",
+    "test_photo_selection_form_rejects_other_sources_and_persists_order[False]",
+    "test_media_snapshot_serializes_blob_mutation",
+    "test_photo_selection_form_rejects_other_sources_and_persists_order[True]",
+    "test_processing_expiry_and_discard_invalidate_private_selection",
+    "test_photo_bytes_require_current_private_audit_and_scope",
+    "test_uploads_reject_changed_base_other_case_epoch_and_duplicate_bytes",
+    "test_photo_selection_rejects_removed_unavailable_and_historical_rows",
+    "test_global_duplicates_do_not_expose_staging_to_general_match_review",
+    "test_unavailable_source_requires_explicit_omission_before_copy",
+    "test_same_upload_key_serializes_in_postgresql",
+    "test_eight_source_photos_are_editable_and_valid",
+    "test_upload_rejects_proof_expiring_during_source_lock_wait[source]",
+    "test_upload_rejects_proof_expiring_during_source_lock_wait[blob]",
+    "test_discard_rejects_proof_expiring_during_upload_lock_wait"
+  ],
+  "cleanup": [
+    {
+      "name": "web-modelos-ci-pg-20261023-231118-5cc92188",
+      "currently_absent": true
+    },
+    {
+      "name": "web-modelos-ci-redis-20261023-231118-5cc92188",
+      "currently_absent": true
+    }
+  ],
+  "temporary_directory_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "negative_reproduction": "artifacts/beta-promotion-fix-20261020/b00-321-upload-repro-audit.json",
+  "clock_controlled": true,
+  "authorization_domain_and_PostgreSQL_real": true,
+  "evidence_sha256": {
+    "result.json": "e7a7800e9d5e1eb5e2d7bb318a16240473c2083a5292166e02e4ed9d41c504e7",
+    "pytest.xml": "d3256651f91c9c79a9f5f7f54ba057b8d2c7eaac227ab061b026e62fe596468c",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

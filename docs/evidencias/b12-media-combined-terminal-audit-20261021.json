@@ -1,0 +1,26 @@
+{
+  "result": "PASS_MEDIA_FUNCTIONAL_AND_LOCAL_SNAPSHOT_BUDGET",
+  "functional_run": "20261021-012300-9149ce62",
+  "functional_passed": 42,
+  "functional_workers": 4,
+  "cost_run": "20261021-012908-de4d9b06",
+  "cost_integrity_passed": 1,
+  "cost_workers": 1,
+  "combined_unique_cases": 43,
+  "single_run_43_claim": false,
+  "sources_identical_between_runs": true,
+  "fresh_sources_cleanup_and_terminal_telegrams": true,
+  "cost_junit_seconds": 53.526,
+  "sampler_p95_budget_seconds": 1,
+  "sampler_budget_met": true,
+  "measurements_sha256": "3059b6467754308110cacdf109959f706c85a2985d4d4a20eeb6aad6e5ab27bc",
+  "limits": [
+    "One fixed order and warm local PostgreSQL, no cold database guarantee",
+    "MediaErasure and other snapshot tables remain empty; not every production cardinality",
+    "Client CPU excludes PostgreSQL server CPU; SQL execute excludes fetch",
+    "RSS samples and whole-process high water include fixture/test process",
+    "No capacity, provider delivery, cadence or B12 acceptance",
+    "Physical absence monitored by named local filesystem witnesses, not universal inventory",
+    "B12 closure audit remains separate"
+  ]
+}

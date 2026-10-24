@@ -1,5 +1,9 @@
 # Medición del avance del contrato
 
+## Alcance temporal de las estimaciones — 2026-10-24
+
+La revisión v10 y los estados abiertos de abajo conservan su fecha y denominador históricos; no son una medición del producto adaptado hacia beta. CR09 tiene [aceptación técnica local](actas/05-cr09-aceptacion-tecnica-local-20261018.md) y el [alfa fue consolidado](actas/10-entrega-tecnica-local-alpha-20261020.md) en sus respectivos cortes. El avance actual se consulta en [seguimiento17](17-seguimiento-desarrollo.md) y el [roadmap beta](103-roadmap-beta-clasificados-20261020.md), sin convertir el número de puntos cerrados ni las fuentes conciliadas de B00 en porcentaje de esfuerzo. No se recalculan o sustituyen aquí los pesos, grados, fallos o cifras de v10.
+
 Actualizado documentalmente: 2026-10-09. Revisión vigente **v10**, sin cambio por organización ni por aceptación local posterior de lectura. [Cálculo original](evidencias/avance-ponderado-v10.json). El estado y la cola se consultan en [seguimiento17](17-seguimiento-desarrollo.md); los pendientes, en [matriz83](83-auditoria-pendientes-cr09.md).
 
 ## Método y límites

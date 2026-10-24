@@ -1,0 +1,22 @@
+{
+  "result": "PASS_LOCAL_OWNED_REDIS_KOMBU",
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "junit_seconds": 4.031,
+  "verified_properties": {
+    "old_password_rejected_new_password_accepted": true,
+    "old_client_survives_until_targeted_kill": true,
+    "cached_old_secret_cannot_reconnect": true,
+    "real_kombu_queue_preserved_across_rotation": true,
+    "peer_keys_and_acl_preserved": true,
+    "owned_redis_removed": true
+  },
+  "fresh_sources_and_terminal_telegram": true,
+  "existing_product_unchanged": true,
+  "pending_messages_consumed_and_acked": 2,
+  "queue_namespace_unchanged": true,
+  "scope": "real owned Redis ACL and Kombu transport, not live Celery process reload or PostgreSQL business outbox",
+  "B13_accepted": false,
+  "closed_roadmap_points": 7
+}

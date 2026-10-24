@@ -1,0 +1,62 @@
+{
+  "result": "PASS",
+  "scope": "AFFECTED_PHONE_ERASURE_REGRESSION_NOT_GLOBAL_BETA_ACCEPTANCE",
+  "run": "artifacts/local-ci/20261023-225133-c5066483",
+  "tests": 20,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "junit_seconds": 158.942,
+  "workers": 3,
+  "sources_unchanged": true,
+  "source_hashes": {
+    "apps/safety/erasure_final.py": "2bf2180f801e7d923ab6c8a2efc221427438fa5e48412d713725439af03b676b",
+    "tests/test_contact_erasure.py": "9c605edae1461338daf1f8bf52cf9d6b7c6283406ed5a519f8707760c84b08cf",
+    "tests/test_erasure_final.py": "215e4b608edf44f4027e1d800a280e43e63abf4a45fc74b66785f1a8f1621d9c",
+    "tests/test_erasure_final_publication_projection.py": "4e2e8f8f77fabd4fc149a9b8e7496bcf5701e5cea20f2ab9476af5914dd69e82"
+  },
+  "testcases": [
+    "test_final_material_marks_restored_publication_projection_pending",
+    "test_delete_codes_and_detach_phone_preserves_other_model_and_consent_evidence",
+    "test_final_material_preserves_pending_and_detects_reintroduced_credentials",
+    "test_final_material_rejects_foreign_receipt_and_modified_plan",
+    "test_inflight_contact_operation_cannot_recreate_erased_codes[confirm]",
+    "test_final_draft_requires_independent_read_and_current_execution",
+    "test_inflight_contact_operation_cannot_recreate_erased_codes[start]",
+    "test_final_http_issues_partial_response_once_with_private_receipt[False]",
+    "test_inflight_contact_operation_cannot_recreate_erased_codes[invite]",
+    "test_final_http_issues_partial_response_once_with_private_receipt[True]",
+    "test_inflight_contact_operation_cannot_recreate_erased_codes[accept]",
+    "test_mobile_contact_scoped_execution",
+    "test_final_account_erasure_uses_original_proof_after_execution[False]",
+    "test_final_account_erasure_uses_original_proof_after_execution[True]",
+    "test_phone_redaction_invalidates_retained_codes_but_new_explicit_request_is_current",
+    "test_mobile_erasure_response_review_issue_and_acknowledgement[es]",
+    "test_phone_outcome_preserves_unselected_telegram_and_detects_phone_reintroduction[phone]",
+    "test_phone_outcome_preserves_unselected_telegram_and_detects_phone_reintroduction[whatsapp]",
+    "test_mobile_erasure_response_review_issue_and_acknowledgement[en]",
+    "test_final_media_requires_actual_file_absence_even_after_completed_job"
+  ],
+  "cleanup": [
+    {
+      "name": "web-modelos-ci-pg-20261023-225133-c5066483",
+      "currently_absent": true
+    },
+    {
+      "name": "web-modelos-ci-redis-20261023-225133-c5066483",
+      "currently_absent": true
+    }
+  ],
+  "temporary_directory_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "evidence_sha256": {
+    "result.json": "21327a2a1b2838f5f80f0ae6e663de24f6491945ed35e83c6169bef1bb75903d",
+    "pytest.xml": "d2198fecbdf18c7fad0dc9702c3dc9143b243e3897321ef6eb1eae9f2f57e2bf",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "negative_reproduction": "artifacts/beta-promotion-fix-20261020/b00-320-contact-repro-audit.json"
+}

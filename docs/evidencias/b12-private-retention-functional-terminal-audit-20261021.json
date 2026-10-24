@@ -1,0 +1,28 @@
+{
+  "result": "PASS_PRIVATE_RETENTION_AND_REAL_WORKER_WITNESS",
+  "run_id": "20261021-021432-cc448ccd",
+  "passed": 58,
+  "workers": 4,
+  "junit_seconds": 157.011,
+  "by_module": {
+    "test_media_erasure": 5,
+    "test_account_email_confirmation": 10,
+    "test_preparation_cleanup": 11,
+    "test_rights_object_delivery": 5,
+    "test_operational_assessment": 9,
+    "test_notice_worker_recovery": 1,
+    "test_operational_window": 9,
+    "test_operational_snapshot": 8
+  },
+  "fresh_sources_cleanup_and_terminal_telegram": true,
+  "changed_product_sources": [
+    "apps/core/operational_assessment.py",
+    "apps/core/operational_snapshot.py"
+  ],
+  "parent_run_trap_preserved": true,
+  "limits": [
+    "Local PostgreSQL and files only",
+    "No provider or universal storage inventory",
+    "No B12 or beta acceptance"
+  ]
+}

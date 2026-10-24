@@ -1,0 +1,35 @@
+{
+  "result": "PASS_AFFECTED_LOCAL_COVERAGE_AUTHORITY_REGRESSION",
+  "run_id": "20261024-042842-acce5865",
+  "passed": 25,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "workers": 3,
+  "selectors": [
+    "tests/test_rights_access_coverage_authority_races.py",
+    "tests/test_rights_access_coverage_store.py::test_audited_coverage_preserves_open_request_and_rejects_stale_replay",
+    "tests/test_access_coverage_review_localization.py",
+    "tests/test_rights_access_response_mobile.py"
+  ],
+  "source_hashes": {
+    "apps/safety/rights_access_coverage_review.py": "93afe09a62881295a17d70f5d2d2b539a7a27aea0721c7e1682387919bbc761e",
+    "tests/test_rights_access_coverage_authority_races.py": "0b02a8f5df6814c405c190c43b331c0687f15551fb8806eab78970e901d89445",
+    "tests/test_rights_access_coverage_store.py": "e1670e57d5fa4d83f28faeb5418bce49071a85a2bcd2255465bb27f6503d331c",
+    "tests/test_access_coverage_review_localization.py": "978974090ac60183c0f8d0c4b53b392ef23f64433b0e97d7b4212dc7c9b856a5",
+    "tests/test_rights_access_response_mobile.py": "2da57d922541e0e72d571d71d29a74316c94beb01770e179b0eb4a945e594946"
+  },
+  "sources_unchanged": true,
+  "fresh_cleanup_verified": true,
+  "temporary_absent": true,
+  "runner_and_child_absent_or_reused": true,
+  "notification_delivery": "sent",
+  "scope": "Fresh reviewer after coverage wait before first decrypt; inspect/review/replay/use, account/person, HTTP/CSRF, ESEN/browser and mobile consumers. No globalN3/capacity/provider acceptance.",
+  "negative_reproduction": "20261024-042112-f97c14c6:1PASS4FAIL0ERROR0SKIP; not relabeled",
+  "evidence_sha256": {
+    "result.json": "a2c4195126ae522de96ba88dc32e5f1504640dd3dddffaee6fe2ec669593d0d9",
+    "pytest.xml": "06f3b4a0c9504a4a8adde175972bcfba5649dce227244c712115e2256cb0a864",
+    "source-hashes.json": "70c7dcf85af2cd05d0183f45603dea5d6d0e9b7472305bdd84849491fbcfcc37",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  }
+}

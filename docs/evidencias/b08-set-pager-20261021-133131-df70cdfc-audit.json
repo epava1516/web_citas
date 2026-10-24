@@ -1,0 +1,55 @@
+{
+  "run_id": "20261021-133131-df70cdfc",
+  "result": "PASS_PARITY_NOT_SPEEDUP",
+  "cases": 8,
+  "bad_cases": [],
+  "properties": {
+    "test_set_pager_all_pages": {
+      "frozen_native_comparisons": "[{'day': 0, 'language': 'es', 'params': {}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 0, 'language': 'en', 'params': {}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 0, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'es', 'params': {}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'es', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}, {'day': 1, 'language': 'en', 'params': {}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'q': 'photography'}, 'count': 49}, {'day': 1, 'language': 'en', 'params': {'profile': ['woman'], 'language': ['en']}, 'count': 25}]",
+      "set_pager_selected_calls": "32",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_revocation[individual]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_revocation[owner]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_revocation[editor]": {
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_snapshot_boundary": {
+      "commercial_snapshot_boundary": "Concurrent buyer revocation after map read; first response retains its read snapshot, next request denies sponsorship; no persistent result cache",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_checked_pending[es]": {
+      "synthetic_contact_rule_only": "True",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_checked_pending[en]": {
+      "synthetic_contact_rule_only": "True",
+      "set_pager_selected_calls": "2",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    },
+    "test_set_pager_inherited_transaction": {
+      "set_pager_selected_calls": "0",
+      "set_pager_fallback_calls": "0",
+      "product_changed": "False"
+    }
+  },
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_telegram_verified": true,
+  "B07_B08_B11_accepted": false
+}

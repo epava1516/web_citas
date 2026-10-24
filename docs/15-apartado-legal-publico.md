@@ -1,12 +1,12 @@
 # Apartado legal público y condiciones de publicación
 
-Fecha: 2026-10-03. Estado: alcance confirmado; especificación y borradores sujetos a datos reales del operador y revisión jurídica antes de producción.
+Origen: 2026-10-03. Adaptación de contenido: 2026-10-20. Estado: alcance confirmado; especificación y borradores sujetos a datos reales del operador y revisión jurídica antes de producción.
 
 ## Objetivo confirmado
 
 El usuario confirma que la plataforma debe publicar un apartado legal accesible que explique su postura y reglas frente a contenidos/servicios prohibidos. Los anunciantes aceptarán condiciones de publicación con responsabilidades por el contenido que aportan. La implementación y aceptación local se consultan en [seguimiento17](17-seguimiento-desarrollo.md) y [contrato de cuentas/legal](contratos/01-cuentas-legal.md); la existencia de pantallas y textos sintéticos no sustituye los datos del operador ni la revisión jurídica pendiente.
 
-Este documento amplía el contrato funcional v1. La responsabilidad del anunciante no sustituye las obligaciones propias del operador, ni la aceptación convierte un contenido ilícito en lícito. No llamar consumidor automáticamente a cualquier profesional/agencia.
+Este documento desarrolla el contrato funcional v1.1 hacia beta; sus borradores reflejan perfiles personales románticos. Los textos runtime y aceptaciones vigentes no cambian al editar esta especificación. La responsabilidad del anunciante no sustituye las obligaciones propias del operador, ni la aceptación convierte un contenido ilícito en lícito. No llamar consumidor automáticamente a cualquier profesional/agencia.
 
 ## Páginas y acceso
 
@@ -29,9 +29,9 @@ Las traducciones deben revisarse para equivalencia. No introducir una cláusula 
 
 ## Postura pública: borrador de texto
 
-> Esta plataforma permite publicar anuncios de modelaje, acompañamiento social y masajes de bienestar dentro de sus normas y de la legislación aplicable. Solo admitimos personas adultas y contenido publicado con autorización de las personas representadas y de los titulares de sus derechos.
+> Esta plataforma permite publicar perfiles personales para buscar citas románticas dentro de sus normas y de la legislación aplicable. Solo admitimos personas adultas y contenido publicado con autorización de las personas representadas y de los titulares de sus derechos.
 >
-> No admitimos publicidad de servicios sexuales remunerados, explotación, coacción, suplantación ni imágenes publicadas sin autorización. Estas reglas se aplican al contenido real del anuncio, aunque se utilicen expresiones indirectas.
+> No admitimos anuncios de encuentros sexuales, remunerados o no, ofertas de servicios profesionales, precios por citas, explotación, coacción, suplantación ni imágenes publicadas sin autorización. Estas reglas se aplican al contenido real del anuncio, aunque se utilicen expresiones indirectas.
 >
 > Revisamos publicaciones, atendemos denuncias y podemos restringir contenidos o cuentas conforme a nuestras condiciones y a las obligaciones legales aplicables. Puedes denunciar un perfil o solicitar ayuda desde los enlaces de cada ficha y del apartado legal.
 
@@ -41,7 +41,7 @@ Borrador para adaptar al nombre real, mecanismos y capacidad implementados. «Re
 
 1. El anunciante declara ser mayor de edad y publicar datos veraces; no suplanta identidad ni evade restricciones creando cuentas o perfiles duplicados.
 2. Tiene autorización para representar a cada persona y para publicar las fotos/textos. La agencia debe acreditar esa representación mediante el flujo definido; aceptar las condiciones no es por sí solo evidencia de autorización de terceros.
-3. No publica menores, explotación, coacción, contenido no consentido, ofertas sexuales remuneradas o material excluido por la política. No usa enlaces, contactos o eufemismos para eludir prohibiciones.
+3. No publica menores, explotación, coacción, contenido no consentido, anuncios de encuentros sexuales, remunerados o no, ofertas profesionales o material excluido por la política. No usa enlaces, contactos o eufemismos para eludir prohibiciones.
 4. Mantiene datos de contacto autorizados y vigentes. Una publicación por persona; teléfonos de agencia compartidos solo en perfiles gestionados legítimamente.
 5. Corrige datos y atiende verificaciones/reclamaciones. Notifica cambios de representación y respeta revocación sin retener el control del perfil.
 6. Concede únicamente la licencia necesaria para almacenar, procesar, adaptar técnicamente y mostrar contenido en la plataforma. No autoriza automáticamente promoción externa, venta de imágenes o entrenamiento de modelos.
@@ -66,7 +66,7 @@ Revisión jurídica necesaria de licencias, consecuencias y diferencias entre us
 
 ### Envío de anuncio y cambios sensibles
 
-- Resumen de contenido, servicios, contactos, tarifas y precisión de ubicación.
+- Resumen de perfil, fotos, contactos y precisión de ubicación, sin catálogo profesional ni tarifas por servicios.
 - Declaración expresa sin premarcar sobre datos veraces y derechos/autorización del contenido de la revisión enviada.
 - Validación en servidor de condiciones aceptadas y verificaciones exigidas. No permitir eludir aceptación manipulando petición o reenviando un borrador antiguo.
 - Si faltan documentos vigentes o hay conflicto, no publicar automáticamente. La aceptación no desactiva moderación.

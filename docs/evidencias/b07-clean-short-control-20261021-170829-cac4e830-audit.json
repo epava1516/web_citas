@@ -1,0 +1,49 @@
+{
+  "run_id": "20261021-170829-cac4e830",
+  "result": "VERIFIED_CLEAN_SHORT_CONTROL_FAIL",
+  "benchmark_verdict": "FAIL",
+  "checks_replayed": {
+    "generator_p95": true,
+    "generator_p99": true,
+    "generator_max": true,
+    "p95": false,
+    "errors": true,
+    "window_pending": true,
+    "final_pending": true,
+    "drain": true,
+    "upload": true
+  },
+  "p95_observable_ms": 1241.7491283267736,
+  "dynamic_successful": 1200,
+  "unexpected": 0,
+  "window_pending": 20,
+  "post_preparation_statistics": {
+    "method": "Explicit ANALYZE after promotional issuance and publication refresh",
+    "tables": [
+      "catalog_promotionentitlement",
+      "catalog_promotionorder",
+      "core_person",
+      "core_representationaction",
+      "core_user",
+      "core_verificationcheck",
+      "listings_publicationstate",
+      "listings_revision_categories"
+    ],
+    "seconds": 0.21830387320369482,
+    "owned_synthetic_postgresql_verified": true,
+    "domain_rows_mutated": false,
+    "request_policy_changed": false
+  },
+  "application_sources_unchanged": 628,
+  "image_sources_unchanged": 724,
+  "image_tools_changed": 2,
+  "new_unused_diagnostic_tool": 1,
+  "sources_cleanup_owned_pids_telegram_verified": true,
+  "original_tcp_fail_preserved": true,
+  "B07_accepted": false,
+  "contract_900_seconds_executed": false,
+  "clean_without_client_or_server_observers": true,
+  "first_cold_probes_retained": true,
+  "old_fail_result_checked": true,
+  "contractual_900_still_not_executed": true
+}

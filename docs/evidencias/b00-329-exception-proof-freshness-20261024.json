@@ -1,0 +1,53 @@
+{
+  "result": "PASS",
+  "negative_failures": 1,
+  "positive_passed": 16,
+  "new_runtime_acceptance": false,
+  "notification_receipts_verified": true,
+  "runs": [
+    {
+      "run": "artifacts/local-ci/20261024-004232-7a934dc1",
+      "result": "ERROR",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "sources_unchanged": true,
+      "cleanup_independently_absent": true,
+      "notification": {
+        "delivery": "sent",
+        "result": "ERROR",
+        "name": "CI focused"
+      },
+      "result_sha256": "0279e777e5d764397cde996debbae324c895c44199d48fc03bd19f8c1a931759",
+      "junit_sha256": "d0e324cb68dd89389f70e928f2e909f2fbd02cd45e518cc41d6ab10c10bda5de"
+    },
+    {
+      "run": "artifacts/local-ci/20261024-004510-b17f1e9c",
+      "result": "PASS",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sources_unchanged": true,
+      "cleanup_independently_absent": true,
+      "notification": {
+        "delivery": "sent",
+        "result": "PASS",
+        "name": "CI focused"
+      },
+      "result_sha256": "622e9cf88722f0008bb95438083566f2e986d5e414b597d36f160a8bda4154c0",
+      "junit_sha256": "97ebe2d811962224a2beb0069098859568530d5e94fcb6da381569b3a265e0ca"
+    }
+  ],
+  "scope": "Controlled proof-consumer clock crossing with actual PostgreSQL/domain. Existing observed-lock, replay, rollback and new-measure cases; no real provider callback, global beta or capacity acceptance.",
+  "acceptance_scope": "Finite correction of proof freshness in exception consumption, not complete rights/beta/production acceptance",
+  "sources": {
+    "apps/safety/purpose_exceptions.py": "719c415913547105313b4b9e2d15e9e123b09ab66f743c142062864b8a0d5a83",
+    "tests/test_purpose_exception_consumer_freshness.py": "0f9368dcba99959f5bbc33825590c01167b8252d3adf3e75f9858b61f5b67c5e",
+    "tests/test_purpose_exception_consumption.py": "deb5349ff754b89ed49f3561063c5e349d941ad42adb38ad52c267c3e4130722",
+    "tests/test_purpose_exception_late_authority.py": "32b4cc7f55dd8bab4c3772756afb4bae0eccae1b8bc4e71221cd2ea83170e6de",
+    "tests/test_purpose_exception_new_measure.py": "dbc6ad782bc8c0709d0a4c2eaa7c49992e03b5fb43be7a86ca8255ce60213678",
+    "tests/test_erasure_execution_revocation_races.py": "79001444bbb9a3091ccd066bd678d93261897c00cce3967476cd32a4591682f3"
+  }
+}

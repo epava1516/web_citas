@@ -57,3 +57,13 @@ GitHub Actions queda con disparo manual, sin ejecución automática por push/PR.
 ## Restauración con el servidor propio
 
 `test_recovery_pg_restore.py` y su variante comercial usan `LOCAL_CI_POSTGRES_CONTAINER` asignado por el runner y validan su nombre/puerto contra la conexión PostgreSQL activa. Ejecutan pg_dump/pg_restore del propio contenedor; no necesitan los clientes PG del host ni usan el Compose normal. Bases restauradas, medios, claves y checkpoints son sintéticos/desechables. [Prueba final y límites](evidencias/restauracion-ci-mod05-final-20261009.json). Para ejecutar esos tests fuera del gate hacen falta herramientas PG locales compatibles con la conexión de pruebas; falta de herramientas no se oculta como simulación o skip.
+
+
+## Reparto opcional por duración
+
+--duration-order-from acepta un test-timings.json de una ejecución propia anterior tanto en regression/functional como en focused con al menos2workers. Ordena archivos completos por coste histórico, conserva casos y orden interno; todos los trabajadores recogen el mismo conjunto y se guardan pruebas de esa igualdad. No ejecuta menos pruebas ni constituye por sí mismo una aceleración medida.
+
+Los archivos de capacidad y escenarios largos conocidos quedan excluidos de esta opción incluso mediante rutas normalizadas. Los ensayos de capacidad conservan ejecución serial y recursos contractuales. Para comparar2vs4, utilizar selección, fuentes, snapshots, aislamiento de broker e historial idénticos, secuencialmente y sin otra medición propia; documentar tiempos observados y límites de caché/host compartido. [Protocolo beta124](124-comun-afectado-paralelismo-beta-20261020.md).
+
+
+Comparación local beta2026-10-20:misma selección40archivos/363casos y todas las fuentes idénticas, ambos brazos363PASS/0omisiones. Proceso pytest624,180s con2workers frente349,882s con4 (43,95%menos observado); runner completo653,955→379,667s. Un par2→4, sin atribución causal aislada ni comparación deRSS. Para la siguiente regresión funcional se seleccionan4explícitamente; default6y ensayos de capacidad seriales no cambian. [Evidencia auditada](evidencias/beta-worker-comparison-20261020.json).

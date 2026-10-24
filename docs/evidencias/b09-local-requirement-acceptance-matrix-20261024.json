@@ -1,0 +1,121 @@
+{
+  "decision": "B09_ACCEPTED_TECHNICALLY_LOCAL",
+  "requirements": [
+    {
+      "id": "R01",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "Optimizar consultas repetidas/N+1",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "Mismo instrumento10/100:30/210consultas antes y10/10después; conflictos y órdenes preservados por7casos previos y18posteriores.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-queue-comparison-20261024.json",
+          "sha256": "2468e9e0fcda4c84a08a7ab3450baf38c8090cd815c2708fc788178ac4eade7f"
+        },
+        {
+          "path": "docs/evidencias/b09-queue-corrected-audit-20261024.json",
+          "sha256": "6cb5eb484b7bf0aa35feb70e6a1f6ae108220418626e5f1d287bf3720a973ed6"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "índices respaldados por planes reales",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "Condición respetada: no se añade índice, migración o cambio de esquema ni se acredita EXPLAIN inexistente. No se introduce optimización de índice por intuición.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-queue-comparison-20261024.json",
+          "sha256": "2468e9e0fcda4c84a08a7ab3450baf38c8090cd815c2708fc788178ac4eade7f"
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "hidratación y render sólo donde exista coste medido",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "Cola sin consultas por fila ni hidratación de modelos objetivo/ciphertext; proyección de campos de plantilla. No se reescribe render backend sin coste/beneficio probado; la galería aborda trabajo de entrega observado.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-queue-corrected-audit-20261024.json",
+          "sha256": "6cb5eb484b7bf0aa35feb70e6a1f6ae108220418626e5f1d287bf3720a973ed6"
+        },
+        {
+          "path": "docs/evidencias/b09-gallery-comparison-20261024.json",
+          "sha256": "c3ec30c08ec2d35d8a5bac3b4302e40bd8fb207ed9393e9a994136e62eebedaa"
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "Revisar tamaño y variantes de imágenes y activos",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "WebP1600/calidad85 conservado. Carga inicial de8fotos135824bytes a1foto11110; ocho fotos y cuerpos completos idénticos tras recorrer. Inventario7fuentes69312bytes frente a13374bytes CSS/JS realmente servidos en la ficha; no variantes/compresión/caché especulativas.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-gallery-comparison-20261024.json",
+          "sha256": "c3ec30c08ec2d35d8a5bac3b4302e40bd8fb207ed9393e9a994136e62eebedaa"
+        },
+        {
+          "path": "docs/evidencias/b09-static-source-inventory-20261024.json",
+          "sha256": "e027eed41f0816cc621c98e04f10a5421cb7eef20230434da072838610a1d605"
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "sin empeorar calidad necesaria, privacidad o accesibilidad",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "Mismos cuerpos/hashes/dimensiones/URLs/orden/alt/CSS y primera foto inmediata; estructura intacta salvo atributo loading tras primera. Pausa devuelve404con condicionales, recorrido móvil existente pasa. Cola mantiene permiso/MFA/COI y reautorización privada. Sin auditoría WCAG global nueva.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-gallery-corrected-audit-20261024.json",
+          "sha256": "1e8eb21ff511657d2e89c31730f814b7081cf77ccb49249f5f0f5a242dd68a26"
+        },
+        {
+          "path": "docs/evidencias/b09-queue-corrected-audit-20261024.json",
+          "sha256": "6cb5eb484b7bf0aa35feb70e6a1f6ae108220418626e5f1d287bf3720a973ed6"
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "status": "PASS_SCOPED_LOCAL",
+      "literal": "Observar backlog y frecuencia de fallback",
+      "requirement_source": "docs/103-roadmap-beta-clasificados-20261020.md",
+      "acceptance_reason": "PG real observa1001marcas con edad; HTTP real emite estado/fallback y ventana muestra1/2observado, con salud desconocida y cobertura no verificada. Cola huérfana es fixture; no tráfico/worker/broker/reparación productivos.",
+      "evidence": [
+        {
+          "path": "docs/evidencias/b09-current-read-observation-20261024.json",
+          "sha256": "bbc9064324288168066a82e14e492b5c0e5a73d5c218ccf1842a7a99968b5484"
+        }
+      ]
+    }
+  ],
+  "precondition": {
+    "B07_accepted": true,
+    "acta": "docs/actas/16-beta-b07-aceptacion-local-20261023.md",
+    "sha256": "d6844800deb43b7ac6831f7e715c575a02ac6d6eff60680d596884fa0eeed45e"
+  },
+  "verified_corrected_runs": [
+    "20261024-055055-56ead958",
+    "20261024-064310-28e0f5bb",
+    "20261024-070525-bd417543"
+  ],
+  "distinct_witness_cases": 24,
+  "not_single_joint_run": true,
+  "beta_closed": 12,
+  "beta_total": 18,
+  "limits": [
+    "Not all stage3, joint candidate B16, global beta or production acceptance",
+    "No causal latency/CPU, constant work/memory or Internet capacity improvement claimed",
+    "Observed fallback fraction is a controlled input, not full traffic frequency",
+    "B10-B11 and B14-B17 remain; B15 optional"
+  ],
+  "claude_v1_new": 0,
+  "historical_claude_v1_preserved": 8
+}

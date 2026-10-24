@@ -1,0 +1,84 @@
+{
+  "run_id": "20261020-041902-d3c30817",
+  "result": "ERROR",
+  "tests": [
+    {
+      "name": "pytest",
+      "errors": "3",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "139",
+      "time": "390.075",
+      "timestamp": "2026-10-20T06:19:22.730143+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "cleanup": {
+    "web-modelos-ci-pg-20261020-041902-d3c30817": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261020-041902-d3c30817": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "terminal_notification": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "errors": [
+    {
+      "case": {
+        "classname": "tests.test_photo_restrictions",
+        "name": "test_photo_restriction_notice_is_private_and_has_no_other_account_data",
+        "file": "tests/test_photo_restrictions.py",
+        "line": "37",
+        "time": "4.356"
+      },
+      "message": {
+        "message": "failed on setup with \"assert 200 == 302\n +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\n +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/ada6c921-3c57-4e53-bab3-15dbd8453819/consent/', {'authorize': 'on', 'version': 'dev-1'})\n +      where post = <django.test.client.Client object at 0x7f89203a4830>.post\""
+      },
+      "text": "tests/test_photo_restrictions.py:19: in restricted\n    values = request.getfixturevalue(\"conflict\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:630: in getfixturevalue\n    fixturedef = self._get_active_fixturedef(argname)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:726: in _get_active_fixturedef\n    fixturedef.execute(request=subrequest)\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1232: in execute\n    result: FixtureValue = ihook.pytest_fixture_setup(\n.venv/lib/python3.12/site-packages/pluggy/_hooks.py:512: in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/pluggy/_manager.py:120: in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/setuponly.py:36: in pytest_fixture_setup\n    return (yield)\n            ^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1328: in pytest_fixture_setup\n    result = call_fixture_func(fixturefunc, request, kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1005: in call_fixture_func\n    fixture_result = fixturefunc(**kwargs)\n                     ^^^^^^^^^^^^^^^^^^^^^\ntests/test_match_review.py:44: in conflict\n    assert (\nE   assert 200 == 302\nE    +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\nE    +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/ada6c921-3c57-4e53-bab3-15dbd8453819/consent/', {'authorize': 'on', 'version': 'dev-1'})\nE    +      where post = <django.test.client.Client object at 0x7f89203a4830>.post"
+    },
+    {
+      "case": {
+        "classname": "tests.test_photo_restrictions",
+        "name": "test_browser_mobile_photo_restriction_notice",
+        "file": "tests/test_photo_restrictions.py",
+        "line": "57",
+        "time": "4.176"
+      },
+      "message": {
+        "message": "failed on setup with \"assert 200 == 302\n +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\n +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/84a6c104-f4ef-4b34-af2f-3c35a5720184/consent/', {'authorize': 'on', 'version': 'dev-1'})\n +      where post = <django.test.client.Client object at 0x7f8920182f60>.post\""
+      },
+      "text": "tests/test_photo_restrictions.py:19: in restricted\n    values = request.getfixturevalue(\"conflict\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:630: in getfixturevalue\n    fixturedef = self._get_active_fixturedef(argname)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:726: in _get_active_fixturedef\n    fixturedef.execute(request=subrequest)\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1232: in execute\n    result: FixtureValue = ihook.pytest_fixture_setup(\n.venv/lib/python3.12/site-packages/pluggy/_hooks.py:512: in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/pluggy/_manager.py:120: in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/setuponly.py:36: in pytest_fixture_setup\n    return (yield)\n            ^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1328: in pytest_fixture_setup\n    result = call_fixture_func(fixturefunc, request, kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1005: in call_fixture_func\n    fixture_result = fixturefunc(**kwargs)\n                     ^^^^^^^^^^^^^^^^^^^^^\ntests/test_match_review.py:44: in conflict\n    assert (\nE   assert 200 == 302\nE    +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\nE    +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/84a6c104-f4ef-4b34-af2f-3c35a5720184/consent/', {'authorize': 'on', 'version': 'dev-1'})\nE    +      where post = <django.test.client.Client object at 0x7f8920182f60>.post"
+    },
+    {
+      "case": {
+        "classname": "tests.test_photo_restrictions",
+        "name": "test_cleared_photo_notice_remains_private_history_without_republishing",
+        "file": "tests/test_photo_restrictions.py",
+        "line": "90",
+        "time": "4.123"
+      },
+      "message": {
+        "message": "failed on setup with \"assert 200 == 302\n +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\n +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/b01b1f84-b600-4eac-a149-b9de90ded3b2/consent/', {'authorize': 'on', 'version': 'dev-1'})\n +      where post = <django.test.client.Client object at 0x7f890d8a4bf0>.post\""
+      },
+      "text": "tests/test_photo_restrictions.py:19: in restricted\n    values = request.getfixturevalue(\"conflict\")\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:630: in getfixturevalue\n    fixturedef = self._get_active_fixturedef(argname)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:726: in _get_active_fixturedef\n    fixturedef.execute(request=subrequest)\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1232: in execute\n    result: FixtureValue = ihook.pytest_fixture_setup(\n.venv/lib/python3.12/site-packages/pluggy/_hooks.py:512: in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/pluggy/_manager.py:120: in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/setuponly.py:36: in pytest_fixture_setup\n    return (yield)\n            ^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1328: in pytest_fixture_setup\n    result = call_fixture_func(fixturefunc, request, kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1005: in call_fixture_func\n    fixture_result = fixturefunc(**kwargs)\n                     ^^^^^^^^^^^^^^^^^^^^^\ntests/test_match_review.py:44: in conflict\n    assert (\nE   assert 200 == 302\nE    +  where 200 = <HttpResponse status_code=200, \"text/html; charset=utf-8\">.status_code\nE    +    where <HttpResponse status_code=200, \"text/html; charset=utf-8\"> = post('/es/person/b01b1f84-b600-4eac-a149-b9de90ded3b2/consent/', {'authorize': 'on', 'version': 'dev-1'})\nE    +      where post = <django.test.client.Client object at 0x7f890d8a4bf0>.post"
+    }
+  ],
+  "cause": "Shared conflict fixture submits obsolete publishing consent version dev-1; endpoint correctly rejects it before scenario setup completes.",
+  "files_sha256": {
+    "result.json": "3f72f8d0697924a742bd4e5b909f2b5c9dc551ccc5ed0945a3b22bd237240582",
+    "pytest.xml": "6f60cdf9478d495b830803e6215944d77c9286ff1352d9fabdd908adab34bd91",
+    "pytest-reports.jsonl": "0c06a9223bc423757aef3eae4c960a67807271ade9c9aa080637969f3635f5c4",
+    "source-hashes.json": "57c215cc2065f83bc162237f5d473412914a1ceea1402d5209a236e2efb6b41a",
+    "telegram-notification.json": "952d8846ce0c1ebfe93f2b34065b9cd7bf5de60fc0b8518fda23052f87bf1e8c"
+  },
+  "acceptance": false
+}

@@ -1,0 +1,92 @@
+{
+  "result": "PASS_CAPTURE_PROVENANCE_TWO_ADDITIONAL_DB_SOURCES_NOT_B00_ACCEPTANCE",
+  "sources": [
+    {
+      "id": "source:616baea6pggxb0n8vmp1",
+      "title": "Database access — pytest-django documentation",
+      "request_id": "4483bc5c-7c5b-4f96-b17c-f15ca1422243",
+      "raw_path": "artifacts/beta-promotion-fix-20261020/b00-technical-616baea6pggxb0n8vmp1-20261021.json",
+      "raw_sha256": "fc1c25ebbc342180ef914fe186afe8c28038b6ea23b1de5d02081a59941862fe",
+      "full_text_sha256": "12b7d21875f4ddae3ae44f3e402741f8c1aa18046a7feaef2fa54886ee8d208a",
+      "python_characters": 27696,
+      "ranges_read": [
+        [
+          0,
+          14000
+        ],
+        [
+          14000,
+          27696
+        ]
+      ],
+      "complete_captured_text_read": true,
+      "in_historical_inventory": true,
+      "source_updated": "2026-10-20 00:12:23.383611+00:00"
+    },
+    {
+      "id": "source:djjcmtyeest1flwsisv0",
+      "title": "Database access optimization | Django documentation | Django",
+      "request_id": "13e4e8bd-2069-4c5b-990d-24efbb3c1a0a",
+      "raw_path": "artifacts/beta-promotion-fix-20261020/b00-technical-djjcmtyeest1flwsisv0-20261021.json",
+      "raw_sha256": "79356318640968eeb11130058b67318c197bc2de6cddf8bae30521a7ecdf98dc",
+      "full_text_sha256": "0d96721c3ee3ca244db8f1c928c81d72a1db6ea61c69ce22f7171ac62a936228",
+      "python_characters": 35366,
+      "ranges_read": [
+        [
+          0,
+          12000
+        ],
+        [
+          12000,
+          24000
+        ],
+        [
+          24000,
+          35366
+        ]
+      ],
+      "complete_captured_text_read": true,
+      "in_historical_inventory": true,
+      "source_updated": "2026-10-20 00:12:22.431097+00:00"
+    }
+  ],
+  "captured_read_complete": true,
+  "previous_identified_ux_and_technical_unique": 13,
+  "new_disjoint_sources": 2,
+  "combined_identified_slice_unique": 15,
+  "inventory_snapshot_unique": 295,
+  "whole_corpus_reviewed": false,
+  "installed_local_django_version": "5.2.17",
+  "local_code_corrections": [
+    {
+      "claim": "Captured get() discussion overstates transferring all matching rows as a universal behavior.",
+      "evidence": "Installed Django5.2.17 QuerySet.get uses MAX_GET_RESULTS=21 and set_limits when backend/locking support permits; not universal unbounded fetch.",
+      "locations": [
+        "django/db/models/query.py:40",
+        "django/db/models/query.py:611",
+        "django/db/models/query.py:629"
+      ]
+    },
+    {
+      "claim": "Captured bulk update/delete paragraph groups missed signals too broadly.",
+      "evidence": "Installed QuerySet.delete calls Collector; Collector emits pre_delete/post_delete for relevant models and checks listeners before fast deletion. Cannot infer bulk delete skips all signals or model custom delete executes.",
+      "locations": [
+        "django/db/models/query.py:1199",
+        "django/db/models/deletion.py:180",
+        "django/db/models/deletion.py:458",
+        "django/db/models/deletion.py:507"
+      ]
+    }
+  ],
+  "local_code_sha256": {
+    ".venv/lib/python3.12/site-packages/django/__init__.py": "095b4d6b781b18b882c7e08fb6ea914e3fd3109ea6aff2987d526d096ffa8b70",
+    ".venv/lib/python3.12/site-packages/django/db/models/query.py": "c9b07861fa6805428906c9bea32ffe8b48c376ed08b9eca47328e38f4df12efb",
+    ".venv/lib/python3.12/site-packages/django/db/models/deletion.py": "45cb0be274507192d8220f0032337ab9716e45256db303042586b7c11918b983"
+  },
+  "verification_after_load_terminal": true,
+  "load_run": "20261021-203352-b43038d6",
+  "no_runtime_tests_or_sql_during_read": true,
+  "current_online_versions_or_linked_pages_verified": false,
+  "optimization_adopted": false,
+  "B00_accepted": false
+}

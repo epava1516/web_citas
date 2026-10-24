@@ -1,0 +1,60 @@
+{
+  "result": "PASS_LOCAL_B13_FINAL_GATE",
+  "run_id": "20261021-124228-3c690d3d",
+  "passed": 26,
+  "failed": 0,
+  "skipped": 0,
+  "warnings": 3,
+  "warning_class": "AlwaysEagerIgnored: real send_task ignores eager mode",
+  "workers": 4,
+  "real_restores": [
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+      "pinned": false,
+      "encrypted": false
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+      "pinned": true,
+      "encrypted": false
+    },
+    {
+      "nodeid": "tests.test_promotion_recovery::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+      "pinned": true,
+      "encrypted": true
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+      "pinned": false,
+      "encrypted": true
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+      "pinned": true,
+      "encrypted": true
+    }
+  ],
+  "urgent_beta_cases": 2,
+  "urgent_drills": 14,
+  "continuity_outages": [
+    "worker",
+    "broker"
+  ],
+  "migration_witnesses": [
+    "test_migration_preserves_old_content_and_requires_new_romantic_revision",
+    "test_schema_rollback_cannot_discard_a_selected_label",
+    "test_conditional_migration_invalidates_existing_state"
+  ],
+  "source_compatibility": {
+    "20261021-054839-d27019ab": "All726runtime identical except independently tested startup mail guard",
+    "20261021-064929-b822d7ff": "All726runtime identical except independently tested startup mail guard",
+    "20261021-071731-7de75ea5": "All726runtime identical except independently tested startup mail guard",
+    "artifacts/b13-django-reconnect-20261021": "Standalone service/driver case and dependency lock unchanged; no ORM business or live reload credit",
+    "artifacts/b13-redis-rotation-20261021": "Standalone service/driver case and dependency lock unchanged; no ORM business or live reload credit"
+  },
+  "runtime_sources_equal_to_verified_image": 726,
+  "fresh_sources_nested_services_cleanup_pids_and_terminal_telegram": true,
+  "single_full_beta_regression": false,
+  "providers_or_opening_verified": false,
+  "B13_accepted": false
+}

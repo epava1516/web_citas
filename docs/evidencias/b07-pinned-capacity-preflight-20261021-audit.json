@@ -1,0 +1,58 @@
+{
+  "result": "VERIFIED_PINNED_IMAGE_PREFLIGHT_READY_NOT_CAPACITY",
+  "capacity_run": "20261021-182132-7113fda3",
+  "unit_run": "20261021-182033-3ef5c68a",
+  "unit_cases": 45,
+  "preflight_cases": 1,
+  "preflight_junit_seconds": 70.438,
+  "controls": {
+    "controller": [
+      "10000 100000",
+      "134217728",
+      "0"
+    ],
+    "pg": [
+      "300000 100000",
+      "3221225472",
+      "0"
+    ],
+    "redis": [
+      "20000 100000",
+      "402653184",
+      "0"
+    ],
+    "objects": [
+      "100000 100000",
+      "536870912",
+      "0"
+    ],
+    "caddy": [
+      "20000 100000",
+      "134217728",
+      "0"
+    ],
+    "app": [
+      "350000 100000",
+      "4160749568",
+      "0"
+    ]
+  },
+  "cpu_aggregate_cores": 8,
+  "memory_aggregate_bytes": 8589934592,
+  "swap_all_zero": true,
+  "storage_ceiling_bytes": 4865392640,
+  "preflight_memory_upper_bound_bytes": 1444810752,
+  "app_image": "sha256:5a0751c176d10434058efea920237a207b0c4c22b6d8c4655d47ce216506aede",
+  "app_config_template_sources_unchanged": 628,
+  "source_cleanup_kernel_notices_verified": true,
+  "initial_missing_tag_failure_preserved": true,
+  "image_retagged": false,
+  "beta_http_capacity_executed": false,
+  "B07_accepted": false,
+  "artifacts_sha256": {
+    "report.json": "5d0ccbd0fa0a94794e366d1abac41f37a0759f8e99e0fc2744ecd06c59c56c41",
+    "launcher.json": "d1793fd17d57c13b3624b72c46e07bee54834524dbb438da217e2fd4d3a6e5f0",
+    "source-hashes.json": "500ce45dc6a408160f2b5bbe146b1883a6f6f0c8b63fd4c217f59b602d1b855e",
+    "pytest.xml": "ed168970d114c1420534bbb98364aa585afe67a9d383869c1347189a663f9d98"
+  }
+}

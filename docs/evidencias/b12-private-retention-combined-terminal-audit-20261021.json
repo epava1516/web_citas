@@ -1,0 +1,22 @@
+{
+  "result": "PASS_PRIVATE_RETENTION_AND_LOCAL_BUDGET",
+  "functional_run": "20261021-021432-cc448ccd",
+  "functional_passed": 58,
+  "cost_run": "20261021-021807-20821c08",
+  "cost_integrity_passed": 1,
+  "combined_unique_cases": 59,
+  "single_run_59_claim": false,
+  "sources_identical": true,
+  "fresh_sources_cleanup_and_terminal_telegrams": true,
+  "sampler_p95_budget_seconds": 1,
+  "sampler_budget_met": true,
+  "selects": 48,
+  "limits": [
+    "One fixed order and warm local PostgreSQL, no cold database guarantee",
+    "MediaErasure and other snapshot tables remain empty; not every production cardinality",
+    "Client CPU excludes PostgreSQL server CPU; SQL execute excludes fetch",
+    "RSS samples and whole-process high water include fixture/test process",
+    "No capacity, provider delivery, cadence or B12 acceptance",
+    "No B12 or beta acceptance"
+  ]
+}

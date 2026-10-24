@@ -1,0 +1,424 @@
+{
+  "result": "PASS_QUERY_ATTRIBUTION_ONLY",
+  "run": "20261021-173700-f33a515d",
+  "cases": 1,
+  "junit_seconds": 43.928,
+  "native_calls": {
+    "create_order": 2,
+    "receive_event": 2
+  },
+  "query_counts": {
+    "create_order": 146,
+    "receive_event": 152
+  },
+  "query_count_per_native_call": {
+    "create_order": 73.0,
+    "receive_event": 76.0
+  },
+  "locations": [
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        131,
+        "validate_submission"
+      ],
+      "calls": 32
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        37,
+        "actor"
+      ],
+      "calls": 12
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        70,
+        "authorize"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/core/agencies.py",
+        45,
+        "can_manage_person"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        28,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/history.py",
+        29,
+        "is_rectification_history"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/safety/photo_reintroduction_review.py",
+        75,
+        "active"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/safety/photo_reintroduction_review.py",
+        80,
+        "publication_pending"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        49,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        57,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/core/verification_services.py",
+        57,
+        "publication_ready"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        66,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        19,
+        "current_publishing_document"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        71,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        75,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        94,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        97,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        113,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        122,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/profile_contract.py",
+        33,
+        "validate_profile_contract"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/profile_contract.py",
+        41,
+        "validate_profile_contract"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/profile_contract.py",
+        42,
+        "validate_profile_contract"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/profile_contract.py",
+        43,
+        "validate_profile_contract"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/submissions.py",
+        154,
+        "validate_submission"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/listings/moderation.py",
+        143,
+        "publicly_visible"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        227,
+        "receive_event"
+      ],
+      "calls": 8
+    },
+    {
+      "location": [
+        "apps/core/verification.py",
+        39,
+        "locked_manager_person"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/core/verification.py",
+        41,
+        "locked_manager_person"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/core/verification.py",
+        42,
+        "locked_manager_person"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/core/verification.py",
+        47,
+        "locked_manager_person"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        58,
+        "audit"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        112,
+        "create_order"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        214,
+        "receive_event"
+      ],
+      "calls": 4
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        80,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        85,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        92,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        98,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        99,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        100,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_models.py",
+        101,
+        "configuration_ready"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        113,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        130,
+        "create_order"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        185,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        194,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        196,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        197,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        205,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        215,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        222,
+        "receive_event"
+      ],
+      "calls": 2
+    },
+    {
+      "location": [
+        "apps/catalog/promotion_orders.py",
+        225,
+        "receive_event"
+      ],
+      "calls": 2
+    }
+  ],
+  "artifact_sha256": "63a47d47a39a0a689f5e313f15ae56439cb2feb9b539b3dae0978924386910c1",
+  "fresh_source_cleanup_pids_telegram_verified": true,
+  "optimization_proven": false,
+  "capacity_accepted": false
+}

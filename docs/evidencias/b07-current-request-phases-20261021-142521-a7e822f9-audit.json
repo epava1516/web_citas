@@ -1,0 +1,175 @@
+{
+  "run_id": "20261021-142521-a7e822f9",
+  "result": "PASS_CURRENT_ATTRIBUTION_NOT_SPEEDUP",
+  "cases": 1,
+  "bad_cases": [],
+  "runtime_sources_unchanged": 726,
+  "sources_cleanup_pids_backends_telegram_verified": true,
+  "routes": [
+    {
+      "route": "directory_es",
+      "controls_median_ms": 273.87306466698647,
+      "controls_app_cpu_median_ms": 156.72276999998758,
+      "controls_backend_cpu_median_ms": 89.482427,
+      "observed_to_control_wall_ratio": 1.2186863860954738,
+      "posterior_to_control_wall_ratio": 1.143024831413355,
+      "median_phases_ms": {
+        "sql_execute": {
+          "wall_inclusive": 96.47402074187994,
+          "cpu_inclusive": 14.624337999975978,
+          "wall_exclusive": 96.47402074187994,
+          "cpu_exclusive": 14.624337999975978
+        },
+        "server_fetchmany": {
+          "wall_inclusive": 54.16910722851753,
+          "cpu_inclusive": 4.76688300011574,
+          "wall_exclusive": 54.16910722851753,
+          "cpu_exclusive": 4.76688300011574
+        },
+        "commercial": {
+          "wall_inclusive": 87.05862425267696,
+          "cpu_inclusive": 30.40938300000562,
+          "wall_exclusive": 26.931529864668846,
+          "cpu_exclusive": 26.269805999959317
+        },
+        "context_hydration": {
+          "wall_inclusive": 80.43056819587946,
+          "cpu_inclusive": 62.23357499999338,
+          "wall_exclusive": 57.52859450876713,
+          "cpu_exclusive": 56.05789200006939
+        },
+        "publication_context": {
+          "wall_inclusive": 103.01169473677874,
+          "cpu_inclusive": 83.157865999965,
+          "wall_exclusive": 20.451120100915432,
+          "cpu_exclusive": 20.10850100003836
+        },
+        "page_guard": {
+          "wall_inclusive": 18.854446709156036,
+          "cpu_inclusive": 18.635222999989765,
+          "wall_exclusive": 18.854446709156036,
+          "cpu_exclusive": 18.635222999989765
+        },
+        "state_page": {
+          "wall_inclusive": 274.5495969429612,
+          "cpu_inclusive": 147.5838000000067,
+          "wall_exclusive": 9.354513138532639,
+          "cpu_exclusive": 9.2062429997668
+        },
+        "presentation_init": {
+          "wall_inclusive": 11.639361269772053,
+          "cpu_inclusive": 5.982872000004136,
+          "wall_exclusive": 5.387560464441776,
+          "cpu_exclusive": 5.325327999969431
+        },
+        "presentation_describe": {
+          "wall_inclusive": 1.103193499147892,
+          "cpu_inclusive": 1.0995710000543113,
+          "wall_exclusive": 1.103193499147892,
+          "cpu_exclusive": 1.0995710000543113
+        },
+        "presentation_photo": {
+          "wall_inclusive": 0.0990740954875946,
+          "cpu_inclusive": 0.09304499991458215,
+          "wall_exclusive": 0.0990740954875946,
+          "cpu_exclusive": 0.09304499991458215
+        },
+        "render": {
+          "wall_inclusive": 39.42030854523182,
+          "cpu_inclusive": 29.10255500000858,
+          "wall_exclusive": 27.930796146392822,
+          "cpu_exclusive": 26.690522000023975
+        },
+        "request": {
+          "wall_inclusive": 333.76537542790174,
+          "cpu_inclusive": 191.0019160000047,
+          "wall_exclusive": 6.034518592059612,
+          "cpu_exclusive": 5.368189000023449
+        }
+      }
+    },
+    {
+      "route": "search_en",
+      "controls_median_ms": 817.6992628723383,
+      "controls_app_cpu_median_ms": 184.77790999997978,
+      "controls_backend_cpu_median_ms": 579.138228,
+      "observed_to_control_wall_ratio": 0.4971115477545255,
+      "posterior_to_control_wall_ratio": 0.6633363454817747,
+      "median_phases_ms": {
+        "sql_execute": {
+          "wall_inclusive": 130.27210626751184,
+          "cpu_inclusive": 15.325163999932556,
+          "wall_exclusive": 130.27210626751184,
+          "cpu_exclusive": 15.325163999932556
+        },
+        "server_fetchmany": {
+          "wall_inclusive": 65.58537390083075,
+          "cpu_inclusive": 5.74134599997933,
+          "wall_exclusive": 65.58537390083075,
+          "cpu_exclusive": 5.74134599997933
+        },
+        "commercial": {
+          "wall_inclusive": 111.43718473613262,
+          "cpu_inclusive": 39.82722599999988,
+          "wall_exclusive": 36.60557605326176,
+          "cpu_exclusive": 34.547150999969745
+        },
+        "context_hydration": {
+          "wall_inclusive": 90.45038837939501,
+          "cpu_inclusive": 67.94353999998748,
+          "wall_exclusive": 64.5915325731039,
+          "cpu_exclusive": 62.30996499999719
+        },
+        "publication_context": {
+          "wall_inclusive": 116.65202304720879,
+          "cpu_inclusive": 92.03983300000118,
+          "wall_exclusive": 23.53696059435606,
+          "cpu_exclusive": 23.102933999950892
+        },
+        "page_guard": {
+          "wall_inclusive": 19.90262232720852,
+          "cpu_inclusive": 19.028739000020778,
+          "wall_exclusive": 19.90262232720852,
+          "cpu_exclusive": 19.028739000020778
+        },
+        "state_page": {
+          "wall_inclusive": 332.4582949280739,
+          "cpu_inclusive": 169.1196849999983,
+          "wall_exclusive": 12.58095633238554,
+          "cpu_exclusive": 12.355096000021604
+        },
+        "presentation_init": {
+          "wall_inclusive": 15.592976473271847,
+          "cpu_inclusive": 5.790840000031494,
+          "wall_exclusive": 5.164194852113724,
+          "cpu_exclusive": 5.07501100008767
+        },
+        "presentation_describe": {
+          "wall_inclusive": 0.9318776428699493,
+          "cpu_inclusive": 0.9382350000350925,
+          "wall_exclusive": 0.9318776428699493,
+          "cpu_exclusive": 0.9382350000350925
+        },
+        "presentation_photo": {
+          "wall_inclusive": 0.07732585072517395,
+          "cpu_inclusive": 0.07571200006850631,
+          "wall_exclusive": 0.07732585072517395,
+          "cpu_exclusive": 0.07571200006850631
+        },
+        "render": {
+          "wall_inclusive": 42.86288283765316,
+          "cpu_inclusive": 28.002578000041467,
+          "wall_exclusive": 29.56207748502493,
+          "cpu_exclusive": 25.827514000013707
+        },
+        "request": {
+          "wall_inclusive": 406.4877461642027,
+          "cpu_inclusive": 208.05181700001185,
+          "wall_exclusive": 7.552231661975384,
+          "cpu_exclusive": 6.435580999891499
+        }
+      }
+    }
+  ],
+  "B07_B08_B09_accepted": false
+}

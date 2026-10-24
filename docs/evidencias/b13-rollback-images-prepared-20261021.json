@@ -1,0 +1,56 @@
+{
+  "result": "PREPARED_NOT_ROLLBACK_ACCEPTANCE",
+  "base_image": "sha256:e2dd48116b3618ea1accb4d0b41e3064d86e5ff3adb6b5216b0d0fa82e865fb0",
+  "dependency_files_equal": true,
+  "network_disabled_build": true,
+  "images": [
+    {
+      "version": "previous",
+      "image": "sha256:a699565c12bf1fe88788e1ac512a38e69e348a8d9f5b3d7edaf9c4de9033b1ef",
+      "tag": "web-modelos-b13-rollback:previous-5cd9a3e8c835",
+      "source_count": 724,
+      "source_manifest_sha256": "3730fc7898912bdefe0cf9bc93f37d8b681eeb36ffcf2e9a67d35c35fc83a0ec"
+    },
+    {
+      "version": "current",
+      "image": "sha256:6c8abf2e1d3bcb14c9f63203b9fa92c62e1c421e9b786e16da0241e4d22c86a9",
+      "tag": "web-modelos-b13-rollback:current-b0979d271fb8",
+      "source_count": 724,
+      "source_manifest_sha256": "3a50ffd3e39f948429112cb22c468f24d8ece85ed637a632d37182c158fb1bc7"
+    }
+  ],
+  "known_previous_limitation": "Recovery grant invalidation absent; do not use for restored-copy reconciliation",
+  "actual_runtime_cycle_verified": false,
+  "verification": {
+    "result": "IMAGE_SOURCE_VERIFIED_NOT_ROLLBACK_ACCEPTANCE",
+    "images": [
+      {
+        "source_files_verified": 724,
+        "native_sealed": true,
+        "uid": 10001,
+        "version": "previous",
+        "image": "sha256:a699565c12bf1fe88788e1ac512a38e69e348a8d9f5b3d7edaf9c4de9033b1ef"
+      },
+      {
+        "source_files_verified": 724,
+        "native_sealed": true,
+        "uid": 10001,
+        "version": "current",
+        "image": "sha256:6c8abf2e1d3bcb14c9f63203b9fa92c62e1c421e9b786e16da0241e4d22c86a9"
+      }
+    ],
+    "own_containers_removed": true,
+    "network_disabled": true,
+    "database_or_http_cycle": false
+  },
+  "rejected_old_base": {
+    "result": "REJECTED_DEPENDENCY_MISMATCH",
+    "image": "sha256:f50e2f01874ebbd1147261160c6058c64bf2e8d26d50b2446c7549d2692b947b",
+    "expected_pyproject_sha256": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
+    "actual_pyproject_sha256": "e99637227cd9b109be9debead434bb0b97778adb27a70218b16ec1438ccd1afc",
+    "temporary_container_removed": true,
+    "candidate_images_built": 0
+  },
+  "failed_first_overlay_build": "Bare sha256 image ID interpreted as registry reference; preserved log, corrected local named base verified by image ID",
+  "B13_accepted": false
+}

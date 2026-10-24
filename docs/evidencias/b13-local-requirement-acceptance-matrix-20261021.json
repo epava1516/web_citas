@@ -1,0 +1,117 @@
+{
+  "result": "PASS_LOCAL_B13_LITERAL_REQUIREMENTS",
+  "accepted_scope": "Local continuity/moderation/rotation/restore/rollback runbooks and the explicitly exercised scenarios required by roadmap103 B13",
+  "requirements": [
+    {
+      "id": "B13-L01",
+      "requirement": "Runbook worker/broker outage and durable recovery",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "20261021-124228-3c690d3d",
+        "docs/141-continuidad-moderacion-beta-b13-20261021.md"
+      ],
+      "scope": "Two real owned outages, outbox and idempotent simulator delivery; no mid-task/reboot/external-channel claim"
+    },
+    {
+      "id": "B13-L02",
+      "requirement": "Review, reports and urgent withdrawal",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "20261021-124228-3c690d3d"
+      ],
+      "scope": "14 urgent drills and ES/EN stale-projection withdrawal before worker; no real operator coverage claim"
+    },
+    {
+      "id": "B13-L03",
+      "requirement": "Secret rotation runbooks and local drills",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "b13-domain-key-incident-terminal-audit-20261021.json",
+        "b13-domain-key-scoped-acceptance-20261021.json",
+        "b13-django-reconnect-terminal-audit-20261021.json",
+        "b13-redis-rotation-terminal-audit-20261021.json",
+        "b13-caddy-secret-reload-terminal-audit-20261021.json"
+      ],
+      "scope": "Explicit family scopes: Fernet readers/new writes, Django signing, domain channel revocation, PG/Django connections, Redis/Kombu and Caddy; no universal key retirement, hot reload, transparent old binding migration or lost-key recovery"
+    },
+    {
+      "id": "B13-L04",
+      "requirement": "DB and media restore in isolation",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "20261021-124228-3c690d3d"
+      ],
+      "scope": "Five pg_dump/pg_restore/media witnesses, three encrypted and three retained-key/pin transitions, isolated clone without listener/worker; no offsite/PITR claim"
+    },
+    {
+      "id": "B13-L05",
+      "requirement": "Reconcile rights, sessions, grants and publication before exposure",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "20261021-124228-3c690d3d",
+        "b13-ledger-authority-terminal-audit-20261021.json"
+      ],
+      "scope": "Independent authority checked, erased target absent, peer preserved, sessions/grants invalidated and publication rebuild; publication_authorized=false; wrong ledger keys reject three CLI"
+    },
+    {
+      "id": "B13-L06",
+      "requirement": "Application rollback",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "b13-hmac-mail-rollback-terminal-audit-20261021.json"
+      ],
+      "scope": "Actual5a0751c1→66c6d381→5a0751c1 with active HMAC/new Django signing, DB/media/receipts, writes and cross-version workers; explicit permitted mail backend mandatory"
+    },
+    {
+      "id": "B13-L07",
+      "requirement": "Migration strategy",
+      "status": "VERIFIED_LOCAL",
+      "evidence": [
+        "20261021-124228-3c690d3d",
+        "docs/145-estrategia-rollback-beta-b13-20261021.md"
+      ],
+      "scope": "Three real upgrade/reverse-guard witnesses and retained schema in version cycle; no alpha downgrade or row/column deletion workaround"
+    }
+  ],
+  "final_gate_cases": 26,
+  "separate_incident_gate_cases": 21,
+  "not_a_single_47_case_run": true,
+  "retained_selected_witnesses": [
+    {
+      "run": "20261021-054839-d27019ab",
+      "module": "test_secret_rotation",
+      "passed_selected": 16,
+      "test_source_identical": true,
+      "runtime_compatibility_proved_by_final_gate": true
+    },
+    {
+      "run": "20261021-064929-b822d7ff",
+      "module": "test_rights_object_delivery",
+      "passed_selected": 2,
+      "test_source_identical": true,
+      "runtime_compatibility_proved_by_final_gate": true
+    },
+    {
+      "run": "20261021-071731-7de75ea5",
+      "module": "test_recovery_key_authority",
+      "passed_selected": 2,
+      "test_source_identical": true,
+      "runtime_compatibility_proved_by_final_gate": true
+    }
+  ],
+  "historical_negative_artifacts_preserved": true,
+  "warning_class_retained": "Three AlwaysEagerIgnored messages from real send_task in final gate",
+  "not_accepted": [
+    "B17 real people/substitutes/coverage and G01-G08 opening",
+    "Real providers/SMTP delivery and external legal/security review",
+    "Exhaustive key retirement inventory or reciphering",
+    "Automatic migration/revalidation of all old HMAC bindings",
+    "Ledger rollover or lost-key recovery",
+    "Host reboot/mid-task crash, zero interruption, live reload of all deployed processes",
+    "Internet/TCP capacity or full integrated B16/N3 acceptance"
+  ],
+  "B13_accepted_locally": true,
+  "beta_closed_points": 8,
+  "goal_complete": false,
+  "beta_opening_authorized": false
+}
