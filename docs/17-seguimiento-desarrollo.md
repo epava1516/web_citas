@@ -1,3 +1,5 @@
+2026-10-24 — Obligación final añadida por el usuario: actualizar diferencialmente el inventario de recorridos antes del acta final del contrato. Base original preservada en [inventario111](111-inventario-rendimiento-recorridos-beta-20261020.md); entregables en la [adenda contractual](16-contrato-ejecucion-desarrollo.md#acción-final-obligatoria--actualización-diferencial-del-inventario-de-recorridos). Estado PENDIENTE DE EJECUCIÓN tras conciliación técnica. Integración semántica de esta adenda al grafo pendiente hasta auditar B16-353. El proyecto seguirá en alfa; no cambia el balance13/18 ni se acepta la regresión en curso.
+
 B16-353 prerregistrado: candidata funcional3829casos, cuatro workers, fuentes congeladas y ejecución persistente con aviso terminal/compactación/reactivación autorizada. Sin resultado aún;13/18cerrados. El usuario confirma que no hay proveedores elegidos para B14.
 
 Corte: [protocolo314](314-ejecucion-candidata-funcional-b16-20261024.md). Los cortes anteriores conservan fecha y alcance.

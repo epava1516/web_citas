@@ -359,3 +359,22 @@ BF/BB/C no se aceptan por esta decisión. Seguridad, legalidad y producción no 
 infieren de una latencia ni del plazo RGPD. Sin producción, proveedores, gasto,
 publicación o datos reales. Continuar la cola común del contrato; reabrir mejora
 MOD08 si usuario la pide o aparece una regresión/riesgo concreto pertinente.
+
+
+## Acción final obligatoria — actualización diferencial del inventario de recorridos
+
+Instrucción expresa del usuario del 2026-10-24: una vez terminados los trabajos y conciliadas las evidencias de este contrato, realizar como última acción sustantiva la comparación diferencial y actualización del inventario de recorridos. Esta entrega es requisito previo al acta final del contrato; no queda como sugerencia para otro contrato. La incorporación al grafo, comprobaciones documentales y registro/commit de esta entrega forman parte de la misma acción final.
+
+Base fechada preservada: [inventario original del 20 de octubre](111-inventario-rendimiento-recorridos-beta-20261020.md), procedente del checkout antiguo y conservado sin modificación. Sus 28 familias I01–I28, 170 rutas con nombre y 27 tareas declaradas son recuentos históricos, no un censo actual ni acreditación de rendimiento.
+
+Entregables y aceptación:
+
+- Crear una versión actualizada separada y un diferencial trazable respecto de la base original, conservando I01–I28 y asignando identificadores nuevos sólo cuando proceda. Identificar recorridos añadidos, modificados, retirados y conservados.
+- Cubrir acciones reales, además de URLs: endpoint/método/acción, tareas y disparadores, recorridos de navegador y operación administrativa. Registrar exclusiones y límites de exhaustividad; recalcular los recuentos con método y corte identificados.
+- Vincular cada recorrido a contrato y roadmap, autoridad y dependencias relevantes, pruebas/mediciones existentes, versión o huellas de fuentes y límites. Diferenciar cobertura funcional de rendimiento y estados verificado, parcial, pendiente, diferido o no aplicable. No convertir propuestas temporales ni SKIP en aceptación.
+- Reutilizar evidencia sólo con equivalencia de fuentes y escenario justificada. Nuevas pruebas requieren cambios o incertidumbres concretas: esta obligación no ordena repetir toda la batería ni ejecutar automáticamente todos los presupuestos propuestos del inventario.
+- Incorporar la versión actualizada al índice documental, seguimiento y grafo con alcance AST/semántico explícito, verificar enlaces y emitir una conciliación final de cobertura y pendientes. Si el contraste revela un defecto que requiere corrección, resolver o disponer expresamente el hallazgo y actualizar de nuevo el diferencial antes del cierre.
+
+La entrega y el acta mantienen el proyecto en alfa. B14 conserva sus dependencias de proveedores no elegidos; B15 sigue opcional y B17 no autoriza apertura. No se exige apertura, despliegue ni contratación para completar esta acción documental.
+
+Esta adenda no modifica fuentes ejecutables, criterios ni resultados de la regresión B16-353 en curso. Su incorporación semántica al grafo queda pendiente hasta terminar y auditar esa ejecución, para preservar su corte congelado.
