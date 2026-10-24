@@ -1,0 +1,182 @@
+{
+  "run": "20261024-154224-43b1e770",
+  "unique_cases": 306,
+  "set_sha": "5a4d9a49eea06f168959a40483a3303e7d8b2d0e7806cae36220a2cb72cefef2",
+  "exact_expected": true,
+  "call_outcomes": {
+    "passed": 297,
+    "skipped": 1
+  },
+  "failed_reports": [],
+  "junit_cases": 306,
+  "skips": [
+    {
+      "class": "tests.test_capacity_beta_http",
+      "case": "test_owned_beta_http_calibration",
+      "reason": "Requires exclusive owned8CPU beta HTTP functional controller"
+    },
+    {
+      "class": "tests.test_capacity_delivery_complete",
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "class": "tests.test_capacity_delivery_profile",
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    },
+    {
+      "class": "tests.test_capacity_native_probe",
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller"
+    },
+    {
+      "class": "tests.test_capacity_object_preflight",
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode"
+    },
+    {
+      "class": "tests.test_capacity_professional_profile",
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe"
+    },
+    {
+      "class": "tests.test_capacity_selection_concurrent_tcp",
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "class": "tests.test_capacity_selection_tcp",
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits"
+    },
+    {
+      "class": "tests.test_capacity_source_profile",
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode"
+    }
+  ],
+  "changed_sources": [],
+  "frozen_source_count": 1723,
+  "pytest_seconds": 17882.736940682866,
+  "cleanup_report": {
+    "web-modelos-ci-pg-20261024-154224-43b1e770": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    },
+    "web-modelos-ci-redis-20261024-154224-43b1e770": {
+      "absent": true,
+      "removal_exit": 0,
+      "inventory_exit": 1
+    }
+  },
+  "temporary_absent": true,
+  "runner_proc_exists": false,
+  "long_cases": [
+    {
+      "case": "tests/test_capacity_backlog_territorial_equivalence.py::test_large_territorial_unknown49_equivalence[organic-1000]",
+      "seconds": 575.0862307026982
+    },
+    {
+      "case": "tests/test_capacity_backlog_territorial_equivalence.py::test_large_territorial_unknown49_equivalence[organic-10000]",
+      "seconds": 5494.44408689253
+    },
+    {
+      "case": "tests/test_capacity_backlog_territorial_equivalence.py::test_large_territorial_unknown49_equivalence[promoted-1000]",
+      "seconds": 788.9335337486118
+    },
+    {
+      "case": "tests/test_capacity_backlog_territorial_equivalence.py::test_large_territorial_unknown49_equivalence[promoted-10000]",
+      "seconds": 7833.472486183047
+    }
+  ],
+  "junit_outcomes": {
+    "passed": 297,
+    "skipped": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  "independent_container_inventory_empty": true,
+  "graph_hash_unchanged": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI regression"
+  },
+  "skip_dispositions": [
+    {
+      "class": "tests.test_capacity_beta_http",
+      "case": "test_owned_beta_http_calibration",
+      "reason": "Requires exclusive owned8CPU beta HTTP functional controller",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_delivery_complete",
+      "case": "test_owned_complete_target_delivery",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_delivery_profile",
+      "case": "test_owned_target_stage_profiles",
+      "reason": "Requires owned capacity runner diagnostic profile mode",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_native_probe",
+      "case": "test_owned_native_reconnect_probe",
+      "reason": "Requires owned native diagnostic controller",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_object_preflight",
+      "case": "test_owned_object_proxy_and_purge_worker_gate",
+      "reason": "Requires owned capacity runner preflight mode",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_professional_profile",
+      "case": "test_owned_professional_probe",
+      "reason": "Requires explicit own professional instrument probe",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_selection_concurrent_tcp",
+      "case": "test_two_target_selection_pages_overlapping_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_selection_tcp",
+      "case": "test_target_selection_page_tcp",
+      "reason": "Requires owned capacity runner with verified kernel limits",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    },
+    {
+      "class": "tests.test_capacity_source_profile",
+      "case": "test_target_source_cost_attribution",
+      "reason": "Requires owned capacity runner diagnostic profile mode",
+      "status": "RETAIN_AS_OPT_IN_NOT_PASS",
+      "source_guard_inspected": true,
+      "disposition": "Requires separate explicit controller; reconcile requirement/evidence before B16 acceptance; no automatic rerun"
+    }
+  ],
+  "scope": "Serial regression capacity lane; neither contractual capacity acceptance nor complete B16. Separate 11 official exclusions remain."
+}
