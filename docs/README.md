@@ -305,3 +305,7 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Acuerdos de alcance y prioridades320](320-acuerdos-alcance-b10-prioridades-20261024.md): B10 actual, prioridades futuras y QA aplazado.
 - [Auditoría de capacidad321](321-auditoria-carril-capacidad-b16-20261024.md) y [conciliación por requisito322](322-conciliacion-requisitos-b16-20261024.md). B16 continúa abierto.
 - B10: [contraste de fuentes323](323-contraste-fuentes-mod09-b10-20261024.md), [preflight324](324-preflight-actual-mod09-b10-20261024.md), [protocolo325](325-medicion-actual-mod09-b10-20261024.md), [auditoría terminal326](326-auditoria-medicion-actual-mod09-b10-20261024.md) y [crecimiento/densidad327](327-escenarios-crecimiento-densidad-similitud-b10-20261024.md). FAIL temporal MOD09 conservado; B10 abierto.
+
+- [Disposición técnica local B10: acta21](actas/21-beta-b10-disposicion-local-20261024.md), [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) y [matriz de requisitos](evidencias/b10-local-requirement-disposition-20261024.json). Catorce de18puntos cerrados; FAIL MOD09 y deuda expresos, sin aceptación B16.
+
+- [Revisión semántica de testigos B16:329](329-revision-semantica-testigos-b16-20261024.md), [matriz con aserciones y resultados](evidencias/b16-semantic-witness-review-20261024.json). B16 sigue abierto.

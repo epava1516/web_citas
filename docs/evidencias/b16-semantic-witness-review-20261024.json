@@ -1,0 +1,2488 @@
+{
+  "state": "SEMANTIC_WITNESSES_REVIEWED_NOT_B16_ACCEPTANCE",
+  "functional_run": "20261024-094540-3a6ec8ac",
+  "rows": [
+    {
+      "id": "AD01",
+      "criterion": "Ida/vuelta conserva IDs/tarifas/historia; legado privado; nuevo borrador limpio.",
+      "semantic_review": "Actual MigrationExecutor forward/backward retains original revision/category/rate IDs and private legacy values, creates blank current draft, and blocks legacy edits; publishing without declared type remains possible.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_beta_profile_contract.py",
+          "function": "test_migration_preserves_old_content_and_requires_new_romantic_revision",
+          "line": 28,
+          "file_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b",
+          "function_ast_sha256": "117d6c570f807701ce8a728914ab9df5041bae7de69b0618537bdc3fb8e5321a",
+          "passed_nodeids": [
+            "tests/test_beta_profile_contract.py::test_migration_preserves_old_content_and_requires_new_romantic_revision"
+          ],
+          "assertions": [
+            {
+              "line": 62,
+              "source": "assert current.show_trans_label is False"
+            },
+            {
+              "line": 63,
+              "source": "assert current.profile_type == \"woman\""
+            },
+            {
+              "line": 64,
+              "source": "assert current.content_contract == LEGACY_CONTRACT"
+            },
+            {
+              "line": 65,
+              "source": "assert current.title == \"Historical professional title\""
+            },
+            {
+              "line": 66,
+              "source": "assert current.categories.get().pk == category.pk"
+            },
+            {
+              "line": 67,
+              "source": "assert not Category.objects.get(pk=category.pk).active"
+            },
+            {
+              "line": 68,
+              "source": "assert Rate.objects.get(pk=rate.pk).amount == Decimal(\"20\")"
+            },
+            {
+              "line": 71,
+              "source": "assert not publicly_visible(target)"
+            },
+            {
+              "line": 74,
+              "source": "assert draft.show_trans_label is False"
+            },
+            {
+              "line": 75,
+              "source": "assert draft.profile_type == \"\""
+            },
+            {
+              "line": 76,
+              "source": "assert draft.content_contract == CURRENT_CONTRACT"
+            },
+            {
+              "line": 77,
+              "source": "assert draft.source_revision_id is None and draft.title == \"\""
+            },
+            {
+              "line": 78,
+              "source": "assert draft.categories.get().slug == \"romantic-dating\""
+            },
+            {
+              "line": 79,
+              "source": "assert not draft.rates.exists() and not draft.photos.exists()"
+            },
+            {
+              "line": 81,
+              "source": "assert current.title == \"Historical professional title\""
+            },
+            {
+              "line": 86,
+              "source": "assert old.get_model(\"listings\", \"Rate\").objects.get(pk=rate.pk).amount == Decimal(\"20\")"
+            },
+            {
+              "line": 87,
+              "source": "assert not old.get_model(\"catalog\", \"Category\").objects.get(pk=category.pk).active"
+            },
+            {
+              "line": 88,
+              "source": "assert old.get_model(\"listings\", \"Revision\").objects.get(pk=revision.pk).profile_type == \"woman\""
+            },
+            {
+              "line": 89,
+              "source": "assert old.get_model(\"listings\", \"Revision\").objects.get(pk=draft.pk).profile_type == \"\""
+            }
+          ]
+        },
+        {
+          "file": "tests/test_beta_profile_contract.py",
+          "function": "test_legacy_edit_cannot_reclassify_saved_history",
+          "line": 188,
+          "file_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b",
+          "function_ast_sha256": "74c42e932877f429b2e2f92b8413f33605e01c6a5254348bd721250ebff5b955",
+          "passed_nodeids": [
+            "tests/test_beta_profile_contract.py::test_legacy_edit_cannot_reclassify_saved_history"
+          ],
+          "assertions": [
+            {
+              "line": 195,
+              "source": "assert client.get(old_url).status_code == 409"
+            },
+            {
+              "line": 196,
+              "source": "assert client.post(old_url, details(revision)).status_code == 409"
+            },
+            {
+              "line": 198,
+              "source": "assert revision.content_contract == LEGACY_CONTRACT"
+            },
+            {
+              "line": 199,
+              "source": "assert client.post(f\"/es/person/{person.pk}/listing/start/\").status_code == 302"
+            },
+            {
+              "line": 200,
+              "source": "assert Listing.objects.count() == 1"
+            },
+            {
+              "line": 201,
+              "source": "assert Revision.objects.filter(content_contract=CURRENT_CONTRACT).count() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_optional_profile_type.py",
+          "function": "test_profile_without_declared_type_saves_submits_and_publishes",
+          "line": 20,
+          "file_sha256": "05727f00151f7557a84e9ce08d0b32020e395fa7c5bd55b7eca4dfa120142652",
+          "function_ast_sha256": "b148760b8dd38cf28b9966c14511dc8ad9e5d76bed5fc44001d8f236e332990c",
+          "passed_nodeids": [
+            "tests/test_optional_profile_type.py::test_profile_without_declared_type_saves_submits_and_publishes[omitted]",
+            "tests/test_optional_profile_type.py::test_profile_without_declared_type_saves_submits_and_publishes[empty]"
+          ],
+          "assertions": [
+            {
+              "line": 27,
+              "source": "assert client.post(f\"/es/draft/{revision.pk}/1/\", data).status_code == 302"
+            },
+            {
+              "line": 29,
+              "source": "assert revision.profile_type == \"\""
+            },
+            {
+              "line": 31,
+              "source": "assert reviewer.post(\n        f\"/es/moderation/listings/{current.pk}/\", decision(current)\n    ).status_code == 302"
+            },
+            {
+              "line": 36,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 37,
+              "source": "assert response.context[\"public\"][\"profile_type\"] == label"
+            },
+            {
+              "line": 38,
+              "source": "assert label in response.content.decode()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD02",
+      "criterion": "Publicar sin campos profesionales; manipulación400sin mutación y sin tablas eliminadas.",
+      "semantic_review": "Professional POST fields return400 without title/version or relation mutation. Four browser language/width variants verify required-field focus, keyboard, no professional/rate controls, geographic dependency reset and persisted reload. Photo test verifies real WEBP without EXIF, private access, idempotent reuse and removal.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_beta_profile_contract.py",
+          "function": "test_professional_post_fields_rejected_without_mutation",
+          "line": 120,
+          "file_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b",
+          "function_ast_sha256": "33b57000534cb228f66607616aa6ed5b48c91698fb7ae86c2a1815cb355c38f8",
+          "passed_nodeids": [
+            "tests/test_beta_profile_contract.py::test_professional_post_fields_rejected_without_mutation[categories]",
+            "tests/test_beta_profile_contract.py::test_professional_post_fields_rejected_without_mutation[services]",
+            "tests/test_beta_profile_contract.py::test_professional_post_fields_rejected_without_mutation[travel]",
+            "tests/test_beta_profile_contract.py::test_professional_post_fields_rejected_without_mutation[rates-0-amount]"
+          ],
+          "assertions": [
+            {
+              "line": 126,
+              "source": "assert client.post(f\"/es/draft/{revision.pk}/1/\", payload).status_code == 400"
+            },
+            {
+              "line": 128,
+              "source": "assert revision.title == \"\" and revision.edit_version == 1"
+            },
+            {
+              "line": 129,
+              "source": "assert not revision.services.exists() and not revision.rates.exists()"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_browser_drafts.py",
+          "function": "test_browser_profile_steps_reload_and_no_professional_fields",
+          "line": 14,
+          "file_sha256": "4b23faa4891f53deebc494eebfc350c2a7603da3947a6b42cec0bc83d875608b",
+          "function_ast_sha256": "e4336f8bf3272ea89279f16842e31407342b2b0cd2bd16306b1d9d5d4def628d",
+          "passed_nodeids": [
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[es-390]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[en-390]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[es-1280]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[en-1280]"
+          ],
+          "assertions": [
+            {
+              "line": 80,
+              "source": "assert revision.municipality_id == int(city_id)"
+            },
+            {
+              "line": 81,
+              "source": "assert not revision.rates.exists()"
+            },
+            {
+              "line": 82,
+              "source": "assert revision.categories.get().slug == \"romantic-dating\""
+            },
+            {
+              "line": 46,
+              "source": "assert page.locator(\"[name=title]\").evaluate(\"field => field.validationMessage\")"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_photos.py",
+          "function": "test_valid_photo_private_derivative_retries_exif_and_remove",
+          "line": 50,
+          "file_sha256": "5ddceb800d932164f76e7cbd45c2ec1abd15cdfeccf670ef894ecfdfb772e8df",
+          "function_ast_sha256": "d2965d3fc5f17e6ed0c0125fca4ea18cb5333814f513654a5a4031f7afa6c272",
+          "passed_nodeids": [
+            "tests/test_photos.py::test_valid_photo_private_derivative_retries_exif_and_remove"
+          ],
+          "assertions": [
+            {
+              "line": 55,
+              "source": "assert upload(client, revision, raw).status_code == 302"
+            },
+            {
+              "line": 57,
+              "source": "assert photo.blob.status == \"ready\" and not photo.approved"
+            },
+            {
+              "line": 61,
+              "source": "assert upload(client, revision, raw).status_code == 302"
+            },
+            {
+              "line": 62,
+              "source": "assert Blob.objects.count() == Photo.objects.count() == 1"
+            },
+            {
+              "line": 63,
+              "source": "assert UploadAttempt.objects.count() == 2"
+            },
+            {
+              "line": 64,
+              "source": "assert Client().get(f\"/es/photos/{photo.pk}/private/\").status_code == 302"
+            },
+            {
+              "line": 66,
+              "source": "assert response.status_code == 200 and response[\"Cache-Control\"] == \"private, no-store\""
+            },
+            {
+              "line": 68,
+              "source": "assert Client().get(\"/private-media/\" + photo.blob.original.name).status_code == 404"
+            },
+            {
+              "line": 69,
+              "source": "assert client.post(f\"/es/photos/{photo.pk}/remove/\").status_code == 302"
+            },
+            {
+              "line": 70,
+              "source": "assert client.get(f\"/es/photos/{photo.pk}/private/\").status_code == 404"
+            },
+            {
+              "line": 60,
+              "source": "assert image.format == \"WEBP\" and not image.getexif() and \"exif\" not in image.info"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD03",
+      "criterion": "GETprofesional400/recuento0; sólo elegibles; ES–EN/filtros/páginas coherentes.",
+      "semantic_review": "Old professional search arguments return400 and zero count; positive two-page set is stable, unique and shrinks after consent revocation; localized detail exposes selected contacts only. Surface matrix removes stale-ineligible listings from directory/detail/photo/favorites/sitemap before refresh and preserves peer.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_beta_profile_contract.py",
+          "function": "test_old_search_parameters_fail_explicitly_instead_of_widening",
+          "line": 162,
+          "file_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b",
+          "function_ast_sha256": "affd6609c6e841134699d90e3dcf7e298ebd29226f2d2393302510dbba2e4795",
+          "passed_nodeids": [
+            "tests/test_beta_profile_contract.py::test_old_search_parameters_fail_explicitly_instead_of_widening[category]",
+            "tests/test_beta_profile_contract.py::test_old_search_parameters_fail_explicitly_instead_of_widening[service]",
+            "tests/test_beta_profile_contract.py::test_old_search_parameters_fail_explicitly_instead_of_widening[services_mode]",
+            "tests/test_beta_profile_contract.py::test_old_search_parameters_fail_explicitly_instead_of_widening[travel]",
+            "tests/test_beta_profile_contract.py::test_old_search_parameters_fail_explicitly_instead_of_widening[reception]"
+          ],
+          "assertions": [
+            {
+              "line": 165,
+              "source": "assert response.status_code == 400"
+            },
+            {
+              "line": 166,
+              "source": "assert response.context[\"page\"].paginator.count == 0"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_discovery.py",
+          "function": "test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+          "line": 70,
+          "file_sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+          "function_ast_sha256": "fc7232b03ef0b15b85cfbdd6d171d766452f0660b78542c56f1014dc936ffdcd",
+          "passed_nodeids": [
+            "tests/test_discovery.py::test_pagination_invalid_and_out_of_range_preserve_filter_semantics"
+          ],
+          "assertions": [
+            {
+              "line": 71,
+              "source": "assert directory.get(\"/es/\", {\"page\": \"-1\"}).status_code == 400"
+            },
+            {
+              "line": 72,
+              "source": "assert directory.get(\"/es/\", {\"page\": \"9999999\"}).status_code == 400"
+            },
+            {
+              "line": 73,
+              "source": "assert directory.get(\"/es/\", {\"page\": \"2\"}).status_code == 404"
+            },
+            {
+              "line": 74,
+              "source": "assert (\n        directory.get(\"/es/\", {\"q\": \"absent-synthetic-term\", \"page\": \"1\"})\n        .context[\"page\"]\n        .paginator.count\n        == 0\n    )"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_discovery.py",
+          "function": "test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+          "line": 247,
+          "file_sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+          "function_ast_sha256": "30540e3ddaccffec3c2f51eb44715777f2ff6f080907cf1cabe83e86d8366b40",
+          "passed_nodeids": [
+            "tests/test_discovery.py::test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts"
+          ],
+          "assertions": [
+            {
+              "line": 252,
+              "source": "assert first.status_code == second.status_code == 200"
+            },
+            {
+              "line": 253,
+              "source": "assert first.context[\"page\"].paginator.count == 25"
+            },
+            {
+              "line": 255,
+              "source": "assert len(ids) == len(set(ids)) == 25"
+            },
+            {
+              "line": 256,
+              "source": "assert ids == sorted(ids)"
+            },
+            {
+              "line": 257,
+              "source": "assert [item.pk for item in client.get(\"/en/\", query).context[\"page\"].object_list] == ids[:24]"
+            },
+            {
+              "line": 258,
+              "source": "assert b\"q=pagination\" in first.content and b\"channel=phone\" in first.content"
+            },
+            {
+              "line": 262,
+              "source": "assert client.get(\"/en/\", query).context[\"page\"].paginator.count == 24"
+            },
+            {
+              "line": 263,
+              "source": "assert client.get(\"/en/\", query | {\"page\": \"2\"}).status_code == 404"
+            },
+            {
+              "line": 264,
+              "source": "assert str(ids[0]).encode() not in client.get(\"/en/\", query).content"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_discovery.py",
+          "function": "test_public_detail_localizes_profile_and_selected_contacts",
+          "line": 83,
+          "file_sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+          "function_ast_sha256": "a8869fe0f73f7d18083b8aec32a8557294b2c7a11ce994d2f101d84e9104888c",
+          "passed_nodeids": [
+            "tests/test_discovery.py::test_public_detail_localizes_profile_and_selected_contacts"
+          ],
+          "assertions": [
+            {
+              "line": 92,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 105,
+              "source": "assert f'href=\"https://wa.me/{revision.phone.lstrip(\"+\")}\"' in content"
+            },
+            {
+              "line": 106,
+              "source": "assert 'href=\"https://t.me/demo_model\"' in content"
+            },
+            {
+              "line": 107,
+              "source": "assert person.individual.email not in content"
+            },
+            {
+              "line": 108,
+              "source": "assert \"EUR\" not in content and \"Photo session\" not in content"
+            },
+            {
+              "line": 114,
+              "source": "assert directory.get(f\"/en/listing/{listing.pk}/\").status_code == 404"
+            },
+            {
+              "line": 119,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 121,
+              "source": "assert 'lang=\"es\"' in content"
+            },
+            {
+              "line": 122,
+              "source": "assert \"29001\" not in content and \"wa.me/\" not in content and \"t.me/\" not in content"
+            },
+            {
+              "line": 104,
+              "source": "assert expected in content"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_beta_public_surfaces.py",
+          "function": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh",
+          "line": 31,
+          "file_sha256": "5de06cd81ba48f070bfcb8f2b376397189e07bae7a404fe14dada3cfe4e149be",
+          "function_ast_sha256": "90cae9328894d1f0c7e9c49f66b11d1268bfabf4e1f980aa42da3127cf2b37c3",
+          "passed_nodeids": [
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-en]"
+          ],
+          "assertions": [
+            {
+              "line": 46,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 302"
+            },
+            {
+              "line": 47,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 48,
+              "source": "assert public.get(detail).status_code == 200"
+            },
+            {
+              "line": 50,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 52,
+              "source": "assert any(card[\"listing\"].pk == listing.pk and card[\"sponsorship\"]\n               for card in public.get(f\"/{language}/\").context[\"cards\"])"
+            },
+            {
+              "line": 54,
+              "source": "assert revision.title.encode() in private.get(f\"/{language}/favorites/\").content"
+            },
+            {
+              "line": 55,
+              "source": "assert any(str(listing.pk) in row.find(\"s:loc\", NS).text for row in urls(public))"
+            },
+            {
+              "line": 60,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 85,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 107,
+              "source": "assert entitlement.order.status == \"paid\" and entitlement.suspended_at is None"
+            },
+            {
+              "line": 108,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 109,
+              "source": "assert (Listing.objects.filter(pk=peer.pk).values().get(),\n            Revision.objects.filter(pk=peer.approved_revision_id).values().get()) == peer_before"
+            },
+            {
+              "line": 94,
+              "source": "assert listing.pk not in ids and peer.pk in ids"
+            },
+            {
+              "line": 95,
+              "source": "assert public.get(detail).status_code == public.get(image).status_code == 404"
+            },
+            {
+              "line": 97,
+              "source": "assert favorites.status_code == 200 and favorites[\"Cache-Control\"] == \"private, no-store\""
+            },
+            {
+              "line": 98,
+              "source": "assert all(not entry[\"visible\"] for entry in favorites.context[\"entries\"])"
+            },
+            {
+              "line": 99,
+              "source": "assert revision.title.encode() not in favorites.content"
+            },
+            {
+              "line": 100,
+              "source": "assert revision.phone.encode() not in favorites.content"
+            },
+            {
+              "line": 101,
+              "source": "assert str(listing.pk).encode() not in favorites.content"
+            },
+            {
+              "line": 102,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 404"
+            },
+            {
+              "line": 104,
+              "source": "assert all(str(listing.pk) not in row for row in locations)"
+            },
+            {
+              "line": 105,
+              "source": "assert any(str(peer.pk) in row for row in locations)"
+            },
+            {
+              "line": 83,
+              "source": "assert change == \"missing_category\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD04",
+      "criterion": "Mismo rechazo nativo/contextual; retirada inmediata, integridad de dependencias y pruebas afectadas.",
+      "semantic_review": "Shared FK object reuse does not share authorization; fresh consent/agency mutations reject affected people. Byte-level native/stored comparison across ES/EN is checked after dependency mutation before and after refresh. Dynamic source tracing must fit RULE_SOURCES.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_public_validation_context.py",
+          "function": "test_shared_fk_records_are_fresh_and_do_not_share_authorization",
+          "line": 23,
+          "file_sha256": "10819908ff36bb49318528bd042524b46945fb6fd483e6b8ffbedc799552ffad",
+          "function_ast_sha256": "0a2d9ce44dc1f4e825a9250fe3011feed2dee175e60c8ca5f672dfeaa10f5312",
+          "passed_nodeids": [
+            "tests/test_public_validation_context.py::test_shared_fk_records_are_fresh_and_do_not_share_authorization"
+          ],
+          "assertions": [
+            {
+              "line": 27,
+              "source": "assert len(context.rows) == 100"
+            },
+            {
+              "line": 38,
+              "source": "assert all(publicly_visible(row, context=context) for row in context.rows)"
+            },
+            {
+              "line": 44,
+              "source": "assert decisions[agency_rows[0].pk] is False"
+            },
+            {
+              "line": 45,
+              "source": "assert sum(decisions.values()) == 99"
+            },
+            {
+              "line": 50,
+              "source": "assert not any(publicly_visible(row, context=fresh)\n                   for row in fresh.rows if row.person.agency_id == agency.pk)"
+            },
+            {
+              "line": 37,
+              "source": "assert all(len(identities) == 1 for identities in grouped.values())"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_publication_state.py",
+          "function": "test_dependency_change_is_reflected_without_refresh",
+          "line": 131,
+          "file_sha256": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912",
+          "function_ast_sha256": "cd51e1cccfa5c80b6f751eb27692263aeead6365b9169756ef01d2989dd9531e",
+          "passed_nodeids": [
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[age_failed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[agency_pending]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[blob_failed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[category_inactive]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[category_removed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[check_failed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[city_inactive]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[consent_revoked]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[expired]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[grant_removed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[invalid_rate]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[listing_paused]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[phone_unverified]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[photo_removed]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[publishing_terms_replaced]",
+            "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh[text_with_url]"
+          ],
+          "assertions": [
+            {
+              "line": 138,
+              "source": "assert moderation.publicly_visible(listing)"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_publication_state.py",
+          "function": "test_every_project_source_executed_by_the_native_rule_is_versioned",
+          "line": 356,
+          "file_sha256": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912",
+          "function_ast_sha256": "b87b5c60e19bdd9ef0c42d3172a82559d99b7d3b867692a024c9af4afea316c5",
+          "passed_nodeids": [
+            "tests/test_publication_state.py::test_every_project_source_executed_by_the_native_rule_is_versioned"
+          ],
+          "assertions": [
+            {
+              "line": 383,
+              "source": "assert executed <= set(publication_state.RULE_SOURCES), executed - set(publication_state.RULE_SOURCES)"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_beta_public_surfaces.py",
+          "function": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh",
+          "line": 31,
+          "file_sha256": "5de06cd81ba48f070bfcb8f2b376397189e07bae7a404fe14dada3cfe4e149be",
+          "function_ast_sha256": "90cae9328894d1f0c7e9c49f66b11d1268bfabf4e1f980aa42da3127cf2b37c3",
+          "passed_nodeids": [
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-en]"
+          ],
+          "assertions": [
+            {
+              "line": 46,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 302"
+            },
+            {
+              "line": 47,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 48,
+              "source": "assert public.get(detail).status_code == 200"
+            },
+            {
+              "line": 50,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 52,
+              "source": "assert any(card[\"listing\"].pk == listing.pk and card[\"sponsorship\"]\n               for card in public.get(f\"/{language}/\").context[\"cards\"])"
+            },
+            {
+              "line": 54,
+              "source": "assert revision.title.encode() in private.get(f\"/{language}/favorites/\").content"
+            },
+            {
+              "line": 55,
+              "source": "assert any(str(listing.pk) in row.find(\"s:loc\", NS).text for row in urls(public))"
+            },
+            {
+              "line": 60,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 85,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 107,
+              "source": "assert entitlement.order.status == \"paid\" and entitlement.suspended_at is None"
+            },
+            {
+              "line": 108,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 109,
+              "source": "assert (Listing.objects.filter(pk=peer.pk).values().get(),\n            Revision.objects.filter(pk=peer.approved_revision_id).values().get()) == peer_before"
+            },
+            {
+              "line": 94,
+              "source": "assert listing.pk not in ids and peer.pk in ids"
+            },
+            {
+              "line": 95,
+              "source": "assert public.get(detail).status_code == public.get(image).status_code == 404"
+            },
+            {
+              "line": 97,
+              "source": "assert favorites.status_code == 200 and favorites[\"Cache-Control\"] == \"private, no-store\""
+            },
+            {
+              "line": 98,
+              "source": "assert all(not entry[\"visible\"] for entry in favorites.context[\"entries\"])"
+            },
+            {
+              "line": 99,
+              "source": "assert revision.title.encode() not in favorites.content"
+            },
+            {
+              "line": 100,
+              "source": "assert revision.phone.encode() not in favorites.content"
+            },
+            {
+              "line": 101,
+              "source": "assert str(listing.pk).encode() not in favorites.content"
+            },
+            {
+              "line": 102,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 404"
+            },
+            {
+              "line": 104,
+              "source": "assert all(str(listing.pk) not in row for row in locations)"
+            },
+            {
+              "line": 105,
+              "source": "assert any(str(peer.pk) in row for row in locations)"
+            },
+            {
+              "line": 83,
+              "source": "assert change == \"missing_category\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD05",
+      "criterion": "Recarga, teclado, ES–EN390/1280 y roles con separación borrador/aprobado.",
+      "semantic_review": "Chromium390/1280 ES/EN keeps approved title during edits, persists rejection/correction and new approved source relationship, then pause/resume/renew/withdraw. Draft test exercises keyboard/errors/reload; agency editor requires current MFA and assignment, owner can resume.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_browser_drafts.py",
+          "function": "test_browser_profile_steps_reload_and_no_professional_fields",
+          "line": 14,
+          "file_sha256": "4b23faa4891f53deebc494eebfc350c2a7603da3947a6b42cec0bc83d875608b",
+          "function_ast_sha256": "e4336f8bf3272ea89279f16842e31407342b2b0cd2bd16306b1d9d5d4def628d",
+          "passed_nodeids": [
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[es-390]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[en-390]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[es-1280]",
+            "tests/test_browser_drafts.py::test_browser_profile_steps_reload_and_no_professional_fields[en-1280]"
+          ],
+          "assertions": [
+            {
+              "line": 80,
+              "source": "assert revision.municipality_id == int(city_id)"
+            },
+            {
+              "line": 81,
+              "source": "assert not revision.rates.exists()"
+            },
+            {
+              "line": 82,
+              "source": "assert revision.categories.get().slug == \"romantic-dating\""
+            },
+            {
+              "line": 46,
+              "source": "assert page.locator(\"[name=title]\").evaluate(\"field => field.validationMessage\")"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_browser_beta_profile_journey.py",
+          "function": "test_profile_publish_reject_correct_renew_pause_and_withdraw",
+          "line": 77,
+          "file_sha256": "6350421fd26453cd515d8cd2ef0e364fbe400045f897d03e07e62fa19883bc90",
+          "function_ast_sha256": "0dee7c7c5be178dbcc4ad34541f22ca7581c5f26549ad0aa8dd2d393c169854a",
+          "passed_nodeids": [
+            "tests/test_browser_beta_profile_journey.py::test_profile_publish_reject_correct_renew_pause_and_withdraw[es-390]",
+            "tests/test_browser_beta_profile_journey.py::test_profile_publish_reject_correct_renew_pause_and_withdraw[en-390]",
+            "tests/test_browser_beta_profile_journey.py::test_profile_publish_reject_correct_renew_pause_and_withdraw[es-1280]",
+            "tests/test_browser_beta_profile_journey.py::test_profile_publish_reject_correct_renew_pause_and_withdraw[en-1280]"
+          ],
+          "assertions": [
+            {
+              "line": 157,
+              "source": "assert initial.title == initial_title"
+            },
+            {
+              "line": 158,
+              "source": "assert proposed_revision.status == \"rejected\" and proposed_revision.profile_type == \"\""
+            },
+            {
+              "line": 159,
+              "source": "assert proposed_revision.show_trans_label and corrected_revision.show_trans_label"
+            },
+            {
+              "line": 160,
+              "source": "assert corrected_revision.source_revision_id == proposed_revision.pk"
+            },
+            {
+              "line": 161,
+              "source": "assert corrected_revision.status == \"approved\" and corrected_revision.profile_type == \"\""
+            },
+            {
+              "line": 162,
+              "source": "assert listing.approved_revision_id == corrected_revision.pk and listing.status == \"withdrawn\""
+            },
+            {
+              "line": 163,
+              "source": "assert listing.expires_at > timezone.now() + timedelta(days=29)"
+            },
+            {
+              "line": 164,
+              "source": "assert Listing.objects.filter(person=person).count() == 1"
+            },
+            {
+              "line": 107,
+              "source": "assert guest.goto(public_url).status == 200"
+            },
+            {
+              "line": 122,
+              "source": "assert guest.goto(public_url).status == 200"
+            },
+            {
+              "line": 143,
+              "source": "assert guest.goto(public_url).status == 200"
+            },
+            {
+              "line": 148,
+              "source": "assert guest.goto(public_url).status == 404"
+            },
+            {
+              "line": 134,
+              "source": "assert guest.goto(public_url).status == public_status"
+            },
+            {
+              "line": 137,
+              "source": "assert executor.submit(open_renewal_window, initial.listing_id).result() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_agency_editor_assignment_mfa_and_revocation",
+          "line": 264,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "3f428ee61850dea6bb22de5f3e09b3143b43f736cf8c8e1c81e154729e163bfe",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_agency_editor_assignment_mfa_and_revocation"
+          ],
+          "assertions": [
+            {
+              "line": 274,
+              "source": "assert client.get(path).status_code == 302"
+            },
+            {
+              "line": 278,
+              "source": "assert client.get(path).status_code == 200"
+            },
+            {
+              "line": 279,
+              "source": "assert client.get(f\"/en/listing/{other.listing.pk}/manage/\").status_code == 404"
+            },
+            {
+              "line": 281,
+              "source": "assert client.post(path, payload(listing, \"pause\")).status_code == 302"
+            },
+            {
+              "line": 285,
+              "source": "assert client.get(path).status_code == 404"
+            },
+            {
+              "line": 286,
+              "source": "assert client.post(path, payload(listing, \"resume\")).status_code == 404"
+            },
+            {
+              "line": 288,
+              "source": "assert listing.status == \"paused\" and listing.lifecycle_version == version"
+            },
+            {
+              "line": 294,
+              "source": "assert owner.post(path, payload(listing, \"resume\")).status_code == 302"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD06",
+      "criterion": "Orden orgánico renovado, reintento único y carreras con caducidad; disponible4h sin promesa de cita.",
+      "semantic_review": "Available window is bounded around4h, exact retry does not extend it, reads expire availability without Beat. Renewal preserves listing/approved revision, requires confirmation, grants one action under expiry race, and old retry never republishes withdrawal.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_availability_pause_resume_withdraw_and_old_retry",
+          "line": 37,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "17754cec694c722dbdaed982efc23c934fe5b2f398aa100b5d73117192f1472e",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_availability_pause_resume_withdraw_and_old_retry"
+          ],
+          "assertions": [
+            {
+              "line": 41,
+              "source": "assert client.get(path).status_code == 200"
+            },
+            {
+              "line": 42,
+              "source": "assert Client().get(path).status_code == 302"
+            },
+            {
+              "line": 45,
+              "source": "assert outsider.get(path).status_code == 404"
+            },
+            {
+              "line": 47,
+              "source": "assert client.post(path, data).status_code == 302"
+            },
+            {
+              "line": 50,
+              "source": "assert (\n        timezone.now() + timedelta(hours=3, minutes=59)\n        < available_until\n        < timezone.now() + timedelta(hours=4, seconds=1)\n    )"
+            },
+            {
+              "line": 55,
+              "source": "assert client.post(path, data).status_code == 302"
+            },
+            {
+              "line": 57,
+              "source": "assert listing.available_until == available_until"
+            },
+            {
+              "line": 59,
+              "source": "assert client.post(path, pause).status_code == 302"
+            },
+            {
+              "line": 60,
+              "source": "assert Client().get(f\"/en/listing/{listing.pk}/\").status_code == 404"
+            },
+            {
+              "line": 62,
+              "source": "assert listing.available_until is None"
+            },
+            {
+              "line": 63,
+              "source": "assert client.post(path, payload(listing, \"resume\")).status_code == 302"
+            },
+            {
+              "line": 64,
+              "source": "assert Client().get(f\"/en/listing/{listing.pk}/\").status_code == 200"
+            },
+            {
+              "line": 65,
+              "source": "assert client.post(path, payload(listing, \"withdraw\")).status_code == 302"
+            },
+            {
+              "line": 66,
+              "source": "assert client.post(path, data).status_code == 302"
+            },
+            {
+              "line": 68,
+              "source": "assert listing.status == \"withdrawn\""
+            },
+            {
+              "line": 69,
+              "source": "assert client.post(path, payload(listing, \"resume\")).status_code == 409"
+            },
+            {
+              "line": 70,
+              "source": "assert not expire_one(listing.pk)"
+            },
+            {
+              "line": 71,
+              "source": "assert LifecycleAction.objects.filter(listing=listing).count() == 4"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_renewal_same_id_confirmation_expiry_and_delayed_task",
+          "line": 74,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "ef4c6caf644524152e52032031bd32a2e55c91538f04b69c0ed7e2e451894bd1",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_renewal_same_id_confirmation_expiry_and_delayed_task"
+          ],
+          "assertions": [
+            {
+              "line": 79,
+              "source": "assert client.post(path, payload(listing, \"renew\", confirm=\"on\")).status_code == 409"
+            },
+            {
+              "line": 81,
+              "source": "assert Client().get(f\"/es/listing/{listing.pk}/\").status_code == 404"
+            },
+            {
+              "line": 82,
+              "source": "assert expire_one(listing.pk)"
+            },
+            {
+              "line": 83,
+              "source": "assert not expire_one(listing.pk)"
+            },
+            {
+              "line": 85,
+              "source": "assert expiry.actor_id is None and expiry.approved_revision_id == approved"
+            },
+            {
+              "line": 86,
+              "source": "assert client.post(path, payload(listing, \"renew\")).status_code == 409"
+            },
+            {
+              "line": 88,
+              "source": "assert client.post(path, data).status_code == 302"
+            },
+            {
+              "line": 91,
+              "source": "assert listing.status == \"published\" and listing.approved_revision_id == approved"
+            },
+            {
+              "line": 92,
+              "source": "assert expires > timezone.now() + timedelta(days=29)"
+            },
+            {
+              "line": 93,
+              "source": "assert not expire_one(listing.pk)"
+            },
+            {
+              "line": 94,
+              "source": "assert client.post(path, data).status_code == 302"
+            },
+            {
+              "line": 96,
+              "source": "assert listing.expires_at == expires and Listing.objects.filter(pk=listing.pk).count() == 1"
+            },
+            {
+              "line": 98,
+              "source": "assert renewal.approved_revision_id == approved and renewal.confirmed"
+            },
+            {
+              "line": 99,
+              "source": "assert LifecycleAction.objects.filter(listing=listing, operation=\"expire\").count() == 1"
+            },
+            {
+              "line": 100,
+              "source": "assert client.post(path, data | {\"confirm\": \"\"}).status_code == 409"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_expiry_racing_renewal_never_expires_new_period",
+          "line": 297,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "7ed736a4832a50334da940ded1e2e111013c1b8c722a16d421c7e9a2a71bcf9c",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_expiry_racing_renewal_never_expires_new_period"
+          ],
+          "assertions": [
+            {
+              "line": 326,
+              "source": "assert response in [302, 409]"
+            },
+            {
+              "line": 336,
+              "source": "assert listing.status == \"published\" and listing.expires_at > timezone.now() + timedelta(\n        days=29\n    )"
+            },
+            {
+              "line": 339,
+              "source": "assert not expire_one(listing.pk)"
+            },
+            {
+              "line": 340,
+              "source": "assert LifecycleAction.objects.filter(listing=listing, operation=\"renew\").count() == 1"
+            },
+            {
+              "line": 341,
+              "source": "assert LifecycleAction.objects.filter(listing=listing, operation=\"expire\").count() <= 1"
+            },
+            {
+              "line": 328,
+              "source": "assert expired"
+            },
+            {
+              "line": 329,
+              "source": "assert (\n            client.post(\n                f\"/en/listing/{listing.pk}/manage/\", payload(listing, \"renew\", confirm=\"on\")\n            ).status_code\n            == 302\n        )"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_availability_expires_without_beat_and_resume_preserves_dates",
+          "line": 385,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "a5a687e1b0edd9218b60b97c60fcdcab12e5a55819a7f1b75bdf2678495d3de6",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_availability_expires_without_beat_and_resume_preserves_dates"
+          ],
+          "assertions": [
+            {
+              "line": 394,
+              "source": "assert client.post(path, payload(listing, \"available\")).status_code == 302"
+            },
+            {
+              "line": 397,
+              "source": "assert Client().get(\"/en/\", {\"available\": \"on\"}).context[\"page\"].paginator.count == 1"
+            },
+            {
+              "line": 399,
+              "source": "assert Client().get(\"/en/\", {\"available\": \"on\"}).context[\"page\"].paginator.count == 0"
+            },
+            {
+              "line": 401,
+              "source": "assert detail.status_code == 200 and b\"Available now;\" not in detail.content"
+            },
+            {
+              "line": 402,
+              "source": "assert client.post(path, payload(listing, \"pause\")).status_code == 302"
+            },
+            {
+              "line": 403,
+              "source": "assert client.post(path, payload(listing, \"resume\")).status_code == 302"
+            },
+            {
+              "line": 405,
+              "source": "assert (listing.published_at, listing.expires_at, listing.approved_revision_id) == (\n        editorial,\n        expiry,\n        approved,\n    )"
+            },
+            {
+              "line": 410,
+              "source": "assert listing.available_until is None"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD07",
+      "criterion": "Worker/Beatpropios, cuotas/replay/carreras; restauración conserva evidencia sin reactivar exposición/bump.",
+      "semantic_review": "40-row pagination preserves exact filtered set, labels and stable daily order under top/premium test mode and no labels outside it. Racing bumps grant one execution; audit failure rolls back payment event and entitlement. Real isolated worker/Beat proof expires new victim and rechecks entitlement without editorial change; native restore preserves commercial digest without ranking/bumping erased listing.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_promotion_pagination_rotation.py",
+          "function": "test_sponsored_rotation_preserves_filtered_public_pagination",
+          "line": 21,
+          "file_sha256": "e21b14482021f8fb69b9fd9d2333b073f9721093f694e5b784f2980132445b30",
+          "function_ast_sha256": "0dd2067bd69284a89b18f69fab74d5f3f0aab6dd04685b061eb44dae2e42eefd",
+          "passed_nodeids": [
+            "tests/test_promotion_pagination_rotation.py::test_sponsored_rotation_preserves_filtered_public_pagination"
+          ],
+          "assertions": [
+            {
+              "line": 29,
+              "source": "assert len(expected) == 40"
+            },
+            {
+              "line": 42,
+              "source": "assert len(candidates) == 28"
+            },
+            {
+              "line": 106,
+              "source": "assert list(\n        Listing.objects.order_by(\"pk\").values_list(\n            \"pk\", \"published_at\", \"lifecycle_version\", \"approved_revision_id\"\n        )\n    ) == editorial"
+            },
+            {
+              "line": 72,
+              "source": "assert len(ids) == len(set(ids)), \"A listing must not appear on multiple pages\""
+            },
+            {
+              "line": 79,
+              "source": "assert set(ids) == expected and not labels"
+            },
+            {
+              "line": 82,
+              "source": "assert ids and not labels"
+            },
+            {
+              "line": 89,
+              "source": "assert set(ids) == expected"
+            },
+            {
+              "line": 90,
+              "source": "assert set(ids[:10]) == premium_ids and set(ids[10:28]) == top_ids"
+            },
+            {
+              "line": 91,
+              "source": "assert labels == {**dict.fromkeys(premium_ids, \"premium\"), **dict.fromkeys(top_ids, \"top\")}"
+            },
+            {
+              "line": 92,
+              "source": "assert pages(language) == (ids, labels), \"Pagination must be stable within the same UTC day\""
+            },
+            {
+              "line": 94,
+              "source": "assert set(matching) == filtered[language]"
+            },
+            {
+              "line": 95,
+              "source": "assert set(selected_labels) == filtered[language] & (premium_ids | top_ids)"
+            },
+            {
+              "line": 96,
+              "source": "assert pages(language, {\"q\": \"synthetic-no-match-8293\"}) == ([], {})"
+            },
+            {
+              "line": 101,
+              "source": "assert set(tomorrow) == expected and tomorrow_labels == labels"
+            },
+            {
+              "line": 102,
+              "source": "assert tomorrow[:10] != ids[:10] or tomorrow[10:28] != ids[10:28]"
+            },
+            {
+              "line": 103,
+              "source": "assert set(tomorrow[:10]) == premium_ids and set(tomorrow[10:28]) == top_ids"
+            },
+            {
+              "line": 62,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 68,
+              "source": "assert response.content.count(b'class=\"sponsored\"') == len(sponsored)"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_promotion_bump_races.py",
+          "function": "test_two_concurrent_bumps_grant_one_window_only",
+          "line": 76,
+          "file_sha256": "658d08c6fe0554d37a4f37ef5ea28ed173ad331835b009792d02618d4aaee30f",
+          "function_ast_sha256": "760bb3b38ddb840c1caadae744182e54e84cfee0d98d0085998713532425a736",
+          "passed_nodeids": [
+            "tests/test_promotion_bump_races.py::test_two_concurrent_bumps_grant_one_window_only"
+          ],
+          "assertions": [
+            {
+              "line": 91,
+              "source": "assert sorted(outcomes) == [False, True]"
+            },
+            {
+              "line": 92,
+              "source": "assert PromotionBumpExecution.objects.filter(entitlement=entitlement).count() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_promotion_order_races.py",
+          "function": "test_audit_failure_rolls_back_order_and_payment_grant",
+          "line": 112,
+          "file_sha256": "f52dd491fb969d27c31c871bc7b2d2f357eeb18c27a0abccf004db23da7838d5",
+          "function_ast_sha256": "438bd1c03f3943cc9ae234d2115760b9901e41ef33d500dc634f63d6482de603",
+          "passed_nodeids": [
+            "tests/test_promotion_order_races.py::test_audit_failure_rolls_back_order_and_payment_grant"
+          ],
+          "assertions": [
+            {
+              "line": 123,
+              "source": "assert not PromotionPaymentEvent.objects.exists() and not PromotionEntitlement.objects.exists()"
+            },
+            {
+              "line": 126,
+              "source": "assert order.status == \"pending\" and order.payment_attempt.status == \"pending\""
+            },
+            {
+              "line": 129,
+              "source": "assert PromotionOrder.objects.count() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_beta_exposure_worker.py",
+          "function": "test_real_worker_and_beat_expire_and_bump_without_changing_editorial_state",
+          "line": 31,
+          "file_sha256": "810498b9f76d461deb872c86937cba92cb1739cdd0c96935c50e4b71f7a188ba",
+          "function_ast_sha256": "7521aa25f7ba82f16cbf88e5190336e9c072f3f00a0eceeab17c2d312981e7d8",
+          "passed_nodeids": [
+            "tests/test_beta_exposure_worker.py::test_real_worker_and_beat_expire_and_bump_without_changing_editorial_state"
+          ],
+          "assertions": [
+            {
+              "line": 35,
+              "source": "assert run_id, \"Use run_local_ci.py with --isolate-test-broker for this owned runtime proof\""
+            },
+            {
+              "line": 37,
+              "source": "assert json.loads((output / \"runner.json\").read_text())[\"id\"] == run_id"
+            },
+            {
+              "line": 38,
+              "source": "assert connection.settings_dict[\"NAME\"].startswith(\"test_\") and not settings.PRODUCTION"
+            },
+            {
+              "line": 52,
+              "source": "assert entitlement.ends_at - entitlement.starts_at == timedelta(days=order.duration_days)"
+            },
+            {
+              "line": 194,
+              "source": "assert all(item[\"terminated\"] for item in proof[\"processes\"])"
+            },
+            {
+              "line": 127,
+              "source": "assert victim.status == \"expired\""
+            },
+            {
+              "line": 128,
+              "source": "assert LifecycleAction.objects.filter(listing=victim, operation=\"expire\", actor=None).count() == 1"
+            },
+            {
+              "line": 131,
+              "source": "assert 1 <= len(initial_windows) <= 2"
+            },
+            {
+              "line": 132,
+              "source": "assert len(initial_windows) == len({item.window_start.date() for item in initial_windows})"
+            },
+            {
+              "line": 136,
+              "source": "assert checked is not None and entitlement.last_bumped_at is not None"
+            },
+            {
+              "line": 156,
+              "source": "assert LifecycleAction.objects.filter(listing=beat_victim, operation=\"expire\", actor=None).count() == 1"
+            },
+            {
+              "line": 157,
+              "source": "assert LifecycleAction.objects.filter(listing=victim, operation=\"expire\", actor=None).count() == 1"
+            },
+            {
+              "line": 159,
+              "source": "assert PromotionBumpExecution.objects.filter(\n            entitlement=entitlement, window_start=initial.window_start\n        ).count() == 1"
+            },
+            {
+              "line": 164,
+              "source": "assert len(windows) == len({window.date() for window in windows})"
+            },
+            {
+              "line": 166,
+              "source": "assert (listing.published_at, listing.expires_at, listing.lifecycle_version,\n                listing.approved_revision_id, listing.revisions.count()) == before"
+            },
+            {
+              "line": 107,
+              "source": "assert all(p.poll() is None for _, p in processes), \"Owned runtime process exited\""
+            }
+          ]
+        },
+        {
+          "file": "tests/test_promotion_recovery.py",
+          "function": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+          "line": 39,
+          "file_sha256": "8edd4ab1c8abbbdeaf0a854c498bb9dea4ee0393f18a3f5ee8e2c67ada9b6a9c",
+          "function_ast_sha256": "f37ba3e12c1a72ad4c32d987a45b39b5dd89c88e56ce6001a6934e2ae8e4383e",
+          "passed_nodeids": [
+            "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion"
+          ],
+          "assertions": [
+            {
+              "line": 141,
+              "source": "assert commercial.get(\"child_checked\") is True"
+            },
+            {
+              "line": 130,
+              "source": "assert original_child.count(marker) == 1"
+            },
+            {
+              "line": 132,
+              "source": "assert injected in command[index]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD08",
+      "criterion": "Definir datos/unidades/desconocidos, visibilidad, finalidad, persistencia, claves, retención, modificación/borrado/desactivación y utilidad.",
+      "semantic_review": "Optional feature not implemented; no inferred PASS, field catalogue, encrypted persistence, retention or provider decision.",
+      "status": "OPTIONAL_NOT_IMPLEMENTED_NOT_PASS",
+      "witnesses": []
+    },
+    {
+      "id": "AD09",
+      "criterion": "Permisos/gestión/edad/contacto/consentimiento obsoletos excluyen superficies y operaciones afectadas.",
+      "semantic_review": "Two agency subjects sharing phone retain independent authority and revocation; phone/consent alone cannot satisfy age and publication prerequisites. Obsolete grant, wrong subject, changed manager/MFA and production simulators reject. Surface mutations remove stale authority without waiting for refresh.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_agency_publication.py",
+          "function": "test_agency_two_people_shared_phone_editor_publication_and_revoke",
+          "line": 123,
+          "file_sha256": "16df72181a26b404febcf10e06eb17290a31631ff22f214935f726f006d2d020",
+          "function_ast_sha256": "62598005aaeb14f9b58ac9c3ed2ef3b1a252c06c44f3632788ed3fb8ac673d1a",
+          "passed_nodeids": [
+            "tests/test_agency_publication.py::test_agency_two_people_shared_phone_editor_publication_and_revoke"
+          ],
+          "assertions": [
+            {
+              "line": 126,
+              "source": "assert agency.people.count() == 2"
+            },
+            {
+              "line": 127,
+              "source": "assert len(set(agency.people.values_list(\"phone_claim_id\", flat=True))) == 1"
+            },
+            {
+              "line": 134,
+              "source": "assert subjects[0].post(f\"/es/person/{first.listing.person_id}/revoke/\").status_code == 302"
+            },
+            {
+              "line": 135,
+              "source": "assert public.get(f\"/es/listing/{first.listing_id}/\").status_code == 404"
+            },
+            {
+              "line": 136,
+              "source": "assert public.get(f\"/es/listing/{revisions[1].listing_id}/\").status_code == 200"
+            },
+            {
+              "line": 130,
+              "source": "assert owner.get(path).status_code == editor.get(path).status_code == 403"
+            },
+            {
+              "line": 131,
+              "source": "assert reviewer.post(path, decision(revision)).status_code == 302"
+            },
+            {
+              "line": 132,
+              "source": "assert public.get(f\"/es/listing/{revision.listing_id}/\").status_code == 200"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_verification.py",
+          "function": "test_individual_prerequisites_persistence_phone_replay",
+          "line": 68,
+          "file_sha256": "3f837b35750573874a44957267d699cd9a697e096d82c1985fd04435c7fd8bae",
+          "function_ast_sha256": "2ba713cce11ac54a3adc2b199e66dc6e86299c50462e1dd1539151fcdb017163",
+          "passed_nodeids": [
+            "tests/test_verification.py::test_individual_prerequisites_persistence_phone_replay"
+          ],
+          "assertions": [
+            {
+              "line": 70,
+              "source": "assert client.post(\"/es/person/create/\", {\"alias\": \"Persona sintética\"}).status_code == 302"
+            },
+            {
+              "line": 72,
+              "source": "assert person.subject_id == user.pk"
+            },
+            {
+              "line": 73,
+              "source": "assert not publication_ready(person)"
+            },
+            {
+              "line": 75,
+              "source": "assert (\n        client.post(\n            f\"/es/person/{person.pk}/consent/\", {\"authorize\": \"on\", \"version\": \"dev-1\"}\n        ).status_code\n        == 200\n    )"
+            },
+            {
+              "line": 82,
+              "source": "assert (person.consent_version, person.consent_revoked_at) == previous_consent"
+            },
+            {
+              "line": 83,
+              "source": "assert not RepresentationAction.objects.filter(person=person, action=\"grant\").exists()"
+            },
+            {
+              "line": 84,
+              "source": "assert (\n        client.post(\n            f\"/es/person/{person.pk}/consent/\", {\"authorize\": \"on\", \"version\": \"dev-romantic-1\"}\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 91,
+              "source": "assert not publication_ready(person)"
+            },
+            {
+              "line": 92,
+              "source": "assert client.post(f\"/es/person/{person.pk}/age/\", {\"outcome\": \"pending\"}).status_code == 302"
+            },
+            {
+              "line": 94,
+              "source": "assert not publication_ready(person)"
+            },
+            {
+              "line": 97,
+              "source": "assert person.age_status == \"failed\" and not publication_ready(person)"
+            },
+            {
+              "line": 99,
+              "source": "assert phone(client, person, \"600 111 222\").status_code == 302"
+            },
+            {
+              "line": 101,
+              "source": "assert person.phone_claim.phone == \"+34600111222\""
+            },
+            {
+              "line": 102,
+              "source": "assert person.phone_claim.verification_procedure == \"simulator-v1\""
+            },
+            {
+              "line": 103,
+              "source": "assert publication_ready(person)"
+            },
+            {
+              "line": 104,
+              "source": "assert (\n        b\"Requisitos locales completos\"\n        in client.get(f\"/es/person/{person.pk}/verification/\").content\n    )"
+            },
+            {
+              "line": 108,
+              "source": "assert client.post(\"/es/person/create/\", {\"alias\": \"Duplicate\"}).status_code == 302"
+            },
+            {
+              "line": 109,
+              "source": "assert Person.objects.count() == 1"
+            },
+            {
+              "line": 111,
+              "source": "assert (\n        client.post(\n            f\"/es/phone/{challenge.pk}/confirm/\", {\"code\": mail.outbox[-1].body}\n        ).status_code\n        == 400\n    )"
+            },
+            {
+              "line": 117,
+              "source": "assert client.post(f\"/es/person/{person.pk}/revoke/\").status_code == 302"
+            },
+            {
+              "line": 119,
+              "source": "assert not publication_ready(person)"
+            },
+            {
+              "line": 120,
+              "source": "assert RepresentationAction.objects.filter(person=person, action=\"revoke\").count() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_verification.py",
+          "function": "test_agency_direct_consent_shared_phone_and_transfer",
+          "line": 123,
+          "file_sha256": "3f837b35750573874a44957267d699cd9a697e096d82c1985fd04435c7fd8bae",
+          "function_ast_sha256": "ec119afd08628d95a0065ec53534dccb7d7b6aa8ddddf8a3dd80a88e59a05e52",
+          "passed_nodeids": [
+            "tests/test_verification.py::test_agency_direct_consent_shared_phone_and_transfer"
+          ],
+          "assertions": [
+            {
+              "line": 132,
+              "source": "assert (\n        owner_client.post(\n            f\"/es/person/{person.pk}/consent/invite/\", {\"email\": subject.email}\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 139,
+              "source": "assert (\n        stranger_client.post(\n            invitation_path, {\"authorize\": \"on\", \"version\": \"dev-romantic-1\"}\n        ).status_code\n        == 403\n    )"
+            },
+            {
+              "line": 145,
+              "source": "assert subject_client.get(invitation_path).status_code == 200"
+            },
+            {
+              "line": 147,
+              "source": "assert person.subject_id is None"
+            },
+            {
+              "line": 148,
+              "source": "assert (\n        subject_client.post(invitation_path, {\"authorize\": \"on\", \"version\": \"old\"}).status_code\n        == 200\n    )"
+            },
+            {
+              "line": 152,
+              "source": "assert (\n        subject_client.post(\n            invitation_path, {\"authorize\": \"on\", \"version\": \"dev-romantic-1\"}\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 158,
+              "source": "assert (\n        subject_client.post(\n            invitation_path, {\"authorize\": \"on\", \"version\": \"dev-romantic-1\"}\n        ).status_code\n        == 403\n    )"
+            },
+            {
+              "line": 164,
+              "source": "assert (\n        owner_client.post(f\"/es/person/{person.pk}/age/\", {\"outcome\": \"passed\"}).status_code == 404\n    )"
+            },
+            {
+              "line": 167,
+              "source": "assert stranger_client.get(f\"/es/person/{person.pk}/verification/\").status_code == 403"
+            },
+            {
+              "line": 169,
+              "source": "assert phone(owner_client, person, \"+34 600111333\").status_code == 302"
+            },
+            {
+              "line": 170,
+              "source": "assert phone(owner_client, other, \"600111333\").status_code == 302"
+            },
+            {
+              "line": 171,
+              "source": "assert PhoneClaim.objects.count() == 1"
+            },
+            {
+              "line": 173,
+              "source": "assert phone(target_client, third, \"600111333\").status_code == 409"
+            },
+            {
+              "line": 175,
+              "source": "assert publication_ready(person)"
+            },
+            {
+              "line": 176,
+              "source": "assert (\n        subject_client.post(\n            f\"/es/person/{person.pk}/transfer/\",\n            {\n                \"target_agency\": str(target.pk),\n                \"confirm\": \"on\",\n                \"manager_version\": person.manager_version,\n            },\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 188,
+              "source": "assert person.agency_id == target.pk and person.phone_claim_id is None"
+            },
+            {
+              "line": 189,
+              "source": "assert not publication_ready(person)"
+            },
+            {
+              "line": 190,
+              "source": "assert owner_client.get(f\"/es/person/{person.pk}/verification/\").status_code == 403"
+            },
+            {
+              "line": 191,
+              "source": "assert target_client.get(f\"/es/person/{person.pk}/verification/\").status_code == 200"
+            },
+            {
+              "line": 192,
+              "source": "assert Person.objects.filter(subject=subject).count() == 1"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_verification.py",
+          "function": "test_events_signed_idempotent_obsolete_and_production_disabled",
+          "line": 195,
+          "file_sha256": "3f837b35750573874a44957267d699cd9a697e096d82c1985fd04435c7fd8bae",
+          "function_ast_sha256": "f0421d40ece24ce81f33f5378d3039041e1213ecfd65dd82950d23a30979d85a",
+          "passed_nodeids": [
+            "tests/test_verification.py::test_events_signed_idempotent_obsolete_and_production_disabled"
+          ],
+          "assertions": [
+            {
+              "line": 200,
+              "source": "assert receive_event(payload).status == \"passed\""
+            },
+            {
+              "line": 201,
+              "source": "assert receive_event(payload).status == \"passed\""
+            },
+            {
+              "line": 202,
+              "source": "assert VerificationEvent.objects.count() == 1"
+            },
+            {
+              "line": 212,
+              "source": "assert client.post(f\"/es/person/{person.pk}/age/\", {\"outcome\": \"passed\"}).status_code == 503"
+            },
+            {
+              "line": 213,
+              "source": "assert client.post(f\"/es/person/{person.pk}/phone/\", {\"phone\": \"600111222\"}).status_code == 503"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_lifecycle.py",
+          "function": "test_agency_editor_assignment_mfa_and_revocation",
+          "line": 264,
+          "file_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "function_ast_sha256": "3f428ee61850dea6bb22de5f3e09b3143b43f736cf8c8e1c81e154729e163bfe",
+          "passed_nodeids": [
+            "tests/test_lifecycle.py::test_agency_editor_assignment_mfa_and_revocation"
+          ],
+          "assertions": [
+            {
+              "line": 274,
+              "source": "assert client.get(path).status_code == 302"
+            },
+            {
+              "line": 278,
+              "source": "assert client.get(path).status_code == 200"
+            },
+            {
+              "line": 279,
+              "source": "assert client.get(f\"/en/listing/{other.listing.pk}/manage/\").status_code == 404"
+            },
+            {
+              "line": 281,
+              "source": "assert client.post(path, payload(listing, \"pause\")).status_code == 302"
+            },
+            {
+              "line": 285,
+              "source": "assert client.get(path).status_code == 404"
+            },
+            {
+              "line": 286,
+              "source": "assert client.post(path, payload(listing, \"resume\")).status_code == 404"
+            },
+            {
+              "line": 288,
+              "source": "assert listing.status == \"paused\" and listing.lifecycle_version == version"
+            },
+            {
+              "line": 294,
+              "source": "assert owner.post(path, payload(listing, \"resume\")).status_code == 302"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_beta_public_surfaces.py",
+          "function": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh",
+          "line": 31,
+          "file_sha256": "5de06cd81ba48f070bfcb8f2b376397189e07bae7a404fe14dada3cfe4e149be",
+          "function_ast_sha256": "90cae9328894d1f0c7e9c49f66b11d1268bfabf4e1f980aa42da3127cf2b37c3",
+          "passed_nodeids": [
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-en]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-es]",
+            "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-en]"
+          ],
+          "assertions": [
+            {
+              "line": 46,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 302"
+            },
+            {
+              "line": 47,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 48,
+              "source": "assert public.get(detail).status_code == 200"
+            },
+            {
+              "line": 50,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 52,
+              "source": "assert any(card[\"listing\"].pk == listing.pk and card[\"sponsorship\"]\n               for card in public.get(f\"/{language}/\").context[\"cards\"])"
+            },
+            {
+              "line": 54,
+              "source": "assert revision.title.encode() in private.get(f\"/{language}/favorites/\").content"
+            },
+            {
+              "line": 55,
+              "source": "assert any(str(listing.pk) in row.find(\"s:loc\", NS).text for row in urls(public))"
+            },
+            {
+              "line": 60,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 85,
+              "source": "assert PublicationState.objects.get(listing=listing).eligible"
+            },
+            {
+              "line": 107,
+              "source": "assert entitlement.order.status == \"paid\" and entitlement.suspended_at is None"
+            },
+            {
+              "line": 108,
+              "source": "assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1"
+            },
+            {
+              "line": 109,
+              "source": "assert (Listing.objects.filter(pk=peer.pk).values().get(),\n            Revision.objects.filter(pk=peer.approved_revision_id).values().get()) == peer_before"
+            },
+            {
+              "line": 94,
+              "source": "assert listing.pk not in ids and peer.pk in ids"
+            },
+            {
+              "line": 95,
+              "source": "assert public.get(detail).status_code == public.get(image).status_code == 404"
+            },
+            {
+              "line": 97,
+              "source": "assert favorites.status_code == 200 and favorites[\"Cache-Control\"] == \"private, no-store\""
+            },
+            {
+              "line": 98,
+              "source": "assert all(not entry[\"visible\"] for entry in favorites.context[\"entries\"])"
+            },
+            {
+              "line": 99,
+              "source": "assert revision.title.encode() not in favorites.content"
+            },
+            {
+              "line": 100,
+              "source": "assert revision.phone.encode() not in favorites.content"
+            },
+            {
+              "line": 101,
+              "source": "assert str(listing.pk).encode() not in favorites.content"
+            },
+            {
+              "line": 102,
+              "source": "assert private.post(detail + \"favorite/\").status_code == 404"
+            },
+            {
+              "line": 104,
+              "source": "assert all(str(listing.pk) not in row for row in locations)"
+            },
+            {
+              "line": 105,
+              "source": "assert any(str(peer.pk) in row for row in locations)"
+            },
+            {
+              "line": 83,
+              "source": "assert change == \"missing_category\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD10",
+      "criterion": "Aceptaciones siguen ligadas al cuerpo original; publicación exige nuevo documento aplicable.",
+      "semantic_review": "Bootstrap leaves original accepted legal body and document ID unchanged while new publishing version is romantic. Submission rejects obsolete publishing text until current document AND direct grant are accepted; direct/invited browser cases ES/EN reject obsolete/unconfirmed authorization and preserve versioned manager transfer semantics.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_beta_profile_contract.py",
+          "function": "test_new_publishing_terms_preserve_previously_accepted_text",
+          "line": 169,
+          "file_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b",
+          "function_ast_sha256": "00eade7c4354205153a34e71b2b839c0b241cfe5b4ea4cb4869488b741399389",
+          "passed_nodeids": [
+            "tests/test_beta_profile_contract.py::test_new_publishing_terms_preserve_previously_accepted_text"
+          ],
+          "assertions": [
+            {
+              "line": 181,
+              "source": "assert previous.body == \"Historical accepted body\""
+            },
+            {
+              "line": 182,
+              "source": "assert LegalAcceptance.objects.get(pk=accepted.pk).document_id == previous.pk"
+            },
+            {
+              "line": 184,
+              "source": "assert current.version == \"dev-romantic-1\""
+            },
+            {
+              "line": 185,
+              "source": "assert \"citas románticas\" in current.body"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_submissions.py",
+          "function": "test_updated_terms_require_new_acceptance_and_direct_grant",
+          "line": 153,
+          "file_sha256": "91498532adccc2ee656b7bab50467fe950fc92f87755c11fda06053b3addc31b",
+          "function_ast_sha256": "a015d1975ed8b485f65c6285716190afef207459e00ee446e2d4d20906bf22f0",
+          "passed_nodeids": [
+            "tests/test_submissions.py::test_updated_terms_require_new_acceptance_and_direct_grant"
+          ],
+          "assertions": [
+            {
+              "line": 164,
+              "source": "assert client.post(f\"/es/draft/{revision.pk}/submit/\", payload(revision)).status_code == 400"
+            },
+            {
+              "line": 165,
+              "source": "assert (\n        client.post(\n            f\"/es/draft/{revision.pk}/2/\", contacts(revision, legal_version=\"new\")\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 172,
+              "source": "assert client.post(f\"/es/draft/{revision.pk}/submit/\", payload(revision)).status_code == 400"
+            },
+            {
+              "line": 173,
+              "source": "assert (\n        client.post(\n            f\"/es/person/{person.pk}/consent/\", {\"authorize\": \"on\", \"version\": \"new\"}\n        ).status_code\n        == 302\n    )"
+            },
+            {
+              "line": 179,
+              "source": "assert client.post(f\"/es/draft/{revision.pk}/submit/\", payload(revision)).status_code == 302"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_consent_transfer_localization.py",
+          "function": "test_localized_grant_and_transfer_preserve_current_authority",
+          "line": 58,
+          "file_sha256": "383222e327ad1ae51ef42d5bd7c0ab6467a9fd8c92fe02c71faac3bfb9fd5be6",
+          "function_ast_sha256": "65ab8d55de0507d7889624f9613cff80b48f529a1faee455227c782350b263f0",
+          "passed_nodeids": [
+            "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[direct-es]",
+            "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[direct-en]",
+            "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[invited-es]",
+            "tests/test_consent_transfer_localization.py::test_localized_grant_and_transfer_preserve_current_authority[invited-en]"
+          ],
+          "assertions": [
+            {
+              "line": 62,
+              "source": "assert connection.vendor == \"postgresql\""
+            },
+            {
+              "line": 193,
+              "source": "assert (\n        person.individual_id == user.pk\n        and person.agency_id is None\n        and person.manager_version == state.manager_version + 1\n    )"
+            },
+            {
+              "line": 198,
+              "source": "assert (\n        person.consent_version == 0\n        and person.consent_revoked_at\n        and person.age_status == \"pending\"\n        and person.phone_claim_id is None\n    )"
+            },
+            {
+              "line": 204,
+              "source": "assert RepresentationAction.objects.filter(action=\"transfer\").count() == 1"
+            },
+            {
+              "line": 112,
+              "source": "assert page.goto(live_server.url + path).status == 200"
+            },
+            {
+              "line": 119,
+              "source": "assert db_sync(lambda: RepresentationAction.objects.count()) == 0"
+            },
+            {
+              "line": 121,
+              "source": "assert (\n                page.request.post(\n                    live_server.url + path, form=data | {\"authorize\": \"on\", \"version\": \"obsolete\"}\n                ).status\n                == 200\n            )"
+            },
+            {
+              "line": 127,
+              "source": "assert db_sync(lambda: RepresentationAction.objects.count()) == 0"
+            },
+            {
+              "line": 128,
+              "source": "assert page.request.post(live_server.url + path, form=data).status == 200"
+            },
+            {
+              "line": 129,
+              "source": "assert db_sync(lambda: RepresentationAction.objects.count()) == 0"
+            },
+            {
+              "line": 136,
+              "source": "assert (\n                state.subject_id == user.pk\n                and state.consent_version == state.manager_version\n                and state.consent_revoked_at is None\n            )"
+            },
+            {
+              "line": 141,
+              "source": "assert db_sync(lambda: RepresentationAction.objects.filter(action=\"grant\").count()) == 1"
+            },
+            {
+              "line": 150,
+              "source": "assert page.goto(live_server.url + transfer).status == 200"
+            },
+            {
+              "line": 167,
+              "source": "assert (\n                page.request.post(\n                    live_server.url + transfer,\n                    form=data | {\"target_agency\": \"invalid\", \"confirm\": \"on\"},\n                ).status\n                == 400\n            )"
+            },
+            {
+              "line": 174,
+              "source": "assert page.request.post(live_server.url + transfer, form=data).status == 400"
+            },
+            {
+              "line": 175,
+              "source": "assert (\n                db_sync(lambda: RepresentationAction.objects.filter(action=\"transfer\").count()) == 0\n            )"
+            },
+            {
+              "line": 184,
+              "source": "assert (\n                page.request.post(live_server.url + transfer, form=data, max_redirects=0).status\n                == 302\n            )"
+            },
+            {
+              "line": 189,
+              "source": "assert page.evaluate(\"document.documentElement.scrollWidth <= window.innerWidth\")"
+            },
+            {
+              "line": 82,
+              "source": "assert manager.goto(live_server.url + invite).status == 200"
+            },
+            {
+              "line": 101,
+              "source": "assert db_sync(lambda: RepresentationInvitation.objects.count()) == 0"
+            },
+            {
+              "line": 143,
+              "source": "assert (\n                    page.request.post(\n                        live_server.url + path, form=data | {\"authorize\": \"on\"}\n                    ).status\n                    == 403\n                )"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AD11",
+      "criterion": "Copia histórica compatible, invalidación ante cambios, supresión scoped y restauración sin exposición indebida.",
+      "semantic_review": "Label erasure/recovery clears only subject and preserves peer; rollback cannot discard selected label. Foreign receipt/modified plan reject, actual reintroduced media reopens pending purpose. Private export preserves current and legacy contracts, excludes foreign details, rejects source drift/damage/expired authority without download record; real commercial restore checks digest and no reactivation.",
+      "status": "SCOPED_LOCAL_CRITERION_WITNESSES_REVIEWED",
+      "witnesses": [
+        {
+          "file": "tests/test_declared_profile_label.py",
+          "function": "test_publication_erasure_and_recovery_clear_label_without_touching_peer",
+          "line": 86,
+          "file_sha256": "d5cd4375d747199e4c2bc1b20bf2c121b49768ca28b45620c9410960de3631a2",
+          "function_ast_sha256": "15c11551fa47d249c141502f27276f21958123f54a0b2d281d51ab224641774f",
+          "passed_nodeids": [
+            "tests/test_declared_profile_label.py::test_publication_erasure_and_recovery_clear_label_without_touching_peer"
+          ],
+          "assertions": [
+            {
+              "line": 104,
+              "source": "assert not person.listing.revisions.filter(show_trans_label=True).exists()"
+            },
+            {
+              "line": 106,
+              "source": "assert \"publication\" in material(case, execution)[\"completed_purposes\"]"
+            },
+            {
+              "line": 110,
+              "source": "assert \"publication\" in material(case, execution)[\"pending_execution_purposes\"]"
+            },
+            {
+              "line": 114,
+              "source": "assert reconcile(store, start)[\"applied\"] == 1"
+            },
+            {
+              "line": 115,
+              "source": "assert not person.listing.revisions.filter(show_trans_label=True).exists()"
+            },
+            {
+              "line": 116,
+              "source": "assert list(peer.listing.revisions.values()) == peer_before"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_declared_profile_label.py",
+          "function": "test_schema_rollback_cannot_discard_a_selected_label",
+          "line": 119,
+          "file_sha256": "d5cd4375d747199e4c2bc1b20bf2c121b49768ca28b45620c9410960de3631a2",
+          "function_ast_sha256": "be2885a063820f3d404bf582465257456d2d345cb9e931691426626ad43782fb",
+          "passed_nodeids": [
+            "tests/test_declared_profile_label.py::test_schema_rollback_cannot_discard_a_selected_label"
+          ],
+          "assertions": [
+            {
+              "line": 134,
+              "source": "assert revision.show_trans_label and revision.profile_type == \"woman\""
+            }
+          ]
+        },
+        {
+          "file": "tests/test_erasure_final.py",
+          "function": "test_final_material_rejects_foreign_receipt_and_modified_plan",
+          "line": 62,
+          "file_sha256": "215e4b608edf44f4027e1d800a280e43e63abf4a45fc74b66785f1a8f1621d9c",
+          "function_ast_sha256": "8e35c8fcb57df7f682cf33ac3cb17e6d787c4f3992c29b3aac07afb13534b9f8",
+          "passed_nodeids": [
+            "tests/test_erasure_final.py::test_final_material_rejects_foreign_receipt_and_modified_plan"
+          ],
+          "assertions": [
+            {
+              "line": 86,
+              "source": "assert case.status == \"reviewing\" and before[\"operational_pending\"]"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_erasure_final.py",
+          "function": "test_final_media_requires_actual_file_absence_even_after_completed_job",
+          "line": 554,
+          "file_sha256": "215e4b608edf44f4027e1d800a280e43e63abf4a45fc74b66785f1a8f1621d9c",
+          "function_ast_sha256": "77fef6d2156bdd12157f7cd9ffd37b51f16b65d71b13f36f4712274318b5ecb0",
+          "passed_nodeids": [
+            "tests/test_erasure_final.py::test_final_media_requires_actual_file_absence_even_after_completed_job"
+          ],
+          "assertions": [
+            {
+              "line": 565,
+              "source": "assert all(Blob._meta.get_field(field).storage.exists(path) for field, path in paths.items())"
+            },
+            {
+              "line": 568,
+              "source": "assert material(case, execution)[\"pending_execution_purposes\"] == [\"media\"]"
+            },
+            {
+              "line": 569,
+              "source": "assert erase_due_media() >= 1"
+            },
+            {
+              "line": 571,
+              "source": "assert result[\"completed_purposes\"] == [\"media\"] and not result[\"pending_execution_purposes\"]"
+            },
+            {
+              "line": 573,
+              "source": "assert job.status == \"completed\" and not job.encrypted_paths"
+            },
+            {
+              "line": 583,
+              "source": "assert material(case, execution) == result"
+            },
+            {
+              "line": 584,
+              "source": "assert result[\"operational_pending\"] and result[\"remaining_decisions\"]"
+            },
+            {
+              "line": 579,
+              "source": "assert observed[\"pending_execution_purposes\"] == [\"media\"]"
+            },
+            {
+              "line": 580,
+              "source": "assert not observed[\"completed_purposes\"]"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_rights_exports.py",
+          "function": "test_encrypted_reviewed_copy_download_without_account_excludes_other_data",
+          "line": 102,
+          "file_sha256": "7a40217ae031b31e414a03fafddff29b377f5bec7c807632e83bd9fbeb94939d",
+          "function_ast_sha256": "8b7ce9a6e2f5d909822c12abc0672f7ff778733ae3317df6c824f5a43e64daa7",
+          "passed_nodeids": [
+            "tests/test_rights_exports.py::test_encrypted_reviewed_copy_download_without_account_excludes_other_data"
+          ],
+          "assertions": [
+            {
+              "line": 114,
+              "source": "assert \"Reviewed description\" not in export.encrypted_payload"
+            },
+            {
+              "line": 115,
+              "source": "assert RightsExport.objects.count() == RightsExportPreview.objects.count() == 1"
+            },
+            {
+              "line": 117,
+              "source": "assert len(page.context[\"exports\"]) == 1"
+            },
+            {
+              "line": 118,
+              "source": "assert b\"Reviewed description\" not in page.content and b\"Download private copy\" in page.content"
+            },
+            {
+              "line": 120,
+              "source": "assert client.get(path).status_code == 405"
+            },
+            {
+              "line": 123,
+              "source": "assert response.status_code == 200"
+            },
+            {
+              "line": 124,
+              "source": "assert response[\"Cache-Control\"] == \"private, no-store\""
+            },
+            {
+              "line": 125,
+              "source": "assert response[\"X-Robots-Tag\"] == \"noindex, nofollow\""
+            },
+            {
+              "line": 126,
+              "source": "assert \"attachment\" in response[\"Content-Disposition\"]"
+            },
+            {
+              "line": 128,
+              "source": "assert copy[\"partial\"] is True and copy[\"simulation\"] is True"
+            },
+            {
+              "line": 129,
+              "source": "assert copy[\"profile\"][\"alias\"] == \"Reviewed synthetic profile\""
+            },
+            {
+              "line": 130,
+              "source": "assert set(item[\"revision\"] for item in copy[\"revisions\"]) == set(\n        str(pk) for pk in person.listing.revisions.values_list(\"pk\", flat=True)\n    )"
+            },
+            {
+              "line": 134,
+              "source": "assert contracts[str(historical.pk)] == LEGACY_CONTRACT"
+            },
+            {
+              "line": 135,
+              "source": "assert contracts[str(person.listing.approved_revision_id)] == CURRENT_CONTRACT"
+            },
+            {
+              "line": 137,
+              "source": "assert labels[str(historical.pk)] is False"
+            },
+            {
+              "line": 138,
+              "source": "assert labels[str(source.pk)] is True"
+            },
+            {
+              "line": 141,
+              "source": "assert str(other.pk) not in serialized"
+            },
+            {
+              "line": 142,
+              "source": "assert \"rights-private@example.invalid\" not in serialized"
+            },
+            {
+              "line": 143,
+              "source": "assert \"payload_digest\" not in serialized"
+            },
+            {
+              "line": 144,
+              "source": "assert all(item[\"contacts\"][\"phone\"] == \"\" for item in copy[\"revisions\"])"
+            },
+            {
+              "line": 145,
+              "source": "assert copy[\"subject_account\"][\"email\"] == person.subject.email"
+            },
+            {
+              "line": 146,
+              "source": "assert person.agency.owner.email not in serialized"
+            },
+            {
+              "line": 147,
+              "source": "assert other.subject.email not in serialized"
+            },
+            {
+              "line": 148,
+              "source": "assert \"Independent synthetic\" not in serialized"
+            },
+            {
+              "line": 149,
+              "source": "assert client.post(path, payload).status_code == 200"
+            },
+            {
+              "line": 150,
+              "source": "assert RightsExportDownload.objects.count() == 1"
+            },
+            {
+              "line": 151,
+              "source": "assert Client(enforce_csrf_checks=True).post(path, payload).status_code == 403"
+            },
+            {
+              "line": 153,
+              "source": "assert client.post(bad, payload).status_code == 404"
+            },
+            {
+              "line": 155,
+              "source": "assert case.status == \"reviewing\" and case.version == 6"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_rights_exports.py",
+          "function": "test_new_clarification_or_manager_change_revokes_download",
+          "line": 158,
+          "file_sha256": "7a40217ae031b31e414a03fafddff29b377f5bec7c807632e83bd9fbeb94939d",
+          "function_ast_sha256": "547fabec567edb8ef170fe2a41a37c17e49041d9cd19ceab3a37d07b4b9db115",
+          "passed_nodeids": [
+            "tests/test_rights_exports.py::test_new_clarification_or_manager_change_revokes_download"
+          ],
+          "assertions": [
+            {
+              "line": 163,
+              "source": "assert client.post(path, {\"key\": uuid.uuid4()}).status_code == 404"
+            },
+            {
+              "line": 165,
+              "source": "assert client.post(receipt, clarification(client, receipt)).status_code == 302"
+            },
+            {
+              "line": 166,
+              "source": "assert client.post(path, {\"key\": uuid.uuid4()}).status_code == 404"
+            },
+            {
+              "line": 167,
+              "source": "assert not client.get(receipt).context[\"exports\"]"
+            },
+            {
+              "line": 168,
+              "source": "assert not RightsExportDownload.objects.exists()"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_rights_exports.py",
+          "function": "test_source_drift_extra_fields_foreign_revision_and_expiry_blocked",
+          "line": 171,
+          "file_sha256": "7a40217ae031b31e414a03fafddff29b377f5bec7c807632e83bd9fbeb94939d",
+          "function_ast_sha256": "f026b44edd7e6bf5be98e4ca66318b9c1c667336da95417ed53bc4dc212a0bae",
+          "passed_nodeids": [
+            "tests/test_rights_exports.py::test_source_drift_extra_fields_foreign_revision_and_expiry_blocked"
+          ],
+          "assertions": [
+            {
+              "line": 203,
+              "source": "assert client.post(path, {\"key\": uuid.uuid4()}).status_code == 404"
+            },
+            {
+              "line": 208,
+              "source": "assert client.post(path, {\"key\": uuid.uuid4()}).status_code == 404"
+            },
+            {
+              "line": 209,
+              "source": "assert not RightsExportDownload.objects.exists()"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_rights_exports.py",
+          "function": "test_damaged_private_copy_is_unavailable_without_download_record",
+          "line": 301,
+          "file_sha256": "7a40217ae031b31e414a03fafddff29b377f5bec7c807632e83bd9fbeb94939d",
+          "function_ast_sha256": "f6603d6eab760842707f6d242c24757106817c9ac3f1ae8c6b57ed3abf847e2a",
+          "passed_nodeids": [
+            "tests/test_rights_exports.py::test_damaged_private_copy_is_unavailable_without_download_record[token]",
+            "tests/test_rights_exports.py::test_damaged_private_copy_is_unavailable_without_download_record[json]",
+            "tests/test_rights_exports.py::test_damaged_private_copy_is_unavailable_without_download_record[shape]",
+            "tests/test_rights_exports.py::test_damaged_private_copy_is_unavailable_without_download_record[part]"
+          ],
+          "assertions": [
+            {
+              "line": 331,
+              "source": "assert response.status_code == 404"
+            },
+            {
+              "line": 332,
+              "source": "assert \"no-store\" in response[\"Cache-Control\"]"
+            },
+            {
+              "line": 333,
+              "source": "assert not RightsExportDownload.objects.filter(export=export).exists()"
+            },
+            {
+              "line": 335,
+              "source": "assert case.status == \"reviewing\" and case.version == export.case_version"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_promotion_recovery.py",
+          "function": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+          "line": 39,
+          "file_sha256": "8edd4ab1c8abbbdeaf0a854c498bb9dea4ee0393f18a3f5ee8e2c67ada9b6a9c",
+          "function_ast_sha256": "f37ba3e12c1a72ad4c32d987a45b39b5dd89c88e56ce6001a6934e2ae8e4383e",
+          "passed_nodeids": [
+            "tests/test_promotion_recovery.py::test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion"
+          ],
+          "assertions": [
+            {
+              "line": 141,
+              "source": "assert commercial.get(\"child_checked\") is True"
+            },
+            {
+              "line": 130,
+              "source": "assert original_child.count(marker) == 1"
+            },
+            {
+              "line": 132,
+              "source": "assert injected in command[index]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "supplemental_mapping_files": [
+    "tests/test_photos.py",
+    "tests/test_beta_exposure_worker.py"
+  ],
+  "worker_beat_original_proof": {
+    "result": "PASS",
+    "run_id": "20261024-094540-3a6ec8ac",
+    "queue": "beta-exposure-09709a0cbb7a4bd5a338dae93066216d",
+    "settings_sha256": "4b24d36584918696bf6749b2f38fcc37def11bb275c95213f1958afd6498a7cf",
+    "synthetic_only": true,
+    "real_worker_and_beat": true,
+    "synthetic_entitlement_duration_days": 10,
+    "simulated_identity_and_payment": true,
+    "worker_job_ids": [
+      "254d1f88-5067-488f-a99f-3d8eae81889d",
+      "3126f388-ef9d-4c00-aa53-bc111d90708b",
+      "829a49f2-b955-4237-9f32-5a377c49eb3a",
+      "478cf927-078f-4f50-8e98-ce58ad1e28f8"
+    ],
+    "worker_expiry_events": 1,
+    "worker_bump_executions": 1,
+    "beat_expiry_events": 1,
+    "beat_rechecked": true,
+    "bump_windows": [
+      "2026-10-24T00:00:00+00:00"
+    ],
+    "editorial_state_unchanged": true,
+    "processes": [
+      {
+        "role": "worker",
+        "pid": 1039651,
+        "exit": 0,
+        "terminated": true
+      },
+      {
+        "role": "beat",
+        "pid": 1040249,
+        "exit": 0,
+        "terminated": true
+      }
+    ],
+    "worker_log_sha256": "daf21e58be9136c28e8e70fce6f6974efbb6504c3d45614b23ecfe37cbfe8719",
+    "beat_log_sha256": "96eb147ccccaeb0a47e42e13c65e14ead9f13def85581aaca93736cd37ab9cf2"
+  },
+  "product_difference_from_functional353": [
+    "apps/listings/publication_signals.py"
+  ],
+  "schedule_refresh_bridge": {
+    "baseline_head": "920ea36b6f4d0e8c0a60d030730de5aed1cf1781",
+    "baseline_bytes_match_frozen_manifest": true,
+    "inserted_guard": "if model._meta.apps is not apps:\n    return",
+    "remaining_function_ast_identical": true,
+    "current_sha256": "e92f297ce5ffb8b27080763cba71ed65cf0fff14f19af583d78733aad92ad765",
+    "supporting_current_evidence": "docs/evidencias/b16-356-migration-signal-owned-review-20261024.json",
+    "limit": "Live-registry path preserved; historical/isolated registries intentionally differ and have focused positive/negative tests. Not a full functional rerun.",
+    "whole_module_ast_identical_after_removing_guard_and_apps_import": true
+  },
+  "remaining": [
+    "Eleven official exclusion dispositions",
+    "Final version/dataset/dependency/migration/instrument freeze and reuse justification",
+    "Overall local B16 acceptance audit",
+    "B14/B15/B17 disposition and mandatory full graph/differential inventory"
+  ],
+  "b16_accepted": false
+}

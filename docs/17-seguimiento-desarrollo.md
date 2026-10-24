@@ -1,3 +1,11 @@
+B16-366: revisión semántica de45referencias en22archivos paraAD01–AD11; fotos yworker/Beat reales añadidos al mapeo. Única diferencia de producto desde353es guarda de registros históricos, con puenteAST y correctivas. B16abierto;14/18,alfa.
+
+Corte: [revisión329](329-revision-semantica-testigos-b16-20261024.md).
+
+B10 aceptado técnicamente en local por acta21 como evaluación y disposición P2, sin índice ni cambio de producto; FAIL MOD09 y deuda expresos. Catorce de18puntos cerrados: B00–B13; pendientes B14–B17, B15 opcional. Alfa, sin aceptación B16 ni apertura.
+
+Corte: [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) y [acta21](actas/21-beta-b10-disposicion-local-20261024.md).
+
 B10-364: crecimiento/densidad2PASS; detector1000blobs/5coincidencias3,20s y100densos/100coincidencias14,39s; sin índice adoptado. B10/B16 abiertos,13/18,alfa.
 
 Corte: [diagnóstico327](327-escenarios-crecimiento-densidad-similitud-b10-20261024.md).

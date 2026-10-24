@@ -1,0 +1,5 @@
+# Acta21 — Disposición técnica local B10
+
+Codex acepta técnicamente B10 el2026-10-24 como evaluación de exportación/similitud y decisión de optimización P2, con deuda explícita según [conciliación328](../328-conciliacion-exportacion-similitud-b10-20261024.md) y [matriz de ocho requisitos](../evidencias/b10-local-requirement-disposition-20261024.json). Catorce de18puntos cerrados: B00–B13; quedan B14–B17, B15 opcional. Objetivo completo activo y proyecto en alfa.
+
+Medición actual MOD09:1FAIL temporal conservado, con cuerpos/concurrencia/límites/limpieza auditados. Diagnósticos previos20PASS/6PASS/1PASS y crecimiento/densidad2PASS mantienen sus cortes y límites; no sumarlos como una sola batería. No se adopta índice ni cambia producto. Se retienen objetivos2s/5s y aceptación provisional histórica; sin acreditar capacidad80000fotos/historial ilimitado, cola concurrente, B16 o producción. El cierre corresponde a los requisitos de seleccionar, atribuir y disponer de B10; la deuda residual sigue visible para el inventario de optimización y los gates de apertura aplicables.

@@ -2572,3 +2572,11 @@ B16-358 preflightcorregidoPASS:306nodeids/59fuentes igualesacolección, herramie
 
 ### B10-363/364 — 2026-10-24
 Medición actual MOD09 20261024-205341-42fa3118 auditada:1FAIL temporal,2015,181s,1723fuentes intactas, cuerpos/concurrencia/limpieza comprobados y Telegram confirmado. Docs326 y evidencia durable conservan FAIL y aceptación provisional; B10/B16 siguen abiertos. Grafo437/438: refresco AST/semántica dirigido, no reconstrucción final. Diagnóstico crecimiento/densidad20261024-213414-574e4266:2PASS,582,988s;1000blobs/5coincidencias detector3,20s,100densos/100coincidencias14,39s. Sin cambio de producto/índice. Doc327 y auditoría durable. Cero invocaciones ClaudeV1 nuevas, consumo anterior preservado.
+
+
+### B10-365 — disposición local,2026-10-24
+Criterios literales del roadmap103/acuerdos320 conciliados en ocho filas, doc328/acta21. Evaluación y decisión P2 terminadas, no nueva optimización de producto; original y actual FAIL MOD09 preservados, deuda2s/5s y volumen/densidad/cola expresos. No se acepta capacidad80000fotos ni retención ilimitada. Catorce de18puntos cerrados, B00–B13; B14–B17 pendientes, B15 opcional, alfa. B16 y grafo completo/diferencia de inventario siguen pendientes. Sin invocaciones ClaudeV1 nuevas.
+
+
+### B16-366 — revisión semántica,2026-10-24
+45referencias de función/22archivos inspeccionados frente aAD01–AD11;SHAactual idéntico almanifiesto353ynodeids callPASS verificadas. Mapeo añade fotos reales yCelery/Beat, logsoriginalesSHAconfirmados. AD08opcional/noimplementado. Comparación completa de producto/plantillas/estáticos353:únicodiffpublication_signals.py;ASTcuerpoanterior intacto salvoguardaregistro histórico/importapps. Correctivas317mantienenpuentes ynegativos;noesreruncompleto. Doc329/matriz durable. Pendientes11exclusiones,congelaciónyreutilizaciónfinalB16/grafo/inventario. CeroClaudeV1nuevas.

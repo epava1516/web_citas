@@ -1,3 +1,7 @@
+B10 aceptado técnicamente en local por acta21 como evaluación y disposición P2, sin índice ni cambio de producto; FAIL MOD09 y deuda expresos. Catorce de18puntos cerrados: B00–B13; pendientes B14–B17, B15 opcional. Alfa, sin aceptación B16 ni apertura.
+
+Corte: [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) y [acta21](actas/21-beta-b10-disposicion-local-20261024.md).
+
 B11 aceptado técnicamente en local por acta20: interfaz de formularios separada con paridad estructural y12pruebas antes/después. Trece de18puntos cerrados: B00–B09 y B11–B13; quedan B10 y B14–B17, B15 opcional. Sin aceptación de etapa3 completa, beta, candidata conjunta B16 o producción.
 
 Corte: [entrega311](311-interfaz-formularios-copia-b11-20261024.md) y [acta20](actas/20-beta-b11-aceptacion-local-20261024.md). Los cortes anteriores conservan fecha y alcance.

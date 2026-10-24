@@ -1,0 +1,81 @@
+{
+  "decision": "ACCEPT_LOCAL_B10_EVALUATION_WITH_EXPLICIT_RESIDUAL_DEBT",
+  "stage": "ALPHA",
+  "product_optimizations_introduced_in_B10": 0,
+  "requirements": [
+    {
+      "id": "B10-R1",
+      "requirement": "Preserve MOD09 objectives, FAIL and provisional scope",
+      "disposition": "SATISFIED_DISPOSITION",
+      "evidence": "docs/16-contrato-ejecucion-desarrollo.md",
+      "scope": "MOD09 exception is prioritization; original and current FAIL preserved, no new capacity acceptance."
+    },
+    {
+      "id": "B10-R2",
+      "requirement": "Contrast current sources with historic cut",
+      "disposition": "SATISFIED_SCOPED_COMPARISON",
+      "evidence": "docs/evidencias/b10-mod09-current-source-delta-20261024.json",
+      "scope": "Nine selected modules plus current measured frozen sources; not a full transitive semantic equivalence proof."
+    },
+    {
+      "id": "B10-R3",
+      "requirement": "Measure applicable current extreme export with original safeguards",
+      "disposition": "SATISFIED_MEASUREMENT_FAIL_RETAINED",
+      "evidence": "docs/evidencias/b10-current-mod09-terminal-audit-20261024.json",
+      "scope": "1500 revisions,16MiB JSON,64MiB originals per subject, two concurrent; six temporal violations, no service OOM, independent cleanup and concurrency audit."
+    },
+    {
+      "id": "B10-R4",
+      "requirement": "Attribute canonicalization/copy/export cost before changing implementation",
+      "disposition": "SATISFIED_DIAGNOSTIC",
+      "evidence": "docs/308-descomposicion-extremos-exportacion-similitud-b10-20261024.md",
+      "scope": "Canonical reference bytes preserved; docs309/310 locate coverage and SQL guards; current complete measurement in326. No redundant copy/cache claim proven."
+    },
+    {
+      "id": "B10-R5",
+      "requirement": "Choose similarity stress scenarios and locate cost",
+      "disposition": "SATISFIED_FINITE_STRESS_ANALYSIS",
+      "evidence": "docs/evidencias/b10-similarity-growth-density-audit-20261024.json",
+      "scope": "Distinct count1000 and candidate density100/100 separate scan vs confirmation/recording; coupled with10/100 stage diagnostics and10002Photo/fiveBlob reuse evidence. Technical stress dimensions, not a claimed upper bound."
+    },
+    {
+      "id": "B10-R6",
+      "requirement": "Do not adopt FAISS or another retrieval index without parity including negatives",
+      "disposition": "SATISFIED_NO_ADOPTION",
+      "evidence": "docs/97-propuesta-indice-similitud-fotos-cc05.md",
+      "scope": "Current comparator retained; finite baseline positive/negative parity measured. Dense true candidates would still require confirmation and protected recording; no claimed proof that every possible index is useless."
+    },
+    {
+      "id": "B10-R7",
+      "requirement": "Reproducible comparison, parity, resource limits and rollback for adopted optimization",
+      "disposition": "CONDITIONAL_NO_PRODUCT_CHANGE",
+      "evidence": "docs/327-escenarios-crecimiento-densidad-similitud-b10-20261024.md",
+      "scope": "No new product optimization adopted in B10; no before/after causal speedup or deployment rollback claimed. Diagnostics opt-in and committed; functional parity of finite baseline confirmed."
+    },
+    {
+      "id": "B10-R8",
+      "requirement": "Dispose residual cost consistently with alpha and future priorities",
+      "disposition": "SATISFIED_RETAINED_DEBT",
+      "evidence": "docs/328-conciliacion-exportacion-similitud-b10-20261024.md",
+      "scope": "Retain MOD09 latency debt, distinct/dense photo processing and queue/retention capacity risk for app inventory priority; do not move pending B10 evaluation wholesale or claim future opening gates passed."
+    }
+  ],
+  "evidence_sha256": {
+    "docs/103-roadmap-beta-clasificados-20261020.md": "789963bf6a7246d8f6d22c16b9d3f54fc99df0b721c6843d0f6bf8ec57777b3d",
+    "docs/320-acuerdos-alcance-b10-prioridades-20261024.md": "9b2a1632cf086dd22caf42b2ab71285f562b9e825f45e61eb3094ffe85c04df1",
+    "docs/16-contrato-ejecucion-desarrollo.md": "45f27d3988892c293348e8fd05370733fddd18e70e25708d524bd4456e109f3a",
+    "docs/evidencias/b10-current-mod09-terminal-audit-20261024.json": "a93b09798b962b5c67a0617f0be0c1e529169d3b5c77d46f474fbe5852ea548c",
+    "docs/evidencias/b10-similarity-growth-density-audit-20261024.json": "7cd4a0739d2aee4087f400af8ef53462f06652bcb93c8a5c0bfeb405a13bc3c3",
+    "docs/evidencias/b10-stage-diagnostic-20261024.json": "1764d5b16771ba5d7259c312e1fbec4a7bb30723312ef6877b071c109093853a",
+    "docs/evidencias/b10-mod09-current-source-delta-20261024.json": "753df98727e682aa82af295aa886ec0eeb349a91cb97e29705caeb42954a1a79"
+  },
+  "not_accepted": [
+    "original/current temporal FAIL as PASS",
+    "80000 photo or unbounded-retention capacity",
+    "worker queue/concurrent uploads end-to-end SLO",
+    "B16 common candidate acceptance",
+    "B14/B15/B17 or opening/production"
+  ],
+  "closed_count": 14,
+  "total_count": 18
+}

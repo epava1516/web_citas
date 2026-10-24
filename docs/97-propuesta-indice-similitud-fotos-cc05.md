@@ -37,3 +37,7 @@ Revisar esta propuesta cuando el seguimiento priorice CC-05/procesamiento de med
 ## Nota de vigencia — B10, 2026-10-24
 
 El selector usa actualmente EXISTS desde la corrección medida el15/10; conserva el recorrido de todos los blobs admisibles. El contraste10002Photo/cincoBlob no es una evaluación de recuperación con muchos blobs diferentes. La [descomposición308](308-descomposicion-extremos-exportacion-similitud-b10-20261024.md) separa esa evidencia y prepara diagnósticos actuales; FAISS, pgvector, BK-tree y LSH siguen sin adoptarse. Las alternativas y condiciones anteriores conservan carácter de propuesta.
+
+## Disposición B10 — 24 de octubre de2026
+
+La [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) completa la evaluación local B10 y mantiene CC05 como propuesta sin tecnología seleccionada. Los [diagnósticos de crecimiento y densidad327](327-escenarios-crecimiento-densidad-similitud-b10-20261024.md) separan recorrido de1000Blob y confirmación/registro de100candidatos densos; no acreditan capacidad80000fotos o retención ilimitada. El perfeccionamiento de aplicación conserva sus condiciones de paridad y autoridad; su retoma se priorizará desde el inventario actualizado, sin abrir un contrato de optimización QA.
