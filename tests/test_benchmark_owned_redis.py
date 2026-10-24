@@ -109,5 +109,5 @@ def test_invalid_benchmark_selection_stops_before_service_commands(monkeypatch, 
     assert (
         "Worker observer requires the explicit short HTTP diagnostic" in message
         or "Benchmark switches require focused selection and --workers 1" in message
-        or "Normal benchmark refresh requires the explicit contract HTTP test" in message
+        or "Normal benchmark refresh requires an explicit contract HTTP or isolated mixed native test" in message
     )
