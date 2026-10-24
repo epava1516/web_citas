@@ -1,3 +1,7 @@
+B16-359: carril serial terminado, 297PASS/9SKIP/0fallos en306casos, 4h58min; selección y1723fuentes verificadas, limpieza yTelegram confirmados. B16abierto para conciliación de requisitos/exclusiones. B10se resuelve en contrato actual conforme aMOD09; B14/B15/B17deuda propuesta futura, alfa.
+
+Corte: [auditoría321](321-auditoria-carril-capacidad-b16-20261024.md) y [acuerdos320](320-acuerdos-alcance-b10-prioridades-20261024.md). Optimización específicaQAaplazada hasta etapa estable/productiva.
+
 B16-357: matriz actual10000/ocho condiciones PASS tras corregir recuento de Page vacío; primer informe con null conservado como paridad de cuerpos. Derechos emitidos0, no crédito de Top/Premium o proveedores. B16-358 preparado para306casos seriales, con congelación, Telegram y control persistente; sin ejecución ni aceptación todavía.13/18puntos cerrados, proyecto en alfa.
 
 Cortes: [matriz318](318-matriz-rutas-vigente-b16-20261024.md) y [prerregistro319](319-prerregistro-carril-capacidad-b16-20261024.md). Los resultados terminales/control de358 serán autoridad al volver; no se infieren desde este prerregistro.

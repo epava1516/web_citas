@@ -2561,3 +2561,6 @@ B16-353 ready:staticlaunchproofPASS/currentproduct+testsscriptsidentity090124/na
 B16-358 primerpreflight estático FALLA:llaveextra enhelpernuevo decompactación,capturadaenASTantesdelanzar. Helperprevioyfalloconservadosenartifacts;corregidaunasolallave,sinCIejecutada,pendienterepeticiónpreflight.
 
 B16-358 preflightcorregidoPASS:306nodeids/59fuentes igualesacolección, herramientas fijadas/imágenes disponibles, mismo goal activo yAPIhistorial verificadas. RecibosTelegram deprimerFAILestático ycorrectivaPASS confirmados; sintaxis corregidaantesdeCI. Congelación ypausa sólo traslanzamientopersistente confirmado.
+
+
+2026-10-24 — B16-359/360: carril 20261024-154224-43b1e770 auditado297PASS/9SKIP/0fallos, 306nodeids exactos,1723fuentes iguales; limpieza yTelegram confirmados. Compactación yretorno mismo objetivo confirmados. Documentos320–323: acuerdos B10actual/deuda futura, auditoría yconciliación parcial AD01–AD11; sinaceptaciónB16. Refresco semántico dirigido435, no reconstrucción completa. B10contraste ASTde9módulos frente ac92fe64; sin nueva carga omejora global acreditada. Cero invocaciones ClaudeV1 nuevas; consumo previo preservado.
