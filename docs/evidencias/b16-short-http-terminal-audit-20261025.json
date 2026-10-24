@@ -1,0 +1,107 @@
+{
+  "run": "20261024-221417-1150e8ef",
+  "verdict": "AUDITED_SHORT_PASS_NOT_CONTRACTUAL",
+  "sources_verified": 1723,
+  "graph_protocol_spec_helpers_unchanged": true,
+  "cases": 1,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "junit_seconds": 5939.701,
+  "counts": {
+    "scheduled": 1200,
+    "emitted": 1200,
+    "not_emitted": 0,
+    "successful": 1200,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "uploads": {
+    "scheduled": 1,
+    "emitted": 1,
+    "not_emitted": 0,
+    "successful": 1,
+    "failed": 0,
+    "pending": 0,
+    "timeouts": 0,
+    "other_errors": 0,
+    "reconciled": true
+  },
+  "observable_latency_seconds": {
+    "p50": 0.22905102651566267,
+    "p90": 0.4045195495709777,
+    "p95": 0.45109921880066395,
+    "p99": 0.5829472597688437,
+    "max": 0.7471657171845436,
+    "population": 1200
+  },
+  "generator_delay_seconds": {
+    "p50": 0.0008634299039833593,
+    "p90": 0.0021263319998965358,
+    "p95": 0.0031427353620543386,
+    "p99": 0.006747838109731674,
+    "max": 0.03335609808564188,
+    "population": 1200
+  },
+  "short_checks": {
+    "validity": true,
+    "latency_and_errors": true,
+    "emitted": true,
+    "window_pending": true,
+    "final_pending": true,
+    "accounting": true,
+    "upload": true,
+    "timeout_policy": true,
+    "drain": true
+  },
+  "memory_upper_bound_bytes": 2282180608,
+  "storage_ceiling_bytes": 4865392640,
+  "cgroup_memory": {
+    "pg": {
+      "current_bytes": 394936320,
+      "peak_bytes": 921370624,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "redis": {
+      "current_bytes": 5025792,
+      "peak_bytes": 22081536,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "app": {
+      "current_bytes": 26423296,
+      "peak_bytes": 1011990528,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "objects": {
+      "current_bytes": 61362176,
+      "peak_bytes": 73879552,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    },
+    "caddy": {
+      "current_bytes": 79118336,
+      "peak_bytes": 118640640,
+      "swap_peak_bytes": 0,
+      "oom_kill": 0
+    }
+  },
+  "independent_cleanup": {
+    "containers": "ABSENT",
+    "volumes": "ABSENT",
+    "networks": "ABSENT"
+  },
+  "archive_members_read": 74,
+  "archive_sha256": "f27ffd1f770bb88a0ce68026e1b9f75fb9a48e5cfea22688aee54b7af26fb269",
+  "telegram": {
+    "delivery": "sent",
+    "result": "BETA_HTTP_SHORT_PASS_NOT_CONTRACTUAL",
+    "name": "B16-368 control corto HTTP vigente terminada; revisar tiempos, resultado y limpieza"
+  },
+  "scope": "60s only; no contractual900s, B16 acceptance, beta opening or causal speedup claim"
+}

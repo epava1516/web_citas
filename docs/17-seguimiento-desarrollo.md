@@ -1,3 +1,11 @@
+B16-370: preparación contractual HTTP vigente900s/10000perfiles tras corto368auditadoPASS. Opciones oficiales, sintaxishelpers, imágenes y mismo goal verificados; sin lanzamiento.14/18,alfa;B16abierto.
+
+Corte: [prerregistro333](333-prerregistro-http-contractual-b16-20261025.md) y [auditoría332](332-auditoria-http-corto-b16-20261025.md).
+
+B16-369: control corto actual auditado, 1PASS/0ERROR/0SKIP, 1200/1200 respuestas y una subida correctas; p95 observable451,099ms, 5939,701sJUnit. Fuentes1723 y congelación verificadas; limpieza independiente y Telegram confirmados. No acredita900s ni aceptaB16;14/18,alfa.
+
+Corte: [auditoría332](332-auditoria-http-corto-b16-20261025.md).
+
 B16-368: preparación de control corto HTTP vigente10000/mezcla combinada,8CPU/8GiB;1caso esperado, sin resultado. Espera persistente conTelegram/compactación/retorno al mismo goal por preparar. B16abierto,14/18,alfa.
 
 Corte: [protocolo331](331-control-corto-http-vigente-b16-20261024.md).
