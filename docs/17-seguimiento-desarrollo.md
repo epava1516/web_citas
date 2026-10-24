@@ -1,3 +1,7 @@
+B16-355:129omisiones individualizadas en74módulos. Dosnegativos decontenido actuales PASS114,464sJUnit y nativo100 PASS181,922sJUnit,60páginas/14→0marcas porBeat/workerreales. Fuentes,limpieza yTelegramverificados. Son3testigos suplementarios, sin reescribir129SKIP. Cuatrorevisionespositivas, matrizderutas ycapacidadpendientes;121diagnósticos/prototiposopt-in sinPASS. B16abierto,13/18cerrados, alfa.
+
+Corte: [conciliación316](316-conciliacion-omisiones-b16-20261024.md). Obligación final reconstruccióncompleta→diferencialinventarioconservada.
+
 B16-354: regresión353 terminal ERROR conservada,3697PASS/3FAIL/129SKIP en3829casos únicos. Correctiva de un literal esperado:23PASS, producto/runner intactos; cobertura conciliada3700PASS/129SKIP, no ejecución única aprobada. Fuentes,limpieza yTelegram verificados. B16abierto para omisiones/capacidad/matriz;13/18cerrados, proyecto permanece alfa.
 
 Corte: [auditoría315](315-regresion-funcional-terminal-correctiva-b16-20261024.md). La reconstrucción completa del grafo precederá al diferencial final del inventario; ambas obligaciones siguen pendientes.
