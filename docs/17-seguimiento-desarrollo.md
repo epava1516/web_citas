@@ -1,3 +1,7 @@
+B16-357: matriz actual10000/ocho condiciones PASS tras corregir recuento de Page vacío; primer informe con null conservado como paridad de cuerpos. Derechos emitidos0, no crédito de Top/Premium o proveedores. B16-358 preparado para306casos seriales, con congelación, Telegram y control persistente; sin ejecución ni aceptación todavía.13/18puntos cerrados, proyecto en alfa.
+
+Cortes: [matriz318](318-matriz-rutas-vigente-b16-20261024.md) y [prerregistro319](319-prerregistro-carril-capacidad-b16-20261024.md). Los resultados terminales/control de358 serán autoridad al volver; no se infieren desde este prerregistro.
+
 B16-356: corregida la programación de tareas activas desde modelos históricos de migración, tras reproducción de 1 FAIL/1 PASS y un cierre de contenido rechazado con Redis pendiente. Correctiva de 9 PASS, relación m2m real con 1 PASS, cuatro revisiones positivas ES/EN de perfil/cuenta con 1 PASS por variante y nativo100 con 1 PASS, 60 páginas y reparación de 14→0 marcas. Fuentes, limpieza y Telegram verificados; guardas de contenido intactas, sin borrar colas. B16 abierto para rutas/capacidad/requisitos; 13/18 cerrados, proyecto en alfa.
 
 Corte: [corrección317](317-registros-historicos-senal-publicacion-b16-20261024.md). Sieteomisiones con testigos explícitos;121diagnósticos/prototipos sincréditoPASS ymatrizrutaspendiente. Reconstruccióncompleta delgrafo→diferencialinventario siguen comoúltimaacción contractual.

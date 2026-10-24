@@ -1,0 +1,193 @@
+{
+  "run": "20261024-151447-4f5b9f61",
+  "result": "PASS",
+  "tests": 1,
+  "junit_seconds": 308.892,
+  "sources": 1723,
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "population": 10000,
+  "rows": [
+    {
+      "mode": "normal",
+      "path": "/es/",
+      "params": {},
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "projection"
+      },
+      "count": 10000,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.24982454255223274,
+        0.17595573887228966
+      ],
+      "control_mean_seconds": 0.2128901407122612,
+      "native_seconds": 12.216743225231767
+    },
+    {
+      "mode": "normal",
+      "path": "/en/",
+      "params": {
+        "q": "photography"
+      },
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "projection"
+      },
+      "count": 10000,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.8871542569249868,
+        0.23181301075965166
+      ],
+      "control_mean_seconds": 0.5594836338423193,
+      "native_seconds": 13.206710254773498
+    },
+    {
+      "mode": "normal",
+      "path": "/es/",
+      "params": {
+        "checked": [
+          "age"
+        ]
+      },
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "native_query"
+      },
+      "count": null,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.08887834288179874,
+        0.07615845929831266
+      ],
+      "control_mean_seconds": 0.0825184010900557,
+      "native_seconds": 33.78117153979838
+    },
+    {
+      "mode": "normal",
+      "path": "/es/",
+      "params": {
+        "checked": [
+          "contact",
+          "agency"
+        ]
+      },
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "native_query"
+      },
+      "count": null,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.12313548009842634,
+        0.07237677462399006
+      ],
+      "control_mean_seconds": 0.0977561273612082,
+      "native_seconds": 34.87799649965018
+    },
+    {
+      "mode": "normal",
+      "path": "/es/",
+      "params": {
+        "page": "3"
+      },
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "projection"
+      },
+      "count": 10000,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.13662602193653584,
+        0.16190154012292624
+      ],
+      "control_mean_seconds": 0.14926378102973104,
+      "native_seconds": 13.30294710304588
+    },
+    {
+      "mode": "production",
+      "path": "/es/",
+      "params": {},
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "projection"
+      },
+      "count": null,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.07803685031831264,
+        0.07774874474853277
+      ],
+      "control_mean_seconds": 0.07789279753342271,
+      "native_seconds": 25.348113765008748
+    },
+    {
+      "mode": "production",
+      "path": "/en/",
+      "params": {
+        "q": "photography",
+        "checked": [
+          "age"
+        ]
+      },
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "native_query"
+      },
+      "count": null,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.07145814318209887,
+        0.07248685602098703
+      ],
+      "control_mean_seconds": 0.07197249960154295,
+      "native_seconds": 27.081454657949507
+    },
+    {
+      "mode": "promotions",
+      "path": "/es/",
+      "params": {},
+      "status": 200,
+      "route": {
+        "route": "state",
+        "reason": "trusted_state",
+        "native_unknown": 0,
+        "population": "projection"
+      },
+      "count": 10000,
+      "equivalent_to_native": true,
+      "controls_seconds": [
+        0.17546387761831284
+      ],
+      "control_mean_seconds": 0.17546387761831284,
+      "native_seconds": 12.710873598232865
+    }
+  ],
+  "promotion_entitlements": 0,
+  "scope": "Current exact eight-condition in-process route/native body parity; promotions flag with no issued rights; synthetic simulator PRODUCTION unpublishable; no TCP/capacity/SLO/provider credit",
+  "actual_signed_promotion_coverage": "Separate B08/B07/current functional witnesses; not credited by flag-only route"
+}

@@ -33,3 +33,8 @@ Los [tres testigos suplementarios actuales](evidencias/b16-explicit-omission-wit
 ## Actualización posterior — B16-356
 
 Las cuatro revisiones positivas se ejecutaron nuevamente y pasaron, tras corregir la programación de tareas desde modelos históricos de migración. El [corte317](317-registros-historicos-senal-publicacion-b16-20261024.md) conserva el negativo inicial, la reproducción de la causa y la corrección, además de los cuatro positivos con revisión independiente. También verifica otra vez la reparación nativa sobre el producto corregido. La matriz individual enlaza esos testigos; los129SKIP originales permanecen intactos. Los dos negativos355 anteceden a esta guarda del planificador histórico y mantienen su corte. B16 conserva rutas, capacidad y conciliación de requisitos pendientes.
+
+
+## Actualización posterior — B16-357
+
+La [matriz318](318-matriz-rutas-vigente-b16-20261024.md) aporta el testigo actual de las ocho condiciones a10000perfiles, con recuentos explícitos y sin derechos promocionales emitidos. Esta omisión tiene ya recorrido explícito, sin reescribir el SKIP353. La matriz individual conserva121diagnósticos/prototipos sin crédito PASS y ocho testigos suplementarios. Capacidad y conciliación final de requisitos siguen pendientes; no se acepta B16.
