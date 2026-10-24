@@ -1,3 +1,7 @@
+B16-368: preparación de control corto HTTP vigente10000/mezcla combinada,8CPU/8GiB;1caso esperado, sin resultado. Espera persistente conTelegram/compactación/retorno al mismo goal por preparar. B16abierto,14/18,alfa.
+
+Corte: [protocolo331](331-control-corto-http-vigente-b16-20261024.md).
+
 B16-367:9/11exclusiones dispuestas;7PASSactualesTCP/transporte en266,980s y2territoriales con puente de fuentes/helper byteexacto. HTTP2pendientes de control vigente por cambio de plantilla pública. B16abierto,14/18,alfa.
 
 Corte: [conciliación330](330-conciliacion-exclusiones-b16-20261024.md).
