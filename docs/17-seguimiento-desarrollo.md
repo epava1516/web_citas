@@ -1,3 +1,11 @@
+B16-367:9/11exclusiones dispuestas;7PASSactualesTCP/transporte en266,980s y2territoriales con puente de fuentes/helper byteexacto. HTTP2pendientes de control vigente por cambio de plantilla pública. B16abierto,14/18,alfa.
+
+Corte: [conciliación330](330-conciliacion-exclusiones-b16-20261024.md).
+
+B16-367: once exclusiones localizadas; TCP6+historial8MiB1requieren verificación actual por54archivos de producto distintos desde18/10. Selección focal7prerregistrada, sin resultado aún. Territorial2/HTTP2pendientes de disposición. B16abierto,14/18,alfa.
+
+Corte: [exclusiones330](330-conciliacion-exclusiones-b16-20261024.md).
+
 B16-366: revisión semántica de45referencias en22archivos paraAD01–AD11; fotos yworker/Beat reales añadidos al mapeo. Única diferencia de producto desde353es guarda de registros históricos, con puenteAST y correctivas. B16abierto;14/18,alfa.
 
 Corte: [revisión329](329-revision-semantica-testigos-b16-20261024.md).

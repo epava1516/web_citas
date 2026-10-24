@@ -2580,3 +2580,9 @@ Criterios literales del roadmap103/acuerdos320 conciliados en ocho filas, doc328
 
 ### B16-366 — revisión semántica,2026-10-24
 45referencias de función/22archivos inspeccionados frente aAD01–AD11;SHAactual idéntico almanifiesto353ynodeids callPASS verificadas. Mapeo añade fotos reales yCelery/Beat, logsoriginalesSHAconfirmados. AD08opcional/noimplementado. Comparación completa de producto/plantillas/estáticos353:únicodiffpublication_signals.py;ASTcuerpoanterior intacto salvoguardaregistro histórico/importapps. Correctivas317mantienenpuentes ynegativos;noesreruncompleto. Doc329/matriz durable. Pendientes11exclusiones,congelaciónyreutilizaciónfinalB16/grafo/inventario. CeroClaudeV1nuevas.
+
+
+### B16-367 — preparación de exclusiones,2026-10-24
+Búsqueda deonce nodeids exactos enJUnit conserva latestFAILshort21/10 ytestigos históricos. TCP6+historial8MiB1originales18/10,54archivos previos deproducto distintos;territorial2con11diff. Doc330prerregistra focusedactual7casos sin cambioproductotest;noacreditarecursos/capacidadporrunnerordinario ni causa de rendimiento. Aúnsinresultado;HTTP2/territorial2pendientes. CeroClaudeV1nuevas.
+
+B16-367terminal:7PASS/266,980s,selecciónexacta,1723fuentes/grafo/protocolo intactosantesdeedición;cleanupPID/Docker/temporales yTelegram confirmados. Transporte9051401bytes/1500descripciones. Territoriales2reutilizadoscon17RULES+consultas/fixtures/dependenciasidénticos yreconstrucciónbyteexactahelperantiguo;ABBA234/adopción235originalesSHAverificados,10/100actualesPASS. Corrigeobservaciónidentidadtest234:metadatodefault_adopted cambió235,bytesantiguosrecuperadosexactamente.9/11exclusionesdispuestas,HTTP2pendientesporplantillapúblicamodificada;noSLOactualinferido.

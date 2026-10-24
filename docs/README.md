@@ -309,3 +309,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Disposición técnica local B10: acta21](actas/21-beta-b10-disposicion-local-20261024.md), [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) y [matriz de requisitos](evidencias/b10-local-requirement-disposition-20261024.json). Catorce de18puntos cerrados; FAIL MOD09 y deuda expresos, sin aceptación B16.
 
 - [Revisión semántica de testigos B16:329](329-revision-semantica-testigos-b16-20261024.md), [matriz con aserciones y resultados](evidencias/b16-semantic-witness-review-20261024.json). B16 sigue abierto.
+
+- [Conciliación de exclusiones B16:330](330-conciliacion-exclusiones-b16-20261024.md), [siete actuales](evidencias/b16-seven-current-exclusions-audit-20261024.json), [reutilización territorial](evidencias/b16-territory-exclusions-reuse-20261024.json) y [matriz individual](evidencias/b16-official-exclusion-dispositions-20261024.json). Nueve dispuestas y dosHTTPpendientes; no aceptaciónB16.

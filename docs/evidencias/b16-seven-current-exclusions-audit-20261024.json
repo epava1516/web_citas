@@ -1,0 +1,148 @@
+{
+  "state": "VERIFIED_SEVEN_CURRENT_EXCLUSIONS_FUNCTIONAL_NOT_CAPACITY",
+  "run": "20261024-215821-1bc5d75d",
+  "result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "7",
+      "time": "266.980",
+      "timestamp": "2026-10-24T23:58:40.352570+02:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1723,
+  "source_mismatches": [],
+  "exact_expected_nodeids": true,
+  "cases": [
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-100]",
+      "seconds": 55.859,
+      "population": 100,
+      "fixture": "repeated",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-1000]",
+      "seconds": 22.772,
+      "population": 1000,
+      "fixture": "repeated",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[repeated-10000]",
+      "seconds": 58.793,
+      "population": 10000,
+      "fixture": "repeated",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[diverse-100]",
+      "seconds": 12.455,
+      "population": 100,
+      "fixture": "diverse",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[diverse-1000]",
+      "seconds": 17.408,
+      "population": 1000,
+      "fixture": "diverse",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_publication_state_tcp.py::test_current_matrix_tcp[diverse-10000]",
+      "seconds": 69.771,
+      "population": 10000,
+      "fixture": "diverse",
+      "samples": 30,
+      "wsgi_events": 30,
+      "route_groups": 6,
+      "topology": null,
+      "limits": "Sequential HTTP TCP controls, 5 per route/block after warmup; own four sync workers; lightweight one event write/transaction plus route metadata middleware, no SQL/rule profiler, overhead not causally quantified. Same-host monotonic clocks; HTTP receipt can precede final WSGI close, no end>=exit assumption. No upload/concurrency/SLO capacity. CPU/resources not_measured; matrix populations not saturated historical populations. Effect acceptance requires independent prefixed review."
+    },
+    {
+      "nodeid": "tests/test_rights_portability_large_history.py::test_large_approved_history_uses_actual_8mib_transport",
+      "seconds": 29.225,
+      "properties": {
+        "generation_seconds": "9.813781786710024",
+        "generation_python_peak_bytes": "100161105",
+        "document_bytes": "9051401",
+        "historical_revisions": "1500"
+      }
+    }
+  ],
+  "independent_labels": {
+    "container": {
+      "exit": 0,
+      "ids": []
+    },
+    "volume": {
+      "exit": 0,
+      "ids": []
+    },
+    "network": {
+      "exit": 0,
+      "ids": []
+    }
+  },
+  "temporary_absent": true,
+  "runner_pid_absent": true,
+  "observed_wsgi_worker_pids_absent": [
+    571726,
+    571736,
+    571737,
+    571738,
+    574706,
+    574739,
+    574787,
+    574802,
+    580556,
+    580557,
+    580559,
+    580562,
+    581787,
+    581799,
+    581838,
+    581839,
+    583411,
+    583412,
+    583413,
+    583414,
+    590559,
+    590560,
+    590616,
+    590632
+  ],
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "graph_unchanged": true,
+  "protocol_unchanged": true,
+  "scope": "No SLO/resource-capacity acceptance; exact old witnesses retained separately; no causal timing comparison"
+}
