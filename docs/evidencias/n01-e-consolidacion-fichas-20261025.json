@@ -1,0 +1,1341 @@
+{
+  "state": "PRIMARY_PLANNING_RECONCILIATION_NOT_N01_ACCEPTANCE",
+  "proposal_source": "docs/evidencias/n01-propuestas-restantes-20261025.json",
+  "proposal_sha256": "171b7fbbd7412b8a75b3e3b26668c2654046dfffadf7352a30f9c65a86060ee4",
+  "graph_cut_sha256": "1cd1665a5ff39b7b024449d95f237a576274dafff2f82eb6be935c805e13edbe",
+  "source_citations_revalidated": 93,
+  "scenarios": [
+    {
+      "id": "S02-A",
+      "group": "S02",
+      "block": "N07",
+      "families": [
+        "I13",
+        "I15",
+        "I16",
+        "I17",
+        "I24"
+      ],
+      "actions": [
+        "route:R_listing_lifecycle",
+        "task:T_apps.listings.tasks.expire_listings"
+      ],
+      "hypothesis": "Withdrawal/expiry remains immediate and exact retries cannot republish while delayed expiry is idempotent.",
+      "dataset_source_scope": "directory + own() + payload(); one individual published listing; EN pause/resume/withdraw and ES expired/renewed same listing; UUID key/version retained.",
+      "roles": [
+        "owner",
+        "anonymous",
+        "visitor outsider",
+        "system expiry actor=None"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_lifecycle.py::test_availability_pause_resume_withdraw_and_old_retry",
+          "source_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "line_start": 37,
+          "line_end": 71,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_lifecycle.py::test_renewal_same_id_confirmation_expiry_and_delayed_task",
+          "source_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "line_start": 74,
+          "line_end": 100,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "HTTP operation latency/status/errors",
+        "SQL count/time and locks",
+        "expiry job machine duration and events",
+        "public visibility immediately after mutation"
+      ],
+      "oracles": [
+        "Old exact retry preserves withdrawn state; resume 409; outsider 404; anonymous private redirect; one renewal/expiry ledger event and same listing ID."
+      ],
+      "measurement_modality": "HTTP versus publication refresh/worker",
+      "technical_criterion": "Immediate authority/visibility and idempotent outcomes are mandatory. HTTP SQL vectors from N01D are a diagnostic reference, not a universal ceiling across transitions. Worker/Beat latency requires a real queued baseline; never borrow eager timing.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Does not establish Beat cadence or end-to-end worker capacity. Direct expire_one witness is distinct from real broker/worker latency."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S02-B",
+      "group": "S02",
+      "block": "N07",
+      "families": [
+        "I13",
+        "I15",
+        "I16",
+        "I17",
+        "I24"
+      ],
+      "actions": [
+        "task:T_apps.listings.tasks.refresh_publication_state",
+        "task:T_apps.listings.tasks.sweep_publication_state"
+      ],
+      "hypothesis": "Revoked consent/grant and paused/expired dependencies cannot remain publicly visible while stored state is dirty.",
+      "dataset_source_scope": "directory fixture; exact MUTATIONS parameters and QUERIES, ES/EN; native fallback versus state route before/after drain, normal/production mode.",
+      "roles": [
+        "public reader",
+        "dependency-changing isolated operator"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_publication_state.py::test_dependency_change_is_reflected_without_refresh",
+          "source_sha256": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912",
+          "line_start": 131,
+          "line_end": 146,
+          "parametrize": [
+            "pytest.mark.parametrize('name', sorted(MUTATIONS))"
+          ]
+        },
+        {
+          "selector": "tests/test_publication_state.py::test_state_route_matches_native_before_and_after_refresh",
+          "source_sha256": "d034241d400cbcae65da28922c8d5ff555df884cbb1ffe6d66070244e4a28912",
+          "line_start": 74,
+          "line_end": 86,
+          "parametrize": [
+            "pytest.mark.parametrize('mode', ['normal', 'production'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "mutation-to-denial observation",
+        "dirty backlog count/oldest age",
+        "refresh rows/job CPU/SQL/locks",
+        "HTTP parity and stage latency"
+      ],
+      "oracles": [
+        "Same status/content as native for all selected queries; stale rows not trusted; current eligibility and revision identity."
+      ],
+      "measurement_modality": "HTTP versus publication refresh/worker",
+      "technical_criterion": "Immediate authority/visibility and idempotent outcomes are mandatory. HTTP SQL vectors from N01D are a diagnostic reference, not a universal ceiling across transitions. Worker/Beat latency requires a real queued baseline; never borrow eager timing.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Source notes on_commit can execute eagerly: this functional test alone does not prove worker-delay latency. Finite delayed-worker variant needs separate real local worker/broker setup, bounds and cleanup.",
+        "S02 cohort does not cover every I13/I15/I16 media/review action; those retain explicit later disposition."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S03-A",
+      "group": "S03",
+      "block": "N09",
+      "families": [
+        "I20",
+        "I21",
+        "I23",
+        "I25"
+      ],
+      "actions": [
+        "route:R_rights_communications",
+        "route:R_rights_recipient_notices"
+      ],
+      "hypothesis": "Independent execution-bound recipient review must reject incomplete or unproven communicated outcomes without confusing audit with delivery.",
+      "dataset_source_scope": "plan_fixture for erase; prepared processing fixture for restriction/object; three exact kind parameters; audited source and target decision map.",
+      "roles": [
+        "execution actor",
+        "independent reviewer with explicit permissions and MFA",
+        "private case reader"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_rights_communications.py::test_review_is_independent_exact_audited_and_never_implies_delivery",
+          "source_sha256": "d514f171fd39660fde7d9564d4ac095a909580bdccfea62b067458000ef92dfb",
+          "line_start": 25,
+          "line_end": 388,
+          "parametrize": [
+            "pytest.mark.parametrize('kind', ['erase', 'restriction', 'object'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "snapshot/validation/transaction/render latency separately",
+        "SQL/locks/decrypt stage",
+        "rejections and audit records"
+      ],
+      "oracles": [
+        "Source incomplete/pending, no manager notices initially; incomplete targets rejected; communicated requires recorded recipient receipt; preserve full existing selector assertions."
+      ],
+      "measurement_modality": "Rights transaction, outbox stages and bounded purge",
+      "technical_criterion": "Zero unauthorized exposure, duplicate effect or retained expired unused text; preserve issued evidence. Measure service/transaction/claim/adapter/purge separately. Simulator is never real delivery; human review has no machine latency SLO.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "No human decision duration, external receipt or provider performance claim. Not universal rights workflow coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S03-B",
+      "group": "S03",
+      "block": "N09",
+      "families": [
+        "I20",
+        "I21",
+        "I23",
+        "I25"
+      ],
+      "actions": [
+        "route:R_complaint_resolve",
+        "task:T_apps.safety.tasks.deliver_safety_notices"
+      ],
+      "hypothesis": "Complaint resolution outbox can retry or be claimed concurrently without duplicate simulated effects or leaking recipient/error content.",
+      "dataset_source_scope": "queued(request,settings) uses listing_case/inspection/resolution and one ComplaintNotice; simulator only; retain exact existing failure adapter and retry-state variants.",
+      "roles": [
+        "authorized resolution staff",
+        "anonymous private receipt consumer",
+        "two outbox workers"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_notice_delivery.py::test_due_outbox_exactly_once_private_receipt_and_production_disabled",
+          "source_sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+          "line_start": 39,
+          "line_end": 54,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_notice_delivery.py::test_retry_backoff_dead_state_and_no_exception_details_persisted",
+          "source_sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+          "line_start": 57,
+          "line_end": 85,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_notice_delivery.py::test_two_workers_claim_one_notice_without_duplicate_simulation",
+          "source_sha256": "fe31785e9e21527004a15e03e8cd1361f59af38bd5b0c2ad23533e8e9817db9c",
+          "line_start": 88,
+          "line_end": 104,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_notice_worker_recovery.py::test_prefork_outbox_failure_natural_backoff_then_unique_recovery",
+          "source_sha256": "6b27c170cb65f68a82948ae5696091fca57cfa91a506e2a739fff5f2aa64ab8d",
+          "line_start": 29,
+          "line_end": 166,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "enqueue/claim/adapter/commit duration",
+        "due versus scheduled backlog/oldest age",
+        "attempt counts/errors/duplicates",
+        "worker recovery separately from machine service time"
+      ],
+      "oracles": [
+        "Production disables simulator; one simulated delivery only; retries do not persist sensitive exception text; exactly-once receipt; no duplicate claiming."
+      ],
+      "measurement_modality": "Rights transaction, outbox stages and bounded purge",
+      "technical_criterion": "Zero unauthorized exposure, duplicate effect or retained expired unused text; preserve issued evidence. Measure service/transaction/claim/adapter/purge separately. Simulator is never real delivery; human review has no machine latency SLO.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Natural backoff selector includes real waiting and must be explicitly scheduled as a finite existing test, not automatic load.",
+        "Simulated channel remains simulator even when actual PostgreSQL/prefork/broker execute; N12 provider condition unchanged."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S03-C",
+      "group": "S03",
+      "block": "N09",
+      "families": [
+        "I20",
+        "I21",
+        "I23",
+        "I25"
+      ],
+      "actions": [
+        "task:T_apps.safety.tasks.purge_expired_access_response_drafts",
+        "route:R_erasure_final"
+      ],
+      "hypothesis": "Expired unissued draft text can be purged in finite batches while issued evidence, digests, replay identity and fresh drafts survive.",
+      "dataset_source_scope": "plan_fixture + prepare/inspect/review/issue; states unused/issued/legacy_issued; separate 101-row synthetic ledger cohort aged 25 hours by timestamp mutation.",
+      "roles": [
+        "rights execution actor",
+        "independent reviewer",
+        "purge task"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_rights_final_draft_retention.py::test_expired_unused_text_is_purged_but_issued_evidence_survives",
+          "source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+          "line_start": 24,
+          "line_end": 105,
+          "parametrize": [
+            "pytest.mark.parametrize('state', ['unused', 'issued', 'legacy_issued'])"
+          ]
+        },
+        {
+          "selector": "tests/test_rights_final_draft_retention.py::test_unused_draft_cleanup_is_bounded_and_continues_on_next_run",
+          "source_sha256": "53e9e5b26457ac3f7a31ba67e70010473ce0392447802ec936c2abea487293f3",
+          "line_start": 108,
+          "line_end": 146,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "rows cleared per invocation",
+        "SQL/locks and machine duration",
+        "retained versus purged text counts",
+        "idempotent next-run cost"
+      ],
+      "oracles": [
+        "Counts 100,1,0 for bounded ledger; issued evidence retained; unused text blank with purged_at; digest/key/version preserved; fresh draft survives."
+      ],
+      "measurement_modality": "Rights transaction, outbox stages and bounded purge",
+      "technical_criterion": "Zero unauthorized exposure, duplicate effect or retained expired unused text; preserve issued evidence. Measure service/transaction/claim/adapter/purge separately. Simulator is never real delivery; human review has no machine latency SLO.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "101 ledger rows are not 101 verified business executions. Timestamp mutation is not observation of real 25-hour retention passage. Does not measure physical object erasure or every I25 purge."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S04-A",
+      "group": "S04",
+      "block": "N06",
+      "families": [
+        "I09",
+        "I10",
+        "I11",
+        "I12",
+        "I18"
+      ],
+      "actions": [
+        "route:R_signup",
+        "route:R_account_token",
+        "route:R_login",
+        "route:R_logout",
+        "route:R_dashboard"
+      ],
+      "hypothesis": "Signup/token/session path preserves legal versions, one-use activation and privilege separation across operation stages.",
+      "dataset_source_scope": "legal_docs(transactional_db,settings), bootstrap and locmem mail; registration synthetic .invalid address; EN positive chain plus ES invalid legal versions; retain separate csrf/throttle selector.",
+      "roles": [
+        "anonymous registrant",
+        "inactive account",
+        "verified visitor",
+        "forged staff/agency inputs"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_accounts.py::test_signup_requires_legal_and_stale_version_rejected",
+          "source_sha256": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+          "line_start": 52,
+          "line_end": 58,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_accounts.py::test_signup_verified_login_replay_and_no_privilege_escalation",
+          "source_sha256": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+          "line_start": 61,
+          "line_end": 93,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_accounts.py::test_csrf_throttle_and_token_headers",
+          "source_sha256": "a88f4027021da596820d2747ea0bcf157379aa82dff9196fd100c1a5445a76a0",
+          "line_start": 131,
+          "line_end": 154,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "form/transaction/password hash/mail enqueue stages",
+        "HTTP status/errors/SQL",
+        "token consumption and session transition cost"
+      ],
+      "oracles": [
+        "Missing/stale legal acceptance rejected; role remains visitor; scanner GET cannot activate; one-use POST activation; logout GET 405/POST redirect; dashboard auth preserved."
+      ],
+      "measurement_modality": "HTTP account, authoring and agency authority",
+      "technical_criterion": "Preserve CSRF/MFA/session versions, legal acceptance, ownership, snapshot isolation and revocation. N01D identifies per-operation SQL/time references. Select and freeze a comparable operation before setting a query ceiling or claiming latency improvement.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "locmem mail is not provider delivery; no email/SMS/age identity external verification. No universal session/MFA coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S04-B",
+      "group": "S04",
+      "block": "N06",
+      "families": [
+        "I09",
+        "I10",
+        "I11",
+        "I12",
+        "I18"
+      ],
+      "actions": [
+        "route:R_listing_start",
+        "route:R_draft_edit",
+        "route:R_submit_revision"
+      ],
+      "hypothesis": "Editing a new revision preserves the approved public snapshot and shared bytes until independently approved.",
+      "dataset_source_scope": "published fixture from pending + reviewer decision; revised_draft details/contacts helpers; one approved version, one revised version, two Photos sharing one Blob.",
+      "roles": [
+        "owner",
+        "independent moderator/reviewer",
+        "public reader"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_revised_listings.py::test_revised_version_keeps_approved_snapshot_and_reuses_bytes",
+          "source_sha256": "eb552f428a3fa7c963e64a13bb1f0ee3d3ed3ec860020e2f5fdecdb490d51a0f",
+          "line_start": 38,
+          "line_end": 64,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_revised_listings.py::test_rejection_preserves_public_version_and_rate_ids_are_isolated",
+          "source_sha256": "eb552f428a3fa7c963e64a13bb1f0ee3d3ed3ec860020e2f5fdecdb490d51a0f",
+          "line_start": 67,
+          "line_end": 126,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "start/copy/details/contacts/submit stages",
+        "SQL/transaction/blob count and bytes",
+        "render latency/errors"
+      ],
+      "oracles": [
+        "Distinct revision IDs; approved title remains public while pending; pending photo denied; approval switches snapshot; old photo denied; historic rate isolation preserved."
+      ],
+      "measurement_modality": "HTTP account, authoring and agency authority",
+      "technical_criterion": "Preserve CSRF/MFA/session versions, legal acceptance, ownership, snapshot isolation and revocation. N01D identifies per-operation SQL/time references. Select and freeze a comparable operation before setting a query ceiling or claiming latency improvement.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Public detail reads are functional oracles only, not S01 performance duplication. No arbitrary scale or external provider claim."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S04-C",
+      "group": "S04",
+      "block": "N06",
+      "families": [
+        "I09",
+        "I10",
+        "I11",
+        "I12",
+        "I18"
+      ],
+      "actions": [
+        "route:R_agency_assign",
+        "route:R_consent_invite",
+        "route:R_consent_accept",
+        "route:R_age_check",
+        "route:R_phone_start",
+        "route:R_phone_confirm",
+        "route:R_representation_revoke"
+      ],
+      "hypothesis": "Two represented subjects sharing a phone remain separate, with editor scope, MFA and revocation checked at execution.",
+      "dataset_source_scope": "agency_publication/ready_accounts/photo_environment: two synthetic subjects and revisions, shared PhoneClaim, editor assigned only first; separate directory fixture for MFA revocation selector.",
+      "roles": [
+        "agency owner",
+        "assigned editor",
+        "two represented subjects",
+        "independent moderator",
+        "unassigned editor negative"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_agency_publication.py::test_agency_two_people_shared_phone_editor_publication_and_revoke",
+          "source_sha256": "16df72181a26b404febcf10e06eb17290a31631ff22f214935f726f006d2d020",
+          "line_start": 123,
+          "line_end": 136,
+          "parametrize": []
+        },
+        {
+          "selector": "tests/test_lifecycle.py::test_agency_editor_assignment_mfa_and_revocation",
+          "source_sha256": "e8daadecf11808357539d66addaf21cfe4f90047875f3fd847464811f0ab6067",
+          "line_start": 264,
+          "line_end": 294,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "assignment/consent/local verification transaction cost",
+        "locks/SQL",
+        "revocation-to-denial observation",
+        "per-subject visibility"
+      ],
+      "oracles": [
+        "Owner/editor cannot moderate; first subject revoke removes first public listing only; second remains visible; editor MFA then revocation rejects operations without version mutation."
+      ],
+      "measurement_modality": "HTTP account, authoring and agency authority",
+      "technical_criterion": "Preserve CSRF/MFA/session versions, legal acceptance, ownership, snapshot isolation and revocation. N01D identifies per-operation SQL/time references. Select and freeze a comparable operation before setting a query ceiling or claiming latency improvement.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Local verification outcomes are synthetic and do not establish external age/phone identity verification or real-provider latency. MFA route completion itself not timed by lifecycle negative witness."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S05-A",
+      "group": "S05",
+      "block": "N05",
+      "families": [
+        "I06",
+        "I26"
+      ],
+      "actions": [
+        "route:R_public_photo"
+      ],
+      "hypothesis": "Finite gallery browser scheduling can reduce initial bytes while keeping exact authorized WEBP content and immediate withdrawal.",
+      "dataset_source_scope": "gallery_fixture: 8 approved display photos; 7 added synthetic 1600x1200 originals/WEBP quality85; 80-line biography; mobile390x844/desktop1280x800; ES/EN.",
+      "roles": [
+        "anonymous public browser",
+        "isolated operator pauses listing"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_gallery_delivery_diagnostic.py::test_gallery_delivery_browser_diagnostic",
+          "source_sha256": "bb0f0f0dd9ebb89606ba4dede5e2bf2108ca289e1ca078d41c0df9dfaf2d1764",
+          "line_start": 78,
+          "line_end": 175,
+          "parametrize": [
+            "pytest.mark.parametrize('viewport', ['mobile', 'desktop'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "initial/full photo requests and body bytes",
+        "static assets bytes/hash/encoding",
+        "dimensions/loading state",
+        "backend response latency separately from browser interaction"
+      ],
+      "oracles": [
+        "All 8 images load when scrolled; exact derivative bytes/content-type/no-store; dimensions retained; paused request with stale conditionals returns404."
+      ],
+      "measurement_modality": "Browser network and upload interaction",
+      "technical_criterion": "Preserve first image, all final image hashes/dimensions, no-store and retirement404. Compare initial requests/bytes separately from complete delivery and browser interaction; no invented LCP budget. Upload UI requires its actual browser instrument.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Fixture bypasses upload/similarity/approval workflow. Diagnostic explicitly excludes Internet capacity and LCP verification; does not supply p99. No proxy/cache/CDN performance claim."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S05-B",
+      "group": "S05",
+      "block": "N05",
+      "families": [
+        "I06",
+        "I26"
+      ],
+      "actions": [
+        "route:R_photo_upload",
+        "route:R_private_photo",
+        "route:R_photo_remove"
+      ],
+      "hypothesis": "Mobile browser upload preview/reload/remove retains correct visible state with private delivery authorization.",
+      "dataset_source_scope": "scenario fixture; raw_image(34) to synthetic.jpg in isolated MEDIA_ROOT; 390x844 Chromium; eager Celery explicitly true; draft Revision manager_version1.",
+      "roles": [
+        "authenticated draft manager",
+        "browser user"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_browser_photos.py::test_browser_photo_upload_preview_remove",
+          "source_sha256": "55f00f7e6cbd393daa726ae71b743b77d4c061380450690553462bd860ddbcc1",
+          "line_start": 13,
+          "line_end": 45,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "upload request/render/preview-ready interaction times",
+        "image bytes/dimensions and resource requests",
+        "remove latency/remaining photo count",
+        "backend and eager processing stages separately"
+      ],
+      "oracles": [
+        "Visible decoded image after upload and reload; image count0 after remove; no active photos remain; preserve source private-photo fresh guards."
+      ],
+      "measurement_modality": "Browser network and upload interaction",
+      "technical_criterion": "Preserve first image, all final image hashes/dimensions, no-store and retirement404. Compare initial requests/bytes separately from complete delivery and browser interaction; no invented LCP budget. Upload UI requires its actual browser instrument.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "performance": "No numerical endpoint/browser/job latency gate established by this proposal. Record baseline first and preregister technical budget before candidate comparison. Public mixed p95<800ms/errors<1% applies only under its existing contract protocol, not to these individual endpoints.",
+        "correctness": "Preserve all cited assertions and contract invariants; no performance gain may waive authority, integrity or retention."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Existing browser selector is ES-only; EN and keyboard/accessibility need separate justified selectors or explicit future measurement. Eager processing is not real queue latency; private authorization races require their existing separate witness."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S06-A",
+      "group": "S06",
+      "block": "N02",
+      "families": [
+        "I22"
+      ],
+      "actions": [
+        "route:R_rights_portability_export",
+        "route:R_rights_part_download"
+      ],
+      "hypothesis": "Packaging/generation and delivery costs require separate attribution at the real package boundary.",
+      "dataset_source_scope": "One subject, eight deterministic 2048x1536 sanitized WebP images totaling over64MiB.",
+      "roles": [
+        "author",
+        "independent reviewer",
+        "anonymous receipt holder"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_rights_portability_large_images.py::test_portable_large_images_cross_actual_package_limit",
+          "source_sha256": "d0a3f8dcb8ce781138e1b5b6935bb9ae594e860da47b527a00ead5f562f4874f",
+          "line_start": 32,
+          "line_end": 151,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "generation wall",
+        "Python peak bytes",
+        "source/package bytes",
+        "part count",
+        "delivery wall/SQL proposed"
+      ],
+      "oracles": [
+        "exact recovery of all eight hashes once",
+        "parts<=64MiB",
+        "case version/status"
+      ],
+      "measurement_modality": "Coverage, packaging/generation and per-part JSON/binary delivery",
+      "technical_criterion": "Original coverage p95<=2s and JSON/binary per-part p95<=5s remain under original protocol, not generation SLOs. Keep FAIL and provisional exception exactly scoped. Existing small or sanitized-package helper cannot replace actual delivery measurement.",
+      "existing_budget": {
+        "status": "existing_targets_mapping_pending",
+        "latency": "Original MOD09 objectives2s/5s unchanged; map exact measured stages before execution.",
+        "correctness": "Preserve listed functional/security oracles.",
+        "technical_state": "Historical/current timing FAIL preserved; provisional exception unchanged and not expanded."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Sanitized derivatives do not represent all originals/retention or concurrent users.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S06-B",
+      "group": "S06",
+      "block": "N02",
+      "families": [
+        "I22"
+      ],
+      "actions": [
+        "route:R_rights_object_authorize",
+        "route:R_rights_export_download"
+      ],
+      "hypothesis": "One-use authorization and fresh revocation checks must survive delivery optimization.",
+      "dataset_source_scope": "One staged synthetic export; baseline consumption followed by replay; companion negative selector expands finite eight changes.",
+      "roles": [
+        "receipt holder",
+        "revoked/foreign subject"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_rights_object_delivery.py::test_one_use_and_original_audit_count",
+          "source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275",
+          "line_start": 64,
+          "line_end": 73,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "authorization wall/SQL proposed",
+        "bytes",
+        "consumption/audit count",
+        "denials"
+      ],
+      "oracles": [
+        "exact content/SHA",
+        "one consume",
+        "replay denied"
+      ],
+      "measurement_modality": "Coverage, packaging/generation and per-part JSON/binary delivery",
+      "technical_criterion": "Original coverage p95<=2s and JSON/binary per-part p95<=5s remain under original protocol, not generation SLOs. Keep FAIL and provisional exception exactly scoped. Existing small or sanitized-package helper cannot replace actual delivery measurement.",
+      "existing_budget": {
+        "status": "existing_targets_mapping_pending",
+        "latency": "Original MOD09 objectives2s/5s unchanged; map exact measured stages before execution.",
+        "correctness": "Preserve listed functional/security oracles.",
+        "technical_state": "Historical/current timing FAIL preserved; provisional exception unchanged and not expanded."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Direct helper does not establish actual Caddy throughput; new scenario cannot inherit exception automatically.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S07-A",
+      "group": "S07",
+      "block": "N03",
+      "families": [
+        "I13",
+        "I14"
+      ],
+      "actions": [
+        "task:T_apps.mediafiles.tasks.process_blob"
+      ],
+      "hypothesis": "Distinct-original growth and positive density impose different scan/confirmation/registration costs.",
+      "dataset_source_scope": "Two existing finite cohorts: distinct-1000 and dense-100; one instrumented call per cohort.",
+      "roles": [
+        "query subject",
+        "separate peer subject"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_similarity_scan_cost.py::test_current_scan_growth_and_density",
+          "source_sha256": "a3bf4c55203f799516884f35b0efa7103083369700ea663c51c6515dfddaa160",
+          "line_start": 109,
+          "line_end": 112,
+          "parametrize": [
+            "pytest.mark.parametrize('count,dense', [(1000, False), (100, True)], ids=['distinct-1000', 'dense-100'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "detector wall/thread CPU",
+        "stage calls/CPU",
+        "SQL/driver time",
+        "Python peak/RSS",
+        "corpus bytes"
+      ],
+      "oracles": [
+        "exact Match IDs against exhaustive reference",
+        "compare count==count",
+        "own subject excluded",
+        "comparison_complete"
+      ],
+      "measurement_modality": "Detector versus receive/queue/process/ready",
+      "technical_criterion": "Exact exhaustive Match set, own-subject exclusion, no hidden candidate cap and ready-state integrity. Distinct1000 and dense100 are separate diagnostic cohorts, not80000capacity. Existing128MiB/1GiB/1200s are safety ceilings, not latency budgets.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles.",
+        "diagnostic_safety_only": "Existing128MiB corpus,1GiB process RSS,1200s command ceiling are safety bounds, not SLOs."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Ready/precomputed signatures and warm comparator exclude upload/queue/worker; no80000 capacity, FAISS/index default or hidden candidate cap.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S07-B",
+      "group": "S07",
+      "block": "N03",
+      "families": [
+        "I13",
+        "I14"
+      ],
+      "actions": [
+        "route:R_photo_upload",
+        "task:T_apps.mediafiles.tasks.process_blob"
+      ],
+      "hypothesis": "Eager upload witness leaves real receive/queue/process/ready latency unmeasured.",
+      "dataset_source_scope": "One synthetic upload plus exact duplicate retry; later real queued one-upload baseline requires separate instrument preregistration.",
+      "roles": [
+        "owner",
+        "anonymous"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_photos.py::test_valid_photo_private_derivative_retries_exif_and_remove",
+          "source_sha256": "5ddceb800d932164f76e7cbd45c2ec1abd15cdfeccf670ef894ecfdfb772e8df",
+          "line_start": 50,
+          "line_end": 70,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "receipt wall proposed",
+        "queue age proposed",
+        "process/ready wall proposed",
+        "bytes",
+        "attempt count"
+      ],
+      "oracles": [
+        "ready/unapproved",
+        "WebP EXIF removed",
+        "one Blob/Photo and two attempts",
+        "private/remove guards"
+      ],
+      "measurement_modality": "Detector versus receive/queue/process/ready",
+      "technical_criterion": "Exact exhaustive Match set, own-subject exclusion, no hidden candidate cap and ready-state integrity. Distinct1000 and dense100 are separate diagnostic cohorts, not80000capacity. Existing128MiB/1GiB/1200s are safety ceilings, not latency budgets.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Existing fixture sets eager=True; no real queue latency evidence.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S08-A",
+      "group": "S08",
+      "block": "N08",
+      "families": [
+        "I07",
+        "I08",
+        "I19"
+      ],
+      "actions": [
+        "route:R_favorites",
+        "route:R_favorite_add",
+        "route:R_favorite_remove"
+      ],
+      "hypothesis": "Favorite filtering must remain immediately consistent with withdrawal and private ownership.",
+      "dataset_source_scope": "Existing single listing fixture; proposed later1/10/100 synthetic favorites with explicit eligibility mix pending manifest.",
+      "roles": [
+        "visitor owner",
+        "foreign account",
+        "anonymous",
+        "withdrawn subject"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_favorites.py::test_favorites_private_idempotent_permissions_and_hidden_content",
+          "source_sha256": "19b688ee32c38bd2d05384bd235ec6555b713d62db3b944245d4295c6cac55ef",
+          "line_start": 26,
+          "line_end": 54,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "wall/SQL/bytes proposed",
+        "duplicate count",
+        "leak count"
+      ],
+      "oracles": [
+        "private no-store",
+        "foreign removal404",
+        "withdrawn title/phone/id absent",
+        "idempotent add/remove"
+      ],
+      "measurement_modality": "HTTP favorites, sitemap and synthetic commerce",
+      "technical_criterion": "Zero privacy/withdrawal/ownership or idempotency regressions. Keep per-operation status, query counts and timings separate. Original favorite cohort is not proposed1/10/100growth. Simulated orders never establish real purchase/provider behavior.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Growth cohorts proposed; no usage-frequency assumption or universal favorite coverage.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S08-B",
+      "group": "S08",
+      "block": "N08",
+      "families": [
+        "I07",
+        "I08",
+        "I19"
+      ],
+      "actions": [
+        "route:R_robots",
+        "route:R_sitemap_index",
+        "route:R_sitemap_directory",
+        "route:R_sitemap_listings"
+      ],
+      "hypothesis": "Sitemap pagination and bilingual exposure must follow public eligibility and retirement.",
+      "dataset_source_scope": "Existing directory fixture PAGE_SIZE=1 plus companion empty/robots selector; later1/10/100 rows pending manifest.",
+      "roles": [
+        "anonymous reader",
+        "private/withdrawn subject"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_sitemaps.py::test_sitemap_languages_privacy_page_boundaries_and_withdrawal",
+          "source_sha256": "9c7777f5522c05c3b4645acf9ae7a8b0f078d6c9614cda74cc372074e8f8b829",
+          "line_start": 60,
+          "line_end": 103,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "wall/SQL proposed",
+        "XML bytes",
+        "URL count/pages"
+      ],
+      "oracles": [
+        "ES/EN links/boundaries",
+        "private/withdrawn URLs absent",
+        "robots policy"
+      ],
+      "measurement_modality": "HTTP favorites, sitemap and synthetic commerce",
+      "technical_criterion": "Zero privacy/withdrawal/ownership or idempotency regressions. Keep per-operation status, query counts and timings separate. Original favorite cohort is not proposed1/10/100growth. Simulated orders never establish real purchase/provider behavior.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "PRODUCTION=True is synthetic policy branch only; legal document variants remain uncovered.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S08-C",
+      "group": "S08",
+      "block": "N08",
+      "families": [
+        "I07",
+        "I08",
+        "I19"
+      ],
+      "actions": [
+        "route:R_promotion_orders",
+        "route:R_promotion_order_detail"
+      ],
+      "hypothesis": "Synthetic order replay/ownership must preserve entitlement effects under measurement.",
+      "dataset_source_scope": "Existing ES/EN variants; one order, repeated success event, foreign account and CSRF negative.",
+      "roles": [
+        "buyer with fresh MFA/session",
+        "foreign account",
+        "CSRF client"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_promotion_order_http.py::test_private_order_form_simulation_reload_and_ownership",
+          "source_sha256": "63d60b9453aadadc6662b3162a561a1957f6f95acc88f1745e3a5d06a2d8a4cc",
+          "line_start": 16,
+          "line_end": 67,
+          "parametrize": [
+            "pytest.mark.parametrize('language', ['es', 'en'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "GET/POST wall/SQL proposed",
+        "bytes",
+        "order/entitlement count",
+        "errors"
+      ],
+      "oracles": [
+        "GET no writes",
+        "same replay target",
+        "one entitlement",
+        "foreign404",
+        "CSRF403",
+        "disabled403",
+        "private no-store/noindex"
+      ],
+      "measurement_modality": "HTTP favorites, sitemap and synthetic commerce",
+      "technical_criterion": "Zero privacy/withdrawal/ownership or idempotency regressions. Keep per-operation status, query counts and timings separate. Original favorite cohort is not proposed1/10/100growth. Simulated orders never establish real purchase/provider behavior.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "audited_partial_HTTP_base",
+        "evidence": "docs/351-n01-d-resultado-operaciones-http-20261025.md"
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "No real charges/provider; catalogue/admin/bump/exposure variants remain later work.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S09-A",
+      "group": "S09",
+      "block": "N10",
+      "families": [
+        "I27",
+        "I28"
+      ],
+      "actions": [
+        "own_command:operational_snapshot"
+      ],
+      "hypothesis": "Read-only aggregate operational visibility has measurable database cost without private exposure.",
+      "dataset_source_scope": "Empty snapshot then companion finite due/retry/failed notice boundaries; proposed10/100 work rows pending manifest.",
+      "roles": [
+        "isolated operator with owned DB privileges"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_operational_snapshot.py::test_empty_snapshot_has_explicit_scope_and_read_only_aggregates",
+          "source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91",
+          "line_start": 27,
+          "line_end": 54,
+          "parametrize": []
+        }
+      ],
+      "metrics": [
+        "command wall/CPU/RSS proposed",
+        "SQL/plan proposed",
+        "output bytes"
+      ],
+      "oracles": [
+        "REPEATABLE READ READ ONLY",
+        "only BEGIN/SET/SELECT/COMMIT",
+        "autocommit restored",
+        "no private values"
+      ],
+      "measurement_modality": "Read-only operational aggregates and restore-integrity",
+      "technical_criterion": "Snapshot remains PostgreSQL read-only without content/secrets. Restore cannot reintroduce erased data; retain plain/encrypted and key variants. Empty aggregate baseline cannot establish growth or real-provider operation.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Durable database work only; no worker/broker/provider health; command registration is not execution.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    },
+    {
+      "id": "S09-B",
+      "group": "S09",
+      "block": "N10",
+      "families": [
+        "I27",
+        "I28"
+      ],
+      "actions": [
+        "runbook:O_RESTORE",
+        "own_command:apply_recovery_ledger",
+        "own_command:check_recovery_ledger"
+      ],
+      "hypothesis": "Restore footprint must be separated from integrity/authority checks preventing data resurrection.",
+      "dataset_source_scope": "Finite existing2x2 matrix: same/retained key and plain/encrypted local backup; initial plain-local/same-key representative then remaining conditional variants.",
+      "roles": [
+        "isolated operator",
+        "independent recovery authority",
+        "erased subject",
+        "preserved peer"
+      ],
+      "selectors": [
+        {
+          "selector": "tests/test_recovery_pg_restore.py::test_old_pg_dump_and_media_cannot_reintroduce_erased_data",
+          "source_sha256": "ffb079f96fa6c233c1a5302728ac5b69aae8a7799ba0da9b3925f1c90ceb06c6",
+          "line_start": 273,
+          "line_end": 553,
+          "parametrize": [
+            "pytest.mark.parametrize('key_transition', [False, True], ids=['same-key', 'retained-key-read'])",
+            "pytest.mark.parametrize('encrypted_backup', [False, True], ids=['plain-local', 'encrypted-local'])"
+          ]
+        }
+      ],
+      "metrics": [
+        "dump/restore/apply wall proposed",
+        "backup/media bytes",
+        "CPU/RSS proposed",
+        "effect/replay counts"
+      ],
+      "oracles": [
+        "erased data/media absent",
+        "peer content/audit intact",
+        "old sessions/grants invalid",
+        "wrong authority no effects",
+        "replay idempotent"
+      ],
+      "measurement_modality": "Read-only operational aggregates and restore-integrity",
+      "technical_criterion": "Snapshot remains PostgreSQL read-only without content/secrets. Restore cannot reintroduce erased data; retain plain/encrypted and key variants. Empty aggregate baseline cannot establish growth or real-provider operation.",
+      "existing_budget": {
+        "status": "proposed_pending",
+        "latency": "No new numerical gate selected; preregister before execution.",
+        "correctness": "Preserve listed functional/security oracles."
+      },
+      "observed_base": {
+        "status": "baseline_or_stage_attribution_pending",
+        "evidence": null
+      },
+      "before_candidate_requirements": [
+        "Exact action/role/state/cohort and ordinal operation defined; no aggregate of heterogeneous transitions",
+        "Freeze complete sources, dependencies, migrations, images, resources, queues and cache/ordering conditions",
+        "Declare stage budget and reference from comparable baseline before candidate; original contractual budgets cannot be weakened",
+        "Justify repetitions from variability and cost; insufficient data means inconclusive, never fabricated percentiles",
+        "Current functional oracles plus fresh authorization/withdrawal/retention invariants remain mandatory",
+        "Official owned PostgreSQL runner, synthetic data only, cleanup and Telegram receipts; long-run persistent handoff if needed"
+      ],
+      "limits": [
+        "Owned disposable PostgreSQL and synthetic keys only; not production recovery/SLA. Parent preflights persistent notified launch if long; no automatic repeated hours-long load.",
+        "No extrapolated percentiles, capacity, production traffic, provider verification or full family coverage."
+      ],
+      "acceptance": "planning_reviewed_not_performance_accepted"
+    }
+  ],
+  "scenario_count": 19,
+  "scenarios_with_partial_audited_HTTP_base": [
+    "S02-A",
+    "S04-A",
+    "S04-B",
+    "S08-A",
+    "S08-B",
+    "S08-C"
+  ],
+  "remaining": {
+    "S01": "Protocols344/346/348 and results345/347/349 already scoped, public mixed protocol still distinct",
+    "N01": "Stage-specific numerical criteria and complete execution fichas still required where missing; no automatic closure",
+    "S02-S09": "All19 planning rows preserved, source hashes/selector ranges checked; direct/queued/browser/operational measurement gaps explicit"
+  },
+  "original_contract_budgets_preserved": true,
+  "tests_executed_by_this_reconciliation": false,
+  "native_calls": "No additional Claude V1; one native graph semantic writer, consumption unknown"
+}
