@@ -1,3 +1,15 @@
+N07A/402correcciónlocalaceptada:original2FAIL500→correctivo4PASS(carrera2+localización2),57,786sQA1751huellas/cleanup/TGsent;soloreorder404sinconsultaextra.N07abierto6/13.
+
+Siguiente:N07Bfinalizarprerregistro/grafo/congelaciónydiagpreforkrestringido/Beat30/60;concilia39IDs/testigosantescierreN07.N03N04N05N06retenidos,MOD09alfinal,sinoptimizaciónmarginal.
+
+N07A/401raceconfirmadaPGESEN:2FAIL500StopIterationoriginalpreservado; candidatereorder404sinconsultaextra,sinotrasfuncionesmodificadas.6/13,N07abierto.
+
+Siguiente:grafoAST/semántica401 ycongelación;contrastar4casos(carrera2+localización2).N07Bworker/Beat30/60propuestonoejecutado;sinoptimizaciónmarginal.
+
+N07A/400en curso:39IDs/corte2009verificado;hipótesisrace reorder/remove pendiente de reproducciónPGESEN.6/13aceptados,sinoptimizaciónmarginal.
+
+Siguiente:semántica/AST400+instrumento,congelación y primer run de carrera;noaplicarcandidatoantes de preservar original.N07Bworker/Beat30/60en preparaciónaislada,N06ya377.
+
 N05/399aceptadolocalmente:137IDs5routes129templates3JS/138fuentes/152+6citas,4PASSprivado/sondeos y6PASSgalería/teclado156separados,calidad/guardas/bytes/sourcehashes/limpieza/TGsent. Sinappchange;galería1/11110inicialy8/135824complete,pollquiet6,506s,teclado18observaciones.6/13alfa.
 
 Siguiente:N07medios/publicación/lifecycleI15I16I17,censo/testigosN03N04N05N06antescandidato.N06yaaceptado377;N05primer3PASS1FAILpreservado/causaexactaunknown,noSLOglobal/beta/proveedor,MOD09restantediferidoalfinal.

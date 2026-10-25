@@ -1,0 +1,55 @@
+{
+  "result": "PASS_N07A_REORDER_REMOVE_RACE_CORRECTION_AND_LOCALIZED_REGRESSION",
+  "run": "20261025-223112-9764c87c",
+  "cases": 4,
+  "race": [
+    {
+      "language": "es",
+      "actual_postgresql_blocking": true,
+      "removed_after_initial_lookup": true,
+      "reorder_status": 404,
+      "removal_only_version_increment": true,
+      "positions_preserved": true,
+      "guard_observer": "Pass-through PID observation only; actual authority and mutations unchanged"
+    },
+    {
+      "language": "en",
+      "actual_postgresql_blocking": true,
+      "removed_after_initial_lookup": true,
+      "reorder_status": 404,
+      "removal_only_version_increment": true,
+      "positions_preserved": true,
+      "guard_observer": "Pass-through PID observation only; actual authority and mutations unchanged"
+    }
+  ],
+  "regression_scope": "Existing unchanged ESEN actualChromium localized invalid400/noneditable409/foreign404/valid302/remove/versions/order",
+  "browser": "Chromium 156.0.8078.47 Built from source for Red Hat Enterprise Linux release 9.8 (Plow)",
+  "original_2FAIL_preserved": true,
+  "original_status": 500,
+  "corrected_status": 404,
+  "only_reorder_changed": true,
+  "source_freeze_count": 1751,
+  "untracked_documents_checked_separately": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md",
+    "docs/401-n07-a-carrera-reordenacion-retirada-20261025.md"
+  ],
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "4",
+      "time": "57.786",
+      "timestamp": "2026-10-25T23:31:32.737671+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "limits": "Functional correction, no isolated application timing gain claimed. N07 remains open; not full39unit or contract acceptance."
+}

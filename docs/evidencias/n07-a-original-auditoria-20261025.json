@@ -1,0 +1,32 @@
+{
+  "result": "PRESERVED_ORIGINAL_2FAIL_CONFIRMED_REORDER_REMOVE_RACE",
+  "run": "20261025-222614-c4dfdaad",
+  "cases": 2,
+  "status_actual": 500,
+  "status_expected": 404,
+  "cause": "StopIteration after actualPGblocked reorder and committed remove, both languages",
+  "original_sources_unchanged": true,
+  "runner_freeze_sources_checked": 1749,
+  "untracked_document_not_in_runner_hashes_checked_separately": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md"
+  ],
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "2",
+      "skipped": "0",
+      "tests": "2",
+      "time": "44.212",
+      "timestamp": "2026-10-25T23:26:34.093314+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "scope": "Original product defect confirmed; no exposure/data-loss claim; candidate not yet verified."
+}

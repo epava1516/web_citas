@@ -146,7 +146,9 @@ def reorder(request, photo_id):
         photos = list(
             revision.photos.filter(removed_at__isnull=True).order_by("position", "created_at")
         )
-        index = next(i for i, photo in enumerate(photos) if photo.pk == initial.pk)
+        index = next((i for i, photo in enumerate(photos) if photo.pk == initial.pk), None)
+        if index is None:
+            return HttpResponse("Not found", status=404)
         delta = (
             -1
             if request.POST.get("direction") == "up"
