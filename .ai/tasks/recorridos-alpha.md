@@ -1,3 +1,18 @@
+# Estado vigente — N00 aceptado1/13; N01A auditado
+
+Goal activo del contrato completo;N12–N14condicionados,alfa. Instrucción posterior delusuario:tablaantes/despuésal finalizar cadabloque;incorporada340/341v1.2yN00tabla343. No crear nuevo goal ni completar porun lote.
+
+Commited16134conprerregistro344yN00aceptado343subido a master antes deejecutar. PG17faltaba enhost:preparación oficialdockerpullantes defreeze,capturadigest,runnerpullnever;nodegradar17.nativo/tmp/web-modelos-librdb-v2.4.0limpio ytagv2.4.0. Grafo1930fuentes/17968nodos/79827relaciones/851comunidades,semántica6doc40entidades/40relaciones conciliadas antes decongelar.
+
+Run20261025-081326-9844f827terminalPASS2/0F/E/S:dos test_discovery_query_profile[10]/[100],PG17/Redis7.4propios,workers1. Pasopytest55,7805s;JUnit45,534/7,605s confixture;HTTPinstrumentado0,624848/0,247264s,SQL52/29. Ningúncambioproducto;noANTES/DESPUÉSdecandidato,ni p95,carga ocausalidad;poblacionesycalentamientodifieren. AuditoríaindependientePASS:1507SHAyprotocolos/grafofreezeintactoshasta auditoría,6fasespassed,nodeidsexactos,containers/temporal ausentes,Telegramsent. Doc345yJSON/archivoevidenciadurables;rawlogs localesconhash. Noaceptar N01oN04completos.
+
+Próximo inmediato:refresco semánticofocal de345/README/17actual(4líneas) pendiente antesdenuevahipótesis/prerregistro. No repetirbateríacontractual. N01Bconcretar mismapoblación/primera-vs-peticionescalientesyseparaciónorgánico/promocionado/filtros/página/ESEN/ficha,oráculos,medidasypresupuestosantesdecandidato;resto8grupos pendientes. Instrumentosexistentesincluyenmonkeypatchesfallbackenotrosdiagnósticos:leerlos,preservarcualquieralcance,sinconfundirlosconruta nativa. Usar nueva ficha ygrafo antes decongelar;noeditarfuentesduranteprueba. N01A terminó,ningúntestvivo;no goalpause.
+
+Preservarcambioajeno D docs/evidencias/traslado-maquina-graphify0110.tar.gz;8ClaudeV1históricas/consumo,cero nuevas. Agente n01_prereg_semantic terminado,worktree/fragmentos preservados. Notificarinicio/fin+testterminalTGvalidarrecibos;pruebaslargaspersistencia/aviso/pausa/compactación/retornomismogoal segúnAGENTS. Seguir hasta13obligatorios ydisposición3condicionados,noproducción.
+
+---
+Historial:
+
 # Estado vigente — N00 aceptado; N01 primer lote prerregistrado
 
 Goal activo completo del contrato340, sin reducción. Instrucción posterior delusuario: alfinalizar cadabloquedelinventario publicartablaantes/después por escenario/métrica;versiones,recursos,muestras,evidenciasydelta comparable,osinbasecomparable explícito. Requisito incorporado340/341v1.2;N00tablaen343. Basef05662d. N00aceptado por343trasrevisión decriterios/matriz443unidades/28familias,pruebaindependiente ygrafoN00verificado.1/13obligatorios,N12–N14condicionados;alfa. No mediciónnueva niPASSindividual concedidos porN00.

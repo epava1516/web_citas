@@ -1,0 +1,66 @@
+{
+  "result": "PASS_N01A_AUDIT",
+  "run": "artifacts/local-ci/20261025-081326-9844f827",
+  "pass": 2,
+  "fail": 0,
+  "error": 0,
+  "skip": 0,
+  "selected_nodeids": [
+    "tests/test_discovery_query_profile.py::test_discovery_full_visibility_query_growth[100]",
+    "tests/test_discovery_query_profile.py::test_discovery_full_visibility_query_growth[10]"
+  ],
+  "measurements": [
+    {
+      "nodeid": "tests/test_discovery_query_profile.py::test_discovery_full_visibility_query_growth[10]",
+      "published": 10,
+      "request_seconds_instrumented": 0.6248481255024672,
+      "sql_queries": 52,
+      "junit_case_seconds_including_fixture": 45.534,
+      "scope": "Django HTTP Client same view/real PostgreSQL; query-growth diagnosis, not TCP/Gunicorn load/p95/capacity. No SQL values logged."
+    },
+    {
+      "nodeid": "tests/test_discovery_query_profile.py::test_discovery_full_visibility_query_growth[100]",
+      "published": 100,
+      "request_seconds_instrumented": 0.2472641235217452,
+      "sql_queries": 29,
+      "junit_case_seconds_including_fixture": 7.605,
+      "scope": "Django HTTP Client same view/real PostgreSQL; query-growth diagnosis, not TCP/Gunicorn load/p95/capacity. No SQL values logged."
+    }
+  ],
+  "pytest_step_seconds": 55.780527675524354,
+  "frozen_executable_sources_unchanged": 1507,
+  "frozen_documents_and_graph_unchanged_before_audit": true,
+  "owned_containers_absent": true,
+  "temporary_absent": true,
+  "terminal_telegram_delivery": "sent",
+  "product_changes": 0,
+  "N01_complete": false,
+  "N04_complete": false,
+  "before_after_candidate_comparison": "not_applicable_no_candidate_change; differing populations and order/cache can confound comparison",
+  "limits": [
+    "One instrumented request per population, no percentile or20RPS/TCP/capacity claim",
+    "SQL52/29 and time difference are observations, not causal optimization",
+    "Fixture/setup/runner duration differs from application request time",
+    "Only organic initialES listing; promotions/filters/deep pages/EN/detail and othergroups remain pending"
+  ],
+  "original_sha256": {
+    "source-hashes.json": "b1c33940b6a20014e6a991a85a7ed6e7f41d5ec5697f2355d407379d131eee9e",
+    "runner.json": "0c8029a2b398f8a9d89e0eec4833fc75b1257641d654e5b10ffbd1fd6bc55559",
+    "01-start-pg.log": "430fa664f4f250ca8c7d32ec3a320cc2209c4d82f7b9945b4bba8d393e163a02",
+    "02-start-redis.log": "0c37030b34d2ff1ac331db23d910314d31a5012dac520b6537689799d2a735f2",
+    "03-dependencies.log": "ad64d9052ed3ad01d1188d1e06e25eca6623918462c37067ae9a2b5c48c72d76",
+    "04-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "05-documentation.log": "6ae097fb7e82f084e4311d34cfff1bee813c4c5194a1f811b4b8e398e08e0cf7",
+    "06-django.log": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+    "07-migrations.log": "a2bfa7b376c38062f77ce2b1e703876aaa04662f96355cdf5dc9d0d075302b05",
+    "08-native-build.log": "9a2d3e90ed709efba4ad886078bd8de4d3b06c2ef074fa247c5774561647f671",
+    "native-manifest.json": "77a64ee1f98c6416bd8cbd634dbaae7500a71c9ba087af4c6f17dc8e909b875a",
+    "09-pytest.log": "9dc0f635f80f33ee065dc38bc318b9b1c4ebedd9372bd1b9903cd982f68ca760",
+    "pytest-reports.jsonl": "f3f226e26a93a03bedbe54baa63d2859dea5fa1d865335654033a40f8462ffed",
+    "pytest.xml": "6f5de8ef8e70dcfaa67c70048a430d6164851e9d04824744c79da77481a8376a",
+    "test-timings.json": "2d4fe0f26967f04299d680c2d41c2d7bc10e4521500b4753807ebe9b35866509",
+    "result.json": "700faa5fadef3793a5550ea63849dca9fb12ff4c5c6ae94c6b32c40b5604d58f",
+    "telegram-notification.json": "f1160ad0151f95bf87e8b4aba769a45b01efa4872b0760368c1023b0e98a61ed"
+  },
+  "freeze_sha256": "ea3c410388cd87292bd73df3b94160f91ddb720d2de0a543a24a30d31f88cc8f"
+}

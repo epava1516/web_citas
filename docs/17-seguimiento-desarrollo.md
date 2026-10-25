@@ -1,3 +1,7 @@
+N01Aterminalyauditado:2PASS/0FAIL/ERROR/SKIP,run20261025-081326-9844f827;listadoES10/100perfiles,0,624848/0,247264sinstrumentadosy52/29SQL. Sin mejoracausal,niTCP/p95/capacidad. [Resultado345](345-n01-a-diagnostico-descubrimiento-20261025.md). N00aceptado1/13;N01encurso,alfa.
+
+Siguiente:incorporar semántica de345/este corte antesdelnuevohitoN01;prerregistrar misma poblaciónfrío/caliente ysegmentos restantesS01. Tablaantes/después obligatoria porbloque;N00en343. Antecedentes inferiores conservan corte.
+
 N00aceptado por [343](343-n00-aceptacion-local-20261025.md):1/13obligatorios;N01en curso. [Prerregistro344](344-n01-prerregistro-descubrimiento-a-20261025.md):2casos existentes10/100perfiles,listadoESnativo,PostgreSQLreal,instrumentaciónSQL;sin ejecución aún,pendiente grafo/congelación. Alfa;N12–N14condicionados.
 
 Siguiente:conciliar grafo delprerregistro,congelar fuentes y ejecutar selecciónexacta;auditar resultado/Telegram/limpieza antes deinterpretar medidas. Antecedentes inferiores conservan corte.
