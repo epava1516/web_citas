@@ -1,0 +1,49 @@
+{
+  "state": "N04_LOCALLY_VERIFIED_SELECTED_SCENARIOS_NO_APP_CHANGE",
+  "head": "139ed2c",
+  "families": [
+    "I01",
+    "I02",
+    "I03",
+    "I04",
+    "I05"
+  ],
+  "mandatory_accepted": 5,
+  "mandatory_total": 13,
+  "actions": [
+    {
+      "id": "route:R_home",
+      "state": "verified_local_finite",
+      "decision": "No application change",
+      "reference": "20261025-205607-7dd0e33b",
+      "other_evidence": [
+        "345",
+        "347",
+        "349",
+        "334",
+        "394"
+      ],
+      "limits": "Selected organic/promoted120/cohortfilters60/paging1&5and1&3/empty ESEN; finite authority/rotation witnesses reused; no new p95 or browser."
+    },
+    {
+      "id": "route:R_listing_detail",
+      "state": "verified_local_finite",
+      "decision": "No application change",
+      "reference": "20261025-205607-7dd0e33b",
+      "other_evidence": [
+        "347",
+        "349",
+        "334",
+        "394"
+      ],
+      "limits": "24instrumented ESENdetailrequests plus retained source-identical guard/negative witnesses; no image/browser/capacity claim."
+    }
+  ],
+  "evidence": "docs/396-n04-aceptacion-local-descubrimiento-20261025.md",
+  "retained_owners": [
+    "N05",
+    "N07",
+    "N11"
+  ],
+  "remaining_N04_mandatory": []
+}

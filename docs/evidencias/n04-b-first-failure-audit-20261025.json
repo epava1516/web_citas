@@ -1,0 +1,29 @@
+{
+  "result": "PRESERVED_FIRST_REFERENCE_1FAIL_NOT_APP_REGRESSION_ACCEPTANCE",
+  "run": "20261025-205210-f0b7e1ab",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "61.180",
+      "timestamp": "2026-10-25T21:52:30.850021+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "source_count": 1747,
+  "failure": "New diagnostic asserted cached entitlement.order pending equals paid; native receive_event locks/refetches and persists a distinct paid order instance. Need fresh persisted read in instrument, not product change.",
+  "primary_sources": {
+    "apps/catalog/promotion_orders.py": "223dad9f7083f90c6c9ff853ac6dab30f03fd72336fa7a8b64a89d48d06fb16c",
+    "tests/test_promotion_paged_equivalence.py": "7a60844fe6cd9225ee6eceaacfb32bf3fecf9250d3cdc0be25aa1719a448a2b9"
+  },
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "cleanup_verified": true
+}
