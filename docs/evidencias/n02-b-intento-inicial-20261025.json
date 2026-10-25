@@ -1,0 +1,32 @@
+{
+  "result": "INSTRUMENT_INVALIDATION_14PASS_2FAIL",
+  "run": "20261025-130439-39bc72b1",
+  "cases": 16,
+  "passed_original_cases": [
+    "test_generation_seals_and_later_validations_use_it",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[selection_ciphertext]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[coverage_read_digest]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[action_payload]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[binding_digest]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[part_ciphertext]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[image_ciphertext]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[newer_selection]",
+    "test_any_input_change_disables_the_seal_and_matches_full_validation[deleted_read]",
+    "test_seal_expires_at_the_earliest_loaded_expiry_and_on_code_change",
+    "test_pipeline_never_bypasses_original_full_fresh_guards[session]",
+    "test_pipeline_never_bypasses_original_full_fresh_guards[ciphertext]",
+    "test_pipeline_never_bypasses_original_full_fresh_guards[source]",
+    "test_physical_bytes_changed_between_children_roll_back_all_batch_audits"
+  ],
+  "failed_new_cases": [
+    "test_held_seal_guard_paired_reference_and_preexisting_locks",
+    "test_held_seal_rejects_changed_last_file_without_success_audits"
+  ],
+  "samples_accepted": 0,
+  "source_freeze_unchanged": true,
+  "owned_resources_absent": true,
+  "telegram": "sent",
+  "pytest_command_seconds": 330.27386982925236,
+  "cause_source_analysis": "Redundant settings.DEBUG=False after seals adds nested UserSettingsHolder DEBUG occurrence via pytest settings fixture; rule_version enumerates dir(settings) preserving duplicates. Native holds falls back, so strict held-seal tests correctly fail. Remove redundant assignments only; no app change.",
+  "reuse_condition": "Fourteen original oracles retained only with identical app/dependencies/test bodies and initial snapshot evidence. Rerun affected2caller cases."
+}

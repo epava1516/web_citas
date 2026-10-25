@@ -169,7 +169,6 @@ def test_held_seal_guard_paired_reference_and_preexisting_locks(
         pytest.skip("Explicit paired held-seal diagnostic; not default functional coverage")
     assert not os.environ.get("PYTEST_XDIST_WORKER"), "Paired measurement requires serial execution"
     (case, author, export, _), expected = _generated_two(request, settings, monkeypatch)
-    settings.DEBUG = False
     candidate = rights_portability_export._verify_current_images
     baseline = _baseline_guard()
     original_read = rights_exports._read_image_blob
@@ -241,7 +240,6 @@ def test_held_seal_rejects_changed_last_file_without_success_audits(
     request, settings, monkeypatch, record_property
 ):
     (case, author, export, _), expected = _generated_two(request, settings, monkeypatch)
-    settings.DEBUG = False
     candidate = rights_portability_export._verify_current_images
     original_read = rights_exports._read_image_blob
     derivative = Blob.objects.get(pk=expected[-1][1]).derivative
