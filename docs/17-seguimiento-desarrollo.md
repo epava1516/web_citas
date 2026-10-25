@@ -1,3 +1,7 @@
+N02Bauditado:2PASS nuevos+14oráculos originalesPASS reutilizados,12muestras de guard real con4locks previos/2lecturas/hash íntegros;7→4SQL. Mediana30,659→23,557ms pero2/5parejas empeoran:tiempo inconcluso/adopción pendiente. [Resultado363](363-n02-b-resultado-guard-imagenes-sello-20261025.md). Fallos instrumentales preservados yconfiguración corregida,limpieza/TGsent.2/13,N02/N06abiertos,alfa.
+
+Siguiente:semántica363/341/README/vista17 antes de hito;prerregistrar contraste temporal por ruido sin repetir14oráculos válidos ni extrapolar primitivas361 a entrega. Cobertura/entregaMOD09,2s/5s/FAIL/excepción original yrestoN02/N06/contrato siguen pendientes.
+
 N02Aauditado:5PASS/24muestras,medianasindividual/lote335,200→219,565ms y324,301→238,831ms;48→3SQL con16lecturas completas/hash por llamada. [Resultado361](361-n02-a-resultado-metadatos-imagenes-20261025.md). Comparación de mecanismos existentes,sin cambiointegrado ni aceptaciónMOD09. PrimerFAILdecalibración preservado/corregido,limpieza/TGsent.2/13,N02/N06abiertos,alfa.
 
 Siguiente:semántica361/README/341/vista17; revisión independiente del llamador antes de candidato,lockwait/autoridad/bytes/rollback y medición integrada. Cobertura/entrega2s/5s yFAIL previos conservados; restoN02/N06 y contrato obligatorios pendientes.

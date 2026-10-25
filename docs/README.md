@@ -1,3 +1,5 @@
+- [N02B: guard real y coste7→4SQL verificados; tiempo inconcluso, adopción pendiente](363-n02-b-resultado-guard-imagenes-sello-20261025.md).
+
 - [N02A:5PASS/24muestras; comparación temporal individual/lote, sin cambio integrado](361-n02-a-resultado-metadatos-imagenes-20261025.md).
 
 - [N06B:2PASS, petición y tareas reales separadas, tiempos y rol restringido](359-n06-b-resultado-peticion-cola-real-20261025.md).
