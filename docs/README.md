@@ -385,3 +385,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N04A: estudio del inventario y brechas de medición de descubrimiento](394-n04-a-estudio-inventario-descubrimiento-20261025.md).
 
 - [Aceptación local N04: descubrimiento, etapas y tiempos antes/después](396-n04-aceptacion-local-descubrimiento-20261025.md).
+
+- [Aceptación local N05: imágenes, recursos, sondeos y teclado](399-n05-aceptacion-local-imagenes-navegador-20261025.md).

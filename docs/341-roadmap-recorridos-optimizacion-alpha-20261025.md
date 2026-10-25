@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **5/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377, N03 por393 y N04 por396 en sus escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **6/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377, N03 por393, N04 por396 y N05 por399 en sus escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -19,7 +19,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Verificado localmente con límite: guard365 y evaluación367; optimización restante MOD09 diferida al final del desarrollo por decisión expresa del usuario, sin PASS temporal |
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Aceptado localmente por393: seis acciones y nueve criterios conciliados, contraste ORB381 y correcciones C/D/F1 con49PASS; retención392 con3PASS/18llamadas; límites finitos y dueños compartidos conservados |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Aceptado localmente por396, sin cambio de aplicación: dos acciones, referencia144peticiones/36páginas y etapas nativas con paridad; testigos previos conservados con límites, sin nuevo p95 |
-| N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
+| N05 | P1 | Imágenes y experiencia de navegador | N01 | Aceptado localmente por399, sin cambio de aplicación:137IDs y muestreo explícito,4PASS privados/sondeos y6PASS galería/teclado actual156, límites y propietarios compartidos conservados |
 | N06 | P1 | Cuenta, panel, edición y representación | N01 | Aceptado localmente por377:46disposiciones y escenarios A–G verificados; límites/compartidosN10/N03/N07retenidos, sin garantía universal |
 | N07 | P1 | Medios, publicación y ciclo de vida | N01 | Pendiente |
 | N08 | P1 | Favoritos, SEO y exposición comercial sintética | N01 | Pendiente |

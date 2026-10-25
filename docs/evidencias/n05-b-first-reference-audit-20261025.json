@@ -1,0 +1,30 @@
+{
+  "result": "PRESERVED_FIRST_REFERENCE_3PASS_1FAIL_NOT_N05_ACCEPTANCE",
+  "run": "20261025-213009-1fb88e99",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "4",
+      "time": "128.601",
+      "timestamp": "2026-10-25T22:30:30.620485+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1748,
+  "sources_unchanged": true,
+  "failure": "private EN before upload, observer Error/Error after full navigation; initial taxonomy insufficient for exact Playwright cause. No app diagnosis established. Correct observer lifecycle and error stage tagging before full reference rerun.",
+  "pass_cases": [
+    "test_private_photo_browser_delivery[es]",
+    "test_natural_export_job_polling[es]",
+    "test_natural_export_job_polling[en]"
+  ],
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "cleanup_verified": true
+}
