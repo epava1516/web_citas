@@ -1,0 +1,37 @@
+{
+  "result": "PASS_N00_STRUCTURAL_COVERAGE_AND_SOURCE_IDENTITY",
+  "families": 28,
+  "counts_by_distinct_unit": {
+    "route": 170,
+    "task": 27,
+    "own_command": 15,
+    "framework_command": 31,
+    "runbook": 11,
+    "admin_pattern": 16,
+    "admin_global_action": 1,
+    "beat": 25,
+    "dispatch": 14,
+    "signal_connection": 1,
+    "template": 129,
+    "javascript": 3
+  },
+  "source_hash_mismatches": 0,
+  "accepted_executable_sources_unchanged": 1507,
+  "scenario_groups": 9,
+  "original111_unchanged": true,
+  "assessment_sha256": "6af1ec0d8b7a40202cdd632cc71b627426b3a283b82fb362e633834f14754b57",
+  "no_new_runtime_acceptance": true,
+  "N00_accepted_by_this_gate": false,
+  "remaining": [
+    "semantic_graph_reconciliation",
+    "primary_technical_acceptance_and_N01_preregistration"
+  ],
+  "limits": [
+    "Rows are distinct inventory units, not summed business functionality or executed tests.",
+    "Source identity supports retained evidence in original candidate/scenario scope, not universal functional/performance acceptance.",
+    "Static depth2 closures are not exhaustive runtime bindings.",
+    "No production usage/frequency/traffic inferred.",
+    "No new application request, database, provider or command handle execution.",
+    "Priority is engineering triage subject to N01 and findings; MOD09 debt is known but has no automatic first place."
+  ]
+}

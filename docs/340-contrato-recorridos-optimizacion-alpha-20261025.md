@@ -1,6 +1,6 @@
 # Contrato alfa — medición, corrección y optimización de recorridos
 
-Versión 1.0, 25 de octubre de 2026. Estado: preparado documentalmente por instrucción del usuario; ejecución técnica pendiente. Esta orden genera el contrato y su roadmap. No inicia mediciones largas ni implementación de los bloques. El producto permanece en alfa durante y después de esta entrega, hasta una decisión posterior del usuario.
+Versión 1.1, 25 de octubre de 2026. Ejecución autorizada por el usuario: «empieza con el nuevo contrato procediendo como lo haciamos en el anterior, hasta el finales». N00 en curso; no hay bloques técnicos aceptados todavía. La preparación documental1.0 permanece en el commit5118a05 y sus evidencias. El producto permanece en alfa durante y después del contrato, hasta una decisión posterior del usuario.
 
 ## 1. Objeto y precedencia
 
@@ -30,7 +30,7 @@ Base de navegación: grafo final anterior1925fuentes,17870nodos,79571relaciones 
 1. Contrastar I01–I28 contra fuentes actuales y cambios posteriores; clasificar cada acción por autoridad, dependencias, datos/estados, cobertura funcional, evidencia de rendimiento, riesgo y coste conocido. Registrar añadidos, cambios, retirados y conservados.
 2. Definir escenarios y presupuestos antes de comparar candidatos. Medir los recorridos sin evidencia aplicable o con incertidumbre relevante; reutilizar evidencia sólo con identidad y escenario justificados. Todos los elementos del inventario deben recibir una disposición trazable; el muestreo debe justificar qué representa y qué deja sin medir.
 3. Resolver defectos de producto encontrados y optimizar costes demostrados con comparación, paridad y reversión. No exigir una modificación de código cuando la referencia ya cumple: puede aceptarse «sin cambio necesario» con evidencia suficiente. No forzar un porcentaje de mejora inventado.
-4. Retomar temprano I22/MOD09 e I14: cobertura y paquetes, detector y confirmación/registro, densidad, cardinalidad de originales, retención, concurrencia y colas. Distinguir consulta, materialización, cifrado/serialización, objetos, entrega y trabajo asíncrono; no atribuir a toda la aplicación el tiempo de una prueba.
+4. Evaluar I22/MOD09 e I14 dentro de la priorización fundada de N00, sin precedencia automática por su deuda: cobertura y paquetes, detector y confirmación/registro, densidad, cardinalidad de originales, retención, concurrencia y colas. Distinguir consulta, materialización, cifrado/serialización, objetos, entrega y trabajo asíncrono; no atribuir a toda la aplicación el tiempo de una prueba.
 5. Cubrir descubrimiento público, entrega/navegador, panel/cuenta, medios/publicación, superficies secundarias/comerciales sintéticas, derechos/avisos/limpieza y operación. El roadmap asigna las28familias sin eliminar las de menor tráfico supuesto.
 6. Conciliar los cambios en una candidata final identificada, con regresión pertinente, recuperación donde se afecte y actualización final del inventario y del grafo. Emitir acta local con resultados y deuda individualizados.
 

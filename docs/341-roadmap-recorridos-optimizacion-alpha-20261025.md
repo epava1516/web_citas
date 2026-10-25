@@ -1,12 +1,12 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.0,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), preparado a petición del usuario. Ejecución pendiente: **0/13bloques obligatorios aceptados**. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.1,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 en curso: **0/13bloques obligatorios aceptados**. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
-La primera posición es el inventario de recorridos. N00/N01 identifican escenarios y fijan bases/presupuestos; la prioridad temprana corresponde a MOD09 y procesamiento fotográfico. N04–N10 pueden ajustar orden por hallazgos de N00, con justificación registrada. Esa flexibilidad no elimina familias ni bloques. N11 concilia la candidata; N15 realiza la entrega final. N12–N14 conservan las condiciones de deuda336 y no activan producto o apertura.
+La primera posición es el inventario de recorridos. N00/N01 identifican escenarios y fijan bases/presupuestos; el orden entre N02–N10 se decide por impacto, riesgo, dependencias y coste contrastado, sin precedencia automática de MOD09 o procesamiento fotográfico. La selección inicial y sus límites se documentan en [N00:342](342-n00-inventario-priorizacion-20261025.md). Esa flexibilidad no elimina familias ni bloques. N11 concilia la candidata; N15 realiza la entrega final. N12–N14 conservan las condiciones de deuda336 y no activan producto o apertura.
 
-Ruta: N00 → N01 → N02/N03 → N04–N10 → N11 → N15. N02–N10 dependen de N01 y pueden coordinar lotes independientes; la flecha de prioridad no obliga a esperar un bloque sin relación técnica. Cualquier trabajo condicionado que se active y cambie producto debe integrar su evidencia en N11 antes de N15. Si no hay insumos, su diferimiento no detiene los trabajos independientes.
+Ruta de dependencias: N00 → N01 → N02–N10 → N11 → N15. N02–N10 dependen de N01 y pueden coordinar lotes independientes; la flecha de prioridad no obliga a esperar un bloque sin relación técnica. Cualquier trabajo condicionado que se active y cambie producto debe integrar su evidencia en N11 antes de N15. Si no hay insumos, su diferimiento no detiene los trabajos independientes.
 
 No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenarios, fuentes, recursos y muestras; separar ejecución activa, espera de pruebas y dependencias externas. Mantener rango y actualizarlo con evidencia. No derivar latencia de aplicación ni duración futura sólo del número de archivos o casos QA.
 
@@ -14,10 +14,10 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 
 | ID | Prioridad | Bloque | Depende de | Estado inicial |
 | --- | --- | --- | --- | --- |
-| N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | Pendiente |
+| N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | En curso; matriz342 pendiente de aceptación |
 | N01 | P0 | Línea base y presupuestos por escenario | N00 | Pendiente |
-| N02 | P1 temprano | Exportación y portabilidad: deuda MOD09 | N01 | Pendiente |
-| N03 | P1 temprano | Procesamiento y similitud fotográfica | N01 | Pendiente |
+| N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Pendiente |
+| N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
 | N06 | P1 | Cuenta, panel, edición y representación | N01 | Pendiente |

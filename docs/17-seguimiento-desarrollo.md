@@ -1,3 +1,7 @@
+Ejecución delcontrato340autorizada porelusuario;N00en curso,0/13aceptados yN12–N14condicionados. [Matriz ypriorización342](342-n00-inventario-priorizacion-20261025.md) producidas, pendientesdeaceptación ygrafo. MOD09sin prioridadautomática;N00ordena porimpacto/riesgo/coste. Alfa.
+
+Siguiente:verificar matrizN00yconciliarsemántica;despuésN01S01descubrimiento. Cortes inferiores conservan fecha yalcance.
+
 Nuevo [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md) y [roadmap341](341-roadmap-recorridos-optimizacion-alpha-20261025.md) preparados por instrucción del usuario. Ejecución técnica pendiente:0/13obligatorios;N12–N14condicionados, sinPASS. Primera acción al iniciar ejecución:N00,inventario I01–I28ypriorización. Proyecto enalfa;QAespecífico aplazado.
 
 El contrato anterior permanece cerrado poracta23. Esta orden genera documentos ynoiniciaimplementación ni mediciones largas. Cortes inferiores históricos.
