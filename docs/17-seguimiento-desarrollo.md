@@ -1,3 +1,5 @@
+B16 aceptado técnicamente en local por [acta22](actas/22-beta-b16-aceptacion-local-20261025.md): candidata integrada conciliada, capacidad contractual vigente y recuperación auditadas, negativos/omisiones/deuda preservados.15/18cerrados: B00–B13 yB16;B14/B15/B17sin aceptación técnica. Alfa; pendientes grafo completo, inventario diferencial yacta final del contrato.
+
 B16-373: contractual370 auditado numéricamente:18000respuestas/15subidas, p95observable410,559ms; cuotas, fuentes y limpieza verificadas.45testigos semánticos conservan SHA;11exclusiones dispuestas por alcance sin reescribir resultados. B16pendiente conciliación final;14/18,alfa.
 
 Corte: [auditoría334](334-auditoria-http-contractual-b16-20261025.md).

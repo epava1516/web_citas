@@ -1,0 +1,783 @@
+{
+  "state": "OPERATIONAL_GATE_RECONCILED_IN_CURRENT_FUNCTIONAL_RUN",
+  "groups": [
+    {
+      "historical_gate": "20261021-022632-91e875b1",
+      "current_gate": "20261024-094540-3a6ec8ac",
+      "cases": [
+        {
+          "classname": "tests.test_media_erasure",
+          "name": "test_files_and_fingerprints_erased_durably_without_worker_resurrection",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "321ca64d5795bc5c7d0ad0f58a51eb0d2c60b86fc542b606eacb9d6648fe5ca9"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_expired_exclusive_files_purged_and_same_bytes_can_be_uploaded_again",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_actual_celery_worker_purges_expired_delivery",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_audited_destination_confirmation_http_keeps_account_unchanged",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_media_erasure",
+          "name": "test_shared_file_cannot_be_erased_by_another_person",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "321ca64d5795bc5c7d0ad0f58a51eb0d2c60b86fc542b606eacb9d6648fe5ca9"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_shared_historical_reference_and_active_sibling_prevent_cleanup",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_expiry_worker_removes_bytes_keeps_audit_and_orphan_cleanup",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_confirmation_delivery_is_disabled_and_source_changes_invalidate_link",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_media_erasure",
+          "name": "test_partial_storage_failure_keeps_retry_state_and_repeats_missing_file",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "321ca64d5795bc5c7d0ad0f58a51eb0d2c60b86fc542b606eacb9d6648fe5ca9"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_fresh_revocation_content_expiry_foreign_scope_and_restore[expires]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_shared_storage_path_preserved_even_without_shared_photo",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_mobile_destination_confirmation_is_visible_and_persists[es]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_fresh_revocation_content_expiry_foreign_scope_and_restore[namespace]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_media_erasure",
+          "name": "test_inflight_processing_cannot_write_derivative_after_erasure",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "321ca64d5795bc5c7d0ad0f58a51eb0d2c60b86fc542b606eacb9d6648fe5ca9"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_monitor_counts_distinct_blob_when_two_preparations_expire",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_fresh_revocation_content_expiry_foreign_scope_and_restore[restore]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_media_erasure",
+          "name": "test_distinct_blob_with_shared_storage_path_prevents_file_deletion",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "321ca64d5795bc5c7d0ad0f58a51eb0d2c60b86fc542b606eacb9d6648fe5ca9"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_proposal_evidence_is_retained_without_worker_decryption",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_mobile_destination_confirmation_is_visible_and_persists[en]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_rights_orphan_objects_retention",
+          "name": "test_orphan_object_grace_live_reference_and_idempotent_physical_removal",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "d50d7a2ad238005a332383201a2f615207b31090dfeae9e25426f0619da10712"
+        },
+        {
+          "classname": "tests.test_notice_worker_recovery",
+          "name": "test_prefork_outbox_failure_natural_backoff_then_unique_recovery",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "6b27c170cb65f68a82948ae5696091fca57cfa91a506e2a739fff5f2aa64ab8d"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_empty_observation_never_reports_healthy_and_missing_window_is_visible",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_discard_cleanup_partial_storage_failure_retries_and_blocks_upload",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_lag_boundaries_and_old_creation_do_not_misclassify_newly_due_retry",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_failed_tasks_retry_delivery_and_transport_loss_are_distinct_without_payload_echo",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_schedule_unknown_and_stale_or_future_windows_remain_visible",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_account_only_execution_consumes_confirmation_without_changing_listing",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_failed_jobs_purge_eligibility_and_disabled_processor_have_fixed_responses",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_inflight_processing_cannot_recreate_purged_preparation[False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_command_observes_real_durable_delay_read_only_and_never_echoes_paths",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_database_failure_never_returns_partial_assessment",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_inconsistent_internal_metric_is_fixed_error_without_value_echo",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_private_delivery_expiry_boundary_and_invalidation_have_distinct_responses",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_inflight_processing_cannot_recreate_purged_preparation[True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_operational_assessment",
+          "name": "test_optional_object_inventory_never_becomes_an_absence_claim",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "e96c376942f35fe44f3f95410f951f4644bf33ad75058de8403fdc6697d3f9bd"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_expired_confirmation_delivery_is_purged_without_erasing_audit",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_window_boundaries_fallback_task_delivery_and_nonadditive_gap_markers",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_empty_unknown_route_and_private_or_malformed_rows_never_imply_health",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_invalid_window_is_fixed_error[True-200]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_invalid_window_is_fixed_error[100-100]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_invalid_window_is_fixed_error[200-100]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_invalid_window_is_fixed_error[0-3601]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_total_byte_and_line_limits_are_enforced_without_partial_result",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_actual_nonblocking_writer_events_are_consumable_and_logger_restored",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_operational_window",
+          "name": "test_command_bounds_regular_file_and_sanitized_errors_without_partial_json",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "0d4d2be1001cea519924ad3f1f41796447f74789b5ee4ebdf4de9beeef4fec42"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_cleanup_serializes_with_new_shared_reference",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_name_correction_needs_no_new_mailbox_and_mixed_changes_preserve_review[False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_worker_interruption_keeps_committed_guard_and_paths[before]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_name_correction_needs_no_new_mailbox_and_mixed_changes_preserve_review[True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_preparation_cleanup",
+          "name": "test_worker_interruption_keeps_committed_guard_and_paths[partial]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "5bcf935eb86192a3dd3b839f74938a9d7732dbc5363166fe6784219ea88ee181"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_confirmation_rechecks_authority_after_observed_account_lock[account]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_account_email_confirmation",
+          "name": "test_confirmation_rechecks_authority_after_observed_account_lock[proof]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "4542637e425116a50f3421b4b3a36471da1684b642b7a1d44cf3ccd8ceaee335"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_empty_snapshot_has_explicit_scope_and_read_only_aggregates",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_due_notice_boundary_and_private_values_never_emitted",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_due_wait_uses_eligibility_not_original_creation_age",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_media_queue_boundaries_do_not_read_storage_paths_or_limit_preparation_retries",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_inherited_transaction_rejected_without_changing_it",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_database_failure_is_sanitized_and_command_never_writes_partial_json",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_expiry_registry_covers_simple_periodic_safety_purges",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        },
+        {
+          "classname": "tests.test_operational_snapshot",
+          "name": "test_export_leases_and_expiry_boundary_use_real_durable_rows",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8db0f3704877096c2c43ec9bd532223c5608bee9fdcd8c1dc3f05b3420877a91"
+        }
+      ],
+      "count": 60
+    },
+    {
+      "historical_gate": "20261021-124228-3c690d3d",
+      "current_gate": "20261024-094540-3a6ec8ac",
+      "cases": [
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[es]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_recovery_pg_restore",
+          "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ffb079f96fa6c233c1a5302728ac5b69aae8a7799ba0da9b3925f1c90ceb06c6"
+        },
+        {
+          "classname": "tests.test_service_continuity",
+          "name": "test_owned_service_outage_preserves_outbox_and_recovers_once[worker]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "b214154cf14a260ca28623928958f9412773bf4dc628ee5301d071f5de92cee9"
+        },
+        {
+          "classname": "tests.test_beta_urgent_withdrawal",
+          "name": "test_urgent_restriction_hides_every_surface_and_preserves_peer_and_audit[es]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "2d1386a4e92df0a0f7142d293c6b1f658786418b28d962320eee8561b623cb98"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_urgent_owner_revocation_escalates_to_authorized_substitute[en]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_beta_urgent_withdrawal",
+          "name": "test_urgent_restriction_hides_every_surface_and_preserves_peer_and_audit[en]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "2d1386a4e92df0a0f7142d293c6b1f658786418b28d962320eee8561b623cb98"
+        },
+        {
+          "classname": "tests.test_service_continuity",
+          "name": "test_owned_service_outage_preserves_outbox_and_recovers_once[broker]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "b214154cf14a260ca28623928958f9412773bf4dc628ee5301d071f5de92cee9"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-permission]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_recovery_pg_restore",
+          "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ffb079f96fa6c233c1a5302728ac5b69aae8a7799ba0da9b3925f1c90ceb06c6"
+        },
+        {
+          "classname": "tests.test_beta_profile_contract",
+          "name": "test_migration_preserves_old_content_and_requires_new_romantic_revision",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "69648abc5cf09e2ae89bedc1a21cee494db945a55a8ba00c80d41c955262b39b"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-session]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_declared_profile_label",
+          "name": "test_schema_rollback_cannot_discard_a_selected_label",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "d5cd4375d747199e4c2bc1b20bf2c121b49768ca28b45620c9410960de3631a2"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-mfa]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_promotion_recovery",
+          "name": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "8edd4ab1c8abbbdeaf0a854c498bb9dea4ee0393f18a3f5ee8e2c67ada9b6a9c"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-locks-active]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_recovery_pg_restore",
+          "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ffb079f96fa6c233c1a5302728ac5b69aae8a7799ba0da9b3925f1c90ceb06c6"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-permission]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-session]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_publication_state_upgrade",
+          "name": "test_conditional_migration_invalidates_existing_state",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "31b5dd3e3482e766ca6d98a68ace07e57f8022808b0010b1c3500cdf9eaa8031"
+        },
+        {
+          "classname": "tests.test_recovery_pg_restore",
+          "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ffb079f96fa6c233c1a5302728ac5b69aae8a7799ba0da9b3925f1c90ceb06c6"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-mfa]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[True-locks-active]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-return-permission]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-return-session]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-return-mfa]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        },
+        {
+          "classname": "tests.test_urgent_report_drill",
+          "name": "test_report_decision_rechecks_revocation_after_scoped_locks[False-return-active]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "f83ce9b28320c48d5d83a7c63ccc0de9970a45ab7b3d26b342df02fd937bec69"
+        }
+      ],
+      "count": 26
+    },
+    {
+      "historical_gate": "20261021-085523-2ef768af",
+      "current_gate": "20261024-094540-3a6ec8ac",
+      "cases": [
+        {
+          "classname": "tests.test_domain_key_incident",
+          "name": "test_explicit_domain_key_revocation_preserves_evidence_but_closes_old_channels[False-report]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "57975bc7c7c1e00d9d9336357a77adc2ae846ec6d4f19c69f9d73d9a2e4bc6c5"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_effective_key_change_invalidates_operation_reuse_and_publication_version",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[report-False-False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[None]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[23]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[bytes-not-config]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[value3]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_invalid_domain_key_is_rejected_without_echo[                                                                ]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_empty_mode_and_exact_pin_preserve_legacy_hmac_bytes",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_signing",
+          "name": "test_startup_rejects_short_explicit_domain_key_without_echo",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "107f0d8b9de8f676d3c135dd1552cff728da9781df2bd05785cf6a92f69a439a"
+        },
+        {
+          "classname": "tests.test_domain_key_incident",
+          "name": "test_explicit_domain_key_revocation_preserves_evidence_but_closes_old_channels[False-rights]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "57975bc7c7c1e00d9d9336357a77adc2ae846ec6d4f19c69f9d73d9a2e4bc6c5"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[report-False-True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_domain_key_incident",
+          "name": "test_explicit_domain_key_revocation_preserves_evidence_but_closes_old_channels[True-report]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "57975bc7c7c1e00d9d9336357a77adc2ae846ec6d4f19c69f9d73d9a2e4bc6c5"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[report-True-False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_domain_key_incident",
+          "name": "test_explicit_domain_key_revocation_preserves_evidence_but_closes_old_channels[True-rights]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "57975bc7c7c1e00d9d9336357a77adc2ae846ec6d4f19c69f9d73d9a2e4bc6c5"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[report-True-True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[rights-False-False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[rights-False-True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[rights-True-False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        },
+        {
+          "classname": "tests.test_signing_rotation_receipts",
+          "name": "test_signing_rotation_revokes_receipts_but_preserves_audited_evidence[rights-True-True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "98ec103056e2571163141391073604382cf29411df41408bbd49681937a1cd4b"
+        }
+      ],
+      "count": 21
+    },
+    {
+      "historical_gate": "20261021-064929-b822d7ff",
+      "current_gate": "20261024-094540-3a6ec8ac",
+      "cases": [
+        {
+          "classname": "tests.test_proxy_secret_rotation",
+          "name": "test_proxy_secret_rotation_and_optional_generation_keep_original_audit[False]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "263fa64e74c5a48b21d340928436a8555b4864d1be71de53b4146136b1153c63"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path[steady]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_proxy_secret_rotation",
+          "name": "test_proxy_secret_rotation_and_optional_generation_keep_original_audit[True]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "263fa64e74c5a48b21d340928436a8555b4864d1be71de53b4146136b1153c63"
+        },
+        {
+          "classname": "tests.test_rights_object_delivery",
+          "name": "test_actual_caddy_serves_verified_bytes_and_blocks_replay_and_raw_path[credential-reload]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "fa3e4b02b5c99b8855259f19bf843ffd5111fc06e4b2200ba00ded3e634b9275"
+        },
+        {
+          "classname": "tests.test_proxy_secret_rotation",
+          "name": "test_ledger_authority_remains_independent_of_application_key_changes",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "263fa64e74c5a48b21d340928436a8555b4864d1be71de53b4146136b1153c63"
+        }
+      ],
+      "count": 5
+    },
+    {
+      "historical_gate": "20261021-071731-7de75ea5",
+      "current_gate": "20261024-094540-3a6ec8ac",
+      "cases": [
+        {
+          "classname": "tests.test_recovery_key_authority",
+          "name": "test_wrong_ledger_key_preserves_commands_data_sessions_and_files[encryption]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ae4831006739dde9bf902904e3d32828fc03dbb1106d09523e8af58f892f4fe0"
+        },
+        {
+          "classname": "tests.test_recovery_key_authority",
+          "name": "test_wrong_ledger_key_preserves_commands_data_sessions_and_files[signing]",
+          "current_outcome": "PASS",
+          "current_test_source_sha256": "ae4831006739dde9bf902904e3d32828fc03dbb1106d09523e8af58f892f4fe0"
+        }
+      ],
+      "count": 2
+    }
+  ],
+  "real_restore_properties": [
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+      "verified_properties": {
+        "real_restore": "True",
+        "effects_applied": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+      "verified_properties": {
+        "real_restore": "True",
+        "effects_applied": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+      "verified_properties": {
+        "real_restore": "True",
+        "effects_applied": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+      "verified_properties": {
+        "real_restore": "True",
+        "effects_applied": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "restored_database_removed": "True"
+      }
+    },
+    {
+      "name": "test_real_restore_preserves_commercial_evidence_without_reactivating_erased_promotion",
+      "verified_properties": {
+        "real_restore": "True",
+        "effects_applied": "True",
+        "replay_idempotent": "True",
+        "publication_authorized": "False",
+        "restored_database_removed": "True"
+      }
+    }
+  ],
+  "limits": [
+    "Groups overlap; do not sum as unique tests",
+    "353 original overall ERROR retained, unrelated CLI failures corrected separately",
+    "Current product differs from353 only publication_signals historical-registry guard with scoped bridge329 and focused317 witnesses",
+    "No real operator, offsite custody, provider, legal review, hot reload universal or production guarantee"
+  ],
+  "acceptance_scope": "Existing B12/B13 local criteria re-exercised where listed; fresh test hashes verified; unlisted historical witnesses retain original limited scope"
+}

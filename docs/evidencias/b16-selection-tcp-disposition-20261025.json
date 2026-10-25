@@ -1,0 +1,40 @@
+{
+  "state": "SELECTION_REQUIREMENT_SCOPED_WITNESS_NOT_OPTIN_NODEID_PASS",
+  "run": "20261024-205341-42fa3118",
+  "executable_sources_compared": 1507,
+  "changed_source_paths": [
+    "tests/test_similarity_scan_cost.py"
+  ],
+  "bridge": "Only changed test_similarity_scan_cost.py is a standalone opt-in similarity corpus diagnostic, not imported by delivery/selection tests; product, runtime dependencies, migrations and selection/delivery instruments identical. Initial audit equality assertion rejected broad all-test identity; corrected scope preserves this difference.",
+  "rows": [
+    {
+      "case": "a3aa0b21-1ae0-4710-acee-af0d229c9b1a",
+      "page_samples": 31,
+      "p95_seconds": 1.472581691108644,
+      "distinct_write_versions": 20,
+      "final_decision_seconds": [
+        2.0231849094852805
+      ],
+      "full_flow_result": false
+    },
+    {
+      "case": "c6cc7a31-c0bd-4cc3-a303-e00d94ffffed",
+      "page_samples": 31,
+      "p95_seconds": 1.4746003178879619,
+      "distinct_write_versions": 20,
+      "final_decision_seconds": [
+        1.9540198324248195
+      ],
+      "full_flow_result": false
+    }
+  ],
+  "all_31_pairs_overlap": true,
+  "source_scope": "capacity_delivery_flow.run_case reads pages1..31 over TCP/CSRF with separate reviewer; rejects premature approval409; no peer identity in body; selected review references31pages and16images. Entire flow reaches end without errors before temporal FAIL.",
+  "limits": [
+    "Original full flow FAIL preserved: coverage and JSON/binary latency violations under MOD09",
+    "Not repeated-page1 single live_server probe",
+    "Not20complete approval generations of concurrent opt-in probe",
+    "No universal latency or production capacity claim"
+  ],
+  "requirement_disposition": "Applicable current selection reads, fresh authority, separation, completion and2s p95 have scoped witness; opt-in variants retain SKIP without new execution"
+}
