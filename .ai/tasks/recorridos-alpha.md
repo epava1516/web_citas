@@ -1,3 +1,16 @@
+# Estado vigente — N01B preparado, no ejecutado
+
+Goalactivocontratocompleto,N00aceptado1/13,N01encurso,3condicionados,alfa. Reglausuariotablaantes/despuésporbloque vigente. Base748a3df. N01A2PASSysuslímitesincorporados semánticamenteantesdeanalizarN01B:contexto1931fuentes/17977nodos/79848relaciones/852comunidades,pruebaindependientePASS. Stage/context en artifacts/recorridos-n01-b-20261025/context;livepublicado. Agente n01a_result_semantic terminó,3entradas16nodos/17relaciones;preservarsusJSONs/worktree. Noinvocar denuevo porcaché.
+
+Nuevo doc346 e instrumento tests/test_discovery_segment_baseline.py:uncaso100perfiles,ES/EN5escenarios(listado,página2,perfil,vacío,ficha),6peticiones cadauno=60,primeravs5posteriores,nofríoOSgarantizado,nop95/TCP/capacidadocausalidad. OráculoID/orden desdeDBsintética publicada,noguard delproducto;sinpromos/monkeypatchproducto. 1507fuentesanterioresnoeditadas;únicocódigo nuevo esinstrumento. Protocolo antesdemedir,restanteS01y8grupospendientes.
+
+Próximo:ASTGraphifydelnuevoinstrumento+semántica346/README/17vista4líneas ycheckschema/sources;actualizar manifestante1931a1933. Adaptargate quecompareproducto1507originalsin cambios y declare añadidoinstrumento;no confundirASTdelta/instrumentoconcambioproducto. Ruffnuevofileporrun_notified;docscheck. Congelarfuentes/grafo/imagenmismasPG17/Redis+nativolibrdb2.4.0,commit/push,pasar runneroficialfocusedtestnuevo workers1timeout900. Noeditarfuentesdurantetest. Auditar1caso/60muestras,IDsoráculos,Junitjournal,fingerprint,cleanup,TG;preservarnegativos. No cerradoN01/N04por1caso. Si espera larga:protocoloAGENTS delmismogoal,nomarcarcomplete.
+
+Preservar Ddocs/evidencias/traslado-maquina-graphify0110.tar.gz y8ClaudeV1históricas/consumo;ningúndatoreal/proveedor/QAoptimización/beta.
+
+---
+Historial:
+
 # Estado vigente — N00 aceptado1/13; N01A auditado
 
 Goal activo del contrato completo;N12–N14condicionados,alfa. Instrucción posterior delusuario:tablaantes/despuésal finalizar cadabloque;incorporada340/341v1.2yN00tabla343. No crear nuevo goal ni completar porun lote.
@@ -53,3 +66,7 @@ Contrato340 yroadmap341 revisados,721MD/5879enlaces/33copiasPASS. Agente next_co
 Matriz de443unidades heterogéneas,28familias,9grupos paraN01,contraste independientePASS (no443funcionalidades). Semántica77nodos/143relaciones validada porSHA/cita/líneas;grafo1928fuentes/17946nodos/79798relaciones/850comunidades,0huellas/extremos desajustados. 722MD/5885enlacesPASS. Validadorauxiliar original ERRORporcampo source_file/path conservado ynotificadoFAIL;correctiva5entradasPASS. Cero fallo deproducto demostrado;1507SHAaceptadossin cambios. ArchivosyreciboN00durables;N00en curso,noaceptaciónautomática porgateestructural. Agente n00_execution_semantic terminado,worktree /tmp/web-modelos-n00-semantic yJSONs preservados;ceroClaudeV1nuevas.
 
 Próximo inmediato:aceptación primaria N00 conforme a342/matriz (autoridad descrita porfuente yriesgo,no nueva prueba depermisos) yconcretar primerafichaS01 N01,representantesR_home ylisting_detail,orgánico/promoción/filtros/página/ESEN;no repetir cargadehoras. Revisar instrumentos existentes tests/test_discovery_*profile.py y tests/beta_promotional_load_fixture.py;nombre tests/test_public_http_load.py noexiste(no pruebaejecutada). Refrescar semántica delhito antes decongelar/medir. Goalactivo hasta13obligatoriosmásdisposición3condicionados;no pausa,nocompleto.
+
+## N01Bpreflight terminado
+
+Grafo1933fuentes/17993nodos/79888relaciones/853comunidades;semántica3doc15entidades/13relacionesyASTnuevainstrumentación4nodos/15relaciones/2funcionesindependientes. Producto1507SHAoriginalesintacto. Ruff y726MD/5906enlacesPASS;integridadgrafoPASS,oldnodos/edgespreservadossegúnscope. ReportesnativosoriginalesSTATUSCOMPLETE no conformes conservados;autorescorrigieron sóloinformes,gatecorrectivoPASS,notificadoFAILauxiliar/no producto. Agentesn01a_result_semantic y n01b_prereg_semanticterminadosconJSONs/worktrees preservados,ceroClaudeV1. Congelar trascommit yejecutar1caso60muestras;noeditarfuentesdurantetest.

@@ -325,3 +325,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Aceptación local N00:343](343-n00-aceptacion-local-20261025.md) y [prerregistro N01:344](344-n01-prerregistro-descubrimiento-a-20261025.md):1/13aceptados, diagnóstico inicial de listado10/100perfiles antes de candidatos; no capacidad ni N01 completo.
 
 - [N01A: resultado345](345-n01-a-diagnostico-descubrimiento-20261025.md), [auditoría](evidencias/n01-a-diagnostico-auditoria-20261025.json) y [archivo de evidencia](evidencias/n01-a-diagnostico-evidencia-20261025.json):2PASS, referencia instrumentada, sin mejora causal o aceptación de N01 completo.
+
+- [N01B: protocolo346](346-n01-b-prerregistro-segmentos-20261025.md):100perfiles,10segmentosES/EN y60peticiones instrumentadas previstas;sin ejecución aún ni aceptación N01 completa.

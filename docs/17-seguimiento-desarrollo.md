@@ -1,3 +1,7 @@
+N01Bprerregistradoen [346](346-n01-b-prerregistro-segmentos-20261025.md):un caso,100perfiles,ES/EN,listado/página2/perfil/vacío/ficha,6peticionesporsegmento(60). Instrumentonuevosin cambioproducto;antesdeejecución,grafosemántico/ASTycongelaciónpendientes. N00aceptado1/13,N01encurso,alfa.
+
+Siguiente:conciliar prerregistro e instrumento,congelar,ejecutarselecciónexacta y auditar;no p95/capacidadni comparacióncausal primera/posteriores. Tablasantes/despuésal cerrarbloque. Antecedentesinferioresconservancorte.
+
 N01Aterminalyauditado:2PASS/0FAIL/ERROR/SKIP,run20261025-081326-9844f827;listadoES10/100perfiles,0,624848/0,247264sinstrumentadosy52/29SQL. Sin mejoracausal,niTCP/p95/capacidad. [Resultado345](345-n01-a-diagnostico-descubrimiento-20261025.md). N00aceptado1/13;N01encurso,alfa.
 
 Siguiente:incorporar semántica de345/este corte antesdelnuevohitoN01;prerregistrar misma poblaciónfrío/caliente ysegmentos restantesS01. Tablaantes/después obligatoria porbloque;N00en343. Antecedentes inferiores conservan corte.
