@@ -315,14 +315,14 @@ def _sealed_or_full(case, person, export):
 
 @sensitive_variables()
 def _verify_current_images(export, person):
-    from .rights_exports import image_content
+    from .rights_exports import image_contents
 
     binding = RightsExportPortabilityBinding.objects.select_related("review__selection").get(
         export=export
     )
     declarations = unseal(binding.review.selection.encrypted_selection).get("images", [])
-    for declaration in declarations:
-        _, current = image_content(person, declaration["photo"])
+    contents = image_contents(person, [item["photo"] for item in declarations])
+    for declaration, (_, current) in zip(declarations, contents, strict=True):
         if hashlib.sha256(current).hexdigest() != declaration["content_digest"]:
             raise ValidationError("Portable image content changed")
         del current
