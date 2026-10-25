@@ -1,0 +1,3259 @@
+{
+  "result": "PASS_N06F_SCOPED_REFERENCE_NOT_N06_CLOSURE",
+  "run": "20261025-162605-8a2766fc",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "12",
+      "time": "78.235",
+      "timestamp": "2026-10-25T17:26:26.999633+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "junit_sha256": "a1082053c695d137092bb3808aa6023b55c25ca2b355c0c00a277278376e6249",
+  "head": "9aed9afe5b23d102826a9df26f808696f672b3fe",
+  "source_count": 1736,
+  "source_mismatches": [],
+  "selection": [
+    "tests/test_accounts.py::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+    "tests/test_accounts.py::test_resend_invalidates_older_token",
+    "tests/test_accounts.py::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+    "tests/test_verification.py::test_individual_prerequisites_persistence_phone_replay",
+    "tests/test_verification.py::test_agency_direct_consent_shared_phone_and_transfer",
+    "tests/test_agencies_mfa.py::test_mfa_enrollment_replay_and_recovery",
+    "tests/test_agencies_mfa.py::test_two_models_editor_scope_and_revocation",
+    "tests/test_manager_review.py::test_transfer_requires_current_human_review_before_readiness",
+    "tests/test_agency_appeals.py::test_agency_appeal_reopens_without_verification_and_preserves_original",
+    "tests/test_manager_appeals.py::test_manager_appeal_independence_persistence_and_no_auto_publication",
+    "tests/test_profile_status.py::test_pending_changes_do_not_replace_published_profile_guidance"
+  ],
+  "counts": {
+    "actions": 46,
+    "HTTP": 41,
+    "routes_with_some_reference": 37,
+    "routes_without_reference": 4,
+    "newly_referenced_routes": 17,
+    "observed_requests": 120,
+    "unresolved_route_samples": 0
+  },
+  "cases": [
+    {
+      "module": "tests.test_accounts",
+      "case": "test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+      "qa_seconds": 38.807,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6255992045626044,
+          "route_name": "signup",
+          "sql_execute_seconds": 0.040503110736608505,
+          "sql_queries": 14,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02599001582711935,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.013757453300058842,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1589442938566208,
+          "route_name": "login",
+          "sql_execute_seconds": 0.01291080191731453,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07124420255422592,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.018696495331823826,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.010331864468753338,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.005665000528097153,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027233172208070755,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.00285552442073822,
+          "sql_queries": 3,
+          "status": 400,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021556098945438862,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.010785800404846668,
+          "sql_queries": 9,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02455294970422983,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.011096358299255371,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1313338177278638,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.004529604688286781,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01414018590003252,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.0027110548689961433,
+          "sql_queries": 3,
+          "status": 400,
+          "ordinal": 10
+        }
+      ]
+    },
+    {
+      "module": "tests.test_accounts",
+      "case": "test_resend_invalidates_older_token",
+      "qa_seconds": 1.748,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.18508826103061438,
+          "route_name": "signup",
+          "sql_execute_seconds": 0.04220612347126007,
+          "sql_queries": 14,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015719215385615826,
+          "route_name": "resend",
+          "sql_execute_seconds": 0.007539412938058376,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006032696925103664,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0022230055183172226,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02010184433311224,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.012544706463813782,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 4
+        }
+      ]
+    },
+    {
+      "module": "tests.test_accounts",
+      "case": "test_reset_one_use_expiry_and_existing_sessions_invalidated",
+      "qa_seconds": 2.031,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17735412251204252,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.020363755524158478,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007913154549896717,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0032474445179104805,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.004557766020298004,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0011514853686094284,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.004781835712492466,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0010329009965062141,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 4
+        }
+      ]
+    },
+    {
+      "module": "tests.test_verification",
+      "case": "test_individual_prerequisites_persistence_phone_replay",
+      "qa_seconds": 2.148,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06999708339571953,
+          "route_name": "individual_create",
+          "sql_execute_seconds": 0.04735805280506611,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024385341443121433,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.00803037453442812,
+          "sql_queries": 9,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04604317434132099,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.029036955907940865,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07307331077754498,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.044455451890826225,
+          "sql_queries": 26,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06117647234350443,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.032862222753465176,
+          "sql_queries": 23,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06398139800876379,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.031825028359889984,
+          "sql_queries": 23,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04282764624804258,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.01790574472397566,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07648774515837431,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.0463440315797925,
+          "sql_queries": 20,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07653678208589554,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.02128452993929386,
+          "sql_queries": 13,
+          "status": 200,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03154768515378237,
+          "route_name": "individual_create",
+          "sql_execute_seconds": 0.013677162118256092,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.042085569351911545,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.020327878184616566,
+          "sql_queries": 11,
+          "status": 400,
+          "ordinal": 11
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04691978543996811,
+          "route_name": "representation_revoke",
+          "sql_execute_seconds": 0.029582999646663666,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 12
+        }
+      ]
+    },
+    {
+      "module": "tests.test_verification",
+      "case": "test_agency_direct_consent_shared_phone_and_transfer",
+      "qa_seconds": 2.801,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.042109434492886066,
+          "route_name": "consent_invite",
+          "sql_execute_seconds": 0.021634062752127647,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030516532249748707,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.01721883937716484,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0347319720312953,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.0132147753611207,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029698630794882774,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.010781732387840748,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06371604464948177,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.03761206567287445,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.026031221263110638,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.010538369417190552,
+          "sql_queries": 8,
+          "status": 403,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016749710775911808,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.006638629361987114,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03176573943346739,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.014273605309426785,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07823486998677254,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.04879737179726362,
+          "sql_queries": 26,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.034066070802509785,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.018402116373181343,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08134927600622177,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.06031211372464895,
+          "sql_queries": 19,
+          "status": 302,
+          "ordinal": 11
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03026661742478609,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.014786452054977417,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 12
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.060270640067756176,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.040397812612354755,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 13
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03908739145845175,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.0160983232781291,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 14
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03417095262557268,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.015094839036464691,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 15
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06653174292296171,
+          "route_name": "representation_transfer",
+          "sql_execute_seconds": 0.04092954471707344,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 16
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01906692050397396,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.007748696953058243,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 17
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03960294835269451,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.01648486591875553,
+          "sql_queries": 9,
+          "status": 200,
+          "ordinal": 18
+        }
+      ]
+    },
+    {
+      "module": "tests.test_agencies_mfa",
+      "case": "test_mfa_enrollment_replay_and_recovery",
+      "qa_seconds": 1.969,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.19082557875663042,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.01652537938207388,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03834661841392517,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.017208931036293507,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04333489574491978,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.027125965803861618,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007577165961265564,
+          "route_name": "logout",
+          "sql_execute_seconds": 0.0031207529827952385,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16605270188301802,
+          "route_name": "login",
+          "sql_execute_seconds": 0.009245947934687138,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.011466803960502148,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.004878186620771885,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02093074657022953,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.008334427140653133,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01872466690838337,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.008814947679638863,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.022263608872890472,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.010500646196305752,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006980896927416325,
+          "route_name": "logout",
+          "sql_execute_seconds": 0.0025182170793414116,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018044723197817802,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.007799883373081684,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 11
+        }
+      ]
+    },
+    {
+      "module": "tests.test_agencies_mfa",
+      "case": "test_two_models_editor_scope_and_revocation",
+      "qa_seconds": 2.311,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15442345198243856,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.009074912406504154,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018273073248565197,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.00866185687482357,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1668844362720847,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.006263783201575279,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01654370129108429,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.00651942752301693,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02422779519110918,
+          "route_name": "agency_create",
+          "sql_execute_seconds": 0.013292360119521618,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020301026292145252,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.009337188675999641,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01780230551958084,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.0077448645606637,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014779902063310146,
+          "route_name": "agency_invite",
+          "sql_execute_seconds": 0.007411645725369453,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020676051266491413,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.012809261679649353,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.009618142619729042,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.0037130918353796005,
+          "sql_queries": 6,
+          "status": 200,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017424914985895157,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.009115398861467838,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 11
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007827424444258213,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.003888152539730072,
+          "sql_queries": 5,
+          "status": 403,
+          "ordinal": 12
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025452474132180214,
+          "route_name": "agency_assign",
+          "sql_execute_seconds": 0.013615810312330723,
+          "sql_queries": 10,
+          "status": 302,
+          "ordinal": 13
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013275085017085075,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.004537798464298248,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 14
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006551356986165047,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.002688237465918064,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 15
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013045595027506351,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.006302434019744396,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 16
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0197537699714303,
+          "route_name": "agency_revoke",
+          "sql_execute_seconds": 0.012758464552462101,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 17
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.008722512051463127,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.004090461879968643,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 18
+        }
+      ]
+    },
+    {
+      "module": "tests.test_manager_review",
+      "case": "test_transfer_requires_current_human_review_before_readiness",
+      "qa_seconds": 4.956,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07718317117542028,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05106876604259014,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11752544436603785,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.07670593168586493,
+          "sql_queries": 28,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.19039702787995338,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.10538898315280676,
+          "sql_queries": 42,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1433583665639162,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.08109492342919111,
+          "sql_queries": 41,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15771383978426456,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07707322295755148,
+          "sql_queries": 39,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 1.222911672666669,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.3305050814524293,
+          "sql_queries": 119,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.21613860875368118,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.11699242517352104,
+          "sql_queries": 65,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14734650123864412,
+          "route_name": "representation_transfer",
+          "sql_execute_seconds": 0.07560819387435913,
+          "sql_queries": 29,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0261864410713315,
+          "route_name": "private_photo",
+          "sql_execute_seconds": 0.011517190374433994,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020746100693941116,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.008897454477846622,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025070506148040295,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.010189593769609928,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 11
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024396957829594612,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.011129098013043404,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 12
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015323709696531296,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.006750945001840591,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 13
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04632668010890484,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.015641091391444206,
+          "sql_queries": 12,
+          "status": 400,
+          "ordinal": 14
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09893868770450354,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05321426875889301,
+          "sql_queries": 31,
+          "status": 302,
+          "ordinal": 15
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15570973046123981,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.0920775393024087,
+          "sql_queries": 40,
+          "status": 302,
+          "ordinal": 16
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1370306359604001,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.06474838219583035,
+          "sql_queries": 29,
+          "status": 302,
+          "ordinal": 17
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03327489551156759,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.016139959916472435,
+          "sql_queries": 10,
+          "status": 409,
+          "ordinal": 18
+        }
+      ]
+    },
+    {
+      "module": "tests.test_agency_appeals",
+      "case": "test_agency_appeal_reopens_without_verification_and_preserves_original",
+      "qa_seconds": 2.398,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036747521720826626,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.016721720807254314,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.031783485785126686,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.01609351485967636,
+          "sql_queries": 13,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016716008074581623,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.007477981969714165,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014690588228404522,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.006099601276218891,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03644110355526209,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.017720848321914673,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024685864336788654,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.011457936838269234,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02658520732074976,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.01271651778370142,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01939793024212122,
+          "route_name": "organization_review",
+          "sql_execute_seconds": 0.008138131350278854,
+          "sql_queries": 10,
+          "status": 409,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030171949416399002,
+          "route_name": "organization_review",
+          "sql_execute_seconds": 0.01443398930132389,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027865017764270306,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.013834013603627682,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04094639699906111,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.025486420840024948,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 11
+        }
+      ]
+    },
+    {
+      "module": "tests.test_manager_appeals",
+      "case": "test_manager_appeal_independence_persistence_and_no_auto_publication",
+      "qa_seconds": 4.545,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.035893370397388935,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.017105629667639732,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029092147015035152,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.011299122124910355,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017396792769432068,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.008634936064481735,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014687253162264824,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.007111637853085995,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09380810707807541,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.046094334684312344,
+          "sql_queries": 34,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.023237261921167374,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.011723611503839493,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0339377922937274,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.01452582236379385,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.058360159397125244,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.038929964415729046,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 8
+        }
+      ]
+    },
+    {
+      "module": "tests.test_profile_status",
+      "case": "test_pending_changes_do_not_replace_published_profile_guidance[es]",
+      "qa_seconds": 6.947,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10596110299229622,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0508371340110898,
+          "sql_queries": 36,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036873203702270985,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.018923998810350895,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07643446885049343,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.0364445885643363,
+          "sql_queries": 28,
+          "status": 200,
+          "ordinal": 3
+        }
+      ]
+    },
+    {
+      "module": "tests.test_profile_status",
+      "case": "test_pending_changes_do_not_replace_published_profile_guidance[en]",
+      "qa_seconds": 7.292,
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15570616628974676,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0667176777496934,
+          "sql_queries": 36,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04698281828314066,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.021087292581796646,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09902996849268675,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.050278388895094395,
+          "sql_queries": 28,
+          "status": 200,
+          "ordinal": 3
+        }
+      ]
+    }
+  ],
+  "action_updates": [
+    {
+      "id": "route:R_agency_appeal_submit",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036747521720826626,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.016721720807254314,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.031783485785126686,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.01609351485967636,
+          "sql_queries": 13,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02658520732074976,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.01271651778370142,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027865017764270306,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.013834013603627682,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 10
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04094639699906111,
+          "route_name": "agency_appeal_submit",
+          "sql_execute_seconds": 0.025486420840024948,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 11
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_appeal_queue",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "route:R_agency_appeal_review",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016716008074581623,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.007477981969714165,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014690588228404522,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.006099601276218891,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03644110355526209,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.017720848321914673,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024685864336788654,
+          "route_name": "agency_appeal_review",
+          "sql_execute_seconds": 0.011457936838269234,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 6
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_manager_appeal_submit",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.035893370397388935,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.017105629667639732,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029092147015035152,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.011299122124910355,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.058360159397125244,
+          "route_name": "manager_appeal_submit",
+          "sql_execute_seconds": 0.038929964415729046,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 8
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_manager_appeal_queue",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "route:R_manager_appeal_review",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017396792769432068,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.008634936064481735,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014687253162264824,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.007111637853085995,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09380810707807541,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.046094334684312344,
+          "sql_queries": 34,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_manager_appeals::test_manager_appeal_independence_persistence_and_no_auto_publication",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.023237261921167374,
+          "route_name": "manager_appeal_review",
+          "sql_execute_seconds": 0.011723611503839493,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 6
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_manager_queue",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "route:R_manager_review",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015323709696531296,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.006750945001840591,
+          "sql_queries": 7,
+          "status": 403,
+          "ordinal": 13
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04632668010890484,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.015641091391444206,
+          "sql_queries": 12,
+          "status": 400,
+          "ordinal": 14
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1370306359604001,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.06474838219583035,
+          "sql_queries": 29,
+          "status": 302,
+          "ordinal": 17
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03327489551156759,
+          "route_name": "manager_review",
+          "sql_execute_seconds": 0.016139959916472435,
+          "sql_queries": 10,
+          "status": 409,
+          "ordinal": 18
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_organization_queue",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "route:R_organization_review",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01939793024212122,
+          "route_name": "organization_review",
+          "sql_execute_seconds": 0.008138131350278854,
+          "sql_queries": 10,
+          "status": 409,
+          "ordinal": 8
+        },
+        {
+          "case": "tests.test_agency_appeals::test_agency_appeal_reopens_without_verification_and_preserves_original",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030171949416399002,
+          "route_name": "organization_review",
+          "sql_execute_seconds": 0.01443398930132389,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 9
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_submit_revision",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.21613860875368118,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.11699242517352104,
+          "sql_queries": 65,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025070506148040295,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.010189593769609928,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 11
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_revision_status",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020746100693941116,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.008897454477846622,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 10
+        },
+        {
+          "case": "tests.test_profile_status::test_pending_changes_do_not_replace_published_profile_guidance[es]",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036873203702270985,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.018923998810350895,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_profile_status::test_pending_changes_do_not_replace_published_profile_guidance[en]",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04698281828314066,
+          "route_name": "revision_status",
+          "sql_execute_seconds": 0.021087292581796646,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 2
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_listing_start",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.19039702787995338,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.10538898315280676,
+          "sql_queries": 42,
+          "status": 302,
+          "ordinal": 3
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_draft_edit",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1433583665639162,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.08109492342919111,
+          "sql_queries": 41,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15771383978426456,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07707322295755148,
+          "sql_queries": 39,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024396957829594612,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.011129098013043404,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 12
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_individual_create",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06999708339571953,
+          "route_name": "individual_create",
+          "sql_execute_seconds": 0.04735805280506611,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03154768515378237,
+          "route_name": "individual_create",
+          "sql_execute_seconds": 0.013677162118256092,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 10
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_person_verification",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07653678208589554,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.02128452993929386,
+          "sql_queries": 13,
+          "status": 200,
+          "ordinal": 9
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03176573943346739,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.014273605309426785,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 8
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01906692050397396,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.007748696953058243,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 17
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03960294835269451,
+          "route_name": "person_verification",
+          "sql_execute_seconds": 0.01648486591875553,
+          "sql_queries": 9,
+          "status": 200,
+          "ordinal": 18
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_age_check",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07307331077754498,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.044455451890826225,
+          "sql_queries": 26,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06117647234350443,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.032862222753465176,
+          "sql_queries": 23,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06398139800876379,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.031825028359889984,
+          "sql_queries": 23,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016749710775911808,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.006638629361987114,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07823486998677254,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.04879737179726362,
+          "sql_queries": 26,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11752544436603785,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.07670593168586493,
+          "sql_queries": 28,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15570973046123981,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.0920775393024087,
+          "sql_queries": 40,
+          "status": 302,
+          "ordinal": 16
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_phone_start",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04282764624804258,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.01790574472397566,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.034066070802509785,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.018402116373181343,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 10
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03026661742478609,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.014786452054977417,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 12
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03908739145845175,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.0160983232781291,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 14
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_phone_confirm",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07648774515837431,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.0463440315797925,
+          "sql_queries": 20,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.042085569351911545,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.020327878184616566,
+          "sql_queries": 11,
+          "status": 400,
+          "ordinal": 11
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08134927600622177,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.06031211372464895,
+          "sql_queries": 19,
+          "status": 302,
+          "ordinal": 11
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.060270640067756176,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.040397812612354755,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 13
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03417095262557268,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.015094839036464691,
+          "sql_queries": 13,
+          "status": 409,
+          "ordinal": 15
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_consent_invite",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.042109434492886066,
+          "route_name": "consent_invite",
+          "sql_execute_seconds": 0.021634062752127647,
+          "sql_queries": 18,
+          "status": 302,
+          "ordinal": 1
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_self_consent",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024385341443121433,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.00803037453442812,
+          "sql_queries": 9,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04604317434132099,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.029036955907940865,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07718317117542028,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05106876604259014,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09893868770450354,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05321426875889301,
+          "sql_queries": 31,
+          "status": 302,
+          "ordinal": 15
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_consent_accept",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030516532249748707,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.01721883937716484,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0347319720312953,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.0132147753611207,
+          "sql_queries": 12,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029698630794882774,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.010781732387840748,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06371604464948177,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.03761206567287445,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.026031221263110638,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.010538369417190552,
+          "sql_queries": 8,
+          "status": 403,
+          "ordinal": 6
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_representation_revoke",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_individual_prerequisites_persistence_phone_replay",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04691978543996811,
+          "route_name": "representation_revoke",
+          "sql_execute_seconds": 0.029582999646663666,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 12
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_representation_transfer",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_verification::test_agency_direct_consent_shared_phone_and_transfer",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06653174292296171,
+          "route_name": "representation_transfer",
+          "sql_execute_seconds": 0.04092954471707344,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 16
+        },
+        {
+          "case": "tests.test_manager_review::test_transfer_requires_current_human_review_before_readiness",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14734650123864412,
+          "route_name": "representation_transfer",
+          "sql_execute_seconds": 0.07560819387435913,
+          "sql_queries": 29,
+          "status": 302,
+          "ordinal": 8
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_mfa_enroll",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.19082557875663042,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.01652537938207388,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03834661841392517,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.017208931036293507,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15442345198243856,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.009074912406504154,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018273073248565197,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.00866185687482357,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1668844362720847,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.006263783201575279,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01654370129108429,
+          "route_name": "mfa_enroll",
+          "sql_execute_seconds": 0.00651942752301693,
+          "sql_queries": 11,
+          "status": 200,
+          "ordinal": 4
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_mfa_challenge",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02093074657022953,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.008334427140653133,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01872466690838337,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.008814947679638863,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018044723197817802,
+          "route_name": "mfa_challenge",
+          "sql_execute_seconds": 0.007799883373081684,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 11
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_create",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02422779519110918,
+          "route_name": "agency_create",
+          "sql_execute_seconds": 0.013292360119521618,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 5
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_panel",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013275085017085075,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.004537798464298248,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 14
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013045595027506351,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.006302434019744396,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 16
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.008722512051463127,
+          "route_name": "agency_panel",
+          "sql_execute_seconds": 0.004090461879968643,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 18
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_invite",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014779902063310146,
+          "route_name": "agency_invite",
+          "sql_execute_seconds": 0.007411645725369453,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 8
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_add_person",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020301026292145252,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.009337188675999641,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01780230551958084,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.0077448645606637,
+          "sql_queries": 8,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006551356986165047,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.002688237465918064,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 15
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_assign",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025452474132180214,
+          "route_name": "agency_assign",
+          "sql_execute_seconds": 0.013615810312330723,
+          "sql_queries": 10,
+          "status": 302,
+          "ordinal": 13
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_revoke",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0197537699714303,
+          "route_name": "agency_revoke",
+          "sql_execute_seconds": 0.012758464552462101,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 17
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_agency_accept_invitation",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020676051266491413,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.012809261679649353,
+          "sql_queries": 9,
+          "status": 403,
+          "ordinal": 9
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.009618142619729042,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.0037130918353796005,
+          "sql_queries": 6,
+          "status": 200,
+          "ordinal": 10
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017424914985895157,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.009115398861467838,
+          "sql_queries": 16,
+          "status": 302,
+          "ordinal": 11
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_two_models_editor_scope_and_revocation",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007827424444258213,
+          "route_name": "agency_accept_invitation",
+          "sql_execute_seconds": 0.003888152539730072,
+          "sql_queries": 5,
+          "status": 403,
+          "ordinal": 12
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_resend",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_resend_invalidates_older_token",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015719215385615826,
+          "route_name": "resend",
+          "sql_execute_seconds": 0.007539412938058376,
+          "sql_queries": 10,
+          "status": 200,
+          "ordinal": 2
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_accept_current",
+      "kind": "route",
+      "prior_scoped_measurement": false,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027233172208070755,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.00285552442073822,
+          "sql_queries": 3,
+          "status": 400,
+          "ordinal": 6
+        },
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021556098945438862,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.010785800404846668,
+          "sql_queries": 9,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01414018590003252,
+          "route_name": "accept_current",
+          "sql_execute_seconds": 0.0027110548689961433,
+          "sql_queries": 3,
+          "status": 400,
+          "ordinal": 10
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_signup",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6255992045626044,
+          "route_name": "signup",
+          "sql_execute_seconds": 0.040503110736608505,
+          "sql_queries": 14,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_accounts::test_resend_invalidates_older_token",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.18508826103061438,
+          "route_name": "signup",
+          "sql_execute_seconds": 0.04220612347126007,
+          "sql_queries": 14,
+          "status": 200,
+          "ordinal": 1
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_login",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1589442938566208,
+          "route_name": "login",
+          "sql_execute_seconds": 0.01291080191731453,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16605270188301802,
+          "route_name": "login",
+          "sql_execute_seconds": 0.009245947934687138,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 5
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_logout",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007577165961265564,
+          "route_name": "logout",
+          "sql_execute_seconds": 0.0031207529827952385,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006980896927416325,
+          "route_name": "logout",
+          "sql_execute_seconds": 0.0025182170793414116,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 10
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_recover",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_account_token",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02599001582711935,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.013757453300058842,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_accounts::test_resend_invalidates_older_token",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006032696925103664,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0022230055183172226,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_accounts::test_resend_invalidates_older_token",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02010184433311224,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.012544706463813782,
+          "sql_queries": 11,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_accounts::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17735412251204252,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.020363755524158478,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_accounts::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.004557766020298004,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0011514853686094284,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_accounts::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.004781835712492466,
+          "route_name": "account_token",
+          "sql_execute_seconds": 0.0010329009965062141,
+          "sql_queries": 1,
+          "status": 400,
+          "ordinal": 4
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "route:R_dashboard",
+      "kind": "route",
+      "prior_scoped_measurement": true,
+      "new_samples": [
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07124420255422592,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.018696495331823826,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 4
+        },
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.010331864468753338,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.005665000528097153,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02455294970422983,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.011096358299255371,
+          "sql_queries": 8,
+          "status": 200,
+          "ordinal": 8
+        },
+        {
+          "case": "tests.test_accounts::test_updated_terms_gate_retains_old_acceptance_and_supports_other_language",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1313338177278638,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.004529604688286781,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "case": "tests.test_accounts::test_reset_one_use_expiry_and_existing_sessions_invalidated",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007913154549896717,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0032474445179104805,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04333489574491978,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.027125965803861618,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 3
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.011466803960502148,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.004878186620771885,
+          "sql_queries": 4,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "case": "tests.test_agencies_mfa::test_mfa_enrollment_replay_and_recovery",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.022263608872890472,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.010500646196305752,
+          "sql_queries": 7,
+          "status": 200,
+          "ordinal": 9
+        },
+        {
+          "case": "tests.test_profile_status::test_pending_changes_do_not_replace_published_profile_guidance[es]",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10596110299229622,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0508371340110898,
+          "sql_queries": 36,
+          "status": 200,
+          "ordinal": 1
+        },
+        {
+          "case": "tests.test_profile_status::test_pending_changes_do_not_replace_published_profile_guidance[en]",
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15570616628974676,
+          "route_name": "dashboard",
+          "sql_execute_seconds": 0.0667176777496934,
+          "sql_queries": 36,
+          "status": 200,
+          "ordinal": 1
+        }
+      ],
+      "measurement_now_available": true
+    },
+    {
+      "id": "runbook:O_DJANGO_SIGNING",
+      "kind": "runbook",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "runbook:O_DOMAIN_INCIDENT",
+      "kind": "runbook",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "dispatch:0:apps/core/accounts.py:235",
+      "kind": "dispatch",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "dispatch:3:apps/listings/revisions.py:54",
+      "kind": "dispatch",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    },
+    {
+      "id": "dispatch:4:apps/listings/revisions.py:54",
+      "kind": "dispatch",
+      "prior_scoped_measurement": false,
+      "new_samples": [],
+      "measurement_now_available": false
+    }
+  ],
+  "independent_inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "temporary_absent": true,
+  "terminal_telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.5678399410098791
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.5201918249949813
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.03367529530078173
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.06688694469630718
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 1.6206172499805689
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.6699960557743907
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 2.128549545072019
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 10.170594360679388
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 80.42802474182099
+    }
+  ],
+  "native_manifest": {
+    "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+    "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+    "environment": {
+      "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-local-ci-gnjjcy0b/native-tools/rdb-cli",
+      "RETAINED_RDB_DECODER_SHA256": "efb9bc03af2afb21a4b30d5cbf5e0240f46d0d37de51dcabe6d3af10ddf17a81",
+      "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-local-ci-gnjjcy0b/native-tools/retained-rdb-aux",
+      "RETAINED_RDB_AUX_SHA256": "b4a94b155c9183ce6829974dc6bafba0f42eb05f5d14828647a9afc6b1444606",
+      "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-local-ci-gnjjcy0b/native-tools/retained-rdb-metadata",
+      "RETAINED_RDB_METADATA_SHA256": "151247595545b0ff3eb65ab3f2b6194b0f8ab1458928ff66ba2d111fecc80ff7"
+    }
+  },
+  "scope": "Current original Client-call reference, synthetic fixtures and single observations per transition. Normal setup/direct services/Playwright/other processes not timed; no app candidate,p95,provider or block closure."
+}

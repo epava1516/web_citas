@@ -1,5 +1,7 @@
 # N06E — conciliación de acciones y variantes
 
+Corte original N06E, anterior a la pasada F. Actualización posterior: [374](374-n06-f-resultado-referencias-restantes-20261025.md) aporta120peticiones y referencias para17rutas; ahora37/41tienen alguna muestra y quedan cuatro colas. Las tablas siguientes conservan el corte original, sin reescribir su evidencia.
+
 25 de octubre de 2026, candidata f03eea8. N06 sigue abierto: el panel optimizado371 no sustituye la conciliación de cuenta, edición y representación. Refresco semántico focal previo:1969fuentes/18501nodos/81051relaciones/878comunidades, SHA04ba01a4a2f21b3f0e9e69850b2f7e42246ea9f1898f41793f324bb7563cacb1; AST preservado y límites del extractor explícitos. No reconstrucción global ni semántica exhaustiva. La cabecera vigente17se ha corregido: ya no ordena preparar/repetir MOD09terminado; se conserva su texto anterior como histórico.
 
 ## Resultado de la conciliación
