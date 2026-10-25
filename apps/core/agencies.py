@@ -135,7 +135,7 @@ def panel(request, agency_id):
             "agency": agency,
             "people": people,
             "owner": owner,
-            "members": agency.memberships.filter(active=True) if owner else [],
+            "members": agency.memberships.filter(active=True).select_related("user") if owner else [],
         },
     )
 

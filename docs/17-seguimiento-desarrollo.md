@@ -3736,3 +3736,6 @@ N02D terminal 2026-10-25: evaluación completa 1 FAIL temporal, JUnit2004,770s; 
 
 
 N06C resultado369: run20261025-154544-5fcdc190,2PASS/0FAIL/ERROR/SKIP,44peticiones/1735huellas intactas,limpieza independiente/temporal/Telegram confirmados. Referencia de representación y MFA/revocación, sin cambio de aplicación ni mejora/p95 inventados. QA54,28s separado. N06abierto; próximo contraste: crecimiento y panel de agencia, hipótesis member.user sin select_related por medir antes de candidato. MOD09restante diferido por usuario367; no repetir batería.
+
+
+N06D aceptado localmente en371: panel propietario n+8→8SQL para1/10/100ESEN;100editores108→8SQL y medianas279,575→54,110msES/225,516→46,849msEN. Una línea select_relateduser sólomiembrosactivospropietario. Referencia6PASS/candidata6PASS/validaciónexistente3PASSincluyenbrowserESEN;72muestrasporpasada,orden/contenido/bytes y revocación preservados,1736huellas intactas,limpieza/Telegram confirmados. Porcentajes temporales sólo observados en dos pasadas locales; editor7SQLsin cambio y variaciónpropia, no causalidaduniversal/p95. N06abierto,2/13bloquesaceptados; siguiente conciliación de acciones/variantes. MOD09restante diferido porusuario367. Grafoactual de candidata AST25/64sin cambios de forma, método no capturado por extractor; identidad/diff verificados, no semántica exhaustiva.
