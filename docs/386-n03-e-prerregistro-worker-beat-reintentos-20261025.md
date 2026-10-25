@@ -1,0 +1,31 @@
+# N03E — reintentos y recuperación real con worker y Beat
+
+25/10/2026. Alfa, N03 abierto,3/13bloques obligatorios aceptados. Corte previoN03D498988fbd9c6b8082d493ade06bed32327847af1499a6645fa21c01e688d3f88,1989fuentes sin discrepancias, revalidado antes del análisis. Consulta graphify y fuentes primarias del arnésN03A/roles/observador/Celery5.6.3. No reconstrucción global ni nueva semántica de fuentes idénticas. Las pruebas385 directas y con envío capturado no acreditan este transporte; no se repiten37casos por documentación.
+
+## Alcance previo y aislamiento
+
+Nueva instrumentación tests/test_media_worker_recovery.py y scripts/benchmark_media_recovery_observer.py. Borrador nativo escrito en worktree aislado base553253c, sin ejecutar pruebas/imports/lint, y revisado/integrado selectivamente porroot. Aplicación sin cambios. Root añadió testigos reales de snapshots/rol/raíces/publicaciones, seguimiento al arrancar y rechazo de SIGKILL deBeat. La evidencia anterior no acepta el borrador.
+
+Un caso explícito serial con runneroficial,PostgreSQL17/Redis7.4 propios,namespaceporcaso verificado por etiquetas/puertos/run/generación,localstorageprivado y prefork2 real. Sin producción,modo recuperación o proveedor. Padre migrador; worker/Beat usan rolSQLrestringido por credenciales privadas y pruebaTCP independiente del helper. Cada ejecución observa current_user del hijo. Hojas privadas y procesos cerrados antes de retirar rol/credenciales. Registrar PID/startticks sin confundir PIDreutilizado con hijo vivo. Preservar claves ajenas por byteshash y exigir0nuevasclaves fuera delnamespace;sinflush ni detener procesos ajenos.
+
+## Fases y oráculos antes de ejecutar
+
+A. Antes de iniciarBeat: un Blobqueued con JPEGsintético canónico/SHA/dimensiones; quitar sólo su original físico y enviar una tarea real. MismoID Celery con retries0/1/2/3,estadosRETRY/RETRY/RETRY/FAILURE,tres avisosretry y fallo finalFileNotFoundError. DBfailed/attempts4/errorcode. Sin parche de función,reloj,RNG,retry o despacho. Celeryinstalado factor1/fulljitter:countdown numérico permitido0..1/0..2/0..4. Cero es válido;no repetir para obtener esperas positivas. Restaurar bytes originales al acabar, conservar failed4 como control excluido. Límite probado de este mensaje; no afirmar máximo global entre mensajes.
+
+B. Otra imagen canónica distinta: cuerpo temporal GIF válido dePillow, formato rechazado por decode_image con ValidationError real (bytes aleatorios producirían UnidentifiedImageError/OSError y reintentos). Una ejecuciónFAILURE/retries0,un fallo tipadoValidationError,sinretry,DBfailed/attempt1. Restaurar JPEGexacto y verificarSHA antes deBeat. Esto crea un fallo real recuperable de la cola, sin simular su finalización.
+
+C. Preparar positivosqueued válido,processingstale>181s/attempt1 yready conPhotoactiva/incompleta (generación inicial por servicio directo declarado). El cuarto positivo es failed1 deB restaurado. Controles:freshprocessingalineado a inicioBeat,exhausted4 deA yestadoserasing/erased/purging/purged; snapshots antes/después idénticos. Cada Blob usa contenido diferente. No afirmar aprobación pública/humana por fixtures de usuario/perfil.
+
+D. Beat real con archivo de schedule privado nuevo y únicamente entrada recover-private-media copiada de la configuración nativa60,0s;sin acelerar reloj/cadencia y sin otras familias/tarea backend_cleanup. Registrar primera publicaciónRECOVER desdePIDBeat, ejecuciónSUCCESS deworker y cuatro publicacionesMEDIA distintas desdeworker, cada una con ejecuciónSUCCESS/noeager/rolrestringido. Cuatro estados de Blob distintos deben transitar a ready con intentosqueued1/stale2/failed2/ready1 yPhoto.comparison_completeTrue/noaprobada. Exhausted/fresh/terminalsin cambios,edadfresh<180s. Asociación de cohorte por cuatro transiciones independientes y cuatro tareas, fuente process limitando sus cambios a su Blob; observador no guarda argumentos/IDs de Blob. No afirmar mapeo directo de argumentos que no se observó.
+
+DetenerBeat tras primer tick y completitud de positivos, antes de otrotick; drenar worker/publicaciones de refresco y detenerlo. Sólo MEDIA/RECOVER/REFRESH, fallos/retries esperados únicamenteIDsA/B;restoSUCCESS. Max2000eventos/2MiBporarchivo. Cualquier snapshot_error,evento obligatorio ausente,estado/rol/eager incorrecto o recurso propio vivo invalida la pasada. Workerexit0,Beat0oSIGTERMnormal(-15),nuncaSIGKILL. Finally intenta limpieza incluso si falla una fase y conserva informe parcial;no convierte limpieza fallida enPASS.
+
+## Relojes y criterios
+
+Por intento:wall yCPUhilo de tarea observados incluyendoSELECTde rol/bookkeeping. Registrarcountdown/eta y eventos sin texto de error,args,credenciales ni datos de sujetos. Beatstart→primerpublish, publish→inicioRECOVER ypublish→readyobservado separados;no sumar tareas solapadas ni confundir observación con instante exacto. Una primera publicación a cadencia configurada60s no acredita distribución de intervalos/carga,p95/SLA ni latenciaHTTP. No comparación temporal favorable:antes no existe este testigo equivalente;tabla de etapas/valores reales después,QAseparada.
+
+Protecciones:workerstartup60s,fases45s,observaciónBeatyrecuperación90s,drain45s,runner900s. No son SLA ni pruebas de horas; sin pausa delgoal prevista. Si la ejecución excede lo previsto, conservar mismohandle/evidencia y aplicarAGENTS, no relanzar por timeout de observación.
+
+Antes de congelar integrar ASTde ambos instrumentos y semántica focal de este protocolo;congelarSHAfuentes/dependencias/migraciones/grafo/imágenes/corpus declarado. Runner `.venv/bin/python scripts/run_local_ci.py --profile focused --native-source /tmp/web-modelos-librdb-v2.4.0 --workers 1 --isolate-test-broker --timeout 900 --test tests/test_media_worker_recovery.py`. Esperado1PASS/0FAIL/ERROR/SKIP,todaslasfases yhuellas intactas,inventario independiente sin contenedores/volúmenes/redes/temp,roles/credenciales/PIDs retirados yTelegramterminalsent. Conservar cualquierFAIL/ERROR;corregir sólo lo demostrado, sin repetir por un tiempo más favorable.
+
+N03/N07 permanecen sujetos a conciliación completa después; esta ficha no cierra bloques por contar tareas. MOD09restante diferido al final del desarrollo porusuario,tiempos actuales aceptables enalfa,no otraoptimizaciónmarginaldetector. Sin proveedores,datos reales,publicación ni beta.

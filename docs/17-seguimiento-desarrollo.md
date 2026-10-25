@@ -1,3 +1,7 @@
+N03E387aceptadolocalmente:1PASSworkerprefork2/Beatreales@60s,3retryFileNotFound+ValidationErrorsinretry,cohorte4recuperada/controlesintactos. Primer tick61,504s/publish→ready1,150s,1744huellas/roles/PIDs/recursos/credencialesretirados/TGsent;appsin cambios. N03abierto,3/13,alfa.
+
+Siguiente:N03Fconciliacióncompletaacciones/criteriosN03ycompartidosN07,incluidoslímitesreintentospor mensaje vs global/killredeliverysin inventarPASS. MOD09restantediferidoalfinalporusuario;nomarginaldetector/noabrirbeta.
+
 N03D385aceptadolocalmente:4FAILreferencia→37PASS,firmavacíasegenera/históriconoreencola/mixtocompletaactual/originalausentefalla explícito,2appfiles/1742huellas/limpieza/TGsent. Selector1SQL/cohortes0/1/10/100/101,tiemposmásaltosvisibles;nooptmarginal. N03abierto,3/13,alfa.
 
 Siguiente:N03Econciliarautoretry/backoff/recuperaciónconbroker/worker/BeatrealesysuficienciaN03/N07. N03Dnoprogresoresueltoensuámbito,MOD09restantediferidoalfinalporusuario;no abrirbeta.

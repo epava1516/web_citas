@@ -373,3 +373,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N03C: recuperación y aislamiento entre generaciones](383-n03-c-resultado-recuperacion-generaciones-20261025.md).
 
 - [N03D: recuperación con progreso e históricos conservados](385-n03-d-resultado-recuperacion-progreso-20261025.md).
+
+- [N03E: reintentos y recuperación reales con worker y Beat](387-n03-e-resultado-worker-beat-reintentos-20261025.md).
