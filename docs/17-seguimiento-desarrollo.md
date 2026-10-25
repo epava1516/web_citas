@@ -1,3 +1,7 @@
+N01Cprerregistradoen [348](348-n01-c-prerregistro-estados-20261025.md):misma cohorte100,helperBintacto60peticionesantes/60despuésdelcomando realrefresh_publication_state--all;oráculosdeparidad,datosdenegociosin cambios,rutapreparadaverificada. Sin ejecuciónaún;N00aceptado1/13,N01encurso,alfa.
+
+Siguiente:ASTdelinstrumentoC/semánticadelprotocolo,congelar yejecutar1caso120muestras;noatribuircódigooptimizado,efectopurodeestadoo throughputworker a preparaciónsíncrona conVACUUM/ANALYZE. Antecedentesinferioresconservancorte.
+
 N01Bauditado:1PASS/60peticiones/10segmentosESEN,100perfiles. [Resultado347](347-n01-b-resultado-segmentos-20261025.md). Listado/página2/perfil:36fallback/state_unknown_over_limit;vacío12state;ficha12sinmarcador. Sin cambioproducto,ni mejora causal/p95/capacidad. N00aceptado1/13,N01encurso,alfa.
 
 Siguiente:semántica347/README/17antesdelnuevohito;prerregistrar estado preparadonativo vsdesconocido,oráculos/rutaylímites. No confundirfixture sinworker condefecto ni medircaminooptimizado sin verificarlo. Tablaantes/despuésporbloque al cierre.

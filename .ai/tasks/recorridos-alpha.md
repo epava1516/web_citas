@@ -1,3 +1,16 @@
+# Estado vigente — N01Cpreparado,noejecutado
+
+Goalactivohasta13obligatorios+3condicionados,alfa;N00aceptado1/13,N01abierto.Tablaantes/despuésporbloqueobligatoria,nomarcarcompleteporlote. Base533e7b3. ResultadoB347incorporado antesdenuevohito:contexto1934sources/18006nodes/79913edges/854communities,graph08ae8df5 verified. Agente n01b_result_semantic3inputs16nodes14edges terminou;JSON/worktreepreservados.
+
+Nuevo348einstrumento tests/test_discovery_state_baseline.py. ReutilizafunciónBmeasure_segments SINeditarB,cohorte100sameDB120peticiones60antes/60despuéscomandorealrefresh_publication_state--all vía call_command. ComandotambiénVACUUM/ANALYZE,efectooperativocompleto/noefectopurocausalnioptimizacióncódigo.Noacreditaworker/Beat. DosfasesmismosIDs/orden/conteos,gatesB200/no-store/idioma/privacidad,datosnegocioListingexactos antes/después,statecurrent/ceroDirtytrasprepararytrasfase2. Anteslist/page2/profilefallbackstate_unknown_over_limit;despuéstodoslistado/searchstate,detailguardpropio. Tiempospreparaciónseparados,primerapeticióndeescenarioy5posterioresnotcoldOS,p95/TCP/capacity.Noappchange.
+
+Próximo:ASTfreshC ysemántica348/README/17vista4,manifestcontext1934a1936;validaroriginal1507+Bporbytes,nuevoCúnicocódigoañadido.Lint+docs,capturarscope/cifrasAST reales,pruebaindependiente,commit/push,freezeimagen/grafo/fuentes,lanzarrunnerfocusedC workers1timeout900sin editarfuentesduranteejecución.Auditar1caso120samples,rutas/paridad/businesssnapshot/source/cleanup/TG. N01/N04restantesabiertos.Nuevaficha justifica repetirhelperBpareadomismaDB,norutinaria.No repetirbateríacontractual.
+
+PreservarajenoDdocs/evidencias/traslado-maquina-graphify0110.tar.gz,8ClaudeV1históricos/consumo,cero nuevas;sinproveedores/datosreales/beta/QAoptimización.Notificartodopaso/testycomprobarrecibos;largo=protocoloAGENTS persistencia/pausa/compactación/reactivaciónmismogoal.No testvivoactualmenteno pause.
+
+---
+Historial:
+
 # Estado vigente — N01B auditado,1/13; siguiente separar estado preparado
 
 Goal activo completo340/N00–N15;13obligatorios y3condicionados,alfa. Tablasantes/después porbloque obligatorias;N00cerrado343,restopendientes.No crear ni completarotrogoal.
@@ -85,3 +98,7 @@ Próximo inmediato:aceptación primaria N00 conforme a342/matriz (autoridad desc
 ## N01Bpreflight terminado
 
 Grafo1933fuentes/17993nodos/79888relaciones/853comunidades;semántica3doc15entidades/13relacionesyASTnuevainstrumentación4nodos/15relaciones/2funcionesindependientes. Producto1507SHAoriginalesintacto. Ruff y726MD/5906enlacesPASS;integridadgrafoPASS,oldnodos/edgespreservadossegúnscope. ReportesnativosoriginalesSTATUSCOMPLETE no conformes conservados;autorescorrigieron sóloinformes,gatecorrectivoPASS,notificadoFAILauxiliar/no producto. Agentesn01a_result_semantic y n01b_prereg_semanticterminadosconJSONs/worktrees preservados,ceroClaudeV1. Congelar trascommit yejecutar1caso60muestras;noeditarfuentesdurantetest.
+
+## PreflightC validado y planificación paralela
+
+Grafo1936sources/18024nodes/79956edges/855communities,semántica3doc18nodes16edges,ASTC3nodes12edges1function;original1507+B porbytesintactos,independentgatePASS. Lint+728MD5916linksPASS. n01c_prereg_semantic terminó,JSON/worktreepreservados,ceroClaudeV1nuevas. Dos escritoresnativos adicionales n01_scenarios_a y n01_scenarios_b en worktrees/tmp/web-modelos-n01-scenarios-a/b,propiedadexclusiva scenario-proposals.json/report.json;investigaciónS02–S05/S06–S09confuentes/selecciones/oráculos/propuestasnoaceptadas. No tests,Git,otroscambios oproveedores. Tareas/contextos archivadoslocalmente en artifactC;no mutanfuentesmasterduranteprueba. Verificarindependientementealvolverantesdeintegrar. TrascommitfreezeC ejecutar1caso120muestras.Ningunaaceptaciónbloque porpropuestadeagente.

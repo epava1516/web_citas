@@ -329,3 +329,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N01B: protocolo346](346-n01-b-prerregistro-segmentos-20261025.md):100perfiles,10segmentosES/EN y60peticiones instrumentadas previstas;sin ejecución aún ni aceptación N01 completa.
 
 - [N01B: resultado347](347-n01-b-resultado-segmentos-20261025.md), [auditoría](evidencias/n01-b-diagnostico-auditoria-20261025.json) y [evidencia](evidencias/n01-b-diagnostico-evidencia-20261025.json):1PASS/60muestras, rutas fallback/state diferenciadas; N01/N04 siguen abiertos.
+
+- [N01C: prerregistro348](348-n01-c-prerregistro-estados-20261025.md):misma cohorte100,120peticiones en dosfasescon mantenimiento nativo deestados;pendienteejecución,no mejora de código ni N01completo.
