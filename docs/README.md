@@ -321,3 +321,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Nuevo contrato alfa340](340-contrato-recorridos-optimizacion-alpha-20261025.md) y [roadmap341](341-roadmap-recorridos-optimizacion-alpha-20261025.md): inventario I01–I28 primero;13bloques obligatorios y3condicionados. Preparados documentalmente, ejecución técnica pendiente;B14/B15/B17conservan condiciones yQAespecífico aplazado.
 
 - [N00: contraste y priorización342](342-n00-inventario-priorizacion-20261025.md): ejecución del contrato340autorizada;matriz inicial de28familias yacciones,0/13aceptados. Prioridad fundada enN00, sin precedencia automáticaMOD09.
+
+- [Aceptación local N00:343](343-n00-aceptacion-local-20261025.md) y [prerregistro N01:344](344-n01-prerregistro-descubrimiento-a-20261025.md):1/13aceptados, diagnóstico inicial de listado10/100perfiles antes de candidatos; no capacidad ni N01 completo.

@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.1,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 en curso: **0/13bloques obligatorios aceptados**. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.2,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md): **1/13bloques obligatorios aceptados**. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -14,8 +14,8 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 
 | ID | Prioridad | Bloque | Depende de | Estado inicial |
 | --- | --- | --- | --- | --- |
-| N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | En curso; matriz342 pendiente de aceptación |
-| N01 | P0 | Línea base y presupuestos por escenario | N00 | Pendiente |
+| N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | Aceptado por343; alcance estructural |
+| N01 | P0 | Línea base y presupuestos por escenario | N00 | En curso; primer lote344 prerregistrado |
 | N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Pendiente |
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
@@ -197,6 +197,8 @@ N00/N01 y N11/N15 son transversales. La tabla asigna cada familia al bloque téc
 | I28 | Operación administrativa | N10 |
 
 ## Seguimiento y cierre
+
+Al finalizar cada bloque, publicar tabla de antes/después por escenario/métrica y evidencias, conforme a la instrucción del usuario incorporada en contrato340. Sin base equivalente se declara el límite; no se inventa mejora o porcentaje.
 
 Cada bloque usa ficha prerregistrada y matriz de evidencia del contrato340. Se actualiza seguimiento17 al comenzar ejecución y tras cada resultado; la matriz de este documento conserva el orden y la trazabilidad. Verificaciones locales no acreditan proveedor real, cumplimiento jurídico, utilidad con personas o capacidad de destino.
 

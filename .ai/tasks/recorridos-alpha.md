@@ -1,3 +1,12 @@
+# Estado vigente — N00 aceptado; N01 primer lote prerregistrado
+
+Goal activo completo del contrato340, sin reducción. Instrucción posterior delusuario: alfinalizar cadabloquedelinventario publicartablaantes/después por escenario/métrica;versiones,recursos,muestras,evidenciasydelta comparable,osinbasecomparable explícito. Requisito incorporado340/341v1.2;N00tablaen343. Basef05662d. N00aceptado por343trasrevisión decriterios/matriz443unidades/28familias,pruebaindependiente ygrafoN00verificado.1/13obligatorios,N12–N14condicionados;alfa. No mediciónnueva niPASSindividual concedidos porN00.
+
+N01doc344:doscasos existentes test_discovery_query_profile10/100,PG17/Redis7.4propios,native-source/tmp/web-modelos-librdb-v2.4.0,workers1,timeout900porpaso. Instrumentado,noTCP,p95,carga oproducción;oráculos200/población/página/no-store. No nuevo umbral temporal,observar baseantes decandidato. Prepararsemántica343/344/340/341/README/17vista4líneas,verificar,congelar producto/documentos/grafo ylaunchrunneroficial. No editar fuentes durante ejecución. Auditar terminal/JUnit/propiedades/limpieza/Telegram. NoaceptarN01completo por2casos. RestoS01yotros8grupos requierenfichas. Preservar eliminación previaajena yoriginales,8ClaudeV1/consumo;ningúnproveedor/datoreal/apertura/QAoptimización.
+
+---
+Historial:
+
 # Ejecución autorizada del contrato alfa de recorridos
 
 Estado: running. Goal activo: empieza con el nuevo contrato procediendo como lo haciamos en el anterior, hasta el finales. Autorización posterior sustituye la limitación de la preparación documental; continuar hasta aceptación completa de13obligatorios ydisposición de3condicionados,sin apertura. Base5118a05,master;preservar8ClaudeV1históricas/consumo yeliminación ajena de traslado-maquina-graphify0110.tar.gz.

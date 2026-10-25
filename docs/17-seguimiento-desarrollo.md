@@ -1,3 +1,7 @@
+N00aceptado por [343](343-n00-aceptacion-local-20261025.md):1/13obligatorios;N01en curso. [Prerregistro344](344-n01-prerregistro-descubrimiento-a-20261025.md):2casos existentes10/100perfiles,listadoESnativo,PostgreSQLreal,instrumentaciónSQL;sin ejecución aún,pendiente grafo/congelación. Alfa;N12–N14condicionados.
+
+Siguiente:conciliar grafo delprerregistro,congelar fuentes y ejecutar selecciónexacta;auditar resultado/Telegram/limpieza antes deinterpretar medidas. Antecedentes inferiores conservan corte.
+
 Ejecución delcontrato340autorizada porelusuario;N00en curso,0/13aceptados yN12–N14condicionados. [Matriz ypriorización342](342-n00-inventario-priorizacion-20261025.md) producidas, pendientesdeaceptación ygrafo. MOD09sin prioridadautomática;N00ordena porimpacto/riesgo/coste. Alfa.
 
 Siguiente:verificar matrizN00yconciliarsemántica;despuésN01S01descubrimiento. Cortes inferiores conservan fecha yalcance.

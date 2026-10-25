@@ -1,6 +1,6 @@
 # Contrato alfa — medición, corrección y optimización de recorridos
 
-Versión 1.1, 25 de octubre de 2026. Ejecución autorizada por el usuario: «empieza con el nuevo contrato procediendo como lo haciamos en el anterior, hasta el finales». N00 en curso; no hay bloques técnicos aceptados todavía. La preparación documental1.0 permanece en el commit5118a05 y sus evidencias. El producto permanece en alfa durante y después del contrato, hasta una decisión posterior del usuario.
+Versión 1.2, 25 de octubre de 2026. Ejecución autorizada por el usuario: «empieza con el nuevo contrato procediendo como lo haciamos en el anterior, hasta el finales». N00 aceptado por [343](343-n00-aceptacion-local-20261025.md);1/13bloques obligatorios. N01 en curso con prerregistro344. La preparación documental1.0 permanece en el commit5118a05 y sus evidencias. El producto permanece en alfa durante y después del contrato, hasta una decisión posterior del usuario.
 
 ## 1. Objeto y precedencia
 
@@ -61,6 +61,14 @@ Los presupuestos propuestos en111/338 no pasan a ser gates por este contrato. N0
 MOD09 mantiene los objetivos originales2s/5s y la aceptación provisional expresa. Los FAIL históricos y actuales no se reescriben. N02 debe producir evaluación actual, corrección/optimización justificada o descarte de candidatos con evidencia; repetir la excepción antigua sin ese trabajo no completa N02. Si siguen incumplimientos, separar el estado técnico FAIL del escenario de la disposición contractual provisional, con latencias, impacto y deuda explícitos; no revocar ni ampliar automáticamente la excepción. Un escenario adicional no cubierto por ella conserva su propio criterio y pendiente.
 
 Cada aceptación contiene requisito → acción → cambio o decisión sin cambio → candidata → prueba/medición → resultado → límite → deuda. Estados: pendiente, en curso, verificado localmente, verificado con límite declarado, FAIL, diferido por condición o no aplicable justificado. Cobertura funcional y rendimiento se registran por separado. SKIP o falta de muestras no equivalen a PASS. Un pendiente obligatorio sin evidencia impide el cierre; no se cambia a diferido por comodidad.
+
+### Tabla obligatoria de antes y después por bloque
+
+Instrucción posterior del usuario del25deoctubre: «Al finalizar cada bloque del inventario haz una tabla del antes y despues». Es requisito de cierre de cada bloque de recorridos y de su informe al usuario. Registrar filas por acción/escenario y medida relevante: versiones base/candidata, datos y recursos comparados, tamaño de muestra, métrica y unidad, antes, después, diferencia absoluta/porcentual cuando sea válida, resultado y límites. Enlazar evidencias originales y oráculos de paridad.
+
+Separar latencia, SQL, bytes, CPU/memoria, cola y corrección funcional; sólo usar las métricas que correspondan. No mezclar preparación de QA con tiempo de aplicación ni agregados de escenarios diferentes. Indicar variabilidad y condiciones de caché/concurrencia cuando importen. Conservar regresiones y resultados sin mejora.
+
+Si no hay base comparable, consignar «sin base comparable» y el motivo, sin porcentaje o mejora causal. Si no cambia producto, explicitarlo; un bloque de inventario/prerregistro puede comparar cobertura, incertidumbre y disposición, sin inventar latencias. Para bloques condicionados no activados, comparar el estado de la condición y registrar no aplicable a rendimiento. La tabla no sustituye la evidencia ni permite cerrar un obligatorio pendiente.
 
 ## 6. Invariantes técnicos
 
