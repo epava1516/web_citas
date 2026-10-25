@@ -18,7 +18,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N01 | P0 | Línea base y presupuestos por escenario | N00 | Aceptado por355; criterios354 y bases/motivos por lote |
 | N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Verificado localmente con límite: guard365 y evaluación367; optimización restante MOD09 diferida al final del desarrollo por decisión expresa del usuario, sin PASS temporal |
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Aceptado localmente por393: seis acciones y nueve criterios conciliados, contraste ORB381 y correcciones C/D/F1 con49PASS; retención392 con3PASS/18llamadas; límites finitos y dueños compartidos conservados |
-| N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
+| N04 | P1 | Listado, búsqueda y ficha | N01 | En estudio por394: dos acciones y fuentes conservadas; testigos N01/B16 reutilizables en su ámbito, atribución de segmentos y etapas pendiente antes de candidato |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
 | N06 | P1 | Cuenta, panel, edición y representación | N01 | Aceptado localmente por377:46disposiciones y escenarios A–G verificados; límites/compartidosN10/N03/N07retenidos, sin garantía universal |
 | N07 | P1 | Medios, publicación y ciclo de vida | N01 | Pendiente |

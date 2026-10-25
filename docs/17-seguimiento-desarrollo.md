@@ -1,3 +1,7 @@
+N04A/394estudiado:2accionesR_home/R_listing_detail,12fuentesdirectas/closureestáticodeN00idénticasN01C/actual. TestigosN01A/B/CyB16retenidosconlímites;brechadeatribuciónsegmentospromoción/profundidad/filtrosconestadomantenido,noappchange/pruebanueva.4/13alfa,N04abierto.
+
+Siguiente:N04Bprerregistrarinstrumento/cohortes/oráculosenstateactualysepararSQL/hidratación/render,contrastarantesdecandidato.NorepetirA/B/C/cargapor rutina.N03cerrado393;sinmarginaloptimización/ MOD09restantediferidoalfinal.
+
 N03/393aceptadolocalmente:6acciones/9criterios/5puentesAST/13citas/JUnitoriginalesverificados,ORB14,954→12,729s(−14,878%)paridadexacta;C/D/F1corregidos49PASS,F2retención3PASS18calls. Límitesycostesresidualesexplícitos,4/13alfa.
 
 Siguiente:N04listado/búsqueda/fichaI01–I05:conciliarcenso/testigosdiscoveryN01antesdecandidato;nomarginaloptimizaciónN03,MOD09restantediferidoalfinal. N07/N09/N10ycondicionadosretenidos.

@@ -1,0 +1,1003 @@
+{
+  "STATUS": "complete",
+  "SUMMARY": "N04 has exactly2 census route declarations serving5 families: R_home(I01-I04) and R_listing_detail(I05), both assigned only N04. Fourteen declared relevant product/dependency sources match B16 and N01A/B/C frozen identities. Existing functional, TCP and clean-mix witnesses support scoped reuse; selected current-route stage/per-variant attribution and final reconciliation remain, not automatic N04 acceptance.",
+  "FILES_CHANGED": [
+    "artifacts/recorridos-n04-a-20261025/inventory-review.json"
+  ],
+  "IMPLEMENTATION_NOTES": "AGENTS and AI_ENGINEERING1.0.1 read; graphify skill read and existing graph queried first using read-only inline graph traversal/vocabulary expansion. Initial graph query encountered a null source_file concatenation and was corrected without file changes; successful graph navigation found128discovery/N04 hits and18929nodes. EXTRACTED home→results and ambiguous state_page resolution were treated as navigation only, then primary sources checked. No app imports, tests, Git, network or delegation. Only authorized JSON output written.",
+  "TESTS_RUN": [],
+  "TEST_RESULTS": "No tests executed. Existing original JUnit selected cases parsed directly and sourceSHA bridges computed; report records historical whole-run failures separately from selected PASSes. N01A2PASS,N01B1PASS60HTTP,N01C1PASS120HTTP; historical selected functional witnesses and six actualTCP witnesses PASS in exact listed runs. No percentiles or universal capacity inferred from Client.",
+  "ASSUMPTIONS": [
+    "Root-supplied masterffed539,N03accepted4/13 and graphsourceverified2001cut482b51b745e7a88050dd418ec1766a4aa68c8969366eb1ea6020bce7459eeb50; no Git command used to establish HEAD.",
+    "Fourteen-source identity scope is declared relevant dependency closure, not all transitive runtime dependencies.",
+    "Current relevant test sources matching B16 do not alone establish their execution; original JUnit cases are separately recorded."
+  ],
+  "RISKS": [
+    "N01A/B/C explicitly leave N04 open; their first/subsequent observations are not guaranteed cold/hotOS/PG.",
+    "Historical functional run3697PASS/3FAIL/129SKIP was reconciled separately; do not call its original overall outcomePASS.",
+    "Public negative authority must remain fresh; direct detail uses read-only repeatable-read snapshot outside an inherited transaction and native guard inside one.",
+    "Remaining five product changes since B16 are agencies.py,mediafiles/services.py,similarity.py,tasks.py,andrights_portability_export.py; acceptedN06/N03 bridge their separate behavior, not whole-source equivalence.",
+    "No optimization proposal or universal latency target is established by this inventory review."
+  ],
+  "UNRESOLVED_ISSUES": [],
+  "RECOMMENDATIONS": [
+    "Use existing finite functional/pagination/exclusion witnesses and source bridges rather than rerun them for routine coverage.",
+    "Prepare a bounded current-native-route attribution/variant preregistration addressing remaining uncertainty before any code optimization; root selects minimum additional measurements.",
+    "Retain B16 clean mix scoped timing without rerunning900s solely for N04 inventory; any relevant candidate change requires equivalence assessment."
+  ],
+  "counts": {
+    "actions": 2,
+    "by_kind": {
+      "route": 2
+    },
+    "families": 5,
+    "distinct_HTTP_handlers": 2,
+    "declared_relevant_source_files": 14
+  },
+  "requirements": [
+    {
+      "file": "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+      "line_start": 70,
+      "line_end": 76,
+      "sha256": "3a073a2612f8d30a3b6f01e9d087b24bcfa91a6308d0a931adf02d3eb5b8721b",
+      "quote": "### N04 — Listado, búsqueda y ficha\n\nFamilias: I01, I02, I03, I04, I05.\n\nSegmentar listado orgánico/promocionado, filtros y selectividad, páginas profundas, idioma y frío/caliente. Separar SQL, hidratación, render y carga limpia. Corregir sólo coste demostrado.\n\n**Salida:** Paridad de IDs/orden/conteos/cupos/rotación, patrocinio y exclusiones; paginación completa y autoridad inmediata. Presupuestos aplicables verificados sin extrapolar la mezcla pública a cada variante."
+    },
+    {
+      "file": "docs/340-contrato-recorridos-optimizacion-alpha-20261025.md",
+      "line_start": 55,
+      "line_end": 65,
+      "sha256": "3d5dd7c70c600faced66d805a2ec897b8791458c6fa459a642a73e294f3b4a0d",
+      "quote": "Antes de cada medición relevante se registra una ficha con: ID N/I/acción, requisito y propósito, hipótesis, SHA de producto/dependencias/migraciones/instrumentos, datos sintéticos y distribución, estados, cardinalidad, idiomas, permisos, modalidad y concurrencia, cuotas/hardware, caché fría/caliente, procesos y colas, oráculos, carga, duración, contabilidad de errores/timeouts, limpieza y presupuesto aplicable. HEAD solo no identifica una candidata.\n\nSeparar medición instrumentada del ensayo de carga limpia y del tiempo de preparación/QA. Registrar p50/p95/p99 cuando el tamaño de muestra lo permita, errores, SQL/planes, CPU/memoria, bytes, cola/reintentos y tiempos de cada etapa pertinente. Para navegador: dispositivo/viewport, recursos, bytes, interacción y estados. Para operación: autoridad, efectos, integridad, recuperación y exposición; un registro offline de comandos no prueba su ejecución.\n\nLa comparación antes/después conserva escenario, selección y recursos, informa variabilidad y factores de confusión y usa repeticiones justificadas. No fija por defecto una batería de horas. Se atribuye mejora causal sólo con evidencia compatible. No se reduce el dataset, la duración, la mezcla ni las comprobaciones para aparentar una mejora.\n\nLos presupuestos propuestos en111/338 no pasan a ser gates por este contrato. N01 concreta los pendientes antes de medir mediante la delegación técnica vigente y documenta los supuestos; los cambios de alcance o garantías del usuario requieren su decisión. Se mantienen los criterios contractuales aplicables de16, incluida la mezcla pública p95 observable<800ms y errores<1% bajo su protocolo, sin convertirla en umbral universal de cada endpoint.\n\nMOD09 mantiene los objetivos originales2s/5s y la aceptación provisional expresa. Los FAIL históricos y actuales no se reescriben. N02 debe producir evaluación actual, corrección/optimización justificada o descarte de candidatos con evidencia; repetir la excepción antigua sin ese trabajo no completa N02. Si siguen incumplimientos, separar el estado técnico FAIL del escenario de la disposición contractual provisional, con latencias, impacto y deuda explícitos; no revocar ni ampliar automáticamente la excepción. Un escenario adicional no cubierto por ella conserva su propio criterio y pendiente.\n\nCada aceptación contiene requisito → acción → cambio o decisión sin cambio → candidata → prueba/medición → resultado → límite → deuda. Estados: pendiente, en curso, verificado localmente, verificado con límite declarado, FAIL, diferido por condición o no aplicable justificado. Cobertura funcional y rendimiento se registran por separado. SKIP o falta de muestras no equivalen a PASS. Un pendiente obligatorio sin evidencia impide el cierre; no se cambia a diferido por comodidad."
+    }
+  ],
+  "action_dispositions": [
+    {
+      "id": "route:R_listing_detail",
+      "kind": "route",
+      "families": [
+        "I05"
+      ],
+      "owners": [
+        "N04"
+      ],
+      "census_sources": [
+        "apps/core/urls.py",
+        "apps/listings/moderation_views.py"
+      ],
+      "functional_state": "verified_selected_existing_witnesses_not_all_variants",
+      "performance_state": "partial_by_scenario",
+      "witness_groups": [
+        "N01B/CdetailESEN",
+        "B16localizeddetail/negativeauthority",
+        "B16TCP",
+        "B16clean_public_mix"
+      ],
+      "current_implementation": {
+        "file": "apps/listings/moderation_views.py",
+        "line_start": 162,
+        "line_end": 193,
+        "sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+        "quote": "def public_detail(request, listing_id):\n    # A savepoint cannot give an inherited READ COMMITTED transaction a common\n    # snapshot. Keep its caller's original read path and isolation unchanged.\n    if connection.in_atomic_block:\n        return _native_public_detail(request, listing_id)\n    with transaction.atomic():\n        with connection.cursor() as cursor:\n            cursor.execute(\"SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY\")\n        with _prepared_page_binding(enabled=True):\n            context = PublicationContext(\n                DetailQuery(listing_id, timezone.now()), page_read=True, prepared_page=True,\n            )\n            if not context.rows:\n                raise Http404\n            listing = context.rows[0]\n            if not publicly_visible(listing, context=context):\n                raise Http404\n        # Render eagerly in the same snapshot: prefetch/guard/presentation must\n        # never combine committed versions that were individually ineligible.\n        return _public_detail_response(request, listing)\n\n\ndef _native_public_detail(request, listing_id):\n    listing = get_object_or_404(\n        Listing.objects.select_related(\"person__agency\", \"approved_revision\"), pk=listing_id\n    )\n    # Only the native read guard; render and every other caller retain their\n    # connection settings. get_object_or_404 above already connected this thread.\n    with _prepared_page_binding(enabled=True):\n        if not publicly_visible(listing):\n            raise Http404\n    return _public_detail_response(request, listing)"
+      },
+      "remaining": "Per-scenario dispositions, justified native stage/selectivity/depth/promoted references where applicable; final temporal table and root acceptance. No extraN04routes inferred from fivefamilies."
+    },
+    {
+      "id": "route:R_home",
+      "kind": "route",
+      "families": [
+        "I01",
+        "I02",
+        "I03",
+        "I04"
+      ],
+      "owners": [
+        "N04"
+      ],
+      "census_sources": [
+        "config/urls.py",
+        "apps/core/views.py"
+      ],
+      "functional_state": "verified_selected_existing_witnesses_not_all_variants",
+      "performance_state": "partial_by_scenario",
+      "witness_groups": [
+        "N01A/B/C",
+        "B16functional/discovery/promotion/parity/withdrawal",
+        "B16TCP100/1000/10000",
+        "B16clean_public_mix"
+      ],
+      "current_implementation": {
+        "file": "apps/listings/discovery.py",
+        "line_start": 264,
+        "line_end": 309,
+        "sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+        "quote": "def results(request):\n    form = SearchForm(request.GET, english=request.LANGUAGE_CODE == \"en\")\n    valid = form.is_valid()\n    raw_page = request.GET.get(\"page\", \"1\")\n    if len(raw_page) > 6 or not raw_page.isdecimal() or not 1 <= int(raw_page) <= 100000:\n        form.add_error(None, \"Página inválida / Invalid page\")\n        valid = False\n    number = int(raw_page) if valid else 1\n    from apps.catalog.promotion_exposure import enabled as promotions_enabled\n\n    from .public_validation import PublicationContext\n    from .publication_state import state_page\n\n    request._publication_route = {\"route\": \"fallback\", \"reason\": \"invalid_search\"}\n    try:\n        page = None\n        if not valid:\n            pass\n        else:\n            options = {}\n            if promotions_enabled():\n                from apps.catalog.promotion_paging import order_population\n\n                options[\"promotion_order\"] = partial(\n                    order_population, text_search=bool(form.cleaned_data.get(\"q\")),\n                )\n            page = state_page(candidates(form.cleaned_data), number,\n                              checked=form.cleaned_data.get(\"checked\") or (),\n                              observation=request._publication_route, **options)\n        sponsorship = getattr(page, \"sponsorship\", {})\n        if page is None:\n            # The complete native population; its correlated read runs without JIT.\n            context = (\n                PublicationContext(candidates(form.cleaned_data), page_read=True)\n                if valid else None\n            )\n            visible = (\n                [listing for listing in context.rows\n                 if publicly_visible(listing, context=context)\n                 and matches_checks(listing.person, form.cleaned_data.get(\"checked\"))]\n                if context else []\n            )\n            from apps.catalog.promotion_exposure import ranked\n\n            visible, sponsorship = ranked(visible, text_search=bool(form.cleaned_data.get(\"q\")))\n            page = Paginator(visible, 24).page(number)"
+      },
+      "remaining": "Per-scenario dispositions, justified native stage/selectivity/depth/promoted references where applicable; final temporal table and root acceptance. No extraN04routes inferred from fivefamilies."
+    }
+  ],
+  "source_bridges": [
+    {
+      "file": "apps/catalog/promotion_exposure.py",
+      "current_sha256": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+      "B16_sha256": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "598100ef8d87a72e4775be4ac7315f5ccfea618b3908046d3a94c99d6ca88104",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/core/urls.py",
+      "current_sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+      "B16_sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "d82fdf7d5b6c2674bce6e92d986c510e29f91b80590abe9b721e9be4300dcb26",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/core/views.py",
+      "current_sha256": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+      "B16_sha256": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "d284587deb9cafea5be2144078fe86f4dffaa96ee6873d0ff48454756a8fee87",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/discovery.py",
+      "current_sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+      "B16_sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "c73655c35349ba6f463ed06f8f0bf3c2f89b57e9b77ea785deeca33fb49fa803",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/moderation.py",
+      "current_sha256": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+      "B16_sha256": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "b912ab8cb3c5fccaefa5e1cdad019e78f4a800202eadd2ec44d22e78fbc8c01c",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/moderation_views.py",
+      "current_sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+      "B16_sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "9c165e63dfdda39fb4a15d651edcd1aa583e66cc41cbb3740230aeea4fe1cee3",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/presentation.py",
+      "current_sha256": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+      "B16_sha256": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "d2a924158a85e1d2fd079c9826af21b21c6a9886babc211c54fe27b78f0236e2",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/public_validation.py",
+      "current_sha256": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+      "B16_sha256": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "742b12945221d6e846435c285a4a1060fced50cab3dae49a2cb2752d5c6f4cfa",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/publication_state.py",
+      "current_sha256": "65e3dd80d8fa2872cf6c7e2d23678a7a5795bbea23dda4452527ee053f90ba66",
+      "B16_sha256": "65e3dd80d8fa2872cf6c7e2d23678a7a5795bbea23dda4452527ee053f90ba66",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "65e3dd80d8fa2872cf6c7e2d23678a7a5795bbea23dda4452527ee053f90ba66",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "65e3dd80d8fa2872cf6c7e2d23678a7a5795bbea23dda4452527ee053f90ba66",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "65e3dd80d8fa2872cf6c7e2d23678a7a5795bbea23dda4452527ee053f90ba66",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/seo.py",
+      "current_sha256": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+      "B16_sha256": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "d271561bd893815597b770e7a504f430dc18a1ad2b7ce41af555800915b703be",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "apps/listings/submissions.py",
+      "current_sha256": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+      "B16_sha256": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "c34e384db0bc8327f12f136e196c07c3e2dbdeba3407277583f11553d08f1148",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "config/urls.py",
+      "current_sha256": "2eda99c803b81f0853a9b50bbf636865a4d6a2a5a4b6f34ed50caaa80630c3e4",
+      "B16_sha256": "2eda99c803b81f0853a9b50bbf636865a4d6a2a5a4b6f34ed50caaa80630c3e4",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "2eda99c803b81f0853a9b50bbf636865a4d6a2a5a4b6f34ed50caaa80630c3e4",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "2eda99c803b81f0853a9b50bbf636865a4d6a2a5a4b6f34ed50caaa80630c3e4",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "2eda99c803b81f0853a9b50bbf636865a4d6a2a5a4b6f34ed50caaa80630c3e4",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "templates/listings/public_detail.html",
+      "current_sha256": "797ac5e6675b4f65071c14009671a279a3ae19671c496eab77507d7c027c09f1",
+      "B16_sha256": "797ac5e6675b4f65071c14009671a279a3ae19671c496eab77507d7c027c09f1",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "797ac5e6675b4f65071c14009671a279a3ae19671c496eab77507d7c027c09f1",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "797ac5e6675b4f65071c14009671a279a3ae19671c496eab77507d7c027c09f1",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "797ac5e6675b4f65071c14009671a279a3ae19671c496eab77507d7c027c09f1",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "file": "templates/listings/results.html",
+      "current_sha256": "ceab48bba10230c56c1eba6792802147a63af2ac216601bba836809feebddb9f",
+      "B16_sha256": "ceab48bba10230c56c1eba6792802147a63af2ac216601bba836809feebddb9f",
+      "B16_identical": true,
+      "N01_bridges": [
+        {
+          "version": "N01A",
+          "frozen_sha256": "ceab48bba10230c56c1eba6792802147a63af2ac216601bba836809feebddb9f",
+          "identical": true
+        },
+        {
+          "version": "N01B",
+          "frozen_sha256": "ceab48bba10230c56c1eba6792802147a63af2ac216601bba836809feebddb9f",
+          "identical": true
+        },
+        {
+          "version": "N01C",
+          "frozen_sha256": "ceab48bba10230c56c1eba6792802147a63af2ac216601bba836809feebddb9f",
+          "identical": true
+        }
+      ]
+    }
+  ],
+  "functional_witnesses": [
+    {
+      "selector": "tests/test_discovery.py::test_search_approved_text_language_and_hidden_revisions",
+      "source": {
+        "file": "tests/test_discovery.py",
+        "line_start": 28,
+        "line_end": 46,
+        "sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+        "quote": "def test_search_approved_text_language_and_hidden_revisions(directory):\n    response = directory.get(\"/es/\", {\"q\": \"photography\"})\n    assert response.status_code == 200\n    assert response.context[\"page\"].paginator.count == 2\n    assert b\"fixture-model-b@example.invalid\" not in response.content\n    published = Person.objects.get(individual__username=\"fixture-v1-individual\")\n    Revision.objects.create(\n        listing=published.listing,\n        manager_version=1,\n        title=\"Secret pending phrase\",\n        description=\"Confidential private text\",\n    )\n    assert directory.get(\"/es/\", {\"q\": \"confidential\"}).context[\"page\"].paginator.count == 0\n    published.consent_revoked_at = timezone.now()\n    published.save(update_fields=[\"consent_revoked_at\"])\n    assert directory.get(\"/es/\", {\"q\": \"photography\"}).context[\"page\"].paginator.count == 1\n    english = directory.get(\"/en/\")\n    assert b\"photography\" in english.content and b\"Synthetic profile\" in english.content\n    assert english[\"Cache-Control\"] == \"no-store\""
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_discovery.py::test_language_any_geo_and_private_postal_filters",
+      "source": {
+        "file": "tests/test_discovery.py",
+        "line_start": 50,
+        "line_end": 66,
+        "sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+        "quote": "def test_language_any_geo_and_private_postal_filters(directory):\n    assert directory.get(\"/es/\", {\"language\": [\"en\", \"fr\"]}).context[\"page\"].paginator.count == 2\n    assert directory.get(\"/es/\", {\"language\": [\"fr\"]}).context[\"page\"].paginator.count == 0\n    north = Municipality.objects.get(code=\"demo-north\")\n    south = Municipality.objects.get(code=\"demo-south\")\n    assert directory.get(\"/es/\", {\"city\": [north.pk]}).context[\"page\"].paginator.count == 0\n    assert (\n        directory.get(\"/es/\", {\"city\": [south.pk], \"province\": [north.province_id]}).status_code\n        == 400\n    )\n    private = PostalCode.objects.get(code=\"29001\")\n    Revision.objects.filter(listing__status=\"published\").update(postal_code=private)\n    assert directory.get(\"/es/\", {\"postal_code\": [private.pk]}).context[\"page\"].paginator.count == 2\n    private.public_safe = False\n    private.save(update_fields=[\"public_safe\"])\n    assert directory.get(\"/es/\", {\"postal_code\": [private.pk]}).status_code == 400\n    assert directory.get(\"/es/\", {\"q\": \"x\" * 201}).status_code == 400"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_discovery.py::test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+      "source": {
+        "file": "tests/test_discovery.py",
+        "line_start": 247,
+        "line_end": 264,
+        "sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+        "quote": "def test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts(multipage_directory):\n    client = multipage_directory\n    query = {\"q\": \"pagination\", \"channel\": [\"phone\"]}\n    first = client.get(\"/en/\", query)\n    second = client.get(\"/en/\", query | {\"page\": \"2\"})\n    assert first.status_code == second.status_code == 200\n    assert first.context[\"page\"].paginator.count == 25\n    ids = [item.pk for response in [first, second] for item in response.context[\"page\"].object_list]\n    assert len(ids) == len(set(ids)) == 25\n    assert ids == sorted(ids)\n    assert [item.pk for item in client.get(\"/en/\", query).context[\"page\"].object_list] == ids[:24]\n    assert b\"q=pagination\" in first.content and b\"channel=phone\" in first.content\n    person = Person.objects.get(listing__pk=ids[0])\n    person.consent_revoked_at = timezone.now()\n    person.save(update_fields=[\"consent_revoked_at\"])\n    assert client.get(\"/en/\", query).context[\"page\"].paginator.count == 24\n    assert client.get(\"/en/\", query | {\"page\": \"2\"}).status_code == 404\n    assert str(ids[0]).encode() not in client.get(\"/en/\", query).content"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_discovery.py::test_public_detail_localizes_profile_and_selected_contacts",
+      "source": {
+        "file": "tests/test_discovery.py",
+        "line_start": 83,
+        "line_end": 122,
+        "sha256": "28d860007a9f24159793f46b4d19805db6a3d9d14919bf92dcaa670b7eb2c1e0",
+        "quote": "def test_public_detail_localizes_profile_and_selected_contacts(directory):\n    person = Person.objects.get(individual__username=\"fixture-v1-individual\")\n    listing = person.listing\n    revision = listing.approved_revision\n    revision.whatsapp = True\n    revision.telegram = \"demo_model\"\n    revision.postal_code = PostalCode.objects.get(code=\"29001\")\n    revision.save()\n    response = directory.get(f\"/en/listing/{listing.pk}/\")\n    assert response.status_code == 200\n    content = response.content.decode()\n    for expected in [\n        \"Synthetic profile\",\n        'lang=\"en\"',\n        \"Spanish, English\",\n        \"Monday, Wednesday\",\n        \"Morning\",\n        \"Age: simulated\",\n        \"Contact: simulated\",\n        \"29001\",\n    ]:\n        assert expected in content\n    assert f'href=\"https://wa.me/{revision.phone.lstrip(\"+\")}\"' in content\n    assert 'href=\"https://t.me/demo_model\"' in content\n    assert person.individual.email not in content\n    assert \"EUR\" not in content and \"Photo session\" not in content\n    revision.whatsapp = False\n    revision.telegram = \"\"\n    revision.save()\n    revision.postal_code.public_safe = False\n    revision.postal_code.save(update_fields=[\"public_safe\"])\n    assert directory.get(f\"/en/listing/{listing.pk}/\").status_code == 404\n    revision.postal_code = None\n    revision.description_alternative = \"\"\n    revision.save()\n    response = directory.get(f\"/en/listing/{listing.pk}/\")\n    assert response.status_code == 200\n    content = response.content.decode()\n    assert 'lang=\"es\"' in content\n    assert \"29001\" not in content and \"wa.me/\" not in content and \"t.me/\" not in content"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_promotion_pagination_rotation.py::test_sponsored_rotation_preserves_filtered_public_pagination",
+      "source": {
+        "file": "tests/test_promotion_pagination_rotation.py",
+        "line_start": 21,
+        "line_end": 110,
+        "sha256": "e21b14482021f8fb69b9fd9d2333b073f9721093f694e5b784f2980132445b30",
+        "quote": "def test_sponsored_rotation_preserves_filtered_public_pagination(request, settings, monkeypatch):\n    _, _, top, _ = setup(request, settings)\n    prepare_population(40, \"repeated\")\n    listings = list(\n        Listing.objects.filter(status=\"published\").select_related(\"person__agency__owner\")\n        .order_by(\"pk\")\n    )\n    expected = {row.pk for row in listings}\n    assert len(expected) == 40\n    editorial = list(\n        Listing.objects.order_by(\"pk\").values_list(\n            \"pk\", \"published_at\", \"lifecycle_version\", \"approved_revision_id\"\n        )\n    )\n    premium = PromotionProductVersion.objects.create(\n        product=PromotionProduct.objects.create(slug=\"synthetic_premium_pages\", kind=\"premium\"),\n        version=1, name_es=\"Premium prueba\", name_en=\"Premium test\",\n        duration_days=top.duration_days, amount=top.amount, currency=top.currency,\n        tax_rate=top.tax_rate, published_at=timezone.now(), is_current=True,\n    )\n    candidates = [row for row in listings if row.person.agency_id][:28]\n    assert len(candidates) == 28\n    premium_ids, top_ids = set(), set()\n    for index, listing in enumerate(candidates):\n        buyer = listing.person.agency.owner\n        buyer.mfa_enabled = True\n        buyer.save(update_fields=[\"mfa_enabled\"])\n        credentials = {\"mfa_version\": buyer.mfa_version, \"account_version\": buyer.session_version}\n        version = premium if index < 10 else top\n        order = create_order(buyer, listing.pk, version.pk, uuid4(), **credentials)\n        payload, signature = synthetic_event(order.payment_attempt, \"succeeded\", uuid4())\n        receive_event(buyer, payload, signature, **credentials)\n        (premium_ids if index < 10 else top_ids).add(listing.pk)\n\n    visitor = Client()\n\n    def pages(language, query=None):\n        ids, labels = [], {}\n        number, total = 1, None\n        while total is None or number <= total:\n            response = visitor.get(f\"/{language}/\", {**(query or {}), \"page\": number})\n            assert response.status_code == 200\n            page = response.context[\"page\"]\n            total = page.paginator.num_pages\n            page_ids = [row.pk for row in page.object_list]\n            ids.extend(page_ids)\n            sponsored = [card for card in response.context[\"cards\"] if card[\"sponsorship\"]]\n            assert response.content.count(b'class=\"sponsored\"') == len(sponsored)\n            for card in sponsored:\n                labels[card[\"listing\"].pk] = card[\"sponsorship\"]\n            number += 1\n        assert len(ids) == len(set(ids)), \"A listing must not appear on multiple pages\"\n        return ids, labels\n\n    settings.PROMOTION_TEST_MODE = False\n    filtered = {}\n    for language in (\"es\", \"en\"):\n        ids, labels = pages(language)\n        assert set(ids) == expected and not labels\n        ids, labels = pages(language, {\"q\": \"photography\"})\n        filtered[language] = set(ids)\n        assert ids and not labels\n\n    settings.PROMOTION_TEST_MODE = True\n    now = timezone.now()\n    monkeypatch.setattr(\"apps.catalog.promotion_exposure.timezone.now\", lambda: now)\n    for language in (\"es\", \"en\"):\n        ids, labels = pages(language)\n        assert set(ids) == expected\n        assert set(ids[:10]) == premium_ids and set(ids[10:28]) == top_ids\n        assert labels == {**dict.fromkeys(premium_ids, \"premium\"), **dict.fromkeys(top_ids, \"top\")}\n        assert pages(language) == (ids, labels), \"Pagination must be stable within the same UTC day\"\n        matching, selected_labels = pages(language, {\"q\": \"photography\"})\n        assert set(matching) == filtered[language]\n        assert set(selected_labels) == filtered[language] & (premium_ids | top_ids)\n        assert pages(language, {\"q\": \"synthetic-no-match-8293\"}) == ([], {})\n        monkeypatch.setattr(\n            \"apps.catalog.promotion_exposure.timezone.now\", lambda: now + timedelta(days=1)\n        )\n        tomorrow, tomorrow_labels = pages(language)\n        assert set(tomorrow) == expected and tomorrow_labels == labels\n        assert tomorrow[:10] != ids[:10] or tomorrow[10:28] != ids[10:28]\n        assert set(tomorrow[:10]) == premium_ids and set(tomorrow[10:28]) == top_ids\n        monkeypatch.setattr(\"apps.catalog.promotion_exposure.timezone.now\", lambda: now)\n\n    assert list(\n        Listing.objects.order_by(\"pk\").values_list(\n            \"pk\", \"published_at\", \"lifecycle_version\", \"approved_revision_id\"\n        )\n    ) == editorial"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_promotion_paged_equivalence.py::test_all_pages_match_frozen_native_with_overlapping_rights",
+      "source": {
+        "file": "tests/test_promotion_paged_equivalence.py",
+        "line_start": 41,
+        "line_end": 114,
+        "sha256": "7a60844fe6cd9225ee6eceaacfb32bf3fecf9250d3cdc0be25aa1719a448a2b9",
+        "quote": "def test_all_pages_match_frozen_native_with_overlapping_rights(request, settings, monkeypatch, record_property):\n    _, _, top, _ = setup(request, settings)\n    prepare_population(49, \"diverse\")\n    rows = list(\n        Listing.objects.filter(status=\"published\", person__agency__isnull=False)\n        .select_related(\"person__agency__owner\").order_by(\"pk\")\n    )\n    bump_instant = timezone.now()\n    for kind in [\"premium\", \"autobump\"]:\n        version = PromotionProductVersion.objects.create(\n            product=PromotionProduct.objects.create(slug=\"parity_\" + kind, kind=kind),\n            version=1, name_es=\"Prueba\", name_en=\"Test\", duration_days=top.duration_days,\n            amount=top.amount, currency=top.currency, tax_rate=top.tax_rate,\n            bump_interval_minutes=60 if kind == \"autobump\" else None,\n            daily_bump_limit=3 if kind == \"autobump\" else None,\n            published_at=timezone.now(), is_current=True,\n        )\n        selected = rows[:5] if kind == \"premium\" else rows[:12]\n        for index, row in enumerate(selected):\n            entitlement = grant(row.person, version)\n            if kind == \"autobump\":\n                PromotionEntitlement.objects.filter(pk=entitlement.pk).update(\n                    last_bumped_at=bump_instant - timedelta(minutes=index // 2 + 1),\n                )\n    for row in rows[3:18]:\n        grant(row.person, top)\n    assert PromotionEntitlement.objects.filter(order__listing_id=rows[3].pk).count() == 3\n    # Include optional type filtering while retaining the original candidate semantics.\n    Revision.objects.filter(listing_id__in=[row.pk for row in rows]).update(profile_type=\"man\")\n    Revision.objects.filter(listing_id__in=[row.pk for row in rows[::2]]).update(profile_type=\"woman\")\n    publication_state.refresh_all()\n    reference = settings.BASE_DIR / \"docs/evidencias/b08-promociones-referencia-20261020.py\"\n    assert hashlib.sha256(reference.read_bytes()).hexdigest() == \"9f700b72394edbc8aac1a671081885b66c1754ed97f6c012a9f802bc45337c29\"\n    native_ranked = runpy.run_path(str(reference), run_name=\"apps.catalog._beta_frozen_reference\")[\"ranked\"]\n    editorial = list(Listing.objects.order_by(\"pk\").values_list(\n        \"pk\", \"published_at\", \"expires_at\", \"lifecycle_version\", \"approved_revision_id\",\n    ))\n    client = Client()\n    now = timezone.now()\n    checked = []\n    for day in [0, 1]:\n        instant = now + timedelta(days=day)\n        monkeypatch.setattr(\"apps.catalog.promotion_exposure.timezone.now\", lambda: instant)\n        for language in [\"es\", \"en\"]:\n            for params in [{}, {\"q\": \"photography\"}, {\"profile\": [\"woman\"], \"language\": [\"en\"]}]:\n                form = discovery.SearchForm(params, english=language == \"en\")\n                assert form.is_valid()\n                with translation.override(language):\n                    context = PublicationContext(discovery.candidates(form.cleaned_data), page_read=True)\n                    visible = [row for row in context.rows if publicly_visible(row, context=context)]\n                    expected, labels = native_ranked(visible, text_search=bool(params.get(\"q\")))\n                    fresh_ranked, fresh_labels = ranked(visible, text_search=bool(params.get(\"q\")))\n                if params.get(\"profile\"):\n                    assert 0 < len(expected) < 49\n                expected_ids = [row.pk for row in expected]\n                assert [row.pk for row in fresh_ranked] == expected_ids and fresh_labels == labels\n                all_ids = []\n                for number in range(1, max(1, math.ceil(len(expected) / 24)) + 1):\n                    response = client.get(f\"/{language}/\", {**params, \"page\": number})\n                    assert response.status_code == 200\n                    page = response.context[\"page\"]\n                    ids = [row.pk for row in page.object_list]\n                    assert response.wsgi_request._publication_route[\"route\"] == \"state\"\n                    assert page.paginator.count == len(expected)\n                    assert ids == expected_ids[(number - 1) * 24:number * 24]\n                    assert {card[\"listing\"].pk: card[\"sponsorship\"] for card in response.context[\"cards\"] if card[\"sponsorship\"]} == {pk: labels[pk] for pk in ids if pk in labels}\n                    all_ids.extend(ids)\n                assert all_ids == expected_ids and len(all_ids) == len(set(all_ids))\n                checked.append({\"day\": day, \"language\": language, \"params\": params, \"count\": len(expected)})\n    assert len(checked) == 12\n    assert editorial == list(Listing.objects.order_by(\"pk\").values_list(\n        \"pk\", \"published_at\", \"expires_at\", \"lifecycle_version\", \"approved_revision_id\",\n    ))\n    record_property(\"frozen_native_comparisons\", checked)"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_beta_public_surfaces.py::test_ineligible_profile_disappears_from_every_surface_before_worker_refresh",
+      "source": {
+        "file": "tests/test_beta_public_surfaces.py",
+        "line_start": 31,
+        "line_end": 110,
+        "sha256": "5de06cd81ba48f070bfcb8f2b376397189e07bae7a404fe14dada3cfe4e149be",
+        "quote": "def test_ineligible_profile_disappears_from_every_surface_before_worker_refresh(\n    request, settings, monkeypatch, language, change\n):\n    _, listing, entitlement = purchased(request, settings)\n    public = Client()\n    person, revision = listing.person, listing.approved_revision\n    photo = revision.photos.get(removed_at__isnull=True)\n    peer = Person.objects.get(subject__username=\"fixture-v1-model-a\").listing\n    peer_before = (Listing.objects.filter(pk=peer.pk).values().get(),\n                   Revision.objects.filter(pk=peer.approved_revision_id).values().get())\n    visitor = User.objects.get(username=\"fixture-v1-visitor\")\n    private = Client()\n    private.force_login(visitor)\n    detail = f\"/{language}/listing/{listing.pk}/\"\n    image = detail + f\"photo/{photo.pk}/\"\n    assert private.post(detail + \"favorite/\").status_code == 302\n    assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1\n    assert public.get(detail).status_code == 200\n    response = public.get(image)\n    assert response.status_code == 200\n    response.close()\n    assert any(card[\"listing\"].pk == listing.pk and card[\"sponsorship\"]\n               for card in public.get(f\"/{language}/\").context[\"cards\"])\n    assert revision.title.encode() in private.get(f\"/{language}/favorites/\").content\n    assert any(str(listing.pk) in row.find(\"s:loc\", NS).text for row in urls(public))\n\n    # Pause only the refresh dispatch, never PostgreSQL or the authority itself.\n    monkeypatch.setattr(tasks.refresh_publication_state, \"delay\", lambda *a, **k: None)\n    refresh_all()\n    assert PublicationState.objects.get(listing=listing).eligible\n    if change in {\"paused\", \"withdrawn\"}:\n        Listing.objects.filter(pk=listing.pk).update(status=change)\n    elif change == \"expired\":\n        Listing.objects.filter(pk=listing.pk).update(expires_at=timezone.now() - timedelta(seconds=1))\n    elif change == \"consent\":\n        Person.objects.filter(pk=person.pk).update(consent_revoked_at=timezone.now())\n    elif change == \"manager\":\n        Person.objects.filter(pk=person.pk).update(manager_version=person.manager_version + 1)\n    elif change == \"age\":\n        Person.objects.filter(pk=person.pk).update(age_status=\"failed\")\n    elif change in {\"legacy\", \"unknown_contract\"}:\n        Revision.objects.filter(pk=revision.pk).update(\n            content_contract=LEGACY_CONTRACT if change == \"legacy\" else \"unknown-contract\"\n        )\n    elif change == \"professional_rate\":\n        Rate.objects.create(revision=revision, concept=\"Synthetic historical rate\", mode=\"consult\")\n    elif change == \"photo_removed\":\n        revision.photos.update(removed_at=timezone.now())\n    elif change == \"phone_unverified\":\n        person.phone_claim.verified_at = None\n        person.phone_claim.save(update_fields=[\"verified_at\"])\n    else:\n        assert change == \"missing_category\"\n        revision.categories.clear()\n    assert PublicationState.objects.get(listing=listing).eligible  # Deliberately stale.\n\n    for refreshed in [False, True]:\n        if refreshed:\n            refresh_all()\n        for promotional in [False, True]:\n            settings.PROMOTION_TEST_MODE = promotional\n            result = public.get(f\"/{language}/\")\n            ids = [row.pk for row in result.context[\"page\"].object_list]\n            assert listing.pk not in ids and peer.pk in ids\n            assert public.get(detail).status_code == public.get(image).status_code == 404\n            favorites = private.get(f\"/{language}/favorites/\")\n            assert favorites.status_code == 200 and favorites[\"Cache-Control\"] == \"private, no-store\"\n            assert all(not entry[\"visible\"] for entry in favorites.context[\"entries\"])\n            assert revision.title.encode() not in favorites.content\n            assert revision.phone.encode() not in favorites.content\n            assert str(listing.pk).encode() not in favorites.content\n            assert private.post(detail + \"favorite/\").status_code == 404\n            locations = [row.find(\"s:loc\", NS).text for row in urls(public)]\n            assert all(str(listing.pk) not in row for row in locations)\n            assert any(str(peer.pk) in row for row in locations)\n    entitlement.refresh_from_db()\n    assert entitlement.order.status == \"paid\" and entitlement.suspended_at is None\n    assert Favorite.objects.filter(user=visitor, listing=listing).count() == 1\n    assert (Listing.objects.filter(pk=peer.pk).values().get(),\n            Revision.objects.filter(pk=peer.approved_revision_id).values().get()) == peer_before"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    },
+    {
+      "selector": "tests/test_discovery_materialization_profile.py::test_discovery_materialization_and_explicit_stage_times",
+      "source": {
+        "file": "tests/test_discovery_materialization_profile.py",
+        "line_start": 20,
+        "line_end": 107,
+        "sha256": "cd549fbc9370ffea49f7c32cd0a09c042b5bb797783c416ff8458ccd8a66bfb7",
+        "quote": "def test_discovery_materialization_and_explicit_stage_times(\n    request, monkeypatch, record_property, count\n):\n    client = request.getfixturevalue(\"directory\")\n    populate(count)\n    queries = 0\n    sql_execute_seconds = 0.0\n    objects = Counter()\n    stages = {\n        \"context_seconds\": 0.0,\n        \"validation_seconds\": 0.0,\n        \"render_seconds\": 0.0,\n        \"validation_calls\": 0,\n        \"candidate_listings\": 0,\n        \"relation_memberships\": {},\n    }\n\n    def sql_timer(execute, sql, params, many, context):\n        nonlocal queries, sql_execute_seconds\n        queries += 1\n        start = time.perf_counter()\n        try:\n            return execute(sql, params, many, context)\n        finally:\n            sql_execute_seconds += time.perf_counter() - start\n\n    def initialized(sender, **kwargs):\n        if sender._meta.app_label in [\"listings\", \"core\", \"catalog\", \"safety\", \"mediafiles\"]:\n            objects[sender._meta.label] += 1\n\n    original_init = PublicationContext.__init__\n    original_validation = moderation.validate_submission\n    original_render = discovery.render\n\n    def context_init(self, query, **kwargs):\n        start = time.perf_counter()\n        try:\n            original_init(self, query, **kwargs)\n        finally:\n            stages[\"context_seconds\"] += time.perf_counter() - start\n        stages[\"candidate_listings\"] = len(self.rows)\n        stages[\"relation_memberships\"] = {\n            name: sum(len(getattr(row.approved_revision, \"_pv_\" + name)) for row in self.rows)\n            for name in [\"categories\", \"services\", \"travel_areas\", \"rates\", \"photos\"]\n        }\n\n    def validate(*args, **kwargs):\n        start = time.perf_counter()\n        stages[\"validation_calls\"] += 1\n        try:\n            return original_validation(*args, **kwargs)\n        finally:\n            stages[\"validation_seconds\"] += time.perf_counter() - start\n\n    def render(*args, **kwargs):\n        start = time.perf_counter()\n        try:\n            return original_render(*args, **kwargs)\n        finally:\n            stages[\"render_seconds\"] += time.perf_counter() - start\n\n    monkeypatch.setattr(PublicationContext, \"__init__\", context_init)\n    monkeypatch.setattr(moderation, \"validate_submission\", validate)\n    monkeypatch.setattr(discovery, \"render\", render)\n    # MOD-05: the listing is served from stored state; this profiles the native path.\n    monkeypatch.setattr(publication_state, \"state_page\", lambda *args, **kwargs: None)\n    post_init.connect(initialized, weak=False)\n    start = time.perf_counter()\n    try:\n        with connection.execute_wrapper(sql_timer):\n            response = client.get(\"/es/\")\n    finally:\n        elapsed = time.perf_counter() - start\n        post_init.disconnect(initialized)\n    assert response.status_code == 200\n    assert response.context[\"page\"].paginator.count == count\n    assert len(response.context[\"page\"].object_list) == min(count, 24)\n    assert response[\"Cache-Control\"] == \"no-store\"\n    record_property(\"dataset_published\", count)\n    record_property(\"queries\", queries)\n    record_property(\"sql_execute_seconds\", sql_execute_seconds)\n    record_property(\"total_seconds_instrumented\", elapsed)\n    record_property(\"objects_instantiated_by_model\", dict(objects))\n    record_property(\"explicit_stages\", stages)\n    record_property(\n        \"limits\",\n        \"Real PG/Django Client; post_init signal and timing wrappers add overhead. SQL execute excludes fetch/materialization, validation and render include their nested SQL. Stage sums may overlap. Counts of constructed instances include repeated model instances; relation memberships are references, not distinct allocation counts. Same instrumentation required for future elapsed comparisons. Previous10/100 profiles did not measure these stages. Not TCP/capacity/CPU/request.\",\n    )"
+      },
+      "current_matches_B16_sha": true,
+      "execution": "20261024-094540-3a6ec8ac selected exact cases PASS; overall historical run had failures, not a single green run"
+    }
+  ],
+  "existing_JUnit": [
+    {
+      "file": "artifacts/local-ci/20261024-094540-3a6ec8ac/pytest.xml",
+      "sha256": "cff2ad0f3a7d467af654838c241896d92e22cb3f22eafb80d97f923e03f36e3d",
+      "selected_cases": [
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[paused-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[withdrawn-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[expired-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[consent-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[manager-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[age-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[legacy-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[unknown_contract-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[professional_rate-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[photo_removed-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[phone_unverified-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_ineligible_profile_disappears_from_every_surface_before_worker_refresh[missing_category-en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_free_renewal_changes_organic_order_without_creating_a_promotion[es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_free_renewal_changes_organic_order_without_creating_a_promotion[en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_publication_panel_explains_renewal_and_separate_bump[es]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_beta_public_surfaces",
+          "name": "test_publication_panel_explains_renewal_and_separate_bump[en]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery_materialization_profile",
+          "name": "test_discovery_materialization_and_explicit_stage_times[10]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery_materialization_profile",
+          "name": "test_discovery_materialization_and_explicit_stage_times[100]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery_materialization_profile",
+          "name": "test_discovery_materialization_and_explicit_stage_times[1000]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery_materialization_profile",
+          "name": "test_discovery_materialization_and_explicit_stage_times[10000]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_promotion_paged_equivalence",
+          "name": "test_all_pages_match_frozen_native_with_overlapping_rights",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_promotion_paged_equivalence",
+          "name": "test_commercial_revocation_is_fresh_in_sql_and_batch[individual]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_promotion_paged_equivalence",
+          "name": "test_commercial_revocation_is_fresh_in_sql_and_batch[owner]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_promotion_paged_equivalence",
+          "name": "test_commercial_revocation_is_fresh_in_sql_and_batch[editor]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_search_approved_text_language_and_hidden_revisions",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_language_any_geo_and_private_postal_filters",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_pagination_invalid_and_out_of_range_preserve_filter_semantics",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_public_detail_localizes_profile_and_selected_contacts",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_simulation_provenance_survives_provider_switch_and_blocks_production",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_geography_checks_postal_and_zone_ancestry_without_selected_city",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_positive_pagination_has_no_duplicates_stable_ties_and_private_counts",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_search_title_weight_precedes_newer_description_and_private_text",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_specific_real_checks_exclude_simulated_or_obsolete_proofs",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery",
+          "name": "test_contact_and_agency_checks_are_specific_and_require_current_evidence",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_promotion_pagination_rotation",
+          "name": "test_sponsored_rotation_preserves_filtered_public_pagination",
+          "outcome": "PASS"
+        }
+      ],
+      "whole_run_not_inferred_green": true
+    },
+    {
+      "file": "artifacts/local-ci/20261024-215821-1bc5d75d/pytest.xml",
+      "sha256": "aca5df92616861b21e93944eb3587a627282603829ae7827e73968dc8d148657",
+      "selected_cases": [
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[repeated-100]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[repeated-1000]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[repeated-10000]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[diverse-100]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[diverse-1000]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_publication_state_tcp",
+          "name": "test_current_matrix_tcp[diverse-10000]",
+          "outcome": "PASS"
+        }
+      ],
+      "whole_run_not_inferred_green": true
+    },
+    {
+      "file": "artifacts/local-ci/20261025-081326-9844f827/pytest.xml",
+      "sha256": "6f5de8ef8e70dcfaa67c70048a430d6164851e9d04824744c79da77481a8376a",
+      "selected_cases": [
+        {
+          "classname": "tests.test_discovery_query_profile",
+          "name": "test_discovery_full_visibility_query_growth[10]",
+          "outcome": "PASS"
+        },
+        {
+          "classname": "tests.test_discovery_query_profile",
+          "name": "test_discovery_full_visibility_query_growth[100]",
+          "outcome": "PASS"
+        }
+      ],
+      "whole_run_not_inferred_green": true
+    },
+    {
+      "file": "artifacts/local-ci/20261025-083656-adcd31ae/pytest.xml",
+      "sha256": "c8b9fd7f09fe627b676bf9c8c44cd76d5b7dcc98c941deab4bb5e4431507e155",
+      "selected_cases": [
+        {
+          "classname": "tests.test_discovery_segment_baseline",
+          "name": "test_native_discovery_fixed_cohort_segments",
+          "outcome": "PASS"
+        }
+      ],
+      "whole_run_not_inferred_green": true
+    },
+    {
+      "file": "artifacts/local-ci/20261025-090357-d51eb3f9/pytest.xml",
+      "sha256": "dbe2709f32f219f75ebf436eba1c52c111fb269d41b8d74d3e9925934a582308",
+      "selected_cases": [
+        {
+          "classname": "tests.test_discovery_state_baseline",
+          "name": "test_native_discovery_unknown_and_prepared_states",
+          "outcome": "PASS"
+        }
+      ],
+      "whole_run_not_inferred_green": true
+    }
+  ],
+  "B16_reuse": [
+    {
+      "scope": "Territorial1000/10000 native census exact,24 selectedHTTPpages first/middle/last, not all pages",
+      "evidence": {
+        "file": "docs/330-conciliacion-exclusiones-b16-20261024.md",
+        "line_start": 30,
+        "line_end": 36,
+        "sha256": "6b69405ed54eda5f0152068dc44c52bfafad2b70b8e60953f6e8b322126af9c8",
+        "quote": "## Disposición de los dos territoriales\n\nLa [evidencia de reutilización](evidencias/b16-territory-exclusions-reuse-20261024.json) contrasta los originales exactos1000/10000: cada uno PASS, censo nativo completo y24páginas HTTPinicial/intermedia/última, no todas las páginas grandes. Coinciden las17fuentes declaradas de regla pública, consultas/ranking, preparación de población/geografía, fixtures y dependencias enumeradas. No se convierte esta lista en equivalencia de cualquier dependencia transitiva.\n\nEl helper distinto sí queda explicado: quitar del archivo actual únicamente el parámetro hydrate y su bloque select_related recupera exactamente los bytesSHA256del21/10. La varianteABBA234añadió esas relaciones sin cambiar filtros, autoridad, búsqueda o ranking; su helper se recupera cambiando sólo el valor por defecto actual aFalse. El ensayo235adoptó Truey su helper coincide por bytes con el actual. JUnit/manifiestos/resultados234/235 originales se revalidan. La primera observación supuso idéntico el testABBA;235había cambiado su metadato default_adopted deFalseal valor efectivo. Esa transformación recupera también exactamente los bytes originales, sin tocar los originales ni repetir pruebas.\n\nLa regresión353actual aprobó ambos casos exhaustivos10/100con ese helper. Los cambios restantes de operaciones privadas no se usan para atribuir capacidad territorial y la plantilla modificada mantiene testigos actuales de superficie/TCP separados. Se reutilizan los dos testigos grandes sólo para pertenencia/orden dentro de su escenario, con puente de fuente/helper y límites conservados. No se repiten por rutina los aproximadamente65minutos históricos de estas dos pruebas."
+      },
+      "current_helper_bridge_document": "docs/evidencias/b16-territory-exclusions-reuse-20261024.json",
+      "limit": "Existing17source identities/helperhydrate bridge; no independent re-audit of every original territorial archive in this bounded review."
+    },
+    {
+      "scope": "Actual contractual clean mix18000/900s with resources8CPU8GiB;p95observable410.559ms,0errors",
+      "evidence": {
+        "file": "docs/334-auditoria-http-contractual-b16-20261025.md",
+        "line_start": 3,
+        "line_end": 19,
+        "sha256": "924376040712e8df246f5dbde847e0121b461f9b4f7a901446ad5b088f172fa4",
+        "quote": "La ejecución `20261024-235904-c98b179b`, candidata `8f68fc8`, terminó con `BETA_HTTP_CONTRACTUAL_PASS_NOT_GLOBAL`: un caso aprobado, cero fallos, errores u omisiones; 6582,289 segundos JUnit (1 h 49 min 42 s). Véanse el [protocolo congelado](333-prerregistro-http-contractual-b16-20261025.md) y la [evidencia auditada](evidencias/b16-contractual-http-audit-20261025.json). B16 sigue abierto para conciliación de requisitos y versión; este informe no es su acta.\n\n## Contabilidad y tiempos\n\nSe recorrieron las 18000 muestras, identificadores únicos y ciclo exacto de 96 slots: 6000 listados, 6000 búsquedas y 6000 fichas; 9000 ES y 9000 EN. Todas terminaron con HTTP 200, cuerpo no vacío, sin error inesperado ni timeout. Quince subidas a borradores distintos fueron programadas cada 60 segundos entre 0 y 840 y respondieron 302. El caso comprueba una Photo y un UploadAttempt accepted/duplicate por borrador.\n\nLos percentiles se recalcularon independientemente con la convención congelada de rango superior ceil(n*p/100), sobre las 18000 muestras completas: p95 observable 410,559 ms; máximo 702,782 ms. Generador p95 2,864 ms, p99 5,935 ms y máximo 31,154 ms. Coinciden exactamente las tres distribuciones archivadas: observable, generador y retraso total. Todas las comprobaciones contractuales del instrumento son verdaderas.\n\n## Contenido y autoridad: alcance exacto\n\nEl helper tests/capacity_combined_filters.py reconstruye el censo y orden desde autoridad nativa, exige publicación vigente sin marcas pendientes y verifica 68 filas HTTP antes y después. Comprueba IDs ordenados sin duplicados, total nativo, etiquetas premium/top y Cache-Control no-store; ambos conjuntos archivados son iguales. Las 96 sondas frías responden 200. El recorrido temporal registra estado y tamaño, no conserva ni compara el cuerpo completo de cada una de sus 18000 respuestas. No se atribuye esa cobertura adicional. El ranking de referencia comparte primitivas PostgreSQL y su alcance se conserva.\n\n## Congelación, recursos y conservación\n\nAntes de editar documentación se comprobó igualdad de las 1723 fuentes actuales, prerregistradas y originales; también SHA de grafo, protocolo, especificación y ocho helpers. Las cuotas kernel suman 8 CPU y 8 GiB con swap cero. No hubo OOM ni swap observado; la suma conservadora de picos y reserva del controlador es 2229338112 bytes, no un pico concurrente. El techo configurado de almacenamiento propio es 4865392640 bytes, no una medición de almacenamiento productivo.\n\nEl controlador archivado terminó exited/0, running=false, oom_killed=false. Se leyeron íntegramente los 74 miembros de archivo y se registró su SHA. Una consulta Docker independiente confirmó ausencia de contenedores, redes y volúmenes con la etiqueta exacta de ejecución. Las identidades PID/start_ticks de supervisor, watcher, resumer y compactor ya no están ejecutándose. Los wrappers del controlador y las rutas temporales de servicios eran tmpfs de los contenedores retirados; se conserva intencionalmente el archivo de evidencias del host. No se acredita un censo global de /tmp. Telegram terminal y reactivación del mismo objetivo constan como enviados, sin nuevo objetivo."
+      },
+      "limit": "Result from accepted original audit, not re-executed or all18000rawsamplesreparsed here. Each response status/size;68fullcontentcontrolsbefore/after; no perendpoint or allvariantp95. No new candidate changed declared14sourceclosure."
+    }
+  ],
+  "remaining_mandatory": [
+    {
+      "id": "N04-PRE",
+      "requirement": "Current-source scenario disposition and sampling rationale before any new measurement/candidate",
+      "state": "mandatory_documentary",
+      "sources": [
+        {
+          "file": "docs/340-contrato-recorridos-optimizacion-alpha-20261025.md",
+          "line_start": 32,
+          "line_end": 34,
+          "sha256": "3d5dd7c70c600faced66d805a2ec897b8791458c6fa459a642a73e294f3b4a0d",
+          "quote": "1. Contrastar I01–I28 contra fuentes actuales y cambios posteriores; clasificar cada acción por autoridad, dependencias, datos/estados, cobertura funcional, evidencia de rendimiento, riesgo y coste conocido. Registrar añadidos, cambios, retirados y conservados.\n2. Definir escenarios y presupuestos antes de comparar candidatos. Medir los recorridos sin evidencia aplicable o con incertidumbre relevante; reutilizar evidencia sólo con identidad y escenario justificados. Todos los elementos del inventario deben recibir una disposición trazable; el muestreo debe justificar qué representa y qué deja sin medir.\n3. Resolver defectos de producto encontrados y optimizar costes demostrados con comparación, paridad y reversión. No exigir una modificación de código cuando la referencia ya cumple: puede aceptarse «sin cambio necesario» con evidencia suficiente. No forzar un porcentaje de mejora inventado."
+        },
+        {
+          "file": "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+          "line_start": 72,
+          "line_end": 76,
+          "sha256": "3a073a2612f8d30a3b6f01e9d087b24bcfa91a6308d0a931adf02d3eb5b8721b",
+          "quote": "Familias: I01, I02, I03, I04, I05.\n\nSegmentar listado orgánico/promocionado, filtros y selectividad, páginas profundas, idioma y frío/caliente. Separar SQL, hidratación, render y carga limpia. Corregir sólo coste demostrado.\n\n**Salida:** Paridad de IDs/orden/conteos/cupos/rotación, patrocinio y exclusiones; paginación completa y autoridad inmediata. Presupuestos aplicables verificados sin extrapolar la mezcla pública a cada variante."
+        }
+      ],
+      "concrete_next": "Preregister bounded representatives spanning organic/promoted, nonempty/empty/selective combined filter, initial/deep-last pages, ES/EN and first/subsequent with exact native oracle, route reason and eligibility negatives. Existing evidence can cover represented variants; no all-combinations crossproduct. Define which residual uncertainty actually needs a new observation."
+    },
+    {
+      "id": "N04-STAGES",
+      "requirement": "Separate SQL, hydration, render and clean load; do not assert optimization from SQL count alone",
+      "state": "partial_existing_proof_with_material_current_route_gap",
+      "sources": [
+        {
+          "file": "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+          "line_start": 74,
+          "line_end": 76,
+          "sha256": "3a073a2612f8d30a3b6f01e9d087b24bcfa91a6308d0a931adf02d3eb5b8721b",
+          "quote": "Segmentar listado orgánico/promocionado, filtros y selectividad, páginas profundas, idioma y frío/caliente. Separar SQL, hidratación, render y carga limpia. Corregir sólo coste demostrado.\n\n**Salida:** Paridad de IDs/orden/conteos/cupos/rotación, patrocinio y exclusiones; paginación completa y autoridad inmediata. Presupuestos aplicables verificados sin extrapolar la mezcla pública a cada variante."
+        },
+        {
+          "file": "tests/test_discovery_materialization_profile.py",
+          "line_start": 44,
+          "line_end": 85,
+          "sha256": "cd549fbc9370ffea49f7c32cd0a09c042b5bb797783c416ff8458ccd8a66bfb7",
+          "quote": "            sql_execute_seconds += time.perf_counter() - start\n\n    def initialized(sender, **kwargs):\n        if sender._meta.app_label in [\"listings\", \"core\", \"catalog\", \"safety\", \"mediafiles\"]:\n            objects[sender._meta.label] += 1\n\n    original_init = PublicationContext.__init__\n    original_validation = moderation.validate_submission\n    original_render = discovery.render\n\n    def context_init(self, query, **kwargs):\n        start = time.perf_counter()\n        try:\n            original_init(self, query, **kwargs)\n        finally:\n            stages[\"context_seconds\"] += time.perf_counter() - start\n        stages[\"candidate_listings\"] = len(self.rows)\n        stages[\"relation_memberships\"] = {\n            name: sum(len(getattr(row.approved_revision, \"_pv_\" + name)) for row in self.rows)\n            for name in [\"categories\", \"services\", \"travel_areas\", \"rates\", \"photos\"]\n        }\n\n    def validate(*args, **kwargs):\n        start = time.perf_counter()\n        stages[\"validation_calls\"] += 1\n        try:\n            return original_validation(*args, **kwargs)\n        finally:\n            stages[\"validation_seconds\"] += time.perf_counter() - start\n\n    def render(*args, **kwargs):\n        start = time.perf_counter()\n        try:\n            return original_render(*args, **kwargs)\n        finally:\n            stages[\"render_seconds\"] += time.perf_counter() - start\n\n    monkeypatch.setattr(PublicationContext, \"__init__\", context_init)\n    monkeypatch.setattr(moderation, \"validate_submission\", validate)\n    monkeypatch.setattr(discovery, \"render\", render)\n    # MOD-05: the listing is served from stored state; this profiles the native path.\n    monkeypatch.setattr(publication_state, \"state_page\", lambda *args, **kwargs: None)"
+        }
+      ],
+      "existing": "Historical exact stage instrument10/100/1000/10000 PASS measures native full-population fallback with forced state_page=None; N01C current maintained state timing exists for organic100 but lacks hydration/render attribution. B16 clean contractual mix already has applicable scoped PASS.",
+      "concrete_next": "If selecting a state/promotion/page/filter cost candidate, obtain or substantiate equivalent stage attribution and baseline for that selected native route first; minimally observe current route SQL/constructed objects/context-validation-render separately, with first+five later samples when affordable. No need to rerun old forced-fallback profiles or900s load merely to document them."
+    },
+    {
+      "id": "N04-VARIANTS",
+      "requirement": "Segment promotion, depth and filter selectivity as performance scenarios",
+      "state": "performance_reference_partial_not_absent_functionality",
+      "sources": [
+        {
+          "file": "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+          "line_start": 74,
+          "line_end": 76,
+          "sha256": "3a073a2612f8d30a3b6f01e9d087b24bcfa91a6308d0a931adf02d3eb5b8721b",
+          "quote": "Segmentar listado orgánico/promocionado, filtros y selectividad, páginas profundas, idioma y frío/caliente. Separar SQL, hidratación, render y carga limpia. Corregir sólo coste demostrado.\n\n**Salida:** Paridad de IDs/orden/conteos/cupos/rotación, patrocinio y exclusiones; paginación completa y autoridad inmediata. Presupuestos aplicables verificados sin extrapolar la mezcla pública a cada variante."
+        },
+        {
+          "file": "tests/test_discovery_segment_baseline.py",
+          "line_start": 36,
+          "line_end": 42,
+          "sha256": "8bd637a1c0d84326ed034402f5922164da9393f8cabd36b01c7c4e36c9f997a1",
+          "quote": "    for language in (\"es\", \"en\"):\n        scenarios = [\n            (\"listing\", f\"/{language}/\", {}, ordered[:24], 100),\n            (\"page2\", f\"/{language}/\", {\"page\": \"2\"}, ordered[24:48], 100),\n            (\"profile\", f\"/{language}/\", {\"profile\": [profile]}, selected[:24], len(selected)),\n            (\"empty\", f\"/{language}/\", {\"q\": \"n01babsentsyntheticterm\"}, [], 0),\n            (\"detail\", f\"/{language}/listing/{listings[0].pk}/\", {}, [listings[0].pk], None),"
+        }
+      ],
+      "existing": "N01B/C60/120requests fixed100 organic listing/page2/profile/empty/detail ESEN; finite promotion exact order/labels/rotation/allpages and combinedfilter functional witnesses exist; large territory selected deep pages and mixed TCP are distinct protocols.",
+      "concrete_next": "Either explicitly reuse concrete existing stage/properties for each selected variant with source/data/protocol bridge, or measure missing stage-level references for promoted and deep selective paths. Do not close these performance dimensions solely on the number of functional PASSes. Large unbounded cohorts and every filter combination are not required."
+    },
+    {
+      "id": "N04-CLOSE",
+      "requirement": "Per-action final disposition, applicable budget outcome and before/after temporal table",
+      "state": "mandatory_at_close",
+      "sources": [
+        {
+          "file": "docs/340-contrato-recorridos-optimizacion-alpha-20261025.md",
+          "line_start": 65,
+          "line_end": 75,
+          "sha256": "3d5dd7c70c600faced66d805a2ec897b8791458c6fa459a642a73e294f3b4a0d",
+          "quote": "Cada aceptación contiene requisito → acción → cambio o decisión sin cambio → candidata → prueba/medición → resultado → límite → deuda. Estados: pendiente, en curso, verificado localmente, verificado con límite declarado, FAIL, diferido por condición o no aplicable justificado. Cobertura funcional y rendimiento se registran por separado. SKIP o falta de muestras no equivalen a PASS. Un pendiente obligatorio sin evidencia impide el cierre; no se cambia a diferido por comodidad.\n\n### Tabla obligatoria de antes y después por bloque\n\nInstrucción posterior del usuario del25deoctubre: «Al finalizar cada bloque del inventario haz una tabla del antes y despues». Es requisito de cierre de cada bloque de recorridos y de su informe al usuario. Registrar filas por acción/escenario y medida relevante: versiones base/candidata, datos y recursos comparados, tamaño de muestra, métrica y unidad, antes, después, diferencia absoluta/porcentual cuando sea válida, resultado y límites. Enlazar evidencias originales y oráculos de paridad.\n\nAclaración posterior del usuario: la tabla debe incluir los **tiempos de rendimiento anteriores y posteriores**, con unidad, etapa/escenario, muestra, diferencia absoluta y porcentual cuando sea comparable. Una tabla sólo de estado, cobertura o consultas no sustituye esa comparación temporal en un bloque de optimización. Mostrar tiempo de aplicación, separado de preparación/QA. Sin candidato o equivalencia, registrar los tiempos disponibles y «no evaluable» para la mejora atribuible; nunca inventar un después o un porcentaje.\n\nSeparar latencia, SQL, bytes, CPU/memoria, cola y corrección funcional; sólo usar las métricas que correspondan. No mezclar preparación de QA con tiempo de aplicación ni agregados de escenarios diferentes. Indicar variabilidad y condiciones de caché/concurrencia cuando importen. Conservar regresiones y resultados sin mejora.\n\nSi no hay base comparable, consignar «sin base comparable» y el motivo, sin porcentaje o mejora causal. Si no cambia producto, explicitarlo; un bloque de inventario/prerregistro puede comparar cobertura, incertidumbre y disposición, sin inventar latencias. Para bloques condicionados no activados, comparar el estado de la condición y registrar no aplicable a rendimiento. La tabla no sustituye la evidencia ni permite cerrar un obligatorio pendiente."
+        }
+      ],
+      "concrete_next": "Final2action matrix: no-change accepted only with enough evidence; comparable candidate only after chosen target/budget and parity. Record reference-only rows as no equivalent before/no attributable percentage. Preserve historical failures, limits, source identities, cleanup/notification and independent root decision."
+    }
+  ],
+  "not_automatic_new_gates": [
+    "No new code change if adequate evidence justifies no-change.",
+    "No exhaustive allfilters×pages×roles×populations crossproduct; justify finite selection.",
+    "No new900sHTTPcapacityrun solely for inventory or historical source freshness.",
+    "No forced-fallback stage timings presented as native maintained-state cost.",
+    "Browser images/interaction remain N05I06/I26; private edit/media/moderation retain N06/N07, not imported as extraN04HTTPactions.",
+    "No per-route800msSLO or p95 from6Client samples; aggregate inherited gate applies only original mix protocol."
+  ],
+  "ambiguities": [
+    {
+      "issue": "Roadmap says cold/hot; N01 observes first/subsequent after fixed ordered preparation.",
+      "disposition": "State explicitly what is warm and do not relabel first sample truly cold. Root can choose controlled cache semantics relevant to selected candidate without inventing production cold-startSLO."
+    },
+    {
+      "issue": "Mandatory stage separation does not specify a universal measurement crossproduct.",
+      "disposition": "Existing forced-fallback/cleanload are reusable in their scope; selecting native prepared/promoted optimization requires equivalent stage reference. Root decides sufficient representative set and records residual limits, no blanketN04PASS."
+    }
+  ],
+  "consumption": {
+    "tokens": null,
+    "note": "Native usage unavailable."
+  },
+  "source_bridge_scope": {
+    "N00_action_direct_and_static_closure": 12,
+    "additional_family_source_templates": [
+      "templates/listings/public_detail.html",
+      "templates/listings/results.html"
+    ],
+    "total": 14,
+    "note": "14 includes two family-declared render templates beyond12direct/static-closure sourcefiles; no fixtures added to this count."
+  }
+}
