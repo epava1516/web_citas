@@ -1,0 +1,30 @@
+{
+  "audit": "CONFIRMED_REFERENCE_TWO_FUNCTIONAL_FAILURES_NOT_PASS",
+  "run": "20261025-181549-690b123b",
+  "runner_result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "2",
+      "skipped": "0",
+      "tests": "2",
+      "time": "42.686",
+      "timestamp": "2026-10-25T19:16:09.233734+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "failures": {
+    "success": "Old completion replaced the newer derivative",
+    "failure": "Old failure overwrote the newer successful generation"
+  },
+  "source_count": 1741,
+  "sources_unchanged_during_run": true,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "scope": "Two actual PostgreSQL threads invoke process directly, lease expiry timestamp induced; no broker/Beat/worker transport claim"
+}

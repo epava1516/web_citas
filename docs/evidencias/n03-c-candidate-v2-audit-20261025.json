@@ -1,0 +1,82 @@
+{
+  "result": "PASS_GENERATION_FENCE_AND_FINITE_RECOVERY_NOT_N03_BLOCK_ACCEPTANCE",
+  "run": "20261025-183022-372b5094",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "33",
+      "time": "188.723",
+      "timestamp": "2026-10-25T19:30:42.731768+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "functional_cases": 33,
+  "sources_unchanged": true,
+  "source_count": 1741,
+  "recovery_selection": [
+    {
+      "queued": 0,
+      "dispatches": 0,
+      "queries": 1,
+      "first_ms": 5.990555509924889,
+      "later_median_ms": 1.5537552535533905,
+      "later_min_ms": 1.5198327600955963,
+      "later_max_ms": 1.6028452664613724,
+      "scope": "Direct real selector with captured dispatch; no broker/Beat/fairness/SLA claim"
+    },
+    {
+      "queued": 1,
+      "dispatches": 1,
+      "queries": 1,
+      "first_ms": 3.020409494638443,
+      "later_median_ms": 1.703866757452488,
+      "later_min_ms": 1.5337541699409485,
+      "later_max_ms": 1.800505444407463,
+      "scope": "Direct real selector with captured dispatch; no broker/Beat/fairness/SLA claim"
+    },
+    {
+      "queued": 10,
+      "dispatches": 10,
+      "queries": 1,
+      "first_ms": 5.887114442884922,
+      "later_median_ms": 3.5497890785336494,
+      "later_min_ms": 3.3590514212846756,
+      "later_max_ms": 3.997335210442543,
+      "scope": "Direct real selector with captured dispatch; no broker/Beat/fairness/SLA claim"
+    },
+    {
+      "queued": 100,
+      "dispatches": 100,
+      "queries": 1,
+      "first_ms": 6.58819917589426,
+      "later_median_ms": 3.831039182841778,
+      "later_min_ms": 3.3987080678343773,
+      "later_max_ms": 4.077702760696411,
+      "scope": "Direct real selector with captured dispatch; no broker/Beat/fairness/SLA claim"
+    },
+    {
+      "queued": 101,
+      "dispatches": 100,
+      "queries": 1,
+      "first_ms": 4.384786821901798,
+      "later_median_ms": 2.9395967721939087,
+      "later_min_ms": 2.632363699376583,
+      "later_max_ms": 3.757186233997345,
+      "scope": "Direct real selector with captured dispatch; no broker/Beat/fairness/SLA claim"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "limitations": [
+    "No real Celery retry/backoff/Beat transport proof",
+    "Ready-incomplete ineligible/empty-signature nonprogress pending separate reproduction",
+    "No fairness/SLA/p95/capacity claim"
+  ]
+}

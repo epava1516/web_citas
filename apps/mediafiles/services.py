@@ -150,6 +150,7 @@ def process(blob_id):
             blob.started_at = timezone.now()
             blob.attempts += 1
             blob.save(update_fields=["status", "started_at", "attempts"])
+            lease_attempts, lease_started_at = blob.attempts, blob.started_at
     if ready:
         detect_matches(blob_id)
         return
@@ -166,7 +167,13 @@ def process(blob_id):
         image.save(output, format="WEBP", quality=85, method=4)
         with transaction.atomic():
             blob = Blob.objects.select_for_update().get(pk=blob_id)
-            if blob.status in {"erasing", "erased", "purging", "purged"}:
+            # A recovered worker owns a newer generation. An expired worker
+            # must neither replace its derivative nor undo a terminal state.
+            if (
+                blob.status != "processing"
+                or blob.attempts != lease_attempts
+                or blob.started_at != lease_started_at
+            ):
                 return
             blob.derivative.save(
                 str(uuid.uuid4()) + ".webp", ContentFile(output.getvalue()), save=False
@@ -177,8 +184,11 @@ def process(blob_id):
             blob.save()
         detect_matches(blob_id)
     except (OSError, ValidationError, UnidentifiedImageError, Image.DecompressionBombError):
-        Blob.objects.filter(pk=blob_id).exclude(
-            status__in=["erasing", "erased", "purging", "purged"]
+        Blob.objects.filter(
+            pk=blob_id,
+            status__in=["processing", "ready"],
+            attempts=lease_attempts,
+            started_at=lease_started_at,
         ).update(status="failed", error_code="decode_or_storage_failed")
         raise
 

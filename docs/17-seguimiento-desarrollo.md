@@ -1,3 +1,7 @@
+N03C383 aceptado localmente:2FAILreferencia preservados;fenceprocesscorrige generacionesviejas yconservafallopropiotrasderivado,33PASSfinales(16nuevos+11retención+6fotos),1741huellas/limpieza/TGsent. Primera32PASSconservada. N03abierto,3/13obligatorios,alfa.
+
+Siguiente:N03Dreproducir posible no progreso readyincompleteinelegible/sinfirma y conciliar retry/backoff/recuperaciónworkerBeat reales N03/N07. No otraoptimizaciónmarginaldetector;MOD09restantediferidoalfinalporusuario.
+
 N03B381 aceptado localmente:detector denso100/6muestras con paridad exacta,ORB200→101,mediana14,954→12,729s(−14,9%),CPU−15,5%,SQL1012igual;46PASSfuncionales/limpieza/TGsent. N03abierto,3/13obligatorios,alfa.
 
 Siguiente:conciliar recuperación/reintentos/retención/concurrencia N03/N07, sin otra optimización marginal del detector. Si no hay mejora clara, diferir al final del desarrollo según decisión del usuario;MOD09restante ya diferido.
