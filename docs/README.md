@@ -1,3 +1,5 @@
+- [N01E:4PASS,18muestras de servicio operativo y referencia de50consultas](353-n01-e-resultado-snapshot-operativo-20261025.md).
+
 - [N01D:11PASS,109operaciones HTTP observadas, base diagnóstica y límites](351-n01-d-resultado-operaciones-http-20261025.md).
 
 - [B11 aceptado: interfaz de formularios separada, doce pruebas antes/después y límites locales](actas/20-beta-b11-aceptacion-local-20261024.md).

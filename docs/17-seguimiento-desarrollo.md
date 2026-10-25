@@ -1,3 +1,7 @@
+N01Eauditado:4PASS/18llamadas collect_snapshot;backlog publicación0/10/100,50consultas en cada llamada; [resultado353](353-n01-e-resultado-snapshot-operativo-20261025.md). Presupuesto técnico≤50paraeseescenario,sinSLOdepared/optimización. Fuentesintactas,limpieza/TGsent. Matriz352:19fichas/93citas,seisbasesHTTPparciales. N00aceptado1/13,N01abierto,alfa.
+
+Siguiente:semántica353/README/vista17antesdelhito; completar presupuestos/fichas faltantes,prioridadautoridad/retención/representación. No repetir loteE sinhipótesis/candidato; módulos directos/browser/colas conservan modalidadpropia. Tablasantes/después porbloque.
+
 N01Dauditado:11PASS/109peticiones, sin excepciones ni fallos del observador; [resultado351](351-n01-d-resultado-operaciones-http-20261025.md). Misma app, sólo instrumento/runner; no optimización ni aceptación de rendimiento. PostgreSQL local, fuentes intactas, limpieza/TGsent. N00aceptado1/13,N01abierto,alfa.
 
 Siguiente:semántica351/README/17antesdelnuevohito; completar fichas/bases restantes y presupuestos por escenario. Señal N06:listing_start116/124consultas en estados distintos; estudiar sin atribuir N+1 ni regresión. Tablasantes/después al cerrar cada bloque.
