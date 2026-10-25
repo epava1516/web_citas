@@ -1,0 +1,148 @@
+{
+  "state": "SOURCE_IDENTITY_VERIFIED_HYPOTHESES_NOT_ACCEPTED",
+  "task_id": "n02-cost-research",
+  "research_base": "bd3bee6",
+  "references": [
+    {
+      "source": "docs/340-contrato-recorridos-optimizacion-alpha-20261025.md",
+      "sha256": "3d5dd7c70c600faced66d805a2ec897b8791458c6fa459a642a73e294f3b4a0d",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+      "sha256": "463043892b138121f242985d7d6e067aa3c2db4fa04c5397afa265cb52e1f716",
+      "matches_research_cut": true,
+      "matches_current": false
+    },
+    {
+      "source": "docs/354-n01-f-criterios-comparacion-escenarios-20261025.md",
+      "sha256": "188ef5481ec1e696ee31f2694a2be5531fe50560a5102c95930a5821cc0cce4e",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "docs/325-medicion-actual-mod09-b10-20261024.md",
+      "sha256": "360db42c9cf1211629f5bf32a3f320d1731f7a5c3b5881459c54b556fc4d10f9",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "docs/326-auditoria-medicion-actual-mod09-b10-20261024.md",
+      "sha256": "8d903fa230fe96b0fc78454fd649d4befae78fead902158696e643d3ec73ab31",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "docs/evidencias/b10-current-mod09-terminal-audit-20261024.json",
+      "sha256": "a93b09798b962b5c67a0617f0be0c1e529169d3b5c77d46f474fbe5852ea548c",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "tests/capacity_delivery_flow.py",
+      "sha256": "02e1972538d9c99ed356dcc301958c7b882e0b7b9bc804113d6cc9029bce8cdb",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_portability_coverage_review_views.py",
+      "sha256": "1ac66680c4c1f2ce3164b5db8153e3b49369543fc614fc57026b8bec400ad3b9",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_portability_coverage_batch.py",
+      "sha256": "c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_portability_coverage_inspection.py",
+      "sha256": "5b56adae4b46076d27c6635120097bef0770a198025263809cff83cf75a37771",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_portability_coverage_pages.py",
+      "sha256": "e8899878596246e07eb22ddbb0d8e802c5231e2251782565c5ce44eee058ce97",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_inspection_source.py",
+      "sha256": "de70a8b2c237f1a4a691e1e4300783516af64c918025b3f7551d33afa6117764",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_exports.py",
+      "sha256": "c8d82c314b1f2c5b83117f99097161855c4ca2a627dfb4179813f98cdf7f5dbe",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_portability_export.py",
+      "sha256": "d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_object_delivery.py",
+      "sha256": "3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+      "matches_research_cut": true,
+      "matches_current": true
+    },
+    {
+      "source": "apps/safety/rights_object_content.py",
+      "sha256": "39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+      "matches_research_cut": true,
+      "matches_current": true
+    }
+  ],
+  "candidate_count": 2,
+  "measured_improvement": false,
+  "tests_executed": false,
+  "limits": "Identity and documentary measurement bounds checked; causal cost and candidate equivalence still need primary instrumentation/preregistration. Candidate2 lock/error order and candidate1 pure-decryption lifetime require adversarial checks before implementation.",
+  "report": {
+    "STATUS": "complete",
+    "SUMMARY": "Investigación estática acotada N02 concluida: cadena de las tres etapas FAIL identificada y dos candidatos condicionados, sin implementación ni aceptación temporal. FAIL y objetivos 2s/5s conservados.",
+    "FILES_CHANGED": [
+      "report.json"
+    ],
+    "IMPLEMENTATION_NOTES": "Identidad: base indicada bd3bee6; navegación directa de nodos del grafo existente indicado a coverage_inspection, coverage_views y export; después lectura exacta de fuentes actuales. Grafo sólo índice estructural, sin inferencia de coste. SHA de grafo suministrado por tarea a6b647c67362c74f19a537712769f09840658f151830207908b8ef4f6705d513; no se reconstruyó. task.json era preexistente no versionado.\nContrato340:35,55,63 y roadmap341:52-58 requieren atribución de etapas y comparación, sin ampliar excepción MOD09. Criterios354 exige identidad equivalente, paridad cero diferencias, coste objetivo estrictamente menor y tiempos no peores; p95 no se infiere de cinco muestras.\nEVIDENCIA MEDIDA: docs/326:3-18 y auditoría JSON caso A/B: cobertura p95 3.3768257/3.368s frente 2s; JSON 6.6001927/6.529s y binario 6.6451338/6.770s frente 5s; generación asíncrona 40.744/40.667s. 1 FAIL,0 ERROR,0 SKIP; 2015.181s JUnit NO es latencia de app. Dos sujetos sintéticos concurrentes 1500 revisiones,16MiB JSON,64MiB originales, protocolo325. Auditoría confirma integridad y solapamiento; comparación histórica entre entornos no causal. La evidencia resumida leída no atribuye wall a CPU/SQL ni contiene perfil causal por función.\nCADENA COBERTURA: tests/capacity_delivery_flow.py:275-306 crea grupos required_pages, POST inspect/page_count y registra lecturas por coordenada; sampled:108-159 mide HTTP incluyendo cuerpo, gate:163-171 calcula p95 sólo fuera de diagnostic. rights_portability_coverage_review_views.py:147-175 despacha inspect_page si count=1 o inspect_batch si mayor. coverage_batch.py:92-127 abre fuente, fingerprints y digests por operación, batch_projection y summary_cache, llama inspect_page por página y revalida autoridad/proof al salir. coverage_inspection.py:57-96 bloquea cobertura, autoriza y audita record de selección, prueba/source frescos; :147-170 baseline_body, unseal selección/assessment y compile_coverage; :173-211 revalida, produce coverage_page y registra digest/lectura. rights_inspection_source.py:37-43 materializa fuente/digest, :100-117 verifica mutación y fingerprint DB al salir, con fallback fresco. Ya hay reutilización de source y summary; no proponerla como nueva.\nCADENA DESCARGAS JSON/BINARIO: capacity_delivery_flow.py:441-474 muestrea partes individuales mediante POST+GET proxy [303,200], verifica no-store y cuerpos; :475-480 recompone JSON completo y originales. rights_exports.py:711 download, :819-836 validate_closure y binding, :839-849 part_bytes→proxy_or_direct. rights_portability_export.py:267-291 memo de validación sólo misma operación/transacción; :295-313 sello DB válido sigue verify_export_objects y _verify_current_images; sello ausente ejecuta :332-406 source_copy, validación revisión/cobertura/proyección/image_payload/validate_transport. :185-242 valida todos fragmentos de transporte en fallback. rights_object_delivery.py:243-283 authorize_token abre nueva atomic, _fresh:82-145 repite autoridad/cierre/binding fresco, valida descriptor/un uso/retirada/hash y consume. No colapsar esas dos transacciones ni omitir segunda autorización. rights_object_content.py:148-178 verifica todos objetos con AEAD/contexto/tombstones; :72-145 ya usa dos workers acotados y orden de fallos.\nCANDIDATO 1 (cobertura, hipótesis): reutilizar sólo deserializaciones puras de ciphertext idéntico durante un inspect_batch, manteniendo baseline_body y sus guardias por página. Evidencia estática: coverage_inspection.py:148-150 ejecuta baseline_body/unseal selección/unseal assessment para cada página aunque summary_cache:159 ya evita compile repetido; coverage_pages.py:53-59 desella cobertura y razón/canonicaliza cuerpo. Cache efímero acotado por operación, identidad/ciphertext/proof/version/session/MFA; nunca respuesta ni autoridad cacheada. Objetivo determinista propuesto: llamadas unseal y bytes descifrados de esas mismas entradas, reducción estricta sólo en grupos de varias páginas; count=1 conserva ruta. Desconocido: coste real y proporción en 3.37s, diferencias de objetos/materialización y memoria, posibles mutaciones de Python. Sin perfiles comparables no hay evidencia suficiente para implementar ni prometer alcanzar 2s.\nCANDIDATO 2 (ambas descargas, hipótesis): sustituir únicamente metadata N×3 de _verify_current_images por iterador image_contents existente, conservando lectura/hash físico de TODOS los originales en cada autorización. Evidencia: rights_portability_export.py:320-327 itera declaraciones y llama image_content; rights_exports.py:883-893 realiza photo lookup+blob lock+photo lock por declaración, mientras :897-931 contiene primitiva bulk fresca que valida mapping y espera de locks, entrega bytes secuenciales; :935-949 conserva límite 10MiB/WebP. Objetivo determinista: consultas de metadata con mismas 16 declaraciones/originales; bytes, hashes y objetos verificados iguales. No afirmar que reducir SQL resuelve 6.5-6.8s: verificación export objects/originales, proxy, almacenamiento y lock waits pueden dominar. Precisa comprobar equivalencia de orden de locks/fallos (bulk ordena PK y rechaza duplicados antes), recursos y estado tras esperas; descartar si altera resultados contractuales. No aumentar workers, no saltar verificaciones de objetos, no cache entre requests.\nREFERENCIA OBLIGATORIA ANTES DE CANDIDATOS: prerregistrar ficha S06-A/B con producto completo, dependencias/migraciones/instrumento/imágenes/dataset/cohortes idénticos, idiomas/roles/proofs/estado/retención, cuotas 8CPU y recursos del protocolo equivalente, orden/calor y concurrencia dos sujetos. Atribuir por separado cobertura HTTP/servicio, consultas/CPU/canonicalización/desellado, originales y objetos, autorización inicial, stage_delivery, token fresh y proxy/cuerpo; tiempos por etapa, contadores y RSS/almacenamiento. Aislar una candidata por vez. docs325/326 son referencia histórica del estado, no un control intercambiable si cambian entorno o instrumento; N06 en curso no aporta por sí una base N02. Primera llamada separada y cinco posteriores cuando viable; para horas justificar muestras antes según354 sin bajar población/oráculo; ensayo contractual completo conserva mínimo20 por descarga y todas las lecturas, p95 2s/5s. Perfil diagnostic separado, nunca PASS contractual.\nORÁCULOS REQUERIDOS: igualdad exacta contenido/datasets/orden/conteos, todas coordenadas de lecturas y aprobación imposible incompleta (flow:291-312), manifest SHA/tamaño y 1500 revisiones, todas16 imágenes e integridad ZIP/partes<=8MiB (flow:425-480), separación entre sujetos, cuotas RateWindow, POST303→GET200/no-store. Añadir negativos existentes de authority/session/MFA/proof/case/source/selection/ciphertext cambiados dentro de operación y tras lock waits, revocación y expiración entre POST y GET, reutilización token, purga/tombstone/generación/recovery, alteración objeto/parte/original; garantizar rollback sin evidencia/consumo indebido. No permitir que memo evite frescura o revisión independiente. Escenario >64MiB sigue ficha propia fuera de extensión automática de excepción.\nFUENTES EXACTAS: docs/340-contrato-recorridos-optimizacion-alpha-20261025.md SHA256=3d5dd7c70c600faced66d805a2ec897b8791458c6fa459a642a73e294f3b4a0d; docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md SHA256=463043892b138121f242985d7d6e067aa3c2db4fa04c5397afa265cb52e1f716; docs/354-n01-f-criterios-comparacion-escenarios-20261025.md SHA256=188ef5481ec1e696ee31f2694a2be5531fe50560a5102c95930a5821cc0cce4e; docs/325-medicion-actual-mod09-b10-20261024.md SHA256=360db42c9cf1211629f5bf32a3f320d1731f7a5c3b5881459c54b556fc4d10f9; docs/326-auditoria-medicion-actual-mod09-b10-20261024.md SHA256=8d903fa230fe96b0fc78454fd649d4befae78fead902158696e643d3ec73ab31; docs/evidencias/b10-current-mod09-terminal-audit-20261024.json SHA256=a93b09798b962b5c67a0617f0be0c1e529169d3b5c77d46f474fbe5852ea548c; tests/capacity_delivery_flow.py SHA256=02e1972538d9c99ed356dcc301958c7b882e0b7b9bc804113d6cc9029bce8cdb; apps/safety/rights_portability_coverage_review_views.py SHA256=1ac66680c4c1f2ce3164b5db8153e3b49369543fc614fc57026b8bec400ad3b9; apps/safety/rights_portability_coverage_batch.py SHA256=c643273fa1ff2dbc57dc85095fb778dddde244cc23440ca5c584b59155c4a0bd; apps/safety/rights_portability_coverage_inspection.py SHA256=5b56adae4b46076d27c6635120097bef0770a198025263809cff83cf75a37771; apps/safety/rights_portability_coverage_pages.py SHA256=e8899878596246e07eb22ddbb0d8e802c5231e2251782565c5ce44eee058ce97; apps/safety/rights_inspection_source.py SHA256=de70a8b2c237f1a4a691e1e4300783516af64c918025b3f7551d33afa6117764; apps/safety/rights_exports.py SHA256=c8d82c314b1f2c5b83117f99097161855c4ca2a627dfb4179813f98cdf7f5dbe; apps/safety/rights_portability_export.py SHA256=d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15; apps/safety/rights_object_delivery.py SHA256=3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a; apps/safety/rights_object_content.py SHA256=39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+    "TESTS_RUN": [],
+    "TEST_RESULTS": "No se ejecutaron pruebas por alcance autorizado. Lectura estática y metadatos existentes únicamente; no red, servicios, archivos comprimidos ni datos masivos. No se acredita ninguna mejora ni aceptación N02.",
+    "ASSUMPTIONS": [
+      "task.json y contexto del padre acreditan dependencias N01_ACCEPTED_355 y PASS_SCOPED_GRAPH_N06B_PREREG; esta investigación no las vuelve a aceptar.",
+      "Los datos de auditoría326 se usan en el ámbito declarado; no son perfiles CPU/SQL ni control actual de una candidata."
+    ],
+    "RISKS": [
+      "N02 continúa pendiente de referencia atribuida comparable y decisión/verificación de candidatos; MOD09 sigue FAIL técnico bajo su excepción provisional original.",
+      "Candidato1 puede aportar ahorro marginal o mayor memoria; candidato2 cambia orden de bloqueo/errores y requiere equivalencia adversarial antes de uso.",
+      "Generación, >64MiB, crecimiento/retención y carga de destino requieren evaluación propia; estas dos hipótesis no acreditan cobertura integral N02 ni proveedor real."
+    ],
+    "UNRESOLVED_ISSUES": [],
+    "RECOMMENDATIONS": [
+      "Codex debe revisar estas dos hipótesis, fijar fichas comparables antes de cualquier modificación y descartarlas si perfiles o equivalencia no las respaldan.",
+      "Mantener tabla antes/después por escenario y métricas con unidades/muestras; sin base equivalente declarar ausencia sin porcentajes causales."
+    ]
+  },
+  "primary_code_spot_checks": [
+    {
+      "source": "apps/safety/rights_portability_export.py",
+      "lines": "295-327",
+      "finding": "Held seal still verifies physical objects/originals; _verify_current_images calls image_content per declaration."
+    },
+    {
+      "source": "apps/safety/rights_exports.py",
+      "lines": "883-949",
+      "finding": "Single-image3metadata queries; existing scoped bulk iterator locks Blob before Photo, validates mapping after waits and yields bytes in requested order. Order/error/freshness equivalence still not accepted."
+    },
+    {
+      "source": "apps/safety/rights_portability_coverage_inspection.py",
+      "lines": "147-170",
+      "finding": "Per-page unseals coexist with existing compile summary cache; pure-decryption cost remains unprofiled."
+    }
+  ]
+}

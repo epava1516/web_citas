@@ -1,0 +1,229 @@
+{
+  "result": "PASS_N06B_REAL_QUEUE_REFERENCE",
+  "run": "artifacts/local-ci/20261025-112239-ba9f016f",
+  "cases": 2,
+  "start_samples": 3,
+  "outcomes": [
+    {
+      "case": "approved",
+      "foreign_keys_preserved": true,
+      "pid_start_ticks": {
+        "1139722": 464802939,
+        "1139881": 464803099,
+        "1139912": 464803112
+      },
+      "private_credentials_removed": true,
+      "processes_absent": {
+        "1139722": true,
+        "1139881": true,
+        "1139912": true
+      },
+      "runtime_role_removed": true,
+      "samples": [
+        {
+          "active_photo_count": 1,
+          "after_request_ready_seconds": 0.4603368230164051,
+          "case": "approved",
+          "dirty_after_ready": 0,
+          "ordinal": 1,
+          "request_seconds_instrumented": 0.1098747719079256,
+          "sql_queries": 27,
+          "stages": {
+            "create_draft": {
+              "sql_execute_seconds": 0.039417617954313755,
+              "sql_queries": 11
+            },
+            "manager_authority": {
+              "sql_execute_seconds": 0.0017422549426555634,
+              "sql_queries": 2
+            },
+            "request_other": {
+              "sql_execute_seconds": 0.019554114900529385,
+              "sql_queries": 14
+            }
+          },
+          "status": 302,
+          "task_always_eager": false,
+          "task_ledger": [
+            {
+              "eager": false,
+              "publish_monotonic": 4648032.589557968,
+              "publish_to_start_seconds": 0.003863380290567875,
+              "state": "SUCCESS",
+              "task": "apps.listings.tasks.refresh_publication_state",
+              "task_id": "d82b4f34-1f14-44b9-9a7a-7c79b91743e2",
+              "worker_end_monotonic": 4648032.801835954,
+              "worker_pid": 1139881,
+              "worker_start_monotonic": 4648032.593421348,
+              "worker_wall_seconds": 0.20841460581868887
+            },
+            {
+              "eager": false,
+              "publish_monotonic": 4648032.591732328,
+              "publish_to_start_seconds": 0.0036894595250487328,
+              "state": "SUCCESS",
+              "task": "apps.mediafiles.tasks.process_blob",
+              "task_id": "bf1e4484-d9cc-4da8-a8f3-0b71e62bcab0",
+              "worker_end_monotonic": 4648032.822377709,
+              "worker_pid": 1139912,
+              "worker_start_monotonic": 4648032.595421787,
+              "worker_wall_seconds": 0.22695592138916254
+            }
+          ]
+        }
+      ],
+      "scope": "Owned PostgreSQL/Redis, prefork2 restricted runtime worker; Client request and asynchronous readiness separate. No Beat/TCP/load/provider or causal code speedup claim.",
+      "unexpected_unscoped_keys": 0,
+      "worker_exit_code": 0,
+      "worker_root_exited": true
+    },
+    {
+      "case": "rejected_correction",
+      "foreign_keys_preserved": true,
+      "pid_start_ticks": {
+        "1140879": 464804088,
+        "1141154": 464804256,
+        "1141194": 464804271
+      },
+      "private_credentials_removed": true,
+      "processes_absent": {
+        "1140879": true,
+        "1141154": true,
+        "1141194": true
+      },
+      "runtime_role_removed": true,
+      "samples": [
+        {
+          "active_photo_count": 1,
+          "after_request_ready_seconds": 0.5142505718395114,
+          "case": "rejected_correction",
+          "dirty_after_ready": 0,
+          "ordinal": 1,
+          "request_seconds_instrumented": 0.11405372805893421,
+          "sql_queries": 27,
+          "stages": {
+            "create_draft": {
+              "sql_execute_seconds": 0.044943420216441154,
+              "sql_queries": 11
+            },
+            "manager_authority": {
+              "sql_execute_seconds": 0.0018151355907320976,
+              "sql_queries": 2
+            },
+            "request_other": {
+              "sql_execute_seconds": 0.018231176771223545,
+              "sql_queries": 14
+            }
+          },
+          "status": 302,
+          "task_always_eager": false,
+          "task_ledger": [
+            {
+              "eager": false,
+              "publish_monotonic": 4648044.249746609,
+              "publish_to_start_seconds": 0.006988109089434147,
+              "state": "SUCCESS",
+              "task": "apps.listings.tasks.refresh_publication_state",
+              "task_id": "bf83c850-7543-473b-b3dd-cdf4670d3682",
+              "worker_end_monotonic": 4648044.487832857,
+              "worker_pid": 1141154,
+              "worker_start_monotonic": 4648044.256734718,
+              "worker_wall_seconds": 0.2310981396585703
+            },
+            {
+              "eager": false,
+              "publish_monotonic": 4648044.253565249,
+              "publish_to_start_seconds": 0.004884623922407627,
+              "state": "SUCCESS",
+              "task": "apps.mediafiles.tasks.process_blob",
+              "task_id": "dfd3359f-c357-4b2d-bcf8-b725028beed4",
+              "worker_end_monotonic": 4648044.505503639,
+              "worker_pid": 1141194,
+              "worker_start_monotonic": 4648044.258449873,
+              "worker_wall_seconds": 0.2470537656918168
+            }
+          ]
+        },
+        {
+          "active_photo_count": 1,
+          "after_request_ready_seconds": 0.4713461799547076,
+          "case": "rejected_correction",
+          "dirty_after_ready": 0,
+          "ordinal": 2,
+          "request_seconds_instrumented": 0.13101914338767529,
+          "sql_queries": 27,
+          "stages": {
+            "create_draft": {
+              "sql_execute_seconds": 0.05589233245700598,
+              "sql_queries": 11
+            },
+            "manager_authority": {
+              "sql_execute_seconds": 0.0041942717507481575,
+              "sql_queries": 2
+            },
+            "request_other": {
+              "sql_execute_seconds": 0.02529358584433794,
+              "sql_queries": 14
+            }
+          },
+          "status": 302,
+          "task_always_eager": false,
+          "task_ledger": [
+            {
+              "eager": false,
+              "publish_monotonic": 4648045.854063294,
+              "publish_to_start_seconds": 0.00590469129383564,
+              "state": "SUCCESS",
+              "task": "apps.listings.tasks.refresh_publication_state",
+              "task_id": "071367a9-0e58-4010-a48c-401914274e9a",
+              "worker_end_monotonic": 4648046.086983303,
+              "worker_pid": 1141154,
+              "worker_start_monotonic": 4648045.859967985,
+              "worker_wall_seconds": 0.22701531741768122
+            },
+            {
+              "eager": false,
+              "publish_monotonic": 4648045.857174952,
+              "publish_to_start_seconds": 0.007606027647852898,
+              "state": "SUCCESS",
+              "task": "apps.mediafiles.tasks.process_blob",
+              "task_id": "23bf8901-bfed-4582-b137-d655a108ba93",
+              "worker_end_monotonic": 4648046.093035218,
+              "worker_pid": 1141194,
+              "worker_start_monotonic": 4648045.864780979,
+              "worker_wall_seconds": 0.22825423907488585
+            }
+          ]
+        }
+      ],
+      "scope": "Owned PostgreSQL/Redis, prefork2 restricted runtime worker; Client request and asynchronous readiness separate. No Beat/TCP/load/provider or causal code speedup claim.",
+      "unexpected_unscoped_keys": 0,
+      "worker_exit_code": 0,
+      "worker_root_exited": true
+    }
+  ],
+  "source_freeze_unchanged": true,
+  "owned_resources_absent": true,
+  "terminal_telegram": "sent",
+  "pytest_command_seconds": 63.88669106177986,
+  "scope": "Real owned Redis/prefork2 restricted runtime and Client request; no Beat/TCP/capacity or causal code speedup. Preparation and post-request observed readiness separate.",
+  "sha256": {
+    "artifacts/local-ci/20261025-112239-ba9f016f/result.json": "6ae4a9cfd37179383e5e1d08edb0535ce29a272b351fccaac2aae928b76e85b1",
+    "artifacts/local-ci/20261025-112239-ba9f016f/pytest.xml": "6a36190da5410de1ba9cb7a840baf41b373c7a2006dd22543b51babaec01f933",
+    "artifacts/local-ci/20261025-112239-ba9f016f/source-hashes.json": "7f7b5e5a819db0b0322b0a6636f63f7765c5b3ceb57a90c3b8b8e6550c96dc34",
+    "artifacts/recorridos-n06-b-20261025/freeze.json": "0cc34311a93d98f562e8105d431122183416c29c5fe50ebd8a13a00216c1634f",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-runtime-approved.json": "1ef925c184d7d1b9b86dd87db85b57150883d9bb193270343eb98197ad59583f",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-publishes-approved.json": "16adaef3306bd89b7a946d966d1b356e22fc1afaa26e7c61cbe5495e160d1a28",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-events-approved/celery-worker-1139881.jsonl": "b88b5b1df7ecd7f0fb474a8a5cbeff84d387fb43310c7e3ce3ed9eee45643653",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-events-approved/celery-worker-1139912.jsonl": "70cc523d218ae2b12d2b14badba3688777adc987e4dbf7f0623a7809a0cdb097",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-runtime-rejected_correction.json": "f83cce42bacd2c552da607d33a5715c6b81ce5d0c7ce02e7e85414bc9a3a1157",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-publishes-rejected_correction.json": "d4c45259c31164e669ca3b917e97c4692c9d58f5c9beafc2f5c787be74bfff43",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-events-rejected_correction/celery-worker-1141154.jsonl": "0dd646d6c56fd5953317ff4a860d416e98be95ade90abcdcf51fc709e6d9c569",
+    "artifacts/local-ci/20261025-112239-ba9f016f/n06b-events-rejected_correction/celery-worker-1141194.jsonl": "1b9271d475ffee689446fc3dfba2047469bc12b2009313564f566dfc39a4a4b2"
+  },
+  "temporary_absent": true,
+  "audit_terminal_telegram": {
+    "delivery": "sent",
+    "path": "artifacts/test-notifications/1792927492728155682-1146275.json"
+  }
+}
