@@ -78,3 +78,8 @@ Hay alguna referencia temporal acotada para20de41rutas;21no tienen medición en 
 | Rendimiento del panel100editores | [371](371-n06-d-resultado-optimizacion-panel-agencia-20261025.md):279,575/225,516msES/EN,108SQL | Misma candidata ya verificada:54,110/46,849ms,8SQL | Se conserva la comparación local371; no se repite ni se atribuye otra mejora |
 
 N00/N01siguen aceptados2/13. No se cierraN06por esta matriz ni se reabre MOD09restante aplazado al final del desarrollo por el usuario367. El objetivo completo y los demás bloques siguen vigentes, en alfa, sin apertura/proveedores/datos reales.
+
+
+## Actualización de cierre local N06
+
+[376](376-n06-g-resultado-crecimiento-colas-20261025.md) añade las cuatro referencias pendientes(8PASS/240muestras/128guardias), con41/41rutas medidas en algún escenario. La [matriz final](evidencias/n06-aceptacion-matriz-final-20261025.json) conserva46disposiciones y cinco fronteras compartidas; [377](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md) acepta N06con sus límites y tabla temporal consolidada. No reescribir el corte original ni convertir el conteo en garantía universal.

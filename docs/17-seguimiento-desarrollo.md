@@ -1,6 +1,6 @@
-N06F auditado: [374](374-n06-f-resultado-referencias-restantes-20261025.md),12PASS/120peticiones/17rutas nuevas con referencia;37/41rutas N06con alguna muestra, sin mejora de código ni aceptación universal. Fuentes intactas, limpieza yTelegram terminal confirmados. N06abierto; N00/N01aceptados2/13, alfa.
+N06 aceptado localmente por [377](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md), con46disposiciones/tabla temporal/límites. N06G[376](376-n06-g-resultado-crecimiento-colas-20261025.md):8PASS/240muestras/128guardias,7SQLconstantes en cuatro colas0/1/10/100/101ES/EN. N00/N01/N06aceptados3/13; alfa, contrato abierto.
 
-Siguiente: refrescar grafo y prerregistrar crecimiento/selección/autoridad de las cuatro colas de revisión, después conciliar suficiencia de variantes/compartidos antes de cerrarN06. No repetir MOD09restante diferido por usuario367. Panel371conserva su optimización local.
+Siguiente:N03procesamiento/similitud fotográfica; refrescar grafo antes del hito, revisar S07yprerregistrar escenario antes de medir/cambiar. Coordinar evidencia conN07sin duplicar trabajo; N10 conserva runbooks/operación compartida. No reabrir MOD09restante diferido por usuario367 ni activar N12–N14/proveedores/apertura.
 
 N02Cauditado:1PASS/120guards/12grupos10,5/5parejas posteriores favorables;mediana de medias39,513→28,857ms,7→4SQL/2lecturas10554bytes/4locks previos porguard. [Resultado365](365-n02-c-resultado-contraste-agrupado-guard-20261025.md). Guard adoptado localmente,16oráculos anteriores reutilizados/1516fuentes intactas;no ganancia universal ni aceptaciónMOD09. Limpieza/TGsent,2/13N02/N06abiertos,alfa.
 
@@ -3761,3 +3761,10 @@ MOD09 restante diferido al final del desarrollo por decisión expresa del usuari
 N06F preparado: medir referencias restantes con once selectores originales/doce casos, sin candidato nuevo. [Conciliación372](372-n06-e-conciliacion-acciones-variantes-20261025.md) verifica46acciones/76citas;20de41rutas tienen referencia acotada y21no. [Protocolo373](373-n06-f-prerregistro-referencias-restantes-20261025.md). N06abierto, N00/N01aceptados2/13, alfa.
 
 Antes de medir: grafo focal y fuentes/selección/imágenes congelados; después auditar estados/oráculos/tiempos/limpieza/Telegram. No repetir MOD09restante diferido por usuario367. Tras estas referencias: cuatro colas de revisión con crecimiento pendiente y conciliación de variantes/compartidos antes del cierreN06. Panel371conserva su aceptación local.
+
+
+## Registro histórico de cabecera de resultado N06F
+
+N06F auditado: [374](374-n06-f-resultado-referencias-restantes-20261025.md),12PASS/120peticiones/17rutas nuevas con referencia;37/41rutas N06con alguna muestra, sin mejora de código ni aceptación universal. Fuentes intactas, limpieza yTelegram terminal confirmados. N06abierto; N00/N01aceptados2/13, alfa.
+
+Siguiente: refrescar grafo y prerregistrar crecimiento/selección/autoridad de las cuatro colas de revisión, después conciliar suficiencia de variantes/compartidos antes de cerrarN06. No repetir MOD09restante diferido por usuario367. Panel371conserva su optimización local.

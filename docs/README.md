@@ -362,3 +362,6 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 
 - [N06E: conciliación de acciones](372-n06-e-conciliacion-acciones-variantes-20261025.md).
 - [N06F: referencias de transiciones restantes](374-n06-f-resultado-referencias-restantes-20261025.md).
+
+- [N06G: crecimiento y autoridad de cuatro colas](376-n06-g-resultado-crecimiento-colas-20261025.md).
+- [Aceptación local N06: cuenta, panel, edición y representación](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md).

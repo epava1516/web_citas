@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **2/13bloques obligatorios aceptados**. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **3/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377 en los escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -20,7 +20,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
-| N06 | P1 | Cuenta, panel, edición y representación | N01 | En curso: lotes357/359/369/371 y conciliación372; referencia374 deja37/41rutas medidas en su ámbito; cuatro colas y aceptación de variantes pendientes |
+| N06 | P1 | Cuenta, panel, edición y representación | N01 | Aceptado localmente por377:46disposiciones y escenarios A–G verificados; límites/compartidosN10/N03/N07retenidos, sin garantía universal |
 | N07 | P1 | Medios, publicación y ciclo de vida | N01 | Pendiente |
 | N08 | P1 | Favoritos, SEO y exposición comercial sintética | N01 | Pendiente |
 | N09 | P1 | Derechos, moderación, avisos y limpieza | N01 | Pendiente |

@@ -1,0 +1,5179 @@
+{
+  "result": "PASS_N06G_SCOPED_REFERENCE_NOT_N06_CLOSURE",
+  "run": "20261025-164827-8ac10d37",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "8",
+      "time": "61.706",
+      "timestamp": "2026-10-25T17:48:47.418112+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "junit_sha256": "10f2c84c3d171b296cb6aa0494f3762c3eff4f981808cde1d975e531df5202bf",
+  "head": "e4343f59516e7354d4e5742665f95291753eee20",
+  "source_count": 1737,
+  "source_mismatches": [],
+  "cases": [
+    {
+      "case": "test_review_queue_growth_reference[organization-es]",
+      "kind": "organization",
+      "language": "es",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 40.73
+    },
+    {
+      "case": "test_review_queue_growth_reference[organization-en]",
+      "kind": "organization",
+      "language": "en",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 3.136
+    },
+    {
+      "case": "test_review_queue_growth_reference[manager-es]",
+      "kind": "manager",
+      "language": "es",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 2.881
+    },
+    {
+      "case": "test_review_queue_growth_reference[manager-en]",
+      "kind": "manager",
+      "language": "en",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 2.868
+    },
+    {
+      "case": "test_review_queue_growth_reference[agency_appeal-es]",
+      "kind": "agency_appeal",
+      "language": "es",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 3.364
+    },
+    {
+      "case": "test_review_queue_growth_reference[agency_appeal-en]",
+      "kind": "agency_appeal",
+      "language": "en",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 2.917
+    },
+    {
+      "case": "test_review_queue_growth_reference[manager_appeal-es]",
+      "kind": "manager_appeal",
+      "language": "es",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 2.705
+    },
+    {
+      "case": "test_review_queue_growth_reference[manager_appeal-en]",
+      "kind": "manager_appeal",
+      "language": "en",
+      "authority_controls": [
+        {
+          "kind": "no_permission",
+          "size": 0,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 0,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 1,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 1,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 10,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 10,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 100,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 100,
+          "status": 302
+        },
+        {
+          "kind": "no_permission",
+          "size": 101,
+          "status": 403
+        },
+        {
+          "kind": "anonymous",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "stale_mfa",
+          "size": 101,
+          "status": 302
+        },
+        {
+          "kind": "permission_revoked",
+          "size": 101,
+          "status": 403
+        }
+      ],
+      "qa_seconds": 2.819
+    }
+  ],
+  "rows": [
+    {
+      "kind": "organization",
+      "language": "es",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.11816816199999636,
+          "ordinal": 0,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.01596590131521225,
+          "sql_queries": 8,
+          "wall_seconds": 0.13415795844048262
+        },
+        {
+          "cpu_seconds": 0.009129413000003694,
+          "ordinal": 1,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.012394081801176071,
+          "sql_queries": 7,
+          "wall_seconds": 0.020496335811913013
+        },
+        {
+          "cpu_seconds": 0.012310239999997918,
+          "ordinal": 2,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.010997897014021873,
+          "sql_queries": 7,
+          "wall_seconds": 0.022068526595830917
+        },
+        {
+          "cpu_seconds": 0.013384489999999971,
+          "ordinal": 3,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.0064106713980436325,
+          "sql_queries": 7,
+          "wall_seconds": 0.01862403843551874
+        },
+        {
+          "cpu_seconds": 0.012900337000004924,
+          "ordinal": 4,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.013289698399603367,
+          "sql_queries": 7,
+          "wall_seconds": 0.02485618833452463
+        },
+        {
+          "cpu_seconds": 0.008194435000000055,
+          "ordinal": 5,
+          "response_bytes": 1102,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.006253144703805447,
+          "sql_queries": 7,
+          "wall_seconds": 0.01355019211769104
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.13415795844048262,
+        "median_later": 0.020496335811913013,
+        "range_later": [
+          0.01355019211769104,
+          0.02485618833452463
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.11816816199999636,
+        "median_later": 0.012310239999997918,
+        "range_later": [
+          0.008194435000000055,
+          0.013384489999999971
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.01596590131521225,
+        "median_later": 0.010997897014021873,
+        "range_later": [
+          0.006253144703805447,
+          0.013289698399603367
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1102,
+        "median_later": 1102,
+        "range_later": [
+          1102,
+          1102
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "es",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.009465966000000492,
+          "ordinal": 0,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.018659396097064018,
+          "sql_queries": 7,
+          "wall_seconds": 0.027738263830542564
+        },
+        {
+          "cpu_seconds": 0.00854395100000005,
+          "ordinal": 1,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.009748313575983047,
+          "sql_queries": 7,
+          "wall_seconds": 0.017296992242336273
+        },
+        {
+          "cpu_seconds": 0.009831334999994112,
+          "ordinal": 2,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.009622138924896717,
+          "sql_queries": 7,
+          "wall_seconds": 0.01845164131373167
+        },
+        {
+          "cpu_seconds": 0.008907096000001502,
+          "ordinal": 3,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.008819950744509697,
+          "sql_queries": 7,
+          "wall_seconds": 0.01685875840485096
+        },
+        {
+          "cpu_seconds": 0.007398072000000866,
+          "ordinal": 4,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.0067509012296795845,
+          "sql_queries": 7,
+          "wall_seconds": 0.013384813442826271
+        },
+        {
+          "cpu_seconds": 0.008558807000000002,
+          "ordinal": 5,
+          "response_bytes": 1181,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007208952680230141,
+          "sql_queries": 7,
+          "wall_seconds": 0.014741610735654831
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.027738263830542564,
+        "median_later": 0.01685875840485096,
+        "range_later": [
+          0.013384813442826271,
+          0.01845164131373167
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.009465966000000492,
+        "median_later": 0.008558807000000002,
+        "range_later": [
+          0.007398072000000866,
+          0.009831334999994112
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.018659396097064018,
+        "median_later": 0.008819950744509697,
+        "range_later": [
+          0.0067509012296795845,
+          0.009748313575983047
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1181,
+        "median_later": 1181,
+        "range_later": [
+          1181,
+          1181
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "es",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.008306359999998847,
+          "ordinal": 0,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005226675420999527,
+          "sql_queries": 7,
+          "wall_seconds": 0.013033151626586914
+        },
+        {
+          "cpu_seconds": 0.007672054000003925,
+          "ordinal": 1,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005213746801018715,
+          "sql_queries": 7,
+          "wall_seconds": 0.012070074677467346
+        },
+        {
+          "cpu_seconds": 0.007192719000002512,
+          "ordinal": 2,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005577770993113518,
+          "sql_queries": 7,
+          "wall_seconds": 0.011975178495049477
+        },
+        {
+          "cpu_seconds": 0.007189857000000188,
+          "ordinal": 3,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005224766209721565,
+          "sql_queries": 7,
+          "wall_seconds": 0.011605787090957165
+        },
+        {
+          "cpu_seconds": 0.00757309499999792,
+          "ordinal": 4,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.00530090369284153,
+          "sql_queries": 7,
+          "wall_seconds": 0.01241024024784565
+        },
+        {
+          "cpu_seconds": 0.007122993999999494,
+          "ordinal": 5,
+          "response_bytes": 2189,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.004916277714073658,
+          "sql_queries": 7,
+          "wall_seconds": 0.011289226822555065
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.013033151626586914,
+        "median_later": 0.011975178495049477,
+        "range_later": [
+          0.011289226822555065,
+          0.01241024024784565
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.008306359999998847,
+        "median_later": 0.007192719000002512,
+        "range_later": [
+          0.007122993999999494,
+          0.007672054000003925
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.005226675420999527,
+        "median_later": 0.005224766209721565,
+        "range_later": [
+          0.004916277714073658,
+          0.005577770993113518
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 2189,
+        "median_later": 2189,
+        "range_later": [
+          2189,
+          2189
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "es",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.01474103799999682,
+          "ordinal": 0,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.0057599423453211784,
+          "sql_queries": 7,
+          "wall_seconds": 0.01990236435085535
+        },
+        {
+          "cpu_seconds": 0.01220682599999634,
+          "ordinal": 1,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.005732213146984577,
+          "sql_queries": 7,
+          "wall_seconds": 0.01834264863282442
+        },
+        {
+          "cpu_seconds": 0.012212817000005316,
+          "ordinal": 2,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.005489671602845192,
+          "sql_queries": 7,
+          "wall_seconds": 0.017120782285928726
+        },
+        {
+          "cpu_seconds": 0.011769145999998898,
+          "ordinal": 3,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.0053801145404577255,
+          "sql_queries": 7,
+          "wall_seconds": 0.01683857385069132
+        },
+        {
+          "cpu_seconds": 0.011805273999996757,
+          "ordinal": 4,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.005540226586163044,
+          "sql_queries": 7,
+          "wall_seconds": 0.01663831528276205
+        },
+        {
+          "cpu_seconds": 0.012130202999998119,
+          "ordinal": 5,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.012876128777861595,
+          "sql_queries": 7,
+          "wall_seconds": 0.024085580371320248
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.01990236435085535,
+        "median_later": 0.017120782285928726,
+        "range_later": [
+          0.01663831528276205,
+          0.024085580371320248
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.01474103799999682,
+        "median_later": 0.012130202999998119,
+        "range_later": [
+          0.011769145999998898,
+          0.012212817000005316
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.0057599423453211784,
+        "median_later": 0.005540226586163044,
+        "range_later": [
+          0.0053801145404577255,
+          0.012876128777861595
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 12359,
+        "median_later": 12359,
+        "range_later": [
+          12359,
+          12359
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "es",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.015131715000002544,
+          "ordinal": 0,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.010252931155264378,
+          "sql_queries": 7,
+          "wall_seconds": 0.024383346550166607
+        },
+        {
+          "cpu_seconds": 0.01540523700000307,
+          "ordinal": 1,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.012603254057466984,
+          "sql_queries": 7,
+          "wall_seconds": 0.026909909211099148
+        },
+        {
+          "cpu_seconds": 0.022269299999997827,
+          "ordinal": 2,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.017117805778980255,
+          "sql_queries": 7,
+          "wall_seconds": 0.03822239674627781
+        },
+        {
+          "cpu_seconds": 0.019119671000005667,
+          "ordinal": 3,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.014997393824160099,
+          "sql_queries": 7,
+          "wall_seconds": 0.032681302167475224
+        },
+        {
+          "cpu_seconds": 0.01563413699999927,
+          "ordinal": 4,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.011230649426579475,
+          "sql_queries": 7,
+          "wall_seconds": 0.02592457178980112
+        },
+        {
+          "cpu_seconds": 0.024599728000005427,
+          "ordinal": 5,
+          "response_bytes": 12359,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.015059935860335827,
+          "sql_queries": 7,
+          "wall_seconds": 0.03895021602511406
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.024383346550166607,
+        "median_later": 0.032681302167475224,
+        "range_later": [
+          0.02592457178980112,
+          0.03895021602511406
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.015131715000002544,
+        "median_later": 0.019119671000005667,
+        "range_later": [
+          0.01540523700000307,
+          0.024599728000005427
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.010252931155264378,
+        "median_later": 0.014997393824160099,
+        "range_later": [
+          0.011230649426579475,
+          0.017117805778980255
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 12359,
+        "median_later": 12359,
+        "range_later": [
+          12359,
+          12359
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.014601540000001023,
+          "ordinal": 0,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.02242936659604311,
+          "sql_queries": 8,
+          "wall_seconds": 0.03580372408032417
+        },
+        {
+          "cpu_seconds": 0.012515196000002504,
+          "ordinal": 1,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.012870428152382374,
+          "sql_queries": 7,
+          "wall_seconds": 0.02404796052724123
+        },
+        {
+          "cpu_seconds": 0.014140097000002072,
+          "ordinal": 2,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.014298837631940842,
+          "sql_queries": 7,
+          "wall_seconds": 0.02723538689315319
+        },
+        {
+          "cpu_seconds": 0.012456299000000115,
+          "ordinal": 3,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.013076339848339558,
+          "sql_queries": 7,
+          "wall_seconds": 0.02418456692248583
+        },
+        {
+          "cpu_seconds": 0.01226085999999782,
+          "ordinal": 4,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.013808570802211761,
+          "sql_queries": 7,
+          "wall_seconds": 0.024630116298794746
+        },
+        {
+          "cpu_seconds": 0.013132527000003336,
+          "ordinal": 5,
+          "response_bytes": 1049,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.01539180614054203,
+          "sql_queries": 7,
+          "wall_seconds": 0.026948493905365467
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.03580372408032417,
+        "median_later": 0.024630116298794746,
+        "range_later": [
+          0.02404796052724123,
+          0.02723538689315319
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.014601540000001023,
+        "median_later": 0.012515196000002504,
+        "range_later": [
+          0.01226085999999782,
+          0.014140097000002072
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.02242936659604311,
+        "median_later": 0.013808570802211761,
+        "range_later": [
+          0.012870428152382374,
+          0.01539180614054203
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1049,
+        "median_later": 1049,
+        "range_later": [
+          1049,
+          1049
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.016233800999998493,
+          "ordinal": 0,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.012132168747484684,
+          "sql_queries": 7,
+          "wall_seconds": 0.026486461982131004
+        },
+        {
+          "cpu_seconds": 0.01511852899999866,
+          "ordinal": 1,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.010981006547808647,
+          "sql_queries": 7,
+          "wall_seconds": 0.0245815459638834
+        },
+        {
+          "cpu_seconds": 0.015983828999999616,
+          "ordinal": 2,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.013116834685206413,
+          "sql_queries": 7,
+          "wall_seconds": 0.027362129651010036
+        },
+        {
+          "cpu_seconds": 0.016842795000002297,
+          "ordinal": 3,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.01189105212688446,
+          "sql_queries": 7,
+          "wall_seconds": 0.026861841790378094
+        },
+        {
+          "cpu_seconds": 0.017453729000003193,
+          "ordinal": 4,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.01203908771276474,
+          "sql_queries": 7,
+          "wall_seconds": 0.02777484804391861
+        },
+        {
+          "cpu_seconds": 0.016470472000001735,
+          "ordinal": 5,
+          "response_bytes": 1130,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.011652935296297073,
+          "sql_queries": 7,
+          "wall_seconds": 0.02635234221816063
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.026486461982131004,
+        "median_later": 0.026861841790378094,
+        "range_later": [
+          0.0245815459638834,
+          0.02777484804391861
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.016233800999998493,
+        "median_later": 0.016470472000001735,
+        "range_later": [
+          0.01511852899999866,
+          0.017453729000003193
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.012132168747484684,
+        "median_later": 0.01189105212688446,
+        "range_later": [
+          0.010981006547808647,
+          0.013116834685206413
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1130,
+        "median_later": 1130,
+        "range_later": [
+          1130,
+          1130
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.017519428999996478,
+          "ordinal": 0,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.010972186923027039,
+          "sql_queries": 7,
+          "wall_seconds": 0.026748018339276314
+        },
+        {
+          "cpu_seconds": 0.014177336999999568,
+          "ordinal": 1,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.011047049425542355,
+          "sql_queries": 7,
+          "wall_seconds": 0.023936509154736996
+        },
+        {
+          "cpu_seconds": 0.012342164999999738,
+          "ordinal": 2,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.009397503919899464,
+          "sql_queries": 7,
+          "wall_seconds": 0.02095610834658146
+        },
+        {
+          "cpu_seconds": 0.010093470999997578,
+          "ordinal": 3,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006567920558154583,
+          "sql_queries": 7,
+          "wall_seconds": 0.015681244432926178
+        },
+        {
+          "cpu_seconds": 0.012502320999999483,
+          "ordinal": 4,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.013157039880752563,
+          "sql_queries": 7,
+          "wall_seconds": 0.024602041579782963
+        },
+        {
+          "cpu_seconds": 0.011187520000000006,
+          "ordinal": 5,
+          "response_bytes": 2138,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.01316839549690485,
+          "sql_queries": 7,
+          "wall_seconds": 0.02325870282948017
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.026748018339276314,
+        "median_later": 0.02325870282948017,
+        "range_later": [
+          0.015681244432926178,
+          0.024602041579782963
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.017519428999996478,
+        "median_later": 0.012342164999999738,
+        "range_later": [
+          0.010093470999997578,
+          0.014177336999999568
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.010972186923027039,
+        "median_later": 0.011047049425542355,
+        "range_later": [
+          0.006567920558154583,
+          0.01316839549690485
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 2138,
+        "median_later": 2138,
+        "range_later": [
+          2138,
+          2138
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.014132598999999857,
+          "ordinal": 0,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006116557866334915,
+          "sql_queries": 7,
+          "wall_seconds": 0.01943235006183386
+        },
+        {
+          "cpu_seconds": 0.015709143999998787,
+          "ordinal": 1,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007315046153962612,
+          "sql_queries": 7,
+          "wall_seconds": 0.022183259949088097
+        },
+        {
+          "cpu_seconds": 0.014648080000000618,
+          "ordinal": 2,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008430832996964455,
+          "sql_queries": 7,
+          "wall_seconds": 0.022137438878417015
+        },
+        {
+          "cpu_seconds": 0.015328421999996067,
+          "ordinal": 3,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.015659711323678493,
+          "sql_queries": 7,
+          "wall_seconds": 0.030190663412213326
+        },
+        {
+          "cpu_seconds": 0.014339759000002061,
+          "ordinal": 4,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.012069596908986568,
+          "sql_queries": 7,
+          "wall_seconds": 0.02564513124525547
+        },
+        {
+          "cpu_seconds": 0.016952619000001334,
+          "ordinal": 5,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008022941648960114,
+          "sql_queries": 7,
+          "wall_seconds": 0.024195539765059948
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.01943235006183386,
+        "median_later": 0.024195539765059948,
+        "range_later": [
+          0.022137438878417015,
+          0.030190663412213326
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.014132598999999857,
+        "median_later": 0.015328421999996067,
+        "range_later": [
+          0.014339759000002061,
+          0.016952619000001334
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.006116557866334915,
+        "median_later": 0.008430832996964455,
+        "range_later": [
+          0.007315046153962612,
+          0.015659711323678493
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 12308,
+        "median_later": 12308,
+        "range_later": [
+          12308,
+          12308
+        ]
+      }
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.026422402999997985,
+          "ordinal": 0,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.011604027822613716,
+          "sql_queries": 7,
+          "wall_seconds": 0.03605618141591549
+        },
+        {
+          "cpu_seconds": 0.025459696999995174,
+          "ordinal": 1,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01424039714038372,
+          "sql_queries": 7,
+          "wall_seconds": 0.0390067920088768
+        },
+        {
+          "cpu_seconds": 0.023158301999998798,
+          "ordinal": 2,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.013717609457671642,
+          "sql_queries": 7,
+          "wall_seconds": 0.03552199620753527
+        },
+        {
+          "cpu_seconds": 0.020136114999999677,
+          "ordinal": 3,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.013535376638174057,
+          "sql_queries": 7,
+          "wall_seconds": 0.03300068341195583
+        },
+        {
+          "cpu_seconds": 0.020832206999997993,
+          "ordinal": 4,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01359795592725277,
+          "sql_queries": 7,
+          "wall_seconds": 0.03414453566074371
+        },
+        {
+          "cpu_seconds": 0.019484974999997462,
+          "ordinal": 5,
+          "response_bytes": 12308,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.016501792706549168,
+          "sql_queries": 7,
+          "wall_seconds": 0.03460027743130922
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.03605618141591549,
+        "median_later": 0.03460027743130922,
+        "range_later": [
+          0.03300068341195583,
+          0.0390067920088768
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.026422402999997985,
+        "median_later": 0.020832206999997993,
+        "range_later": [
+          0.019484974999997462,
+          0.025459696999995174
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.011604027822613716,
+        "median_later": 0.013717609457671642,
+        "range_later": [
+          0.013535376638174057,
+          0.016501792706549168
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 12308,
+        "median_later": 12308,
+        "range_later": [
+          12308,
+          12308
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.010022243999998182,
+          "ordinal": 0,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009652559645473957,
+          "sql_queries": 8,
+          "wall_seconds": 0.018799597397446632
+        },
+        {
+          "cpu_seconds": 0.006996052000005193,
+          "ordinal": 1,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.005050813779234886,
+          "sql_queries": 7,
+          "wall_seconds": 0.011249564588069916
+        },
+        {
+          "cpu_seconds": 0.007031860000004997,
+          "ordinal": 2,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.005218592472374439,
+          "sql_queries": 7,
+          "wall_seconds": 0.011443783529102802
+        },
+        {
+          "cpu_seconds": 0.0070290000000028385,
+          "ordinal": 3,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.0053849900141358376,
+          "sql_queries": 7,
+          "wall_seconds": 0.011549045331776142
+        },
+        {
+          "cpu_seconds": 0.00901479899999913,
+          "ordinal": 4,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.01681523211300373,
+          "sql_queries": 7,
+          "wall_seconds": 0.024909881874918938
+        },
+        {
+          "cpu_seconds": 0.007867649000004917,
+          "ordinal": 5,
+          "response_bytes": 1109,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.014591033570468426,
+          "sql_queries": 7,
+          "wall_seconds": 0.021553903818130493
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.018799597397446632,
+        "median_later": 0.011549045331776142,
+        "range_later": [
+          0.011249564588069916,
+          0.024909881874918938
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.010022243999998182,
+        "median_later": 0.007031860000004997,
+        "range_later": [
+          0.006996052000005193,
+          0.00901479899999913
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.009652559645473957,
+        "median_later": 0.0053849900141358376,
+        "range_later": [
+          0.005050813779234886,
+          0.01681523211300373
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1109,
+        "median_later": 1109,
+        "range_later": [
+          1109,
+          1109
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.008139495999998303,
+          "ordinal": 0,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.005167257972061634,
+          "sql_queries": 7,
+          "wall_seconds": 0.012469129636883736
+        },
+        {
+          "cpu_seconds": 0.009483314999997106,
+          "ordinal": 1,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.006008016876876354,
+          "sql_queries": 7,
+          "wall_seconds": 0.014512864872813225
+        },
+        {
+          "cpu_seconds": 0.010646151999999631,
+          "ordinal": 2,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.006610446609556675,
+          "sql_queries": 7,
+          "wall_seconds": 0.016748913563787937
+        },
+        {
+          "cpu_seconds": 0.010489888999998698,
+          "ordinal": 3,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.01617472432553768,
+          "sql_queries": 7,
+          "wall_seconds": 0.02563638426363468
+        },
+        {
+          "cpu_seconds": 0.009382172999998772,
+          "ordinal": 4,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.011502141132950783,
+          "sql_queries": 7,
+          "wall_seconds": 0.019861736334860325
+        },
+        {
+          "cpu_seconds": 0.007869013999993513,
+          "ordinal": 5,
+          "response_bytes": 1171,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.01073763333261013,
+          "sql_queries": 7,
+          "wall_seconds": 0.017716025933623314
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.012469129636883736,
+        "median_later": 0.017716025933623314,
+        "range_later": [
+          0.014512864872813225,
+          0.02563638426363468
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.008139495999998303,
+        "median_later": 0.009483314999997106,
+        "range_later": [
+          0.007869013999993513,
+          0.010646151999999631
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.005167257972061634,
+        "median_later": 0.01073763333261013,
+        "range_later": [
+          0.006008016876876354,
+          0.01617472432553768
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1171,
+        "median_later": 1171,
+        "range_later": [
+          1171,
+          1171
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.011736464000001945,
+          "ordinal": 0,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.009180097840726376,
+          "sql_queries": 7,
+          "wall_seconds": 0.01968696527183056
+        },
+        {
+          "cpu_seconds": 0.012102174999995441,
+          "ordinal": 1,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.01289455033838749,
+          "sql_queries": 7,
+          "wall_seconds": 0.023858624510467052
+        },
+        {
+          "cpu_seconds": 0.01144499800000176,
+          "ordinal": 2,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.017859671264886856,
+          "sql_queries": 7,
+          "wall_seconds": 0.028272103518247604
+        },
+        {
+          "cpu_seconds": 0.01137266700000339,
+          "ordinal": 3,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.010280313901603222,
+          "sql_queries": 7,
+          "wall_seconds": 0.020645488053560257
+        },
+        {
+          "cpu_seconds": 0.011677865999999426,
+          "ordinal": 4,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.009399067610502243,
+          "sql_queries": 7,
+          "wall_seconds": 0.019979075528681278
+        },
+        {
+          "cpu_seconds": 0.011732721000001334,
+          "ordinal": 5,
+          "response_bytes": 2080,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.013244114816188812,
+          "sql_queries": 7,
+          "wall_seconds": 0.023791425861418247
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.01968696527183056,
+        "median_later": 0.023791425861418247,
+        "range_later": [
+          0.019979075528681278,
+          0.028272103518247604
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.011736464000001945,
+        "median_later": 0.011677865999999426,
+        "range_later": [
+          0.01137266700000339,
+          0.012102174999995441
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.009180097840726376,
+        "median_later": 0.01289455033838749,
+        "range_later": [
+          0.009399067610502243,
+          0.017859671264886856
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 2080,
+        "median_later": 2080,
+        "range_later": [
+          2080,
+          2080
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.02578677199999646,
+          "ordinal": 0,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007720183581113815,
+          "sql_queries": 7,
+          "wall_seconds": 0.032329073175787926
+        },
+        {
+          "cpu_seconds": 0.01853346399999367,
+          "ordinal": 1,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.0073287030681967735,
+          "sql_queries": 7,
+          "wall_seconds": 0.024844493716955185
+        },
+        {
+          "cpu_seconds": 0.013161589999995726,
+          "ordinal": 2,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006273139268159866,
+          "sql_queries": 7,
+          "wall_seconds": 0.01841630320996046
+        },
+        {
+          "cpu_seconds": 0.012535610999997004,
+          "ordinal": 3,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006283644586801529,
+          "sql_queries": 7,
+          "wall_seconds": 0.017809626646339893
+        },
+        {
+          "cpu_seconds": 0.012861312999994823,
+          "ordinal": 4,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006293250247836113,
+          "sql_queries": 7,
+          "wall_seconds": 0.018253960646688938
+        },
+        {
+          "cpu_seconds": 0.013907983999999374,
+          "ordinal": 5,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006372223608195782,
+          "sql_queries": 7,
+          "wall_seconds": 0.019421469420194626
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.032329073175787926,
+        "median_later": 0.01841630320996046,
+        "range_later": [
+          0.017809626646339893,
+          0.024844493716955185
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.02578677199999646,
+        "median_later": 0.013161589999995726,
+        "range_later": [
+          0.012535610999997004,
+          0.01853346399999367
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.007720183581113815,
+        "median_later": 0.006293250247836113,
+        "range_later": [
+          0.006273139268159866,
+          0.0073287030681967735
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 11260,
+        "median_later": 11260,
+        "range_later": [
+          11260,
+          11260
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.0155101920000007,
+          "ordinal": 0,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.006154184229671955,
+          "sql_queries": 7,
+          "wall_seconds": 0.020681294612586498
+        },
+        {
+          "cpu_seconds": 0.015680758000002015,
+          "ordinal": 1,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.009139481000602245,
+          "sql_queries": 7,
+          "wall_seconds": 0.023666932247579098
+        },
+        {
+          "cpu_seconds": 0.014671116999998901,
+          "ordinal": 2,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008138323202729225,
+          "sql_queries": 7,
+          "wall_seconds": 0.022766302339732647
+        },
+        {
+          "cpu_seconds": 0.014570863999999517,
+          "ordinal": 3,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.007670730352401733,
+          "sql_queries": 7,
+          "wall_seconds": 0.020972223952412605
+        },
+        {
+          "cpu_seconds": 0.013968071999997278,
+          "ordinal": 4,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.0061405012384057045,
+          "sql_queries": 7,
+          "wall_seconds": 0.01912535633891821
+        },
+        {
+          "cpu_seconds": 0.014089058000003263,
+          "ordinal": 5,
+          "response_bytes": 11260,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.006154057569801807,
+          "sql_queries": 7,
+          "wall_seconds": 0.01939922384917736
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.020681294612586498,
+        "median_later": 0.020972223952412605,
+        "range_later": [
+          0.01912535633891821,
+          0.023666932247579098
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.0155101920000007,
+        "median_later": 0.014570863999999517,
+        "range_later": [
+          0.013968071999997278,
+          0.015680758000002015
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.006154184229671955,
+        "median_later": 0.007670730352401733,
+        "range_later": [
+          0.0061405012384057045,
+          0.009139481000602245
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 11260,
+        "median_later": 11260,
+        "range_later": [
+          11260,
+          11260
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.0162472999999963,
+          "ordinal": 0,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.014032532460987568,
+          "sql_queries": 8,
+          "wall_seconds": 0.028605623170733452
+        },
+        {
+          "cpu_seconds": 0.011784710000000587,
+          "ordinal": 1,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.007389063015580177,
+          "sql_queries": 7,
+          "wall_seconds": 0.018130620010197163
+        },
+        {
+          "cpu_seconds": 0.00793217199999674,
+          "ordinal": 2,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.00686813797801733,
+          "sql_queries": 7,
+          "wall_seconds": 0.013811502605676651
+        },
+        {
+          "cpu_seconds": 0.0077774979999958305,
+          "ordinal": 3,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.005912543274462223,
+          "sql_queries": 7,
+          "wall_seconds": 0.012571284547448158
+        },
+        {
+          "cpu_seconds": 0.008161286000003543,
+          "ordinal": 4,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.006312948651611805,
+          "sql_queries": 7,
+          "wall_seconds": 0.013536835089325905
+        },
+        {
+          "cpu_seconds": 0.007628324999998881,
+          "ordinal": 5,
+          "response_bytes": 1040,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.005485500209033489,
+          "sql_queries": 7,
+          "wall_seconds": 0.012310354970395565
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.028605623170733452,
+        "median_later": 0.013536835089325905,
+        "range_later": [
+          0.012310354970395565,
+          0.018130620010197163
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.0162472999999963,
+        "median_later": 0.00793217199999674,
+        "range_later": [
+          0.007628324999998881,
+          0.011784710000000587
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.014032532460987568,
+        "median_later": 0.006312948651611805,
+        "range_later": [
+          0.005485500209033489,
+          0.007389063015580177
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1040,
+        "median_later": 1040,
+        "range_later": [
+          1040,
+          1040
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.00968308299999876,
+          "ordinal": 0,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.0059761181473731995,
+          "sql_queries": 7,
+          "wall_seconds": 0.01466130930930376
+        },
+        {
+          "cpu_seconds": 0.00819655800000163,
+          "ordinal": 1,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.006039182655513287,
+          "sql_queries": 7,
+          "wall_seconds": 0.013283279724419117
+        },
+        {
+          "cpu_seconds": 0.008575648999993746,
+          "ordinal": 2,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.00712992250919342,
+          "sql_queries": 7,
+          "wall_seconds": 0.014669956639409065
+        },
+        {
+          "cpu_seconds": 0.009194924999995635,
+          "ordinal": 3,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007138483226299286,
+          "sql_queries": 7,
+          "wall_seconds": 0.015263775363564491
+        },
+        {
+          "cpu_seconds": 0.011842670999996585,
+          "ordinal": 4,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007383279502391815,
+          "sql_queries": 7,
+          "wall_seconds": 0.018159912899136543
+        },
+        {
+          "cpu_seconds": 0.009162858999999912,
+          "ordinal": 5,
+          "response_bytes": 1114,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007023571990430355,
+          "sql_queries": 7,
+          "wall_seconds": 0.015147837810218334
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.01466130930930376,
+        "median_later": 0.015147837810218334,
+        "range_later": [
+          0.013283279724419117,
+          0.018159912899136543
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.00968308299999876,
+        "median_later": 0.009162858999999912,
+        "range_later": [
+          0.00819655800000163,
+          0.011842670999996585
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.0059761181473731995,
+        "median_later": 0.00712992250919342,
+        "range_later": [
+          0.006039182655513287,
+          0.007383279502391815
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1114,
+        "median_later": 1114,
+        "range_later": [
+          1114,
+          1114
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.010486110999998743,
+          "ordinal": 0,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.007310857996344566,
+          "sql_queries": 7,
+          "wall_seconds": 0.01672287192195654
+        },
+        {
+          "cpu_seconds": 0.00889370899999875,
+          "ordinal": 1,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006135736592113972,
+          "sql_queries": 7,
+          "wall_seconds": 0.01394678745418787
+        },
+        {
+          "cpu_seconds": 0.008432681000002162,
+          "ordinal": 2,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006496123969554901,
+          "sql_queries": 7,
+          "wall_seconds": 0.013917363248765469
+        },
+        {
+          "cpu_seconds": 0.008720826999997655,
+          "ordinal": 3,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.007642505690455437,
+          "sql_queries": 7,
+          "wall_seconds": 0.015373362228274345
+        },
+        {
+          "cpu_seconds": 0.00952046399999773,
+          "ordinal": 4,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.010055869817733765,
+          "sql_queries": 7,
+          "wall_seconds": 0.01849576272070408
+        },
+        {
+          "cpu_seconds": 0.009798940999999672,
+          "ordinal": 5,
+          "response_bytes": 2023,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.00866609811782837,
+          "sql_queries": 7,
+          "wall_seconds": 0.017445090226829052
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.01672287192195654,
+        "median_later": 0.015373362228274345,
+        "range_later": [
+          0.013917363248765469,
+          0.01849576272070408
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.010486110999998743,
+        "median_later": 0.00889370899999875,
+        "range_later": [
+          0.008432681000002162,
+          0.009798940999999672
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.007310857996344566,
+        "median_later": 0.007642505690455437,
+        "range_later": [
+          0.006135736592113972,
+          0.010055869817733765
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 2023,
+        "median_later": 2023,
+        "range_later": [
+          2023,
+          2023
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.028678900000002727,
+          "ordinal": 0,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.011833702214062214,
+          "sql_queries": 7,
+          "wall_seconds": 0.03921955544501543
+        },
+        {
+          "cpu_seconds": 0.023176605999999822,
+          "ordinal": 1,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.015721656382083893,
+          "sql_queries": 7,
+          "wall_seconds": 0.03743214812129736
+        },
+        {
+          "cpu_seconds": 0.01964214200000214,
+          "ordinal": 2,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.01321739424020052,
+          "sql_queries": 7,
+          "wall_seconds": 0.031133214943110943
+        },
+        {
+          "cpu_seconds": 0.020817909000001578,
+          "ordinal": 3,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.0138633344322443,
+          "sql_queries": 7,
+          "wall_seconds": 0.03380082547664642
+        },
+        {
+          "cpu_seconds": 0.017629965000004688,
+          "ordinal": 4,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008549358695745468,
+          "sql_queries": 7,
+          "wall_seconds": 0.024877377785742283
+        },
+        {
+          "cpu_seconds": 0.015013052999997,
+          "ordinal": 5,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.00928216241300106,
+          "sql_queries": 7,
+          "wall_seconds": 0.02322598360478878
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.03921955544501543,
+        "median_later": 0.031133214943110943,
+        "range_later": [
+          0.02322598360478878,
+          0.03743214812129736
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.028678900000002727,
+        "median_later": 0.01964214200000214,
+        "range_later": [
+          0.015013052999997,
+          0.023176605999999822
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.011833702214062214,
+        "median_later": 0.01321739424020052,
+        "range_later": [
+          0.008549358695745468,
+          0.015721656382083893
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 11203,
+        "median_later": 11203,
+        "range_later": [
+          11203,
+          11203
+        ]
+      }
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.018365534000004402,
+          "ordinal": 0,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.010197386145591736,
+          "sql_queries": 7,
+          "wall_seconds": 0.027462794445455074
+        },
+        {
+          "cpu_seconds": 0.01779070799999971,
+          "ordinal": 1,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.00988637562841177,
+          "sql_queries": 7,
+          "wall_seconds": 0.026536421850323677
+        },
+        {
+          "cpu_seconds": 0.017340992999997695,
+          "ordinal": 2,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.013541807420551777,
+          "sql_queries": 7,
+          "wall_seconds": 0.029753010720014572
+        },
+        {
+          "cpu_seconds": 0.01303568800000221,
+          "ordinal": 3,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01236875168979168,
+          "sql_queries": 7,
+          "wall_seconds": 0.024551711976528168
+        },
+        {
+          "cpu_seconds": 0.015476748000004648,
+          "ordinal": 4,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.013087288476526737,
+          "sql_queries": 7,
+          "wall_seconds": 0.028210025280714035
+        },
+        {
+          "cpu_seconds": 0.01897975300000354,
+          "ordinal": 5,
+          "response_bytes": 11203,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01288527064025402,
+          "sql_queries": 7,
+          "wall_seconds": 0.030956611968576908
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.027462794445455074,
+        "median_later": 0.028210025280714035,
+        "range_later": [
+          0.024551711976528168,
+          0.030956611968576908
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.018365534000004402,
+        "median_later": 0.017340992999997695,
+        "range_later": [
+          0.01303568800000221,
+          0.01897975300000354
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.010197386145591736,
+        "median_later": 0.01288527064025402,
+        "range_later": [
+          0.00988637562841177,
+          0.013541807420551777
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 11203,
+        "median_later": 11203,
+        "range_later": [
+          11203,
+          11203
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.011598692999996274,
+          "ordinal": 0,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.014158668927848339,
+          "sql_queries": 8,
+          "wall_seconds": 0.024767611175775528
+        },
+        {
+          "cpu_seconds": 0.008324052999995502,
+          "ordinal": 1,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.007900592871010303,
+          "sql_queries": 7,
+          "wall_seconds": 0.015374208800494671
+        },
+        {
+          "cpu_seconds": 0.009326366999999891,
+          "ordinal": 2,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.008940131403505802,
+          "sql_queries": 7,
+          "wall_seconds": 0.01727329008281231
+        },
+        {
+          "cpu_seconds": 0.008440746000005106,
+          "ordinal": 3,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009290521964430809,
+          "sql_queries": 7,
+          "wall_seconds": 0.01656054798513651
+        },
+        {
+          "cpu_seconds": 0.008374113999998656,
+          "ordinal": 4,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.008798974566161633,
+          "sql_queries": 7,
+          "wall_seconds": 0.01619446650147438
+        },
+        {
+          "cpu_seconds": 0.008107922999997186,
+          "ordinal": 5,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009627214632928371,
+          "sql_queries": 7,
+          "wall_seconds": 0.01676870509982109
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.024767611175775528,
+        "median_later": 0.01656054798513651,
+        "range_later": [
+          0.015374208800494671,
+          0.01727329008281231
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.011598692999996274,
+        "median_later": 0.008374113999998656,
+        "range_later": [
+          0.008107922999997186,
+          0.009326366999999891
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.014158668927848339,
+        "median_later": 0.008940131403505802,
+        "range_later": [
+          0.007900592871010303,
+          0.009627214632928371
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1093,
+        "median_later": 1093,
+        "range_later": [
+          1093,
+          1093
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.01259111400000279,
+          "ordinal": 0,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.011078818701207638,
+          "sql_queries": 7,
+          "wall_seconds": 0.022527816705405712
+        },
+        {
+          "cpu_seconds": 0.011144911999998897,
+          "ordinal": 1,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.012169897556304932,
+          "sql_queries": 7,
+          "wall_seconds": 0.02213070634752512
+        },
+        {
+          "cpu_seconds": 0.01147114000000471,
+          "ordinal": 2,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.011355736292898655,
+          "sql_queries": 7,
+          "wall_seconds": 0.021838082000613213
+        },
+        {
+          "cpu_seconds": 0.014913763999999219,
+          "ordinal": 3,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.018335876055061817,
+          "sql_queries": 7,
+          "wall_seconds": 0.032078190706670284
+        },
+        {
+          "cpu_seconds": 0.011633410999998262,
+          "ordinal": 4,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.013848977163434029,
+          "sql_queries": 7,
+          "wall_seconds": 0.024282117374241352
+        },
+        {
+          "cpu_seconds": 0.011418984999998827,
+          "ordinal": 5,
+          "response_bytes": 1136,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.011622751131653786,
+          "sql_queries": 7,
+          "wall_seconds": 0.02180919051170349
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.022527816705405712,
+        "median_later": 0.02213070634752512,
+        "range_later": [
+          0.02180919051170349,
+          0.032078190706670284
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.01259111400000279,
+        "median_later": 0.01147114000000471,
+        "range_later": [
+          0.011144911999998897,
+          0.014913763999999219
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.011078818701207638,
+        "median_later": 0.012169897556304932,
+        "range_later": [
+          0.011355736292898655,
+          0.018335876055061817
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1136,
+        "median_later": 1136,
+        "range_later": [
+          1136,
+          1136
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.016351530999997976,
+          "ordinal": 0,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.01347177941352129,
+          "sql_queries": 7,
+          "wall_seconds": 0.028598188422620296
+        },
+        {
+          "cpu_seconds": 0.019706352999996568,
+          "ordinal": 1,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.01676696352660656,
+          "sql_queries": 7,
+          "wall_seconds": 0.035119337029755116
+        },
+        {
+          "cpu_seconds": 0.014109511999997437,
+          "ordinal": 2,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.013683483935892582,
+          "sql_queries": 7,
+          "wall_seconds": 0.02671960648149252
+        },
+        {
+          "cpu_seconds": 0.013148230000005867,
+          "ordinal": 3,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.01993135642260313,
+          "sql_queries": 7,
+          "wall_seconds": 0.031810843385756016
+        },
+        {
+          "cpu_seconds": 0.010568992000003163,
+          "ordinal": 4,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.014975685626268387,
+          "sql_queries": 7,
+          "wall_seconds": 0.02473015896975994
+        },
+        {
+          "cpu_seconds": 0.009486098000003551,
+          "ordinal": 5,
+          "response_bytes": 1840,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.013542933389544487,
+          "sql_queries": 7,
+          "wall_seconds": 0.022224477492272854
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.028598188422620296,
+        "median_later": 0.02671960648149252,
+        "range_later": [
+          0.022224477492272854,
+          0.035119337029755116
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.016351530999997976,
+        "median_later": 0.013148230000005867,
+        "range_later": [
+          0.009486098000003551,
+          0.019706352999996568
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.01347177941352129,
+        "median_later": 0.014975685626268387,
+        "range_later": [
+          0.013542933389544487,
+          0.01993135642260313
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1840,
+        "median_later": 1840,
+        "range_later": [
+          1840,
+          1840
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.019591673000000753,
+          "ordinal": 0,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.01402242761105299,
+          "sql_queries": 7,
+          "wall_seconds": 0.032242815010249615
+        },
+        {
+          "cpu_seconds": 0.0179715250000001,
+          "ordinal": 1,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.015863955952227116,
+          "sql_queries": 7,
+          "wall_seconds": 0.032545385882258415
+        },
+        {
+          "cpu_seconds": 0.02081911300000172,
+          "ordinal": 2,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.014060916379094124,
+          "sql_queries": 7,
+          "wall_seconds": 0.033305106684565544
+        },
+        {
+          "cpu_seconds": 0.0184268919999937,
+          "ordinal": 3,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.02079528197646141,
+          "sql_queries": 7,
+          "wall_seconds": 0.03783304523676634
+        },
+        {
+          "cpu_seconds": 0.029618022999997606,
+          "ordinal": 4,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.020435642451047897,
+          "sql_queries": 7,
+          "wall_seconds": 0.04857526905834675
+        },
+        {
+          "cpu_seconds": 0.19549114300000525,
+          "ordinal": 5,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.0227183997631073,
+          "sql_queries": 7,
+          "wall_seconds": 0.21970694791525602
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.032242815010249615,
+        "median_later": 0.03783304523676634,
+        "range_later": [
+          0.032545385882258415,
+          0.21970694791525602
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.019591673000000753,
+        "median_later": 0.02081911300000172,
+        "range_later": [
+          0.0179715250000001,
+          0.19549114300000525
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.01402242761105299,
+        "median_later": 0.020435642451047897,
+        "range_later": [
+          0.014060916379094124,
+          0.0227183997631073
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 9042,
+        "median_later": 9042,
+        "range_later": [
+          9042,
+          9042
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.028917695000004073,
+          "ordinal": 0,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.015134349465370178,
+          "sql_queries": 7,
+          "wall_seconds": 0.04287730995565653
+        },
+        {
+          "cpu_seconds": 0.023484879000001513,
+          "ordinal": 1,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.019039918668568134,
+          "sql_queries": 7,
+          "wall_seconds": 0.04184288252145052
+        },
+        {
+          "cpu_seconds": 0.019316792000005023,
+          "ordinal": 2,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.020181656815111637,
+          "sql_queries": 7,
+          "wall_seconds": 0.03819746896624565
+        },
+        {
+          "cpu_seconds": 0.02054956799999985,
+          "ordinal": 3,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01568637602031231,
+          "sql_queries": 7,
+          "wall_seconds": 0.035027334466576576
+        },
+        {
+          "cpu_seconds": 0.020449791000004325,
+          "ordinal": 4,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.0162251777946949,
+          "sql_queries": 7,
+          "wall_seconds": 0.036112925969064236
+        },
+        {
+          "cpu_seconds": 0.021353095000002043,
+          "ordinal": 5,
+          "response_bytes": 9042,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.021575894206762314,
+          "sql_queries": 7,
+          "wall_seconds": 0.041728208772838116
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.04287730995565653,
+        "median_later": 0.03819746896624565,
+        "range_later": [
+          0.035027334466576576,
+          0.04184288252145052
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.028917695000004073,
+        "median_later": 0.02054956799999985,
+        "range_later": [
+          0.019316792000005023,
+          0.023484879000001513
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.015134349465370178,
+        "median_later": 0.019039918668568134,
+        "range_later": [
+          0.01568637602031231,
+          0.021575894206762314
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 9042,
+        "median_later": 9042,
+        "range_later": [
+          9042,
+          9042
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.012519711000003042,
+          "ordinal": 0,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.01787906512618065,
+          "sql_queries": 8,
+          "wall_seconds": 0.02933802828192711
+        },
+        {
+          "cpu_seconds": 0.010534323999998207,
+          "ordinal": 1,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.008945942856371403,
+          "sql_queries": 7,
+          "wall_seconds": 0.01849680207669735
+        },
+        {
+          "cpu_seconds": 0.013101357000003588,
+          "ordinal": 2,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.014223331585526466,
+          "sql_queries": 7,
+          "wall_seconds": 0.025889105163514614
+        },
+        {
+          "cpu_seconds": 0.013277639000001784,
+          "ordinal": 3,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.015066531486809254,
+          "sql_queries": 7,
+          "wall_seconds": 0.027237897738814354
+        },
+        {
+          "cpu_seconds": 0.012891515999996273,
+          "ordinal": 4,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.01059900876134634,
+          "sql_queries": 7,
+          "wall_seconds": 0.022629382088780403
+        },
+        {
+          "cpu_seconds": 0.009977026999997918,
+          "ordinal": 5,
+          "response_bytes": 1035,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.011269563809037209,
+          "sql_queries": 7,
+          "wall_seconds": 0.020282884128391743
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02933802828192711,
+        "median_later": 0.022629382088780403,
+        "range_later": [
+          0.01849680207669735,
+          0.027237897738814354
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.012519711000003042,
+        "median_later": 0.012891515999996273,
+        "range_later": [
+          0.009977026999997918,
+          0.013277639000001784
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.01787906512618065,
+        "median_later": 0.011269563809037209,
+        "range_later": [
+          0.008945942856371403,
+          0.015066531486809254
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1035,
+        "median_later": 1035,
+        "range_later": [
+          1035,
+          1035
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.013008252999995307,
+          "ordinal": 0,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.008532406762242317,
+          "sql_queries": 7,
+          "wall_seconds": 0.020367851480841637
+        },
+        {
+          "cpu_seconds": 0.011347225000001515,
+          "ordinal": 1,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.00873684510588646,
+          "sql_queries": 7,
+          "wall_seconds": 0.019156355410814285
+        },
+        {
+          "cpu_seconds": 0.00840694800000108,
+          "ordinal": 2,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.005847800523042679,
+          "sql_queries": 7,
+          "wall_seconds": 0.013423435389995575
+        },
+        {
+          "cpu_seconds": 0.008114788000000317,
+          "ordinal": 3,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.00656501017510891,
+          "sql_queries": 7,
+          "wall_seconds": 0.013842671178281307
+        },
+        {
+          "cpu_seconds": 0.00850489199999771,
+          "ordinal": 4,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007054652087390423,
+          "sql_queries": 7,
+          "wall_seconds": 0.014642861671745777
+        },
+        {
+          "cpu_seconds": 0.00847989199999688,
+          "ordinal": 5,
+          "response_bytes": 1090,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.008372645825147629,
+          "sql_queries": 7,
+          "wall_seconds": 0.01598202995955944
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.020367851480841637,
+        "median_later": 0.014642861671745777,
+        "range_later": [
+          0.013423435389995575,
+          0.019156355410814285
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.013008252999995307,
+        "median_later": 0.00847989199999688,
+        "range_later": [
+          0.008114788000000317,
+          0.011347225000001515
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.008532406762242317,
+        "median_later": 0.007054652087390423,
+        "range_later": [
+          0.005847800523042679,
+          0.00873684510588646
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1090,
+        "median_later": 1090,
+        "range_later": [
+          1090,
+          1090
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.013557717999994168,
+          "ordinal": 0,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.009553875774145126,
+          "sql_queries": 7,
+          "wall_seconds": 0.02194101084023714
+        },
+        {
+          "cpu_seconds": 0.012517805000001658,
+          "ordinal": 1,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.008567437529563904,
+          "sql_queries": 7,
+          "wall_seconds": 0.020494808442890644
+        },
+        {
+          "cpu_seconds": 0.011596882999995728,
+          "ordinal": 2,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.010494223795831203,
+          "sql_queries": 7,
+          "wall_seconds": 0.02165380585938692
+        },
+        {
+          "cpu_seconds": 0.014062361999997108,
+          "ordinal": 3,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.014578011818230152,
+          "sql_queries": 7,
+          "wall_seconds": 0.02791572269052267
+        },
+        {
+          "cpu_seconds": 0.012352573000001144,
+          "ordinal": 4,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.014198807999491692,
+          "sql_queries": 7,
+          "wall_seconds": 0.02587990928441286
+        },
+        {
+          "cpu_seconds": 0.017154496999999935,
+          "ordinal": 5,
+          "response_bytes": 1810,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.00819265004247427,
+          "sql_queries": 7,
+          "wall_seconds": 0.024162414483726025
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02194101084023714,
+        "median_later": 0.024162414483726025,
+        "range_later": [
+          0.020494808442890644,
+          0.02791572269052267
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.013557717999994168,
+        "median_later": 0.012517805000001658,
+        "range_later": [
+          0.011596882999995728,
+          0.017154496999999935
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.009553875774145126,
+        "median_later": 0.010494223795831203,
+        "range_later": [
+          0.00819265004247427,
+          0.014578011818230152
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1810,
+        "median_later": 1810,
+        "range_later": [
+          1810,
+          1810
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.020347665999999265,
+          "ordinal": 0,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008816513232886791,
+          "sql_queries": 7,
+          "wall_seconds": 0.027838866226375103
+        },
+        {
+          "cpu_seconds": 0.021324251999999433,
+          "ordinal": 1,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.01628746185451746,
+          "sql_queries": 7,
+          "wall_seconds": 0.03610283508896828
+        },
+        {
+          "cpu_seconds": 0.018010134000000733,
+          "ordinal": 2,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.009397436864674091,
+          "sql_queries": 7,
+          "wall_seconds": 0.02618378307670355
+        },
+        {
+          "cpu_seconds": 0.02053941500000178,
+          "ordinal": 3,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008198368363082409,
+          "sql_queries": 7,
+          "wall_seconds": 0.027637173421680927
+        },
+        {
+          "cpu_seconds": 0.019082627999999602,
+          "ordinal": 4,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008278537541627884,
+          "sql_queries": 7,
+          "wall_seconds": 0.0261218948289752
+        },
+        {
+          "cpu_seconds": 0.01809300499999722,
+          "ordinal": 5,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007517903111875057,
+          "sql_queries": 7,
+          "wall_seconds": 0.02504591178148985
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.027838866226375103,
+        "median_later": 0.02618378307670355,
+        "range_later": [
+          0.02504591178148985,
+          0.03610283508896828
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.020347665999999265,
+        "median_later": 0.019082627999999602,
+        "range_later": [
+          0.018010134000000733,
+          0.021324251999999433
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.008816513232886791,
+        "median_later": 0.008278537541627884,
+        "range_later": [
+          0.007517903111875057,
+          0.01628746185451746
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 9100,
+        "median_later": 9100,
+        "range_later": [
+          9100,
+          9100
+        ]
+      }
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.02021350399999733,
+          "ordinal": 0,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008808511309325695,
+          "sql_queries": 7,
+          "wall_seconds": 0.02786081563681364
+        },
+        {
+          "cpu_seconds": 0.01826316800000427,
+          "ordinal": 1,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.007785983383655548,
+          "sql_queries": 7,
+          "wall_seconds": 0.024950603954494
+        },
+        {
+          "cpu_seconds": 0.02054468299999712,
+          "ordinal": 2,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.007564806379377842,
+          "sql_queries": 7,
+          "wall_seconds": 0.02839801460504532
+        },
+        {
+          "cpu_seconds": 0.023579722000000913,
+          "ordinal": 3,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.012442708015441895,
+          "sql_queries": 7,
+          "wall_seconds": 0.034697696566581726
+        },
+        {
+          "cpu_seconds": 0.020101316999998176,
+          "ordinal": 4,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.00870166253298521,
+          "sql_queries": 7,
+          "wall_seconds": 0.02774218376725912
+        },
+        {
+          "cpu_seconds": 0.01770598000000234,
+          "ordinal": 5,
+          "response_bytes": 9100,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008711562491953373,
+          "sql_queries": 7,
+          "wall_seconds": 0.025294063612818718
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02786081563681364,
+        "median_later": 0.02774218376725912,
+        "range_later": [
+          0.024950603954494,
+          0.034697696566581726
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.02021350399999733,
+        "median_later": 0.020101316999998176,
+        "range_later": [
+          0.01770598000000234,
+          0.023579722000000913
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.008808511309325695,
+        "median_later": 0.00870166253298521,
+        "range_later": [
+          0.007564806379377842,
+          0.012442708015441895
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 9100,
+        "median_later": 9100,
+        "range_later": [
+          9100,
+          9100
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.015268759999997883,
+          "ordinal": 0,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.018851234577596188,
+          "sql_queries": 8,
+          "wall_seconds": 0.03380037751048803
+        },
+        {
+          "cpu_seconds": 0.010767471999997724,
+          "ordinal": 1,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.008135841228067875,
+          "sql_queries": 7,
+          "wall_seconds": 0.018239639699459076
+        },
+        {
+          "cpu_seconds": 0.01684060000000187,
+          "ordinal": 2,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.0104181794449687,
+          "sql_queries": 7,
+          "wall_seconds": 0.02577147725969553
+        },
+        {
+          "cpu_seconds": 0.018436309000001927,
+          "ordinal": 3,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.011936984024941921,
+          "sql_queries": 7,
+          "wall_seconds": 0.02878426294773817
+        },
+        {
+          "cpu_seconds": 0.01801687599999724,
+          "ordinal": 4,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009726570919156075,
+          "sql_queries": 7,
+          "wall_seconds": 0.027102360501885414
+        },
+        {
+          "cpu_seconds": 0.018330255999998712,
+          "ordinal": 5,
+          "response_bytes": 1093,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009269964881241322,
+          "sql_queries": 7,
+          "wall_seconds": 0.026007719337940216
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.03380037751048803,
+        "median_later": 0.026007719337940216,
+        "range_later": [
+          0.018239639699459076,
+          0.02878426294773817
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.015268759999997883,
+        "median_later": 0.01801687599999724,
+        "range_later": [
+          0.010767471999997724,
+          0.018436309000001927
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.018851234577596188,
+        "median_later": 0.009726570919156075,
+        "range_later": [
+          0.008135841228067875,
+          0.011936984024941921
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1093,
+        "median_later": 1093,
+        "range_later": [
+          1093,
+          1093
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.016711800000003052,
+          "ordinal": 0,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007074782624840736,
+          "sql_queries": 7,
+          "wall_seconds": 0.023387815803289413
+        },
+        {
+          "cpu_seconds": 0.008873434999998153,
+          "ordinal": 1,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.0076721059158444405,
+          "sql_queries": 7,
+          "wall_seconds": 0.015620275400578976
+        },
+        {
+          "cpu_seconds": 0.009621549000002005,
+          "ordinal": 2,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007229252718389034,
+          "sql_queries": 7,
+          "wall_seconds": 0.015883413143455982
+        },
+        {
+          "cpu_seconds": 0.009464877999995736,
+          "ordinal": 3,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.006809567101299763,
+          "sql_queries": 7,
+          "wall_seconds": 0.015379240736365318
+        },
+        {
+          "cpu_seconds": 0.008995055999996282,
+          "ordinal": 4,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007062927819788456,
+          "sql_queries": 7,
+          "wall_seconds": 0.01532664056867361
+        },
+        {
+          "cpu_seconds": 0.009197452999998745,
+          "ordinal": 5,
+          "response_bytes": 1131,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007086415775120258,
+          "sql_queries": 7,
+          "wall_seconds": 0.015203585848212242
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.023387815803289413,
+        "median_later": 0.015379240736365318,
+        "range_later": [
+          0.015203585848212242,
+          0.015883413143455982
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.016711800000003052,
+        "median_later": 0.009197452999998745,
+        "range_later": [
+          0.008873434999998153,
+          0.009621549000002005
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.007074782624840736,
+        "median_later": 0.007086415775120258,
+        "range_later": [
+          0.006809567101299763,
+          0.0076721059158444405
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1131,
+        "median_later": 1131,
+        "range_later": [
+          1131,
+          1131
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.010972247999994522,
+          "ordinal": 0,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006678519770503044,
+          "sql_queries": 7,
+          "wall_seconds": 0.017010623589158058
+        },
+        {
+          "cpu_seconds": 0.010487790000006214,
+          "ordinal": 1,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.0072142742574214935,
+          "sql_queries": 7,
+          "wall_seconds": 0.01672170404344797
+        },
+        {
+          "cpu_seconds": 0.010302828000000375,
+          "ordinal": 2,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005664153024554253,
+          "sql_queries": 7,
+          "wall_seconds": 0.015060090459883213
+        },
+        {
+          "cpu_seconds": 0.010093687999997769,
+          "ordinal": 3,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.0072832126170396805,
+          "sql_queries": 7,
+          "wall_seconds": 0.016975472681224346
+        },
+        {
+          "cpu_seconds": 0.009874678999999276,
+          "ordinal": 4,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.0068391673266887665,
+          "sql_queries": 7,
+          "wall_seconds": 0.015788927674293518
+        },
+        {
+          "cpu_seconds": 0.009321782999997197,
+          "ordinal": 5,
+          "response_bytes": 1790,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006693437695503235,
+          "sql_queries": 7,
+          "wall_seconds": 0.015078993514180183
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.017010623589158058,
+        "median_later": 0.015788927674293518,
+        "range_later": [
+          0.015060090459883213,
+          0.016975472681224346
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.010972247999994522,
+        "median_later": 0.010093687999997769,
+        "range_later": [
+          0.009321782999997197,
+          0.010487790000006214
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.006678519770503044,
+        "median_later": 0.0068391673266887665,
+        "range_later": [
+          0.005664153024554253,
+          0.0072832126170396805
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1790,
+        "median_later": 1790,
+        "range_later": [
+          1790,
+          1790
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.018840224999998156,
+          "ordinal": 0,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007923846133053303,
+          "sql_queries": 7,
+          "wall_seconds": 0.02559962123632431
+        },
+        {
+          "cpu_seconds": 0.017745785999998986,
+          "ordinal": 1,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.009961983188986778,
+          "sql_queries": 7,
+          "wall_seconds": 0.026448311284184456
+        },
+        {
+          "cpu_seconds": 0.01925300799999974,
+          "ordinal": 2,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.010233334265649319,
+          "sql_queries": 7,
+          "wall_seconds": 0.029018779285252094
+        },
+        {
+          "cpu_seconds": 0.01898756899999654,
+          "ordinal": 3,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.009967402555048466,
+          "sql_queries": 7,
+          "wall_seconds": 0.02846402395516634
+        },
+        {
+          "cpu_seconds": 0.017112210000000516,
+          "ordinal": 4,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.009895337745547295,
+          "sql_queries": 7,
+          "wall_seconds": 0.025818544439971447
+        },
+        {
+          "cpu_seconds": 0.017664208000006454,
+          "ordinal": 5,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.010310356505215168,
+          "sql_queries": 7,
+          "wall_seconds": 0.027180773206055164
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02559962123632431,
+        "median_later": 0.027180773206055164,
+        "range_later": [
+          0.025818544439971447,
+          0.029018779285252094
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.018840224999998156,
+        "median_later": 0.017745785999998986,
+        "range_later": [
+          0.017112210000000516,
+          0.01925300799999974
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.007923846133053303,
+        "median_later": 0.009967402555048466,
+        "range_later": [
+          0.009895337745547295,
+          0.010310356505215168
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 8542,
+        "median_later": 8542,
+        "range_later": [
+          8542,
+          8542
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.01984644899999921,
+          "ordinal": 0,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008852844126522541,
+          "sql_queries": 7,
+          "wall_seconds": 0.02788382675498724
+        },
+        {
+          "cpu_seconds": 0.016157652000003964,
+          "ordinal": 1,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008197803981602192,
+          "sql_queries": 7,
+          "wall_seconds": 0.023379364050924778
+        },
+        {
+          "cpu_seconds": 0.017516901000000473,
+          "ordinal": 2,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.01028760988265276,
+          "sql_queries": 7,
+          "wall_seconds": 0.027224944904446602
+        },
+        {
+          "cpu_seconds": 0.01863999500000091,
+          "ordinal": 3,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.012218697927892208,
+          "sql_queries": 7,
+          "wall_seconds": 0.032002851366996765
+        },
+        {
+          "cpu_seconds": 0.020459369000001004,
+          "ordinal": 4,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.014590062201023102,
+          "sql_queries": 7,
+          "wall_seconds": 0.034809766337275505
+        },
+        {
+          "cpu_seconds": 0.02057878999999474,
+          "ordinal": 5,
+          "response_bytes": 8542,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.012865402735769749,
+          "sql_queries": 7,
+          "wall_seconds": 0.03267340362071991
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02788382675498724,
+        "median_later": 0.032002851366996765,
+        "range_later": [
+          0.023379364050924778,
+          0.034809766337275505
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.01984644899999921,
+        "median_later": 0.01863999500000091,
+        "range_later": [
+          0.016157652000003964,
+          0.02057878999999474
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.008852844126522541,
+        "median_later": 0.012218697927892208,
+        "range_later": [
+          0.008197803981602192,
+          0.014590062201023102
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 8542,
+        "median_later": 8542,
+        "range_later": [
+          8542,
+          8542
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "size": 0,
+      "samples": [
+        {
+          "cpu_seconds": 0.012005696999999316,
+          "ordinal": 0,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.011934461072087288,
+          "sql_queries": 8,
+          "wall_seconds": 0.023215298540890217
+        },
+        {
+          "cpu_seconds": 0.008619862999999839,
+          "ordinal": 1,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.006183089688420296,
+          "sql_queries": 7,
+          "wall_seconds": 0.013917356729507446
+        },
+        {
+          "cpu_seconds": 0.011025613000001044,
+          "ordinal": 2,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.009706934913992882,
+          "sql_queries": 7,
+          "wall_seconds": 0.020342602394521236
+        },
+        {
+          "cpu_seconds": 0.009312234999995894,
+          "ordinal": 3,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.008338378742337227,
+          "sql_queries": 7,
+          "wall_seconds": 0.016751160845160484
+        },
+        {
+          "cpu_seconds": 0.008703399000005163,
+          "ordinal": 4,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.010632705874741077,
+          "sql_queries": 7,
+          "wall_seconds": 0.018497909419238567
+        },
+        {
+          "cpu_seconds": 0.009288857000001371,
+          "ordinal": 5,
+          "response_bytes": 1030,
+          "shown_count": 0,
+          "size": 0,
+          "sql_execute_seconds": 0.007484940811991692,
+          "sql_queries": 7,
+          "wall_seconds": 0.015892078168690205
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.023215298540890217,
+        "median_later": 0.016751160845160484,
+        "range_later": [
+          0.013917356729507446,
+          0.020342602394521236
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.012005696999999316,
+        "median_later": 0.009288857000001371,
+        "range_later": [
+          0.008619862999999839,
+          0.011025613000001044
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.011934461072087288,
+        "median_later": 0.008338378742337227,
+        "range_later": [
+          0.006183089688420296,
+          0.010632705874741077
+        ]
+      },
+      "sql_queries": {
+        "first": 8,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1030,
+        "median_later": 1030,
+        "range_later": [
+          1030,
+          1030
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "size": 1,
+      "samples": [
+        {
+          "cpu_seconds": 0.010565778999996667,
+          "ordinal": 0,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.00683952309191227,
+          "sql_queries": 7,
+          "wall_seconds": 0.016566844657063484
+        },
+        {
+          "cpu_seconds": 0.01025870800000206,
+          "ordinal": 1,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.008960004895925522,
+          "sql_queries": 7,
+          "wall_seconds": 0.01820309180766344
+        },
+        {
+          "cpu_seconds": 0.009354872999999486,
+          "ordinal": 2,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.007382198236882687,
+          "sql_queries": 7,
+          "wall_seconds": 0.015795047394931316
+        },
+        {
+          "cpu_seconds": 0.010831745000004389,
+          "ordinal": 3,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.010262206196784973,
+          "sql_queries": 7,
+          "wall_seconds": 0.020046359859406948
+        },
+        {
+          "cpu_seconds": 0.010349617999999339,
+          "ordinal": 4,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.009879050776362419,
+          "sql_queries": 7,
+          "wall_seconds": 0.020005025900900364
+        },
+        {
+          "cpu_seconds": 0.00996273999999886,
+          "ordinal": 5,
+          "response_bytes": 1080,
+          "shown_count": 1,
+          "size": 1,
+          "sql_execute_seconds": 0.006166916340589523,
+          "sql_queries": 7,
+          "wall_seconds": 0.015115643851459026
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.016566844657063484,
+        "median_later": 0.01820309180766344,
+        "range_later": [
+          0.015115643851459026,
+          0.020046359859406948
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.010565778999996667,
+        "median_later": 0.01025870800000206,
+        "range_later": [
+          0.009354872999999486,
+          0.010831745000004389
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.00683952309191227,
+        "median_later": 0.008960004895925522,
+        "range_later": [
+          0.006166916340589523,
+          0.010262206196784973
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1080,
+        "median_later": 1080,
+        "range_later": [
+          1080,
+          1080
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "size": 10,
+      "samples": [
+        {
+          "cpu_seconds": 0.013457588000001408,
+          "ordinal": 0,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.010130422189831734,
+          "sql_queries": 7,
+          "wall_seconds": 0.02254844456911087
+        },
+        {
+          "cpu_seconds": 0.011348263000002135,
+          "ordinal": 1,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006539041176438332,
+          "sql_queries": 7,
+          "wall_seconds": 0.016821962781250477
+        },
+        {
+          "cpu_seconds": 0.00995299099999869,
+          "ordinal": 2,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006580585613846779,
+          "sql_queries": 7,
+          "wall_seconds": 0.0156710147857666
+        },
+        {
+          "cpu_seconds": 0.009795907000004433,
+          "ordinal": 3,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.005888747051358223,
+          "sql_queries": 7,
+          "wall_seconds": 0.015418042428791523
+        },
+        {
+          "cpu_seconds": 0.010563738000001877,
+          "ordinal": 4,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.009294982068240643,
+          "sql_queries": 7,
+          "wall_seconds": 0.018823057413101196
+        },
+        {
+          "cpu_seconds": 0.012748461000001043,
+          "ordinal": 5,
+          "response_bytes": 1755,
+          "shown_count": 10,
+          "size": 10,
+          "sql_execute_seconds": 0.006475923582911491,
+          "sql_queries": 7,
+          "wall_seconds": 0.01839615311473608
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02254844456911087,
+        "median_later": 0.016821962781250477,
+        "range_later": [
+          0.015418042428791523,
+          0.018823057413101196
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.013457588000001408,
+        "median_later": 0.010563738000001877,
+        "range_later": [
+          0.009795907000004433,
+          0.012748461000001043
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.010130422189831734,
+        "median_later": 0.006539041176438332,
+        "range_later": [
+          0.005888747051358223,
+          0.009294982068240643
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 1755,
+        "median_later": 1755,
+        "range_later": [
+          1755,
+          1755
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "size": 100,
+      "samples": [
+        {
+          "cpu_seconds": 0.016355470000000594,
+          "ordinal": 0,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006995576433837414,
+          "sql_queries": 7,
+          "wall_seconds": 0.02238561399281025
+        },
+        {
+          "cpu_seconds": 0.017153644000003965,
+          "ordinal": 1,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007366401143372059,
+          "sql_queries": 7,
+          "wall_seconds": 0.023742384277284145
+        },
+        {
+          "cpu_seconds": 0.01696776899999719,
+          "ordinal": 2,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007775101810693741,
+          "sql_queries": 7,
+          "wall_seconds": 0.023819107562303543
+        },
+        {
+          "cpu_seconds": 0.01747161699999822,
+          "ordinal": 3,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.008223692886531353,
+          "sql_queries": 7,
+          "wall_seconds": 0.024811692535877228
+        },
+        {
+          "cpu_seconds": 0.016435211999997534,
+          "ordinal": 4,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.006979530677199364,
+          "sql_queries": 7,
+          "wall_seconds": 0.022518325597047806
+        },
+        {
+          "cpu_seconds": 0.017959558000001152,
+          "ordinal": 5,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 100,
+          "sql_execute_seconds": 0.007087011821568012,
+          "sql_queries": 7,
+          "wall_seconds": 0.024225561879575253
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.02238561399281025,
+        "median_later": 0.023819107562303543,
+        "range_later": [
+          0.022518325597047806,
+          0.024811692535877228
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.016355470000000594,
+        "median_later": 0.017153644000003965,
+        "range_later": [
+          0.016435211999997534,
+          0.017959558000001152
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.006995576433837414,
+        "median_later": 0.007366401143372059,
+        "range_later": [
+          0.006979530677199364,
+          0.008223692886531353
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 8595,
+        "median_later": 8595,
+        "range_later": [
+          8595,
+          8595
+        ]
+      }
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "size": 101,
+      "samples": [
+        {
+          "cpu_seconds": 0.028626109000001065,
+          "ordinal": 0,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.00953358318656683,
+          "sql_queries": 7,
+          "wall_seconds": 0.0370452580973506
+        },
+        {
+          "cpu_seconds": 0.02936813200000188,
+          "ordinal": 1,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008500920608639717,
+          "sql_queries": 7,
+          "wall_seconds": 0.036488297395408154
+        },
+        {
+          "cpu_seconds": 0.017327747999999588,
+          "ordinal": 2,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.007781078107655048,
+          "sql_queries": 7,
+          "wall_seconds": 0.02400767244398594
+        },
+        {
+          "cpu_seconds": 0.01822397899999828,
+          "ordinal": 3,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.007038929499685764,
+          "sql_queries": 7,
+          "wall_seconds": 0.024324694648385048
+        },
+        {
+          "cpu_seconds": 0.16380958099999532,
+          "ordinal": 4,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.15696354024112225,
+          "sql_queries": 7,
+          "wall_seconds": 0.17379785142838955
+        },
+        {
+          "cpu_seconds": 0.019979673999998226,
+          "ordinal": 5,
+          "response_bytes": 8595,
+          "shown_count": 100,
+          "size": 101,
+          "sql_execute_seconds": 0.008182830177247524,
+          "sql_queries": 7,
+          "wall_seconds": 0.02714664116501808
+        }
+      ],
+      "wall_seconds": {
+        "first": 0.0370452580973506,
+        "median_later": 0.02714664116501808,
+        "range_later": [
+          0.02400767244398594,
+          0.17379785142838955
+        ]
+      },
+      "cpu_seconds": {
+        "first": 0.028626109000001065,
+        "median_later": 0.019979673999998226,
+        "range_later": [
+          0.017327747999999588,
+          0.16380958099999532
+        ]
+      },
+      "sql_execute_seconds": {
+        "first": 0.00953358318656683,
+        "median_later": 0.008182830177247524,
+        "range_later": [
+          0.007038929499685764,
+          0.15696354024112225
+        ]
+      },
+      "sql_queries": {
+        "first": 7,
+        "median_later": 7,
+        "range_later": [
+          7,
+          7
+        ]
+      },
+      "response_bytes": {
+        "first": 8595,
+        "median_later": 8595,
+        "range_later": [
+          8595,
+          8595
+        ]
+      }
+    }
+  ],
+  "measured_requests": 240,
+  "authority_controls": 128,
+  "query_growth": [
+    {
+      "kind": "agency_appeal",
+      "language": "en",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "agency_appeal",
+      "language": "es",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "manager",
+      "language": "en",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "manager",
+      "language": "es",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "en",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "manager_appeal",
+      "language": "es",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "organization",
+      "language": "en",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    },
+    {
+      "kind": "organization",
+      "language": "es",
+      "queries_by_size": {
+        "0": 7,
+        "1": 7,
+        "10": 7,
+        "100": 7,
+        "101": 7
+      },
+      "constant_median_nonempty": true
+    }
+  ],
+  "independent_inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "temporary_absent": true,
+  "terminal_telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "native_manifest": {
+    "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+    "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+    "environment": {
+      "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-local-ci-tqr0jgd4/native-tools/rdb-cli",
+      "RETAINED_RDB_DECODER_SHA256": "1d0ed8e2bb3c387d1521f4bd200a01606f67daa1aa1f9336e5389a4cba03dfb9",
+      "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-local-ci-tqr0jgd4/native-tools/retained-rdb-aux",
+      "RETAINED_RDB_AUX_SHA256": "41d11fe8d2738b304635b5e01b187ee0718809e7ff973546d3808da65ec099de",
+      "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-local-ci-tqr0jgd4/native-tools/retained-rdb-metadata",
+      "RETAINED_RDB_METADATA_SHA256": "c297f7f7c16a3dd1a28dd1a5c7eda37b8ae9dec2456771137743b468fa1c3d5f"
+    }
+  },
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.46912426967173815
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.5295539433136582
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.03716175630688667
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.06770230736583471
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 1.6245673727244139
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.5716702658683062
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 2.0248512141406536
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 10.156681017950177
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 63.68999257404357
+    }
+  ],
+  "scope": "Eight synthetic queue/language cases; incremental cohorts0/1/10/100/101 first+five, exact top100/closed exclusion/render links and guards. No app candidate,p95,provider or production capacity."
+}
