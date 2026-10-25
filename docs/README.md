@@ -1,3 +1,5 @@
+- [N01D:11PASS,109operaciones HTTP observadas, base diagnóstica y límites](351-n01-d-resultado-operaciones-http-20261025.md).
+
 - [B11 aceptado: interfaz de formularios separada, doce pruebas antes/después y límites locales](actas/20-beta-b11-aceptacion-local-20261024.md).
 
 - [B09 aceptado: SQL, galería, activos y observación, con límites por evidencia](actas/19-beta-b09-aceptacion-local-20261024.md).

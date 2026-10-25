@@ -1,3 +1,7 @@
+N01Dauditado:11PASS/109peticiones, sin excepciones ni fallos del observador; [resultado351](351-n01-d-resultado-operaciones-http-20261025.md). Misma app, sólo instrumento/runner; no optimización ni aceptación de rendimiento. PostgreSQL local, fuentes intactas, limpieza/TGsent. N00aceptado1/13,N01abierto,alfa.
+
+Siguiente:semántica351/README/17antesdelnuevohito; completar fichas/bases restantes y presupuestos por escenario. Señal N06:listing_start116/124consultas en estados distintos; estudiar sin atribuir N+1 ni regresión. Tablasantes/después al cerrar cada bloque.
+
 N01Cauditado:1PASS/120peticiones,mismacohorte100; [resultado349](349-n01-c-resultado-estados-20261025.md). Preparaciónnativa0,271738s,98pendientes→0,102Listingstotales/100publicados;listadosfallback→state conservandoIDs/orden/datos. Condicionesoperativasdifieren,VACUUM/ANALYZE/calor;sin optimizacióncódigo/p95/capacidad. N00aceptado1/13,N01abierto,alfa.
 
 Siguiente:semántica349/README/17antesdelnuevohito;revisiónprimaria de19propuestasS02–S09ya contrastadasporfuentes/selectores,con presupuestosydatospendientes.Nocerrarbloquesporpropuestasni repetirB/Csin nuevahipótesis. Tablasantes/despuésporbloque.

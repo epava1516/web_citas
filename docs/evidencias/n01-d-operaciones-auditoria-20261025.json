@@ -1,0 +1,1195 @@
+{
+  "result": "PASS_FUNCTIONAL_AND_SCALAR_OBSERVATION_AUDIT",
+  "run": "artifacts/local-ci/20261025-094533-b3968c81",
+  "cases": 11,
+  "operation_samples": 109,
+  "case_observations": [
+    {
+      "case": "tests.test_lifecycle::test_availability_pause_resume_withdraw_and_old_retry",
+      "operations": 12,
+      "groups": [
+        {
+          "method": "GET",
+          "route_name": "listing_lifecycle",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            485.148
+          ],
+          "sql_queries": [
+            36
+          ],
+          "sql_execute_ms": [
+            47.771
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_lifecycle",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            1.482
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_lifecycle",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            25.182
+          ],
+          "sql_queries": [
+            9
+          ],
+          "sql_execute_ms": [
+            12.604
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "listing_lifecycle",
+          "status": 302,
+          "n": 6,
+          "request_ms": [
+            201.339,
+            22.762,
+            103.435,
+            230.714,
+            197.543,
+            42.527
+          ],
+          "sql_queries": [
+            69,
+            13,
+            45,
+            69,
+            46,
+            13
+          ],
+          "sql_execute_ms": [
+            95.065,
+            9.496,
+            49.728,
+            130.23,
+            114.56,
+            18.541
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            34.703
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            13.831
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_detail",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            275.606
+          ],
+          "sql_queries": [
+            21
+          ],
+          "sql_execute_ms": [
+            59.477
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "listing_lifecycle",
+          "status": 409,
+          "n": 1,
+          "request_ms": [
+            163.007
+          ],
+          "sql_queries": [
+            40
+          ],
+          "sql_execute_ms": [
+            77.511
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_lifecycle::test_renewal_same_id_confirmation_expiry_and_delayed_task",
+      "operations": 6,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "listing_lifecycle",
+          "status": 409,
+          "n": 3,
+          "request_ms": [
+            312.341,
+            105.384,
+            85.619
+          ],
+          "sql_queries": [
+            66,
+            40,
+            40
+          ],
+          "sql_execute_ms": [
+            156.975,
+            50.213,
+            35.49
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            51.791
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            30.361
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "listing_lifecycle",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            207.752,
+            22.755
+          ],
+          "sql_queries": [
+            69,
+            13
+          ],
+          "sql_execute_ms": [
+            110.549,
+            9.585
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_accounts::test_signup_requires_legal_and_stale_version_rejected",
+      "operations": 2,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "signup",
+          "status": 400,
+          "n": 2,
+          "request_ms": [
+            71.412,
+            16.806
+          ],
+          "sql_queries": [
+            7,
+            4
+          ],
+          "sql_execute_ms": [
+            9.646,
+            4.413
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_accounts::test_signup_verified_login_replay_and_no_privilege_escalation",
+      "operations": 10,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "signup",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            146.948
+          ],
+          "sql_queries": [
+            14
+          ],
+          "sql_execute_ms": [
+            24.775
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "login",
+          "status": 400,
+          "n": 1,
+          "request_ms": [
+            126.832
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            5.26
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "account_token",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            8.259
+          ],
+          "sql_queries": [
+            2
+          ],
+          "sql_execute_ms": [
+            3.019
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "account_token",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            26.108
+          ],
+          "sql_queries": [
+            12
+          ],
+          "sql_execute_ms": [
+            18.307
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "account_token",
+          "status": 400,
+          "n": 1,
+          "request_ms": [
+            7.872
+          ],
+          "sql_queries": [
+            2
+          ],
+          "sql_execute_ms": [
+            3.073
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "login",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            135.444
+          ],
+          "sql_queries": [
+            12
+          ],
+          "sql_execute_ms": [
+            13.157
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "dashboard",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            60.206
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            41.934
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "logout",
+          "status": 405,
+          "n": 1,
+          "request_ms": [
+            6.051
+          ],
+          "sql_queries": [
+            2
+          ],
+          "sql_execute_ms": [
+            2.328
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "logout",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            8.312
+          ],
+          "sql_queries": [
+            4
+          ],
+          "sql_execute_ms": [
+            4.201
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "dashboard",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            1.279
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_accounts::test_csrf_throttle_and_token_headers",
+      "operations": 10,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "signup",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            7.969
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "recover",
+          "status": 200,
+          "n": 5,
+          "request_ms": [
+            22.739,
+            17.739,
+            14.319,
+            16.245,
+            19.681
+          ],
+          "sql_queries": [
+            7,
+            4,
+            4,
+            4,
+            4
+          ],
+          "sql_execute_ms": [
+            9.387,
+            4.707,
+            5.058,
+            5.404,
+            5.764
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "recover",
+          "status": 429,
+          "n": 1,
+          "request_ms": [
+            8.02
+          ],
+          "sql_queries": [
+            3
+          ],
+          "sql_execute_ms": [
+            2.597
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "account_token",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            6.541
+          ],
+          "sql_queries": [
+            1
+          ],
+          "sql_execute_ms": [
+            1.517
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "account_token",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            1.871
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "account_token",
+          "status": 400,
+          "n": 1,
+          "request_ms": [
+            5.993
+          ],
+          "sql_queries": [
+            1
+          ],
+          "sql_execute_ms": [
+            1.442
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_revised_listings::test_revised_version_keeps_approved_snapshot_and_reuses_bytes",
+      "operations": 11,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "listing_start",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            349.918
+          ],
+          "sql_queries": [
+            116
+          ],
+          "sql_execute_ms": [
+            180.845
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "draft_edit",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            175.657,
+            195.785
+          ],
+          "sql_queries": [
+            58,
+            53
+          ],
+          "sql_execute_ms": [
+            94.918,
+            102.07
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_detail",
+          "status": 200,
+          "n": 4,
+          "request_ms": [
+            99.08,
+            67.783,
+            57.271,
+            76.946
+          ],
+          "sql_queries": [
+            26,
+            26,
+            26,
+            26
+          ],
+          "sql_execute_ms": [
+            58.406,
+            32.837,
+            29.288,
+            42.586
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "public_photo",
+          "status": 404,
+          "n": 2,
+          "request_ms": [
+            107.038,
+            112.698
+          ],
+          "sql_queries": [
+            36,
+            36
+          ],
+          "sql_execute_ms": [
+            53.421,
+            64.257
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "submit_revision",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            223.209
+          ],
+          "sql_queries": [
+            82
+          ],
+          "sql_execute_ms": [
+            106.701
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "moderation_review",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            248.401
+          ],
+          "sql_queries": [
+            85
+          ],
+          "sql_execute_ms": [
+            128.093
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_revised_listings::test_rejection_preserves_public_version_and_rate_ids_are_isolated",
+      "operations": 8,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "listing_start",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            390.576,
+            566.035
+          ],
+          "sql_queries": [
+            116,
+            124
+          ],
+          "sql_execute_ms": [
+            203.367,
+            284.557
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "draft_edit",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            174.217,
+            187.256
+          ],
+          "sql_queries": [
+            58,
+            53
+          ],
+          "sql_execute_ms": [
+            88.765,
+            91.51
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "draft_edit",
+          "status": 400,
+          "n": 1,
+          "request_ms": [
+            76.921
+          ],
+          "sql_queries": [
+            13
+          ],
+          "sql_execute_ms": [
+            41.195
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "submit_revision",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            216.519
+          ],
+          "sql_queries": [
+            82
+          ],
+          "sql_execute_ms": [
+            112.295
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "moderation_review",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            128.715
+          ],
+          "sql_queries": [
+            50
+          ],
+          "sql_execute_ms": [
+            57.942
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "listing_detail",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            84.759
+          ],
+          "sql_queries": [
+            26
+          ],
+          "sql_execute_ms": [
+            46.755
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_favorites::test_favorites_private_idempotent_permissions_and_hidden_content",
+      "operations": 11,
+      "groups": [
+        {
+          "method": "POST",
+          "route_name": "favorite_add",
+          "status": 302,
+          "n": 3,
+          "request_ms": [
+            1.962,
+            149.676,
+            157.92
+          ],
+          "sql_queries": [
+            0,
+            42,
+            39
+          ],
+          "sql_execute_ms": [
+            0.0,
+            76.32,
+            86.055
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "favorite_add",
+          "status": 405,
+          "n": 1,
+          "request_ms": [
+            21.569
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            11.346
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "favorites",
+          "status": 200,
+          "n": 3,
+          "request_ms": [
+            146.906,
+            27.023,
+            67.484
+          ],
+          "sql_queries": [
+            34,
+            10,
+            17
+          ],
+          "sql_execute_ms": [
+            77.419,
+            12.069,
+            32.962
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "favorite_remove",
+          "status": 404,
+          "n": 2,
+          "request_ms": [
+            29.838,
+            25.434
+          ],
+          "sql_queries": [
+            11,
+            10
+          ],
+          "sql_execute_ms": [
+            13.31,
+            12.336
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "favorite_add",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            63.882
+          ],
+          "sql_queries": [
+            19
+          ],
+          "sql_execute_ms": [
+            30.3
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "favorite_remove",
+          "status": 302,
+          "n": 1,
+          "request_ms": [
+            27.291
+          ],
+          "sql_queries": [
+            12
+          ],
+          "sql_execute_ms": [
+            13.037
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_sitemaps::test_sitemap_languages_privacy_page_boundaries_and_withdrawal",
+      "operations": 17,
+      "groups": [
+        {
+          "method": "GET",
+          "route_name": "sitemap_index",
+          "status": 200,
+          "n": 5,
+          "request_ms": [
+            4.749,
+            3.14,
+            2.781,
+            4.985,
+            2.948
+          ],
+          "sql_queries": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "sql_execute_ms": [
+            1.587,
+            1.428,
+            0.915,
+            1.401,
+            0.89
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "sitemap_directory",
+          "status": 200,
+          "n": 3,
+          "request_ms": [
+            1.04,
+            0.775,
+            1.533
+          ],
+          "sql_queries": [
+            0,
+            0,
+            0
+          ],
+          "sql_execute_ms": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "sitemap_listings",
+          "status": 200,
+          "n": 7,
+          "request_ms": [
+            92.286,
+            93.709,
+            238.718,
+            79.308,
+            93.453,
+            91.916,
+            28.088
+          ],
+          "sql_queries": [
+            26,
+            26,
+            26,
+            26,
+            26,
+            26,
+            9
+          ],
+          "sql_execute_ms": [
+            52.991,
+            54.979,
+            45.754,
+            42.982,
+            52.287,
+            37.362,
+            13.033
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "sitemap_listings",
+          "status": 404,
+          "n": 2,
+          "request_ms": [
+            1.656,
+            3.516
+          ],
+          "sql_queries": [
+            0,
+            1
+          ],
+          "sql_execute_ms": [
+            0.0,
+            1.22
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_promotion_order_http::test_private_order_form_simulation_reload_and_ownership[es]",
+      "operations": 11,
+      "groups": [
+        {
+          "method": "GET",
+          "route_name": "promotion_orders",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            33.296
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            9.31
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_orders",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            278.057,
+            266.037
+          ],
+          "sql_queries": [
+            76,
+            67
+          ],
+          "sql_execute_ms": [
+            128.199,
+            118.909
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_order_detail",
+          "status": 200,
+          "n": 2,
+          "request_ms": [
+            19.756,
+            25.904
+          ],
+          "sql_queries": [
+            6,
+            6
+          ],
+          "sql_execute_ms": [
+            6.706,
+            8.747
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            248.128,
+            247.721
+          ],
+          "sql_queries": [
+            78,
+            68
+          ],
+          "sql_execute_ms": [
+            112.3,
+            136.825
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_order_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            21.115
+          ],
+          "sql_queries": [
+            6
+          ],
+          "sql_execute_ms": [
+            8.317
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            21.628
+          ],
+          "sql_queries": [
+            6
+          ],
+          "sql_execute_ms": [
+            8.683
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            4.545
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_orders",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            14.945
+          ],
+          "sql_queries": [
+            4
+          ],
+          "sql_execute_ms": [
+            4.467
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tests.test_promotion_order_http::test_private_order_form_simulation_reload_and_ownership[en]",
+      "operations": 11,
+      "groups": [
+        {
+          "method": "GET",
+          "route_name": "promotion_orders",
+          "status": 200,
+          "n": 1,
+          "request_ms": [
+            30.254
+          ],
+          "sql_queries": [
+            8
+          ],
+          "sql_execute_ms": [
+            10.523
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_orders",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            222.694,
+            259.051
+          ],
+          "sql_queries": [
+            76,
+            67
+          ],
+          "sql_execute_ms": [
+            114.937,
+            111.506
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_order_detail",
+          "status": 200,
+          "n": 2,
+          "request_ms": [
+            23.128,
+            26.307
+          ],
+          "sql_queries": [
+            6,
+            6
+          ],
+          "sql_execute_ms": [
+            8.192,
+            11.125
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 302,
+          "n": 2,
+          "request_ms": [
+            267.597,
+            270.426
+          ],
+          "sql_queries": [
+            78,
+            68
+          ],
+          "sql_execute_ms": [
+            128.492,
+            139.483
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_order_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            20.769
+          ],
+          "sql_queries": [
+            6
+          ],
+          "sql_execute_ms": [
+            10.229
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 404,
+          "n": 1,
+          "request_ms": [
+            21.077
+          ],
+          "sql_queries": [
+            6
+          ],
+          "sql_execute_ms": [
+            10.919
+          ]
+        },
+        {
+          "method": "POST",
+          "route_name": "promotion_order_detail",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            3.966
+          ],
+          "sql_queries": [
+            0
+          ],
+          "sql_execute_ms": [
+            0.0
+          ]
+        },
+        {
+          "method": "GET",
+          "route_name": "promotion_orders",
+          "status": 403,
+          "n": 1,
+          "request_ms": [
+            14.598
+          ],
+          "sql_queries": [
+            4
+          ],
+          "sql_execute_ms": [
+            6.094
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Instrumented synchronous Django Client calls during test call, including dynamically invoked fixture calls; expected denials are outcomes, no load error-rate or latency budget acceptance. No product candidate or causal improvement.",
+  "cleanup": "owned resources absent",
+  "terminal_telegram": "sent",
+  "source_freeze_unchanged": true,
+  "sha256": {
+    "artifacts/local-ci/20261025-094533-b3968c81/result.json": "7994bc9bacecbf7c4937bcaa1617c2ed36b41a50639b9ba181d590cc2d867ca0",
+    "artifacts/local-ci/20261025-094533-b3968c81/pytest.xml": "c8a43b24024b38df15a8825e60aec058525d2e16fc430d1c904caa01a64ae68e",
+    "artifacts/local-ci/20261025-094533-b3968c81/source-hashes.json": "01a98a448fd2e03d1cc7f7c124734ec0f6d6499755c21928c06e11ec46a0b22a",
+    "artifacts/recorridos-n01-d-20261025/freeze.json": "7b154d7a0c47f2b4c07437c9bb020a28d1f6aeeebc78d941ee30a4bfde3c7290"
+  },
+  "audit_terminal_telegram": {
+    "path": "artifacts/test-notifications/1792921677304813656-583015.json",
+    "delivery": "sent"
+  }
+}
