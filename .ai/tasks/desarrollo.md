@@ -2662,3 +2662,6 @@ N06C preparado 2026-10-25: refresco nativo focal de resultado367/roadmap y luego
 
 
 N06C resultado369: run20261025-154544-5fcdc190,2PASS/0FAIL/ERROR/SKIP,44peticiones/1735huellas intactas,limpieza independiente/temporal/Telegram confirmados. Referencia de representación y MFA/revocación, sin cambio de aplicación ni mejora/p95 inventados. QA54,28s separado. N06abierto; próximo contraste: crecimiento y panel de agencia, hipótesis member.user sin select_related por medir antes de candidato. MOD09restante diferido por usuario367; no repetir batería.
+
+
+N06D prerregistrado370: primero referencia panel1/10/100ESENpropietario/editor (6casos72GETmedidos), primera+5posteriores; negativos/inactivo/revocación y contenido exactos. Candidato condicional select_relateduser sólo si coste lineal confirmado. Refrescos semánticos nativos context369/341/README/vista17 y protocolo370 (n06c_graph_semantics, outputs aislados, parentvalidóSHA/cita/L); AST instrumento panel añadido, anteriorpreservado. Consumo desconocido, noV1nuevo. LintF811 inicial corregido conusefixtures; recibos inicial/corregido preservados. Sin cambio de aplicación aún. Referencia oficial conPG/Redispropios y fuente nativa fijada, noSLO/p95/capacidad.
