@@ -1,3 +1,7 @@
+N03/393aceptadolocalmente:6acciones/9criterios/5puentesAST/13citas/JUnitoriginalesverificados,ORB14,954→12,729s(−14,878%)paridadexacta;C/D/F1corregidos49PASS,F2retención3PASS18calls. Límitesycostesresidualesexplícitos,4/13alfa.
+
+Siguiente:N04listado/búsqueda/fichaI01–I05:conciliarcenso/testigosdiscoveryN01antesdecandidato;nomarginaloptimizaciónN03,MOD09restantediferidoalfinal. N07/N09/N10ycondicionadosretenidos.
+
 N03F2/392aceptadolocalmente:3PASS51,734sQA/18calls,0/10/100históricas/2Blob2actuales,corpusyMatchidénticos/SQL22fijos. Medianas156,429/175,145/202,129msdetector,registrarcoste sinmarginaloptimización.1746huellas/limpieza/TGsent,N03abierto3/13alfa.
 
 Siguiente:actafinalN03por6acciones/puentesactuales/tablaconsolidada;N07yotrosdueñoscompartidosretenidos. MOD09restantediferidoalfinal,tiemposaceptablesalfa.

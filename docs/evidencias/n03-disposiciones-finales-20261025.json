@@ -1,0 +1,325 @@
+{
+  "state": "N03_LOCALLY_VERIFIED_WITH_FINITE_LIMITS",
+  "head_before_acta": "5f68464",
+  "families": [
+    "I13",
+    "I14"
+  ],
+  "requirements": [
+    {
+      "id": "N03-01",
+      "requirement": "Receive\u2192queue\u2192process\u2192usable state measured with real transport where required.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/linked_original_witnesses"
+    },
+    {
+      "id": "N03-02",
+      "requirement": "Detector, confirmation and protected registration attributed separately; distinct original growth and density varied.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/linked_original_witnesses"
+    },
+    {
+      "id": "N03-03",
+      "requirement": "Recovery/retries and fresh generation/retention safeguards preserved or corrected.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/linked_original_witnesses"
+    },
+    {
+      "id": "N03-04",
+      "requirement": "Vary retention and identify its cost at relevant population changes.",
+      "state": "verified_local_selected_scope",
+      "evidence": "392/3PASS/18calls"
+    },
+    {
+      "id": "N03-05",
+      "requirement": "Concurrency varied with invariants, without substituting throughput claims.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/linked_original_witnesses"
+    },
+    {
+      "id": "N03-06",
+      "requirement": "Inherited CR05 automatic generation ceiling of four has an explicit proven scope.",
+      "state": "verified_local_selected_scope",
+      "evidence": "390/49PASS/global4"
+    },
+    {
+      "id": "N03-07",
+      "requirement": "Parities, positives/negatives, privacy, retention and no hidden candidate cap preserved.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/linked_original_witnesses"
+    },
+    {
+      "id": "N03-08",
+      "requirement": "All census actions and shared responsibilities have traceable dispositions.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/six_actions"
+    },
+    {
+      "id": "N03-09",
+      "requirement": "Per-block before/after timing table and limitations, stable candidate, terminal proof and final acceptance.",
+      "state": "verified_local_selected_scope",
+      "evidence": "393/timing_table_and_source_bridges"
+    }
+  ],
+  "actions": [
+    {
+      "id": "route:R_photo_upload",
+      "retained_blocks": [
+        "N03",
+        "N07"
+      ],
+      "retained_families": [
+        "I13"
+      ],
+      "state": "verified_selected_N03_scope_with_source_bridge",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "379 run20261025-173129-0e1fb9b8: tests/test_photos.py::test_valid_photo_private_derivative_retries_exif_and_remove, 1PASS real Client/Redis/prefork2; first upload1dispatch, exact duplicate0dispatch",
+        "390 run20261025-200423-1535dac0: same photos module six cases retained in49PASS; process budget and prior recovery regressions"
+      ],
+      "current_source_bridge": "A views/models/publication_signals identical SHA; ingest unchanged through all services AST bridges. A upload timing remains historical reference, not retimed after ORB/process changes.",
+      "citations": [
+        {
+          "file": "apps/mediafiles/services.py",
+          "line_start": 118,
+          "line_end": 128,
+          "sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+          "quote": "            UploadAttempt.objects.create(\n                user=user,\n                revision=revision,\n                result=\"duplicate\" if photo.matches.exists() else \"accepted\",\n            )\n            revision.edit_version += 1\n            revision.save(update_fields=[\"edit_version\", \"updated_at\"])\n            from .tasks import process_blob\n\n            transaction.on_commit(lambda: process_blob.delay(str(blob.pk)), robust=True)\n            return photo"
+        },
+        {
+          "file": "tests/test_photos.py",
+          "line_start": 50,
+          "line_end": 73,
+          "sha256": "5ddceb800d932164f76e7cbd45c2ec1abd15cdfeccf670ef894ecfdfb772e8df",
+          "quote": "def test_valid_photo_private_derivative_retries_exif_and_remove(request, photo_environment):\n    user, person, client = request.getfixturevalue(\"scenario\")\n    client.post(f\"/es/person/{person.pk}/listing/start/\")\n    revision = Revision.objects.get()\n    raw = raw_image()\n    assert upload(client, revision, raw).status_code == 302\n    photo = Photo.objects.select_related(\"blob\").get()\n    assert photo.blob.status == \"ready\" and not photo.approved\n    with photo.blob.derivative.open(\"rb\") as output:\n        image = Image.open(output)\n        assert image.format == \"WEBP\" and not image.getexif() and \"exif\" not in image.info\n    assert upload(client, revision, raw).status_code == 302\n    assert Blob.objects.count() == Photo.objects.count() == 1\n    assert UploadAttempt.objects.count() == 2\n    assert Client().get(f\"/es/photos/{photo.pk}/private/\").status_code == 302\n    response = client.get(f\"/es/photos/{photo.pk}/private/\")\n    assert response.status_code == 200 and response[\"Cache-Control\"] == \"private, no-store\"\n    response.close()\n    assert Client().get(\"/private-media/\" + photo.blob.original.name).status_code == 404\n    assert client.post(f\"/es/photos/{photo.pk}/remove/\").status_code == 302\n    assert client.get(f\"/es/photos/{photo.pk}/private/\").status_code == 404\n\n\n@pytest.mark.django_db(transaction=True)"
+        }
+      ]
+    },
+    {
+      "id": "task:T_apps.mediafiles.tasks.process_blob",
+      "retained_blocks": [
+        "N03",
+        "N07"
+      ],
+      "retained_families": [
+        "I13",
+        "I14"
+      ],
+      "state": "verified_selected_N03_scope_with_source_bridge",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "379 actual initial process_blob worker execution",
+        "381 dense100 six fresh insertions per variant and46PASS functional validation",
+        "383 generation race33PASS;385 progress37PASS",
+        "390 real worker duplicate budget guard plus original real retry/Beat protocol and49PASS"
+      ],
+      "current_source_bridge": "Current task process_blob AST unchanged from A task snapshot; detect_matches changed only in B; process changed only in C/D/F1 with executable focused regressions, F1 final current SHA.",
+      "citations": [
+        {
+          "file": "apps/mediafiles/tasks.py",
+          "line_start": 6,
+          "line_end": 10,
+          "sha256": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+          "quote": "@shared_task(\n    bind=True, autoretry_for=(OSError,), retry_backoff=True, retry_kwargs={\"max_retries\": 3}\n)\ndef process_blob(self, blob_id):\n    process(blob_id)"
+        },
+        {
+          "file": "apps/mediafiles/services.py",
+          "line_start": 138,
+          "line_end": 165,
+          "sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+          "quote": "        blob = Blob.objects.select_for_update().get(pk=blob_id)\n        if blob.status in {\"erasing\", \"erased\", \"purging\", \"purged\"}:\n            return\n        # Legacy ready rows may predate signatures; repair under a fresh lease.\n        ready = blob.status == \"ready\" and bool(blob.signature)\n        if not ready:\n            if (\n                blob.status == \"processing\"\n                and blob.started_at\n                and blob.started_at > timezone.now() - timedelta(minutes=3)\n            ):\n                return\n            # The automatic generation budget belongs to the Blob, not a\n            # Celery message. Preserve an active fourth lease above and allow\n            # ready comparisons without spending another generation.\n            if blob.attempts >= 4:\n                if blob.status != \"failed\":\n                    blob.status = \"failed\"\n                    blob.error_code = \"generation_attempts_exhausted\"\n                    blob.save(update_fields=[\"status\", \"error_code\"])\n                return\n            blob.status = \"processing\"\n            blob.started_at = timezone.now()\n            blob.attempts += 1\n            blob.save(update_fields=[\"status\", \"started_at\", \"attempts\"])\n            lease_attempts, lease_started_at = blob.attempts, blob.started_at\n    if ready:\n        detect_matches(blob_id)"
+        }
+      ]
+    },
+    {
+      "id": "dispatch:0:apps/core/accounts.py:235",
+      "retained_blocks": [
+        "N02",
+        "N03",
+        "N06",
+        "N07",
+        "N09"
+      ],
+      "retained_families": [
+        "I09",
+        "I10",
+        "I11",
+        "I13",
+        "I18",
+        "I20",
+        "I21",
+        "I22",
+        "I23"
+      ],
+      "state": "shared_classification_no_photo_dispatch",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "377 accepted N06 account callback/rollback/token disposition;372 six shared action inventory"
+      ],
+      "current_source_bridge": "accounts.py full SHA identical to A. Callback sends account verification token, not process_blob; broad census family tags do not establish a photo dispatch.",
+      "citations": [
+        {
+          "file": "apps/core/accounts.py",
+          "line_start": 229,
+          "line_end": 235,
+          "sha256": "878021a6788af106ec7105d582a5a27eed0888afce79cbb44be4f546b1a83e73",
+          "quote": "                    for doc in current:\n                        LegalAcceptance.objects.create(\n                            user=user,\n                            document=doc,\n                            action=\"account_terms\" if doc.slug == \"terms\" else \"privacy_notice\",\n                        )\n                    transaction.on_commit(lambda: send_token(user, \"verify\", request.LANGUAGE_CODE))"
+        },
+        {
+          "file": "docs/377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md",
+          "line_start": 61,
+          "line_end": 61,
+          "sha256": "1d93d895f943f1083d5c874302ced46ffe35d0cb21ef637a5a814b4c4bbf7bce",
+          "quote": "- dispatch:0deaccounts.py:callback de correo de cuenta,rollback y tokens observados localmente. Mantener asignaciones originales del censo; operaci\u00f3n de transporteN10yproveedor realN12condicionado cuando se elija/autorice. No prometer entrega externa por unHTTP200ni eliminar los efectos de privacidad/retenci\u00f3n relacionados."
+        }
+      ]
+    },
+    {
+      "id": "dispatch:5:apps/mediafiles/services.py:121",
+      "retained_blocks": [
+        "N03",
+        "N07",
+        "N09"
+      ],
+      "retained_families": [
+        "I13",
+        "I14",
+        "I21"
+      ],
+      "state": "verified_selected_N03_scope_with_source_bridge",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "379 actual transaction-on-commit publish/execution correlation; original upload1 task and duplicate0",
+        "390 six photo regressions in49PASS; current process guard exercised real duplicate message"
+      ],
+      "current_source_bridge": "Two census dispatch occurrences retain two IDs but point to one current on_commit producer and its lambda child, not two independent queues/features. Ingest definition AST unchanged from A-matching B-before through current.",
+      "citations": [
+        {
+          "file": "apps/mediafiles/services.py",
+          "line_start": 123,
+          "line_end": 128,
+          "sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+          "quote": "            revision.edit_version += 1\n            revision.save(update_fields=[\"edit_version\", \"updated_at\"])\n            from .tasks import process_blob\n\n            transaction.on_commit(lambda: process_blob.delay(str(blob.pk)), robust=True)\n            return photo"
+        }
+      ]
+    },
+    {
+      "id": "dispatch:6:apps/mediafiles/services.py:121",
+      "retained_blocks": [
+        "N03",
+        "N07",
+        "N09"
+      ],
+      "retained_families": [
+        "I13",
+        "I14",
+        "I21"
+      ],
+      "state": "verified_selected_N03_scope_with_source_bridge",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "379 actual transaction-on-commit publish/execution correlation; original upload1 task and duplicate0",
+        "390 six photo regressions in49PASS; current process guard exercised real duplicate message"
+      ],
+      "current_source_bridge": "Two census dispatch occurrences retain two IDs but point to one current on_commit producer and its lambda child, not two independent queues/features. Ingest definition AST unchanged from A-matching B-before through current.",
+      "citations": [
+        {
+          "file": "apps/mediafiles/services.py",
+          "line_start": 123,
+          "line_end": 128,
+          "sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+          "quote": "            revision.edit_version += 1\n            revision.save(update_fields=[\"edit_version\", \"updated_at\"])\n            from .tasks import process_blob\n\n            transaction.on_commit(lambda: process_blob.delay(str(blob.pk)), robust=True)\n            return photo"
+        }
+      ]
+    },
+    {
+      "id": "dispatch:7:apps/mediafiles/tasks.py:30",
+      "retained_blocks": [
+        "N03",
+        "N07",
+        "N09"
+      ],
+      "retained_families": [
+        "I13",
+        "I14",
+        "I15",
+        "I25"
+      ],
+      "state": "verified_selected_N03_scope_with_source_bridge",
+      "remaining": "Other block owners retained; no N03 mandatory evidence pending in selected scope.",
+      "witnesses": [
+        "385 exact four regressions plus bounded100selector and16 recovery cases",
+        "387 real native Beat60s, four positive recovery Blobs and negative controls",
+        "390 current-source real worker/Beat replay with actual budget guard;49PASS"
+      ],
+      "current_source_bridge": "Only recover_media_jobs changed since A: D ready Exists matches active incomplete nonhistory origins. Current task file unchanged throughout F1; current process prevents exhausted queued/stale rows from generating even if dispatched once.",
+      "citations": [
+        {
+          "file": "apps/mediafiles/tasks.py",
+          "line_start": 24,
+          "line_end": 36,
+          "sha256": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+          "quote": "    stale = timezone.now() - timedelta(minutes=3)\n    # Match the detector's origin-photo scope, including private preparations.\n    pending_comparisons = Photo.objects.filter(\n        blob_id=OuterRef(\"pk\"), comparison_complete=False, removed_at__isnull=True\n    ).exclude(revision_id__in=rectification_history_ids())\n    pending = Blob.objects.filter(\n        Q(status=\"queued\")\n        | Q(status=\"processing\", started_at__lt=stale)\n        | Q(status=\"failed\", attempts__lt=4)\n        | (Q(status=\"ready\") & Exists(pending_comparisons))\n    ).distinct()\n    for blob_id in pending.values_list(\"pk\", flat=True)[:100]:\n        process_blob.delay(str(blob_id))"
+        },
+        {
+          "file": "apps/mediafiles/services.py",
+          "line_start": 150,
+          "line_end": 163,
+          "sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+          "quote": "            # The automatic generation budget belongs to the Blob, not a\n            # Celery message. Preserve an active fourth lease above and allow\n            # ready comparisons without spending another generation.\n            if blob.attempts >= 4:\n                if blob.status != \"failed\":\n                    blob.status = \"failed\"\n                    blob.error_code = \"generation_attempts_exhausted\"\n                    blob.save(update_fields=[\"status\", \"error_code\"])\n                return\n            blob.status = \"processing\"\n            blob.started_at = timezone.now()\n            blob.attempts += 1\n            blob.save(update_fields=[\"status\", \"started_at\", \"attempts\"])\n            lease_attempts, lease_started_at = blob.attempts, blob.started_at"
+        }
+      ]
+    }
+  ],
+  "source_bridges": [
+    {
+      "before": "artifacts/recorridos-n03-b-20261025/services-before.py",
+      "before_sha256": "6fd427a388659b0fc2338f00cef4dde39f2d30416552ef967289063e44395bbe",
+      "after": "artifacts/recorridos-n03-c-20261025/services-before.py",
+      "after_sha256": "7b28e31599f24ee66c073b9f2a30690741e5aee0490f3a668eecc3b0403c74f3",
+      "changed_definitions": [
+        "detect_matches"
+      ]
+    },
+    {
+      "before": "artifacts/recorridos-n03-c-20261025/services-before.py",
+      "before_sha256": "7b28e31599f24ee66c073b9f2a30690741e5aee0490f3a668eecc3b0403c74f3",
+      "after": "artifacts/recorridos-n03-d-20261025/services-before.py",
+      "after_sha256": "9cb6ac1762a393515c0e07ed96c92fc827314e3e2fa08442a1714a0c19719b43",
+      "changed_definitions": [
+        "process"
+      ]
+    },
+    {
+      "before": "artifacts/recorridos-n03-d-20261025/services-before.py",
+      "before_sha256": "9cb6ac1762a393515c0e07ed96c92fc827314e3e2fa08442a1714a0c19719b43",
+      "after": "artifacts/recorridos-n03-f-20261025/services-before.py",
+      "after_sha256": "2b09f5236cd6e3c0886f1f0d40036b93e219f311109866ea3e29076acd953b90",
+      "changed_definitions": [
+        "process"
+      ]
+    },
+    {
+      "before": "artifacts/recorridos-n03-f-20261025/services-before.py",
+      "before_sha256": "2b09f5236cd6e3c0886f1f0d40036b93e219f311109866ea3e29076acd953b90",
+      "after": "apps/mediafiles/services.py",
+      "after_sha256": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+      "changed_definitions": [
+        "process"
+      ]
+    },
+    {
+      "before": "artifacts/recorridos-n03-d-20261025/tasks-before.py",
+      "before_sha256": "4fe3a5d32dae065c9489a70eaf29a2e64517df5d9ac761bd8140994bb8f0c104",
+      "after": "apps/mediafiles/tasks.py",
+      "after_sha256": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+      "changed_definitions": [
+        "recover_media_jobs"
+      ]
+    }
+  ],
+  "evidence": "docs/393-n03-aceptacion-local-procesamiento-similitud-20261025.md",
+  "mandatory_accepted": 4,
+  "mandatory_total": 13,
+  "historical_matrix_preserved": true
+}

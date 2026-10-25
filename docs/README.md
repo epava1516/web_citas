@@ -379,3 +379,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N03F1: límite de generaciones y mensaje adicional real](390-n03-f1-resultado-limite-generaciones-20261025.md).
 
 - [N03F2: crecimiento histórico y tiempos observados](392-n03-f2-resultado-crecimiento-historico-20261025.md).
+
+- [Aceptación local N03: acciones, correcciones y tiempos antes/después](393-n03-aceptacion-local-procesamiento-similitud-20261025.md).

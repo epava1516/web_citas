@@ -1,0 +1,112 @@
+{
+  "result": "PASS_N03_ACTIONS_SOURCE_BRIDGES_ORIGINAL_WITNESSES_AND_FINITE_CRITERIA_ROOT_VERIFIED",
+  "head_before_acta": "5f68464",
+  "actions": [
+    "dispatch:0:apps/core/accounts.py:235",
+    "dispatch:5:apps/mediafiles/services.py:121",
+    "dispatch:6:apps/mediafiles/services.py:121",
+    "dispatch:7:apps/mediafiles/tasks.py:30",
+    "route:R_photo_upload",
+    "task:T_apps.mediafiles.tasks.process_blob"
+  ],
+  "citations_verified": 13,
+  "source_bridges_verified": 5,
+  "witnesses": [
+    {
+      "run": "20261025-173129-0e1fb9b8",
+      "tests": 1,
+      "failures": 0,
+      "junit_sha256": "3d2b58b49a91f76394f4c17224773e5180928dad5b1d94782caaf624239d22a0",
+      "result_sha256": "7a3e8a451214a926017802e67685dd631bd9f3e8c5fe7041565f618c3a907d44"
+    },
+    {
+      "run": "20261025-175533-a061c196",
+      "tests": 1,
+      "failures": 0,
+      "junit_sha256": "0b01f7b3a272beaf454c0d810e0ba107a630808986ae3b316e137c2531d7a3ea",
+      "result_sha256": "febe204937aad6d5a0532f34caf844f9dc4fc922ddc203288a0e9a7b6d3b504c"
+    },
+    {
+      "run": "20261025-180035-0ecdeb99",
+      "tests": 1,
+      "failures": 0,
+      "junit_sha256": "3622e0fd3490c194c6060e50ae6f0181971e94cfc0178d672b27f1e3101168fc",
+      "result_sha256": "1912396550951d66385596751ab92ac2c38d5b39b30c0d065805f1cef01b7fa8"
+    },
+    {
+      "run": "20261025-180404-86f68fb2",
+      "tests": 46,
+      "failures": 0,
+      "junit_sha256": "12aa2210c9ba0606e595b538d4af92f815363750bf17369ffec51a8221aef9e8",
+      "result_sha256": "2111268377e8f892c9371e133d320df8b1d6cac81aaa3ad222562ee8c25ddced"
+    },
+    {
+      "run": "20261025-181549-690b123b",
+      "tests": 2,
+      "failures": 2,
+      "junit_sha256": "158215d9e62a04f4fe74ae427639bd7e1ca6ada8d47a6b63388373c8d9229c46",
+      "result_sha256": "ee87eeec819000f9b4f5af16fe002cee32bff50041f01996ceb2c75839e00d80"
+    },
+    {
+      "run": "20261025-183022-372b5094",
+      "tests": 33,
+      "failures": 0,
+      "junit_sha256": "706a294588a103c554a42c55eec9520f025029d212e217e9614aba0c20b98306",
+      "result_sha256": "8f5cec39cc0e90784be800756626a3719593dce708bf8f9c0484f97a68f97db6"
+    },
+    {
+      "run": "20261025-184432-abf4326e",
+      "tests": 4,
+      "failures": 4,
+      "junit_sha256": "f06f5079c61ab4f281ff4569db747262dedf25f5011d09bf6ae4d40d7dffa7b2",
+      "result_sha256": "21ddfd32d5139b07e7160c0a2135a941a1e989ee98fd5cfa970193b2b1ebe7d7"
+    },
+    {
+      "run": "20261025-184941-1ac056e3",
+      "tests": 37,
+      "failures": 0,
+      "junit_sha256": "73361e144365e6e7004eb7f51dc5578ddafd6749e9ebcd5f10f9221b365c3121",
+      "result_sha256": "ff83b4bd1158825a5205df6aef09808dc0ae2d0d1262dcc2dee503e36c4d0c7c"
+    },
+    {
+      "run": "20261025-192053-4c827d97",
+      "tests": 1,
+      "failures": 0,
+      "junit_sha256": "d3d770c8fa655f4b14c418d06b3d1941ef1e2d668440a05a85ddcac297c78484",
+      "result_sha256": "5067af28e4eaee8ba0ba0e8b83aba8be3e0d47ad162971b7da60ce05bb770477"
+    },
+    {
+      "run": "20261025-195610-4d4d1295",
+      "tests": 11,
+      "failures": 8,
+      "junit_sha256": "8b3a16548987f3244e4c0af9a634187d78e3c012b12ec869c38cc5370387b485",
+      "result_sha256": "e9192d50696d5a0f686e48609e6957578c6721100f996ced1edc4d9bff3a24a1"
+    },
+    {
+      "run": "20261025-200423-1535dac0",
+      "tests": 49,
+      "failures": 0,
+      "junit_sha256": "bf5ecfb55298d58f3905e27500a44b084cc55fcaa6db50f9e809a56c04185eb1",
+      "result_sha256": "cec12f4a83fecf30587714d80c1992d61d56558e716082c38a9b72f6d6391ece"
+    },
+    {
+      "run": "20261025-202704-5fab8e4c",
+      "tests": 3,
+      "failures": 0,
+      "junit_sha256": "2b88eddd582083c446d2b543a14e1f6acf2841044902ae217a2eef51aa402516",
+      "result_sha256": "4fe998249f1706162cdf204477868f99e2a0ae246bd9238655f599440a699cea"
+    }
+  ],
+  "functional_fail_references_preserved": [
+    2,
+    4,
+    8
+  ],
+  "F1_global_budget_current": true,
+  "F2_finite_retention_current": true,
+  "B_detector_and_similarity_current": true,
+  "coverage": "N03 I13/I14 only; six census IDs preserved, other block owners retained. Source bridges plus executable regression; no universal absence of bugs, no HTTP capacity or providers.",
+  "acceptance_authority": "Root technical decision, not native report",
+  "next_mandatory_accepted_if_acta_integrated": 4,
+  "mandatory_total": 13
+}

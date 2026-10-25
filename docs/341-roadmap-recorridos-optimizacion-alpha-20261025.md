@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **3/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377 en los escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **4/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377 y N03 por393 en sus escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -17,7 +17,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | Aceptado por343; alcance estructural |
 | N01 | P0 | Línea base y presupuestos por escenario | N00 | Aceptado por355; criterios354 y bases/motivos por lote |
 | N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Verificado localmente con límite: guard365 y evaluación367; optimización restante MOD09 diferida al final del desarrollo por decisión expresa del usuario, sin PASS temporal |
-| N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | En curso:379subida/worker real y381ORB local aceptado (−14,9% observado/paridad exacta/46PASS); 383fences33PASS y385progreso37PASS aceptados locales; 387transporte1PASS y390capglobal49PASS locales; 392retención0/10/1003PASSlocal; actafinal pendiente N03/N07 |
+| N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Aceptado localmente por393: seis acciones y nueve criterios conciliados, contraste ORB381 y correcciones C/D/F1 con49PASS; retención392 con3PASS/18llamadas; límites finitos y dueños compartidos conservados |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
 | N06 | P1 | Cuenta, panel, edición y representación | N01 | Aceptado localmente por377:46disposiciones y escenarios A–G verificados; límites/compartidosN10/N03/N07retenidos, sin garantía universal |
