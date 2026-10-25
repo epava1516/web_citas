@@ -1,6 +1,6 @@
-N02Dpreparación:secuencia fija de preflight local y,siREADY/limpio,una evaluación completa original MOD09 con2sujetos1500revisiones/~16MiBJSON/~64MiBimágenes cadauno. [Protocolo366](366-n02-d-prerregistro-evaluacion-completa-mod09-20261025.md). Aplicación sin cambios tras guard adoptado365;FAIL/2s/5s previos conservados. Espera prevista~33minmáspreparación,con shell persistente/Telegram/compactación y mismo goal. Sin resultados todavía;2/13N02/N06abiertos,alfa.
+N06F preparado: medir referencias restantes con once selectores originales/doce casos, sin candidato nuevo. [Conciliación372](372-n06-e-conciliacion-acciones-variantes-20261025.md) verifica46acciones/76citas;20de41rutas tienen referencia acotada y21no. [Protocolo373](373-n06-f-prerregistro-referencias-restantes-20261025.md). N06abierto, N00/N01aceptados2/13, alfa.
 
-Antesdelanzar:grafofocal/fuentes/spec/helpers congelados y control de mismo goal;antesdepausar exigirpreflightválido,controladorcompletovivo yTelegramprevio confirmado. Shellcompactará enpaused/idle yreactivará sólo el mismo objetivo alterminal;no modelo sondeando. Auditar resultado íntegro/cuerpos/concurrencia/recursos/limpieza antes de decidir nuevas correcciones o repetir.
+Antes de medir: grafo focal y fuentes/selección/imágenes congelados; después auditar estados/oráculos/tiempos/limpieza/Telegram. No repetir MOD09restante diferido por usuario367. Tras estas referencias: cuatro colas de revisión con crecimiento pendiente y conciliación de variantes/compartidos antes del cierreN06. Panel371conserva su aceptación local.
 
 N02Cauditado:1PASS/120guards/12grupos10,5/5parejas posteriores favorables;mediana de medias39,513→28,857ms,7→4SQL/2lecturas10554bytes/4locks previos porguard. [Resultado365](365-n02-c-resultado-contraste-agrupado-guard-20261025.md). Guard adoptado localmente,16oráculos anteriores reutilizados/1516fuentes intactas;no ganancia universal ni aceptaciónMOD09. Limpieza/TGsent,2/13N02/N06abiertos,alfa.
 
@@ -3739,3 +3739,18 @@ N06C resultado369: run20261025-154544-5fcdc190,2PASS/0FAIL/ERROR/SKIP,44peticion
 
 
 N06D aceptado localmente en371: panel propietario n+8→8SQL para1/10/100ESEN;100editores108→8SQL y medianas279,575→54,110msES/225,516→46,849msEN. Una línea select_relateduser sólomiembrosactivospropietario. Referencia6PASS/candidata6PASS/validaciónexistente3PASSincluyenbrowserESEN;72muestrasporpasada,orden/contenido/bytes y revocación preservados,1736huellas intactas,limpieza/Telegram confirmados. Porcentajes temporales sólo observados en dos pasadas locales; editor7SQLsin cambio y variaciónpropia, no causalidaduniversal/p95. N06abierto,2/13bloquesaceptados; siguiente conciliación de acciones/variantes. MOD09restante diferido porusuario367. Grafoactual de candidata AST25/64sin cambios de forma, método no capturado por extractor; identidad/diff verificados, no semántica exhaustiva.
+
+
+## Registro histórico de cabecera N02D, sustituida al iniciar N06E
+
+N02Dpreparación:secuencia fija de preflight local y,siREADY/limpio,una evaluación completa original MOD09 con2sujetos1500revisiones/~16MiBJSON/~64MiBimágenes cadauno. [Protocolo366](366-n02-d-prerregistro-evaluacion-completa-mod09-20261025.md). Aplicación sin cambios tras guard adoptado365;FAIL/2s/5s previos conservados. Espera prevista~33minmáspreparación,con shell persistente/Telegram/compactación y mismo goal. Sin resultados todavía;2/13N02/N06abiertos,alfa.
+
+Antesdelanzar:grafofocal/fuentes/spec/helpers congelados y control de mismo goal;antesdepausar exigirpreflightválido,controladorcompletovivo yTelegramprevio confirmado. Shellcompactará enpaused/idle yreactivará sólo el mismo objetivo alterminal;no modelo sondeando. Auditar resultado íntegro/cuerpos/concurrencia/recursos/limpieza antes de decidir nuevas correcciones o repetir.
+
+
+
+## Registro histórico de cabecera de conciliación N06E
+
+N06E en curso: conciliar cuenta, panel, edición y representación contra las acciones censadas y evidencias A–D. [Último resultado: panel371](371-n06-d-resultado-optimizacion-panel-agencia-20261025.md), corrección local f03eea8: propietario108→8SQL con100editores; seis casos antes/después y tres adicionales PASS. N06 sigue abierto; N00/N01 aceptados2/13. Alfa.
+
+MOD09 restante diferido al final del desarrollo por decisión expresa del usuario: [367](367-n02-d-resultado-y-diferimiento-mod09-20261025.md). No repetir su batería. Siguiente acción: terminar refresco del grafo y matriz N06 por acción/variante, reutilizar sólo evidencia vigente y elegir los huecos concretos antes de nuevas pruebas.
