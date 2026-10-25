@@ -1,3 +1,7 @@
+Inventario diferencial338/339 verificado:28familias,170rutas,27tareas,15comandos propios,31Django y11recorridos operativos. Original111 y1507fuentes ejecutables preservados. B16 aceptado;15/18dispuestos localmente, B14/B15/B17deuda. Pendientes integración semántica al grafo y acta final; alfa.
+
+Corte: [inventario338](338-inventario-acciones-recorridos-alpha-20261025.md), [diferencial339](339-diferencial-inventario-recorridos-20261025.md) y [verificación](evidencias/inventario-acciones-verificacion-20261025.json).
+
 B16 aceptado técnicamente en local por [acta22](actas/22-beta-b16-aceptacion-local-20261025.md): candidata integrada conciliada, capacidad contractual vigente y recuperación auditadas, negativos/omisiones/deuda preservados.15/18cerrados: B00–B13 yB16;B14/B15/B17sin aceptación técnica. Alfa; pendientes grafo completo, inventario diferencial yacta final del contrato.
 
 B16-373: contractual370 auditado numéricamente:18000respuestas/15subidas, p95observable410,559ms; cuotas, fuentes y limpieza verificadas.45testigos semánticos conservan SHA;11exclusiones dispuestas por alcance sin reescribir resultados. B16pendiente conciliación final;14/18,alfa.

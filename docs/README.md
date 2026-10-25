@@ -313,3 +313,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Conciliación de exclusiones B16:330](330-conciliacion-exclusiones-b16-20261024.md), [siete actuales](evidencias/b16-seven-current-exclusions-audit-20261024.json), [reutilización territorial](evidencias/b16-territory-exclusions-reuse-20261024.json) y [matriz individual](evidencias/b16-official-exclusion-dispositions-20261024.json). Nueve dispuestas y dosHTTPpendientes; no aceptaciónB16.
 
 - [Control corto HTTP vigente B16:331](331-control-corto-http-vigente-b16-20261024.md): prerregistro de mezcla combinada10000, recursos y espera persistente. Sin resultado todavía.
+
+- [Inventario actualizado338](338-inventario-acciones-recorridos-alpha-20261025.md) y [diferencial339](339-diferencial-inventario-recorridos-20261025.md): I01–I28 preservados, fuentes y recorridos operativos contrastados. [Verificación](evidencias/inventario-acciones-verificacion-20261025.json) y [reproducción](evidencias/inventario-acciones-reproduccion-20261025.json). Pendientes integración semántica al grafo y acta final; alfa.
