@@ -1,3 +1,5 @@
+- [N02D:preparación de control previo y evaluación completa actual de MOD09](366-n02-d-prerregistro-evaluacion-completa-mod09-20261025.md).
+
 - [N02C: contraste agrupado5/5favorable y guard adoptado localmente; MOD09pendiente](365-n02-c-resultado-contraste-agrupado-guard-20261025.md).
 
 - [N02B: guard real y coste7→4SQL verificados; tiempo inconcluso, adopción pendiente](363-n02-b-resultado-guard-imagenes-sello-20261025.md).

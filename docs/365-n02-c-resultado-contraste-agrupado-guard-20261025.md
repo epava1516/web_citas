@@ -14,7 +14,11 @@ Mismo caso/exportación/archivos/proceso,transacción y holds/replay nativos nue
 | Mediana de mediasCPUdelhilo | 29.546ms | 20.611ms | 8.935msmenos |
 | Mediana de mediasSQLexecute | 12.097ms | 9.099ms | 2.998msmenos |
 | SELECTporguard | 7 | 4 | 3menos (42,857%) |
-| Lecturas/hash/bytes porguard | 2/10554 | 2/10554 | 0 |
+| Lecturas completas por guard | 2 | 2 | Sin cambio |
+| Hashes de contenido por guard | 2 | 2 | Sin cambio |
+| Bytes leídos por guard | 10 554 | 10 554 | Sin cambio |
+
+Aclaración editorial de la tabla: hay 60 llamadas por variante; la comparación principal usa las cinco medias posteriores de 10 llamadas por variante (50 llamadas), con el primer grupo de 10 separado. La reducción es `(anterior − posterior) / anterior`; se calcula con valores sin redondear. N02 sigue abierto.
 
 El helper check conserva su perfilador Python original de conteos activo en ambas variantes: el reloj de guard incluye ese sobrecoste; no es latencia limpia sin instrumentación. No sumar CPUySQLexecute: sus relojes se solapan. La primera pareja de grupos queda separada por decisión previa, no por su resultado. Se conservan también todas las120muestras individuales: rangos completos22,522–208,690ms anterior/14,500–42,983ms candidato. No se retiran outliers ni se mezclan estas medias con las medianas individuales de363.
 

@@ -1,3 +1,7 @@
+N02Dpreparación:secuencia fija de preflight local y,siREADY/limpio,una evaluación completa original MOD09 con2sujetos1500revisiones/~16MiBJSON/~64MiBimágenes cadauno. [Protocolo366](366-n02-d-prerregistro-evaluacion-completa-mod09-20261025.md). Aplicación sin cambios tras guard adoptado365;FAIL/2s/5s previos conservados. Espera prevista~33minmáspreparación,con shell persistente/Telegram/compactación y mismo goal. Sin resultados todavía;2/13N02/N06abiertos,alfa.
+
+Antesdelanzar:grafofocal/fuentes/spec/helpers congelados y control de mismo goal;antesdepausar exigirpreflightválido,controladorcompletovivo yTelegramprevio confirmado. Shellcompactará enpaused/idle yreactivará sólo el mismo objetivo alterminal;no modelo sondeando. Auditar resultado íntegro/cuerpos/concurrencia/recursos/limpieza antes de decidir nuevas correcciones o repetir.
+
 N02Cauditado:1PASS/120guards/12grupos10,5/5parejas posteriores favorables;mediana de medias39,513→28,857ms,7→4SQL/2lecturas10554bytes/4locks previos porguard. [Resultado365](365-n02-c-resultado-contraste-agrupado-guard-20261025.md). Guard adoptado localmente,16oráculos anteriores reutilizados/1516fuentes intactas;no ganancia universal ni aceptaciónMOD09. Limpieza/TGsent,2/13N02/N06abiertos,alfa.
 
 Siguiente:semántica365/341/README/vista17 antes de hito;atribuir cobertura/selección/serialización/cifrado/paquetes/cola/entrega y evaluar escenario original MOD09 completo,crecimiento/concurrencia.2s/5s/FAIL/excepción original yrestocontrato intactos;363histórico inconcluso preservado.
