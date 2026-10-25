@@ -1,0 +1,182 @@
+{
+  "result": "PASS_N03A_REAL_QUEUED_UPLOAD_REFERENCE_NOT_N03_ACCEPTANCE",
+  "run": "20261025-173129-0e1fb9b8",
+  "head": "f2ff718ac0dbd7bb7505c624c665afee50678e3d",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "48.630",
+      "timestamp": "2026-10-25T18:31:50.188937+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "junit_sha256": "3d2b58b49a91f76394f4c17224773e5180928dad5b1d94782caaf624239d22a0",
+  "source_count": 1738,
+  "source_mismatches": [],
+  "reference": {
+    "foreign_keys_preserved": true,
+    "pid_start_ticks": {
+      "3398068": 467015879,
+      "3398283": 467016042,
+      "3398284": 467016055
+    },
+    "private_credentials_removed": true,
+    "processes_absent": {
+      "3398068": true,
+      "3398283": true,
+      "3398284": true
+    },
+    "runtime_role_removed": true,
+    "samples": [
+      {
+        "after_request_ready_observed_seconds": 1.223455143161118,
+        "entry_monotonic": 4670162.639198262,
+        "entry_to_ready_observed_seconds": 1.3936511985957623,
+        "kind": "new_upload",
+        "ledger": [
+          {
+            "eager": false,
+            "publish_monotonic": 4670162.806050679,
+            "publish_to_start_seconds": 0.0038737375289201736,
+            "state": "SUCCESS",
+            "task": "apps.listings.tasks.refresh_publication_state",
+            "task_id": "62ad0bea-d2f5-41c3-ad7b-dee98c512669",
+            "worker_end_monotonic": 4670162.875708812,
+            "worker_pid": 3398283,
+            "worker_start_monotonic": 4670162.809924416,
+            "worker_thread_cpu_seconds": 0.019900055,
+            "worker_wall_seconds": 0.06578439567238092
+          },
+          {
+            "eager": false,
+            "publish_monotonic": 4670162.807801284,
+            "publish_to_start_seconds": 0.004621597938239574,
+            "state": "SUCCESS",
+            "task": "apps.mediafiles.tasks.process_blob",
+            "task_id": "1f088e50-28d7-47f1-b986-603fd8a70b39",
+            "worker_end_monotonic": 4670163.899869043,
+            "worker_pid": 3398284,
+            "worker_start_monotonic": 4670162.812422882,
+            "worker_thread_cpu_seconds": 0.7420169120000001,
+            "worker_wall_seconds": 1.087446161545813
+          }
+        ],
+        "media_task_count": 1,
+        "ordinal": 1,
+        "ready_observed_monotonic": 4670164.032849461,
+        "request_end_monotonic": 4670162.809394318,
+        "request_seconds": 0.17019605543464422,
+        "request_thread_cpu_seconds": 0.07273440300000544,
+        "sql_execute_seconds": 0.10306663904339075,
+        "sql_queries": 35,
+        "status": 302,
+        "task_always_eager": false
+      },
+      {
+        "after_request_ready_observed_seconds": 0.005187671631574631,
+        "entry_monotonic": 4670164.204321473,
+        "entry_to_ready_observed_seconds": 0.08682721015065908,
+        "kind": "exact_duplicate_retry",
+        "ledger": [],
+        "media_task_count": 0,
+        "ordinal": 2,
+        "ready_observed_monotonic": 4670164.291148683,
+        "request_end_monotonic": 4670164.285961011,
+        "request_seconds": 0.08163953851908445,
+        "request_thread_cpu_seconds": 0.05018551799999926,
+        "sql_execute_seconds": 0.03307727538049221,
+        "sql_queries": 20,
+        "status": 302,
+        "task_always_eager": false
+      }
+    ],
+    "scope": "Original JPEG upload and exact retry with own PG/Redis/prefork2 restricted worker; Client backend phase, task execution and readiness observation separate. No TCP/Beat/load/provider or upload transport latency claim.",
+    "unexpected_unscoped_keys": 0,
+    "worker_exit_code": 0,
+    "worker_root_exited": true
+  },
+  "independent_inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "temporary_absent": true,
+  "terminal_telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "native_manifest": {
+    "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+    "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+    "environment": {
+      "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-local-ci-nfqdopp0/native-tools/rdb-cli",
+      "RETAINED_RDB_DECODER_SHA256": "68856612b711374506d204681e57ecf7c73b39e23dbfdb70b6f3352bb72c1f1c",
+      "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-local-ci-nfqdopp0/native-tools/retained-rdb-aux",
+      "RETAINED_RDB_AUX_SHA256": "5fb92c4956c69677e46d32edee9559ad97edc9454078098fb928c14d99565b6e",
+      "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-local-ci-nfqdopp0/native-tools/retained-rdb-metadata",
+      "RETAINED_RDB_METADATA_SHA256": "56ac34412b4c339bef81caf1b26039d2d9d9fc3e36448105cdff162a5769b316"
+    }
+  },
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.51878154091537
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.5752693666145205
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.03316107578575611
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.06630793865770102
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 1.878105846233666
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.6736955950036645
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 1.985296401195228
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 9.71032198984176
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 50.82244035322219
+    }
+  ],
+  "scope": "Original JPEG upload and exact retry with own PG/Redis/prefork2 restricted worker; Client backend phase, task execution and readiness observation separate. No TCP/Beat/load/provider or upload transport latency claim.",
+  "independent_worker_events": {
+    "result": "PASS_N03A_INDEPENDENT_WORKER_EVENT_CORRELATION",
+    "run": "20261025-173129-0e1fb9b8",
+    "execution_count": 10,
+    "media_execution_count": 1,
+    "sample_ledger_correlated": true,
+    "pid_start_ticks_absent_or_reused": true,
+    "scope": "Own parent publication journal and actual worker execution events, no subject IDs or credentials."
+  }
+}

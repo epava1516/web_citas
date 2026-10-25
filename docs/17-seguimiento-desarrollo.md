@@ -1,6 +1,6 @@
-N06 aceptado localmente por [377](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md), con46disposiciones/tabla temporal/límites. N06G[376](376-n06-g-resultado-crecimiento-colas-20261025.md):8PASS/240muestras/128guardias,7SQLconstantes en cuatro colas0/1/10/100/101ES/EN. N00/N01/N06aceptados3/13; alfa, contrato abierto.
+N03A auditado: [379](379-n03-a-resultado-subida-cola-real-20261025.md),1PASS/subidaJPEGyduplicado conworkerreal,1738huellasintactas ylimpieza/TGconfirmados. Primera petición170,196ms/35SQL,worker1087,446ms,readyobservado1393,651msdesdeentrada;duplicado0tareamedia. Sin cambio de aplicación. N03abierto,N00/N01/N06aceptados3/13,alfa.
 
-Siguiente:N03procesamiento/similitud fotográfica; refrescar grafo antes del hito, revisar S07yprerregistrar escenario antes de medir/cambiar. Coordinar evidencia conN07sin duplicar trabajo; N10 conserva runbooks/operación compartida. No reabrir MOD09restante diferido por usuario367 ni activar N12–N14/proveedores/apertura.
+Siguiente:refrescar grafo del resultado y prerregistrar una hipótesis acotada del detector con referencia/candidata equivalentes y paridad;no imponer índice/cap/cacheglobal. Detector327reutilizado15fuentesidénticas,2PASSlimitados. Recuperación/reintentos de errores/retención/concurrencia pendientes de conciliaciónN03/N07;MOD09restantediferidousuario367,contratoactivo.
 
 N02Cauditado:1PASS/120guards/12grupos10,5/5parejas posteriores favorables;mediana de medias39,513→28,857ms,7→4SQL/2lecturas10554bytes/4locks previos porguard. [Resultado365](365-n02-c-resultado-contraste-agrupado-guard-20261025.md). Guard adoptado localmente,16oráculos anteriores reutilizados/1516fuentes intactas;no ganancia universal ni aceptaciónMOD09. Limpieza/TGsent,2/13N02/N06abiertos,alfa.
 
@@ -3768,3 +3768,10 @@ Antes de medir: grafo focal y fuentes/selección/imágenes congelados; después 
 N06F auditado: [374](374-n06-f-resultado-referencias-restantes-20261025.md),12PASS/120peticiones/17rutas nuevas con referencia;37/41rutas N06con alguna muestra, sin mejora de código ni aceptación universal. Fuentes intactas, limpieza yTelegram terminal confirmados. N06abierto; N00/N01aceptados2/13, alfa.
 
 Siguiente: refrescar grafo y prerregistrar crecimiento/selección/autoridad de las cuatro colas de revisión, después conciliar suficiencia de variantes/compartidos antes de cerrarN06. No repetir MOD09restante diferido por usuario367. Panel371conserva su optimización local.
+
+
+## Registro histórico de cabecera de aceptación N06 e inicio N03
+
+N06 aceptado localmente por [377](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md), con46disposiciones/tabla temporal/límites. N06G[376](376-n06-g-resultado-crecimiento-colas-20261025.md):8PASS/240muestras/128guardias,7SQLconstantes en cuatro colas0/1/10/100/101ES/EN. N00/N01/N06aceptados3/13; alfa, contrato abierto.
+
+Siguiente:N03procesamiento/similitud fotográfica; refrescar grafo antes del hito, revisar S07yprerregistrar escenario antes de medir/cambiar. Coordinar evidencia conN07sin duplicar trabajo; N10 conserva runbooks/operación compartida. No reabrir MOD09restante diferido por usuario367 ni activar N12–N14/proveedores/apertura.

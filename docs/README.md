@@ -365,3 +365,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 
 - [N06G: crecimiento y autoridad de cuatro colas](376-n06-g-resultado-crecimiento-colas-20261025.md).
 - [Aceptación local N06: cuenta, panel, edición y representación](377-n06-aceptacion-local-cuenta-panel-representacion-20261025.md).
+
+- [N03A: referencia real de subida, cola y procesamiento](379-n03-a-resultado-subida-cola-real-20261025.md).
