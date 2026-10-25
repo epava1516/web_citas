@@ -6,11 +6,11 @@
 
 Una observación por inicio/estado. La columna de disponibilidad es la cota observada **después de terminar el reloj de la petición**, incluyendo drenaje de tareas y verificaciones del arnés.
 
-| Escenario | Petición anterior N06A eager (ms) | Petición actual N06B encolada (ms) | Disponibilidad observada tras petición (ms) | SQL en conexión de petición N06B |
-| --- | ---: | ---: | ---: | ---: |
-| Inicio desde versión publicada | 456.182 | 109.875 | 460.337 | 27 |
-| Inicio en caso de rechazo | 496.601 | 114.054 | 514.251 | 27 |
-| Corrección tras rechazo | 556.703 | 131.019 | 471.346 | 27 |
+| Escenario | Petición anterior N06A eager (ms) | Petición actual N06B encolada (ms) | Disponibilidad observada tras petición (ms) | SQL en conexión de petición N06B | Mejora atribuible a código (ms / %) |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Inicio desde versión publicada | 456.182 | 109.875 | 460.337 | 27 | No evaluable |
+| Inicio en caso de rechazo | 496.601 | 114.054 | 514.251 | 27 | No evaluable |
+| Corrección tras rechazo | 556.703 | 131.019 | 471.346 | 27 | No evaluable |
 
 **No es un antes/después de optimización de código.** La aplicación es la misma; cambia el escenario eager por despacho real a worker, con preparación nativa explícita y concurrencia prefork2. No se calcula un porcentaje de mejora atribuible. Los27SQLde petición son una medida real nueva, no el resultado de restar los89/97anteriores. No contabilizan SQL de otros procesos; no se demuestra reducción del trabajo total del servidor.
 
