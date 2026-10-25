@@ -1,0 +1,89 @@
+{
+  "result": "PASS_N07B_REAL_PUBLICATION_WORKER_BEAT_REFERENCE_NOT_N07_ACCEPTANCE",
+  "run": "20261025-225301-8e9ac820",
+  "cases": 1,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "118.068",
+      "timestamp": "2026-10-25T23:53:21.181292+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_freeze_count": 1754,
+  "runner_source_hashes": 1750,
+  "documents_verified_separately": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md",
+    "docs/401-n07-a-carrera-reordenacion-retirada-20261025.md",
+    "docs/403-n07-b-prerregistro-publicacion-worker-beat-20261025.md",
+    "docs/404-n07-b-correccion-instrumento-publicacion-20261025.md"
+  ],
+  "application_change": false,
+  "dataset_published": 100,
+  "native_equal_rows_each_phase": 102,
+  "public_pagination_GETs": 18,
+  "successful_real_task_executions": 7,
+  "restricted_role_proofs": 7,
+  "worker_child_PIDs": 2,
+  "owned_process_identities_absent": 4,
+  "summary": {
+    "startup_queue_to_start_seconds": 4.988900444470346,
+    "startup_clear_observed_seconds": 5.3746983502060175,
+    "startup_worker_wall_seconds": 0.2784092565998435,
+    "first_beat_refresh_after_spawn_seconds": 31.506022824905813,
+    "refresh_tick_interval_seconds": 29.99187090061605,
+    "expiry_event_lag_seconds": 64.572947,
+    "steady_task_ledger": [
+      {
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "queue_to_start_seconds": 0.024850621819496155,
+        "wall_seconds": 0.177409659139812,
+        "thread_cpu_seconds": 0.06035214999999999,
+        "result": 3,
+        "dirty_before_snapshot": 3,
+        "dirty_after_snapshot": 0,
+        "cleared_snapshot_keys": 3,
+        "mark_to_clear_observed_upper_seconds": [
+          33.674644947052,
+          33.68691611289978,
+          33.7013680934906
+        ]
+      },
+      {
+        "task": "apps.listings.tasks.expire_listings",
+        "queue_to_start_seconds": 0.0073898471891880035,
+        "wall_seconds": 0.12262674048542976,
+        "thread_cpu_seconds": 0.03977219399999998,
+        "result": 1,
+        "dirty_before_snapshot": null,
+        "dirty_after_snapshot": null,
+        "cleared_snapshot_keys": null,
+        "mark_to_clear_observed_upper_seconds": null
+      },
+      {
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "queue_to_start_seconds": 0.01052944641560316,
+        "wall_seconds": 0.27318048290908337,
+        "thread_cpu_seconds": 0.11041084599999999,
+        "result": 1,
+        "dirty_before_snapshot": 0,
+        "dirty_after_snapshot": 0,
+        "cleared_snapshot_keys": 0,
+        "mark_to_clear_observed_upper_seconds": []
+      }
+    ],
+    "manual_sweep_wall_seconds": 0.4520453829318285,
+    "manual_refresh_wall_seconds": 0.2757773557677865
+  },
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "Owned PG/Redis/restricted prefork2; copied native30/60Beat, observed two refresh ticks/one expiry. Startup deliberate delay differs from steadyworker. Manual sweep nohourlycadence. Pending native guards/page contexts selected, source bridge retains other surfaces. Snapshots of dirty keys may miss concurrent marks, not exact totalwork census. No SLO/p95/provider/capacity/temporal gain or all39units acceptance. First instrument failure preserved."
+}

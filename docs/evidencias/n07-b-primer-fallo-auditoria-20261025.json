@@ -1,0 +1,31 @@
+{
+  "result": "PRESERVED_FIRST_N07B_1FAIL_INSTRUMENT_FIELDERROR_NO_WORKER_PHASE",
+  "run": "20261025-224510-1359e09b",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "1",
+      "skipped": "0",
+      "tests": "1",
+      "time": "47.249",
+      "timestamp": "2026-10-25T23:45:30.094631+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources_unchanged": true,
+  "runner_hashes_checked": 1750,
+  "documents_checked_separately_outside_runner_manifest": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md",
+    "docs/401-n07-a-carrera-reordenacion-retirada-20261025.md",
+    "docs/403-n07-b-prerregistro-publicacion-worker-beat-20261025.md"
+  ],
+  "cause": "Instrument queried nonexistent listing relation on PublicationDirty; model declares UUID listing_id. Failed before worker startup.",
+  "cleanup_verified": "Owned PG/Redis/container/volume/network and runner temporary absent; report private runtime removed, no owned PIDs started. No original per-role/private credential observation claimed (None).",
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "scope": "No application defect or publication worker/Beat PASS established."
+}
