@@ -1,0 +1,166 @@
+{
+  "result": "PASS_FINITE_DENSE_REFERENCE",
+  "run": "20261025-175533-a061c196",
+  "variant": "baseline",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "184.343",
+      "timestamp": "2026-10-25T18:55:53.136432+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1739,
+  "measurement": {
+    "candidates": 100,
+    "corpus_bytes": 1580874,
+    "corpus_sha256": "5257531e183935f0f6a7c5b2d5b095c94cda82de8d5d56c9a2e790b8ee66b60b",
+    "expected_matches": 100,
+    "samples": [
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6228745,
+        "ordinal": 0,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 3.0407583583146334,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 12.410012167999994,
+        "wall_seconds": 15.521908882074058
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6089868,
+        "ordinal": 1,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 2.8968347292393446,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 11.99242065300001,
+        "wall_seconds": 14.833637086674571
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 5843942,
+        "ordinal": 2,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 2.9513206081464887,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 12.366951178999997,
+        "wall_seconds": 15.313526788726449
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6016090,
+        "ordinal": 3,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 2.923404837027192,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 12.044806015000006,
+        "wall_seconds": 14.95417477376759
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6044064,
+        "ordinal": 4,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 3.0715906443074346,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 11.760511385000001,
+        "wall_seconds": 14.761221816763282
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 200,
+        "match_count": 100,
+        "operation_python_peak_bytes": 5844955,
+        "ordinal": 5,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273356,
+        "sql_execute_seconds": 3.158428804948926,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 11.871832511999997,
+        "wall_seconds": 14.96129272505641
+      }
+    ],
+    "scope": "Six fresh-insertion detector calls, first separate+five later, one dense100 corpus, fixed diagnostic RNG and cv2thread1. No queue/upload/p95/capacity or global cache claim."
+  },
+  "summary": {
+    "wall_seconds": {
+      "first": 15.521908882074058,
+      "later_median": 14.95417477376759,
+      "later_min": 14.761221816763282,
+      "later_max": 15.313526788726449
+    },
+    "thread_cpu_seconds": {
+      "first": 12.410012167999994,
+      "later_median": 11.99242065300001,
+      "later_min": 11.760511385000001,
+      "later_max": 12.366951178999997
+    },
+    "operation_python_peak_bytes": {
+      "first": 6228745,
+      "later_median": 6016090,
+      "later_min": 5843942,
+      "later_max": 6089868
+    },
+    "process_maxrss_kib": {
+      "first": 273356,
+      "later_median": 273356,
+      "later_min": 273356,
+      "later_max": 273356
+    },
+    "sql_queries": {
+      "first": 1012,
+      "later_median": 1012,
+      "later_min": 1012,
+      "later_max": 1012
+    },
+    "sql_execute_seconds": {
+      "first": 3.0407583583146334,
+      "later_median": 2.9513206081464887,
+      "later_min": 2.8968347292393446,
+      "later_max": 3.158428804948926
+    },
+    "feature_calls": {
+      "first": 200,
+      "later_median": 200,
+      "later_min": 200,
+      "later_max": 200
+    }
+  },
+  "inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "temporary_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "result": "PASS_FINITE_DENSE_CANDIDATE_NOT_ADOPTION",
+  "run": "20261025-180035-0ecdeb99",
+  "variant": "candidate",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "165.933",
+      "timestamp": "2026-10-25T19:00:55.327436+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1740,
+  "measurement": {
+    "candidates": 100,
+    "corpus_bytes": 1580874,
+    "corpus_sha256": "5257531e183935f0f6a7c5b2d5b095c94cda82de8d5d56c9a2e790b8ee66b60b",
+    "expected_matches": 100,
+    "samples": [
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6267437,
+        "ordinal": 0,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.7230563005432487,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 10.260150906999996,
+        "wall_seconds": 12.901091523468494
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6087760,
+        "ordinal": 1,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.76656277384609,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 10.011873526000002,
+        "wall_seconds": 12.699193236418068
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 5843291,
+        "ordinal": 2,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.849675765261054,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 10.523685995999998,
+        "wall_seconds": 13.287104306742549
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6010513,
+        "ordinal": 3,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.5972319077700377,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 9.959860058999993,
+        "wall_seconds": 12.454613217152655
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 6065550,
+        "ordinal": 4,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.6152222426608205,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 10.225257821,
+        "wall_seconds": 12.729231649078429
+      },
+      {
+        "complete_result_sha256": "4d6e4c2e2771cf0746d0f61b242d97c1dbee9e773f51f99e0f299b34d23907e5",
+        "confirm_calls": 100,
+        "feature_calls": 101,
+        "match_count": 100,
+        "operation_python_peak_bytes": 5843665,
+        "ordinal": 5,
+        "persisted_method_score_sha256": "9c437cf80c17814a6c2f0108c06872bd58662cf825b4ba4f6c7249db8fa5f26a",
+        "process_maxrss_kib": 273208,
+        "sql_execute_seconds": 2.8273425614461303,
+        "sql_queries": 1012,
+        "thread_cpu_seconds": 10.128818772000002,
+        "wall_seconds": 12.868402092717588
+      }
+    ],
+    "scope": "Six fresh-insertion detector calls, first separate+five later, one dense100 corpus, fixed diagnostic RNG and cv2thread1. No queue/upload/p95/capacity or global cache claim."
+  },
+  "summary": {
+    "wall_seconds": {
+      "first": 12.901091523468494,
+      "later_median": 12.729231649078429,
+      "later_min": 12.454613217152655,
+      "later_max": 13.287104306742549
+    },
+    "thread_cpu_seconds": {
+      "first": 10.260150906999996,
+      "later_median": 10.128818772000002,
+      "later_min": 9.959860058999993,
+      "later_max": 10.523685995999998
+    },
+    "operation_python_peak_bytes": {
+      "first": 6267437,
+      "later_median": 6010513,
+      "later_min": 5843291,
+      "later_max": 6087760
+    },
+    "process_maxrss_kib": {
+      "first": 273208,
+      "later_median": 273208,
+      "later_min": 273208,
+      "later_max": 273208
+    },
+    "sql_queries": {
+      "first": 1012,
+      "later_median": 1012,
+      "later_min": 1012,
+      "later_max": 1012
+    },
+    "sql_execute_seconds": {
+      "first": 2.7230563005432487,
+      "later_median": 2.76656277384609,
+      "later_min": 2.5972319077700377,
+      "later_max": 2.849675765261054
+    },
+    "feature_calls": {
+      "first": 101,
+      "later_median": 101,
+      "later_min": 101,
+      "later_max": 101
+    }
+  },
+  "inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "temporary_absent": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  }
+}

@@ -21,7 +21,13 @@ from apps.listings.models import Revision
 from apps.listings.profile_contract import CURRENT_CONTRACT
 
 from .models import Blob, Match, Photo, UploadAttempt
-from .similarity import Signature, compare_signatures, compute_signature, confirm_match
+from .similarity import (
+    Signature,
+    compare_signatures,
+    compute_signature,
+    confirm_match,
+    prepare_query,
+)
 
 MAX_BYTES = 10 * 1024 * 1024
 MAX_PIXELS = 40_000_000
@@ -238,6 +244,7 @@ def detect_matches(blob_id):
         ):
             record_match(photo, candidate, {"method": "sha256"})
     image = None
+    prepared_query = None
     for other in (
         # Membership is existential: one admissible photo makes its Blob a
         # candidate. Avoid joining every reused photo and DISTINCT on wide Blob
@@ -256,9 +263,10 @@ def detect_matches(blob_id):
         if image is None:
             with blob.derivative.open("rb") as source:
                 image = Image.open(source).convert("RGB")
+            prepared_query = prepare_query(image)
         with other.derivative.open("rb") as source:
             other_image = Image.open(source).convert("RGB")
-        confirmation = confirm_match(image, other_image)
+        confirmation = confirm_match(image, other_image, prepared_query=prepared_query)
         method = "orb" if confirmation.status == "confirmed" else "regional"
         score = confirmation.inlier_ratio if method == "orb" else 1 - candidate_result.distance / 64
         for photo in photos_to_compare:

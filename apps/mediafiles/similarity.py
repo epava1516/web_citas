@@ -278,12 +278,50 @@ def _overlap_fraction(cv2, matrix, shape_a, shape_b):
     return max(0.0, min(1.0, float(inter) / denom))
 
 
-def confirm_match(img_a: Image.Image, img_b: Image.Image) -> MatchResult:
+@dataclass(frozen=True, eq=False)
+class _PreparedQuery:
+    # Keep the source alive and require identity, never equality or a global key.
+    image: Image.Image
+    features: tuple | None
+
+
+def prepare_query(img: Image.Image) -> _PreparedQuery:
+    """Prepare ORB features for an unchanged image within one detector call.
+
+    The caller owns the image and must not mutate it while reusing this object.
+    Nothing is cached across invocations. OpenCV absence remains an unavailable
+    confirmation, and low-information features remain None.
+    """
+    cv2 = _load_cv2()
+    features = None if cv2 is None else _orb_features(cv2, img)
+    if features is not None:
+        _, points, descriptors = features
+        points.setflags(write=False)
+        descriptors.setflags(write=False)
+    return _PreparedQuery(img, features)
+
+
+def confirm_match(
+    img_a: Image.Image,
+    img_b: Image.Image,
+    *,
+    prepared_query: _PreparedQuery | None = None,
+) -> MatchResult:
+    if prepared_query is not None and (
+        not isinstance(prepared_query, _PreparedQuery) or prepared_query.image is not img_a
+    ):
+        raise ValueError("prepared query must belong to img_a")
     cv2 = _load_cv2()
     if cv2 is None:
         return MatchResult("unavailable", "opencv_not_installed")
-    feats_a = _orb_features(cv2, img_a)
+    feats_a = (
+        _orb_features(cv2, img_a) if prepared_query is None else prepared_query.features
+    )
     feats_b = _orb_features(cv2, img_b)
+    return _confirm_features(cv2, feats_a, feats_b)
+
+
+def _confirm_features(cv2, feats_a, feats_b) -> MatchResult:
     if feats_a is None or feats_b is None:
         return MatchResult("insufficient_information", "low_information_image")
     (shape_a, pts_a, des_a), (shape_b, pts_b, des_b) = feats_a, feats_b

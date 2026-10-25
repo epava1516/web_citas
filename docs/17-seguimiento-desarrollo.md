@@ -1,3 +1,7 @@
+N03B381 aceptado localmente:detector denso100/6muestras con paridad exacta,ORB200→101,mediana14,954→12,729s(−14,9%),CPU−15,5%,SQL1012igual;46PASSfuncionales/limpieza/TGsent. N03abierto,3/13obligatorios,alfa.
+
+Siguiente:conciliar recuperación/reintentos/retención/concurrencia N03/N07, sin otra optimización marginal del detector. Si no hay mejora clara, diferir al final del desarrollo según decisión del usuario;MOD09restante ya diferido.
+
 Decisión del usuario (25/10/2026): el contraste actual de optimización N03 se limita a comprobar una mejora clara con paridad funcional. Si no se consigue, se conserva la implementación vigente, se registra la evidencia y se pospone esa optimización al final del desarrollo para avanzar al siguiente punto. Los tiempos actuales son aceptables en alfa. El diferimiento no equivale a PASS ni elimina correcciones funcionales, controles de seguridad o la conciliación pendiente de N03/N07. No encadenar nuevas hipótesis o baterías buscando una mejora marginal.
 
 N03A auditado: [379](379-n03-a-resultado-subida-cola-real-20261025.md),1PASS/subidaJPEGyduplicado conworkerreal,1738huellasintactas ylimpieza/TGconfirmados. Primera petición170,196ms/35SQL,worker1087,446ms,readyobservado1393,651msdesdeentrada;duplicado0tareamedia. Sin cambio de aplicación. N03abierto,N00/N01/N06aceptados3/13,alfa.
