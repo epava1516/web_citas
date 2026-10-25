@@ -40,3 +40,7 @@ Runner oficial focused serial --workers1, PostgreSQL17/Redis7.4 propios y librdb
 Antes de ejecutar: AST nuevo y semántica de este protocolo, verificación y congelación completa de fuentes/dependencias/migraciones/instrumentos/grafo/imágenes. Después: comprobar cinco casos/24muestras, consultas/lecturas/bytes/orden/digests y filas intactas, recursos propios retirados, fuente sin cambios hasta auditoría y Telegram terminal entregado.
 
 Publicar tabla single/bulk con tiempos medidos, diferencia absoluta/porcentual de **esta etapa** cuando sean comparables y variabilidad/muestras. No trasladar ese porcentaje a descarga completa. Si el mecanismo aporta ahorro y se adopta después, prerregistrar primero el candidato de llamador, sus condiciones post-lock-wait y regresión adversarial; completar medición de entrega/cobertura correspondiente. Ninguna lectura, hash, comprobación de autoridad/retirada o un uso puede eliminarse para alcanzar2s/5s. N02permanece abierto.
+
+## Corrección previa a repetición
+
+Intento20261025-123535-0189fafd:4PASS/1FAIL durante calibrated_rows, antes de crear la primera cohorte y sin muestras. Las etiquetas nuevas no alcanzan el volumen dentro del límite de campo; se sustituyen exclusivamente por capacity-subject-a/b, las originales del test_capacity_target_fixture. No se altera generador, límites, tamaño, oráculos ni aplicación. [Registro conservado](evidencias/n02-a-intento-inicial-20261025.json). Renovar AST/SHA y congelación antes de repetir los cinco casos.

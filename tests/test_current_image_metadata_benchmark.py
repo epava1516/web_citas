@@ -29,7 +29,7 @@ def test_current_image_metadata_paired_reference(request, settings, monkeypatch,
     request.getfixturevalue("photo_environment")
     settings.DEBUG = False
     cohorts = []
-    for identity in ("n02-metadata-a", "n02-metadata-b"):
+    for identity in ("capacity-subject-a", "capacity-subject-b"):
         person, listing, rows, calibration = populate(identity)
         assert len(rows) == listing.revisions.count() == 1500
         assert abs(calibration["candidate_bytes"] - 16 * 1024**2) <= .01 * 16 * 1024**2
