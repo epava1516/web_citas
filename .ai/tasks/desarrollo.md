@@ -2656,3 +2656,6 @@ N02Dsemántica previa:agente nativo n02b_protocol_semantic reutilizado en n02d-s
 
 
 N02D terminal 2026-10-25: evaluación completa 1 FAIL temporal, JUnit2004,770s; evidencia y tabla anterior/actual en docs/367-n02-d-resultado-y-diferimiento-mod09-20261025.md. Sin mejora clara global. Usuario acepta tiempos actuales para alfa y difiere optimización restante MOD09 al final del desarrollo; mantener guard365, FAIL y deuda. Continuar N06, sin repetición automática. Telegram/compactación/reactivación del mismo goal confirmados; 1734 huellas intactas y cero recursos Docker propios restantes en ambas fases.
+
+
+N06C preparado 2026-10-25: refresco nativo focal de resultado367/roadmap y luego protocolo368; extracción delegada n06c_graph_semantics en outputs aislados, dos lotes24/14 y12/10; citas/L/SHA verificadas por Codex. Consumo nativo desconocido, no ClaudeV1 nuevo. AST de envoltorio diagnóstico añadido (dos oráculos completos originales, fixture dinámica para medir HTTP de preparación). Lint inicial I001 preservado y corregido, ambos avisos Telegram sent. Sin cambio de aplicación. Medición original de representación/revocación pendiente; dos casos seriales con runner oficial, fuente nativa configurada y referencia por operación.

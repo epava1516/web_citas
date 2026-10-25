@@ -1,0 +1,23 @@
+# N06C — referencia de representación, autoridad y revocación
+
+25 de octubre de 2026. Continuación de N06/S04-C tras el diferimiento expreso de optimización MOD09 en367. N06 sigue abierto; no hay candidato de aplicación. Refresco previo focal verificado:1963fuentes,18442nodos,80931relaciones,874comunidades, SHA393304223319480f43bd98b1cd6d4a77615611dac7d3ed992806e7e47bf42bc8. AST anterior conservado, no reconstrucción completa ni semántica exhaustiva. Consulta graphify por agencia/MFA/revocación seguida de lectura directa de las fuentes; consulta truncada no se utiliza como evidencia exhaustiva.
+
+## Selección y límite anterior
+
+Matriz354/S04-C conserva asignación, invitación/aceptación del consentimiento, edad/teléfono locales y retirada de representación, con dos sujetos que comparten teléfono y un editor asignado sólo al primero. La referencia N06B359 no mide estos actores. El observador existente scripts/http_operation_metrics.py envuelve Client.request sólo durante pytest_runtest_call: la fixture agency_publication solicitada normalmente antes del cuerpo quedaría fuera. No se presenta su ausencia como coste cero.
+
+El nuevo instrumento tests/test_agency_authority_reference.py llama sin copiar ni modificar los dos oráculos originales: test_agency_publication::test_agency_two_people_shared_phone_editor_publication_and_revoke y test_lifecycle::test_agency_editor_assignment_mfa_and_revocation. Solicita la fixture agency_publication dinámicamente dentro del cuerpo; conserva todas sus peticiones, datos y aserciones y las hace observables. No elimina el trabajo de preparación; sólo cambia su fase QA. Imports de fixtures explícitos. No se afirma equivalencia temporal con una ejecución anterior de distinta fase/calor.
+
+## Ficha de medición anterior al candidato
+
+Dos casos seriales, una pasada diagnóstica sin repeticiones adaptativas. Datos originales sintéticos ES/EN, dos representados con teléfono compartido y perfiles/fotos originales; directorio original para MFA/revocación. Mantener propietarios, editor asignado/no asignado, sujetos y moderador independiente. Preservar negativos403/404, retirada de sólo el primer perfil, segundo visible, MFA previa y versión de lifecycle intacta tras revocación; no simular identidad externa como integración real.
+
+Medir por petición original y ordinal: método/nombre estático de ruta/estado, pared instrumentada y número/tiempo SQL de la conexión del Client. Nada de cuerpos, SQL/params, tokens, UUID o datos de sujetos en la evidencia versionada/Telegram. Las peticiones de fixture dinámicas quedan incluidas y se identifican por escenario/ordinal; servicios directos, preparación no HTTP, otras conexiones, tareas y navegador quedan fuera. Una observación por transición no permite p95/p99 ni capacidad. Tareas eager de la fixture explícitas; ningún tiempo de identidad sintética es tiempo de proveedor. No convertir respuestas negativas esperadas en tasa de error de carga.
+
+Presupuesto diagnóstico: dos casos PASS, ningún error del observador ni excepción inesperada, métricas finitas/no negativas y conteos íntegros, estados y oráculos originales intactos. Esta pasada fija referencia, no afirma optimización. Antes de cualquier candidato se elegirán acción/estado/etapa/dimensión y referencia comparable conforme354. Si no aparece coste o defecto demostrado, registrar decisión sin cambio; nunca modificar por bajar un recuento sin preservar trabajo útil.
+
+Comando previsto: `.venv/bin/python scripts/run_local_ci.py --profile focused --native-source /tmp/web-modelos-librdb-v2.4.0 --workers 1 --isolate-test-broker --observe-http-operations --timeout 900 --test tests/test_agency_authority_reference.py`. Runner oficial con PostgreSQL17/Redis7.4 propios y fuente nativa librdbv2.4.0 configurada según ejecución anterior; no proveedores ni datos reales, sin carga/cuotas dedicadas/worker real nuevo. Congelar fuentes/dependencias/migraciones/instrumentos/imágenes y grafo antes del lanzamiento. Integrar previamente AST del envoltorio y semántica de este protocolo. Si falla preparación, conservar el fallo y corregir su causa sin repetir pruebas válidas innecesariamente.
+
+## Auditoría posterior
+
+Verificar JUnit2casos, todas las propiedades y secuencia, SHA de fuentes, selección exacta, configuración eager, imágenes nativas y limpieza independiente PostgreSQL/Redis/temp; comprobar Telegram terminal del runner. Separar duración QA de latencia de aplicación. Tabla por acción/ordinal con referencia actual; anterior ausente se declara no medido, sin inventar porcentaje ni comparar estados heterogéneos. Esta referencia parcial no cierra N06: restantes variantes de cuenta/panel/representación y crecimiento deben conciliarse con sus fuentes y evidencias.
