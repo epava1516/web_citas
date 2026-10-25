@@ -1,3 +1,5 @@
+- [N02C: contraste agrupado5/5favorable y guard adoptado localmente; MOD09pendiente](365-n02-c-resultado-contraste-agrupado-guard-20261025.md).
+
 - [N02B: guard real y coste7→4SQL verificados; tiempo inconcluso, adopción pendiente](363-n02-b-resultado-guard-imagenes-sello-20261025.md).
 
 - [N02A:5PASS/24muestras; comparación temporal individual/lote, sin cambio integrado](361-n02-a-resultado-metadatos-imagenes-20261025.md).

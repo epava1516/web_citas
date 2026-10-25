@@ -1,3 +1,7 @@
+N02Cauditado:1PASS/120guards/12grupos10,5/5parejas posteriores favorables;mediana de medias39,513→28,857ms,7→4SQL/2lecturas10554bytes/4locks previos porguard. [Resultado365](365-n02-c-resultado-contraste-agrupado-guard-20261025.md). Guard adoptado localmente,16oráculos anteriores reutilizados/1516fuentes intactas;no ganancia universal ni aceptaciónMOD09. Limpieza/TGsent,2/13N02/N06abiertos,alfa.
+
+Siguiente:semántica365/341/README/vista17 antes de hito;atribuir cobertura/selección/serialización/cifrado/paquetes/cola/entrega y evaluar escenario original MOD09 completo,crecimiento/concurrencia.2s/5s/FAIL/excepción original yrestocontrato intactos;363histórico inconcluso preservado.
+
 N02Bauditado:2PASS nuevos+14oráculos originalesPASS reutilizados,12muestras de guard real con4locks previos/2lecturas/hash íntegros;7→4SQL. Mediana30,659→23,557ms pero2/5parejas empeoran:tiempo inconcluso/adopción pendiente. [Resultado363](363-n02-b-resultado-guard-imagenes-sello-20261025.md). Fallos instrumentales preservados yconfiguración corregida,limpieza/TGsent.2/13,N02/N06abiertos,alfa.
 
 Siguiente:semántica363/341/README/vista17 antes de hito;prerregistrar contraste temporal por ruido sin repetir14oráculos válidos ni extrapolar primitivas361 a entrega. Cobertura/entregaMOD09,2s/5s/FAIL/excepción original yrestoN02/N06/contrato siguen pendientes.
