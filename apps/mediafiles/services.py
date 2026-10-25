@@ -138,7 +138,8 @@ def process(blob_id):
         blob = Blob.objects.select_for_update().get(pk=blob_id)
         if blob.status in {"erasing", "erased", "purging", "purged"}:
             return
-        ready = blob.status == "ready"
+        # Legacy ready rows may predate signatures; repair under a fresh lease.
+        ready = blob.status == "ready" and bool(blob.signature)
         if not ready:
             if (
                 blob.status == "processing"

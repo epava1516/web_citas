@@ -1,0 +1,161 @@
+{
+  "result": "PASS_RECOVERY_PROGRESS_AND_REGRESSION_NOT_N03_BLOCK_ACCEPTANCE",
+  "run": "20261025-184941-1ac056e3",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "37",
+      "time": "202.223",
+      "timestamp": "2026-10-25T19:50:00.721050+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "functional_cases": 37,
+  "source_count": 1742,
+  "sources_unchanged": true,
+  "measurements": {
+    "empty_signature": {
+      "kind": "empty_signature",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.02081152331084013,
+          "process_seconds": 0.3099750755354762,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 2,
+          "signature_present": true
+        },
+        {
+          "tick": 1,
+          "dispatches": 0,
+          "selector_seconds": 0.017343632876873016,
+          "process_seconds": null,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 2,
+          "signature_present": true
+        }
+      ]
+    },
+    "history_only": {
+      "kind": "history_only",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 0,
+          "selector_seconds": 0.012371893972158432,
+          "process_seconds": null,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        },
+        {
+          "tick": 1,
+          "dispatches": 0,
+          "selector_seconds": 0.014767901040613651,
+          "process_seconds": null,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        }
+      ]
+    },
+    "mixed_history_current": {
+      "kind": "mixed_history_current",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.009597539901733398,
+          "process_seconds": 0.05522674787789583,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        },
+        {
+          "tick": 1,
+          "dispatches": 0,
+          "selector_seconds": 0.00927854236215353,
+          "process_seconds": null,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        }
+      ]
+    },
+    "missing_original": {
+      "kind": "missing_original",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.022870817221701145,
+          "process_seconds": 0.03858939092606306,
+          "storage_error": true,
+          "status": "failed",
+          "attempts": 2,
+          "signature_present": false
+        },
+        {
+          "tick": 1,
+          "dispatches": 1,
+          "selector_seconds": 0.015609151683747768,
+          "process_seconds": 0.017490210011601448,
+          "storage_error": true,
+          "status": "failed",
+          "attempts": 3,
+          "signature_present": false
+        },
+        {
+          "tick": 2,
+          "dispatches": 1,
+          "selector_seconds": 0.00847640261054039,
+          "process_seconds": 0.018889361061155796,
+          "storage_error": true,
+          "status": "failed",
+          "attempts": 4,
+          "signature_present": false
+        },
+        {
+          "tick": 3,
+          "dispatches": 0,
+          "selector_seconds": 0.010395286604762077,
+          "process_seconds": null,
+          "storage_error": false,
+          "status": "failed",
+          "attempts": 4,
+          "signature_present": false
+        }
+      ]
+    }
+  },
+  "recovery_selection_cohorts": [
+    0,
+    1,
+    10,
+    100,
+    101
+  ],
+  "recovery_selection_queries_each": 1,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "limitations": [
+    "Direct process and captured dispatch do not prove worker/Beat/backoff",
+    "Only empty-signature legacy metadata repaired; no arbitrary malformed-data guarantee",
+    "Observed clocks describe different work before/after, not causal speedup",
+    "No global four-attempt guarantee across Celery messages"
+  ]
+}

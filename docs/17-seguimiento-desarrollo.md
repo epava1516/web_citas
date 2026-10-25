@@ -1,3 +1,7 @@
+N03D385aceptadolocalmente:4FAILreferencia→37PASS,firmavacíasegenera/históriconoreencola/mixtocompletaactual/originalausentefalla explícito,2appfiles/1742huellas/limpieza/TGsent. Selector1SQL/cohortes0/1/10/100/101,tiemposmásaltosvisibles;nooptmarginal. N03abierto,3/13,alfa.
+
+Siguiente:N03Econciliarautoretry/backoff/recuperaciónconbroker/worker/BeatrealesysuficienciaN03/N07. N03Dnoprogresoresueltoensuámbito,MOD09restantediferidoalfinalporusuario;no abrirbeta.
+
 N03C383 aceptado localmente:2FAILreferencia preservados;fenceprocesscorrige generacionesviejas yconservafallopropiotrasderivado,33PASSfinales(16nuevos+11retención+6fotos),1741huellas/limpieza/TGsent. Primera32PASSconservada. N03abierto,3/13obligatorios,alfa.
 
 Siguiente:N03Dreproducir posible no progreso readyincompleteinelegible/sinfirma y conciliar retry/backoff/recuperaciónworkerBeat reales N03/N07. No otraoptimizaciónmarginaldetector;MOD09restantediferidoalfinalporusuario.

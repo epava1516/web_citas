@@ -1,0 +1,154 @@
+{
+  "audit": "CONFIRMED_FOUR_REFERENCE_FAILURES_NOT_PASS",
+  "run": "20261025-184432-abf4326e",
+  "runner_result": "ERROR",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "4",
+      "skipped": "0",
+      "tests": "4",
+      "time": "45.739",
+      "timestamp": "2026-10-25T19:44:53.007353+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1742,
+  "sources_unchanged": true,
+  "expected_failure_messages": {
+    "empty_signature": "Ready without signature never progresses",
+    "history_only": "Historical-only image requeues without progress",
+    "mixed_history_current": "Historical sibling keeps completed current work queued",
+    "missing_original": "Missing original silently loops as ready"
+  },
+  "measurements": {
+    "empty_signature": {
+      "kind": "empty_signature",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.005658537149429321,
+          "process_seconds": 0.07316311169415712,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        },
+        {
+          "tick": 1,
+          "dispatches": 1,
+          "selector_seconds": 0.003286064602434635,
+          "process_seconds": 0.05583326146006584,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        }
+      ]
+    },
+    "history_only": {
+      "kind": "history_only",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.00479899812489748,
+          "process_seconds": 0.02158417273312807,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        },
+        {
+          "tick": 1,
+          "dispatches": 1,
+          "selector_seconds": 0.003853835165500641,
+          "process_seconds": 0.028301985003054142,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        }
+      ]
+    },
+    "mixed_history_current": {
+      "kind": "mixed_history_current",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.0036351345479488373,
+          "process_seconds": 0.09886930789798498,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        },
+        {
+          "tick": 1,
+          "dispatches": 1,
+          "selector_seconds": 0.003838115371763706,
+          "process_seconds": 0.11356380302459002,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": true
+        }
+      ]
+    },
+    "missing_original": {
+      "kind": "missing_original",
+      "ticks": [
+        {
+          "tick": 0,
+          "dispatches": 1,
+          "selector_seconds": 0.0041584596037864685,
+          "process_seconds": 0.050591099075973034,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        },
+        {
+          "tick": 1,
+          "dispatches": 1,
+          "selector_seconds": 0.0027619702741503716,
+          "process_seconds": 0.0406434116885066,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        },
+        {
+          "tick": 2,
+          "dispatches": 1,
+          "selector_seconds": 0.0027210041880607605,
+          "process_seconds": 0.03251005709171295,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        },
+        {
+          "tick": 3,
+          "dispatches": 1,
+          "selector_seconds": 0.0024776896461844444,
+          "process_seconds": 0.04334926325827837,
+          "storage_error": false,
+          "status": "ready",
+          "attempts": 1,
+          "signature_present": false
+        }
+      ]
+    }
+  },
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  },
+  "scope": "Real PostgreSQL, private synthetic storage and direct task/service; captured dispatch not broker/worker/Beat proof"
+}

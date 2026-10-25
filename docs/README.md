@@ -371,3 +371,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N03B: reutilización local de características ORB y tabla antes/después](381-n03-b-resultado-orb-local-20261025.md).
 
 - [N03C: recuperación y aislamiento entre generaciones](383-n03-c-resultado-recuperacion-generaciones-20261025.md).
+
+- [N03D: recuperación con progreso e históricos conservados](385-n03-d-resultado-recuperacion-progreso-20261025.md).
