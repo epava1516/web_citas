@@ -59,6 +59,8 @@ Atribuir cobertura, lectura de originales, serialización/cifrado, paquetes JSON
 
 ### N03 — Procesamiento y similitud fotográfica
 
+Decisión del usuario (25/10/2026): el contraste actual de optimización N03 se limita a comprobar una mejora clara con paridad funcional. Si no se consigue, se conserva la implementación vigente, se registra la evidencia y se pospone esa optimización al final del desarrollo para avanzar al siguiente punto. Los tiempos actuales son aceptables en alfa. El diferimiento no equivale a PASS ni elimina correcciones funcionales, controles de seguridad o la conciliación pendiente de N03/N07. No encadenar nuevas hipótesis o baterías buscando una mejora marginal.
+
 Familias: I13, I14.
 
 Medir recepción→cola→procesado→estado utilizable, recuperación/reintentos y detector/confirmación/registro por separado. Variar originales distintos, densidad de coincidencias, retención y concurrencia. Valorar índice sólo si el coste lo justifica.
