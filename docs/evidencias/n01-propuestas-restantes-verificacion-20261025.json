@@ -1,0 +1,96 @@
+{
+  "result": "PASS_N01_PROPOSAL_SOURCE_SCOPE",
+  "counts": {
+    "a": {
+      "groups": [
+        "S02",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "proposals": 10,
+      "literal_sources": 78,
+      "test_selectors": 20
+    },
+    "b": {
+      "groups": [
+        "S06",
+        "S07",
+        "S08",
+        "S09"
+      ],
+      "proposals": 9,
+      "literal_sources": 15,
+      "test_selectors": 9
+    }
+  },
+  "errors": [],
+  "proposal_status": "research_only_not_final_preregistration_or_acceptance",
+  "tests_executed_by_research": 0,
+  "limits": [
+    "Literal hashes/locations and AST selector symbols checked; not adequate timing samples, full oracles or historicalresult equivalence proof.",
+    "Parent must review proposedcohorts/roles/budgets/coverage before integrating N01 plan."
+  ],
+  "original_negative": {
+    "result": "ERROR_N01_PROPOSAL_SOURCE_SCOPE",
+    "counts": {
+      "a": {
+        "groups": [
+          "S02",
+          "S03",
+          "S04",
+          "S05"
+        ],
+        "proposals": 10,
+        "literal_sources": 78,
+        "test_selectors": 20
+      },
+      "b": {
+        "groups": [
+          "S06",
+          "S07",
+          "S08",
+          "S09"
+        ],
+        "proposals": 9,
+        "literal_sources": 15,
+        "test_selectors": 9
+      }
+    },
+    "errors": [
+      [
+        "a",
+        "E11",
+        "literal/location mismatch"
+      ],
+      [
+        "a",
+        "E14",
+        "literal/location mismatch"
+      ],
+      [
+        "a",
+        "E23",
+        "literal/location mismatch"
+      ],
+      [
+        "a",
+        "E26",
+        "literal/location mismatch"
+      ]
+    ],
+    "proposal_status": "research_only_not_final_preregistration_or_acceptance",
+    "tests_executed_by_research": 0,
+    "limits": [
+      "Literal hashes/locations and AST selector symbols checked; not adequate timing samples, full oracles or historicalresult equivalence proof.",
+      "Parent must review proposedcohorts/roles/budgets/coverage before integrating N01 plan."
+    ]
+  },
+  "corrected_only_entries": [
+    "a:E11",
+    "a:E14",
+    "a:E23",
+    "a:E26"
+  ],
+  "scenario_proposals_changed_by_correction": false
+}

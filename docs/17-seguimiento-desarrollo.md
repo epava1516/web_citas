@@ -1,3 +1,7 @@
+N01Cauditado:1PASS/120peticiones,mismacohorte100; [resultado349](349-n01-c-resultado-estados-20261025.md). Preparaciónnativa0,271738s,98pendientes→0,102Listingstotales/100publicados;listadosfallback→state conservandoIDs/orden/datos. Condicionesoperativasdifieren,VACUUM/ANALYZE/calor;sin optimizacióncódigo/p95/capacidad. N00aceptado1/13,N01abierto,alfa.
+
+Siguiente:semántica349/README/17antesdelnuevohito;revisiónprimaria de19propuestasS02–S09ya contrastadasporfuentes/selectores,con presupuestosydatospendientes.Nocerrarbloquesporpropuestasni repetirB/Csin nuevahipótesis. Tablasantes/despuésporbloque.
+
 N01Cprerregistradoen [348](348-n01-c-prerregistro-estados-20261025.md):misma cohorte100,helperBintacto60peticionesantes/60despuésdelcomando realrefresh_publication_state--all;oráculosdeparidad,datosdenegociosin cambios,rutapreparadaverificada. Sin ejecuciónaún;N00aceptado1/13,N01encurso,alfa.
 
 Siguiente:ASTdelinstrumentoC/semánticadelprotocolo,congelar yejecutar1caso120muestras;noatribuircódigooptimizado,efectopurodeestadoo throughputworker a preparaciónsíncrona conVACUUM/ANALYZE. Antecedentesinferioresconservancorte.
