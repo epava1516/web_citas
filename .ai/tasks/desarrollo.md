@@ -1,3 +1,11 @@
+## Continuación B16 y grafo final — 2026-10-25
+
+B16aceptado localmente poracta22,15/18,alfa. B14/B15/B17dispuestos como deuda en336, sinPASSni apertura. Grafo reconstruido desde0ysustituido localmente:1922fuentes,551semánticas en28lotes,1372estructurales incluyendo Cython3.0.12;6606declaracionesPythony padresverificados.17850nodos/79100relaciones/846comunidades nuevas. Corpus,lecturasparcialesde17,historialexcluido,colisiones/referencias yconsumonativo desconocido declarados. Grafo previo621archivos íntegro preservado. Originales negativos de extractor/identidades yverificaciones terminales conservados,Telegramsent.1507fuentes aceptadas deproducto/instrumentossincambios;ninguna batería deaplicación nueva.
+
+Tres archivos durables:grafo-previo-b16-20261025.tar.gz,grafo-final-b16-20261025.tar.gz,grafo-final-b16-extraccion-20261025.tar.gz, manifiestos yrecibo en docs/evidencias. Livegraphen graphify-out. Agentes nativos escritores conpropiedad deJSONyworktrees aislados; ceroClaudeV1nuevas,8históricas/consumo preservados. Noconfundirtemas/comunidadesconcosteoruntime.
+
+Siguiente acción sustantiva yúltima obligatoria: inventario diferencial111I01–I28 (URLs+métodos/acciones+tareas/disparadores+navegador+admin),matrizversion/evidencia/autoridad/estado/roadmap,integraciónsemántica ycomprobaciones,actafinal delcontrato. NoabrirQAoptimización,proveedores,producción oBeta. Goalactivo,no completo.
+
 # Desarrollo completo del contrato v1
 Objetivo: BASE → CR-01…CR-10 → GS-01 → B-F/B-B → C, sin reducir alcance.
 Baseline: carpeta con 18 documentos; sin código ni repositorio Git antes del inicio. Documentos preservados.
