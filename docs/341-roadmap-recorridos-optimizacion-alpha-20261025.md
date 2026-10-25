@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.2,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md): **1/13bloques obligatorios aceptados**. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **2/13bloques obligatorios aceptados**. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -15,7 +15,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | ID | Prioridad | Bloque | Depende de | Estado inicial |
 | --- | --- | --- | --- | --- |
 | N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | Aceptado por343; alcance estructural |
-| N01 | P0 | Línea base y presupuestos por escenario | N00 | En curso; primer lote344 prerregistrado |
+| N01 | P0 | Línea base y presupuestos por escenario | N00 | Aceptado por355; criterios354 y bases/motivos por lote |
 | N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Pendiente |
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |

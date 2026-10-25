@@ -1,3 +1,7 @@
+N01aceptado por [acta355](355-n01-aceptacion-local-20261025.md) y verificación de cierre: N00/N01=2/13obligatorios; N02–N11/N15pendientes,N12–N14condicionados,alfa. Criterios354 anteriores a candidatos,19fichas+S01 y28familias; tabla global antes/después incluida. No se acepta rendimiento por planificación.
+
+Siguiente:integrar semántica354/355/roadmap/seguimiento antes deN06. Abrir S04-B atribuyendo listing_start116/124SQL, con misma autoridad/instantánea/bytes y presupuesto exacto antes del candidato. Otros bloques siguen obligatorios; no repetir diagnósticos sin hipótesis.
+
 N01Eauditado:4PASS/18llamadas collect_snapshot;backlog publicación0/10/100,50consultas en cada llamada; [resultado353](353-n01-e-resultado-snapshot-operativo-20261025.md). Presupuesto técnico≤50paraeseescenario,sinSLOdepared/optimización. Fuentesintactas,limpieza/TGsent. Matriz352:19fichas/93citas,seisbasesHTTPparciales. N00aceptado1/13,N01abierto,alfa.
 
 Siguiente:semántica353/README/vista17antesdelhito; completar presupuestos/fichas faltantes,prioridadautoridad/retención/representación. No repetir loteE sinhipótesis/candidato; módulos directos/browser/colas conservan modalidadpropia. Tablasantes/después porbloque.

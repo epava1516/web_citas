@@ -1,3 +1,7 @@
+- [N01 aceptado: criterios previos, bases y tabla global;2/13bloques](355-n01-aceptacion-local-20261025.md).
+
+- [N01F: criterios comparativos por escenario y medidas posteriores obligatorias](354-n01-f-criterios-comparacion-escenarios-20261025.md).
+
 - [N01E:4PASS,18muestras de servicio operativo y referencia de50consultas](353-n01-e-resultado-snapshot-operativo-20261025.md).
 
 - [N01D:11PASS,109operaciones HTTP observadas, base diagnóstica y límites](351-n01-d-resultado-operaciones-http-20261025.md).

@@ -2,6 +2,8 @@
 
 Versión 1.2, 25 de octubre de 2026. Ejecución autorizada por el usuario: «empieza con el nuevo contrato procediendo como lo haciamos en el anterior, hasta el finales». N00 aceptado por [343](343-n00-aceptacion-local-20261025.md);1/13bloques obligatorios. N01 en curso con prerregistro344. La preparación documental1.0 permanece en el commit5118a05 y sus evidencias. El producto permanece en alfa durante y después del contrato, hasta una decisión posterior del usuario.
 
+Estado posterior de ejecución: N00 y N01 aceptados, **2/13**, por [acta355](355-n01-aceptacion-local-20261025.md). El párrafo inicial conserva el corte de inicio1.2; esta nota actualiza sólo seguimiento, sin alterar términos ni garantías. Los criterios comparativos se concretan en [354](354-n01-f-criterios-comparacion-escenarios-20261025.md).
+
 ## 1. Objeto y precedencia
 
 Medir, corregir y optimizar las acciones reales de la aplicación y de su operación local, usando como primera prioridad el inventario actualizado I01–I28. Incorporar la deuda trasladada con su estado y condiciones, sin reabrir las aceptaciones anteriores ni dar por implementadas funciones opcionales.
