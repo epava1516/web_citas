@@ -1,4 +1,8 @@
+Estado final del contrato: [acta23](actas/23-cierre-contrato-clasificados-alpha-20261025.md),15/18aceptados localmente; B14/B15/B17deuda según336. Alfa. Inventario338/339integrado al grafo y primera prioridad del próximo contrato. Registro final documentado con sus verificaciones; los cortes inferiores conservan su fecha.
+
 B10 aceptado técnicamente en local por acta21 como evaluación y disposición P2, sin índice ni cambio de producto; FAIL MOD09 y deuda expresos. Catorce de18puntos cerrados: B00–B13; pendientes B14–B17, B15 opcional. Alfa, sin aceptación B16 ni apertura.
+
+Corte documental final: B00–B13 yB16 aceptados localmente (15/18); B14/B15/B17 diferidos según [336](336-deuda-siguiente-contrato-y-cierre-alpha-20261025.md). El [inventario actualizado338](338-inventario-acciones-recorridos-alpha-20261025.md) y su [diferencial339](339-diferencial-inventario-recorridos-20261025.md) conservan I01–I28 y encabezan la medición/corrección/optimización del siguiente contrato. Grafo reconstruido; integración del inventario y acta final pendientes. Alfa. Los cortes fechados inferiores conservan su alcance histórico.
 
 Corte: [conciliación328](328-conciliacion-exportacion-similitud-b10-20261024.md) y [acta21](actas/21-beta-b10-disposicion-local-20261024.md).
 

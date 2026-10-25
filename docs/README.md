@@ -315,3 +315,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Control corto HTTP vigente B16:331](331-control-corto-http-vigente-b16-20261024.md): prerregistro de mezcla combinada10000, recursos y espera persistente. Sin resultado todavía.
 
 - [Inventario actualizado338](338-inventario-acciones-recorridos-alpha-20261025.md) y [diferencial339](339-diferencial-inventario-recorridos-20261025.md): I01–I28 preservados, fuentes y recorridos operativos contrastados. [Verificación](evidencias/inventario-acciones-verificacion-20261025.json) y [reproducción](evidencias/inventario-acciones-reproduccion-20261025.json). Pendientes integración semántica al grafo y acta final; alfa.
+
+- [Cierre local del contrato: acta23](actas/23-cierre-contrato-clasificados-alpha-20261025.md), [conciliación](evidencias/contrato-cierre-auditoria-20261025.json) y [grafo con inventario](evidencias/inventario-grafo-integracion-20261025.json).15/18aceptados, B14/B15/B17deuda, proyecto enalfa; registro final documentado con sus verificaciones.

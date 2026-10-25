@@ -1,3 +1,9 @@
+## Estado final vigente — cierre local del contrato,2026-10-25
+
+Estado del plan: accepted local, acta23. B00–B13 yB16aceptados localmente(15/18);B14/B15/B17diferidos sinPASS. Alfa. Acción final obligatoria completada:grafo previo preservado,reconstrucción completa desde0,inventario diferencial338/339I01–I28,introducción semántica yactafinal registrada. Grafo final1925fuentes/17870nodos/79571relaciones/848comunidades;dos deltas documentales identificados sobre base nueva, no nuevas reconstrucciones completas.0huellas desajustadas/extremos ausentes;1507fuentes ejecutables aceptadas yoriginal111sin cambios. Prueba final docs/evidencias/contrato-cierre-final-verificacion-20261025.json PASS y719Markdown/5857enlacesPASS,Telegramsent. Archivos/entradas nativas/manifiestos durables preservados. Registrar commit/push final y completar el mismo goal tras comprobar Git; sin otro incremento ni nueva batería.
+
+Primera prioridad del siguiente contrato:medir/corregir/optimizar recorridos delinventario;deudaMOD09/I14yB14/B15/B17expresa en336. QAespecífico aplazado hasta primera estable/productiva. Noapertura,proveedores,datos reales oproducción. CeroClaudeV1nuevas;8históricas yconsumo previo preservados. Agentes nativos de este cierre ya terminaron y sus fragmentos fueron verificados por Codex. La cronología inferior conserva sus estados históricos, no una cola vigente.
+
 ## Continuación B16 y grafo final — 2026-10-25
 
 B16aceptado localmente poracta22,15/18,alfa. B14/B15/B17dispuestos como deuda en336, sinPASSni apertura. Grafo reconstruido desde0ysustituido localmente:1922fuentes,551semánticas en28lotes,1372estructurales incluyendo Cython3.0.12;6606declaracionesPythony padresverificados.17850nodos/79100relaciones/846comunidades nuevas. Corpus,lecturasparcialesde17,historialexcluido,colisiones/referencias yconsumonativo desconocido declarados. Grafo previo621archivos íntegro preservado. Originales negativos de extractor/identidades yverificaciones terminales conservados,Telegramsent.1507fuentes aceptadas deproducto/instrumentossincambios;ninguna batería deaplicación nueva.
@@ -2598,3 +2604,11 @@ B16-367terminal:7PASS/266,980s,selecciónexacta,1723fuentes/grafo/protocolo inta
 
 ### B16-368 — preparación cortoHTTPvigente,2026-10-24
 Tras9/11exclusiones dispuestas, incertidumbre deplantillapúblicaposteriorB07justificacontrolactual,nomeraexclusión. Doc331/specpreservancombined29110000/96slots/60s/1200requests/8CPU8GiBswap0≤20GiB ycriteriosoriginales. Referencia95minincluye preparaciónvalidación,noSLO. Helperscopiados362conprefijonuevo,objetivo/creación/consumopreservados;sinlaunchacreditadoaún. Congelar despuésdechecks/grafo/commit;persistencia/TGprevioantesdepausa. Noauto900s. CeroClaudeV1nuevas.
+
+
+### Cierre documental — inventario diferencial,2026-10-25
+Inventario338/339, matriz y reproducción durable guardados en eaa180e y origin/master.28familias conservadas,170rutas,27tareas;15CLIpropios,31Django,11recorridos operativos. Gate de identidad/cobertura y enlaces718MD/5826PASS;Telegramsent. Original111 y1507fuentes ejecutables intactos. Agente nativo inventory_semantic_final en worktree aislado /tmp/web-modelos-inventory-semantic-final, propiedad exclusiva de fragment/report JSON; cinco documentos, uno vista17líneas1–4. Sin ClaudeV1nuevo; consumo previo conservado. Integración focal y auditoría final pendientes; no cierre de goal.
+
+
+### Cierre documental — integración y acta23,2026-10-25
+Agente nativo inventory_semantic_final aceptado tras97nodos/177relaciones validados porSHA/cita/líneas; delta cinco documentos,1924fuentes/17847nodos/79498relaciones/847comunidades. Fuentes no modificadas17742nodos/78562relaciones preservadas. Archivo durable inventario-grafo-integrado y prueba independientePASS; contrato preacta18puntos/siete entregablesPASS. Emitida acta23 después de esa auditoría. Segundo agente nativo contract_act_semantic con propiedadexclusivaJSON en /tmp/web-modelos-contract-act-semantic: cuatro entradas,30nodos/48relaciones, lectura completa y citas validadas. CeroClaudeV1nuevas; consumo previo conservado. Registro focal final y comprobaciones finales en curso;B14/B15/B17deuda,noPASS;alfa.

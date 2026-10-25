@@ -1,3 +1,7 @@
+Contrato cerrado localmente por [acta23](actas/23-cierre-contrato-clasificados-alpha-20261025.md):15/18aceptados;B14/B15/B17diferidos, sinPASS. Proyecto enalfa. Grafo reconstruido, inventario338/339contrastado e integrado. Primera prioridad futura:medir/corregir/optimizar recorridos;QAespecífico aplazado. Registro final delacta yverificación en evidencia documental de cierre.
+
+Corte: [auditoría de cierre](evidencias/contrato-cierre-auditoria-20261025.json) y [grafo integrado](evidencias/inventario-grafo-integracion-20261025.json). Antecedentes inferiores conservan fecha y alcance.
+
 Inventario diferencial338/339 verificado:28familias,170rutas,27tareas,15comandos propios,31Django y11recorridos operativos. Original111 y1507fuentes ejecutables preservados. B16 aceptado;15/18dispuestos localmente, B14/B15/B17deuda. Pendientes integración semántica al grafo y acta final; alfa.
 
 Corte: [inventario338](338-inventario-acciones-recorridos-alpha-20261025.md), [diferencial339](339-diferencial-inventario-recorridos-20261025.md) y [verificación](evidencias/inventario-acciones-verificacion-20261025.json).
