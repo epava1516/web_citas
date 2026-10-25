@@ -327,3 +327,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N01A: resultado345](345-n01-a-diagnostico-descubrimiento-20261025.md), [auditoría](evidencias/n01-a-diagnostico-auditoria-20261025.json) y [archivo de evidencia](evidencias/n01-a-diagnostico-evidencia-20261025.json):2PASS, referencia instrumentada, sin mejora causal o aceptación de N01 completo.
 
 - [N01B: protocolo346](346-n01-b-prerregistro-segmentos-20261025.md):100perfiles,10segmentosES/EN y60peticiones instrumentadas previstas;sin ejecución aún ni aceptación N01 completa.
+
+- [N01B: resultado347](347-n01-b-resultado-segmentos-20261025.md), [auditoría](evidencias/n01-b-diagnostico-auditoria-20261025.json) y [evidencia](evidencias/n01-b-diagnostico-evidencia-20261025.json):1PASS/60muestras, rutas fallback/state diferenciadas; N01/N04 siguen abiertos.

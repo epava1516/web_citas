@@ -1,3 +1,18 @@
+# Estado vigente — N01B auditado,1/13; siguiente separar estado preparado
+
+Goal activo completo340/N00–N15;13obligatorios y3condicionados,alfa. Tablasantes/después porbloque obligatorias;N00cerrado343,restopendientes.No crear ni completarotrogoal.
+
+Base72c5514prerregistro346/newinstrumenttest_discovery_segment_baseline.py,commit/pushantesdefreeze. N01Aresultado345ya integrado antesdeanalizarB:contexto1931sources/cded496b. DespuéssemánticaB3doc15nodes13edges+GraphifyAST4nodes15edges2defs;gate1933sources/17993nodes/79888edges/853communities,207refsstaticsexplícitas.1archivoañadidoinstrumento,producto1507SHApreviossincambio. Verificaciónindependiente/lint/726MD5906linksPASS. Dosreportesnativos STATUSupper/pendientesproyectoenunresolvedcorrigidosporautores,sóloJSONsinreextraer;originalesyFAILauxiliarpreservados,correctivaPASS. Agentesn01a_result_semantic/n01b_prereg_semanticterminados;JSONs/worktreespreservados. CeroClaudeV1nuevo;8históricos/consumo preservados.
+
+RunB artifacts/local-ci/20261025-083656-adcd31ae terminóPASS1caso/60peticiones/10segmentos/6muestras. Pasopytest57,552s;auditoríaindependientePASS:JUnit/journal3fases,60muestras/oráculosrevisados,1507producto+instrumento/docs/grafofreezeintactoshastaauditoría,containers/temporal ausentes,TGsent. Resultado347/auditoríaJSON/evidenciaTARdurables. Ningúntestvivoni goalpausado. Lospostresultados347/README/17necesitan delta semánticoantesdelsiguientehito (livegraphesprerregistroB,novigenteenestas3fuentes).
+
+Hallazgoconcreto:36sampleslist/page2/profileTODASfallback reasonstate_unknown_over_limit;12empty state/trusted_state,12detail sinmarcador. SQL29/17/22estables porgrupo. ESlistfirst795,828ms,mediana5posteriores229,477ms;ENlist246,573/249,565. DetailES65,431/57,784;EN42,964/47,972. NoTCP/p95/capacidadniantes/despuéscausal. No hay cambio deproducto. Fixturepopulate bulk ysinworker soncondicionesdelensayo;nodeclararbugniatribuircostealstatepathpreparado.
+
+Próximo inmediato:incorporar semántica347/README/17vista4líneas. Después nuevohitoN01C leer mantenimiento nativo publication_state y testsque preparanstate;prerregistrar mismacohortestadospreparadosporservicioreal versusdesconocidos,verificarruta/reasonyconsistencia,sinmonkeypatch/bypass.SíncronoprepnoacreditaworkerBeatreal. No repetirBporrutina. Aúnfaltanpromociones,profundidad/tamaños/filtros/estadosnegativos/resto8grupos y N01plancompleto. Manteneralcance13bloquesnohacergoalcompleteporN01. PreservarajenoDdocs/evidencias/traslado-maquina-graphify0110.tar.gz;sinrealdata/proveedor/producción/QAoptimización. Todaspruebaspornotificaciónconrecibo;silargaespera usarprotocoloAGENTS mismogoal/persistencia/pausa/compactación/retorno.
+
+---
+Historial:
+
 # Estado vigente — N01B preparado, no ejecutado
 
 Goalactivocontratocompleto,N00aceptado1/13,N01encurso,3condicionados,alfa. Reglausuariotablaantes/despuésporbloque vigente. Base748a3df. N01A2PASSysuslímitesincorporados semánticamenteantesdeanalizarN01B:contexto1931fuentes/17977nodos/79848relaciones/852comunidades,pruebaindependientePASS. Stage/context en artifacts/recorridos-n01-b-20261025/context;livepublicado. Agente n01a_result_semantic terminó,3entradas16nodos/17relaciones;preservarsusJSONs/worktree. Noinvocar denuevo porcaché.

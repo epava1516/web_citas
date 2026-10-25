@@ -1,3 +1,7 @@
+N01Bauditado:1PASS/60peticiones/10segmentosESEN,100perfiles. [Resultado347](347-n01-b-resultado-segmentos-20261025.md). Listado/página2/perfil:36fallback/state_unknown_over_limit;vacío12state;ficha12sinmarcador. Sin cambioproducto,ni mejora causal/p95/capacidad. N00aceptado1/13,N01encurso,alfa.
+
+Siguiente:semántica347/README/17antesdelnuevohito;prerregistrar estado preparadonativo vsdesconocido,oráculos/rutaylímites. No confundirfixture sinworker condefecto ni medircaminooptimizado sin verificarlo. Tablaantes/despuésporbloque al cierre.
+
 N01Bprerregistradoen [346](346-n01-b-prerregistro-segmentos-20261025.md):un caso,100perfiles,ES/EN,listado/página2/perfil/vacío/ficha,6peticionesporsegmento(60). Instrumentonuevosin cambioproducto;antesdeejecución,grafosemántico/ASTycongelaciónpendientes. N00aceptado1/13,N01encurso,alfa.
 
 Siguiente:conciliar prerregistro e instrumento,congelar,ejecutarselecciónexacta y auditar;no p95/capacidadni comparacióncausal primera/posteriores. Tablasantes/despuésal cerrarbloque. Antecedentesinferioresconservancorte.
