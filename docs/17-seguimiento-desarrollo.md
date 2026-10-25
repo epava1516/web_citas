@@ -1,3 +1,7 @@
+N03F1/390aceptadolocalmente:8FAIL3PASSreferencia→49PASS,capglobal4bajoBloblock/ceroI/Oagotados/legados5preservados,otroMSGrealACKmantienefailed4sinretry. Cuarto intento/leasefresh/readycomparison y37regresionesintactos;1745huellas/roles/PIDs/recursos/TGsent. N03abierto,3/13,alfa.
+
+Siguiente:N03F2medircrecimientohistórico0/10/100concohorteactualfija(draftaisladolistono ejecutado),luegoconciliaciónfinal6acciones/criterios/tablas/puentes. No reinterpretargarantía4comoper-mensaje;MOD09diferidoalfinal/nomarginaloptimización.
+
 N03E387aceptadolocalmente:1PASSworkerprefork2/Beatreales@60s,3retryFileNotFound+ValidationErrorsinretry,cohorte4recuperada/controlesintactos. Primer tick61,504s/publish→ready1,150s,1744huellas/roles/PIDs/recursos/credencialesretirados/TGsent;appsin cambios. N03abierto,3/13,alfa.
 
 Siguiente:N03Fconciliacióncompletaacciones/criteriosN03ycompartidosN07,incluidoslímitesreintentospor mensaje vs global/killredeliverysin inventarPASS. MOD09restantediferidoalfinalporusuario;nomarginaldetector/noabrirbeta.

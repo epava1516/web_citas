@@ -1,0 +1,103 @@
+{
+  "result": "CONFIRMED_8_REFERENCE_FAILURES_AND_3_PASS_NOT_BUDGET_ACCEPTANCE",
+  "run": "20261025-195610-4d4d1295",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "8",
+      "skipped": "0",
+      "tests": "11",
+      "time": "57.238",
+      "timestamp": "2026-10-25T20:56:31.899427+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_count": 1745,
+  "sources_unchanged": true,
+  "budget_cases": [
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 5,
+      "final_status": "ready",
+      "initial_attempts": 4,
+      "initial_status": "queued",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 5,
+      "final_status": "ready",
+      "initial_attempts": 4,
+      "initial_status": "processing",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 5,
+      "final_status": "ready",
+      "initial_attempts": 4,
+      "initial_status": "failed",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 5,
+      "final_status": "ready",
+      "initial_attempts": 4,
+      "initial_status": "ready",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 6,
+      "final_status": "ready",
+      "initial_attempts": 5,
+      "initial_status": "queued",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 6,
+      "final_status": "ready",
+      "initial_attempts": 5,
+      "initial_status": "processing",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 6,
+      "final_status": "ready",
+      "initial_attempts": 5,
+      "initial_status": "failed",
+      "storage_opens": 1
+    },
+    {
+      "comparison_complete": true,
+      "error_code": "",
+      "final_attempts": 6,
+      "final_status": "ready",
+      "initial_attempts": 5,
+      "initial_status": "ready",
+      "storage_opens": 1
+    }
+  ],
+  "positive_controls": [
+    "test_fourth_generation_is_still_allowed",
+    "test_fresh_fourth_generation_lease_is_not_cancelled",
+    "test_ready_comparison_remains_recoverable_at_generation_ceiling"
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "ERROR",
+    "name": "CI focused"
+  }
+}

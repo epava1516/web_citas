@@ -212,7 +212,25 @@ def test_media_worker_retry_and_real_beat_recovery(
                     assert all(row["exception_type"] == "FileNotFoundError" for row in retries)
                     assert snapshot(exhausted)["status"] == "failed" and exhausted.attempts == 4
                     assert exhausted.error_code == "decode_or_storage_failed"
+                    # Another real message must not reset the Blob's exhausted
+                    # generation budget, even while the original is still absent.
+                    budget_before = snapshot(exhausted)
+                    guard_id = send(exhausted)
+                    observed = wait_until(lambda data: bool(execution_rows(data, guard_id)), 45,
+                                          "Exhausted generation guard message expired")
+                    guard_rows = execution_rows(observed, guard_id)
+                    assert len(guard_rows) == 1 and guard_rows[0]["state"] == "SUCCESS"
+                    assert guard_rows[0]["retries"] == 0
+                    assert not [row for row in observed if row["id"] == guard_id
+                                and row["event"] in {"retry", "failure"}]
+                    assert snapshot(exhausted) == budget_before
+                    report["phases"]["generation_cap"] = {
+                        "task_id": guard_id, "before": budget_before,
+                        "after": snapshot(exhausted), "executions": guard_rows,
+                        "scope": "Successful task acknowledgement of exhausted failed4; no ready or new generation claim.",
+                    }
                     original_path.write_bytes(original_a)
+                    assert hashlib.sha256(original_path.read_bytes()).hexdigest() == exhausted.sha256
                     report["phases"]["storage_retry"] = {"task_id": a_id, "attempts": attempts, "retries": retries}
                     drain()
                     # B: supported Pillow decode but forbidden media format -> ValidationError,

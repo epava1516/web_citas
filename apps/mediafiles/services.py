@@ -147,6 +147,15 @@ def process(blob_id):
                 and blob.started_at > timezone.now() - timedelta(minutes=3)
             ):
                 return
+            # The automatic generation budget belongs to the Blob, not a
+            # Celery message. Preserve an active fourth lease above and allow
+            # ready comparisons without spending another generation.
+            if blob.attempts >= 4:
+                if blob.status != "failed":
+                    blob.status = "failed"
+                    blob.error_code = "generation_attempts_exhausted"
+                    blob.save(update_fields=["status", "error_code"])
+                return
             blob.status = "processing"
             blob.started_at = timezone.now()
             blob.attempts += 1
