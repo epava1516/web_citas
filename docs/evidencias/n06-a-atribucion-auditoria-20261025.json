@@ -1,0 +1,273 @@
+{
+  "result": "PASS_N06A_ATTRIBUTION_AUDIT",
+  "run": "artifacts/local-ci/20261025-103234-0e1e2151",
+  "cases": 2,
+  "start_samples": 3,
+  "samples": [
+    {
+      "case": "approved",
+      "known_table_query_occurrences": {
+        "auth_group": 1,
+        "auth_group_permissions": 1,
+        "auth_permission": 2,
+        "catalog_category": 4,
+        "catalog_municipality": 8,
+        "catalog_postalcode": 4,
+        "catalog_postalcode_municipalities": 2,
+        "catalog_province": 6,
+        "catalog_region": 6,
+        "catalog_service": 2,
+        "catalog_zone": 4,
+        "core_agency": 1,
+        "core_agencymember": 2,
+        "core_legalacceptance": 3,
+        "core_legaldocument": 8,
+        "core_person": 9,
+        "core_phoneclaim": 2,
+        "core_representationaction": 2,
+        "core_user": 1,
+        "core_user_groups": 1,
+        "core_user_user_permissions": 1,
+        "core_verificationcheck": 4,
+        "django_content_type": 2,
+        "django_session": 1,
+        "listings_listing": 15,
+        "listings_rate": 2,
+        "listings_revision": 19,
+        "listings_revision_categories": 5,
+        "listings_revision_services": 2,
+        "listings_revision_travel_areas": 2,
+        "mediafiles_blob": 7,
+        "mediafiles_match": 2,
+        "mediafiles_photo": 15,
+        "safety_privacypublicationhold": 2,
+        "safety_restriction": 2,
+        "safety_rightsphotoreintroduction": 2,
+        "safety_rightsrectificationexecution": 11,
+        "safety_rightsrectificationnotification": 11,
+        "safety_rightsrectificationphotodisposition": 2,
+        "safety_rightsrectificationphotoupload": 7,
+        "safety_rightsrectificationproposal": 11,
+        "safety_rightsrectificationreview": 11
+      },
+      "ordinal": 1,
+      "request_seconds_instrumented": 0.45618164725601673,
+      "sql_execute_seconds": 0.20294577162712812,
+      "sql_queries": 116,
+      "stages": {
+        "create_draft": {
+          "sql_execute_seconds": 0.034847455099225044,
+          "sql_queries": 11
+        },
+        "manager_authority": {
+          "sql_execute_seconds": 0.0020401766523718834,
+          "sql_queries": 2
+        },
+        "photo_task_eager": {
+          "sql_execute_seconds": 0.10755944438278675,
+          "sql_queries": 55
+        },
+        "request_other": {
+          "sql_execute_seconds": 0.014103958383202553,
+          "sql_queries": 14
+        },
+        "state_task_eager": {
+          "sql_execute_seconds": 0.04439473710954189,
+          "sql_queries": 34
+        }
+      },
+      "status": 302,
+      "task_always_eager": true,
+      "verbs": {
+        "DELETE": 2,
+        "INSERT": 5,
+        "RELEASE": 5,
+        "SAVEPOINT": 5,
+        "SELECT": 97,
+        "UPDATE": 2
+      }
+    },
+    {
+      "case": "rejected_correction",
+      "known_table_query_occurrences": {
+        "auth_group": 1,
+        "auth_group_permissions": 1,
+        "auth_permission": 2,
+        "catalog_category": 4,
+        "catalog_municipality": 8,
+        "catalog_postalcode": 4,
+        "catalog_postalcode_municipalities": 2,
+        "catalog_province": 6,
+        "catalog_region": 6,
+        "catalog_service": 2,
+        "catalog_zone": 4,
+        "core_agency": 1,
+        "core_agencymember": 2,
+        "core_legalacceptance": 3,
+        "core_legaldocument": 8,
+        "core_person": 9,
+        "core_phoneclaim": 2,
+        "core_representationaction": 2,
+        "core_user": 1,
+        "core_user_groups": 1,
+        "core_user_user_permissions": 1,
+        "core_verificationcheck": 4,
+        "django_content_type": 2,
+        "django_session": 1,
+        "listings_listing": 15,
+        "listings_rate": 2,
+        "listings_revision": 19,
+        "listings_revision_categories": 5,
+        "listings_revision_services": 2,
+        "listings_revision_travel_areas": 2,
+        "mediafiles_blob": 7,
+        "mediafiles_match": 2,
+        "mediafiles_photo": 15,
+        "safety_privacypublicationhold": 2,
+        "safety_restriction": 2,
+        "safety_rightsphotoreintroduction": 2,
+        "safety_rightsrectificationexecution": 11,
+        "safety_rightsrectificationnotification": 11,
+        "safety_rightsrectificationphotodisposition": 2,
+        "safety_rightsrectificationphotoupload": 7,
+        "safety_rightsrectificationproposal": 11,
+        "safety_rightsrectificationreview": 11
+      },
+      "ordinal": 1,
+      "request_seconds_instrumented": 0.4966005580499768,
+      "sql_execute_seconds": 0.2569896122440696,
+      "sql_queries": 116,
+      "stages": {
+        "create_draft": {
+          "sql_execute_seconds": 0.026087435893714428,
+          "sql_queries": 11
+        },
+        "manager_authority": {
+          "sql_execute_seconds": 0.0019164690747857094,
+          "sql_queries": 2
+        },
+        "photo_task_eager": {
+          "sql_execute_seconds": 0.1602694494649768,
+          "sql_queries": 55
+        },
+        "request_other": {
+          "sql_execute_seconds": 0.01303474884480238,
+          "sql_queries": 14
+        },
+        "state_task_eager": {
+          "sql_execute_seconds": 0.05568150896579027,
+          "sql_queries": 34
+        }
+      },
+      "status": 302,
+      "task_always_eager": true,
+      "verbs": {
+        "DELETE": 2,
+        "INSERT": 5,
+        "RELEASE": 5,
+        "SAVEPOINT": 5,
+        "SELECT": 97,
+        "UPDATE": 2
+      }
+    },
+    {
+      "case": "rejected_correction",
+      "known_table_query_occurrences": {
+        "auth_group": 1,
+        "auth_group_permissions": 1,
+        "auth_permission": 2,
+        "catalog_category": 4,
+        "catalog_municipality": 8,
+        "catalog_postalcode": 4,
+        "catalog_postalcode_municipalities": 2,
+        "catalog_province": 6,
+        "catalog_region": 6,
+        "catalog_service": 2,
+        "catalog_zone": 4,
+        "core_agency": 1,
+        "core_agencymember": 2,
+        "core_legalacceptance": 3,
+        "core_legaldocument": 8,
+        "core_person": 11,
+        "core_phoneclaim": 2,
+        "core_representationaction": 2,
+        "core_user": 1,
+        "core_user_groups": 1,
+        "core_user_user_permissions": 1,
+        "core_verificationcheck": 4,
+        "django_content_type": 2,
+        "django_session": 1,
+        "listings_listing": 18,
+        "listings_rate": 2,
+        "listings_revision": 23,
+        "listings_revision_categories": 5,
+        "listings_revision_services": 2,
+        "listings_revision_travel_areas": 2,
+        "mediafiles_blob": 8,
+        "mediafiles_match": 2,
+        "mediafiles_photo": 18,
+        "safety_privacypublicationhold": 2,
+        "safety_restriction": 2,
+        "safety_rightsphotoreintroduction": 2,
+        "safety_rightsrectificationexecution": 14,
+        "safety_rightsrectificationnotification": 14,
+        "safety_rightsrectificationphotodisposition": 3,
+        "safety_rightsrectificationphotoupload": 9,
+        "safety_rightsrectificationproposal": 14,
+        "safety_rightsrectificationreview": 14
+      },
+      "ordinal": 2,
+      "request_seconds_instrumented": 0.5567032899707556,
+      "sql_execute_seconds": 0.2850613594055176,
+      "sql_queries": 124,
+      "stages": {
+        "create_draft": {
+          "sql_execute_seconds": 0.04128025285899639,
+          "sql_queries": 11
+        },
+        "manager_authority": {
+          "sql_execute_seconds": 0.0035898014903068542,
+          "sql_queries": 2
+        },
+        "photo_task_eager": {
+          "sql_execute_seconds": 0.17658003978431225,
+          "sql_queries": 63
+        },
+        "request_other": {
+          "sql_execute_seconds": 0.024382907897233963,
+          "sql_queries": 14
+        },
+        "state_task_eager": {
+          "sql_execute_seconds": 0.03922835737466812,
+          "sql_queries": 34
+        }
+      },
+      "status": 302,
+      "task_always_eager": true,
+      "verbs": {
+        "DELETE": 2,
+        "INSERT": 5,
+        "RELEASE": 5,
+        "SAVEPOINT": 5,
+        "SELECT": 105,
+        "UPDATE": 2
+      }
+    }
+  ],
+  "sources_unchanged": true,
+  "owned_resources_absent": true,
+  "terminal_telegram": "sent",
+  "pytest_command_seconds": 51.29364119656384,
+  "scope": "Instrumented successful start POSTs, original oracles and eager fixture preserved; SQL code-stack stage attribution, not broker/worker latency or CPU-stage wall attribution. No app candidate or optimization claim.",
+  "sha256": {
+    "artifacts/local-ci/20261025-103234-0e1e2151/result.json": "821ec88fa47c13a9f265f19102ade4784d42de538b14ec62514ce9555720cd93",
+    "artifacts/local-ci/20261025-103234-0e1e2151/pytest.xml": "ee4fad904af47b0c327b6414af9891787389936df0c5ad5058b60d7eca4edddc",
+    "artifacts/local-ci/20261025-103234-0e1e2151/source-hashes.json": "8c78a2935f05dfe6bb2a4d91ab7edf12507e1c2fde219f3b82b5d17776193685",
+    "artifacts/recorridos-n06-a-20261025/freeze.json": "0ae104ef153894408da2bcc6962994141dcd7258526fb495b43de3e1f7b8263a"
+  },
+  "audit_terminal_telegram": {
+    "delivery": "sent",
+    "path": "artifacts/test-notifications/1792924616635026526-875789.json"
+  },
+  "temporary_absent": true
+}

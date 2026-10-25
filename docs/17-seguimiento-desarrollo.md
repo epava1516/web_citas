@@ -1,3 +1,7 @@
+N06Aauditado:2PASS/3inicios,SQL116/116/124=11copia+2autoridad+14resto+89/89/97tareas eager; [resultado357](357-n06-a-resultado-atribucion-revisiones-20261025.md). Sin N+1de copia demostrado ni candidato de app. Fuentesintactas,limpieza/TGsent. N00/N01aceptados2/13,N06encurso,alfa.
+
+Siguiente:semántica357/README/vista17/roadmap antesdehito; estudiar helpers worker/broker locales y prerregistrar camino normal encolado, sin deducir presupuesto por resta de SQL. Mantener permisos/instantánea/bytes; restoN06cuenta/representación pendiente. No repetirA sinhipótesis/candidato.
+
 N01aceptado por [acta355](355-n01-aceptacion-local-20261025.md) y verificación de cierre: N00/N01=2/13obligatorios; N02–N11/N15pendientes,N12–N14condicionados,alfa. Criterios354 anteriores a candidatos,19fichas+S01 y28familias; tabla global antes/después incluida. No se acepta rendimiento por planificación.
 
 Siguiente:integrar semántica354/355/roadmap/seguimiento antes deN06. Abrir S04-B atribuyendo listing_start116/124SQL, con misma autoridad/instantánea/bytes y presupuesto exacto antes del candidato. Otros bloques siguen obligatorios; no repetir diagnósticos sin hipótesis.

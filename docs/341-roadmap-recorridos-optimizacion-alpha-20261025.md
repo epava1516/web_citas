@@ -20,7 +20,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
-| N06 | P1 | Cuenta, panel, edición y representación | N01 | Pendiente |
+| N06 | P1 | Cuenta, panel, edición y representación | N01 | En curso: atribución357; camino encolado y otros escenarios pendientes |
 | N07 | P1 | Medios, publicación y ciclo de vida | N01 | Pendiente |
 | N08 | P1 | Favoritos, SEO y exposición comercial sintética | N01 | Pendiente |
 | N09 | P1 | Derechos, moderación, avisos y limpieza | N01 | Pendiente |

@@ -1,3 +1,5 @@
+- [N06A:2PASS, SQL de inicio de revisión atribuido a copia, autoridad y tareas eager](357-n06-a-resultado-atribucion-revisiones-20261025.md).
+
 - [N01 aceptado: criterios previos, bases y tabla global;2/13bloques](355-n01-aceptacion-local-20261025.md).
 
 - [N01F: criterios comparativos por escenario y medidas posteriores obligatorias](354-n01-f-criterios-comparacion-escenarios-20261025.md).
