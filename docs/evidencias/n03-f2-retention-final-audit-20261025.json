@@ -1,0 +1,1060 @@
+{
+  "result": "PASS_FINITE_RETAINED_POPULATION_NO_APPLICATION_CHANGE_NOT_N03_ACCEPTANCE",
+  "run": "20261025-202704-5fab8e4c",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "3",
+      "time": "51.734",
+      "timestamp": "2026-10-25T21:27:25.751680+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "sources": 1746,
+  "source_identity_verified_during_run": true,
+  "post_run_worklog_only": {
+    ".ai/tasks/desarrollo.md": {
+      "frozen": "eaa43a5853d5cfb1d944c07e6c08522f3370766d470faae9898701b4e7ad9d6f",
+      "current": "14b9fe23811b078b99f20b65382b9d943e6377eff0ce739d3907ac34c174238e"
+    }
+  },
+  "corpus_sha256": "faffecc707ff0af5e5f5c26743423630efc78a335bab9bcf4e44c44351ed0093",
+  "canonical_result": {
+    "candidate_original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+    "confirmation": {
+      "good_matches": 257,
+      "inlier_ratio": 0.8599,
+      "inliers": 221,
+      "keypoints_a": 800,
+      "keypoints_b": 800,
+      "overlap": 1.0,
+      "reason": "consistent_similarity_transform",
+      "rotation_deg": -0.01,
+      "scale": 1.0005,
+      "spread": 0.4581,
+      "status": "confirmed"
+    },
+    "method": "orb",
+    "query_original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+    "score": 0.8599
+  },
+  "summary": [
+    {
+      "retained": 0,
+      "corpus_bytes": 119478,
+      "first": {
+        "confirmation_calls": 1,
+        "detector": {
+          "sql_calls": 22,
+          "sql_execute_seconds": 0.07001867610961199,
+          "thread_cpu_seconds": 0.07744837900000334,
+          "wall_seconds": 0.14788485132157803
+        },
+        "ordinal": 1,
+        "phase": "first",
+        "process_maxrss_kib": 208680,
+        "recorded_matches": 1,
+        "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+        "selector_after": {
+          "dispatches": 0,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.006640532054007053,
+          "thread_cpu_seconds": 0.005414440000002685,
+          "wall_seconds": 0.0120005551725626
+        },
+        "selector_before": {
+          "dispatches": 1,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.003909561783075333,
+          "thread_cpu_seconds": 0.006165647999999635,
+          "wall_seconds": 0.0099312299862504
+        },
+        "signature_calls_peer": 1,
+        "signature_calls_query": 2
+      },
+      "detector": {
+        "wall_seconds": {
+          "median": 0.15642937365919352,
+          "min": 0.12815722357481718,
+          "max": 0.19361228402704
+        },
+        "thread_cpu_seconds": {
+          "median": 0.07845649600000115,
+          "min": 0.070811508999995,
+          "max": 0.11178495899999774
+        },
+        "sql_calls": {
+          "median": 22,
+          "min": 22,
+          "max": 22
+        },
+        "sql_execute_seconds": {
+          "median": 0.07330518122762442,
+          "min": 0.05766198877245188,
+          "max": 0.09308600798249245
+        }
+      },
+      "selector_before": {
+        "wall_seconds": {
+          "median": 0.013800605200231075,
+          "min": 0.012057419866323471,
+          "max": 0.016026068478822708
+        },
+        "thread_cpu_seconds": {
+          "median": 0.009261449999996785,
+          "min": 0.005774470999995174,
+          "max": 0.01011246999999571
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.006142999976873398,
+          "min": 0.004000361077487469,
+          "max": 0.007409648038446903
+        }
+      },
+      "selector_after": {
+        "wall_seconds": {
+          "median": 0.013057292439043522,
+          "min": 0.010083654895424843,
+          "max": 0.03384450264275074
+        },
+        "thread_cpu_seconds": {
+          "median": 0.005588238000001411,
+          "min": 0.004957158000003403,
+          "max": 0.009926614999997696
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.007588311098515987,
+          "min": 0.0052351150661706924,
+          "max": 0.012989172711968422
+        }
+      }
+    },
+    {
+      "retained": 10,
+      "corpus_bytes": 119478,
+      "first": {
+        "confirmation_calls": 1,
+        "detector": {
+          "sql_calls": 22,
+          "sql_execute_seconds": 0.06393653247505426,
+          "thread_cpu_seconds": 0.0768047970000012,
+          "wall_seconds": 0.1435210108757019
+        },
+        "ordinal": 1,
+        "phase": "first",
+        "process_maxrss_kib": 208808,
+        "recorded_matches": 1,
+        "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+        "selector_after": {
+          "dispatches": 0,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.005283520556986332,
+          "thread_cpu_seconds": 0.006180784000001438,
+          "wall_seconds": 0.011348388157784939
+        },
+        "selector_before": {
+          "dispatches": 1,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.009852072224020958,
+          "thread_cpu_seconds": 0.013198509999995167,
+          "wall_seconds": 0.022812509909272194
+        },
+        "signature_calls_peer": 1,
+        "signature_calls_query": 2
+      },
+      "detector": {
+        "wall_seconds": {
+          "median": 0.17514521814882755,
+          "min": 0.12220773845911026,
+          "max": 0.22256451193243265
+        },
+        "thread_cpu_seconds": {
+          "median": 0.09411201799999702,
+          "min": 0.07703859299999749,
+          "max": 0.13888205099999595
+        },
+        "sql_calls": {
+          "median": 22,
+          "min": 22,
+          "max": 22
+        },
+        "sql_execute_seconds": {
+          "median": 0.0850193714722991,
+          "min": 0.044643938541412354,
+          "max": 0.08573792222887278
+        }
+      },
+      "selector_before": {
+        "wall_seconds": {
+          "median": 0.011178177781403065,
+          "min": 0.0098031684756279,
+          "max": 0.018655627965927124
+        },
+        "thread_cpu_seconds": {
+          "median": 0.006773546999994551,
+          "min": 0.005919310999999539,
+          "max": 0.011487149000004138
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.004742775112390518,
+          "min": 0.0041193533688783646,
+          "max": 0.007408737204968929
+        }
+      },
+      "selector_after": {
+        "wall_seconds": {
+          "median": 0.016433164477348328,
+          "min": 0.010167312808334827,
+          "max": 0.017598522827029228
+        },
+        "thread_cpu_seconds": {
+          "median": 0.008068341000004864,
+          "min": 0.005219015999998078,
+          "max": 0.01093963299999956
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.0068443454802036285,
+          "min": 0.004832330159842968,
+          "max": 0.008431539870798588
+        }
+      }
+    },
+    {
+      "retained": 100,
+      "corpus_bytes": 119478,
+      "first": {
+        "confirmation_calls": 1,
+        "detector": {
+          "sql_calls": 22,
+          "sql_execute_seconds": 0.10809214413166046,
+          "thread_cpu_seconds": 0.10497263999999973,
+          "wall_seconds": 0.2141158301383257
+        },
+        "ordinal": 1,
+        "phase": "first",
+        "process_maxrss_kib": 208936,
+        "recorded_matches": 1,
+        "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+        "selector_after": {
+          "dispatches": 0,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.0062497761100530624,
+          "thread_cpu_seconds": 0.00726817900000043,
+          "wall_seconds": 0.013363892212510109
+        },
+        "selector_before": {
+          "dispatches": 1,
+          "sql_calls": 1,
+          "sql_execute_seconds": 0.008537422865629196,
+          "thread_cpu_seconds": 0.005540906999996764,
+          "wall_seconds": 0.013894747011363506
+        },
+        "signature_calls_peer": 1,
+        "signature_calls_query": 2
+      },
+      "detector": {
+        "wall_seconds": {
+          "median": 0.20212890580296516,
+          "min": 0.1718511562794447,
+          "max": 0.240406128577888
+        },
+        "thread_cpu_seconds": {
+          "median": 0.0996222830000022,
+          "min": 0.09483521699999642,
+          "max": 0.1363738669999961
+        },
+        "sql_calls": {
+          "median": 22,
+          "min": 22,
+          "max": 22
+        },
+        "sql_execute_seconds": {
+          "median": 0.08924776781350374,
+          "min": 0.06761124078184366,
+          "max": 0.12098399456590414
+        }
+      },
+      "selector_before": {
+        "wall_seconds": {
+          "median": 0.015618312172591686,
+          "min": 0.010469119064509869,
+          "max": 0.02008523792028427
+        },
+        "thread_cpu_seconds": {
+          "median": 0.008124334000001454,
+          "min": 0.0067928739999985055,
+          "max": 0.010850914000002376
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.006580992601811886,
+          "min": 0.003928098827600479,
+          "max": 0.008813698776066303
+        }
+      },
+      "selector_after": {
+        "wall_seconds": {
+          "median": 0.015579733066260815,
+          "min": 0.0095270536839962,
+          "max": 0.018210671842098236
+        },
+        "thread_cpu_seconds": {
+          "median": 0.007104007000002355,
+          "min": 0.0054873509999993075,
+          "max": 0.011410187000002736
+        },
+        "sql_calls": {
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "sql_execute_seconds": {
+          "median": 0.007177673280239105,
+          "min": 0.004184771329164505,
+          "max": 0.009157409891486168
+        }
+      }
+    }
+  ],
+  "raw_properties": [
+    {
+      "active_current_photos": 2,
+      "canonical_result": {
+        "candidate_original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+        "confirmation": {
+          "good_matches": 257,
+          "inlier_ratio": 0.8599,
+          "inliers": 221,
+          "keypoints_a": 800,
+          "keypoints_b": 800,
+          "overlap": 1.0,
+          "reason": "consistent_similarity_transform",
+          "rotation_deg": -0.01,
+          "scale": 1.0005,
+          "spread": 0.4581,
+          "status": "confirmed"
+        },
+        "method": "orb",
+        "query_original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+        "score": 0.8599
+      },
+      "corpus": [
+        {
+          "derivative_bytes": 12564,
+          "derivative_sha256": "cf9d78dac5520d50ba2efc58b8e4b5817dff22cc8a878c8f0f1c3414643cb72a",
+          "height": 480,
+          "kind": "query",
+          "original_bytes": 4073,
+          "original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+          "signature_sha256": "86c291549c5b1233c1ac98438e16b89c5f9ed7fbe0a091c759b309c0413d495d",
+          "width": 640
+        },
+        {
+          "derivative_bytes": 21070,
+          "derivative_sha256": "a944e72edb5bc6fca2efe128f45ff2b95eeb475a6fb7bcb68c798457186e584f",
+          "height": 480,
+          "kind": "peer",
+          "original_bytes": 81771,
+          "original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+          "signature_sha256": "ae8cec06cfbe62e4ed6bc7e40b91569c5c78cacd42be49cf35a65e1628ded9fb",
+          "width": 512
+        }
+      ],
+      "corpus_file_bytes": 119478,
+      "corpus_sha256": "faffecc707ff0af5e5f5c26743423630efc78a335bab9bcf4e44c44351ed0093",
+      "diagnostic_rng_seed": 1847,
+      "historical_revisions_including_empty_source": 1,
+      "limits": "Six full direct detector calls per retained population: first plus five later. Ready signatures/files prepared outside clocks, no process generation, no worker/Beat/TCP/provider/80k claim. Selector uses captured transport, one native SQL query, no execution simulation. SQL includes numeric connection execute timing, not server CPU. Process RSS is cumulative high-water. No candidate application change, latency SLO or inferred improvement; first call includes real comparator initialization. Diagnostic wrappers delegate real functions; RNG seed set before each call, threads restored. Persisted historical ledger is synthetic authority, never human approval.",
+      "opencv_threads": 1,
+      "ready_blobs": 2,
+      "retained_historical_photos": 0,
+      "samples": [
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.07001867610961199,
+            "thread_cpu_seconds": 0.07744837900000334,
+            "wall_seconds": 0.14788485132157803
+          },
+          "ordinal": 1,
+          "phase": "first",
+          "process_maxrss_kib": 208680,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.006640532054007053,
+            "thread_cpu_seconds": 0.005414440000002685,
+            "wall_seconds": 0.0120005551725626
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.003909561783075333,
+            "thread_cpu_seconds": 0.006165647999999635,
+            "wall_seconds": 0.0099312299862504
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.07330518122762442,
+            "thread_cpu_seconds": 0.08139952499999481,
+            "wall_seconds": 0.15642937365919352
+          },
+          "ordinal": 2,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.006389987654983997,
+            "thread_cpu_seconds": 0.005009048000005123,
+            "wall_seconds": 0.011274014599621296
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.006142999976873398,
+            "thread_cpu_seconds": 0.009261449999996785,
+            "wall_seconds": 0.015495709143579006
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.07531926222145557,
+            "thread_cpu_seconds": 0.11178495899999774,
+            "wall_seconds": 0.19361228402704
+          },
+          "ordinal": 3,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.012989172711968422,
+            "thread_cpu_seconds": 0.009926614999997696,
+            "wall_seconds": 0.03384450264275074
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.005628733895719051,
+            "thread_cpu_seconds": 0.01011246999999571,
+            "wall_seconds": 0.016026068478822708
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.09308600798249245,
+            "thread_cpu_seconds": 0.07700833500000215,
+            "wall_seconds": 0.17756161745637655
+          },
+          "ordinal": 4,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007588311098515987,
+            "thread_cpu_seconds": 0.005588238000001411,
+            "wall_seconds": 0.013057292439043522
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007409648038446903,
+            "thread_cpu_seconds": 0.006029191000003209,
+            "wall_seconds": 0.013330242596566677
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.06405171100050211,
+            "thread_cpu_seconds": 0.07845649600000115,
+            "wall_seconds": 0.14951944444328547
+          },
+          "ordinal": 5,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.012475073337554932,
+            "thread_cpu_seconds": 0.009183546000002707,
+            "wall_seconds": 0.02155920583754778
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.006477373652160168,
+            "thread_cpu_seconds": 0.005774470999995174,
+            "wall_seconds": 0.012057419866323471
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.05766198877245188,
+            "thread_cpu_seconds": 0.070811508999995,
+            "wall_seconds": 0.12815722357481718
+          },
+          "ordinal": 6,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.0052351150661706924,
+            "thread_cpu_seconds": 0.004957158000003403,
+            "wall_seconds": 0.010083654895424843
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004000361077487469,
+            "thread_cpu_seconds": 0.009524908000003052,
+            "wall_seconds": 0.013800605200231075
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        }
+      ],
+      "version": "n03f2-retained-population-v1"
+    },
+    {
+      "active_current_photos": 2,
+      "canonical_result": {
+        "candidate_original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+        "confirmation": {
+          "good_matches": 257,
+          "inlier_ratio": 0.8599,
+          "inliers": 221,
+          "keypoints_a": 800,
+          "keypoints_b": 800,
+          "overlap": 1.0,
+          "reason": "consistent_similarity_transform",
+          "rotation_deg": -0.01,
+          "scale": 1.0005,
+          "spread": 0.4581,
+          "status": "confirmed"
+        },
+        "method": "orb",
+        "query_original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+        "score": 0.8599
+      },
+      "corpus": [
+        {
+          "derivative_bytes": 12564,
+          "derivative_sha256": "cf9d78dac5520d50ba2efc58b8e4b5817dff22cc8a878c8f0f1c3414643cb72a",
+          "height": 480,
+          "kind": "query",
+          "original_bytes": 4073,
+          "original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+          "signature_sha256": "86c291549c5b1233c1ac98438e16b89c5f9ed7fbe0a091c759b309c0413d495d",
+          "width": 640
+        },
+        {
+          "derivative_bytes": 21070,
+          "derivative_sha256": "a944e72edb5bc6fca2efe128f45ff2b95eeb475a6fb7bcb68c798457186e584f",
+          "height": 480,
+          "kind": "peer",
+          "original_bytes": 81771,
+          "original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+          "signature_sha256": "ae8cec06cfbe62e4ed6bc7e40b91569c5c78cacd42be49cf35a65e1628ded9fb",
+          "width": 512
+        }
+      ],
+      "corpus_file_bytes": 119478,
+      "corpus_sha256": "faffecc707ff0af5e5f5c26743423630efc78a335bab9bcf4e44c44351ed0093",
+      "diagnostic_rng_seed": 1847,
+      "historical_revisions_including_empty_source": 11,
+      "limits": "Six full direct detector calls per retained population: first plus five later. Ready signatures/files prepared outside clocks, no process generation, no worker/Beat/TCP/provider/80k claim. Selector uses captured transport, one native SQL query, no execution simulation. SQL includes numeric connection execute timing, not server CPU. Process RSS is cumulative high-water. No candidate application change, latency SLO or inferred improvement; first call includes real comparator initialization. Diagnostic wrappers delegate real functions; RNG seed set before each call, threads restored. Persisted historical ledger is synthetic authority, never human approval.",
+      "opencv_threads": 1,
+      "ready_blobs": 2,
+      "retained_historical_photos": 10,
+      "samples": [
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.06393653247505426,
+            "thread_cpu_seconds": 0.0768047970000012,
+            "wall_seconds": 0.1435210108757019
+          },
+          "ordinal": 1,
+          "phase": "first",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.005283520556986332,
+            "thread_cpu_seconds": 0.006180784000001438,
+            "wall_seconds": 0.011348388157784939
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.009852072224020958,
+            "thread_cpu_seconds": 0.013198509999995167,
+            "wall_seconds": 0.022812509909272194
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.07142792083323002,
+            "thread_cpu_seconds": 0.09411201799999702,
+            "wall_seconds": 0.16698965057730675
+          },
+          "ordinal": 2,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.008431539870798588,
+            "thread_cpu_seconds": 0.008068341000004864,
+            "wall_seconds": 0.016433164477348328
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004584712907671928,
+            "thread_cpu_seconds": 0.006773546999994551,
+            "wall_seconds": 0.011178177781403065
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.08539558947086334,
+            "thread_cpu_seconds": 0.1194222190000005,
+            "wall_seconds": 0.20672793965786695
+          },
+          "ordinal": 3,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007327320985496044,
+            "thread_cpu_seconds": 0.009496371000004444,
+            "wall_seconds": 0.016656906343996525
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007363594137132168,
+            "thread_cpu_seconds": 0.009810430999998232,
+            "wall_seconds": 0.01701266970485449
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.0850193714722991,
+            "thread_cpu_seconds": 0.13888205099999595,
+            "wall_seconds": 0.22256451193243265
+          },
+          "ordinal": 4,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004832330159842968,
+            "thread_cpu_seconds": 0.006176044999996577,
+            "wall_seconds": 0.010782727971673012
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007408737204968929,
+            "thread_cpu_seconds": 0.011487149000004138,
+            "wall_seconds": 0.018655627965927124
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.044643938541412354,
+            "thread_cpu_seconds": 0.07703859299999749,
+            "wall_seconds": 0.12220773845911026
+          },
+          "ordinal": 5,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.005156661383807659,
+            "thread_cpu_seconds": 0.005219015999998078,
+            "wall_seconds": 0.010167312808334827
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.0041193533688783646,
+            "thread_cpu_seconds": 0.005979542000005722,
+            "wall_seconds": 0.0098031684756279
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.08573792222887278,
+            "thread_cpu_seconds": 0.08761988799999898,
+            "wall_seconds": 0.17514521814882755
+          },
+          "ordinal": 6,
+          "phase": "later",
+          "process_maxrss_kib": 208808,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.0068443454802036285,
+            "thread_cpu_seconds": 0.01093963299999956,
+            "wall_seconds": 0.017598522827029228
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004742775112390518,
+            "thread_cpu_seconds": 0.005919310999999539,
+            "wall_seconds": 0.010660501196980476
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        }
+      ],
+      "version": "n03f2-retained-population-v1"
+    },
+    {
+      "active_current_photos": 2,
+      "canonical_result": {
+        "candidate_original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+        "confirmation": {
+          "good_matches": 257,
+          "inlier_ratio": 0.8599,
+          "inliers": 221,
+          "keypoints_a": 800,
+          "keypoints_b": 800,
+          "overlap": 1.0,
+          "reason": "consistent_similarity_transform",
+          "rotation_deg": -0.01,
+          "scale": 1.0005,
+          "spread": 0.4581,
+          "status": "confirmed"
+        },
+        "method": "orb",
+        "query_original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+        "score": 0.8599
+      },
+      "corpus": [
+        {
+          "derivative_bytes": 12564,
+          "derivative_sha256": "cf9d78dac5520d50ba2efc58b8e4b5817dff22cc8a878c8f0f1c3414643cb72a",
+          "height": 480,
+          "kind": "query",
+          "original_bytes": 4073,
+          "original_sha256": "56c99d201bcab790dda49ba68b7f1871c97a3bc1c31ed81f8f3252d4e251e2f9",
+          "signature_sha256": "86c291549c5b1233c1ac98438e16b89c5f9ed7fbe0a091c759b309c0413d495d",
+          "width": 640
+        },
+        {
+          "derivative_bytes": 21070,
+          "derivative_sha256": "a944e72edb5bc6fca2efe128f45ff2b95eeb475a6fb7bcb68c798457186e584f",
+          "height": 480,
+          "kind": "peer",
+          "original_bytes": 81771,
+          "original_sha256": "570184d1e5a1851efafecf6f1ee07bce979e99e30098617e6d9bf87489aecc24",
+          "signature_sha256": "ae8cec06cfbe62e4ed6bc7e40b91569c5c78cacd42be49cf35a65e1628ded9fb",
+          "width": 512
+        }
+      ],
+      "corpus_file_bytes": 119478,
+      "corpus_sha256": "faffecc707ff0af5e5f5c26743423630efc78a335bab9bcf4e44c44351ed0093",
+      "diagnostic_rng_seed": 1847,
+      "historical_revisions_including_empty_source": 101,
+      "limits": "Six full direct detector calls per retained population: first plus five later. Ready signatures/files prepared outside clocks, no process generation, no worker/Beat/TCP/provider/80k claim. Selector uses captured transport, one native SQL query, no execution simulation. SQL includes numeric connection execute timing, not server CPU. Process RSS is cumulative high-water. No candidate application change, latency SLO or inferred improvement; first call includes real comparator initialization. Diagnostic wrappers delegate real functions; RNG seed set before each call, threads restored. Persisted historical ledger is synthetic authority, never human approval.",
+      "opencv_threads": 1,
+      "ready_blobs": 2,
+      "retained_historical_photos": 100,
+      "samples": [
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.10809214413166046,
+            "thread_cpu_seconds": 0.10497263999999973,
+            "wall_seconds": 0.2141158301383257
+          },
+          "ordinal": 1,
+          "phase": "first",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.0062497761100530624,
+            "thread_cpu_seconds": 0.00726817900000043,
+            "wall_seconds": 0.013363892212510109
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.008537422865629196,
+            "thread_cpu_seconds": 0.005540906999996764,
+            "wall_seconds": 0.013894747011363506
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.0736673604696989,
+            "thread_cpu_seconds": 0.1363738669999961,
+            "wall_seconds": 0.21232728101313114
+          },
+          "ordinal": 2,
+          "phase": "later",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007177673280239105,
+            "thread_cpu_seconds": 0.011410187000002736,
+            "wall_seconds": 0.018210671842098236
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004107264801859856,
+            "thread_cpu_seconds": 0.007357953000003192,
+            "wall_seconds": 0.011239697225391865
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.06761124078184366,
+            "thread_cpu_seconds": 0.09483521699999642,
+            "wall_seconds": 0.1718511562794447
+          },
+          "ordinal": 3,
+          "phase": "later",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.004184771329164505,
+            "thread_cpu_seconds": 0.0054873509999993075,
+            "wall_seconds": 0.0095270536839962
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.006580992601811886,
+            "thread_cpu_seconds": 0.009631943000002252,
+            "wall_seconds": 0.01628248207271099
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.09861047938466072,
+            "thread_cpu_seconds": 0.0996222830000022,
+            "wall_seconds": 0.20212890580296516
+          },
+          "ordinal": 4,
+          "phase": "later",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.008491500280797482,
+            "thread_cpu_seconds": 0.007104007000002355,
+            "wall_seconds": 0.015579733066260815
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.003928098827600479,
+            "thread_cpu_seconds": 0.0067928739999985055,
+            "wall_seconds": 0.010469119064509869
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.12098399456590414,
+            "thread_cpu_seconds": 0.11817398600000217,
+            "wall_seconds": 0.240406128577888
+          },
+          "ordinal": 5,
+          "phase": "later",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.009157409891486168,
+            "thread_cpu_seconds": 0.008015607000004366,
+            "wall_seconds": 0.01683688908815384
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.008813698776066303,
+            "thread_cpu_seconds": 0.010850914000002376,
+            "wall_seconds": 0.02008523792028427
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        },
+        {
+          "confirmation_calls": 1,
+          "detector": {
+            "sql_calls": 22,
+            "sql_execute_seconds": 0.08924776781350374,
+            "thread_cpu_seconds": 0.09942856700000391,
+            "wall_seconds": 0.189780555665493
+          },
+          "ordinal": 6,
+          "phase": "later",
+          "process_maxrss_kib": 208936,
+          "recorded_matches": 1,
+          "result_sha256": "636137a93404521ba95dc2a826edddda5543c8a9288ec47b43456a3ae57014f0",
+          "selector_after": {
+            "dispatches": 0,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.005883802659809589,
+            "thread_cpu_seconds": 0.005767220000002737,
+            "wall_seconds": 0.011532493866980076
+          },
+          "selector_before": {
+            "dispatches": 1,
+            "sql_calls": 1,
+            "sql_execute_seconds": 0.007497225888073444,
+            "thread_cpu_seconds": 0.008124334000001454,
+            "wall_seconds": 0.015618312172591686
+          },
+          "signature_calls_peer": 1,
+          "signature_calls_query": 2
+        }
+      ],
+      "version": "n03f2-retained-population-v1"
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "Three distinct retained populations with two current contents fixed; 18 full direct calls, no application speedup, SLA, worker or 80k claim; N03 final action reconciliation pending"
+}
