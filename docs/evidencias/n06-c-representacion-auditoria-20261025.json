@@ -1,0 +1,684 @@
+{
+  "run": "20261025-154544-5fcdc190",
+  "runner_result": {
+    "id": "20261025-154544-5fcdc190",
+    "profile": "focused",
+    "result": "PASS",
+    "head": "a5a05559b7e1d6f8a104b7d60f23b2271cf36a56",
+    "excluded": [],
+    "selection": [
+      "tests/test_agency_authority_reference.py"
+    ],
+    "regression_lane": "all",
+    "lane_excluded_files": [],
+    "workers": 1,
+    "fixture_snapshots": false,
+    "observe_http_operations": true,
+    "duration_order": {
+      "enabled": false
+    },
+    "benchmark_observe_workers": false,
+    "benchmark_ingress_only": false,
+    "benchmark_prepare_static": false,
+    "benchmark_sql_shapes": false,
+    "benchmark_pg_statements": false,
+    "benchmark_normal_refresh": false,
+    "benchmark_beta_promotions": false,
+    "benchmark_territorial": false,
+    "benchmark_client_phases": false,
+    "benchmark_server_boundaries": false,
+    "benchmark_service_resources": false,
+    "benchmark_generator_freeze": false,
+    "limits": "Local verification; skips/exclusions are not PASS or phase acceptance.",
+    "cleanup": {
+      "web-modelos-ci-pg-20261025-154544-5fcdc190": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261025-154544-5fcdc190": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "sources_unchanged": true,
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "2",
+        "time": "54.110",
+        "timestamp": "2026-10-25T16:46:04.130085+01:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "skipped": []
+  },
+  "source_count": 1735,
+  "source_mismatches": [],
+  "junit_sha256": "d247dda9098bd08064dd836dcef35ed54272b5af522559af09df335de97ba9fb",
+  "cases": [
+    {
+      "name": "test_agency_publication_authority_reference",
+      "seconds_qa": "46.710",
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.7392728645354509,
+          "route_name": "agency_create",
+          "sql_execute_seconds": 0.027337986044585705,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0680623073130846,
+          "route_name": "organization_review",
+          "sql_execute_seconds": 0.04563608206808567,
+          "sql_queries": 15,
+          "status": 302,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030533832497894764,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.017773819155991077,
+          "sql_queries": 10,
+          "status": 302,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07613314595073462,
+          "route_name": "consent_invite",
+          "sql_execute_seconds": 0.015022341161966324,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.049788459204137325,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.0312818456441164,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06655592657625675,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.044171033427119255,
+          "sql_queries": 28,
+          "status": 302,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02961970493197441,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.013022609986364841,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 7
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06227761600166559,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.04210347309708595,
+          "sql_queries": 21,
+          "status": 302,
+          "ordinal": 8
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0319457957521081,
+          "route_name": "agency_assign",
+          "sql_execute_seconds": 0.018575859256088734,
+          "sql_queries": 12,
+          "status": 302,
+          "ordinal": 9
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1292199892923236,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.06912519875913858,
+          "sql_queries": 43,
+          "status": 302,
+          "ordinal": 10
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14142266940325499,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07621189393103123,
+          "sql_queries": 41,
+          "status": 302,
+          "ordinal": 11
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15128748025745153,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07596688810735941,
+          "sql_queries": 39,
+          "status": 302,
+          "ordinal": 12
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 1.1030391352251172,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.3130385745316744,
+          "sql_queries": 120,
+          "status": 302,
+          "ordinal": 13
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16968595702201128,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.08257341384887695,
+          "sql_queries": 65,
+          "status": 302,
+          "ordinal": 14
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02527004200965166,
+          "route_name": "agency_add_person",
+          "sql_execute_seconds": 0.01442460436373949,
+          "sql_queries": 10,
+          "status": 302,
+          "ordinal": 15
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025772307999432087,
+          "route_name": "consent_invite",
+          "sql_execute_seconds": 0.011129521764814854,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 16
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04775281250476837,
+          "route_name": "consent_accept",
+          "sql_execute_seconds": 0.027353256940841675,
+          "sql_queries": 17,
+          "status": 302,
+          "ordinal": 17
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06007941532880068,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.03927819803357124,
+          "sql_queries": 25,
+          "status": 302,
+          "ordinal": 18
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.026154013350605965,
+          "route_name": "phone_start",
+          "sql_execute_seconds": 0.01044208463281393,
+          "sql_queries": 14,
+          "status": 302,
+          "ordinal": 19
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09263200592249632,
+          "route_name": "phone_confirm",
+          "sql_execute_seconds": 0.05513233691453934,
+          "sql_queries": 33,
+          "status": 302,
+          "ordinal": 20
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03230620361864567,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.007077641785144806,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 21
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13721089717000723,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.08746479917317629,
+          "sql_queries": 41,
+          "status": 302,
+          "ordinal": 22
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1568217258900404,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.09067736193537712,
+          "sql_queries": 40,
+          "status": 302,
+          "ordinal": 23
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1898887725546956,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.1240928191691637,
+          "sql_queries": 38,
+          "status": 302,
+          "ordinal": 24
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6856771679595113,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.2867012331262231,
+          "sql_queries": 116,
+          "status": 302,
+          "ordinal": 25
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.27802610397338867,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.14631477650254965,
+          "sql_queries": 64,
+          "status": 302,
+          "ordinal": 26
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020088063552975655,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.009131989441812038,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 27
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.019973445683717728,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.00959987472742796,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 28
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.36269920505583286,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.18312302883714437,
+          "sql_queries": 90,
+          "status": 302,
+          "ordinal": 29
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.30758245941251516,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.0573247242718935,
+          "sql_queries": 27,
+          "status": 200,
+          "ordinal": 30
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01791438926011324,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.011225183494389057,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 31
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017158069647848606,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.011296357959508896,
+          "sql_queries": 6,
+          "status": 403,
+          "ordinal": 32
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.3333503659814596,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.19616583362221718,
+          "sql_queries": 90,
+          "status": 302,
+          "ordinal": 33
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.059301924891769886,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.03016669861972332,
+          "sql_queries": 27,
+          "status": 200,
+          "ordinal": 34
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14805880095809698,
+          "route_name": "representation_revoke",
+          "sql_execute_seconds": 0.08256484288722277,
+          "sql_queries": 44,
+          "status": 302,
+          "ordinal": 35
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.028603925369679928,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.014011247083544731,
+          "sql_queries": 8,
+          "status": 404,
+          "ordinal": 36
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07308015506714582,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.04194978065788746,
+          "sql_queries": 27,
+          "status": 200,
+          "ordinal": 37
+        }
+      ],
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "name": "test_agency_editor_revocation_reference",
+      "seconds_qa": "7.117",
+      "samples": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.00990039948374033,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.004156784154474735,
+          "sql_queries": 5,
+          "status": 302,
+          "ordinal": 1
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13052737433463335,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.05924702249467373,
+          "sql_queries": 33,
+          "status": 200,
+          "ordinal": 2
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016351313330233097,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.007996225729584694,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 3
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16339227836579084,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.1030920771881938,
+          "sql_queries": 46,
+          "status": 302,
+          "ordinal": 4
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.011795427650213242,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.004384703002870083,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 5
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01258827280253172,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.004205257631838322,
+          "sql_queries": 5,
+          "status": 404,
+          "ordinal": 6
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2380909863859415,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.13308433908969164,
+          "sql_queries": 70,
+          "status": 302,
+          "ordinal": 7
+        }
+      ],
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  ],
+  "independent_inventory": {
+    "container": [],
+    "volume": [],
+    "network": []
+  },
+  "receipts": [
+    {
+      "file": "1792942855986327437-2694244.json",
+      "delivery": "sent",
+      "result": "PASS",
+      "name": "N06C refresco focal del grafo"
+    },
+    {
+      "file": "1792942956532612050-2707737.json",
+      "delivery": "sent",
+      "result": "EXIT 1",
+      "name": "N06C lint del instrumento"
+    },
+    {
+      "file": "1792942962442321672-2708987.json",
+      "delivery": "sent",
+      "result": "PASS",
+      "name": "N06C lint corregido del instrumento"
+    },
+    {
+      "file": "1792943089015127235-2720577.json",
+      "delivery": "sent",
+      "result": "PASS",
+      "name": "N06C grafo del protocolo e instrumento"
+    },
+    {
+      "file": "1792943121351235084-2727649.json",
+      "delivery": "sent",
+      "result": "PASS",
+      "name": "N06C documentación y preregistro"
+    },
+    {
+      "file": "1792943143978204903-2730479.json",
+      "delivery": "sent",
+      "result": "INICIO",
+      "name": "N06C: comienza referencia de representación y revocación, dos casos originales con observación HTTP; sin cambios de aplicación."
+    },
+    {
+      "file": "1792943243671638039-2742706.json",
+      "delivery": "sent",
+      "result": "PASS",
+      "name": "N06C auditoría terminal de referencia"
+    }
+  ],
+  "scope": "Two original functional oracles plus dynamically observed fixture HTTP. Per-operation baseline only; no candidate improvement, provider, browser, load, p95 or N06 closure.",
+  "temporary_absent": true,
+  "steps": [
+    {
+      "name": "start-pg",
+      "exit": 0,
+      "seconds": 0.467446849681437
+    },
+    {
+      "name": "start-redis",
+      "exit": 0,
+      "seconds": 0.4202628908678889
+    },
+    {
+      "name": "dependencies",
+      "exit": 0,
+      "seconds": 0.116279611364007
+    },
+    {
+      "name": "ruff",
+      "exit": 0,
+      "seconds": 0.11800497025251389
+    },
+    {
+      "name": "documentation",
+      "exit": 0,
+      "seconds": 1.5781093342229724
+    },
+    {
+      "name": "django",
+      "exit": 0,
+      "seconds": 1.9741080245003104
+    },
+    {
+      "name": "migrations",
+      "exit": 0,
+      "seconds": 2.123003796674311
+    },
+    {
+      "name": "native-build",
+      "exit": 0,
+      "seconds": 9.518052328377962
+    },
+    {
+      "name": "pytest",
+      "exit": 0,
+      "seconds": 56.58680512290448
+    }
+  ],
+  "runner_terminal_telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "native_manifest": {
+    "parser_commit": "bc5f295c98b40c2c33099d9d72ab30ce9e595dc7",
+    "hiredis_commit": "869f3d0ef1513dd0258ad7190c9914df16dcc4a4",
+    "environment": {
+      "RETAINED_RDB_DECODER_BIN": "/tmp/web-modelos-local-ci-t2yt7iwo/native-tools/rdb-cli",
+      "RETAINED_RDB_DECODER_SHA256": "d5fd9f9bcbc11e1065311b7f2fced2699ff498b1d3d14d504dda28426c29b132",
+      "RETAINED_RDB_AUX_BIN": "/tmp/web-modelos-local-ci-t2yt7iwo/native-tools/retained-rdb-aux",
+      "RETAINED_RDB_AUX_SHA256": "f2791d1fe1284c296e64199d12cdc5fbfc41d66caeaeea77af155c2c68a8cde4",
+      "RETAINED_RDB_METADATA_BIN": "/tmp/web-modelos-local-ci-t2yt7iwo/native-tools/retained-rdb-metadata",
+      "RETAINED_RDB_METADATA_SHA256": "f73dc13ea75a8f460627d5bede051a5c78246f22ebb2076b90bf763ffe6ca80f"
+    }
+  },
+  "head": "a5a05559b7e1d6f8a104b7d60f23b2271cf36a56",
+  "disposition": "Current synthetic per-operation reference; no application optimization, no p95/provider/load claim, N06 remains open."
+}

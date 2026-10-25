@@ -355,3 +355,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [N01C: resultado349](349-n01-c-resultado-estados-20261025.md), [auditoría](evidencias/n01-c-diagnostico-auditoria-20261025.json) y [propuestas S02–S09](evidencias/n01-propuestas-restantes-20261025.json):120peticiones auditadas, contraste operativo conservador;19representantes propuestos sin aceptación N01.
 
 - [N02D: resultado y diferimiento MOD09](367-n02-d-resultado-y-diferimiento-mod09-20261025.md).
+
+- [N06C: referencia de representación y revocación](369-n06-c-resultado-representacion-autoridad-20261025.md).

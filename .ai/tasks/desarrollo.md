@@ -2659,3 +2659,6 @@ N02D terminal 2026-10-25: evaluación completa 1 FAIL temporal, JUnit2004,770s; 
 
 
 N06C preparado 2026-10-25: refresco nativo focal de resultado367/roadmap y luego protocolo368; extracción delegada n06c_graph_semantics en outputs aislados, dos lotes24/14 y12/10; citas/L/SHA verificadas por Codex. Consumo nativo desconocido, no ClaudeV1 nuevo. AST de envoltorio diagnóstico añadido (dos oráculos completos originales, fixture dinámica para medir HTTP de preparación). Lint inicial I001 preservado y corregido, ambos avisos Telegram sent. Sin cambio de aplicación. Medición original de representación/revocación pendiente; dos casos seriales con runner oficial, fuente nativa configurada y referencia por operación.
+
+
+N06C resultado369: run20261025-154544-5fcdc190,2PASS/0FAIL/ERROR/SKIP,44peticiones/1735huellas intactas,limpieza independiente/temporal/Telegram confirmados. Referencia de representación y MFA/revocación, sin cambio de aplicación ni mejora/p95 inventados. QA54,28s separado. N06abierto; próximo contraste: crecimiento y panel de agencia, hipótesis member.user sin select_related por medir antes de candidato. MOD09restante diferido por usuario367; no repetir batería.

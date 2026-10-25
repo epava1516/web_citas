@@ -3733,3 +3733,6 @@ B07-265 prerregistrado: contractual de mezcla final10000,900s/18000 dinámicas/1
 
 
 N02D terminal 2026-10-25: evaluación completa 1 FAIL temporal, JUnit2004,770s; evidencia y tabla anterior/actual en docs/367-n02-d-resultado-y-diferimiento-mod09-20261025.md. Sin mejora clara global. Usuario acepta tiempos actuales para alfa y difiere optimización restante MOD09 al final del desarrollo; mantener guard365, FAIL y deuda. Continuar N06, sin repetición automática. Telegram/compactación/reactivación del mismo goal confirmados; 1734 huellas intactas y cero recursos Docker propios restantes en ambas fases.
+
+
+N06C resultado369: run20261025-154544-5fcdc190,2PASS/0FAIL/ERROR/SKIP,44peticiones/1735huellas intactas,limpieza independiente/temporal/Telegram confirmados. Referencia de representación y MFA/revocación, sin cambio de aplicación ni mejora/p95 inventados. QA54,28s separado. N06abierto; próximo contraste: crecimiento y panel de agencia, hipótesis member.user sin select_related por medir antes de candidato. MOD09restante diferido por usuario367; no repetir batería.
