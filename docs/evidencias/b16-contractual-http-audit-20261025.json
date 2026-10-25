@@ -1,0 +1,71 @@
+{
+  "run": "20261024-235904-c98b179b",
+  "state": "CONTRACTUAL_NUMERIC_AND_ORACLE_SCOPE_AUDITED_NOT_B16_ACCEPTANCE",
+  "sources_verified": 1723,
+  "frozen_graph_protocol_spec_helpers_verified": true,
+  "sample_accounting_and_cycle_verified": 18000,
+  "distinct_uploads_verified": 15,
+  "equal_before_after_oracle_rows": 68,
+  "cold_probes": 96,
+  "all_observable_latencies_below_800ms": true,
+  "all_generator_delays_below_100ms": true,
+  "reported_latency_seconds": {
+    "p50": 0.2196655971929431,
+    "p90": 0.36599945463240147,
+    "p95": 0.410559163428843,
+    "p99": 0.4905018210411072,
+    "max": 0.7027816101908684,
+    "population": 18000
+  },
+  "reported_generator_delay_seconds": {
+    "p50": 0.000875853747174915,
+    "p90": 0.0019360585138201714,
+    "p95": 0.002864416502418976,
+    "p99": 0.005934507772337838,
+    "max": 0.03115367889404297,
+    "population": 18000
+  },
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "6582.289",
+      "timestamp": "2026-10-25T02:00:30.678267+02:00",
+      "hostname": "14770baa86a2"
+    }
+  ],
+  "kernel_quotas_verified": "8CPU/8GiB/swap0",
+  "owned_memory_upper_bound_bytes": 2229338112,
+  "storage_ceiling_bytes": 4865392640,
+  "independent_cleanup": {
+    "containers": "absent",
+    "networks": "absent",
+    "volumes": "absent"
+  },
+  "archive_members_read": 74,
+  "archive_sha256": "328103df839f09e332d6cfacca997034b1a1c3ffbc8c78f859bccff1a5e11bdd",
+  "remaining": [
+    "B16 requirement matrix and version reconciliation"
+  ],
+  "percentiles_independently_recomputed": true,
+  "language_counts": {
+    "es": 9000,
+    "en": 9000
+  },
+  "route_category_counts": {
+    "listing": 6000,
+    "search": 6000,
+    "detail": 6000
+  },
+  "body_scope": "68 native-authority HTTP oracle rows before and after: exact ordered IDs, native count, sponsorship labels, no-store and clean/current publication state. Timed samples record HTTP status and byte count; no archived full body for each timed response.",
+  "persistent_helper_cleanup": {
+    "main": "original PID absent",
+    "watcher": "original PID absent",
+    "resumer": "original PID absent",
+    "compactor": "original PID absent"
+  },
+  "temporary_scope": "Controller/tool wrappers and service writable paths reside on container tmpfs; exact labelled containers and volume absent. Host evidence archive intentionally retained. No claim of global /tmp census."
+}

@@ -1,3 +1,7 @@
+B16-373: contractual370 auditado numéricamente:18000respuestas/15subidas, p95observable410,559ms; cuotas, fuentes y limpieza verificadas.45testigos semánticos conservan SHA;11exclusiones dispuestas por alcance sin reescribir resultados. B16pendiente conciliación final;14/18,alfa.
+
+Corte: [auditoría334](334-auditoria-http-contractual-b16-20261025.md).
+
 B16-370: preparación contractual HTTP vigente900s/10000perfiles tras corto368auditadoPASS. Opciones oficiales, sintaxishelpers, imágenes y mismo goal verificados; sin lanzamiento.14/18,alfa;B16abierto.
 
 Corte: [prerregistro333](333-prerregistro-http-contractual-b16-20261025.md) y [auditoría332](332-auditoria-http-corto-b16-20261025.md).
