@@ -1,0 +1,70 @@
+{
+  "result": "ACCEPTED_SOURCE_RESEARCH_ONLY",
+  "sources_sha_verified": 21,
+  "parent_inspection": [
+    "Seal recording/replay preserves full-validation image lock statements",
+    "image_payload calls image_content; scoped current-image guard follows successful held seal",
+    "locked_case locks Person before RightsRequest",
+    "Existing single concurrent branch reads one image only"
+  ],
+  "runtime_proof": false,
+  "application_candidate_accepted": false,
+  "report": {
+    "STATUS": "complete",
+    "SUMMARY": "Source review supports a narrowly scoped, preregistered candidate only after paired measurement and caller regressions. Successful held-seal replay already reacquires selected row locks; a generic mixed multi-image deadlock is not established as a new target-caller defect.",
+    "FILES_CHANGED": [
+      "artifacts/n02-caller-review/report.json"
+    ],
+    "IMPLEMENTATION_NOTES": [
+      "Conditional recommendation only: changing _verify_current_images from per-declaration image_content to image_contents is a bounded candidate if measured component benefit is material. Keep binding lookup/unseal, every fresh byte read and SHA256 comparison, declared ordering, transaction scope, seals/object verification and all outer authority gates. No application changes or performance acceptance are established by this review.",
+      "Caller boundary: rights_portability_export.py267\u2013313 requires atomic and calls _verify_current_images only after holds(export,caller) succeeds, after verify_export_objects. Its one-operation validation cache is transaction/case/export-bound and is unchanged by the candidate. rights_validation_seal.py169\u2013205 records actual full-validator SELECTs,311\u2013315 replays those statements,344\u2013374 requires current rule/caller/expiry and equal results. _validate_export_binding\u2192image_payload (export.py332\u2013405,105\u2013181) calls image_content for every declared snapshot, verifies every package and requires complete declaration coverage. Therefore a successful held seal replays those Blob/Photo SELECT FOR UPDATE locks before _verify_current_images; this strongly limits NEW lock waits at the target caller. This is source reasoning, not a runtime lock trace.",
+      "Outer serialization: rights_scope.py110\u2013137 locks agencies then Person then optional Listing then RightsRequest. reviewer_case uses lock_listing=True (rights_exports.py254\u2013262); download locks case/person then export (714\u2013729); object delivery _fresh uses same ordering (rights_object_delivery.py82\u201389); response prepare uses reviewer_case then export and binding locks (response_draft.py31\u201364). Same-person cooperating rights workflows serialize even across different cases. Distinct persons can share Blob because sha256 is global unique and Photo has Blob FK (mediafiles/models.py7\u201329), so same-person serialization alone is not a universal shared-blob proof.",
+      "Generic deadlock schedule is hypothetical: a multi-image single reader could hold Blob B then request A while bulk holds A and requests B. The existing test_reverse_bulk_and_single_readers_complete_with_real_pg_locks only calls image_content for ONE photo in its single branch (test_rights_image_contents_bulk.py124\u2013151, especially136\u2013138); it proves no general multi-single ordering guarantee. However asserting a newly introduced caller deadlock from this schedule would be unsupported: _verify_current_images first follows successful replay holding its selected locks. Existing full replay/image_payload may already use declaration/package lock order, which candidate does not change. Any broader issue requires reachable source schedules and PostgreSQL evidence, not a helper-only hypothetical.",
+      "Freshness/ownership: single helper first scopes Photo by person, then locks Blob, then unscoped Photo by PK, checks mapping/ready/derivative (rights_exports.py883\u2013893). Bulk normalizes unique UUIDs, checks exact scoped ID set, locks Blob sorted PK then scoped Photo sorted PK, rechecks membership/mapping after waits, and yields in caller order (897\u2013931). This is stricter post-wait ownership checking and does not cache metadata across invocations. Both call identical bounded fresh _read_image_blob (935\u2013950); every successful declared image remains read/hash validated.",
+      "Nonidentical rejection sequencing: bulk normalizes/checks every ID and initial membership before any content read; original loop can read and reject an early digest before discovering a later invalid/missing ID. Duplicate IDs now explicitly reject, while original loop could read duplicates. Valid sealed selections are already uniqueness/shape checked (rights_portability_images.py39\u201386) and bound by full validation/replay, so these are malformed-input/error-order differences rather than demonstrated successful-path regressions. Do not promise identical internal exception text/order. Ensure external download remains private rejection/no delivery and failure audits roll back as before. Preserve empty declarations as no reads; avoid truncating iterator/declarations with non-strict zip.",
+      "Authority: neither image helper authorizes current reviewer/session/MFA or expiry. Bulk documentation explicitly delegates current authority/source to caller (rights_exports.py898\u2013902). Existing generate has fresh_authority after final validation (export.py568\u2013570); response prepare checks it and current proof after historical validation (response_draft.py177\u2013185); binary image inspector rechecks authority/source after reading (image_read.py196\u2013215). Download is receipt/proof/channel scoped, not reviewer login (rights_exports.py716\u2013779). Do not add a test that assumes helpers themselves provide these gates, or remove parent gates because helper metadata is fresh. Holds checks time after replay but before physical verification; any expiry-during-file-read question is preexisting and not solved by metadata batching.",
+      "Existing recommended witnesses (not executed): tests/test_rights_image_contents_bulk.py::test_bulk_fresh_metadata_is_three_queries_and_preserves_single_bytes; ::test_bulk_rejects_mapping_changed_during_actual_blob_lock_wait; ::test_sixteen_images_four_calls_keep_sixty_four_physical_reads; ::test_physical_bytes_changed_between_children_roll_back_all_batch_audits; tests/test_rights_validation_seal.py::test_generation_seals_and_later_validations_use_it; ::test_any_input_change_disables_the_seal_and_matches_full_validation; ::test_seal_expires_at_the_earliest_loaded_expiry_and_on_code_change; ::test_access_downloads_do_not_reuse_a_portability_image_seal; ::test_held_seal_rechecks_external_object_bytes; tests/test_rights_validation_seal_pipeline.py::test_pipeline_never_bypasses_original_full_fresh_guards. Existing covered export race family (test_rights_portability_covered_export_races.py162\u2013270) witnesses outer case wait proof/source/coverage/permission/session/channel/expiry but its default approved_coverage call is not binary=True: do not count it alone as multi-image held-seal coverage.",
+      "New targeted witnesses needed before integration: exercise actual valid held-seal target with >=2 distinct images in reverse declaration order, observe old/new metadata SQL budget while all bytes/hash/order remain equal; mutate last physical image between successful held-seal invocations and require rejection/no new delivery/audit success; unchanged-first/changed-last must still read/hash late file. Prove actual successful replay holds every target Blob/Photo before target iteration using owned PostgreSQL lock observations, with bounded timeout and current caller context. If mixed multi-single concurrency is investigated, use distinct people sharing >=2 blobs, actual full callers and a deterministic reachable wait; generic helper deadlock is diagnostic only and must not be introduced as unconditional caller acceptance failure.",
+      "SOURCE_SHA256 apps/safety/rights_portability_export.py d16fe2baa7cc5df6fa4b0b1bc3ef7d9b581d571a190af2a02b704a0d84e67c15",
+      "SOURCE_SHA256 apps/safety/rights_exports.py c8d82c314b1f2c5b83117f99097161855c4ca2a627dfb4179813f98cdf7f5dbe",
+      "SOURCE_SHA256 apps/safety/rights_validation_seal.py 636c435d4532bdfa7809a47ae36929ae3aa67c13d997039f90b81e1af251a2b0",
+      "SOURCE_SHA256 apps/safety/rights_scope.py 739fd9e4236709de19177d417bc74ce5d867b6db0e608f3a2702cb74fbc0942a",
+      "SOURCE_SHA256 apps/safety/rights_portability_images.py e34e31e465eb5ae5a0dfe3c329a0656e55ba53bd712532a21f25a82453bff336",
+      "SOURCE_SHA256 apps/safety/rights_portability_selection_store.py 047e62680b84f8eee54400467e1c4c0f823f97e2bcc5bf45b0dc833a8b156ded",
+      "SOURCE_SHA256 apps/safety/rights_portability_selection_review.py 9dfd1e5c55bb9c094b4af2a853d79441ae8c51f012f6f8e2348a6d4feb38bcf2",
+      "SOURCE_SHA256 apps/safety/rights_portability_image_read.py 6c1eeaa84a4d263e597407dddd14f83dae1969bbc7486bec9bf509b6a1981bd8",
+      "SOURCE_SHA256 apps/safety/rights_portability_response_draft.py 202a91e246dc17789de5ad7886ef20d07492b6079854914f2299baf9e45ea1d3",
+      "SOURCE_SHA256 apps/safety/rights_portability_response_evidence.py 37230f7f2c17ede91810355b6165e259439e4b66e7f015a2e98cd5ee251ca0d0",
+      "SOURCE_SHA256 apps/safety/rights_object_delivery.py 3f34e91071709a12cb30b05f32c22bdde492853d277c94be95d0c5fff12c5d8a",
+      "SOURCE_SHA256 apps/safety/rights_object_content.py 39ae841d803d67c306977a658040cba743e9f5bbf182931e70a2ebb08edd5fca",
+      "SOURCE_SHA256 apps/safety/rights_copy_page_review.py 8d046a0c15c517c1772bbf678dee5ca2d2ba204be0d110aed228cb00b1fae4f9",
+      "SOURCE_SHA256 apps/safety/rights_copy_data.py 196cdf0e714d8e41a956337d5d3740f6cb263e9963d94f208a65020e07ff8d35",
+      "SOURCE_SHA256 apps/safety/rights_copy_revision_batches.py 9d80c9278488fa7b62226f7571821297e43639268543a1ccd0af41704dc5301a",
+      "SOURCE_SHA256 apps/mediafiles/models.py 3c447459f195b2795b26b8003a0cef82d2bd851db310d8a4aa5474b26efe77b5",
+      "SOURCE_SHA256 tests/test_rights_image_contents_bulk.py 3566db05d99f5258e56f43014d611074c46fb55651e81220efacaadcd2d84cf9",
+      "SOURCE_SHA256 tests/test_rights_validation_seal.py 88a9d5cca1fa7a23db66ffe8f143df91a8557fe2538ff6a5a0ac7800d419f379",
+      "SOURCE_SHA256 tests/test_rights_validation_seal_pipeline.py 2064ad841f77107a412df49871d582a5085c6bad5498e1866778c4ad7c197bcf",
+      "SOURCE_SHA256 tests/test_rights_portability_covered_export_races.py 761420232d09480ed84c25b29a0cd66400696c2926d51549baeccb6508797a64",
+      "SOURCE_SHA256 docs/360-n02-a-prerregistro-metadatos-imagenes-20261025.md 58f26a84b437563ca83d4997bc227bca93c8afb9e2f0f25c474a30391fc9a79b"
+    ],
+    "TESTS_RUN": [],
+    "TEST_RESULTS": [
+      "No tests executed by this source-only task; no runtime, timing or acceptance claims."
+    ],
+    "ASSUMPTIONS": [
+      "Isolated worktree remains detached at1a63762; parent owns measurement, graph integrity, notification and integration.",
+      "SQL replay preserves SELECT FOR UPDATE semantics as implemented; caller lock completeness must be independently observed before claiming runtime proof."
+    ],
+    "RISKS": [
+      "N02 component/e2e performance and whole-contract completion remain parent work.",
+      "Source equivalence analysis cannot prove arbitrary unmanaged SQL/filesystem writers, physical read timing, deadlock absence or post-wait authority under every runtime schedule.",
+      "Changing only held-seal physical guard may save a small fraction of whole MOD09 latency; measure before integrating."
+    ],
+    "UNRESOLVED_ISSUES": [],
+    "RECOMMENDATIONS": [
+      "Wait for valid paired helper evidence; reject candidate if same-stage timing is inconclusive/regresses or integrated contribution is immaterial.",
+      "If pursued, preregister caller-only candidate and focused actual held-seal/physical drift tests; preserve original full validator, seal replay and complete file reads.",
+      "Do not expand scope into general lock-order redesign or claim new production bug without a reachable failing case."
+    ]
+  }
+}

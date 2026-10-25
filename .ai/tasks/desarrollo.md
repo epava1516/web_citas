@@ -2612,3 +2612,15 @@ Inventario338/339, matriz y reproducción durable guardados en eaa180e y origin/
 
 ### Cierre documental — integración y acta23,2026-10-25
 Agente nativo inventory_semantic_final aceptado tras97nodos/177relaciones validados porSHA/cita/líneas; delta cinco documentos,1924fuentes/17847nodos/79498relaciones/847comunidades. Fuentes no modificadas17742nodos/78562relaciones preservadas. Archivo durable inventario-grafo-integrado y prueba independientePASS; contrato preacta18puntos/siete entregablesPASS. Emitida acta23 después de esa auditoría. Segundo agente nativo contract_act_semantic con propiedadexclusivaJSON en /tmp/web-modelos-contract-act-semantic: cuatro entradas,30nodos/48relaciones, lectura completa y citas validadas. CeroClaudeV1nuevas; consumo previo conservado. Registro focal final y comprobaciones finales en curso;B14/B15/B17deuda,noPASS;alfa.
+
+
+### Nuevo contrato N02A — 2026-10-25
+Grafo focal1954fuentes verificado antes del ensayo; protocolo360 y corrección de etiquetas instrumental en1a63762/master/push. Intento123535:4PASS/1FAILcalibraciónsinmuestras,preservado. Repetición124023:5PASS/24muestras;48→3SQL conservando16lecturas/~64MiB/hash,medianas335,200→219,565 y324,301→238,831ms;no appchange/aceptaciónMOD09. Auditoría de fuentes/journal/limpieza/TelegramPASS;doc361. Agente nativo n02_caller_equivalence en worktreeaislado /tmp/web-modelos-n02-caller-review, propiedad exclusiva artifacts/n02-caller-review/report.json;solo fuentes,reporte/equivalencia pendientes de aceptación del principal. CeroClaudeV1nuevas;8históricas/consumo anterior preservados. N00/N01aceptados2/13,N02/N06abiertos;contrato completo vigente.
+
+N02revisiónnativa concluida:21SHA comprobados y recording/replay/image_payload/locked_case inspeccionados por principal;reporte aceptado como fuente solamente. Bloqueos de imágenes reproducidos antes del guard de sello válido; ausencia de deadlock universal no acreditada. Pendiente prueba de locks reales y negativos del llamador antes de adopción.
+
+N02Aresultado: agente nativo n02a_result_semantic,worktreeaislado /tmp/web-modelos-n02a-result-semantic;propiedad exclusiva semantic-fragment.json/report.json,cuatro entradas361/341/README/vista17líneas1–4. Integración focal preserva AST/comunidadesbase;no reconstrucción global. SinClaudeV1nuevo ni alteración del consumo histórico.
+
+N02Asemánticaresultado:25nodos/24relaciones,cuatro snapshots exactos;JSONestricto y todas las citas/líneas/SHA validados en integración. Interpretación revisada por principal:comparación de mecanismos,no appgain/HTTP/p95;2/13ycontratopendiente. Verificación del grafo y archivo durable en curso.
+
+N02Aresultado grafoPASS1955fuentes/18330nodos/80645relaciones/868comunidades;18301nodos/80335relaciones de fuentes no cambiadas preservadas,100anotacionesambiguas y111intactos. Registro durable archivado;avisosdeauditoría/documentación/grafo Telegramsent comprobados. Siguiente:prerregistrar y verificar candidato del guard físico del sello antes de aplicación,con coste integrado y negativos;N02sinaceptar.

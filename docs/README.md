@@ -1,3 +1,5 @@
+- [N02A:5PASS/24muestras; comparación temporal individual/lote, sin cambio integrado](361-n02-a-resultado-metadatos-imagenes-20261025.md).
+
 - [N06B:2PASS, petición y tareas reales separadas, tiempos y rol restringido](359-n06-b-resultado-peticion-cola-real-20261025.md).
 
 - [N06A:2PASS, SQL de inicio de revisión atribuido a copia, autoridad y tareas eager](357-n06-a-resultado-atribucion-revisiones-20261025.md).

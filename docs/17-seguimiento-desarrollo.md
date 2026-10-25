@@ -1,3 +1,7 @@
+N02Aauditado:5PASS/24muestras,medianasindividual/lote335,200→219,565ms y324,301→238,831ms;48→3SQL con16lecturas completas/hash por llamada. [Resultado361](361-n02-a-resultado-metadatos-imagenes-20261025.md). Comparación de mecanismos existentes,sin cambiointegrado ni aceptaciónMOD09. PrimerFAILdecalibración preservado/corregido,limpieza/TGsent.2/13,N02/N06abiertos,alfa.
+
+Siguiente:semántica361/README/341/vista17; revisión independiente del llamador antes de candidato,lockwait/autoridad/bytes/rollback y medición integrada. Cobertura/entrega2s/5s yFAIL previos conservados; restoN02/N06 y contrato obligatorios pendientes.
+
 N06Bauditado:2PASS/3POST,petición109,875/114,054/131,019ms y27SQL;workerprefork2real con rol restringido,tareasSUCCESS/noeager; [resultado359](359-n06-b-resultado-peticion-cola-real-20261025.md). Disponibilidadobservadaposterior460,337/514,251/471,346ms,cota de arnés. Mismaapp,sinoptimizaciónatribuible. Limpieza/TGsent.2/13,N06abierto,alfa.
 
 Siguiente:semántica359/README/roadmap/vista17; Priorizar atribución N02 sobre FAILMOD09 con referencia/instrumentos equivalentes antes de candidatos; N06cuenta/representación/crecimiento siguen obligatorios y abiertos. InvestigaciónN02cost_researchconcluida:16fuentesidentificadasy2hipótesis,noaceptadasnimedidas. Primaria confirmó bucle image_content porimagen y helperbulk; falta perfil comparable/equivalencia/lockwaitantes de código. Antesde candidatos fijar baseequivalenteytabla tiemposantes/después.
