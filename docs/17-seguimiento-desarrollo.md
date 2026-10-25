@@ -3730,3 +3730,6 @@ B07-264: contractual territorial10000 con mezcla confirmada habilitado en el ins
 ## B07-265 — prerregistro contractual
 
 B07-265 prerregistrado: contractual de mezcla final10000,900s/18000 dinámicas/15 uploads,tras corto262 PASS. Fuentes y criterios intactos; ejecución y aceptación pendientes. Ocho de18 puntos cerrados,B07 abierto. Véase [protocolo236](236-contractual-mezcla-final-b07-20261023.md).
+
+
+N02D terminal 2026-10-25: evaluación completa 1 FAIL temporal, JUnit2004,770s; evidencia y tabla anterior/actual en docs/367-n02-d-resultado-y-diferimiento-mod09-20261025.md. Sin mejora clara global. Usuario acepta tiempos actuales para alfa y difiere optimización restante MOD09 al final del desarrollo; mantener guard365, FAIL y deuda. Continuar N06, sin repetición automática. Telegram/compactación/reactivación del mismo goal confirmados; 1734 huellas intactas y cero recursos Docker propios restantes en ambas fases.

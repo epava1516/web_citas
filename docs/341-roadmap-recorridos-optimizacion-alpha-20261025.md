@@ -16,7 +16,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | --- | --- | --- | --- | --- |
 | N00 | P0 | Inventario y selección fundada de escenarios | Base aceptada/condición expresa | Aceptado por343; alcance estructural |
 | N01 | P0 | Línea base y presupuestos por escenario | N00 | Aceptado por355; criterios354 y bases/motivos por lote |
-| N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | En curso: guard local365; preparación de evaluación completa366,atribución restante y condiciones de salida pendientes |
+| N02 | P1 según N00 | Exportación y portabilidad: deuda MOD09 | N01 | Verificado localmente con límite: guard365 y evaluación367; optimización restante MOD09 diferida al final del desarrollo por decisión expresa del usuario, sin PASS temporal |
 | N03 | P1 según N00 | Procesamiento y similitud fotográfica | N01 | Pendiente |
 | N04 | P1 | Listado, búsqueda y ficha | N01 | Pendiente |
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Pendiente |
@@ -203,3 +203,7 @@ Al finalizar cada bloque, publicar tabla de antes/después por escenario/métric
 Cada bloque usa ficha prerregistrada y matriz de evidencia del contrato340. Se actualiza seguimiento17 al comenzar ejecución y tras cada resultado; la matriz de este documento conserva el orden y la trazabilidad. Verificaciones locales no acreditan proveedor real, cumplimiento jurídico, utilidad con personas o capacidad de destino.
 
 La optimización específica de QA sigue aplazada hasta primera estable/productiva. El cierre de este roadmap conserva alfa; no depende de abrir beta, contratar proveedores o activar B15. Las nuevas excepciones de alcance no se aprueban sólo para aumentar el contador. Un obligatorio pendiente impide cerrar; MOD09 conserva su excepción expresa sin convertir FAIL enPASS.
+
+## Decisión posterior del usuario — MOD09
+
+Tras la evaluación [367](367-n02-d-resultado-y-diferimiento-mod09-20261025.md), sin mejora clara global, el usuario acepta los tiempos actuales en alfa y difiere la optimización restante de MOD09 al final del desarrollo. Conservar objetivos2s/5s, FAIL y pendientes de atribución/crecimiento/retención/concurrencia; no repetir batería para perseguir reducción ahora. Continuar con N06 ya abierto. Este diferimiento expreso no equivale a PASS ni elimina las restantes familias del contrato.
