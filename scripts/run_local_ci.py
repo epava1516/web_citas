@@ -182,6 +182,8 @@ def main():
     parser.add_argument("--timeout", type=int, default=7200, help="Seconds per command")
     parser.add_argument("--isolate-test-broker", action="store_true",
                         help="Use a fresh owned broker generation for each pytest case")
+    parser.add_argument("--observe-http-operations", action="store_true",
+                        help="Measure synthetic Django Client operations, separately from QA/fixture time")
     parser.add_argument(
         "--benchmark-normal-refresh", action="store_true",
         help="Use actual worker/Beat with this run's owned Redis for an explicit focused HTTP gate",
@@ -230,6 +232,11 @@ def main():
         help="Mark dead runs without a terminal result as INTERRUPTED and remove their declared resources",
     )
     args = parser.parse_args()
+    if args.observe_http_operations and (
+        args.profile != "focused" or args.workers != 1
+        or any(value for key, value in vars(args).items() if key.startswith("benchmark_"))
+    ):
+        parser.error("HTTP operation observation requires serial focused tests without load observers")
     if args.duration_order_from:
         parallel_functional = args.workers >= 2 and (
             (args.profile == "regression" and args.regression_lane == "functional")
@@ -357,6 +364,7 @@ def main():
                                 if args.profile == "regression" else []),
         "workers": args.workers,
         "fixture_snapshots": args.fixture_snapshots,
+        "observe_http_operations": args.observe_http_operations,
         "duration_order": {"enabled": bool(args.duration_order_from)},
         "benchmark_observe_workers": args.benchmark_observe_workers,
         "benchmark_ingress_only": args.benchmark_ingress_only,
@@ -616,6 +624,9 @@ def main():
                 if args.isolate_test_broker:
                     env["LOCAL_CI_ISOLATED_BROKER_RUN"] = run_id
                     command.extend(["-p", "scripts.local_ci_broker"])
+                if args.observe_http_operations:
+                    env["LOCAL_CI_HTTP_OPERATION_RUN"] = run_id
+                    command.extend(["-p", "scripts.http_operation_metrics"])
                 if args.profile == "smoke":
                     command.extend(SMOKE)
                 elif args.profile == "rights":
