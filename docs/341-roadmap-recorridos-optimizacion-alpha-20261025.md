@@ -198,7 +198,7 @@ N00/N01 y N11/N15 son transversales. La tabla asigna cada familia al bloque téc
 
 ## Seguimiento y cierre
 
-Al finalizar cada bloque, publicar tabla de antes/después por escenario/métrica y evidencias, conforme a la instrucción del usuario incorporada en contrato340. Sin base equivalente se declara el límite; no se inventa mejora o porcentaje.
+Al finalizar cada bloque, publicar tabla de antes/después por escenario/métrica y evidencias, conforme a la instrucción del usuario incorporada en contrato340. Debe mostrar tiempos anteriores/posteriores de aplicación, unidad, muestras y diferencias cuando sean comparables; consultas y estado son información adicional, no sustituyen los tiempos. Sin base equivalente se declara el límite; no se inventa mejora o porcentaje.
 
 Cada bloque usa ficha prerregistrada y matriz de evidencia del contrato340. Se actualiza seguimiento17 al comenzar ejecución y tras cada resultado; la matriz de este documento conserva el orden y la trazabilidad. Verificaciones locales no acreditan proveedor real, cumplimiento jurídico, utilidad con personas o capacidad de destino.
 

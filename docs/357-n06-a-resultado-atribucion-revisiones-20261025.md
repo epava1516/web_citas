@@ -30,14 +30,20 @@ La pared incluye el observador de stack y trabajo no SQL; ejecución SQL excluye
 
 PostgreSQL17/Redis7.4 propios, mismas fixtures eager y cuerpos originales. Fuentes congeladas sin cambios durante la ejecución/auditoría; contenedores propios y temporal ausentes. Telegram terminal del runner y auditoría correctiva entregados. Se conserva el primer error de lint F811 del instrumento y su corrección, y el primer error auxiliar de importación de auditoría con su recibo. No fueron FAIL de aplicación; las dos pruebas válidas no se repitieron para corregir la ruta del auditor.
 
-## Antes y después del diagnóstico
+## Tiempos anteriores y última medición
 
-| Aspecto | Antes N06A | Después N06A | Diferencia/límite |
-| --- | --- | --- | --- |
-| SQL de listing_start |116/124sin atribución de etapa en N01D |11copia+2autoridad+14resto, más89/97tareas eager | Mismo conteo total observado; mayor atribución, no reducción |
-| Hipótesis de clonación | El total podría interpretarse como coste directo | El grueso del conteo está en tareas eager; copia11en tres estados | No N+1demostrado ni capacidad de otros tamaños |
-| Petición con cola normal | Sin base actual comparable | Sigue sin base; motivo y etapa siguiente concretados | No inferir resultado restando consultas |
-| Código de aplicación | Base aceptada | Misma base, sólo instrumento | Sin porcentaje de mejora de producto |
-| Contrato |2/13,N06iniciado|2/13,N06en curso| Este lote no cierraN06 |
+Corrección por aclaración del usuario: la tabla de comparación debe mostrar los tiempos, además de los recuentos. Datos de N01D frente a N06A, una observación por inicio y estado:
+
+| Escenario | Tiempo anterior N01D (ms) | Última medición N06A (ms) | Mejora atribuible (ms / %) |
+| --- | ---: | ---: | --- |
+| Inicio desde revisión publicada |349,918|456,182|No evaluable|
+| Primer inicio en escenario de rechazo |390,576|496,601|No evaluable|
+| Inicio de corrección tras rechazo |566,035|556,703|No evaluable|
+
+**No es una comparación de referencia frente a código optimizado.** La aplicación no cambió; N06A añade instrumentación de stack y el orden/calor del lote difiere de N01D. Los tiempos son observaciones reales conservadas en ambas auditorías, pero no permiten atribuir una mejora o regresión de código ni publicar un porcentaje de optimización. Las pequeñas diferencias entre cifras no cambian esa limitación.
+
+SQL total observado:116/116/124 en ambos lotes. N06A lo atribuye a11create_draft+2gestor+14resto y89/89/97de tareas eager; eso mejora el diagnóstico, no el rendimiento de la aplicación. El camino normal encolado sigue sin base actual; no se deduce por resta. N06 permanece abierto y el contrato en2/13.
+
+Al comparar un candidato real, la tabla de cierre mostrará tiempo anterior, tiempo posterior, diferencia absoluta y porcentual con mismo escenario/etapa, instrumento, recursos y muestras justificados. El tiempo de QA seguirá separado. Los bloques de planificación N00/N01 no produjeron una optimización de aplicación y no tienen un «después» de código que inventar.
 
 Siguiente: refrescar semántica del resultado/seguimiento y estudiar los helpers locales de worker/broker para un prerregistro normal encolado, con permisos/instantánea/bytes/paridad y condiciones de reintento/revocación preservadas. No cambiar la fixture para rebautizar una reducción de QA como optimización de aplicación. Después elegir candidato sólo sobre coste demostrado en su etapa, y completar los otros escenarios N06 de cuenta y representación.
