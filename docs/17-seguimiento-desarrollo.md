@@ -1,3 +1,7 @@
+Nuevo [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md) y [roadmap341](341-roadmap-recorridos-optimizacion-alpha-20261025.md) preparados por instrucción del usuario. Ejecución técnica pendiente:0/13obligatorios;N12–N14condicionados, sinPASS. Primera acción al iniciar ejecución:N00,inventario I01–I28ypriorización. Proyecto enalfa;QAespecífico aplazado.
+
+El contrato anterior permanece cerrado poracta23. Esta orden genera documentos ynoiniciaimplementación ni mediciones largas. Cortes inferiores históricos.
+
 Contrato cerrado localmente por [acta23](actas/23-cierre-contrato-clasificados-alpha-20261025.md):15/18aceptados;B14/B15/B17diferidos, sinPASS. Proyecto enalfa. Grafo reconstruido, inventario338/339contrastado e integrado. Primera prioridad futura:medir/corregir/optimizar recorridos;QAespecífico aplazado. Registro final delacta yverificación en evidencia documental de cierre.
 
 Corte: [auditoría de cierre](evidencias/contrato-cierre-auditoria-20261025.json) y [grafo integrado](evidencias/inventario-grafo-integracion-20261025.json). Antecedentes inferiores conservan fecha y alcance.
