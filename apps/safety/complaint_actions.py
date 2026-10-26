@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
 from django.views.decorators.debug import sensitive_variables
 
+from .complaint_authority import current_actor
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal
 from .models import ComplaintAction
@@ -22,15 +23,18 @@ def act(
     decision_case_version=None,
     clarification_prompt="",
 ):
-    if not user.has_perm("safety.review_complaint") or not user.mfa_enabled:
-        raise PermissionDenied("Complaint permission and MFA required")
-    if operation == "unassign" and not user.has_perm("safety.manage_complaint_assignment"):
-        raise PermissionDenied("Assignment coordination permission required")
+    session_version, mfa_version = user.session_version, user.mfa_version
+    permissions = {
+        "unassign": ("safety.manage_complaint_assignment",),
+        "reassess": ("safety.resolve_complaint",),
+    }.get(operation, ())
+    user = current_actor(user, session_version, mfa_version, permissions=permissions)
     complaint, decision = locked(
         complaint_id,
         decision_id if operation == "link" else None,
         decision_id if operation == "link_listing" else None,
     )
+    user = current_actor(user, session_version, mfa_version, permissions=permissions)
     if not permitted(user, complaint):
         raise PermissionDenied("Conflict of interest")
     if operation == "reassess":

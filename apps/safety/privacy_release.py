@@ -14,6 +14,8 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
+from apps.core.models import User
+
 from .crypto import seal
 from .models import PrivacyHoldReleaseProposal, PrivacyPublicationHold, RightsAction, RightsRequest
 from .rights import allowed, fingerprint
@@ -22,6 +24,29 @@ from .rights_scope import locked_profile_case as locked_case
 from .rights_scope import permitted
 from .rights_verification import authorized_proof, complete_read
 from .views import private
+
+
+def current_release_actor(user, session_version, mfa_version):
+    actor = User.objects.filter(pk=user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not all(
+            actor.has_perm("safety." + permission)
+            for permission in (
+                "review_rights_request",
+                "execute_rights_request",
+                "review_privacy_hold",
+                "respond_rights_request",
+            )
+        )
+    ):
+        raise PermissionDenied
+    return actor
 
 
 def source(case, person, listing, hold):
@@ -112,6 +137,8 @@ def current(user, case, person, hold, version):
 @transaction.atomic
 @sensitive_variables()
 def propose(user, case_id, key, version, reason):
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_release_actor(user, session_version, mfa_version)
     case, person, listing = locked_case(case_id, lock_listing=True, allow_version_change=True)
     hold = (
         PrivacyPublicationHold.objects.select_for_update()
@@ -121,6 +148,7 @@ def propose(user, case_id, key, version, reason):
     )
     if not hold:
         raise ValidationError("Hold unavailable / Medida no disponible")
+    user = current_release_actor(user, session_version, mfa_version)
     actor_check(user, case, hold)
     signature = fingerprint(json.dumps({"version": version, "reason": reason}, sort_keys=True))
     previous = RightsAction.objects.filter(key=key).first()
@@ -179,6 +207,8 @@ def propose(user, case_id, key, version, reason):
 @transaction.atomic
 @sensitive_variables()
 def execute(user, case_id, key, version, proposal_id, reason):
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_release_actor(user, session_version, mfa_version)
     case, person, listing = locked_case(case_id, lock_listing=True, allow_version_change=True)
     proposal = (
         PrivacyHoldReleaseProposal.objects.select_for_update()
@@ -193,6 +223,7 @@ def execute(user, case_id, key, version, proposal_id, reason):
         .select_related("action")
         .get(pk=proposal.hold_id)
     )
+    user = current_release_actor(user, session_version, mfa_version)
     actor_check(user, case, hold)
     signature = fingerprint(
         json.dumps({"version": version, "proposal": proposal_id, "reason": reason}, sort_keys=True)

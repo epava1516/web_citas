@@ -1,0 +1,973 @@
+{
+  "status": "LOCALLY_VERIFIED_N09D_SIX_OPERATION_AUTHORITY_CORRECTIONS",
+  "base": "f65a53061726fbb53e84c0231101bc5f24d0e4dd",
+  "candidate_run": "20261026-065607-548db09c",
+  "passed": 117,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "qa_junit_seconds": 1052.177,
+  "baseline_run": "20261026-062847-a8dd3f53",
+  "baseline_failures": 6,
+  "baseline_qa_junit_seconds": 87.487,
+  "frozen_sources": 1770,
+  "runner_sources": 1767,
+  "manual_document_sources": 3,
+  "source_integrity_audited_before_terminal_documentation": true,
+  "selection": [
+    "tests/test_complaint_authority_wait.py",
+    "tests/test_privacy_release_authority_wait.py",
+    "tests/test_complaint_release_current_authority.py",
+    "tests/test_complaint_intake.py",
+    "tests/test_complaint_assignment.py",
+    "tests/test_complaint_linking.py",
+    "tests/test_complaint_listing_linking.py",
+    "tests/test_complaint_resolutions.py",
+    "tests/test_complaint_messages.py",
+    "tests/test_complaint_localization.py",
+    "tests/test_complaint_resolution_localization.py",
+    "tests/test_privacy_release.py"
+  ],
+  "actual_http_waits": 6,
+  "fresh_entry_negatives": 44,
+  "revoked_replays": 4,
+  "original_regressions": 63,
+  "original_modules": {
+    "test_complaint_intake": 13,
+    "test_complaint_assignment": 5,
+    "test_complaint_linking": 5,
+    "test_complaint_listing_linking": 6,
+    "test_complaint_resolutions": 10,
+    "test_complaint_messages": 13,
+    "test_complaint_localization": 2,
+    "test_complaint_resolution_localization": 2,
+    "test_privacy_release": 7
+  },
+  "table_before_after": [
+    {
+      "case": "complaint_inspection",
+      "before_status": 200,
+      "after_status": 403,
+      "before_induced_request_ms": 223.0832651257515,
+      "after_induced_request_ms": 223.98118488490582,
+      "after_domain_unchanged": true
+    },
+    {
+      "case": "complaint_photo_get",
+      "before_status": 200,
+      "after_status": 403,
+      "before_induced_request_ms": 121.5019328519702,
+      "after_induced_request_ms": 232.59910102933645,
+      "after_domain_unchanged": true
+    },
+    {
+      "case": "complaint_claim",
+      "before_status": 302,
+      "after_status": 403,
+      "before_induced_request_ms": 111.18196230381727,
+      "after_induced_request_ms": 207.51696918159723,
+      "after_domain_unchanged": true
+    },
+    {
+      "case": "complaint_listing_resolution",
+      "before_status": 302,
+      "after_status": 403,
+      "before_induced_request_ms": 646.6902056708932,
+      "after_induced_request_ms": 207.14991260319948,
+      "after_domain_unchanged": true
+    },
+    {
+      "case": "restriction_release_propose_review_revocation",
+      "before_status": 302,
+      "after_status": 403,
+      "before_induced_request_ms": 471.6440662741661,
+      "after_induced_request_ms": 254.13967296481133,
+      "after_domain_unchanged": true
+    },
+    {
+      "case": "restriction_release_execute_review_revocation",
+      "before_status": 302,
+      "after_status": 403,
+      "before_induced_request_ms": 446.4582819491625,
+      "after_induced_request_ms": 191.54246244579554,
+      "after_domain_unchanged": true
+    }
+  ],
+  "waits": [
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "complaint_inspection",
+        "domain_after": {
+          "sha256": "5b4cec0dcc110a63c2c8626aed8e099fde33c502136b1c94aa4337889f954d49",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "2fa50141fc9cb47fb33c265d3ed811c622e1d22ceeaf08934b70cdbc0021f284"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "3eaafa576bc5a860241619c17440e32fce7de80f984db3892da89354e6805b12"
+            },
+            "ComplaintAccess": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintAction": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "92c74fabe76714b50e921d7cf8cdb0d3f4cfc57dc027e4e2ffbb5b91f2caa625"
+            },
+            "ModerationDecision": {
+              "count": 3,
+              "sha256": "cc782f01240d339ee5517b9894ad0a802bdf210bb7f85f56649897a16b8c8c18"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "6d39c5ebd7169ad59b3dd587ff73fef225bfed62cd9c2e6788f02fa0c62f9a2b"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "ab9d10297198cf68f858677552eb6af788e6e133160584abe5599687577a52ae"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "57bd9def2eb9f413a0facc6b677eecf77e53618c913d8c71984c09e5b7ffaf3d"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "5b4cec0dcc110a63c2c8626aed8e099fde33c502136b1c94aa4337889f954d49",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "2fa50141fc9cb47fb33c265d3ed811c622e1d22ceeaf08934b70cdbc0021f284"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "3eaafa576bc5a860241619c17440e32fce7de80f984db3892da89354e6805b12"
+            },
+            "ComplaintAccess": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintAction": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "92c74fabe76714b50e921d7cf8cdb0d3f4cfc57dc027e4e2ffbb5b91f2caa625"
+            },
+            "ModerationDecision": {
+              "count": 3,
+              "sha256": "cc782f01240d339ee5517b9894ad0a802bdf210bb7f85f56649897a16b8c8c18"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "6d39c5ebd7169ad59b3dd587ff73fef225bfed62cd9c2e6788f02fa0c62f9a2b"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "ab9d10297198cf68f858677552eb6af788e6e133160584abe5599687577a52ae"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "57bd9def2eb9f413a0facc6b677eecf77e53618c913d8c71984c09e5b7ffaf3d"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 106,
+        "elapsed_seconds_including_wait_and_cleanup": 0.2590479990467429,
+        "holder_backend_pid": 102,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.17422187514603138,
+        "minimal_after": {
+          "assigned_to_id": null,
+          "decision_id": null,
+          "listing_decision_id": null,
+          "status": "received",
+          "version": 1
+        },
+        "minimal_before": {
+          "assigned_to_id": null,
+          "decision_id": null,
+          "listing_decision_id": null,
+          "status": "received",
+          "version": 1
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.22398118488490582,
+        "route": "/en/moderation/complaints/6469b205-1b63-47ed-b634-73c4beb92179/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": null
+    },
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "complaint_photo_get",
+        "domain_after": {
+          "sha256": "3b0fb53b9eeb0dba186a74b6f5e79874ef72c98ad17487d03bd4e76b329ba5c3",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "9a133ad569313703ddd00420ee03d3e991d7adc563ee738b8f142c687ba62725"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "43ab7348f7713be830bb056e9f145d3c6b61a4792b10b8a3ce3c4406edeccd26"
+            },
+            "ComplaintAccess": {
+              "count": 2,
+              "sha256": "4cc4e8e1734fc9b18a0c9a08d3d6c8462be53725967284dd2a0e1472f6c328cf"
+            },
+            "ComplaintAction": {
+              "count": 2,
+              "sha256": "b624f5703151be3da95d93eadc7b12beb12fe3050aa7b5972dee3b1acb7b3b38"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "0cf090ce2d68a66b62910e73a3a8d5010260a8d214a4d8499a1cd5d38f7da26f"
+            },
+            "ModerationDecision": {
+              "count": 4,
+              "sha256": "65356c34322de702c106cdf04c22b084342da74a2b758a3bba9a79633bbb4eb7"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "12fbf305e27efbb1bae879df05bea8e049182db48bfc098a597dab800d881ae8"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "050ba817f65ae5741b55216148122c0be019b5966f0fefc0df1927078eb897b1"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "0ae17435e2a4480b7684a33c2f2a434697d8ee03cbf5350e0373783d7747eabd"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "3b0fb53b9eeb0dba186a74b6f5e79874ef72c98ad17487d03bd4e76b329ba5c3",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "9a133ad569313703ddd00420ee03d3e991d7adc563ee738b8f142c687ba62725"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "43ab7348f7713be830bb056e9f145d3c6b61a4792b10b8a3ce3c4406edeccd26"
+            },
+            "ComplaintAccess": {
+              "count": 2,
+              "sha256": "4cc4e8e1734fc9b18a0c9a08d3d6c8462be53725967284dd2a0e1472f6c328cf"
+            },
+            "ComplaintAction": {
+              "count": 2,
+              "sha256": "b624f5703151be3da95d93eadc7b12beb12fe3050aa7b5972dee3b1acb7b3b38"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "0cf090ce2d68a66b62910e73a3a8d5010260a8d214a4d8499a1cd5d38f7da26f"
+            },
+            "ModerationDecision": {
+              "count": 4,
+              "sha256": "65356c34322de702c106cdf04c22b084342da74a2b758a3bba9a79633bbb4eb7"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "12fbf305e27efbb1bae879df05bea8e049182db48bfc098a597dab800d881ae8"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "050ba817f65ae5741b55216148122c0be019b5966f0fefc0df1927078eb897b1"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "0ae17435e2a4480b7684a33c2f2a434697d8ee03cbf5350e0373783d7747eabd"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 109,
+        "elapsed_seconds_including_wait_and_cleanup": 0.2787151522934437,
+        "holder_backend_pid": 107,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.18935015331953764,
+        "minimal_after": {
+          "assigned_to_id": 15,
+          "decision_id": null,
+          "listing_decision_id": 7,
+          "status": "reviewing",
+          "version": 3
+        },
+        "minimal_before": {
+          "assigned_to_id": 15,
+          "decision_id": null,
+          "listing_decision_id": 7,
+          "status": "reviewing",
+          "version": 3
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.23259910102933645,
+        "route": "/en/moderation/complaints/5a1f842d-7151-4520-884e-7024c1effe2d/photo/de189a33-ac8c-41bd-8522-cf85a71075ee/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": {
+        "closed": true,
+        "image_bytes": 0,
+        "image_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "method": "GET",
+        "status": 403,
+        "streaming": false
+      }
+    },
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "complaint_claim",
+        "domain_after": {
+          "sha256": "9cb868b1d618bb953181e028da92b5d885b7b5bdb82da60e45d74732a8a09fcd",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "5097d67446c2e1cb5030061bd8f46efd485c10ca7d6600bb47d643aefdb148e9"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "4b9f678649fdc1e398d5e2455b83a7e8867f0cc2481360121ed523799bf813d4"
+            },
+            "ComplaintAccess": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintAction": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "4e74453c8cedd5edf8a22f52127eea849e183e81bb22ecda11e83adf46eda4b9"
+            },
+            "ModerationDecision": {
+              "count": 3,
+              "sha256": "ab218acb3f092466a58cc397a42210496df40489931c0d485eb1d500fc99b1f2"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "968b1a27c4200a874571cc655df8618847cbe9f439cbe5782ab912c366f84d0a"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "df3abaf987e997a88a1a7c6643b8e7a4e3f03831edbd179934985d68cf9395e7"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "bfb57aa2ff20a381ec28b6e00eafa69f6c1abdab38f5350525ab2ffbfecb50d2"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "9cb868b1d618bb953181e028da92b5d885b7b5bdb82da60e45d74732a8a09fcd",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "5097d67446c2e1cb5030061bd8f46efd485c10ca7d6600bb47d643aefdb148e9"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "4b9f678649fdc1e398d5e2455b83a7e8867f0cc2481360121ed523799bf813d4"
+            },
+            "ComplaintAccess": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintAction": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "4e74453c8cedd5edf8a22f52127eea849e183e81bb22ecda11e83adf46eda4b9"
+            },
+            "ModerationDecision": {
+              "count": 3,
+              "sha256": "ab218acb3f092466a58cc397a42210496df40489931c0d485eb1d500fc99b1f2"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "968b1a27c4200a874571cc655df8618847cbe9f439cbe5782ab912c366f84d0a"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "df3abaf987e997a88a1a7c6643b8e7a4e3f03831edbd179934985d68cf9395e7"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "bfb57aa2ff20a381ec28b6e00eafa69f6c1abdab38f5350525ab2ffbfecb50d2"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 111,
+        "elapsed_seconds_including_wait_and_cleanup": 0.2474195621907711,
+        "holder_backend_pid": 110,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.16651203390210867,
+        "minimal_after": {
+          "assigned_to_id": null,
+          "decision_id": null,
+          "listing_decision_id": null,
+          "status": "received",
+          "version": 1
+        },
+        "minimal_before": {
+          "assigned_to_id": null,
+          "decision_id": null,
+          "listing_decision_id": null,
+          "status": "received",
+          "version": 1
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.20751696918159723,
+        "route": "/en/moderation/complaints/d2e6137c-7978-41ea-95fd-e53ee516d363/action/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": null
+    },
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "complaint_listing_resolution",
+        "domain_after": {
+          "sha256": "06c3c4eb30220aa7102f5c80d7fd426437930ea462fb3e7664c058c2380d7bcd",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "b6b0523cfdd3add87f8bd1fa427658fbd04ade6fd6515a4d9dd997e9762b4681"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "94796273095350894376fd29519e3b9a45eccfc5a92a017ec8886065fba7aaf6"
+            },
+            "ComplaintAccess": {
+              "count": 3,
+              "sha256": "b28dc5203ce7381de4b2840a17f5108182674925b6d67979e5767407e9916a1c"
+            },
+            "ComplaintAction": {
+              "count": 2,
+              "sha256": "12a8a422f8ca00a59ea126eeb197549046b1af16e53e446acbb174c12189e22c"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "63bbe035256ba2f45698696491d5b1c463bc32888b8fa94df8f24c2541569ca5"
+            },
+            "ModerationDecision": {
+              "count": 4,
+              "sha256": "45fd983a883f53214aa1b407e91f7eb9df912488e2e94092ee9d960873a2ca56"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "aa8c37dcb629281352b2c9c0c0a4cef216cc3050293b458088032fb30802cbcd"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "fc080765077076170d25aff0c95a1a280e3b1bc7dacc8120ae8d4415fb8a7dca"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "740200aa8092de607bc499b0cc6358f981ba0b7e57b58f3bc73b0fcfcd8a31f5"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "06c3c4eb30220aa7102f5c80d7fd426437930ea462fb3e7664c058c2380d7bcd",
+          "tables": {
+            "Blob": {
+              "count": 4,
+              "sha256": "b6b0523cfdd3add87f8bd1fa427658fbd04ade6fd6515a4d9dd997e9762b4681"
+            },
+            "Complaint": {
+              "count": 1,
+              "sha256": "94796273095350894376fd29519e3b9a45eccfc5a92a017ec8886065fba7aaf6"
+            },
+            "ComplaintAccess": {
+              "count": 3,
+              "sha256": "b28dc5203ce7381de4b2840a17f5108182674925b6d67979e5767407e9916a1c"
+            },
+            "ComplaintAction": {
+              "count": 2,
+              "sha256": "12a8a422f8ca00a59ea126eeb197549046b1af16e53e446acbb174c12189e22c"
+            },
+            "ComplaintNotice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "ComplaintResolution": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "Listing": {
+              "count": 4,
+              "sha256": "63bbe035256ba2f45698696491d5b1c463bc32888b8fa94df8f24c2541569ca5"
+            },
+            "ModerationDecision": {
+              "count": 4,
+              "sha256": "45fd983a883f53214aa1b407e91f7eb9df912488e2e94092ee9d960873a2ca56"
+            },
+            "Person": {
+              "count": 4,
+              "sha256": "aa8c37dcb629281352b2c9c0c0a4cef216cc3050293b458088032fb30802cbcd"
+            },
+            "Photo": {
+              "count": 4,
+              "sha256": "fc080765077076170d25aff0c95a1a280e3b1bc7dacc8120ae8d4415fb8a7dca"
+            },
+            "Revision": {
+              "count": 4,
+              "sha256": "740200aa8092de607bc499b0cc6358f981ba0b7e57b58f3bc73b0fcfcd8a31f5"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 114,
+        "elapsed_seconds_including_wait_and_cleanup": 0.23257900774478912,
+        "holder_backend_pid": 112,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.18366262130439281,
+        "minimal_after": {
+          "assigned_to_id": 31,
+          "decision_id": null,
+          "listing_decision_id": 14,
+          "status": "reviewing",
+          "version": 3
+        },
+        "minimal_before": {
+          "assigned_to_id": 31,
+          "decision_id": null,
+          "listing_decision_id": 14,
+          "status": "reviewing",
+          "version": 3
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.20714991260319948,
+        "route": "/en/moderation/complaints/85942805-76d1-403c-ac45-8bf06cb08323/resolve/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": null
+    },
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "restriction_release_propose_review_revocation",
+        "domain_after": {
+          "sha256": "ad2b07baf6015350c435f6136b256da934ea7b2959ad404f10d8c9198e03a27d",
+          "tables": {
+            "access": {
+              "count": 7,
+              "sha256": "34b37ce1e30df5d354affd07a89d5672cf0ca35bbb3c7d795d48e93378a4b241"
+            },
+            "ack": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "actions": {
+              "count": 5,
+              "sha256": "247b05dae7aabea182fe086e1cd21d01a97a63ad50ddd38abf3f1efe9ad70adb"
+            },
+            "case": {
+              "count": 1,
+              "sha256": "9bcaade03b827c27b4561c738dc61dd52ade3d7b499a614fa0d1a8c52dec7052"
+            },
+            "hold": {
+              "count": 1,
+              "sha256": "95ff89a98d6d25d5d451beaa640d0a1d4ab1797f7c941992426a6a0164c7e6cb"
+            },
+            "listing": {
+              "count": 1,
+              "sha256": "48bc3224c8c6d1e0074c7fe334d31f53f764a1064bf950f5809b36560db6b7e3"
+            },
+            "notice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "person": {
+              "count": 1,
+              "sha256": "e120c17483bcc56cd84d0bde8afacb39ebb27164a1bfdd2a6e4b280222fbe159"
+            },
+            "proof": {
+              "count": 2,
+              "sha256": "8a2e04f41a6a5a226511de2c54f0630f1efbc29055ed519686efaefdfd06ac82"
+            },
+            "proof_event": {
+              "count": 2,
+              "sha256": "2e039ed0874cad6cff43833b089bca7207743c3b4f1776f34f08180c68ea9ef5"
+            },
+            "proposal": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "response": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "revision": {
+              "count": 1,
+              "sha256": "79eedced50e7f95e4dae6a9e581667b1e9652d317f1aace80ad65fb852b311fd"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "ad2b07baf6015350c435f6136b256da934ea7b2959ad404f10d8c9198e03a27d",
+          "tables": {
+            "access": {
+              "count": 7,
+              "sha256": "34b37ce1e30df5d354affd07a89d5672cf0ca35bbb3c7d795d48e93378a4b241"
+            },
+            "ack": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "actions": {
+              "count": 5,
+              "sha256": "247b05dae7aabea182fe086e1cd21d01a97a63ad50ddd38abf3f1efe9ad70adb"
+            },
+            "case": {
+              "count": 1,
+              "sha256": "9bcaade03b827c27b4561c738dc61dd52ade3d7b499a614fa0d1a8c52dec7052"
+            },
+            "hold": {
+              "count": 1,
+              "sha256": "95ff89a98d6d25d5d451beaa640d0a1d4ab1797f7c941992426a6a0164c7e6cb"
+            },
+            "listing": {
+              "count": 1,
+              "sha256": "48bc3224c8c6d1e0074c7fe334d31f53f764a1064bf950f5809b36560db6b7e3"
+            },
+            "notice": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "person": {
+              "count": 1,
+              "sha256": "e120c17483bcc56cd84d0bde8afacb39ebb27164a1bfdd2a6e4b280222fbe159"
+            },
+            "proof": {
+              "count": 2,
+              "sha256": "8a2e04f41a6a5a226511de2c54f0630f1efbc29055ed519686efaefdfd06ac82"
+            },
+            "proof_event": {
+              "count": 2,
+              "sha256": "2e039ed0874cad6cff43833b089bca7207743c3b4f1776f34f08180c68ea9ef5"
+            },
+            "proposal": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "response": {
+              "count": 0,
+              "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "revision": {
+              "count": 1,
+              "sha256": "79eedced50e7f95e4dae6a9e581667b1e9652d317f1aace80ad65fb852b311fd"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 116,
+        "elapsed_seconds_including_wait_and_cleanup": 0.3100632755085826,
+        "holder_backend_pid": 115,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.21945797558873892,
+        "minimal_after": {
+          "executed_proposals": 0,
+          "hold_active": true,
+          "release_proposals": 0,
+          "response_version": 0,
+          "scope_status": "simulated_passed",
+          "status": "reviewing",
+          "version": 10
+        },
+        "minimal_before": {
+          "executed_proposals": 0,
+          "hold_active": true,
+          "release_proposals": 0,
+          "response_version": 0,
+          "scope_status": "simulated_passed",
+          "status": "reviewing",
+          "version": 10
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.2541396729648113,
+        "route": "/en/moderation/rights/e624574b-1a4e-4b78-ba7f-8d7f61084b08/publication-hold/release/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": null
+    },
+    {
+      "runtime": {
+        "actual_wait": true,
+        "case": "restriction_release_execute_review_revocation",
+        "domain_after": {
+          "sha256": "2967d38a45d164afa02777c56d9a082a26bce2265b83f9ad152c4886e88e8778",
+          "tables": {
+            "access": {
+              "count": 10,
+              "sha256": "43f398a4d71c0b2802ed2ea53d950bbdba983035e0b640e172ff3e86786f6faf"
+            },
+            "ack": {
+              "count": 1,
+              "sha256": "0d6bfb05cf86dd3835612b1bc13c73da5083679c4ce20e991245bd5eb32d7972"
+            },
+            "actions": {
+              "count": 6,
+              "sha256": "830031cd1e047029a8646b8adc7f47949f446cf01dd4934d605e7b50323c35cc"
+            },
+            "case": {
+              "count": 1,
+              "sha256": "b7285aedf99a9712e15d41eeba38fd131ba0556ecf73480432396b4ed5385b71"
+            },
+            "hold": {
+              "count": 1,
+              "sha256": "1b73782d5c1d711cb5e5f30006468716017ae63e9e79be21ad12f6cdc4191266"
+            },
+            "listing": {
+              "count": 1,
+              "sha256": "e8013ce42a12851a44e5024085b4631a4c242aaea062f8d8c1092c51e0a3fb95"
+            },
+            "notice": {
+              "count": 1,
+              "sha256": "2ce561952a5cb1b3b4f714e3ef6c1122044cb34d0e2fc09945b2cf4426988295"
+            },
+            "person": {
+              "count": 1,
+              "sha256": "5dbca47fb3bcba1b4048cfb64c82e8c4a7786043e34b93d7b585ec40de4fa929"
+            },
+            "proof": {
+              "count": 3,
+              "sha256": "0640a1f1951f73d1c284a01076de8980dcec9999aa9ab6f9cbe6d1f189e93067"
+            },
+            "proof_event": {
+              "count": 3,
+              "sha256": "bd96bd3f345108518d9952eb863a6bc30434bfa9a41994b79fafafbcb584fa4a"
+            },
+            "proposal": {
+              "count": 1,
+              "sha256": "32a1513008e29cdbdeaa24b0f47c00df726318334869726b163bb54bddbc9c37"
+            },
+            "response": {
+              "count": 1,
+              "sha256": "16d149afee8b0a879e390a2304bf989a01885a8f5cf16071127aec3cfbe090dc"
+            },
+            "revision": {
+              "count": 1,
+              "sha256": "11b1488cf01c5bb0090d102c0bf18d114c5d39ffd7e19790f4ff6dc686aed95d"
+            }
+          }
+        },
+        "domain_before": {
+          "sha256": "2967d38a45d164afa02777c56d9a082a26bce2265b83f9ad152c4886e88e8778",
+          "tables": {
+            "access": {
+              "count": 10,
+              "sha256": "43f398a4d71c0b2802ed2ea53d950bbdba983035e0b640e172ff3e86786f6faf"
+            },
+            "ack": {
+              "count": 1,
+              "sha256": "0d6bfb05cf86dd3835612b1bc13c73da5083679c4ce20e991245bd5eb32d7972"
+            },
+            "actions": {
+              "count": 6,
+              "sha256": "830031cd1e047029a8646b8adc7f47949f446cf01dd4934d605e7b50323c35cc"
+            },
+            "case": {
+              "count": 1,
+              "sha256": "b7285aedf99a9712e15d41eeba38fd131ba0556ecf73480432396b4ed5385b71"
+            },
+            "hold": {
+              "count": 1,
+              "sha256": "1b73782d5c1d711cb5e5f30006468716017ae63e9e79be21ad12f6cdc4191266"
+            },
+            "listing": {
+              "count": 1,
+              "sha256": "e8013ce42a12851a44e5024085b4631a4c242aaea062f8d8c1092c51e0a3fb95"
+            },
+            "notice": {
+              "count": 1,
+              "sha256": "2ce561952a5cb1b3b4f714e3ef6c1122044cb34d0e2fc09945b2cf4426988295"
+            },
+            "person": {
+              "count": 1,
+              "sha256": "5dbca47fb3bcba1b4048cfb64c82e8c4a7786043e34b93d7b585ec40de4fa929"
+            },
+            "proof": {
+              "count": 3,
+              "sha256": "0640a1f1951f73d1c284a01076de8980dcec9999aa9ab6f9cbe6d1f189e93067"
+            },
+            "proof_event": {
+              "count": 3,
+              "sha256": "bd96bd3f345108518d9952eb863a6bc30434bfa9a41994b79fafafbcb584fa4a"
+            },
+            "proposal": {
+              "count": 1,
+              "sha256": "32a1513008e29cdbdeaa24b0f47c00df726318334869726b163bb54bddbc9c37"
+            },
+            "response": {
+              "count": 1,
+              "sha256": "16d149afee8b0a879e390a2304bf989a01885a8f5cf16071127aec3cfbe090dc"
+            },
+            "revision": {
+              "count": 1,
+              "sha256": "11b1488cf01c5bb0090d102c0bf18d114c5d39ffd7e19790f4ff6dc686aed95d"
+            }
+          }
+        },
+        "domain_unchanged": true,
+        "effective_request_backend_pid": 119,
+        "elapsed_seconds_including_wait_and_cleanup": 0.21830123383551836,
+        "holder_backend_pid": 117,
+        "holder_transaction_released": true,
+        "initial_mfa": true,
+        "initial_permission": true,
+        "lock_observed_seconds": 0.17142485454678535,
+        "minimal_after": {
+          "executed_proposals": 0,
+          "hold_active": true,
+          "release_proposals": 1,
+          "response_version": 1,
+          "scope_status": "simulated_passed",
+          "status": "reviewing",
+          "version": 13
+        },
+        "minimal_before": {
+          "executed_proposals": 0,
+          "hold_active": true,
+          "release_proposals": 1,
+          "response_version": 1,
+          "scope_status": "simulated_passed",
+          "status": "reviewing",
+          "version": 13
+        },
+        "permission_revoked": true,
+        "request_elapsed_seconds_including_wait": 0.19154246244579554,
+        "route": "/en/moderation/rights/47635dfd-fbb0-4871-9197-18def8f636c9/publication-hold/release/",
+        "status": 403,
+        "thread_connections_closed": true,
+        "thread_finished": true,
+        "timing_scope": "Induced PostgreSQL wait diagnostic, not application latency or performance comparison."
+      },
+      "stream_probe": null
+    }
+  ],
+  "negative_operations": {
+    "inspect": 6,
+    "photo": 7,
+    "claim": 6,
+    "resolve": 7,
+    "propose": 9,
+    "execute": 9,
+    "claim_replay": 1,
+    "resolve_replay": 1,
+    "propose_replay": 1,
+    "execute_replay": 1
+  },
+  "cleanup_verified": true,
+  "test_telegram_delivery": "sent",
+  "independent_audit_telegram_delivery": "sent",
+  "candidate_pretest_graph_sha256": "ea84d7685cc462371b132e7f2eb5d633f8f3528e30c3f5c6d918cad626391c6e",
+  "route_ids": [
+    "route:R_complaint_inspect",
+    "route:R_complaint_photo",
+    "route:R_complaint_action",
+    "route:R_complaint_resolve",
+    "route:R_privacy_hold_release"
+  ],
+  "scope": "Six operations on five routes,not complete route/N09 acceptance. Actual PostgreSQL waits5POST1GET;allsynthetic;restrictiononly release. No observed HTTPimagebytes afterrevocation. No operators locked/no universalserialization. Inducedtimes not normal latency or causalperformance;QA117 vsbaseline6 differentselections. Alpha/noindex/providers unchanged. N09full139stillopen8of13;7priorABC+6D=13localbugs,not13contractblocks."
+}

@@ -10,6 +10,7 @@ from django.views.decorators.debug import sensitive_variables
 
 from apps.listings.submissions import validate_submission
 
+from .complaint_authority import current_actor
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal, unseal
 from .models import (
@@ -42,13 +43,11 @@ def source_permission(user, complaint):
 def resolve(
     user, complaint_id, key, version, source_version, outcome, reason, response, redaction_confirmed
 ):
-    if (
-        not user.mfa_enabled
-        or not user.has_perm("safety.review_complaint")
-        or not user.has_perm("safety.resolve_complaint")
-    ):
-        raise PermissionDenied("Independent complaint resolution permission required")
+    session_version, mfa_version = user.session_version, user.mfa_version
+    permissions = ("safety.resolve_complaint",)
+    user = current_actor(user, session_version, mfa_version, permissions=permissions)
     complaint, source = locked(complaint_id)
+    user = current_actor(user, session_version, mfa_version, permissions=permissions)
     unidentified = not complaint.decision_id and not complaint.listing_decision_id
     if not permitted(user, complaint) or (
         not unidentified and not source_permission(user, complaint)

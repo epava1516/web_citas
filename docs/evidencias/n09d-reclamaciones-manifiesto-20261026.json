@@ -1,0 +1,258 @@
+{
+  "result": "PASS_SANITIZED_N09D_REPRODUCTION_ARCHIVE",
+  "archive": "docs/evidencias/n09d-reclamaciones-reproduccion-20261026.tar.gz",
+  "sha256": "223d4c2c44fedd155567881a05a40157dcb5d97d71f7288a4373c3d11d343af6",
+  "members": 61,
+  "files": {
+    "baseline/baseline-audit.json": {
+      "bytes": 34755,
+      "sha256": "5c9059bc7a839f5403860c12a771c9cc37cc4c0e85f06fed4152f2ae39ddc206"
+    },
+    "baseline/baseline-freeze.json": {
+      "bytes": 208844,
+      "sha256": "230fbb908b9338ac132ca38bb9fa35d8572c693d83fe2e6228c14b29936e3fb4"
+    },
+    "baseline/instrument-integration-review.json": {
+      "bytes": 1540,
+      "sha256": "bb9aa69ed20c22e02e3aef42ce898eb5972615641c910b1e70751e38b375a76c"
+    },
+    "baseline/n09d-complaint-authority-report.json": {
+      "bytes": 1904,
+      "sha256": "88b3c0f6a17d4691a9a426119defccd7df214ef21783193d44448618fab37902"
+    },
+    "baseline/n09d-release-authority-report.json": {
+      "bytes": 4544,
+      "sha256": "3ff0fc8af781fbe1371713f1299045170e6f09011f4482e414c9db3bbb763cdc"
+    },
+    "candidate/DIFFERENTIAL_REVIEW_20261026.md": {
+      "bytes": 9084,
+      "sha256": "8e773f6e74e7955232dfdf1c180e8f517947e96d70678e217b196925c5a28a00"
+    },
+    "candidate/after/apps/safety/complaint_actions.py": {
+      "bytes": 7761,
+      "sha256": "fce93c37c06e2b642a79f79593604fc4bb7e21e9b3c7cdce40c123fec5e63a2d"
+    },
+    "candidate/after/apps/safety/complaint_authority.py": {
+      "bytes": 1191,
+      "sha256": "e2307dafcd585683b5d3bb9d86e1677cbee92f528a34d2bfe5e21f723cd81105"
+    },
+    "candidate/after/apps/safety/complaint_resolutions.py": {
+      "bytes": 11008,
+      "sha256": "c97b517e594736613056135d746e6fbc300bdf22bc7e287797252bb56e4fe2a9"
+    },
+    "candidate/after/apps/safety/complaints.py": {
+      "bytes": 24501,
+      "sha256": "bcbf8a248ff8579ebed52b871abacfdf454a39b331743fbd3ed7d227af188292"
+    },
+    "candidate/after/apps/safety/privacy_release.py": {
+      "bytes": 14326,
+      "sha256": "8e1dc12eaa630c9e418ec7a0ed613b46034f412e3a759d2533f37cd7e7faf836"
+    },
+    "candidate/after/tests/test_complaint_assignment.py": {
+      "bytes": 8927,
+      "sha256": "083c0d78da3bdbdb09743d62779af67d67ae6642d7ba5dc920ed22ad8f0b9d8d"
+    },
+    "candidate/after/tests/test_complaint_authority_wait.py": {
+      "bytes": 7307,
+      "sha256": "54b14596d8dbc0d3361d05b2969dc8425724073b61baf5495692f439dbd0bc9b"
+    },
+    "candidate/after/tests/test_complaint_intake.py": {
+      "bytes": 13392,
+      "sha256": "cd68597d39c2ef89a38e0490238f1893c22717e2f86a79b7204b34d4ca557dc7"
+    },
+    "candidate/after/tests/test_complaint_linking.py": {
+      "bytes": 10356,
+      "sha256": "735c4ba842e4426900277e419f293b935ad64d9582746eaf30af3300830d10d1"
+    },
+    "candidate/after/tests/test_complaint_listing_linking.py": {
+      "bytes": 11104,
+      "sha256": "d853c2d78adb046cab7e5cc66a1632e8ee6608f56c964e3b2b80a49d07de260a"
+    },
+    "candidate/after/tests/test_complaint_localization.py": {
+      "bytes": 6661,
+      "sha256": "3a7358358577390eb7af957d1d9d48c0bf5809e674f5b6f5f2ecc79f68acd7e2"
+    },
+    "candidate/after/tests/test_complaint_messages.py": {
+      "bytes": 17638,
+      "sha256": "3ef9f99aa443272305d967b705942051c7b6d3c4f226cb09175c446d9649d705"
+    },
+    "candidate/after/tests/test_complaint_release_current_authority.py": {
+      "bytes": 10324,
+      "sha256": "c985011cc5ee4b92677f95faf8a1309c39b60e8e28f56c65710d3691aa9227a0"
+    },
+    "candidate/after/tests/test_complaint_resolution_localization.py": {
+      "bytes": 7019,
+      "sha256": "f4c4b3663bb5c920e0223141c6a65696ef5d35b53e6e54138499563b87fe7830"
+    },
+    "candidate/after/tests/test_complaint_resolutions.py": {
+      "bytes": 18579,
+      "sha256": "d48537af3da34cd5f5bd89ec89f7bd56996774f8bd0cbfac2383014b8b3f9bb1"
+    },
+    "candidate/after/tests/test_operational_recovery_authority_wait.py": {
+      "bytes": 12306,
+      "sha256": "d7b937f3a499d91af78ab7dbc8b3320f3033b6e81b3a517e85061224f9300bfa"
+    },
+    "candidate/after/tests/test_privacy_release.py": {
+      "bytes": 11913,
+      "sha256": "f5ff20f93c723b6cf013b026f487f880d1b09256fb13f69fd5533a9400b32abf"
+    },
+    "candidate/after/tests/test_privacy_release_authority_wait.py": {
+      "bytes": 7965,
+      "sha256": "bfc975c89d7deccafebb8e986de3ee261be281736ca39b8be7a36715d79ca458"
+    },
+    "candidate/before/apps/safety/complaint_actions.py": {
+      "bytes": 7630,
+      "sha256": "6c20eb98cd74876736a70852dd6a0042e269bcc167725e0a88e30692fae1b6be"
+    },
+    "candidate/before/apps/safety/complaint_resolutions.py": {
+      "bytes": 10912,
+      "sha256": "bdb38b2ffff9aa014773ade85a5440a416e4232d6d8035d3ebbf120001949c2c"
+    },
+    "candidate/before/apps/safety/complaints.py": {
+      "bytes": 23635,
+      "sha256": "760bbb105895d26520ba31ea55a4147528dba5674df81de79354eadb26a462e5"
+    },
+    "candidate/before/apps/safety/privacy_release.py": {
+      "bytes": 13166,
+      "sha256": "cf8f7ee8511bbdc5ccfdc0e1a8c42f8ba8dd084838faad1b7fa921eff05c47dd"
+    },
+    "candidate/candidate-audit.json": {
+      "bytes": 233177,
+      "sha256": "4bed1940e73ca07c7972b8e7864974f9febcdf6d9623049514b05b1c8d85ea85"
+    },
+    "candidate/candidate-freeze.json": {
+      "bytes": 209511,
+      "sha256": "96a26fb3201658f89eb0d410d83b4d0c32811a1efe18e480490b746167356309"
+    },
+    "candidate/candidate-prechecks-notifications.json": {
+      "bytes": 1037,
+      "sha256": "018b38302ddbe3e587a34d54ac79230bfa3fb463c7baaaac46091c8219e758a9"
+    },
+    "candidate/candidate-qa-start-telegram.json": {
+      "bytes": 137,
+      "sha256": "732691236cd6cbceec43f954649695adbff3953ad7afcfc9728dc72f1fb41d9a"
+    },
+    "candidate/candidate-source-review.json": {
+      "bytes": 2436,
+      "sha256": "a03f4d307eaf9eea8c2ecf873bd11a41a8f4e509a4ecb4647e815531a51e7daa"
+    },
+    "candidate/differential-review-terminal-disposition.json": {
+      "bytes": 312,
+      "sha256": "e854acd14fb348cf0efc3234f77d2b434e36d5fb7a3cae050441dc02264e1148"
+    },
+    "candidate/pytest-pass-properties-no-logs.xml": {
+      "bytes": 254095,
+      "sha256": "f6dc7584965d7d1918a3799a0f573cf07a826b7904ceba08347192fbf341a57d"
+    },
+    "candidate/route-operation-coverage-pending.json": {
+      "bytes": 5289,
+      "sha256": "bed29b0cc8e713d5b908f2e253a5a0b15151744392e451993f0666e0aef8b824"
+    },
+    "candidate/runner-result-sanitized.json": {
+      "bytes": 2137,
+      "sha256": "1e01f0fe78746aeffe68dc96bfaa2bd274c030c939dab9617e44b51da796bac6"
+    },
+    "candidate/runner-source-hashes.json": {
+      "bytes": 204732,
+      "sha256": "ad0a1c69008c096588a3f5fc0e8b7aaad46d3b7197b49a605b56f4c57dd60071"
+    },
+    "docs/429-n09-d-prerregistro-reclamaciones-levantamiento-20261026.md": {
+      "bytes": 5914,
+      "sha256": "34ebaf6415f2df173bac57af4b060f81fe5af22f08dde1f3ac54144fadf717f5"
+    },
+    "docs/430-n09-d-correccion-prerregistro-reclamaciones-levantamiento-20261026.md": {
+      "bytes": 7768,
+      "sha256": "dc38e3319e47ba0374876af40701a4da9cb2142f304fee374420180426c18d76"
+    },
+    "docs/431-n09-d-reclamaciones-levantamiento-autoridad-verificada-20261026.md": {
+      "bytes": 8981,
+      "sha256": "947441e11718af687789feb15706d32ca4e8f18042ef361bf0ece7e6ca6f71f6"
+    },
+    "graph/correction-prereg/native-v1/17-seguimiento-desarrollo.md": {
+      "bytes": 402,
+      "sha256": "647aff4c3e806fa889c0db90ddec30e9bd99853401b7d4c7617227bbe91e1974"
+    },
+    "graph/correction-prereg/native-v1/430-n09-d-correccion-prerregistro-reclamaciones-levantamiento-20261026.md": {
+      "bytes": 7257,
+      "sha256": "ab787b4bfe4df6f30c6b0500aab390cad5199b5d6684522b84af8b6d96ce2196"
+    },
+    "graph/correction-prereg/native-v1/semantic-fragment.json": {
+      "bytes": 30263,
+      "sha256": "1394d410bb943ac81e5fc3aaf5c4ffd2bfdc9d90114a83cd848d3209a1da18c9"
+    },
+    "graph/correction-prereg/native-v1/semantic-inputs.json": {
+      "bytes": 607,
+      "sha256": "58b5d664074ed69b05a5b0c47dd531bcced72cf12f56a3bc26f5d76544dc0fc1"
+    },
+    "graph/correction-prereg/report.json": {
+      "bytes": 1628,
+      "sha256": "e55af24dd66a4505d84a12bd8bfe62b45c89a977ab6d116aae7a85fa9c10d44d"
+    },
+    "graph/correction-prereg/semantic-fragment.json": {
+      "bytes": 30199,
+      "sha256": "bce916bc9d3f4e03b5c90a85f36181bf95c7141a9cb4a97e930a793dc4d7494e"
+    },
+    "graph/correction-prereg/semantic-inputs.json": {
+      "bytes": 607,
+      "sha256": "c5051371d0d39d741a433bf1c566de761ec2d1443f33b3920556b187ec6e10f6"
+    },
+    "graph/correction-prereg/semantic-integration.json": {
+      "bytes": 1028,
+      "sha256": "02116b54ea7ddfd6af7465bd94b27c8f30f29a0d4db0a5e3b7a7ff1e6e71c32b"
+    },
+    "graph/correction-prereg/verification.json": {
+      "bytes": 349,
+      "sha256": "bd64b18e3386238ae9deddb440f30b9222a26c9c0bc766528ae192fcb267cbf1"
+    },
+    "graph/prereg/report.json": {
+      "bytes": 1280,
+      "sha256": "60a73111f6169a6a40ee11aa0996dd58e8bc596e27a3b0f1ec11a01c14fce892"
+    },
+    "graph/prereg/semantic-fragment.json": {
+      "bytes": 25448,
+      "sha256": "f5b87ea532a9b4dd37113bc80d566cb5b31ada1129bd1c9dd9f1e8da26fff783"
+    },
+    "graph/prereg/semantic-inputs.json": {
+      "bytes": 582,
+      "sha256": "dde0538801d1aa869c4a7359e18b80145da200fc6e2d5fb4db25b448da9b652a"
+    },
+    "graph/prereg/semantic-integration.json": {
+      "bytes": 1006,
+      "sha256": "fe29c22a0fb7085bbf6aae0cfb37d8943931cef7d6f106299b01ec11eae409ca"
+    },
+    "graph/prereg/verification.json": {
+      "bytes": 364,
+      "sha256": "1b3d98b7f7b6efb92f4fcb04208cdea9f69dd8e7cf30aefac4e28599c6e936ba"
+    },
+    "graph/terminal/report.json": {
+      "bytes": 1368,
+      "sha256": "fcf4278d8f0d5379bf8484026a5393c970ad9f6fa3c81821048ef80cfbbca9c5"
+    },
+    "graph/terminal/semantic-fragment.json": {
+      "bytes": 35740,
+      "sha256": "235ce82870849b3b391e46e25b1c7e7c29717c91765183fe486679a3e3545e17"
+    },
+    "graph/terminal/semantic-inputs.json": {
+      "bytes": 583,
+      "sha256": "6e456e8ecbafaaaea210cdb71037db5325240fbd42fa1a7ad0d9e98c58b41c05"
+    },
+    "graph/terminal/semantic-integration.json": {
+      "bytes": 1267,
+      "sha256": "2ddfdb40634abb72db753309aa9e344bb2e185c9595acc525c3206f9f267eb9d"
+    },
+    "graph/terminal/verification.json": {
+      "bytes": 343,
+      "sha256": "ef886c3c94b79620b04fe28c32aaecd879b083fb70164b23c2077e2ec57902b9"
+    }
+  },
+  "exclusions": [
+    "raw logs",
+    "runner step commands",
+    "credentials",
+    "system-out/system-err",
+    "raw failure Settings repr",
+    "user lateral installation document contents/configuration",
+    "full graph with unrelated documents"
+  ],
+  "scope": "Six local authority fixes/five routes,baseline6FAIL auditedsummary andfreeze preserved,candidate117PASS/instruments/source/graphdeltas. Doesnot close N09full139 or contract. Native fragment430-v1 preserved before root17/hash reconciliation;no repeatedQA for docs/installation."
+}

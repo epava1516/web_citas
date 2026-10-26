@@ -19,6 +19,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.accounts import limited
 
+from .complaint_authority import request_actor
 from .complaint_scope import locked, permitted
 from .crypto import digest, seal, unseal
 from .models import Complaint, ComplaintAccess, ComplaintNotice, ComplaintResolution
@@ -231,7 +232,10 @@ class AccessForm(forms.Form):
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
 def inspect(request, complaint_id):
-    if not allowed(request):
+    session_version, mfa_version = request.user.session_version, request.user.mfa_version
+    try:
+        request.user = request_actor(request, session_version, mfa_version)
+    except PermissionDenied:
         return private(
             HttpResponse(
                 ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"), status=403
@@ -271,7 +275,11 @@ def inspect(request, complaint_id):
                         status=409,
                     )
                 )
-            if not permitted(request.user, complaint) or not allowed(request):
+            try:
+                request.user = request_actor(request, session_version, mfa_version)
+            except PermissionDenied:
+                return private(HttpResponse("Forbidden", status=403))
+            if not permitted(request.user, complaint):
                 return private(
                     HttpResponse(
                         ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"),
@@ -455,7 +463,13 @@ def action(request, complaint_id):
 def photo(request, complaint_id, photo_id):
     from .complaint_resolutions import source_version
 
-    if not allowed(request) or not request.user.has_perm("listings.review_listing"):
+    session_version, mfa_version = request.user.session_version, request.user.mfa_version
+    permissions = ("listings.review_listing",)
+    try:
+        request.user = request_actor(
+            request, session_version, mfa_version, permissions=permissions
+        )
+    except PermissionDenied:
         return private(HttpResponse("Forbidden", status=403))
     if not Complaint.objects.filter(pk=complaint_id).exists():
         raise Http404
@@ -464,6 +478,12 @@ def photo(request, complaint_id, photo_id):
             complaint, _ = locked(complaint_id)
         except ValidationError:
             return private(HttpResponse("Case changed; reload", status=409))
+        try:
+            request.user = request_actor(
+                request, session_version, mfa_version, permissions=permissions
+            )
+        except PermissionDenied:
+            return private(HttpResponse("Forbidden", status=403))
         if not permitted(request.user, complaint) or not complaint.listing_decision_id:
             return private(HttpResponse("Forbidden", status=403))
         current_version = source_version(complaint)
