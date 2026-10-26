@@ -13,3 +13,9 @@ __pycache__
 **/.ruff_cache
 graphify-out
 apps/safety/_canonical_native
+
+# Keep QA evidence on the host; retain manifests consumed by tooling.
+docs/evidencias/*
+!docs/evidencias/cr09-historicos-dependencias-matriz-20261014.json
+!docs/evidencias/comparacion-capacidad-4-vs-6-manifiesto0110.json
+!docs/evidencias/post-limpieza-recursos-manifiesto0110.json
