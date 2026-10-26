@@ -1,6 +1,6 @@
-N10D486 corrección loginAdmin aceptada localmente: password/CSRF epoch1 conserva sesión→MFA; receptorPOSTadmin admite epochoriginal sinrecarga niMFA. Original1PASS1FAIL59,198s retenido; candidata7PASS3FAIL126,993s porRateWindoworáculo y focal4PASS76,644s+6reutilizados=10únicos, no suiteúnica10PASS.1795huellas/173modelos8archivos intactos,cleanupTGsent. N10abierto77/9de13.
+N10E488 verificado:2PASS64,880sQA/1796stable, password/logoutAdminESEN6etapas,173modelos8archivos exactos. Matriz77IDsoriginales/140fuentes:76disposiciones verificadas y1retornoactual pendiente. N10abierto77/9de13, no cierreporregistro ni sourcepairhistórico.
 
-Siguiente: matriz trazable77 y aceptaciónN10, despuésN11/N15. N10A16/N10B2/N10C2 y11runbooks120PASS2SKIP originales preservados;no repetirporrutina. GroupAST/middleware/cuentas/MFA/vendor intactos,alcanceforce_login/signin yepochrevocado verificados. Retorno porigualdad37ccaaa/ae33175 ya no cubre el arreglo. N02residualend,N12-N14condicionados,alpha/noindex,15laterales preservados.
+SiguienteN10F: retornoaislado actual→8589acd→actual enGunicornpropio/DBtest, fuenteefectivacargada/sesionesadmitidas/lecturas/datos/archivos ylimpiezaverificados;sinbuildimágenes/copiasde589MB. Unicodeltaruntimecore.admin, schema/deps/tareas iguales;anteriorpierdearregloLoginEpoch1,scope mantenimiento controlado noautorizaciónproductiva. Despuéscerrar77/N10 yN11/N15. N02residualend,N12-N14condicionados,alpha/noindex,15lateralespreservados.
 
 N10A/475original1PASS1FAIL55,892sQA/1788huellas:permretiradoenGroupwait aun302/name+1LogEntry;auditoria/cleanupTGERRORsent. CandidataGroupAdminpropio9dcd3b preparada,16casos(2originalesintactos+7wait+7CRUD/self)revisados,sinaceptacion.9/13,N10abierto77.
 
