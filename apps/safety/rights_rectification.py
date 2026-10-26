@@ -2,6 +2,7 @@
 
 import json
 import uuid
+from functools import partial
 
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -14,6 +15,7 @@ from django.views.decorators.debug import sensitive_post_parameters, sensitive_v
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.catalog.models import Category, Municipality, PostalCode, Service, Zone
+from apps.core.models import PhoneClaim
 from apps.listings.forms import DetailsForm, validate_listing_text
 from apps.listings.models import Revision
 from apps.mediafiles.models import Blob, Photo
@@ -35,6 +37,7 @@ from .models import (
     RightsRectificationSourceRead,
     RightsRequest,
 )
+from .rectification_authority import capture_authority
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
 from .rights_scope import locked_case, permitted
@@ -51,7 +54,7 @@ FIELDS = {
 
 
 @sensitive_variables()
-def validated_changes(value, person=None, case=None):
+def validated_changes(value, person=None, case=None, *, check_authority=None):
     if (
         not isinstance(value, dict)
         or not value
@@ -64,29 +67,47 @@ def validated_changes(value, person=None, case=None):
         raise ValidationError("Unsupported correction fields / Campos de corrección no admitidos")
     if case and case.account_subject_id and set(value) != {"account"}:
         raise ValidationError("Account scope only / Solo ámbito de cuenta")
+    if check_authority is not None:
+        check_authority()
     value = value.copy()
     for field in sorted(value):
         text = value[field]
         if field == "account":
-            value[field] = rectification_account.validate(text, person, case)
+            value[field] = rectification_account.validate(
+                text, person, case, check_authority=check_authority
+            )
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "photos":
             value[field] = rectification_photos.validate(text, person, case)
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "details":
             value[field] = rectification_details.validate(text)
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "contacts":
             value[field] = rectification_contacts.validate(text, person)
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "rates":
             value[field] = rectification_rates.validate(text)
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "catalog":
             value[field] = rectification_catalog.validate(text)
+            if check_authority is not None:
+                check_authority()
             continue
         if field == "location":
             rectification_location.validate(text)
+            if check_authority is not None:
+                check_authority()
             continue
         if (
             not isinstance(text, str)
@@ -97,11 +118,13 @@ def validated_changes(value, person=None, case=None):
         if field != "alias":
             DetailsForm.base_fields[field].clean(text)
         validate_listing_text(text)
+    if check_authority is not None:
+        check_authority()
     return value
 
 
 @sensitive_variables()
-def validate_copy(changes, revision, person, case):
+def validate_copy(changes, revision, person, case, *, check_authority=None):
     if set(changes) - {"alias", "account"}:
         if not revision or revision.manager_version != person.manager_version:
             raise ValidationError("Current revision required / Revisión vigente obligatoria")
@@ -109,10 +132,14 @@ def validate_copy(changes, revision, person, case):
             changes.get("photos", rectification_photos.source(revision)), person, case
         )
 
+    if check_authority is not None:
+        check_authority()
+
 
 @transaction.atomic
 @sensitive_variables()
 def propose(user, case_id, key, version, changes, reason):
+    authority = capture_authority(user)
     if (
         not user.mfa_enabled
         or not user.has_perm("safety.review_rights_request")
@@ -120,9 +147,11 @@ def propose(user, case_id, key, version, changes, reason):
     ):
         raise PermissionDenied
     case, person, listing = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
-    changes = validated_changes(changes, person, case)
+    changes = validated_changes(changes, person, case, check_authority=check_authority)
     signature = fingerprint(
         json.dumps({"version": version, "changes": changes, "reason": reason}, sort_keys=True)
     )
@@ -149,8 +178,8 @@ def propose(user, case_id, key, version, changes, reason):
             "Inspect current assigned correction request / Consulta la solicitud asignada vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    revision, source = source_snapshot(case, person, listing)
-    validate_copy(changes, revision, person, case)
+    revision, source = source_snapshot(case, person, listing, check_authority=check_authority)
+    validate_copy(changes, revision, person, case, check_authority=check_authority)
     source_digest = fingerprint(json.dumps(source, sort_keys=True))
     if not RightsRectificationSourceRead.objects.filter(
         request=case,
@@ -162,6 +191,7 @@ def propose(user, case_id, key, version, changes, reason):
         raise ValidationError(
             "Read current correction source first / Consulta primero la fuente de rectificación vigente"
         )
+    check_authority()
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -187,29 +217,48 @@ def propose(user, case_id, key, version, changes, reason):
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
+    check_authority()
     return proposal
 
 
 @sensitive_variables()
-def source_snapshot(case, person, listing, include_uploads=True, additional_blob_ids=()):
+def _locked_values(query, check_authority, *fields):
+    if check_authority is None:
+        return list(query.values(*fields))
+    # Only identifiers cross the lock wait. Materialize metadata after authority
+    # is fresh and solely from rows whose locks this transaction already owns.
+    identifiers = list(query.values_list("pk", flat=True))
+    check_authority()
+    return list(query.model.objects.filter(pk__in=identifiers).order_by("pk").values(*fields))
+
+
+@sensitive_variables()
+def source_snapshot(
+    case, person, listing, include_uploads=True, additional_blob_ids=(), *, check_authority=None,
+):
     if case.account_subject_id:
         if person or listing:
             raise ValidationError("Incompatible scope / Ámbito incompatible")
         return None, {
             "account_subject": str(case.account_subject_id),
             "channel": case.receipt_digest,
-            "account": rectification_account.source(None, case),
+            "account": rectification_account.source(None, case, check_authority=check_authority),
             "fields": {},
             "alias": "",
         }
-    # Account writers and access-copy snapshots acquire User before revision/media rows.
-    account_source = rectification_account.source(person) if person.subject_id else None
+    # Preserve User -> Revision -> Upload -> Blob -> Rate/Photo lock ordering.
+    account_source = (
+        rectification_account.source(person, check_authority=check_authority)
+        if person.subject_id else None
+    )
     revision = None
     if listing and listing.approved_revision_id:
         revision = Revision.objects.select_for_update().get(pk=listing.approved_revision_id)
+        if check_authority is not None:
+            check_authority()
     from django.utils import timezone
 
-    uploads = list(
+    uploads = _locked_values(
         RightsRectificationPhotoUpload.objects.select_for_update(of=("self",))
         .filter(
             action__request=case,
@@ -219,34 +268,22 @@ def source_snapshot(case, person, listing, include_uploads=True, additional_blob
             expires_at__gt=timezone.now(),
             discarded_at__isnull=True,
         )
-        .order_by("pk")
-        .values()
+        .order_by("pk"),
+        check_authority,
     )
     upload_ids = [row["photo_id"] for row in uploads]
     staged_photos = list(Photo.objects.filter(pk__in=upload_ids).order_by("pk").values())
     staged_blob_ids = [row["blob_id"] for row in staged_photos]
     copied_source = None
     if revision:
-        # Bind every copied value and relation, not only corrected text fields.
-        # Lock shared media in UUID order before reading Photo rows. A reference
-        # alone does not bind the bytes or their current erasure state.
         blob_ids = list(revision.photos.order_by("blob_id").values_list("blob_id", flat=True))
-        blobs = list(
+        blobs = _locked_values(
             Blob.objects.select_for_update()
             .filter(pk__in=blob_ids + staged_blob_ids + list(additional_blob_ids))
-            .order_by("pk")
-            .values(
-                "id",
-                "sha256",
-                "original",
-                "derivative",
-                "status",
-                "width",
-                "height",
-                "phash",
-                "signature",
-                "regional_hashes",
-            )
+            .order_by("pk"),
+            check_authority,
+            "id", "sha256", "original", "derivative", "status", "width", "height",
+            "phash", "signature", "regional_hashes",
         )
         copied_source = {
             "values": {
@@ -259,11 +296,22 @@ def source_snapshot(case, person, listing, include_uploads=True, additional_blob
                 )
                 for field in Revision._meta.many_to_many
             },
-            "rates": list(revision.rates.select_for_update().order_by("pk").values()),
-            "photos": list(revision.photos.select_for_update().order_by("pk").values()),
+            "rates": _locked_values(
+                revision.rates.select_for_update().order_by("pk"), check_authority,
+            ),
+            "photos": _locked_values(
+                revision.photos.select_for_update().order_by("pk"), check_authority,
+            ),
             "blobs": [row for row in blobs if row["id"] in set(blob_ids)],
         }
         copied_source = json.loads(json.dumps(copied_source, sort_keys=True, default=str))
+    if check_authority is not None:
+        # binding() locks this same claim and then exposes its private fields.
+        # Own its identifier first, preserving that original late lock position.
+        PhoneClaim.objects.select_for_update().filter(pk=person.phone_claim_id).values_list(
+            "pk", flat=True,
+        ).first()
+        check_authority()
     source = {
         "copied_source": copied_source,
         "person": str(person.pk),
@@ -303,11 +351,9 @@ def source_snapshot(case, person, listing, include_uploads=True, additional_blob
         source["uploads"] = json.loads(json.dumps(uploads, sort_keys=True, default=str))
         source["staged_photos"] = json.loads(
             json.dumps(
-                list(
-                    Photo.objects.select_for_update()
-                    .filter(pk__in=upload_ids)
-                    .order_by("pk")
-                    .values()
+                _locked_values(
+                    Photo.objects.select_for_update().filter(pk__in=upload_ids).order_by("pk"),
+                    check_authority,
                 ),
                 sort_keys=True,
                 default=str,
@@ -325,12 +371,15 @@ def source_snapshot(case, person, listing, include_uploads=True, additional_blob
             else []
         )
         source["upload_choices"] = [str(identifier) for identifier in choices]
+    if check_authority is not None:
+        check_authority()
     return revision, source
 
 
 @transaction.atomic
 @sensitive_variables()
 def preview(user, case_id, version, purpose):
+    authority = capture_authority(user)
     if (
         not user.mfa_enabled
         or not user.has_perm("safety.review_rights_request")
@@ -338,6 +387,8 @@ def preview(user, case_id, version, purpose):
     ):
         raise PermissionDenied
     case, person, listing = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
     if (
@@ -353,7 +404,8 @@ def preview(user, case_id, version, purpose):
             "Inspect current assigned correction source / Consulta la fuente asignada vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    _, source = source_snapshot(case, person, listing)
+    _, source = source_snapshot(case, person, listing, check_authority=check_authority)
+    check_authority()
     RightsRectificationSourceRead.objects.create(
         request=case,
         actor=user,
@@ -362,6 +414,7 @@ def preview(user, case_id, version, purpose):
         source_digest=fingerprint(json.dumps(source, sort_keys=True)),
         purpose=purpose,
     )
+    check_authority()
     return {
         "alias": source["alias"],
         "account": {field: source["account"][field] for field in rectification_account.FIELDS}
@@ -659,10 +712,13 @@ def prepare(request, case_id):
 @sensitive_variables()
 def source_photo(request, case_id, photo_id):
     """Private bytes only after an explicit audit of the same current source."""
+    authority = capture_authority(request.user)
     if not allowed(request) or not request.user.has_perm("safety.execute_rights_request"):
         return private(HttpResponse("Forbidden", status=403))
     try:
         case, person, listing = locked_case(case_id, lock_listing=True)
+        check_authority = partial(authority, case)
+        check_authority()
         if not permitted(request.user, case):
             raise PermissionDenied
         if (
@@ -676,7 +732,7 @@ def source_photo(request, case_id, photo_id):
         if not person:
             raise ValidationError("Profile image unavailable / Imagen de perfil no disponible")
         proof = authorized_proof(case, person, "rectify")
-        revision, snapshot = source_snapshot(case, person, listing)
+        revision, snapshot = source_snapshot(case, person, listing, check_authority=check_authority)
         digest = fingerprint(json.dumps(snapshot, sort_keys=True))
         if not RightsRectificationSourceRead.objects.filter(
             request=case,
@@ -694,6 +750,7 @@ def source_photo(request, case_id, photo_id):
         )
         if not photo or not photo.blob.derivative:
             raise ValidationError("Photo unavailable")
+        check_authority()
         response = FileResponse(photo.blob.derivative.open("rb"), content_type="image/webp")
     except (RightsRequest.DoesNotExist, ValidationError, OSError):
         return private(HttpResponse("Not found", status=404))

@@ -11,7 +11,7 @@ from apps.core.models import User
 FIELDS = {"first_name", "last_name", "email"}
 
 
-def locked_subject(person, case=None):
+def locked_subject(person, case=None, *, check_authority=None):
     if not connection.in_atomic_block:
         raise RuntimeError("Account source requires scope locks and an enclosing transaction")
     account_id = (
@@ -24,14 +24,16 @@ def locked_subject(person, case=None):
             "Linked subject account required / Cuenta del sujeto vinculada obligatoria"
         )
     user = User.objects.select_for_update().get(pk=account_id)
+    if check_authority is not None:
+        check_authority()
     if user.account_erased_at:
         raise ValidationError("Subject account erased / Cuenta del sujeto suprimida")
     return user
 
 
 @sensitive_variables()
-def source(person, case=None):
-    user = locked_subject(person, case)
+def source(person, case=None, *, check_authority=None):
+    user = locked_subject(person, case, check_authority=check_authority)
     return {
         "subject": str(user.pk),
         "first_name": user.first_name,
@@ -46,10 +48,10 @@ def source(person, case=None):
 
 
 @sensitive_variables()
-def validate(value, person, case=None):
+def validate(value, person, case=None, *, check_authority=None):
     if not isinstance(value, dict) or not value or set(value) - FIELDS:
         raise ValidationError("Invalid account correction / Corrección de cuenta no válida")
-    user = locked_subject(person, case)
+    user = locked_subject(person, case, check_authority=check_authority)
     result = {}
     for field, text in value.items():
         if not isinstance(text, str):
@@ -67,7 +69,7 @@ def validate(value, person, case=None):
 
 
 @sensitive_variables()
-def apply(person, proposal, value, case=None):
+def apply(person, proposal, value, case=None, *, check_authority=None):
     """Apply only after the caller validates review, receipt and fresh scoped proof."""
     from django.utils import timezone
 
@@ -76,8 +78,8 @@ def apply(person, proposal, value, case=None):
     from .models import RightsAccountEmailConfirmation
     from .rights import fingerprint
 
-    user = locked_subject(person, case)
-    changes = validate(value, person, case)
+    user = locked_subject(person, case, check_authority=check_authority)
+    changes = validate(value, person, case, check_authority=check_authority)
     previous = {field: getattr(user, field) for field in changes}
     changed_email = "email" in changes and changes["email"] != user.email.lower()
     confirmation = None
@@ -99,6 +101,8 @@ def apply(person, proposal, value, case=None):
             .order_by("-created_at", "-pk")
             .first()
         )
+        if check_authority is not None:
+            check_authority()
         if (
             not confirmation
             or confirmation.expires_at <= now
@@ -109,6 +113,8 @@ def apply(person, proposal, value, case=None):
             raise ValidationError(
                 "Current destination confirmation required / Confirmación vigente del destino obligatoria"
             )
+    if check_authority is not None:
+        check_authority()
     for field, text in changes.items():
         setattr(user, field, text)
     updated = set(changes)

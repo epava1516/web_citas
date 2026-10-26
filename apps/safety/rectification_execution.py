@@ -14,6 +14,7 @@ from .models import (
     RightsRectificationProposalRead,
     RightsRectificationReview,
 )
+from .rectification_authority import capture_authority
 from .rectification_review import current, permission
 from .rights import fingerprint
 from .rights_responses import issue
@@ -23,10 +24,12 @@ from .rights_scope import locked_case, permitted
 @transaction.atomic
 @sensitive_variables()
 def notify(user, case_id, proposal_id, key, version, reason):
+    authority = capture_authority(user, review=True, respond=True)
     permission(user)
     if not user.has_perm("safety.respond_rights_request"):
         raise PermissionDenied
     case, _, _ = locked_case(case_id, lock_listing=True)
+    authority(case)
     if not permitted(user, case):
         raise PermissionDenied
     signature = fingerprint(
@@ -42,8 +45,9 @@ def notify(user, case_id, proposal_id, key, version, reason):
         ):
             return RightsRectificationNotification.objects.get(action=previous)
         raise ValidationError("Conflicting communication key / Clave incompatible")
-    case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    case, proposal, proof, changes = current(user, case_id, proposal_id, version, authority=authority)
     review = RightsRectificationReview.objects.select_for_update().filter(proposal=proposal).first()
+    authority(case)
     digest = fingerprint(json.dumps(changes, sort_keys=True))
     if (
         not review
@@ -68,6 +72,7 @@ def notify(user, case_id, proposal_id, key, version, reason):
         "Execution requires receipt of this communication and a fresh scope check. "
         "Development simulation; identity not verified."
     )
+    authority(case)
     try:
         with transaction.atomic():
             response = issue(
@@ -81,6 +86,7 @@ def notify(user, case_id, proposal_id, key, version, reason):
                 text,
                 True,
             )
+            authority(case)
             action = RightsAction.objects.create(
                 key=key,
                 request=case,
@@ -103,12 +109,14 @@ def notify(user, case_id, proposal_id, key, version, reason):
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
+    authority(case)
     return result
 
 
 @transaction.atomic
 @sensitive_variables()
 def execute(user, case_id, proposal_id, key, version, reason):
+    authority = capture_authority(user, review=True, respond=True)
     from copy import deepcopy
 
     from apps.listings.models import Rate, Revision
@@ -130,6 +138,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     if not user.has_perm("safety.respond_rights_request"):
         raise PermissionDenied
     case, person, listing = locked_case(case_id, lock_listing=True)
+    authority(case)
     if not permitted(user, case):
         raise PermissionDenied
     signature = fingerprint(
@@ -145,7 +154,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
         ):
             return RightsRectificationExecution.objects.get(action=previous)
         raise ValidationError("Conflicting execution key / Clave incompatible")
-    case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    case, proposal, proof, changes = current(user, case_id, proposal_id, version, authority=authority)
     publication_changes = bool(set(changes) - {"account"})
     notification = (
         RightsRectificationNotification.objects.select_for_update()
@@ -153,6 +162,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
         .filter(review__proposal=proposal)
         .first()
     )
+    authority(case)
     ack = getattr(notification.response, "receipt_acknowledgement", None) if notification else None
     if (
         not notification
@@ -192,6 +202,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
     before = {"alias": person.alias} if person else {}
     try:
         with transaction.atomic():
+            authority(case)
             action = RightsAction.objects.create(
                 key=key,
                 request=case,
@@ -329,12 +340,14 @@ def execute(user, case_id, proposal_id, key, version, reason):
             # Preserve the authorized baseline until staged photos have been selected.
             if "account" in changes:
                 before["account"] = rectification_account.apply(
-                    person, proposal, changes["account"], case
+                    person, proposal, changes["account"], case,
+                    check_authority=lambda: authority(case),
                 )
             if "alias" in changes:
                 person.alias = changes["alias"]
             if "contacts" in changes:
                 person.phone_claim = rectification_contacts.claim(changes["contacts"], person)
+            authority(case)
             if person:
                 person.rights_version += 1
                 person.save(update_fields=["alias", "rights_version", "phone_claim"])
@@ -371,6 +384,7 @@ def execute(user, case_id, proposal_id, key, version, reason):
                 )
     except IntegrityError as error:
         raise ValidationError("Conflicting execution / Ejecución incompatible") from error
+    authority(case)
     response = issue(
         user,
         case.pk,
@@ -402,4 +416,5 @@ def execute(user, case_id, proposal_id, key, version, reason):
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
+    authority(case)
     return result

@@ -3,6 +3,7 @@
 import json
 import uuid
 from datetime import timedelta
+from functools import partial
 
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -28,6 +29,7 @@ from .models import (
     RightsRectificationSourceRead,
     RightsRequest,
 )
+from .rectification_authority import capture_authority
 from .rights import allowed, fingerprint
 from .rights_responses import complete_response_read
 from .rights_scope import locked_profile_case as locked_case
@@ -53,10 +55,12 @@ def eligible(case, person, digest):
 
 
 @sensitive_variables()
-def baseline(case, person, listing):
+def baseline(case, person, listing, *, check_authority=None):
     from .rights_rectification import source_snapshot
 
-    _, snapshot = source_snapshot(case, person, listing, include_uploads=False)
+    _, snapshot = source_snapshot(
+        case, person, listing, include_uploads=False, check_authority=check_authority,
+    )
     return fingerprint(json.dumps(snapshot, sort_keys=True))
 
 
@@ -72,7 +76,9 @@ def check_actor(user, case):
 
 
 @sensitive_variables()
-def check_current(user, case, person, listing, version, additional_blob_ids=()):
+def check_current(
+    user, case, person, listing, version, additional_blob_ids=(), *, check_authority=None,
+):
     if (
         case.kind != "rectify"
         or case.status != "reviewing"
@@ -89,7 +95,10 @@ def check_current(user, case, person, listing, version, additional_blob_ids=()):
     proof = authorized_proof(case, person, "rectify")
     from .rights_rectification import source_snapshot
 
-    _, snapshot = source_snapshot(case, person, listing, additional_blob_ids=additional_blob_ids)
+    _, snapshot = source_snapshot(
+        case, person, listing, additional_blob_ids=additional_blob_ids,
+        check_authority=check_authority,
+    )
     # Resource locks may outlast the previously checked authorization.
     proof = authorized_proof(case, person, "rectify")
     if not RightsRectificationSourceRead.objects.filter(
@@ -107,11 +116,14 @@ def check_current(user, case, person, listing, version, additional_blob_ids=()):
 
 @sensitive_variables()
 def upload(user, case_id, key, version, image, reason):
+    authority = capture_authority(user)
     raw, decoded, sha = read_upload(image)
     written = None
     try:
         with transaction.atomic():
             case, person, listing = locked_case(case_id, lock_listing=True)
+            check_authority = partial(authority, case)
+            check_authority()
             check_actor(user, case)
             signature = fingerprint(
                 json.dumps({"sha": sha, "version": version, "reason": reason}, sort_keys=True)
@@ -128,7 +140,8 @@ def upload(user, case_id, key, version, image, reason):
                 raise ValidationError("Conflicting upload key / Clave de carga incompatible")
             existing_blob = Blob.objects.filter(sha256=sha).first()
             proof = check_current(
-                user, case, person, listing, version, [existing_blob.pk] if existing_blob else []
+                user, case, person, listing, version, [existing_blob.pk] if existing_blob else [],
+                check_authority=check_authority,
             )
             if not 20 <= len(reason.strip()) <= 2000:
                 raise ValidationError("Private reason required / Motivo privado obligatorio")
@@ -143,18 +156,22 @@ def upload(user, case_id, key, version, image, reason):
                 raise ValidationError(
                     "At most eight replacement uploads / Máximo ocho cargas de sustitución"
                 )
-            digest = baseline(case, person, listing)
+            digest = baseline(case, person, listing, check_authority=check_authority)
             blob, created = Blob.objects.get_or_create(sha256=sha)
+            check_authority()
             blob = Blob.objects.select_for_update().get(pk=blob.pk)
+            check_authority()
             if authorized_proof(case, person, "rectify").pk != proof.pk:
                 raise ValidationError("Upload authorization changed / Autorización de carga cambiada")
             if blob.status in {"erasing", "erased", "purging", "purged"}:
                 raise ValidationError("Image unavailable / Imagen no disponible")
             if created:
+                check_authority()
                 blob.width, blob.height = decoded.size
                 blob.original.save(str(uuid.uuid4()), ContentFile(raw), save=False)
                 written = blob.original.name
                 blob.save()
+            check_authority()
             revision = Revision.objects.create(
                 listing=listing, manager_version=person.manager_version, status="rights-stage"
             )
@@ -177,6 +194,7 @@ def upload(user, case_id, key, version, image, reason):
                 expires_at=min(proof.expires_at, timezone.now() + timedelta(hours=24)),
             )
             transaction.on_commit(lambda: process_blob.delay(str(blob.pk)), robust=True)
+            check_authority()
             return result
     except Exception as error:
         if written:
@@ -189,7 +207,10 @@ def upload(user, case_id, key, version, image, reason):
 @transaction.atomic
 @sensitive_variables()
 def discard(user, case_id, key, version, photo_id, reason):
+    authority = capture_authority(user)
     case, person, listing = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     check_actor(user, case)
     signature = fingerprint(
         json.dumps({"photo": str(photo_id), "version": version, "reason": reason}, sort_keys=True)
@@ -204,18 +225,22 @@ def discard(user, case_id, key, version, photo_id, reason):
         ):
             return
         raise ValidationError("Conflicting discard key / Clave incompatible")
-    proof = check_current(user, case, person, listing, version)
+    proof = check_current(
+        user, case, person, listing, version, check_authority=check_authority,
+    )
     item = (
         RightsRectificationPhotoUpload.objects.select_for_update()
         .filter(action__request=case, photo_id=photo_id, proof__person=person)
         .first()
     )
+    check_authority()
     if not item or item.discarded_at or not 20 <= len(reason.strip()) <= 2000:
         raise ValidationError(
             "Current upload and reason required / Carga vigente y motivo obligatorios"
         )
     if authorized_proof(case, person, "rectify").pk != proof.pk:
         raise ValidationError("Upload authorization changed / Autorización de carga cambiada")
+    check_authority()
     item.discarded_at = timezone.now()
     item.save(update_fields=["discarded_at"])
     try:
@@ -231,6 +256,8 @@ def discard(user, case_id, key, version, photo_id, reason):
             )
     except IntegrityError as error:
         raise ValidationError("Conflicting discard key / Clave incompatible") from error
+
+    check_authority()
 
 
 class UploadForm(forms.Form):

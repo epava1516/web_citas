@@ -4,6 +4,7 @@ import json
 
 # HTTP access only exposes an audited summary; recipient references stay encrypted.
 import uuid
+from functools import partial
 
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -24,6 +25,7 @@ from .models import (
     RightsRectificationSourceRead,
     RightsRequest,
 )
+from .rectification_authority import capture_authority
 from .rectification_presentation import caption
 from .rectification_review import permission
 from .rights import allowed, fingerprint
@@ -34,7 +36,7 @@ from .views import private
 
 
 @sensitive_variables()
-def execution_scope_matches(case, person, execution):
+def execution_scope_matches(case, person, execution, *, check_authority=None):
     """An account correction is bound to its own applied values, never owned profiles."""
     proposal = execution.notification.review.proposal
     if (
@@ -52,6 +54,8 @@ def execution_scope_matches(case, person, execution):
 
     from .rectification_account import FIELDS, source
 
+    if check_authority is not None:
+        check_authority()
     try:
         changes = unseal(proposal.encrypted_changes)
     except (InvalidToken, ValueError, TypeError):
@@ -66,12 +70,12 @@ def execution_scope_matches(case, person, execution):
         != execution.notification.review.changes_digest
     ):
         return False
-    current = source(None, case)
+    current = source(None, case, check_authority=check_authority)
     return all(current[field] == value for field, value in changes["account"].items())
 
 
 @sensitive_variables()
-def snapshot(person, execution, case=None):
+def snapshot(person, execution, case=None, *, check_authority=None):
     candidates = {}
 
     def add(kind, reference, basis, evidence):
@@ -84,7 +88,9 @@ def snapshot(person, execution, case=None):
         candidate["evidence"].append({"basis": basis, "record": str(evidence)})
 
     if person is None:
-        if case is None or not execution_scope_matches(case, person, execution):
+        if case is None or not execution_scope_matches(
+            case, person, execution, check_authority=check_authority,
+        ):
             raise ValidationError("Current own-account correction required")
         proposal = execution.notification.review.proposal
         for row in RightsRectificationSourceRead.objects.filter(request=case).order_by("pk"):
@@ -126,15 +132,20 @@ def snapshot(person, execution, case=None):
         from .rectification_account import source
 
         data["account_subject"] = str(case.account_subject_id)
-        data["account_state_digest"] = fingerprint(json.dumps(source(None, case), sort_keys=True))
+        data["account_state_digest"] = fingerprint(
+            json.dumps(source(None, case, check_authority=check_authority), sort_keys=True)
+        )
     return json.loads(json.dumps(data, sort_keys=True, default=str))
 
 
 @transaction.atomic
 @sensitive_variables()
 def prepare(user, case_id, execution_id, key, version, purpose):
+    authority = capture_authority(user, review=True)
     permission(user)
     case, person, _ = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
     signature = fingerprint(
@@ -157,7 +168,9 @@ def prepare(user, case_id, execution_id, key, version, purpose):
         or not complete_read(user, case)
         or not complete_response_read(user, case)
         or not 10 <= len(purpose.strip()) <= 200
-        or not execution_scope_matches(case, person, execution)
+        or not execution_scope_matches(
+            case, person, execution, check_authority=check_authority,
+        )
     ):
         raise ValidationError(
             "Inspect current executed correction / Consulta la rectificación ejecutada vigente"
@@ -177,7 +190,9 @@ def prepare(user, case_id, execution_id, key, version, purpose):
         ):
             return RightsRectificationRecipientInventory.objects.get(action=previous)
         raise ValidationError("Conflicting inventory key / Clave incompatible")
-    data = snapshot(person, execution, case)
+    check_authority()
+    data = snapshot(person, execution, case, check_authority=check_authority)
+    check_authority()
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -189,13 +204,15 @@ def prepare(user, case_id, execution_id, key, version, purpose):
                 payload_digest=signature,
                 encrypted_reason=seal({"purpose": purpose}),
             )
-            return RightsRectificationRecipientInventory.objects.create(
+            result = RightsRectificationRecipientInventory.objects.create(
                 execution=execution,
                 action=action,
                 proof=proof,
                 source_digest=fingerprint(json.dumps(data, sort_keys=True)),
                 encrypted_inventory=seal(data),
             )
+            check_authority()
+            return result
     except IntegrityError as error:
         raise ValidationError(
             "Conflicting recipient inventory / Inventario incompatible"

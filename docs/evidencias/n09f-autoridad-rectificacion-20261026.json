@@ -1,0 +1,478 @@
+{
+  "state": "LOCAL_N09F_TEN_OPERATION_BOUNDARIES_ACCEPTED_NOT_N09_CLOSURE",
+  "phase": "alpha",
+  "noindex": true,
+  "base": "6d4c288",
+  "baseline": {
+    "run": "20261026-095759-1cba6827",
+    "cases": 20,
+    "pass": 10,
+    "fail": 10,
+    "error": 0,
+    "skip": 0,
+    "junit_seconds": 236.664,
+    "frozen_sources": 1772,
+    "valid_controls": 10,
+    "native_effects_after_revocation": 9,
+    "HTTP_photo_200_private_synthetic_bytes": 9558,
+    "cleanup_verified": true,
+    "Telegram": "sent"
+  },
+  "candidate": {
+    "run": "20261026-102707-99847d71",
+    "cases": 75,
+    "actual_waits": 20,
+    "valid_controls": 10,
+    "revoked_denials_without_effects": 10,
+    "stale_actor_cases": 4,
+    "revoked_replays": 7,
+    "originals": 44,
+    "frozen_sources": 1776,
+    "cleanup_verified": true
+  },
+  "candidate_result": {
+    "pass": 75,
+    "fail": 0,
+    "error": 0,
+    "skip": 0,
+    "junit_seconds": 1035.569,
+    "Telegram_terminal": "sent",
+    "Telegram_independent_audit": "sent"
+  },
+  "comparison": [
+    {
+      "family": "preview",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 8.408046902157366,
+      "candidate_case_seconds": 8.580151287838817,
+      "baseline_changed_tables": [
+        "safety.RightsRectificationSourceRead"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsRectificationSourceRead"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "propose",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 7.772347591817379,
+      "candidate_case_seconds": 8.617418705485761,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationProposal",
+        "safety.RightsRequest"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationProposal",
+        "safety.RightsRequest"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "source_photo",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 8.451111475005746,
+      "candidate_case_seconds": 10.261026836931705,
+      "baseline_changed_tables": [],
+      "candidate_changed_tables": [],
+      "baseline_http_status": 200,
+      "candidate_http_status": 200,
+      "baseline_private_bytes": 9558,
+      "candidate_private_bytes": 9558
+    },
+    {
+      "family": "upload",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 9.439035097137094,
+      "candidate_case_seconds": 10.99871764704585,
+      "baseline_changed_tables": [
+        "listings.Revision",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "candidate_changed_tables": [
+        "listings.Revision",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "discard",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 8.921997300349176,
+      "candidate_case_seconds": 10.752028757706285,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "inspect",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 8.892876426689327,
+      "candidate_case_seconds": 10.827502902597189,
+      "baseline_changed_tables": [
+        "safety.RightsRectificationProposalRead"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsRectificationProposalRead"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "review",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 8.574808009900153,
+      "candidate_case_seconds": 11.711358532309532,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationReview",
+        "safety.RightsRequest"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationReview",
+        "safety.RightsRequest"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "notify",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 10.743166152387857,
+      "candidate_case_seconds": 13.319375051185489,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationNotification",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationNotification",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "execute",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 11.728256875649095,
+      "candidate_case_seconds": 16.639509041793644,
+      "baseline_changed_tables": [
+        "core.Person",
+        "listings.Listing",
+        "listings.Revision",
+        "listings.Revision_categories",
+        "listings.Revision_travel_areas",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationExecution",
+        "safety.RightsRectificationManagerNotice",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "candidate_changed_tables": [
+        "core.Person",
+        "listings.Listing",
+        "listings.Revision",
+        "listings.Revision_categories",
+        "listings.Revision_travel_areas",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationExecution",
+        "safety.RightsRectificationManagerNotice",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "recipients",
+      "variant": "valid",
+      "baseline_status": "success",
+      "candidate_status": "success",
+      "baseline_case_seconds": 11.229639734141529,
+      "candidate_case_seconds": 15.716058690100908,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationRecipientInventory"
+      ],
+      "candidate_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationRecipientInventory"
+      ],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "preview",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 7.712966617196798,
+      "candidate_case_seconds": 7.053362167440355,
+      "baseline_changed_tables": [
+        "safety.RightsRectificationSourceRead"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "propose",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 8.128350360319018,
+      "candidate_case_seconds": 7.833882732316852,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationProposal",
+        "safety.RightsRequest"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "source_photo",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 8.084808988496661,
+      "candidate_case_seconds": 9.847649583593011,
+      "baseline_changed_tables": [],
+      "candidate_changed_tables": [],
+      "baseline_http_status": 200,
+      "candidate_http_status": 403,
+      "baseline_private_bytes": 9558,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "upload",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 9.51328406110406,
+      "candidate_case_seconds": 9.613737969659269,
+      "baseline_changed_tables": [
+        "listings.Revision",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "discard",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 9.253027696162462,
+      "candidate_case_seconds": 9.78975560516119,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationPhotoUpload"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "inspect",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 8.145352588035166,
+      "candidate_case_seconds": 9.88684700243175,
+      "baseline_changed_tables": [
+        "safety.RightsRectificationProposalRead"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "review",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 9.478223198093474,
+      "candidate_case_seconds": 10.754028315655887,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationReview",
+        "safety.RightsRequest"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "notify",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 9.078446715138853,
+      "candidate_case_seconds": 13.030297175981104,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationNotification",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "execute",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 10.585311942733824,
+      "candidate_case_seconds": 15.481655010953546,
+      "baseline_changed_tables": [
+        "core.Person",
+        "listings.Listing",
+        "listings.Revision",
+        "listings.Revision_categories",
+        "listings.Revision_travel_areas",
+        "mediafiles.Photo",
+        "safety.RightsAction",
+        "safety.RightsNotice",
+        "safety.RightsRectificationExecution",
+        "safety.RightsRectificationManagerNotice",
+        "safety.RightsRequest",
+        "safety.RightsResponse"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    },
+    {
+      "family": "recipients",
+      "variant": "permission",
+      "baseline_status": "success",
+      "candidate_status": "PermissionDenied",
+      "baseline_case_seconds": 11.06458857562393,
+      "candidate_case_seconds": 14.880662300623953,
+      "baseline_changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsRectificationRecipientInventory"
+      ],
+      "candidate_changed_tables": [],
+      "baseline_http_status": null,
+      "candidate_http_status": null,
+      "baseline_private_bytes": 0,
+      "candidate_private_bytes": 0
+    }
+  ],
+  "local_correction_points_A_to_F": 26,
+  "complete_inventory_IDs_accepted_by_this_phase": 0,
+  "partially_annotated_IDs_A_F": 20,
+  "N09_inventory_IDs": 139,
+  "mandatory_contract_blocks_accepted": 8,
+  "mandatory_contract_total": 13,
+  "remaining": [
+    "N02remaining_optimization_at_development_end",
+    "N09full139",
+    "N10",
+    "N11",
+    "N15"
+  ],
+  "conditioned": [
+    "N12",
+    "N13",
+    "N14"
+  ],
+  "scope_limits": [
+    "Nine native service diagnostics;only photo actualHTTP",
+    "Callbacks eager not real broker or worker evidence",
+    "Helper-return counters not exhaustive internal projection proof",
+    "Upload/discard firstwait within snapshot,not final explicitlocks",
+    "No universal authority serialization after lastcheck",
+    "Finalcaller and unobservedlatebranches retain own disposition",
+    "Times whole QA cases,not normal app causal performance"
+  ],
+  "evidence_archive": "n09f-rectificacion-reproduccion-20261026.tar.gz"
+}

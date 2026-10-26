@@ -1,6 +1,6 @@
-N09E/434aceptaciónlocal:3fronterasdescifradocorregidas+4variantes/7checks;38PASS1044,294s/1772huellas/cleanupTelegramconfirmados.16bugslocalesABC_D_E,no16bloques.N09abierto139IDs8/13.
+N09F/438 aceptación local:75PASS1035,569sJUnit/1776huellas/cleanupTelegramauditados.20esperas10valid+10revokeddeniedsin efectos/retornosprivados/bytes;11staleactor/replay+44originales. Foto9558bytes→0/403.10fronterasFcorregidas;16A–Eretenidas=26puntoslocales,no26bloques. N09abierto139IDs8/13.
 
-Siguiente:semántica43417/custodiasaneada/commitpushpropios;despuésN09rectificación/fuentestardíasysupurgasoutboxjobs.N02alfinal/N10N11N15pendientes/N12–14condicionados;objetivocompletonoterminado.
+Siguiente: semántica43817/custodia saneada/commitpushpropios;después disposición de rectification_final/consumidores y ramas tardías, purgas/outbox/jobs y139IDs.20IDscon testigosparcialesA–F,no aceptacióníntegra poranotación. No repetirN09E38/F75válidos. N02alfinal/N10N11N15pendientes/N12–14condicionados. Objetivo completo activo, alpha/noindex.
 
 N08A2/411prerregistrado:unúnicocandidatobatchnativo doshandlers,72GETpareadosmismosdatos+controles/nullforeignESEN+10originales=13casosprevistos;sinimplementaciónaceptada.N08abierto7/13.
 

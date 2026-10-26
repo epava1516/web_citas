@@ -2,6 +2,7 @@
 
 import json
 import uuid
+from functools import partial
 
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -22,6 +23,7 @@ from .models import (
     RightsRectificationSourceRead,
     RightsRequest,
 )
+from .rectification_authority import capture_authority
 from .rights import allowed, fingerprint
 from .rights_rectification import source_snapshot, validate_copy, validated_changes
 from .rights_responses import complete_response_read
@@ -43,9 +45,12 @@ def permission(user):
 
 
 @sensitive_variables()
-def current(user, case_id, proposal_id, version):
+def current(user, case_id, proposal_id, version, *, authority=None):
+    authority = authority or capture_authority(user, review=True)
     permission(user)
     case, person, listing = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
     proposal = (
@@ -58,6 +63,7 @@ def current(user, case_id, proposal_id, version):
         )
         .first()
     )
+    check_authority()
     if not proposal:
         raise ValidationError("Correction proposal unavailable / Propuesta no disponible")
     if proposal.action.actor_id == user.pk:
@@ -79,7 +85,7 @@ def current(user, case_id, proposal_id, version):
         .first()
     )
     proof = authorized_proof(case, person, "rectify")
-    revision, source = source_snapshot(case, person, listing)
+    revision, source = source_snapshot(case, person, listing, check_authority=check_authority)
     # Source reads may wait on User/Revision/Blob; authority must still be current afterward.
     proof = authorized_proof(case, person, "rectify")
     digest = fingerprint(json.dumps(source, sort_keys=True))
@@ -94,17 +100,24 @@ def current(user, case_id, proposal_id, version):
         raise ValidationError(
             "Review current source with fresh scoped proof / Revisa la fuente vigente con nueva comprobación de ámbito"
         )
-    changes = validated_changes(unseal(proposal.encrypted_changes), person, case)
-    validate_copy(changes, revision, person, case)
+    check_authority()
+    changes = validated_changes(
+        unseal(proposal.encrypted_changes), person, case, check_authority=check_authority,
+    )
+    validate_copy(changes, revision, person, case, check_authority=check_authority)
     return case, proposal, proof, changes
 
 
 @transaction.atomic
 @sensitive_variables()
 def inspect(user, case_id, proposal_id, version, purpose):
-    case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    authority = capture_authority(user, review=True)
+    case, proposal, proof, changes = current(
+        user, case_id, proposal_id, version, authority=authority,
+    )
     if not 10 <= len(purpose.strip()) <= 200:
         raise ValidationError("Access purpose required / Motivo de consulta obligatorio")
+    authority(case)
     RightsRectificationProposalRead.objects.create(
         proposal=proposal,
         actor=user,
@@ -113,14 +126,17 @@ def inspect(user, case_id, proposal_id, version, purpose):
         changes_digest=fingerprint(json.dumps(changes, sort_keys=True)),
         purpose=purpose,
     )
+    authority(case)
     return changes
 
 
 @transaction.atomic
 @sensitive_variables()
 def review(user, case_id, proposal_id, key, version, outcome, reason):
+    authority = capture_authority(user, review=True)
     permission(user)
     case, person, _ = locked_case(case_id, lock_listing=True)
+    authority(case)
     if not permitted(user, case):
         raise PermissionDenied
     proposal = RightsRectificationProposal.objects.filter(
@@ -147,7 +163,7 @@ def review(user, case_id, proposal_id, key, version, outcome, reason):
         ):
             return RightsRectificationReview.objects.get(action=previous)
         raise ValidationError("Conflicting review key / Clave incompatible")
-    case, proposal, proof, changes = current(user, case_id, proposal_id, version)
+    case, proposal, proof, changes = current(user, case_id, proposal_id, version, authority=authority)
     digest = fingerprint(json.dumps(changes, sort_keys=True))
     if (
         outcome not in {"approved", "rejected"}
@@ -164,6 +180,7 @@ def review(user, case_id, proposal_id, key, version, outcome, reason):
         raise ValidationError(
             "Read proposed changes before motivated review / Consulta los cambios antes de revisión motivada"
         )
+    authority(case)
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -187,6 +204,7 @@ def review(user, case_id, proposal_id, key, version, outcome, reason):
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
+    authority(case)
     return result
 
 
