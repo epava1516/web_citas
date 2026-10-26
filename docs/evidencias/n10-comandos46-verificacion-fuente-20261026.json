@@ -1,0 +1,53 @@
+{
+  "result": "PASS_46_SOURCE_AND_ORIGINAL_EVIDENCE_RECONCILIATION_NOT_N10_ACCEPTANCE",
+  "ids": 46,
+  "own_commands": 15,
+  "framework_commands": 31,
+  "current_source_identities": 83,
+  "matched_individual_original_PASS": 133,
+  "whole_original_ERROR": {
+    "PASS": 3697,
+    "SKIP": 129,
+    "FAIL": 3
+  },
+  "function_source_bridge": "services.ingest actual accepted N03A freeze and AST; not generic oldwholePASS",
+  "framework_without_old_byte_manifest": 32,
+  "framework_version": "5.2.17 currentinstalledsource and lockpin; not a claim all historical source bytes frozen",
+  "snapshot_service_samples": 18,
+  "snapshot_SQL": 50,
+  "actual_restore_stage_references": [
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-same-key]",
+      "backup_seconds": 0.8763409508392215,
+      "restore_and_reconcile_seconds": 6.536762888543308,
+      "backup_bytes": 1060546,
+      "scope": "Actual original synthetic PG/media restore and reconciliation; no current full-retention/production SLA claim"
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[plain-local-retained-key-read]",
+      "backup_seconds": 0.7769678626209497,
+      "restore_and_reconcile_seconds": 6.296933981589973,
+      "backup_bytes": 1060560,
+      "scope": "Actual original synthetic PG/media restore and reconciliation; no current full-retention/production SLA claim"
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-same-key]",
+      "backup_seconds": 0.7695244569331408,
+      "restore_and_reconcile_seconds": 5.658778135664761,
+      "backup_bytes": 1060611,
+      "scope": "Actual original synthetic PG/media restore and reconciliation; no current full-retention/production SLA claim"
+    },
+    {
+      "nodeid": "tests.test_recovery_pg_restore::test_old_pg_dump_and_media_cannot_reintroduce_erased_data[encrypted-local-retained-key-read]",
+      "backup_seconds": 0.8106274474412203,
+      "restore_and_reconcile_seconds": 5.924588328227401,
+      "backup_bytes": 1060578,
+      "scope": "Actual original synthetic PG/media restore and reconciliation; no current full-retention/production SLA claim"
+    }
+  ],
+  "unmeasured_boundaries": [
+    "Successful operational_snapshot CLI serialization",
+    "Standalone configure_rights_evidence_role CLI (service/initializer coverage only)"
+  ],
+  "limits": "Exact command modes and direct/native consumers only; proposal dispositions remain root-reviewed, metadata notexecution, no tests rerun. Admin source question belongs separate N10A."
+}
