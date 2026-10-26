@@ -1,6 +1,6 @@
-N10A/477correccionaceptadalocal16PASS159,971sQA/1791huellas:9PGwait(6denegados3controles)+7CRUDselfnativos,173modelos8archivos/caso,cleanupTGsent. Original1PASS1FAILretenido,GroupAdminproyectosinvendorpatch;N10open77,9/13.
+N10B479 aceptado localmente: dos referencias operativas PASS/47,589sQA/1792huellas estables; arranque cuatro workers1,690s, health62,325msprimera/3,164msmediana5; CLI129,319msprimera/127,491msmediana5,50SQL. Sin cambio de app ni mejora causal. N10A47716PASS preservado; N10abierto77,9/13.
 
-Siguiente:entrega477+grafo/custodia ycontinuarN10arranque/comandos/runbooks/Adminhealthdispatch. Cmd46/83fuentes/133testigosoriginalescontrastados,restores4+collector18reutilizadossinrepetir. N02end/N11N15pending,alpha/noindex,15lateralesintactos.
+Siguiente: conciliar once runbooks y superficies Admin/dispatch restantes de N10 contra evidencia vigente; Cmd46/83fuentes/133testigos, restores4/collector18 reutilizados. N11/N15 pendientes; N02residual final del desarrollo, N12-N14condicionados. Alpha/noindex; cambios laterales15 preservados.
 
 N10A/475original1PASS1FAIL55,892sQA/1788huellas:permretiradoenGroupwait aun302/name+1LogEntry;auditoria/cleanupTGERRORsent. CandidataGroupAdminpropio9dcd3b preparada,16casos(2originalesintactos+7wait+7CRUD/self)revisados,sinaceptacion.9/13,N10abierto77.
 
