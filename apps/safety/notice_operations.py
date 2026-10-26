@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_GET, require_http_methods
 
-from apps.core.models import Agency, Person
+from apps.core.models import Agency, Person, User
 from apps.listings.models import Listing
 
 from .complaint_scope import locked as locked_complaint
@@ -67,11 +67,26 @@ def locked_report(report_id):
     return report
 
 
+def current_recovery_actor(user, session_version, mfa_version):
+    actor = User.objects.filter(pk=user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not allowed(actor)
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def requeue(user, kind, notice_id, key, version, reason):
-    if not allowed(user):
-        raise PermissionDenied
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_recovery_actor(user, session_version, mfa_version)
     model = MODELS.get(kind)
     if not model or not 1 <= notice_id <= 9223372036854775807:
         raise Http404
@@ -94,6 +109,7 @@ def requeue(user, kind, notice_id, key, version, reason):
         notice.response.request = source
     else:
         notice.resolution.complaint = source
+    user = current_recovery_actor(user, session_version, mfa_version)
     if not scoped(user, kind, notice):
         raise PermissionDenied
     fingerprint = digest(

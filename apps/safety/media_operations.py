@@ -14,6 +14,7 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_GET, require_http_methods
 
+from apps.core.models import User
 from apps.mediafiles.models import Blob, MediaErasure, MediaErasureRecovery
 
 from .crypto import seal
@@ -33,11 +34,26 @@ def can_recover(user):
     )
 
 
+def current_recovery_actor(user, session_version, mfa_version):
+    actor = User.objects.filter(pk=user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not can_recover(actor)
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def requeue(user, case_id, job_id, key, version, reason):
-    if not can_recover(user):
-        raise PermissionDenied
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_recovery_actor(user, session_version, mfa_version)
     case, _, _ = locked_case(case_id, allow_version_change=True)
     if not permitted(user, case):
         raise PermissionDenied
@@ -46,6 +62,9 @@ def requeue(user, case_id, job_id, key, version, reason):
         raise Http404
     blob = Blob.objects.select_for_update().get(pk=initial.blob_id)
     job = MediaErasure.objects.select_for_update().select_related("execution__proof").get(pk=job_id)
+    user = current_recovery_actor(user, session_version, mfa_version)
+    if not permitted(user, case):
+        raise PermissionDenied
     signature = fingerprint(canonical({"job": job_id, "version": version, "reason": reason}))
     previous = RightsAction.objects.filter(key=key).first()
     if previous:

@@ -1,0 +1,168 @@
+{
+  "acceptance": "LOCAL_TWO_RECOVERY_AUTHORITY_FIXES_ONLY",
+  "run": "20261026-044639-dff64b4a",
+  "cases": 29,
+  "passed": 29,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 296.139,
+  "frozen_sources": 1763,
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "waits": [
+    {
+      "case": "report_notice_recovery",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "attempts": 5,
+        "error_code": "adapter_failure",
+        "recovery_version": 0,
+        "status": "failed"
+      },
+      "minimal_after": {
+        "attempts": 5,
+        "error_code": "adapter_failure",
+        "recovery_version": 0,
+        "status": "failed"
+      },
+      "request_elapsed_seconds_including_wait": 0.20304539799690247
+    },
+    {
+      "case": "media_erasure_recovery",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "attempts": 5,
+        "error_code": "",
+        "recovery_version": 1,
+        "status": "failed"
+      },
+      "minimal_after": {
+        "attempts": 5,
+        "error_code": "",
+        "recovery_version": 1,
+        "status": "failed"
+      },
+      "request_elapsed_seconds_including_wait": 0.30611236300319433
+    }
+  ],
+  "negative_cases": [
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[primary_permission-notice]",
+      "service": "notice",
+      "revocation": "primary_permission",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[primary_permission-media]",
+      "service": "media",
+      "revocation": "primary_permission",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[review_permission-notice]",
+      "service": "notice",
+      "revocation": "review_permission",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[review_permission-media]",
+      "service": "media",
+      "revocation": "review_permission",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[inactive-notice]",
+      "service": "notice",
+      "revocation": "inactive",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[inactive-media]",
+      "service": "media",
+      "revocation": "inactive",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[account_erased-notice]",
+      "service": "notice",
+      "revocation": "account_erased",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[account_erased-media]",
+      "service": "media",
+      "revocation": "account_erased",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[mfa_disabled-notice]",
+      "service": "notice",
+      "revocation": "mfa_disabled",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[mfa_disabled-media]",
+      "service": "media",
+      "revocation": "mfa_disabled",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[mfa_version-notice]",
+      "service": "notice",
+      "revocation": "mfa_version",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[mfa_version-media]",
+      "service": "media",
+      "revocation": "mfa_version",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[session_version-notice]",
+      "service": "notice",
+      "revocation": "session_version",
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "name": "test_recovery_service_denies_legitimately_cached_revoked_actor[session_version-media]",
+      "service": "media",
+      "revocation": "session_version",
+      "denied": true,
+      "domain_unchanged": true
+    }
+  ],
+  "regression_cases": 13,
+  "prior_baselines": [
+    "20261026-041859-126a93a0:2FAIL notice defect and media fixture stale, preserved",
+    "20261026-042943-80ced3cc:1FAIL media real permission bypass, preserved"
+  ],
+  "scope": "Two service corrections accepted; no closure of N09/139IDs.8of13 accepted blocks unchanged. Additional current User/permission reads are security correctness, not a performance optimization. Induced waits not normal latency; no cross-run speed percentage."
+}
