@@ -83,6 +83,7 @@ def read(
         .filter(pk=inventory_id, request=case, actor=actor)
         .first()
     )
+    actor = authorize_reviewer(user, case)
     if row is None:
         raise PermissionDenied("Own scoped access inventory required")
     proof = can_prepare(actor, case, person)

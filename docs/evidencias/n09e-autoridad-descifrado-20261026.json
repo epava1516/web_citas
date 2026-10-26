@@ -1,0 +1,603 @@
+{
+  "status": "LOCALLY_VERIFIED_N09E_PRIVATE_READ_BOUNDARIES",
+  "base": "a5cd18d6c88f0c608ad2c90e4f7efe1d57d79e28",
+  "candidate_run": "20261026-082019-bb786d3f",
+  "passed": 38,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "qa_junit_seconds": 1044.294,
+  "baseline_run": "20261026-075104-d7159725",
+  "baseline_passed": 3,
+  "baseline_failures": 3,
+  "baseline_qa_junit_seconds": 129.909,
+  "candidate_frozen_sources": 1772,
+  "runner_sources": 1769,
+  "manual_document_sources": 3,
+  "source_integrity_audited_before_terminal_documentation": true,
+  "original_confirmed_bugs_corrected": 3,
+  "new_guard_checks": 7,
+  "changed_modules": 4,
+  "changed_functions": 6,
+  "native_actual_waits": 14,
+  "valid_controls": 7,
+  "revoked_zero_target_decrypts": 7,
+  "original_regressions": 24,
+  "original_modules": {
+    "test_rights_access_field_decision": 2,
+    "test_rights_access_scope_inventory": 2,
+    "test_rights_information_review": 4,
+    "test_rights_information_review_races": 8,
+    "test_rights_information_review_mobile": 2,
+    "test_rights_access_response_draft": 2,
+    "test_rights_access_response_mobile": 4
+  },
+  "selection": [
+    "tests/test_private_read_authority_wait.py",
+    "tests/test_private_read_variant_wait.py",
+    "tests/test_rights_access_field_decision.py",
+    "tests/test_rights_access_scope_inventory.py",
+    "tests/test_rights_information_review.py",
+    "tests/test_rights_information_review_races.py",
+    "tests/test_rights_information_review_mobile.py",
+    "tests/test_rights_access_response_draft.py",
+    "tests/test_rights_access_response_mobile.py::test_mobile_final_response_preparation_and_independent_decision"
+  ],
+  "waits": [
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "field:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 95,
+      "worker_pid": 100,
+      "blocker_pids": [
+        95
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 2,
+      "target_native_successful_returns": 2,
+      "changed_tables": [
+        "safety.RightsAction"
+      ],
+      "domain_before_sha256": "9b66e0daa6ac9727fa65e16b9af08dfa4d9d8cf8159ddfed4f6464e22f90bb04",
+      "domain_after_sha256": "37539bd30fc2ddabaf47b59b2cd9cc7c8c0de5fa5e1868edb90015869b9d8988",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "information:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 101,
+      "worker_pid": 103,
+      "blocker_pids": [
+        101
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 1,
+      "target_native_successful_returns": 1,
+      "changed_tables": [
+        "safety.RightsAction",
+        "safety.RightsCopyInformationRead"
+      ],
+      "domain_before_sha256": "d9e8e8e7b0abe9175b9a4c81e7f84de9214d92138adc79e438f7e3472bd66a35",
+      "domain_after_sha256": "b85a586e0e713ed839a39898831d43cf4ca6b0d51e172daeb69cb089d15fcbe1",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "draft:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 104,
+      "worker_pid": 105,
+      "blocker_pids": [
+        104
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 1,
+      "target_native_successful_returns": 1,
+      "changed_tables": [
+        "safety.RightsAction"
+      ],
+      "domain_before_sha256": "b3820ad9fcac57b63d94a9e7fa7540b8471987cb3be9211ca4302a7fc881f8a1",
+      "domain_after_sha256": "56e55357c4deb5f20ef27de3ebe341779af86bff2bc88ccd079ce42a7d0aa8ca",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 8
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 8
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "field:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 106,
+      "worker_pid": 108,
+      "blocker_pids": [
+        106
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "084dfa88a9c84df906c15389edbdebc136af53e505d7bc770f51abf3114eb3b7",
+      "domain_after_sha256": "084dfa88a9c84df906c15389edbdebc136af53e505d7bc770f51abf3114eb3b7",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "information:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 109,
+      "worker_pid": 111,
+      "blocker_pids": [
+        109
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "920a5aa4f1ca6ead0daa9869d45d9d4ebf5483c07352245d19c8323bd4ec7332",
+      "domain_after_sha256": "920a5aa4f1ca6ead0daa9869d45d9d4ebf5483c07352245d19c8323bd4ec7332",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_authority_wait",
+      "label": "draft:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 112,
+      "worker_pid": 114,
+      "blocker_pids": [
+        112
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "3c874e748f2e54824fe4dc4f5ed6826ef856c25b7cd1dfb8444f38608c0fc613",
+      "domain_after_sha256": "3c874e748f2e54824fe4dc4f5ed6826ef856c25b7cd1dfb8444f38608c0fc613",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 8
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 8
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "propose_inventory:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 115,
+      "worker_pid": 117,
+      "blocker_pids": [
+        115
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 1,
+      "target_native_successful_returns": 1,
+      "changed_tables": [
+        "safety.RightsAccessFieldDecision",
+        "safety.RightsAction"
+      ],
+      "domain_before_sha256": "8e76dbc71479c4453912584547915bbe1c2cd75ea7e2566fec75cc7340bc6cdf",
+      "domain_after_sha256": "24aefde1b8f63faf46dbf790dc724fa502d391f30093b1bde46835d3eaf7a9cc",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "propose_replay_decision:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 119,
+      "worker_pid": 121,
+      "blocker_pids": [
+        119
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 1,
+      "target_native_successful_returns": 1,
+      "changed_tables": [],
+      "domain_before_sha256": "6ce96cd5ba18cfd6c842c5348a1418df198cdaa471a745dbb34d8ec968161bcc",
+      "domain_after_sha256": "6ce96cd5ba18cfd6c842c5348a1418df198cdaa471a745dbb34d8ec968161bcc",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "consume_approved_decision:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 122,
+      "worker_pid": 125,
+      "blocker_pids": [
+        122
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 3,
+      "target_native_successful_returns": 3,
+      "changed_tables": [
+        "safety.RightsAction"
+      ],
+      "domain_before_sha256": "06207f0a91cfc96146afb116f443e7be8495895c74bc1d695884bcb80299de10",
+      "domain_after_sha256": "5ca9f89d8b4ba9fe12537c5b961ecb28d4ee753bb507d25ad5df687599c32825",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "field_read_inventory:valid",
+      "status": "success",
+      "revoked": false,
+      "actual_wait": true,
+      "holder_pid": 127,
+      "worker_pid": 129,
+      "blocker_pids": [
+        127
+      ],
+      "permission_revoked": false,
+      "target_decrypt_calls": 1,
+      "target_native_successful_returns": 1,
+      "changed_tables": [
+        "safety.RightsAction"
+      ],
+      "domain_before_sha256": "dd0a29277922ad50f5ef26aa806a4a9954e57d35c39ffafb72b04c3a8651444f",
+      "domain_after_sha256": "fe2250b78e0c6fe8c4e7189702f91b8b398ff8ddf4514c235966e1d5230d5fe6",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "propose_inventory:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 131,
+      "worker_pid": 133,
+      "blocker_pids": [
+        131
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "bf534bbed2600b42c5c6b5c5fdb849e926c04b3b5be1d920f48086ffedc0c69c",
+      "domain_after_sha256": "bf534bbed2600b42c5c6b5c5fdb849e926c04b3b5be1d920f48086ffedc0c69c",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "propose_replay_decision:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 134,
+      "worker_pid": 137,
+      "blocker_pids": [
+        134
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "ce31bb41090defdfa252fb96b6f81de453eff4cba28d9713b59efdaed028c060",
+      "domain_after_sha256": "ce31bb41090defdfa252fb96b6f81de453eff4cba28d9713b59efdaed028c060",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "consume_approved_decision:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 138,
+      "worker_pid": 141,
+      "blocker_pids": [
+        138
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "30f1256972886d923a907f274526d05bf820cec7960d03e13bafc4fed237e0df",
+      "domain_after_sha256": "30f1256972886d923a907f274526d05bf820cec7960d03e13bafc4fed237e0df",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    },
+    {
+      "instrument": "private_read_variant_wait",
+      "label": "field_read_inventory:permission",
+      "status": "PermissionDenied",
+      "revoked": true,
+      "actual_wait": true,
+      "holder_pid": 142,
+      "worker_pid": 145,
+      "blocker_pids": [
+        142
+      ],
+      "permission_revoked": true,
+      "target_decrypt_calls": 0,
+      "target_native_successful_returns": 0,
+      "changed_tables": [],
+      "domain_before_sha256": "361529e5805be0c357f351087713961b65c7fed8f557319d2c4990849678896d",
+      "domain_after_sha256": "361529e5805be0c357f351087713961b65c7fed8f557319d2c4990849678896d",
+      "minimal_before": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "status": "reviewing",
+        "version": 5
+      },
+      "cleanup": {
+        "thread_finished": true,
+        "connections_closed": true,
+        "holder_released": true
+      }
+    }
+  ],
+  "table_before_after": [
+    {
+      "label": "field:valid",
+      "before_status": "success",
+      "after_status": "success",
+      "before_target_calls": 2,
+      "after_target_calls": 2,
+      "before_native_successful_decrypts": 2,
+      "after_native_successful_decrypts": 2,
+      "before_full_case_seconds_including_setup_wait_cleanup": 24.144587559625506,
+      "after_full_case_seconds_including_setup_wait_cleanup": 24.77195333968848,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    },
+    {
+      "label": "information:valid",
+      "before_status": "success",
+      "after_status": "success",
+      "before_target_calls": 1,
+      "after_target_calls": 1,
+      "before_native_successful_decrypts": 1,
+      "after_native_successful_decrypts": 1,
+      "before_full_case_seconds_including_setup_wait_cleanup": 8.962558079510927,
+      "after_full_case_seconds_including_setup_wait_cleanup": 7.927261156029999,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    },
+    {
+      "label": "draft:valid",
+      "before_status": "success",
+      "after_status": "success",
+      "before_target_calls": 1,
+      "after_target_calls": 1,
+      "before_native_successful_decrypts": 1,
+      "after_native_successful_decrypts": 1,
+      "before_full_case_seconds_including_setup_wait_cleanup": 11.281073201447725,
+      "after_full_case_seconds_including_setup_wait_cleanup": 9.813261586241424,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    },
+    {
+      "label": "field:permission",
+      "before_status": "PermissionDenied",
+      "after_status": "PermissionDenied",
+      "before_target_calls": 2,
+      "after_target_calls": 0,
+      "before_native_successful_decrypts": 2,
+      "after_native_successful_decrypts": 0,
+      "before_full_case_seconds_including_setup_wait_cleanup": 21.763432813808322,
+      "after_full_case_seconds_including_setup_wait_cleanup": 16.861961781978607,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    },
+    {
+      "label": "information:permission",
+      "before_status": "PermissionDenied",
+      "after_status": "PermissionDenied",
+      "before_target_calls": 1,
+      "after_target_calls": 0,
+      "before_native_successful_decrypts": 1,
+      "after_native_successful_decrypts": 0,
+      "before_full_case_seconds_including_setup_wait_cleanup": 9.21679741423577,
+      "after_full_case_seconds_including_setup_wait_cleanup": 8.523821759037673,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    },
+    {
+      "label": "draft:permission",
+      "before_status": "PermissionDenied",
+      "after_status": "PermissionDenied",
+      "before_target_calls": 1,
+      "after_target_calls": 0,
+      "before_native_successful_decrypts": 1,
+      "after_native_successful_decrypts": 0,
+      "before_full_case_seconds_including_setup_wait_cleanup": 11.329241103492677,
+      "after_full_case_seconds_including_setup_wait_cleanup": 10.528756180778146,
+      "timing_limit": "Case timing includes fixtures,observer/snapshots/wait/cleanup;not normal service latency or causalperformance. statement_seconds original may reflect later matching queries and is not used as first-lock performance timing."
+    }
+  ],
+  "cleanup_verified": true,
+  "test_telegram_delivery": "sent",
+  "audit_telegram_delivery": "sent",
+  "candidate_graph_sha256": "14278d88d386d781b6cc8e54b325dd56490dcc1ea36ca6e1fb152f4b9b4855c2",
+  "scope": "3confirmedbeforedecryptboundaries corrected+4newsourcevariants,not4additionalbaselinebugs. Native direct services/profileonly;originalfunctionalprofile/account/mobileESENcovered,noHTTPleakclaim. Countersdeclaredtargetonly,earlierauthorizedreplayprocessingallowed. Case timingsinclude setup/wait/snapshots/cleanup—notnormalserviceperformance. NoUserlock/universalserialization/late_source_snapshotcoverageclaim. N09full139open8of13;13ABC_D+3E=16localbugscorrectednot16contractblocks;alpha/noindex/providersunchanged."
+}

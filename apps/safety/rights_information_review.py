@@ -67,6 +67,7 @@ def record(user, case_id, information_id, key, version, operation, reason, outco
         .filter(pk=information_id, request=case)
         .first()
     )
+    actor = authorize(user, case)
     if row is None:
         raise PermissionDenied
     if row.actor_id == actor.pk:

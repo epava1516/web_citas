@@ -47,6 +47,7 @@ def inspect(user, case_id, version, draft_id, key, reason):
         .filter(pk=draft_id, request=case)
         .first()
     )
+    actor = authorize_reviewer(user, case)
     if draft is None or draft.actor_id == actor.pk:
         raise PermissionDenied("Independent final response reviewer required")
     if (

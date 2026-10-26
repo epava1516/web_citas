@@ -70,6 +70,7 @@ def propose(
         .filter(pk=inventory_id, request=case, actor=actor)
         .first()
     )
+    actor = authorize_reviewer(user, case)
     reading = RightsAction.objects.filter(
         pk=read_id, request=case, actor=actor, operation="access_field_read"
     ).first()
@@ -111,6 +112,7 @@ def propose(
     value = released(inspected["value"], outcome, redacted)
     body = {"preparation": payload, "source_field_digest": inspected["digest"], "value": value}
     row = RightsAccessFieldDecision.objects.select_for_update().filter(action=action).first()
+    authorize_reviewer(user, case)
     if row:
         if (
             row.inventory_id != inventory.pk
@@ -148,6 +150,7 @@ def context(user, case_id, version, decision_id):
         .filter(pk=decision_id, inventory__request=case)
         .first()
     )
+    actor = authorize_reviewer(user, case)
     if row is None or row.action.actor_id == actor.pk:
         raise PermissionDenied("Independent field decision reviewer required")
     if row.purged_at or row.expires_at <= timezone.now():
@@ -308,6 +311,7 @@ def consume(user, case_id, version, response_version, decision_id, key, reason):
         .filter(pk=decision_id, inventory__request=case, action__actor=actor, outcome="approved")
         .first()
     )
+    actor = authorize_reviewer(user, case)
     if row is None or not row.review_action_id or not row.review_read_action_id:
         raise ValidationError("Independent approved field decision required")
     payload = {
