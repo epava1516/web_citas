@@ -1,6 +1,6 @@
-N09J/449 referenciaaceptadalocal7PASS111,027sJUnit/1779huellas/cleanupTGsent/auditoríaPASS,sinappchange.16fases3clases/100avisos1402,331ms802SQL;101→100/1/0/skip2-1-0/faultretry1failed1;inmutables/pins/recibosúnicos.6funcionales+1preforknatural60soriginalesreusadosacotados;N09open1398/13.
+N09K/451referenciaFSaceptadalocal8PASS121,924sQA/19fases/1780huellas/cleanupTGsent;100156,949ms102SQL/10001717,130ms1002SQL,4testigoshistóricosreusados. Sinappchange,N09open1398/13.
 
-Siguiente: cierre documental/grafo44917/custodia/GitdeN09J;despuésobjetos/jobs/reconciliación/139IDs,N10N11N15pendientes. Válidosanterioresretenidossinrepetir;N02alfinal/N12–14condicionados;objetivoactivoalpha/noindex.
+Siguiente:entregadocumental451/custodia/grafo;despuésjobs/reconciliacióny139IDs. FalloparcialSQLrollbacknorestauraFS/retryrecupera;sinoptimizaciónmarginal,N02alfinal/N10N11N15pendientes/alpha-noindex.
 
 N08A2/411prerregistrado:unúnicocandidatobatchnativo doshandlers,72GETpareadosmismosdatos+controles/nullforeignESEN+10originales=13casosprevistos;sinimplementaciónaceptada.N08abierto7/13.
 
