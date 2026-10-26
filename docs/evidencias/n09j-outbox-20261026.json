@@ -1,0 +1,828 @@
+{
+  "result": "PASS_SEVEN_FINITE_OUTBOX_BASELINE_NOT_WHOLE_N09",
+  "run": "20261026-142236-c8c798d7",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "7",
+      "time": "111.027",
+      "timestamp": "2026-10-26T15:22:57.132505+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1779,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "3kindtask.run/actualforwardedlocalsimulator/N1instrumentedphase/0to101eligible+native/future/failedpins/skip3/fault2. Noappchange/noafter/Beatnewworker/providerproof.6oldfunctional+1oldnativeworkerprefixscopedreuse/notnewruns/wholeoldERRORretained/N09139open8of13.",
+  "application_change": false,
+  "optimization_after": null,
+  "acceptance_document": "449-n09-j-referencia-outbox-verificada-20261026.md",
+  "graph": {
+    "result": "PASS_SCOPED_N09J449_OUTBOX_ACCEPTED_GRAPH",
+    "sources": 2088,
+    "nodes": 20347,
+    "relations": 84682,
+    "communities": 987,
+    "graph_sha256": "07f2a9f35774321031294f5dd50d1eb693073aec7f4ed1d44d224d7664a1d7ca",
+    "scope": "449and17first4;7finiteOutboxBaselinePASS1779stable/6oldfunctional1workerprefixwitness;noAppChange/N09full139open8of13"
+  },
+  "profiles": [
+    {
+      "scenario": "volume",
+      "eligible_count": 0,
+      "case_body_seconds": 9.6291747353971,
+      "pre_measurement_seconds": 9.305308721028268,
+      "measured_task_seconds": 0.018103460781276226,
+      "non_measured_case_seconds": 9.611071274615824,
+      "phases": [
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.004478727467358112
+            }
+          },
+          "phase": "first_batch",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.004478727467358112,
+          "wall_seconds": 0.009760458022356033
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.003491646610200405
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.003491646610200405,
+          "wall_seconds": 0.008343002758920193
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "volume",
+      "eligible_count": 1,
+      "case_body_seconds": 9.153825031593442,
+      "pre_measurement_seconds": 8.83381425216794,
+      "measured_task_seconds": 0.05084367096424103,
+      "non_measured_case_seconds": 9.102981360629201,
+      "phases": [
+        {
+          "adapter_calls": 1,
+          "adapter_kinds": [
+            "safety.ReportNotice"
+          ],
+          "adapter_seconds": 0.010759782046079636,
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.0006778202950954437
+            },
+            "RELEASE": {
+              "count": 2,
+              "seconds": 0.0031660404056310654
+            },
+            "SAVEPOINT": {
+              "count": 2,
+              "seconds": 0.0030859308317303658
+            },
+            "SELECT": {
+              "count": 7,
+              "seconds": 0.010996288619935513
+            },
+            "UPDATE": {
+              "count": 3,
+              "seconds": 0.0033862385898828506
+            }
+          },
+          "phase": "first_batch",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 1,
+            "retry": 0,
+            "simulated": 1
+          },
+          "sql_count": 15,
+          "sql_seconds": 0.021312318742275238,
+          "wall_seconds": 0.040164535865187645
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.004636073485016823
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.004636073485016823,
+          "wall_seconds": 0.010679135099053383
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "volume",
+      "eligible_count": 10,
+      "case_body_seconds": 8.4231749009341,
+      "pre_measurement_seconds": 7.9250155901536345,
+      "measured_task_seconds": 0.18496834766119719,
+      "non_measured_case_seconds": 8.238206553272903,
+      "phases": [
+        {
+          "adapter_calls": 10,
+          "adapter_kinds": [
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice"
+          ],
+          "adapter_seconds": 0.05578271299600601,
+          "operations": {
+            "INSERT": {
+              "count": 10,
+              "seconds": 0.009741095826029778
+            },
+            "RELEASE": {
+              "count": 14,
+              "seconds": 0.00953825656324625
+            },
+            "SAVEPOINT": {
+              "count": 14,
+              "seconds": 0.007101714611053467
+            },
+            "SELECT": {
+              "count": 19,
+              "seconds": 0.032476747408509254
+            },
+            "UPDATE": {
+              "count": 30,
+              "seconds": 0.02976853121072054
+            }
+          },
+          "phase": "first_batch",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 10,
+            "retry": 0,
+            "simulated": 10
+          },
+          "sql_count": 87,
+          "sql_seconds": 0.08862634561955929,
+          "wall_seconds": 0.17640417348593473
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.0038479799404740334
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.0038479799404740334,
+          "wall_seconds": 0.008564174175262451
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "volume",
+      "eligible_count": 100,
+      "case_body_seconds": 10.496413657441735,
+      "pre_measurement_seconds": 8.725083656609058,
+      "measured_task_seconds": 1.4148798352107406,
+      "non_measured_case_seconds": 9.081533822230995,
+      "phases": [
+        {
+          "adapter_calls": 100,
+          "adapter_kinds": [
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice"
+          ],
+          "adapter_seconds": 0.4684447944164276,
+          "operations": {
+            "INSERT": {
+              "count": 100,
+              "seconds": 0.09607975743710995
+            },
+            "RELEASE": {
+              "count": 134,
+              "seconds": 0.06830481812357903
+            },
+            "SAVEPOINT": {
+              "count": 134,
+              "seconds": 0.0771301994100213
+            },
+            "SELECT": {
+              "count": 134,
+              "seconds": 0.23442552983760834
+            },
+            "UPDATE": {
+              "count": 300,
+              "seconds": 0.2864972287788987
+            }
+          },
+          "phase": "first_batch",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 100,
+            "retry": 0,
+            "simulated": 100
+          },
+          "sql_count": 802,
+          "sql_seconds": 0.7624375335872173,
+          "wall_seconds": 1.4023312097415328
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.007303196936845779
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.007303196936845779,
+          "wall_seconds": 0.012548625469207764
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "volume",
+      "eligible_count": 101,
+      "case_body_seconds": 9.644892234355211,
+      "pre_measurement_seconds": 8.214929557405412,
+      "measured_task_seconds": 1.1225396282970905,
+      "non_measured_case_seconds": 8.52235260605812,
+      "phases": [
+        {
+          "adapter_calls": 100,
+          "adapter_kinds": [
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice",
+            "safety.ComplaintNotice",
+            "safety.RightsNotice",
+            "safety.ReportNotice"
+          ],
+          "adapter_seconds": 0.36503868736326694,
+          "operations": {
+            "INSERT": {
+              "count": 100,
+              "seconds": 0.07221369817852974
+            },
+            "RELEASE": {
+              "count": 134,
+              "seconds": 0.05319218337535858
+            },
+            "SAVEPOINT": {
+              "count": 134,
+              "seconds": 0.057059742510318756
+            },
+            "SELECT": {
+              "count": 134,
+              "seconds": 0.17703864723443985
+            },
+            "UPDATE": {
+              "count": 300,
+              "seconds": 0.22074914537370205
+            }
+          },
+          "phase": "first_batch",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 100,
+            "retry": 0,
+            "simulated": 100
+          },
+          "sql_count": 802,
+          "sql_seconds": 0.580253416672349,
+          "wall_seconds": 1.0954725900664926
+        },
+        {
+          "adapter_calls": 1,
+          "adapter_kinds": [
+            "safety.ComplaintNotice"
+          ],
+          "adapter_seconds": 0.0021271267905831337,
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.0006482228636741638
+            },
+            "RELEASE": {
+              "count": 1,
+              "seconds": 0.00032494403421878815
+            },
+            "SAVEPOINT": {
+              "count": 1,
+              "seconds": 0.0003061201423406601
+            },
+            "SELECT": {
+              "count": 6,
+              "seconds": 0.006035820581018925
+            },
+            "UPDATE": {
+              "count": 3,
+              "seconds": 0.0016910266131162643
+            }
+          },
+          "phase": "continuation",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 1,
+            "retry": 0,
+            "simulated": 1
+          },
+          "sql_count": 12,
+          "sql_seconds": 0.009006134234368801,
+          "wall_seconds": 0.019113528542220592
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.0034597432240843773
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.0034597432240843773,
+          "wall_seconds": 0.00795350968837738
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "skip_locked",
+      "eligible_count": 3,
+      "case_body_seconds": 8.766795710660517,
+      "pre_measurement_seconds": 8.409600128419697,
+      "measured_task_seconds": 0.057106210850179195,
+      "non_measured_case_seconds": 8.709689499810338,
+      "phases": [
+        {
+          "adapter_calls": 2,
+          "adapter_kinds": [
+            "safety.ComplaintNotice",
+            "safety.RightsNotice"
+          ],
+          "adapter_seconds": 0.005427919328212738,
+          "operations": {
+            "INSERT": {
+              "count": 2,
+              "seconds": 0.002342388965189457
+            },
+            "RELEASE": {
+              "count": 2,
+              "seconds": 0.0006067240610718727
+            },
+            "SAVEPOINT": {
+              "count": 2,
+              "seconds": 0.000596201978623867
+            },
+            "SELECT": {
+              "count": 6,
+              "seconds": 0.009797468781471252
+            },
+            "UPDATE": {
+              "count": 6,
+              "seconds": 0.004227037541568279
+            }
+          },
+          "phase": "skip_locked",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 2,
+            "retry": 0,
+            "simulated": 2
+          },
+          "sql_count": 18,
+          "sql_seconds": 0.01756982132792473,
+          "wall_seconds": 0.031964232213795185
+        },
+        {
+          "adapter_calls": 1,
+          "adapter_kinds": [
+            "safety.ReportNotice"
+          ],
+          "adapter_seconds": 0.003590761683881283,
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.00046650320291519165
+            },
+            "RELEASE": {
+              "count": 2,
+              "seconds": 0.0005393577739596367
+            },
+            "SAVEPOINT": {
+              "count": 2,
+              "seconds": 0.0004808790981769562
+            },
+            "SELECT": {
+              "count": 7,
+              "seconds": 0.0059356689453125
+            },
+            "UPDATE": {
+              "count": 3,
+              "seconds": 0.0014729863032698631
+            }
+          },
+          "phase": "after_unlock",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 1,
+            "retry": 0,
+            "simulated": 1
+          },
+          "sql_count": 15,
+          "sql_seconds": 0.008895395323634148,
+          "wall_seconds": 0.01919338572770357
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.002328927628695965
+            }
+          },
+          "phase": "replay",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.002328927628695965,
+          "wall_seconds": 0.005948592908680439
+        }
+      ],
+      "immutable_and_pins_equal": true
+    },
+    {
+      "scenario": "failure",
+      "eligible_count": 2,
+      "case_body_seconds": 9.679011441767216,
+      "pre_measurement_seconds": 9.231464177370071,
+      "measured_task_seconds": 0.047839464619755745,
+      "non_measured_case_seconds": 9.63117197714746,
+      "phases": [
+        {
+          "adapter_calls": 2,
+          "adapter_kinds": [
+            "safety.ReportNotice",
+            "safety.RightsNotice"
+          ],
+          "adapter_seconds": 0.00043638795614242554,
+          "operations": {
+            "RELEASE": {
+              "count": 2,
+              "seconds": 0.0007695062085986137
+            },
+            "ROLLBACK": {
+              "count": 2,
+              "seconds": 0.0010722335427999496
+            },
+            "SAVEPOINT": {
+              "count": 2,
+              "seconds": 0.0010381955653429031
+            },
+            "SELECT": {
+              "count": 6,
+              "seconds": 0.010494324378669262
+            },
+            "UPDATE": {
+              "count": 4,
+              "seconds": 0.00399198941886425
+            }
+          },
+          "phase": "adapter_failure",
+          "result": {
+            "disabled": false,
+            "failed": 1,
+            "processed": 2,
+            "retry": 1,
+            "simulated": 0
+          },
+          "sql_count": 16,
+          "sql_seconds": 0.01736624911427498,
+          "wall_seconds": 0.03438126388937235
+        },
+        {
+          "adapter_calls": 0,
+          "adapter_kinds": [],
+          "adapter_seconds": 0.0,
+          "operations": {
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.005534815602004528
+            }
+          },
+          "phase": "immediate_followup",
+          "result": {
+            "disabled": false,
+            "failed": 0,
+            "processed": 0,
+            "retry": 0,
+            "simulated": 0
+          },
+          "sql_count": 3,
+          "sql_seconds": 0.005534815602004528,
+          "wall_seconds": 0.013458200730383396
+        }
+      ],
+      "immutable_and_pins_equal": true
+    }
+  ],
+  "original_witnesses": {
+    "run": "20261024-094540-3a6ec8ac",
+    "functional_cases": 6,
+    "prefork_natural60s_cases": 1,
+    "matching_selected_worker_sources": 19,
+    "whole_run_result": "ERROR",
+    "scope": "Exactconsumerfunctionaloracles/outboxprefixonly/notcurrentproduceradmission/newworker/Beat/provider/publicationbranch/globalPASS"
+  }
+}
