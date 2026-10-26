@@ -1,0 +1,181 @@
+{
+  "result": "PASS_CANDIDATE18_BOUNDED_FINAL_SERVICE_NOT_WHOLE_N09_ACCEPTANCE",
+  "run": "20261026-124639-58873558",
+  "original_result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "18",
+      "time": "337.893",
+      "timestamp": "2026-10-26T13:47:01.905426+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1776,
+  "verdict_counts": {
+    "VALID_NATIVE_CONTROL": 6,
+    "DENIED_BEFORE_SELECTED_PRIVATE_BOUNDARY_NO_REPRODUCTION": 7
+  },
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "limits": "All native services,notHTTP;exactselectedprivateboundarynotallinternalprojections. TTL10s fixturebeforeadmission,clockdeadlinepasseswhileactualPGwait,no intervalDBmutation/permschanged inexpirycase. Fourops/sixwaitfamilies/one route,not13bugs orblocks. F75/E38retained,N09full139open8of13.",
+  "baseline": {
+    "run": "20261026-120035-1594b022",
+    "result": "ERROR",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "7",
+        "skipped": "0",
+        "tests": "13",
+        "time": "282.230",
+        "timestamp": "2026-10-26T13:00:55.649807+01:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "counts": {
+      "VALID_NATIVE_CONTROL": 6,
+      "CONFIRMED_PRIVATE_TARGET_RETURN_BEFORE_LATE_PERMISSION_DENIAL": 5,
+      "CONFIRMED_NATIVE_PRIVATE_RETURN_EFFECT_AFTER_PERMISSION_REVOCATION": 1,
+      "CONFIRMED_NATIVE_PRIVATE_PROCESSING_AND_EFFECT_AFTER_PROOF_EXPIRED_DURING_WAIT": 1
+    }
+  },
+  "graph": {
+    "result": "PASS_SCOPED_N09G441_FINAL_ACCEPTED_GRAPH",
+    "sources": 2076,
+    "nodes": 20196,
+    "relations": 84290,
+    "communities": 976,
+    "graph_sha256": "526b3e9bed9157fbf9482af83677579044357bfda5b95952765755823735f3aa",
+    "scope": "441and17first4;baseline13_6PASS7FAILaudited1775stable/candidate18PASSOneAppFile;N09full139open8of13"
+  },
+  "acceptance_document": "441-n09-g-evidencia-final-rectificacion-verificada-20261026.md",
+  "case_timings": [
+    {
+      "family": "prepare_review",
+      "variant": "valid",
+      "qa_seconds": 19.038262465037405,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "inspect_draft",
+      "variant": "valid",
+      "qa_seconds": 17.960120564326644,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "review_draft",
+      "variant": "valid",
+      "qa_seconds": 18.934777145273983,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "close_review",
+      "variant": "valid",
+      "qa_seconds": 17.38093958981335,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_account_source",
+      "variant": "valid",
+      "qa_seconds": 16.567907648161054,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_contact_claim",
+      "variant": "valid",
+      "qa_seconds": 18.923449688591063,
+      "status": "success",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_review",
+      "variant": "permission",
+      "qa_seconds": 18.10500448010862,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "inspect_draft",
+      "variant": "permission",
+      "qa_seconds": 18.329595869407058,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "review_draft",
+      "variant": "permission",
+      "qa_seconds": 18.883724060840905,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "close_review",
+      "variant": "permission",
+      "qa_seconds": 17.56661748327315,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_account_source",
+      "variant": "permission",
+      "qa_seconds": 17.487146688625216,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_contact_claim",
+      "variant": "permission",
+      "qa_seconds": 17.742538490332663,
+      "status": "PermissionDenied",
+      "target_private_returns_after_event": 0
+    },
+    {
+      "family": "prepare_review",
+      "variant": "proof_expiry",
+      "qa_seconds": 27.859315543435514,
+      "status": "ValidationError",
+      "target_private_returns_after_event": 0
+    }
+  ],
+  "original_cases": [
+    {
+      "name": "test_account_final_rectification_review_and_atomic_close[True]",
+      "classname": "tests.test_account_only_execution",
+      "seconds": "14.329"
+    },
+    {
+      "name": "test_account_final_rectification_review_and_atomic_close[False]",
+      "classname": "tests.test_account_only_execution",
+      "seconds": "15.383"
+    },
+    {
+      "name": "test_account_final_rectification_concurrent_close",
+      "classname": "tests.test_account_only_execution",
+      "seconds": "14.611"
+    },
+    {
+      "name": "test_rectification_recipient_review_and_close_requirements[es]",
+      "classname": "tests.test_rectification_final_localization",
+      "seconds": "0.005"
+    },
+    {
+      "name": "test_rectification_recipient_review_and_close_requirements[en]",
+      "classname": "tests.test_rectification_final_localization",
+      "seconds": "0.198"
+    }
+  ]
+}

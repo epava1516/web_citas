@@ -24,6 +24,7 @@ from .models import (
     RightsResponse,
 )
 from .recipient_assessments import validate_decisions
+from .rectification_authority import capture_authority
 from .rectification_recipients import execution_scope_matches, snapshot
 from .rights import fingerprint
 from .rights_access_response_draft import checked_body
@@ -50,9 +51,11 @@ def actor(user, case, *, assigned):
         current_response_actor(user, case, user.session_version, user.mfa_version, execution=True)
 
 
-def context(user, case_id, version, responses, *, assigned=True):
+def context(user, case_id, version, responses, *, authority, assigned=True):
     case, person, listing = locked_case(case_id, lock_listing=True)
-    actor(user, case, assigned=assigned)
+    authority(case)
+    if assigned and case.assigned_to_id != user.pk:
+        raise PermissionDenied
     if (
         case.kind != "rectify"
         or case.status != "reviewing"
@@ -67,7 +70,34 @@ def context(user, case_id, version, responses, *, assigned=True):
 
 
 @sensitive_variables()
-def evidence(case, person, listing, review_id):
+def active_check(authority, user, case, person, proof, *, assigned):
+    """Bind this caller and proof across active final-service resource waits.
+
+    Completed-close replay uses only its entry-captured authority and historical
+    ledger bindings; a resolved case cannot require a new reviewing proof.
+    """
+    proof_id, version, responses = proof.pk, case.version, case.response_version
+    caller_id = user.pk
+
+    @sensitive_variables()
+    def check():
+        authority(case)
+        if assigned and case.assigned_to_id != caller_id:
+            raise PermissionDenied
+        if (
+            case.status != "reviewing"
+            or case.version != version
+            or case.response_version != responses
+            or authorized_proof(case, person, "rectify").pk != proof_id
+        ):
+            raise ValidationError("Current final correction proof required")
+
+    return check
+
+
+@sensitive_variables()
+def evidence(case, person, listing, review_id, *, check_authority):
+    """Prepare/draft consumers pass their original caller and active-proof guard."""
     review = (
         RightsRectificationRecipientReview.objects.select_for_update()
         .select_related(
@@ -76,6 +106,7 @@ def evidence(case, person, listing, review_id):
         .filter(pk=review_id, action__request=case, outcome="accepted")
         .first()
     )
+    check_authority()
     if not review:
         raise ValidationError("Accepted independent recipient review required")
     assessment = review.assessment
@@ -87,7 +118,9 @@ def evidence(case, person, listing, review_id):
     if (
         latest is None
         or latest.pk != execution.pk
-        or not execution_scope_matches(case, person, execution)
+        or not execution_scope_matches(
+            case, person, execution, check_authority=check_authority
+        )
     ):
         raise ValidationError("Current executed own-scope correction required")
     changes = checked_body(proposal.encrypted_changes)
@@ -118,7 +151,9 @@ def evidence(case, person, listing, review_id):
             if field == "alias":
                 actual = person.alias
             elif field == "account":
-                actual = {key: rectification_account.source(person, case)[key] for key in expected}
+                actual = {key: rectification_account.source(
+                    person, case, check_authority=check_authority
+                )[key] for key in expected}
             elif field == "photos":
                 from apps.mediafiles.models import Photo
 
@@ -159,6 +194,7 @@ def evidence(case, person, listing, review_id):
                 raise ValidationError("Executed correction values changed")
         if "contacts" in changes:
             claim = rectification_contacts.claim(changes["contacts"], person)
+            check_authority()
             if person.phone_claim_id != (claim.pk if claim else None):
                 raise ValidationError("Executed contact binding changed")
         if corrected and (
@@ -166,7 +202,7 @@ def evidence(case, person, listing, review_id):
             or corrected.manager_version != person.manager_version
         ):
             raise ValidationError("Corrected publication scope changed")
-    data = snapshot(person, execution, case)
+    data = snapshot(person, execution, case, check_authority=check_authority)
     source = fingerprint(json.dumps(data, sort_keys=True))
     decisions = validate_decisions(data, checked_body(assessment.encrypted_decisions))
     if (
@@ -195,9 +231,11 @@ def evidence(case, person, listing, review_id):
     }
 
 
-def record(user, case, key, operation, body):
+def record(user, case, key, operation, body, *, check_authority):
+    """All four active services check again before ledger access or creation."""
     signature = digest(body)
     previous = RightsAction.objects.filter(key=key).first()
+    check_authority()
     if previous:
         if (
             previous.request_id,
@@ -223,10 +261,13 @@ def record(user, case, key, operation, body):
 @transaction.atomic
 @sensitive_variables()
 def prepare(user, case_id, version, responses, recipient_review_id, key, reason, text, confirmed):
+    authority = capture_authority(user, review=True, respond=True)
     checked_response_text(reason, text, confirmed)
-    case, person, listing, proof = context(user, case_id, version, responses)
-    material = evidence(case, person, listing, recipient_review_id)
-    actor(user, case, assigned=True)
+    case, person, listing, proof = context(
+        user, case_id, version, responses, authority=authority
+    )
+    check = active_check(authority, user, case, person, proof, assigned=True)
+    material = evidence(case, person, listing, recipient_review_id, check_authority=check)
     return record(
         user,
         case,
@@ -244,12 +285,19 @@ def prepare(user, case_id, version, responses, recipient_review_id, key, reason,
             "reason": reason,
             "text": text,
         },
+        check_authority=check,
     )
 
 
 @sensitive_variables()
-def draft_context(user, case_id, version, responses, draft_id, *, assigned):
-    case, person, listing, proof = context(user, case_id, version, responses, assigned=assigned)
+def draft_context(
+    user, case_id, version, responses, draft_id, *, authority, assigned, check_authority=None
+):
+    case, person, listing, proof = context(
+        user, case_id, version, responses, authority=authority, assigned=assigned
+    )
+    if check_authority is None:
+        check_authority = active_check(authority, user, case, person, proof, assigned=assigned)
     draft = (
         RightsAction.objects.select_for_update()
         .filter(
@@ -258,6 +306,7 @@ def draft_context(user, case_id, version, responses, draft_id, *, assigned):
         .select_related("actor")
         .first()
     )
+    check_authority()
     if not draft:
         raise ValidationError("Current final response draft required")
     latest = (
@@ -279,7 +328,12 @@ def draft_context(user, case_id, version, responses, draft_id, *, assigned):
         or body["proof"] != str(proof.pk)
         or body["channel"] != case.receipt_digest
         or timezone.now() >= draft.created_at + timedelta(hours=24)
-        or canonical(evidence(case, person, listing, body["evidence"]["recipient_review"]))
+        or canonical(
+            evidence(
+                case, person, listing, body["evidence"]["recipient_review"],
+                check_authority=check_authority,
+            )
+        )
         != canonical(body["evidence"])
     ):
         raise ValidationError("Final correction draft changed or expired")
@@ -289,7 +343,11 @@ def draft_context(user, case_id, version, responses, draft_id, *, assigned):
 @transaction.atomic
 @sensitive_variables()
 def inspect(user, case_id, version, responses, draft_id, purpose):
-    case, _, _, proof = context(user, case_id, version, responses, assigned=False)
+    authority = capture_authority(user, review=True, respond=True)
+    case, person, _, proof = context(
+        user, case_id, version, responses, authority=authority, assigned=False
+    )
+    check = active_check(authority, user, case, person, proof, assigned=False)
     draft = RightsAction.objects.filter(
         pk=draft_id, request=case, operation="rectify_final_draft", expected_version=version
     ).first()
@@ -313,16 +371,25 @@ def inspect(user, case_id, version, responses, draft_id, purpose):
             "session": user.session_version,
             "mfa": user.mfa_version,
         },
+        check_authority=check,
     )
-    _, _, body, _ = draft_context(user, case_id, version, responses, draft_id, assigned=False)
+    _, _, body, _ = draft_context(
+        user, case_id, version, responses, draft_id,
+        authority=authority, assigned=False, check_authority=check,
+    )
+    check()
     return read, body
 
 
 @transaction.atomic
 @sensitive_variables()
 def review(user, case_id, version, responses, draft_id, read_id, key, outcome, reason):
+    authority = capture_authority(user, review=True, respond=True)
     case, draft, body, proof = draft_context(
-        user, case_id, version, responses, draft_id, assigned=False
+        user, case_id, version, responses, draft_id, authority=authority, assigned=False
+    )
+    check = active_check(
+        authority, user, case, case.person if case.person_id else None, proof, assigned=False
     )
     if user.pk == draft.actor_id:
         raise PermissionDenied("Independent reviewer required")
@@ -360,13 +427,16 @@ def review(user, case_id, version, responses, draft_id, read_id, key, outcome, r
             "session": user.session_version,
             "mfa": user.mfa_version,
         },
+        check_authority=check,
     )
 
 
 @transaction.atomic
 @sensitive_variables()
 def close(user, case_id, version, responses, review_id, key):
+    authority = capture_authority(user, review=True, respond=True)
     case, _, _ = locked_case(case_id, lock_listing=True)
+    authority(case)
     actor(user, case, assigned=True)
     previous = RightsResponse.objects.filter(key=key).first()
     if previous:
@@ -375,6 +445,7 @@ def close(user, case_id, version, responses, review_id, key):
         ).first()
         if not closure or previous.request_id != case.pk or previous.actor_id != user.pk:
             raise ValidationError("Conflicting final response key")
+        authority(case)
         closed = checked_body(closure.encrypted_reason)
         if (
             digest(closed) != closure.payload_digest
@@ -411,6 +482,7 @@ def close(user, case_id, version, responses, review_id, key):
         )
         if not historical_review or not historical_draft:
             raise ValidationError("Final correction replay evidence unavailable")
+        authority(case)
         review_body = checked_body(historical_review.encrypted_reason)
         draft_body = checked_body(historical_draft.encrypted_reason)
         if (
@@ -428,6 +500,10 @@ def close(user, case_id, version, responses, review_id, key):
         fresh_authority(historical_review.actor, case, review_body["session"], review_body["mfa"])
         actor(historical_review.actor, case, assigned=False)
         return previous
+    case, person, _, proof = context(
+        user, case_id, version, responses, authority=authority
+    )
+    check = active_check(authority, user, case, person, proof, assigned=True)
     accepted = (
         RightsAction.objects.select_for_update()
         .select_related("actor")
@@ -436,6 +512,7 @@ def close(user, case_id, version, responses, review_id, key):
         )
         .first()
     )
+    check()
     if not accepted:
         raise ValidationError("Independent final review required")
     latest_review = (
@@ -451,7 +528,8 @@ def close(user, case_id, version, responses, review_id, key):
     if digest(approval) != accepted.payload_digest or approval["outcome"] != "approved":
         raise ValidationError("Approved intact final response required")
     case, draft, body, proof = draft_context(
-        user, case_id, version, responses, approval["draft"], assigned=True
+        user, case_id, version, responses, approval["draft"],
+        authority=authority, assigned=True, check_authority=check,
     )
     if (
         accepted.actor_id == draft.actor_id
@@ -505,6 +583,7 @@ def close(user, case_id, version, responses, review_id, key):
             "response_digest": digest(response_body),
             "channel": case.receipt_digest,
         },
+        check_authority=check,
     )
     response = RightsResponse.objects.create(
         key=key,
@@ -519,6 +598,7 @@ def close(user, case_id, version, responses, review_id, key):
     )
     draft.final_response = response
     draft.save(update_fields=["final_response"])
+    check()
     contact = unseal(case.encrypted_payload).get("email")
     if contact:
         RightsNotice.objects.create(
