@@ -1,5 +1,5 @@
 {
-  "state": "N10E_PROVISIONAL77_DISPOSITIONS_76VERIFIED_ONE_SELECTED_RETURN_REFERENCE_PENDING_NOT_N10_ACCEPTANCE",
+  "state": "N10_ACCEPTED_LOCAL_SCOPED77_DISPOSITIONS",
   "current_product_commit": "0dcf89ff1c6dcc9a2f7c3c29092a38de36d08c0a",
   "original_assignment": {
     "source": "docs/evidencias/n00-matriz-acciones-prioridades-20261025.json",
@@ -15,10 +15,8 @@
     "admin_global_action": 1,
     "dispatch": 2
   },
-  "verified_scoped_dispositions": 76,
-  "pending_selected_gaps": [
-    "runbook:O_RUNTIME_RETURN"
-  ],
+  "verified_scoped_dispositions": 77,
+  "pending_selected_gaps": [],
   "rows": {
     "route:R_health": {
       "id": "route:R_health",
@@ -3013,14 +3011,14 @@
         "limit": "Ciclo histórico local versionado, sin downgrade de esquema; no afirmar repetición sobre toda imagen/candidata actual.",
         "execution": "not_run"
       },
-      "decision_state": "pending_selected_current_process_return_reference",
+      "decision_state": "verified_scoped_disposition",
       "whole_functionality_PASS_claimed": false,
-      "mandatory_gap": "AfterAdminloginfix0dcf89f, the sourceequal37ccaaa/ae33175 pair no longer includes the receiver. Require an explicit current-source process return reference or equivalent current operation proof before N10acceptance.",
-      "modes": "Historical3-image realcycle retained; prior753Gitpair is historical only after newreceiver. Selectednext:0dcf89f->8589acd->0dcf89f ownedGunicornsource-process switch, unchanged schema/deps and one adminreceiver delta; no imagebuild.",
-      "authority_and_target": "Authorized operator on explicitly owned isolated destination; no normal services, realsubjects or externalproviders",
-      "effects": "Exact per-runbook source/effect/recovery descriptors retained in C proposal with root94source/122original-node verification",
-      "reversibility_and_replay": "As selected original scenarios; no universal rollback/key-retirement/readiness claim",
-      "root_disposition": "historical_mechanism_verified_current_cut_needs_bounded_process_switch",
+      "mandatory_gap": null,
+      "modes": "Actual0dcf89f->8589acd->0dcf89f three ownedGunicornsourceprocess phases,4syncworkers each, samePG/alreadyadmittedsession, sourcehashmarkers and6HTTP200",
+      "authority_and_target": "ExplicitlyownedtestPG ci migrator andsyntheticverifiedstaff+Groupview/change, alreadyadmittedepoch1/MFA; privateconfig0600 andloopbackonly; not productionleastprivilege or freshlogin proof",
+      "effects": "All173models/through8mediafiles anddjango_migrations unchanged perphase; everyownprocessgroup closed before nextphase; no runtime/schema/data rollback",
+      "reversibility_and_replay": "Actual current source restored as finalphase; no writes during switch, no images/deployment/mixedworker/SLA claim",
+      "root_disposition": "locally_verified_current_source_process_return_with_declared_maintenance_limits",
       "current_sources": {
         "docs/145-estrategia-rollback-beta-b13-20261021.md": "2168f6f4e6e47b4d18f9109a88fdd614f5145bdcea1b493adc6b731f407c123d",
         "docs/146-rollback-escrituras-workers-beta-b13-20261021.md": "879dd07dea01e17126fbad99a43437f738d5c34d3b35c00cb36970b2b5302b90",
@@ -3030,7 +3028,9 @@
         "compose.runtime-role.yaml": "cf426e8841d5f0dc83e96de7c050e220aedf8a45ffd13a2f2273e0c86b942672",
         "pyproject.toml": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea",
         "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
-        "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a"
+        "gunicorn.conf.py": "a8bd9cdab997c0fd4331eefb0193ad2dbd1bca651d7d8975b48becc0b6800f8a",
+        "apps/core/admin.py": "d7087491e7924216d09401b2505e739b5fb71bc445e8bec44db88f824bc2beea",
+        "tests/test_owned_current_source_return.py": "33bb548de3356e3c5371083d88d1850adb68af8bc65f7f5865c6bfe61773902c"
       },
       "functional_evidence": {
         "named_originals": [
@@ -3067,172 +3067,89 @@
         "additional_evidence": [
           "current_return_source_equivalence",
           "historical_external_cycle"
-        ]
+        ],
+        "current_native_case": {
+          "run": "20261026-232308-61cca37e",
+          "nodeid": "tests.test_owned_current_source_return::test_current_previous_current_owned_source_process_return",
+          "actual_JUnit_sha256": "87c9d6aefce235f89baf079fdd2ef3b06fd8858a2f0a8828a57d2c1993c1a679",
+          "source_phases": [
+            "current",
+            "previous",
+            "current"
+          ],
+          "source_verified_worker_instances": 12,
+          "native_HTTP200": 6,
+          "data_files_migrations_unchanged": true
+        },
+        "prior_sourcepair": "37ccaaa/ae33175 historical only; current source0dcf is compared to8589 by actualtest",
+        "source_delta": "753Gitpaths, onlyadmin.py differs; schema/deps/tasks/templates/Groupguards same"
       },
       "cost_reference": {
-        "kind": "no_comparable_normal_stage_reference",
-        "reason": "Selected old JUnit durations are QA; no operation-latency or optimization claim."
+        "kind": "actual_source_process_return_reference",
+        "run": "20261026-232308-61cca37e",
+        "spawn_to_ready_seconds": [
+          1.8677089773118496,
+          1.8607695940881968,
+          1.6624997472390532
+        ],
+        "HTTPsamples": [
+          [
+            {
+              "body_bytes": 16,
+              "http_status": 200,
+              "label": "health",
+              "seconds": 0.03807308617979288
+            },
+            {
+              "body_bytes": 75032,
+              "http_status": 200,
+              "label": "authorized_group_read",
+              "seconds": 0.23098972346633673
+            }
+          ],
+          [
+            {
+              "body_bytes": 16,
+              "http_status": 200,
+              "label": "health",
+              "seconds": 0.023273338563740253
+            },
+            {
+              "body_bytes": 75032,
+              "http_status": 200,
+              "label": "authorized_group_read",
+              "seconds": 0.2555543687194586
+            }
+          ],
+          [
+            {
+              "body_bytes": 16,
+              "http_status": 200,
+              "label": "health",
+              "seconds": 0.03198631014674902
+            },
+            {
+              "body_bytes": 75032,
+              "http_status": 200,
+              "label": "authorized_group_read",
+              "seconds": 0.2475452572107315
+            }
+          ]
+        ],
+        "exported_bytes": {
+          "current": 4065493,
+          "previous": 4064970
+        },
+        "limit": "One3phasecase, polling50ms, no performancebeforeafter/causalclaim; QAtotal separate"
       },
       "limits": [
-        "G",
-        "i",
-        "t",
-        " ",
-        "s",
-        "o",
-        "u",
-        "r",
-        "c",
-        "e",
-        " ",
-        "c",
-        "o",
-        "m",
-        "p",
-        "a",
-        "t",
-        "i",
-        "b",
-        "i",
-        "l",
-        "i",
-        "t",
-        "y",
-        " ",
-        "i",
-        "s",
-        " ",
-        "n",
-        "o",
-        "t",
-        " ",
-        "i",
-        "m",
-        "a",
-        "g",
-        "e",
-        " ",
-        "d",
-        "i",
-        "g",
-        "e",
-        "s",
-        "t",
-        " ",
-        "e",
-        "q",
-        "u",
-        "a",
-        "l",
-        "i",
-        "t",
-        "y",
-        ",",
-        " ",
-        "i",
-        "m",
-        "a",
-        "g",
-        "e",
-        " ",
-        "p",
-        "r",
-        "e",
-        "p",
-        "a",
-        "r",
-        "a",
-        "t",
-        "i",
-        "o",
-        "n",
-        ",",
-        " ",
-        "a",
-        " ",
-        "c",
-        "u",
-        "r",
-        "r",
-        "e",
-        "n",
-        "t",
-        " ",
-        "p",
-        "r",
-        "o",
-        "c",
-        "e",
-        "s",
-        "s",
-        " ",
-        "s",
-        "w",
-        "i",
-        "t",
-        "c",
-        "h",
-        " ",
-        "o",
-        "r",
-        " ",
-        "a",
-        "u",
-        "t",
-        "h",
-        "o",
-        "r",
-        "i",
-        "z",
-        "a",
-        "t",
-        "i",
-        "o",
-        "n",
-        " ",
-        "t",
-        "o",
-        " ",
-        "u",
-        "s",
-        "e",
-        " ",
-        "t",
-        "h",
-        "e",
-        " ",
-        "h",
-        "i",
-        "s",
-        "t",
-        "o",
-        "r",
-        "i",
-        "c",
-        "a",
-        "l",
-        "7",
-        "2",
-        "6",
-        "-",
-        "s",
-        "o",
-        "u",
-        "r",
-        "c",
-        "e",
-        " ",
-        "i",
-        "m",
-        "a",
-        "g",
-        "e",
-        "s",
-        ".",
-        "No existing image/source pair grants automatic rollback of currentfix. Proposedprevioussource drops nativeAdminlogin epoch1 availability, but must preserve alreadyadmitted sessions/Groupguards/data under controlled maintenance. Target must be verified before accepting."
+        "Previous8589 lacksnativeAdminlogin epoch1fix: controlledmaintenance/admittedsessionread continuity only, not productive rollback approval",
+        "No imagebuild/switch, dependency upgrade/downgrade, migrations, writesduringreturn, mixedCelery, lostkey recovery, load, zerodowntime or externalprovider claim",
+        "Actualold3image726cycle retained separately with originalscope, never relabeled as current"
       ],
       "evidence_refs": [
-        "C"
+        "C",
+        "F"
       ]
     },
     "runbook:O_DOMAIN_INCIDENT": {
@@ -4635,7 +4552,13 @@
     "E": {
       "doc": "docs/488-n10-e-post-cuenta-y-matriz-operativa-20261026.md",
       "archive": "docs/evidencias/n10-e-matriz-y-post-cuenta-20261026.tar.gz",
-      "source_gate": "actual2PASS nativepassword/logout;6stages; sourcesstable andcleanupverified"
+      "source_gate": "actual2PASS nativepassword/logout;6stages; sourcesstable andcleanupverified",
+      "archive_sha256": "2b72ce3ecc198ce2484348198f1f571243d23c34bde11c4eb9c3cdf3f71d7508"
+    },
+    "F": {
+      "doc": "docs/490-n10-f-retorno-procesos-actuales-verificado-20261026.md",
+      "archive": "docs/evidencias/n10-f-retorno-actual-y-aceptacion-20261026.tar.gz",
+      "source_gate": "Actual1PASS threephases12sourceverifiedworkerinstances6HTTP200; allrows/files/migrations exact; cleanup"
     }
   },
   "commands46_source_and_original_evidence": {
@@ -4668,6 +4591,7 @@
     "new_build_or_image_size_reduction_measured": false
   },
   "whole_goal_complete": false,
-  "mandatory_accepted": 9,
-  "mandatory_total": 13
+  "mandatory_accepted": 10,
+  "mandatory_total": 13,
+  "acceptance_doc": "docs/491-n10-aceptacion-local-operacion-20261026.md"
 }

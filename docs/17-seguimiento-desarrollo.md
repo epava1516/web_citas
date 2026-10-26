@@ -1,3 +1,7 @@
+N10 aceptado localmente:77/77 disposiciones verificadas,10/13 bloques obligatorios; acta491 y retorno F490 real1PASS57,716sQA/1797stable,3fases12workers6HTTP200,173modelos8archivos/migraciones intactos. No aceptación por registro; producto0dcf89f estable.
+
+SiguienteN11: candidata integrada y conciliación requisito/acción/candidata/prueba/resultado/límite, congelación y regresión común pertinente sin repetir testigos válidos. N15 grafo completo antes de diferencias/inventario frontend y purgaartifacts últimaacción. N02residualend,N12-N14condicionados,alpha/noindex,15lateralespreservados.
+
 N10E488 verificado:2PASS64,880sQA/1796stable, password/logoutAdminESEN6etapas,173modelos8archivos exactos. Matriz77IDsoriginales/140fuentes:76disposiciones verificadas y1retornoactual pendiente. N10abierto77/9de13, no cierreporregistro ni sourcepairhistórico.
 
 SiguienteN10F: retornoaislado actual→8589acd→actual enGunicornpropio/DBtest, fuenteefectivacargada/sesionesadmitidas/lecturas/datos/archivos ylimpiezaverificados;sinbuildimágenes/copiasde589MB. Unicodeltaruntimecore.admin, schema/deps/tareas iguales;anteriorpierdearregloLoginEpoch1,scope mantenimiento controlado noautorizaciónproductiva. Despuéscerrar77/N10 yN11/N15. N02residualend,N12-N14condicionados,alpha/noindex,15lateralespreservados.
