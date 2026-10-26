@@ -1,6 +1,6 @@
-N10B479 aceptado localmente: dos referencias operativas PASS/47,589sQA/1792huellas estables; arranque cuatro workers1,690s, health62,325msprimera/3,164msmediana5; CLI129,319msprimera/127,491msmediana5,50SQL. Sin cambio de app ni mejora causal. N10A47716PASS preservado; N10abierto77,9/13.
+N10C481 aceptado localmente en alcance:2PASS56GET/60,098sQA/1793huellas; AdminESEN9SQLchangelist,173modelos8archivos intactos. Once runbooks94fuentes/120PASS2SKIP originales conciliados;2IDsdispatch=1productor/11PASSF reutilizados. N10A16/N10B2preservados; N10abierto77/9de13.
 
-Siguiente: conciliar once runbooks y superficies Admin/dispatch restantes de N10 contra evidencia vigente; Cmd46/83fuentes/133testigos, restores4/collector18 reutilizados. N11/N15 pendientes; N02residual final del desarrollo, N12-N14condicionados. Alpha/noindex; cambios laterales15 preservados.
+Siguiente: diagnosticar POSTloginAdmin nativo con account_version0/1, fuenteLoginView vs AccountGate; sólo pregunta no fallo confirmado. No bajar guardas; después disposiciones77 y N11/N15. N02residualend,N12-N14condicionados,alpha/noindex;15laterales preservados. Retorno ae33175/37ccaaa sólo equivalencia de fuente del corte, no imágenes/switchactual ni autorización de imágenes726.
 
 N10A/475original1PASS1FAIL55,892sQA/1788huellas:permretiradoenGroupwait aun302/name+1LogEntry;auditoria/cleanupTGERRORsent. CandidataGroupAdminpropio9dcd3b preparada,16casos(2originalesintactos+7wait+7CRUD/self)revisados,sinaceptacion.9/13,N10abierto77.
 
