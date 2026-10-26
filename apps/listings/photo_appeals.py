@@ -8,10 +8,11 @@ from django.views.decorators.http import require_http_methods
 
 from apps.mediafiles.models import Match, MatchResolution, PhotoAppeal
 
+from .appeal_authority import reviewer_allowed
 from .appeals import ReviewForm
 from .history import ordinary_matches
 from .match_review import locked_pair
-from .moderation import conflict_of_interest, reviewer_allowed
+from .moderation import conflict_of_interest
 
 
 @login_required
@@ -62,6 +63,8 @@ def review(request, appeal_id):
             except ValidationError:
                 return HttpResponse("Manager changed", status=409)
             appeal = PhotoAppeal.objects.select_for_update().get(pk=appeal.pk)
+            if not reviewer_allowed(request):
+                return HttpResponse("Forbidden", status=403)
             if any(conflict_of_interest(request.user, p) for p in people):
                 return HttpResponse("Conflict of interest", status=403)
             if appeal.status != "open":

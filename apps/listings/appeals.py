@@ -11,9 +11,10 @@ from apps.core.agencies import person_queryset
 from apps.core.models import Agency, Person
 from apps.core.verification import locked_manager_person
 
+from .appeal_authority import reviewer_allowed
 from .history import is_rectification_history, rectification_history_ids
 from .models import Appeal, Listing, ModerationDecision, Revision
-from .moderation import conflict_of_interest, reviewer_allowed
+from .moderation import conflict_of_interest
 
 
 class AppealForm(forms.Form):
@@ -123,6 +124,8 @@ def review(request, appeal_id):
             )
             revision = Revision.objects.select_for_update().get(pk=appeal.decision.revision_id)
             appeal = Appeal.objects.select_for_update().get(pk=appeal.pk)
+            if not reviewer_allowed(request):
+                return HttpResponse("Forbidden", status=403)
             if is_rectification_history(revision):
                 return HttpResponse("Review unavailable", status=404)
             if conflict_of_interest(request.user, person):
