@@ -1,0 +1,1816 @@
+{
+  "result": "PASS_TWELVE_FINITE_JOB_RECONCILE_BASELINE_NOT_WHOLE_N09",
+  "run": "20261026-154343-723972ab",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "12",
+      "time": "176.355",
+      "timestamp": "2026-10-26T16:44:04.836095+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1781,
+  "phases": 27,
+  "actual_messages": 218,
+  "expired_rows": 212,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "NativeTask.run/realreconcile/ownedPGactualRedisuniquequeues/IDonly/no worker/generation/Beat/provider. N1instrumented/noafter/noappchange;expiry100dispatch100distinct/runningmixedatleastoncerepublication;N09139open8of13.",
+  "profiles": [
+    {
+      "broker_context_exited": true,
+      "case_seconds": 11.165237572044134,
+      "cleanup_seconds": 0.001863623969256878,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.013167186640202999,
+      "mode": "dispatch",
+      "non_measured_seconds": 11.152070385403931,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+      "pins_before_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 5,
+      "rows_before_count": 5,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.665926510468125,
+      "status": "passed",
+      "target_count": 0,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 0,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "immutable_before_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "ca064d1af9f03d95041ba962137ce6cb3e698bc88feff46e5876e17e345200c6"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "ca064d1af9f03d95041ba962137ce6cb3e698bc88feff46e5876e17e345200c6"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002056506462395191
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "reconcile_result": 0,
+          "rows_after_count": 5,
+          "rows_before_count": 5,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.002056506462395191,
+          "target_after_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "target_before_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "task_return_none": true,
+          "wall_seconds": 0.004458321258425713,
+          "domain_before_sha256": "b1d7fb2fc7f42cd1ca4d18be4d0b81fafb2597a36afe29994833ae5ac330efec",
+          "domain_after_sha256": "b1d7fb2fc7f42cd1ca4d18be4d0b81fafb2597a36afe29994833ae5ac330efec"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "immutable_before_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "ca064d1af9f03d95041ba962137ce6cb3e698bc88feff46e5876e17e345200c6"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "ca064d1af9f03d95041ba962137ce6cb3e698bc88feff46e5876e17e345200c6"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.003419979475438595
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "reconcile_result": 0,
+          "rows_after_count": 5,
+          "rows_before_count": 5,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.003419979475438595,
+          "target_after_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "target_before_sha256": "a6a82bdcee17998e5f3c8ead4c504a57f5faaac0ca8beb6e0656321551685de4",
+          "task_return_none": true,
+          "wall_seconds": 0.008708865381777287,
+          "domain_before_sha256": "b1d7fb2fc7f42cd1ca4d18be4d0b81fafb2597a36afe29994833ae5ac330efec",
+          "domain_after_sha256": "b1d7fb2fc7f42cd1ca4d18be4d0b81fafb2597a36afe29994833ae5ac330efec"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 8.940170744433999,
+      "cleanup_seconds": 0.0019390806555747986,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.03733974788337946,
+      "mode": "dispatch",
+      "non_measured_seconds": 8.90283099655062,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "f9af7f6fb6c76c2e869a1c2d1b33a3226c40aaeaef9f53d72d98c22722bbeafe",
+      "pins_before_sha256": "f9af7f6fb6c76c2e869a1c2d1b33a3226c40aaeaef9f53d72d98c22722bbeafe",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 6,
+      "rows_before_count": 6,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 7.536641899496317,
+      "status": "passed",
+      "target_count": 1,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 1,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "9fe30029988a40bb6d0d49ad8cceaf6555ceecc4c80121bc0e75965fad9b8a88",
+          "actual_changed_rows": 1,
+          "actual_message_ids_sha256": "9fe30029988a40bb6d0d49ad8cceaf6555ceecc4c80121bc0e75965fad9b8a88",
+          "actual_messages_after": 1,
+          "actual_messages_before": 0,
+          "broker_calls": 1,
+          "broker_publications": 1,
+          "broker_seconds": 0.019792964681982994,
+          "dispatch_calls": 1,
+          "dispatch_order_sha256": "9fe30029988a40bb6d0d49ad8cceaf6555ceecc4c80121bc0e75965fad9b8a88",
+          "dispatch_seconds": 0.023438538424670696,
+          "dispatch_success": 1,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "8bf88879957b88546389f0dfc0b79c1bda01cefcb94a78454df1465957a2d739",
+          "immutable_before_sha256": "8bf88879957b88546389f0dfc0b79c1bda01cefcb94a78454df1465957a2d739",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "8364d2718c4616383eb3646a2988e57ffeab2414693cef89d22c4e486ad6d4f5"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "8364d2718c4616383eb3646a2988e57ffeab2414693cef89d22c4e486ad6d4f5"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.004756837151944637
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.002575966529548168
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "f9af7f6fb6c76c2e869a1c2d1b33a3226c40aaeaef9f53d72d98c22722bbeafe",
+          "reconcile_result": 1,
+          "rows_after_count": 6,
+          "rows_before_count": 6,
+          "selected_rows": 1,
+          "sql_count": 3,
+          "sql_seconds": 0.0073328036814928055,
+          "target_after_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "target_before_sha256": "20950b6ef31b4ee1aef329a0b15f3f28a9d1f15f2d1ff5985a60ff3f56a6479f",
+          "task_return_none": true,
+          "wall_seconds": 0.03194080758839846,
+          "domain_before_sha256": "82ead42d954ec45b4da3d350d90073766793ee1989bc6b9f02f3aa32759336ea",
+          "domain_after_sha256": "82ead42d954ec45b4da3d350d90073766793ee1989bc6b9f02f3aa32759336ea"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "9fe30029988a40bb6d0d49ad8cceaf6555ceecc4c80121bc0e75965fad9b8a88",
+          "actual_messages_after": 1,
+          "actual_messages_before": 1,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "immutable_before_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "8364d2718c4616383eb3646a2988e57ffeab2414693cef89d22c4e486ad6d4f5"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "8364d2718c4616383eb3646a2988e57ffeab2414693cef89d22c4e486ad6d4f5"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0028484277427196503
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "reconcile_result": 0,
+          "rows_after_count": 6,
+          "rows_before_count": 6,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.0028484277427196503,
+          "target_after_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "target_before_sha256": "59bef6b428cc5afe71237d8e8b80e787201ac5742e00aea21cd8ab5b7d608e53",
+          "task_return_none": true,
+          "wall_seconds": 0.005398940294981003,
+          "domain_before_sha256": "82ead42d954ec45b4da3d350d90073766793ee1989bc6b9f02f3aa32759336ea",
+          "domain_after_sha256": "82ead42d954ec45b4da3d350d90073766793ee1989bc6b9f02f3aa32759336ea"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 10.578480273485184,
+      "cleanup_seconds": 0.0018331743776798248,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.049234118312597275,
+      "mode": "dispatch",
+      "non_measured_seconds": 10.529246155172586,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "a202ac1f3c7764732404e79395d8622f6c31c8de1a5e620712e3e24c4fc6b61e",
+      "pins_before_sha256": "a202ac1f3c7764732404e79395d8622f6c31c8de1a5e620712e3e24c4fc6b61e",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 15,
+      "rows_before_count": 15,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.21626423113048,
+      "status": "passed",
+      "target_count": 10,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 10,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "86262aad8be65e1e2fc5b45120e79866e488edf8ee63643999494f9634bae0b6",
+          "actual_changed_rows": 10,
+          "actual_message_ids_sha256": "86262aad8be65e1e2fc5b45120e79866e488edf8ee63643999494f9634bae0b6",
+          "actual_messages_after": 10,
+          "actual_messages_before": 0,
+          "broker_calls": 10,
+          "broker_publications": 10,
+          "broker_seconds": 0.01743398606777191,
+          "dispatch_calls": 10,
+          "dispatch_order_sha256": "8357a7cc9c258145802b99613e3a07dd86480ebc2fc48c3a17d72787947bff28",
+          "dispatch_seconds": 0.03535949345678091,
+          "dispatch_success": 10,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "e79b62ae443ea7d52830237a9b8464bc94678a61ad064788086a62b8160a4f98",
+          "immutable_before_sha256": "e79b62ae443ea7d52830237a9b8464bc94678a61ad064788086a62b8160a4f98",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "efdd2ada76b908d7cedbfc4a6895770c2b97f86aaeef9b09357a8c92e9ace8d4"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "efdd2ada76b908d7cedbfc4a6895770c2b97f86aaeef9b09357a8c92e9ace8d4"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0023941313847899437
+            },
+            "UPDATE": {
+              "count": 10,
+              "seconds": 0.013498259708285332
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "a202ac1f3c7764732404e79395d8622f6c31c8de1a5e620712e3e24c4fc6b61e",
+          "reconcile_result": 10,
+          "rows_after_count": 15,
+          "rows_before_count": 15,
+          "selected_rows": 10,
+          "sql_count": 12,
+          "sql_seconds": 0.015892391093075275,
+          "target_after_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "target_before_sha256": "c158147513e0eca62be0650e47b7720e4829836311fe669b1cb40204a4af2090",
+          "task_return_none": true,
+          "wall_seconds": 0.04033428430557251,
+          "domain_before_sha256": "0678b4628d08b56919fc85bdd325bde0810c5067f3ad9f99a407ad6f89b1413e",
+          "domain_after_sha256": "0678b4628d08b56919fc85bdd325bde0810c5067f3ad9f99a407ad6f89b1413e"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "86262aad8be65e1e2fc5b45120e79866e488edf8ee63643999494f9634bae0b6",
+          "actual_messages_after": 10,
+          "actual_messages_before": 10,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "immutable_before_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "efdd2ada76b908d7cedbfc4a6895770c2b97f86aaeef9b09357a8c92e9ace8d4"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "efdd2ada76b908d7cedbfc4a6895770c2b97f86aaeef9b09357a8c92e9ace8d4"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.00403212383389473
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "reconcile_result": 0,
+          "rows_after_count": 15,
+          "rows_before_count": 15,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.00403212383389473,
+          "target_after_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "target_before_sha256": "b6a23c6d1ce4a42de9fc9f18b68afa87e79ccddd3c7eef36525926d8844ebebe",
+          "task_return_none": true,
+          "wall_seconds": 0.008899834007024765,
+          "domain_before_sha256": "0678b4628d08b56919fc85bdd325bde0810c5067f3ad9f99a407ad6f89b1413e",
+          "domain_after_sha256": "0678b4628d08b56919fc85bdd325bde0810c5067f3ad9f99a407ad6f89b1413e"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 11.35496983397752,
+      "cleanup_seconds": 0.002560410648584366,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.2994443429633975,
+      "mode": "dispatch",
+      "non_measured_seconds": 11.055525491014123,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "a4edf6907deba33b73253485ce71b73deba8164e01ba8ff2341b30961ef46191",
+      "pins_before_sha256": "a4edf6907deba33b73253485ce71b73deba8164e01ba8ff2341b30961ef46191",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 105,
+      "rows_before_count": 105,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.575261655263603,
+      "status": "passed",
+      "target_count": 100,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 100,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "631b4f68f746793ce7207413b4d4343ea0c8e34183f10f6846068416c75f1ba9",
+          "actual_changed_rows": 100,
+          "actual_message_ids_sha256": "631b4f68f746793ce7207413b4d4343ea0c8e34183f10f6846068416c75f1ba9",
+          "actual_messages_after": 100,
+          "actual_messages_before": 0,
+          "broker_calls": 100,
+          "broker_publications": 100,
+          "broker_seconds": 0.1341117648407817,
+          "dispatch_calls": 100,
+          "dispatch_order_sha256": "abad4880f68a641eb9650289e988fce470481b7a695aa45c4cc342810d42237e",
+          "dispatch_seconds": 0.28476817067712545,
+          "dispatch_success": 100,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "c101d715ea580740740b65a31c5fb37d6f65f91ca91978538852708a20162967",
+          "immutable_before_sha256": "c101d715ea580740740b65a31c5fb37d6f65f91ca91978538852708a20162967",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "00260ef7149db6bf4b92142fcd290211355f614fb5adfbe713b81d543f4c62c8"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "00260ef7149db6bf4b92142fcd290211355f614fb5adfbe713b81d543f4c62c8"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002980717457830906
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.10333286412060261
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "a4edf6907deba33b73253485ce71b73deba8164e01ba8ff2341b30961ef46191",
+          "reconcile_result": 100,
+          "rows_after_count": 105,
+          "rows_before_count": 105,
+          "selected_rows": 100,
+          "sql_count": 102,
+          "sql_seconds": 0.10631358157843351,
+          "target_after_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "target_before_sha256": "68001da107f88507cda21b4c892918ebb1f1130b6873377a9e28894a68dd440f",
+          "task_return_none": true,
+          "wall_seconds": 0.2910543801262975,
+          "domain_before_sha256": "cdfe1c0d32c3e38aabf5b4d59cd5787ea15047a78f80cf4851d54da71e167a77",
+          "domain_after_sha256": "cdfe1c0d32c3e38aabf5b4d59cd5787ea15047a78f80cf4851d54da71e167a77"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "631b4f68f746793ce7207413b4d4343ea0c8e34183f10f6846068416c75f1ba9",
+          "actual_messages_after": 100,
+          "actual_messages_before": 100,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "immutable_before_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "00260ef7149db6bf4b92142fcd290211355f614fb5adfbe713b81d543f4c62c8"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "00260ef7149db6bf4b92142fcd290211355f614fb5adfbe713b81d543f4c62c8"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.003549720160663128
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "reconcile_result": 0,
+          "rows_after_count": 105,
+          "rows_before_count": 105,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.003549720160663128,
+          "target_after_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "target_before_sha256": "c7999c866f09125ae22e93af11a1f47456c2f460f0e612e6bb2d557f9f5cad8b",
+          "task_return_none": true,
+          "wall_seconds": 0.008389962837100029,
+          "domain_before_sha256": "cdfe1c0d32c3e38aabf5b4d59cd5787ea15047a78f80cf4851d54da71e167a77",
+          "domain_after_sha256": "cdfe1c0d32c3e38aabf5b4d59cd5787ea15047a78f80cf4851d54da71e167a77"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 11.588754784315825,
+      "cleanup_seconds": 0.0021068286150693893,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.3123066946864128,
+      "mode": "dispatch",
+      "non_measured_seconds": 11.276448089629412,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "282a8760261cd5c45019fe335627469caec790b789b3b71935ab0106923dda92",
+      "pins_before_sha256": "282a8760261cd5c45019fe335627469caec790b789b3b71935ab0106923dda92",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 106,
+      "rows_before_count": 106,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.288582854904234,
+      "status": "passed",
+      "target_count": 101,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 101,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "f65787745e721f52a271a52c3f7c57b3dbc7f6bef7a748910732478189d7860d",
+          "actual_changed_rows": 100,
+          "actual_message_ids_sha256": "f65787745e721f52a271a52c3f7c57b3dbc7f6bef7a748910732478189d7860d",
+          "actual_messages_after": 100,
+          "actual_messages_before": 0,
+          "broker_calls": 100,
+          "broker_publications": 100,
+          "broker_seconds": 0.13463999330997467,
+          "dispatch_calls": 100,
+          "dispatch_order_sha256": "42383aa5a818444ef51601733162e8dce80ef4b7c054127d7cf8eefd6bc3ae46",
+          "dispatch_seconds": 0.2923746593296528,
+          "dispatch_success": 100,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "7efb686e8acc793bc1b27ce72e2e10f79a1535329f0435fb1db5bde0af4a4bd6",
+          "immutable_before_sha256": "7efb686e8acc793bc1b27ce72e2e10f79a1535329f0435fb1db5bde0af4a4bd6",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002312340773642063
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.09712132718414068
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "66389e76eb928e76a6359d79ae0a749d1a592a38e4adf21207729b418eac405d",
+          "reconcile_result": 100,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 100,
+          "sql_count": 102,
+          "sql_seconds": 0.09943366795778275,
+          "target_after_sha256": "44e2a7ad27c68322b7a672353937d10dba25bd8768587e01a6e8b9c72cc38658",
+          "target_before_sha256": "699e094a09132a6e5a732075142ce9a731893147a1c9a7f81f2c0539aecdee09",
+          "task_return_none": true,
+          "wall_seconds": 0.2988302307203412,
+          "domain_before_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892",
+          "domain_after_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892"
+        },
+        {
+          "actual_changed_ids_sha256": "f57f6c0624c4cb36be2164b6bf323b4b278bba0382eb8b73316b146d68632fd0",
+          "actual_changed_rows": 1,
+          "actual_message_ids_sha256": "eb71d54fbea8e69230774d6cc987dc31b72751755859fc17f945a289d83d5df7",
+          "actual_messages_after": 101,
+          "actual_messages_before": 100,
+          "broker_calls": 1,
+          "broker_publications": 1,
+          "broker_seconds": 0.0011759083718061447,
+          "dispatch_calls": 1,
+          "dispatch_order_sha256": "f57f6c0624c4cb36be2164b6bf323b4b278bba0382eb8b73316b146d68632fd0",
+          "dispatch_seconds": 0.0025375736877322197,
+          "dispatch_success": 1,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "ce0c736ac039411c7da0d953b8168efe3f3ad24ab032538005debc4e3c792bb6",
+          "immutable_before_sha256": "ce0c736ac039411c7da0d953b8168efe3f3ad24ab032538005debc4e3c792bb6",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002565016970038414
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0008841678500175476
+            }
+          },
+          "phase": "dispatch_continuation",
+          "phase_pins_sha256": "c4a4e2bcd521daa51911232ec5cd740e1848f71f24c656a1d0b687355c358ad4",
+          "reconcile_result": 1,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 1,
+          "sql_count": 3,
+          "sql_seconds": 0.0034491848200559616,
+          "target_after_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "target_before_sha256": "44e2a7ad27c68322b7a672353937d10dba25bd8768587e01a6e8b9c72cc38658",
+          "task_return_none": true,
+          "wall_seconds": 0.00836231280118227,
+          "domain_before_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892",
+          "domain_after_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "eb71d54fbea8e69230774d6cc987dc31b72751755859fc17f945a289d83d5df7",
+          "actual_messages_after": 101,
+          "actual_messages_before": 101,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "immutable_before_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "f88f6e7e8c8bdb6a5ca912bada7c3f85a863a3bcf5ec159ad2e3fa0420534857"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002389565110206604
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "reconcile_result": 0,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.002389565110206604,
+          "target_after_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "target_before_sha256": "9a46e4165ded43b2eb7676ace731759f9a18d4417a3c752d7c70709f9d6e675c",
+          "task_return_none": true,
+          "wall_seconds": 0.005114151164889336,
+          "domain_before_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892",
+          "domain_after_sha256": "a78682e664524455aee32b642dfa6ab626e6600be87cf846aec392c248c44892"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 9.047607662156224,
+      "cleanup_seconds": 0.0018975893035531044,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.014157216064631939,
+      "mode": "expiry",
+      "non_measured_seconds": 9.033450446091592,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+      "pins_before_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 5,
+      "rows_before_count": 5,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 7.473723542876542,
+      "status": "passed",
+      "target_count": 0,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 0,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "immutable_before_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "809a2470ac3d05c16a6c99293ec5e49763443ab749ce9c46c8ffe94a6fa9e225"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "809a2470ac3d05c16a6c99293ec5e49763443ab749ce9c46c8ffe94a6fa9e225"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0025949329137802124
+            }
+          },
+          "phase": "first_expiry",
+          "phase_pins_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "reconcile_result": 0,
+          "rows_after_count": 5,
+          "rows_before_count": 5,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.0025949329137802124,
+          "target_after_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "target_before_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "task_return_none": true,
+          "wall_seconds": 0.006006675772368908,
+          "domain_before_sha256": "71a08e6f2632d19056799cb7c698d64d5dff035b5ab7c4483ed5d4eff52f092e",
+          "domain_after_sha256": "71a08e6f2632d19056799cb7c698d64d5dff035b5ab7c4483ed5d4eff52f092e"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "immutable_before_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "809a2470ac3d05c16a6c99293ec5e49763443ab749ce9c46c8ffe94a6fa9e225"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "809a2470ac3d05c16a6c99293ec5e49763443ab749ce9c46c8ffe94a6fa9e225"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.00407975260168314
+            }
+          },
+          "phase": "expiry_replay",
+          "phase_pins_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "reconcile_result": 0,
+          "rows_after_count": 5,
+          "rows_before_count": 5,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.00407975260168314,
+          "target_after_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "target_before_sha256": "c5c8d798af008744f5721f83cfbc530f38020efc5cc2767476fae40182581b70",
+          "task_return_none": true,
+          "wall_seconds": 0.008150540292263031,
+          "domain_before_sha256": "71a08e6f2632d19056799cb7c698d64d5dff035b5ab7c4483ed5d4eff52f092e",
+          "domain_after_sha256": "71a08e6f2632d19056799cb7c698d64d5dff035b5ab7c4483ed5d4eff52f092e"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 9.794938920997083,
+      "cleanup_seconds": 0.0015826839953660965,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.012126770801842213,
+      "mode": "expiry",
+      "non_measured_seconds": 9.782812150195241,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "67102fa1839321e4a943babf252e2f1c88607faf76e2bad55d4ac7334014f2a3",
+      "pins_before_sha256": "67102fa1839321e4a943babf252e2f1c88607faf76e2bad55d4ac7334014f2a3",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 6,
+      "rows_before_count": 6,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 8.691791243851185,
+      "status": "passed",
+      "target_count": 1,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 1,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "e3dcfb3c2a4a332b172bfc999b9a7c39dea53ef40fc6d8827e6eb9f25f689bb5",
+          "actual_changed_rows": 1,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "e3dcfb3c2a4a332b172bfc999b9a7c39dea53ef40fc6d8827e6eb9f25f689bb5",
+          "expired_rows": 1,
+          "immutable_after_sha256": "172eda563e46746a7d7c79ea0f50e85c1ee871255ccabddcdf1f47357a67bd17",
+          "immutable_before_sha256": "172eda563e46746a7d7c79ea0f50e85c1ee871255ccabddcdf1f47357a67bd17",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "c4f54d4ed3f263918d425adbf6f99baeb4aac1be5cbde5061b6d1d447dc39c09"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "c4f54d4ed3f263918d425adbf6f99baeb4aac1be5cbde5061b6d1d447dc39c09"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002410127781331539
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0009765904396772385
+            }
+          },
+          "phase": "first_expiry",
+          "phase_pins_sha256": "67102fa1839321e4a943babf252e2f1c88607faf76e2bad55d4ac7334014f2a3",
+          "reconcile_result": 0,
+          "rows_after_count": 6,
+          "rows_before_count": 6,
+          "selected_rows": 0,
+          "sql_count": 3,
+          "sql_seconds": 0.0033867182210087776,
+          "target_after_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "target_before_sha256": "b0d1c4e3355eb67ef89e3bad92afac10ce0b743ad0835dbd33cf6d6f3b2d3b71",
+          "task_return_none": true,
+          "wall_seconds": 0.006113980896770954,
+          "domain_before_sha256": "40db8e73b9338071f5a8d35a36580bf4ee4f183a28140639f928e80d9464dab4",
+          "domain_after_sha256": "40db8e73b9338071f5a8d35a36580bf4ee4f183a28140639f928e80d9464dab4"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "immutable_before_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "c4f54d4ed3f263918d425adbf6f99baeb4aac1be5cbde5061b6d1d447dc39c09"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "c4f54d4ed3f263918d425adbf6f99baeb4aac1be5cbde5061b6d1d447dc39c09"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0026121260598301888
+            }
+          },
+          "phase": "expiry_replay",
+          "phase_pins_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "reconcile_result": 0,
+          "rows_after_count": 6,
+          "rows_before_count": 6,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.0026121260598301888,
+          "target_after_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "target_before_sha256": "61b739d3ab063a17aacef3e6e851d6d53a61368348eb17498b85bd0ebcf49316",
+          "task_return_none": true,
+          "wall_seconds": 0.0060127899050712585,
+          "domain_before_sha256": "40db8e73b9338071f5a8d35a36580bf4ee4f183a28140639f928e80d9464dab4",
+          "domain_after_sha256": "40db8e73b9338071f5a8d35a36580bf4ee4f183a28140639f928e80d9464dab4"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 10.69261640869081,
+      "cleanup_seconds": 0.001685301773250103,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.02494710311293602,
+      "mode": "expiry",
+      "non_measured_seconds": 10.667669305577874,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "3c870b4b72d89582ff2f1ac6b765e900e822f9922f25b134ddc1924219e98c8e",
+      "pins_before_sha256": "3c870b4b72d89582ff2f1ac6b765e900e822f9922f25b134ddc1924219e98c8e",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 15,
+      "rows_before_count": 15,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.010971429757774,
+      "status": "passed",
+      "target_count": 10,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 10,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "e503f809c916e671394742098856cbc1c80a3cb18e67685461f1c378c2788f1c",
+          "actual_changed_rows": 10,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "e503f809c916e671394742098856cbc1c80a3cb18e67685461f1c378c2788f1c",
+          "expired_rows": 10,
+          "immutable_after_sha256": "d740738a473a96b6fab9c5946ecd56324cb24ab2f57aa2b70b9919fa48a867ee",
+          "immutable_before_sha256": "d740738a473a96b6fab9c5946ecd56324cb24ab2f57aa2b70b9919fa48a867ee",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "9babe06427e2fbb4c78157d6c089319eb020a3360eba7f2e8272e9459a926d08"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "9babe06427e2fbb4c78157d6c089319eb020a3360eba7f2e8272e9459a926d08"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0025857947766780853
+            },
+            "UPDATE": {
+              "count": 10,
+              "seconds": 0.008272615261375904
+            }
+          },
+          "phase": "first_expiry",
+          "phase_pins_sha256": "3c870b4b72d89582ff2f1ac6b765e900e822f9922f25b134ddc1924219e98c8e",
+          "reconcile_result": 0,
+          "rows_after_count": 15,
+          "rows_before_count": 15,
+          "selected_rows": 0,
+          "sql_count": 12,
+          "sql_seconds": 0.01085841003805399,
+          "target_after_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "target_before_sha256": "7425886afaeccd393c6ccdb706a89d77ed64362987bf102d68eaf0508a4396c2",
+          "task_return_none": true,
+          "wall_seconds": 0.01898819115012884,
+          "domain_before_sha256": "f53b8ede510bf76b48af54252fdf8bed22bf905930cd67b607032e27ac9dafb6",
+          "domain_after_sha256": "f53b8ede510bf76b48af54252fdf8bed22bf905930cd67b607032e27ac9dafb6"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "immutable_before_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "9babe06427e2fbb4c78157d6c089319eb020a3360eba7f2e8272e9459a926d08"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "9babe06427e2fbb4c78157d6c089319eb020a3360eba7f2e8272e9459a926d08"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.00327407568693161
+            }
+          },
+          "phase": "expiry_replay",
+          "phase_pins_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "reconcile_result": 0,
+          "rows_after_count": 15,
+          "rows_before_count": 15,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.00327407568693161,
+          "target_after_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "target_before_sha256": "44ef65001a73b1fc43585a3d60f3d9ef9ef40d26d5f9516cfa5eba735f50b505",
+          "task_return_none": true,
+          "wall_seconds": 0.0059589119628071785,
+          "domain_before_sha256": "f53b8ede510bf76b48af54252fdf8bed22bf905930cd67b607032e27ac9dafb6",
+          "domain_after_sha256": "f53b8ede510bf76b48af54252fdf8bed22bf905930cd67b607032e27ac9dafb6"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 11.13013863004744,
+      "cleanup_seconds": 0.0016665058210492134,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.14642001409083605,
+      "mode": "expiry",
+      "non_measured_seconds": 10.983718615956604,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "ce28cf608a2fe94c98ef9207c334b4e502e8cf7ed8763448dda414a919b91a07",
+      "pins_before_sha256": "ce28cf608a2fe94c98ef9207c334b4e502e8cf7ed8763448dda414a919b91a07",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 105,
+      "rows_before_count": 105,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.401210561394691,
+      "status": "passed",
+      "target_count": 100,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 100,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "c1e5c92d5639d13ad03898e8c814344176aa81e809ed861ce4e028a4241405d9",
+          "actual_changed_rows": 100,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "c1e5c92d5639d13ad03898e8c814344176aa81e809ed861ce4e028a4241405d9",
+          "expired_rows": 100,
+          "immutable_after_sha256": "73ead48813bd2b56aeaf5440ecb96684b8ba64c283e3da4425ca0f28dae77ce2",
+          "immutable_before_sha256": "73ead48813bd2b56aeaf5440ecb96684b8ba64c283e3da4425ca0f28dae77ce2",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "b12518ba69baf04938e893e997fbea0a4537b9394bfe11562ccea8bb5eddc41d"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b12518ba69baf04938e893e997fbea0a4537b9394bfe11562ccea8bb5eddc41d"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.003951525315642357
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.08838974218815565
+            }
+          },
+          "phase": "first_expiry",
+          "phase_pins_sha256": "ce28cf608a2fe94c98ef9207c334b4e502e8cf7ed8763448dda414a919b91a07",
+          "reconcile_result": 0,
+          "rows_after_count": 105,
+          "rows_before_count": 105,
+          "selected_rows": 0,
+          "sql_count": 102,
+          "sql_seconds": 0.09234126750379801,
+          "target_after_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "target_before_sha256": "151cb7034e05df42b531ed9229d2dc5eb7ba2353659ca1a35843e2575ca8f733",
+          "task_return_none": true,
+          "wall_seconds": 0.13874461501836777,
+          "domain_before_sha256": "5b73e45a76fc30ca32981908de2b8ff7d9a2bbbe6c4f8c19013d3daa779ffce4",
+          "domain_after_sha256": "5b73e45a76fc30ca32981908de2b8ff7d9a2bbbe6c4f8c19013d3daa779ffce4"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "immutable_before_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "b12518ba69baf04938e893e997fbea0a4537b9394bfe11562ccea8bb5eddc41d"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b12518ba69baf04938e893e997fbea0a4537b9394bfe11562ccea8bb5eddc41d"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.00381561741232872
+            }
+          },
+          "phase": "expiry_replay",
+          "phase_pins_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "reconcile_result": 0,
+          "rows_after_count": 105,
+          "rows_before_count": 105,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.00381561741232872,
+          "target_after_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "target_before_sha256": "d7cd8722a2a430d3941d88b42936d2714826247c69bdb6f3bdbc76c392c8891c",
+          "task_return_none": true,
+          "wall_seconds": 0.007675399072468281,
+          "domain_before_sha256": "5b73e45a76fc30ca32981908de2b8ff7d9a2bbbe6c4f8c19013d3daa779ffce4",
+          "domain_after_sha256": "5b73e45a76fc30ca32981908de2b8ff7d9a2bbbe6c4f8c19013d3daa779ffce4"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 11.587476228363812,
+      "cleanup_seconds": 0.0029777511954307556,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.24489580001682043,
+      "mode": "expiry",
+      "non_measured_seconds": 11.342580428346992,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "a5894787c8fe2e065e8c072e696dd968b52b88f36e94ecd0e1208c2c3ef1432f",
+      "pins_before_sha256": "a5894787c8fe2e065e8c072e696dd968b52b88f36e94ecd0e1208c2c3ef1432f",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 106,
+      "rows_before_count": 106,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 8.785977714695036,
+      "status": "passed",
+      "target_count": 101,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 101,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "5a9efc9e27dfd08da234aae9f5b7cd2e8f120dbbda628281bfea8df8848c8c9b",
+          "actual_changed_rows": 100,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "5a9efc9e27dfd08da234aae9f5b7cd2e8f120dbbda628281bfea8df8848c8c9b",
+          "expired_rows": 100,
+          "immutable_after_sha256": "ccf4335f3b70d5ba54f26c2ed5fe64c82b66e24acb2ee29823006b6005b3fbf4",
+          "immutable_before_sha256": "ccf4335f3b70d5ba54f26c2ed5fe64c82b66e24acb2ee29823006b6005b3fbf4",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0051751574501395226
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.13219278678297997
+            }
+          },
+          "phase": "first_expiry",
+          "phase_pins_sha256": "8ee67f4a4ebba4e59500a3747e106d7e0976d22135e0b6772c1ca8755a1eb14b",
+          "reconcile_result": 0,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 0,
+          "sql_count": 102,
+          "sql_seconds": 0.1373679442331195,
+          "target_after_sha256": "2093b0f700a4ead9cb136f52d1e161896997e6d0fb88cfbd7c0d9071fe53dd69",
+          "target_before_sha256": "b3ddf96dc7dedaf8e434b8ec3b8241a3d313e45fbd67f02380cfed8337005e92",
+          "task_return_none": true,
+          "wall_seconds": 0.23096027597784996,
+          "domain_before_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250",
+          "domain_after_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250"
+        },
+        {
+          "actual_changed_ids_sha256": "b8a85828d49544651996cfd2366402da304ea63dc0edb51c58ea4f405e294f25",
+          "actual_changed_rows": 1,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "b8a85828d49544651996cfd2366402da304ea63dc0edb51c58ea4f405e294f25",
+          "expired_rows": 1,
+          "immutable_after_sha256": "16392a69aed0fd2b4b425b908ae2820bab3868b65b23d09b3d4f768d101d4b96",
+          "immutable_before_sha256": "16392a69aed0fd2b4b425b908ae2820bab3868b65b23d09b3d4f768d101d4b96",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0029327338561415672
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.001049867831170559
+            }
+          },
+          "phase": "expiry_continuation",
+          "phase_pins_sha256": "c78e1224082b7d5d5ec88134eb700d58045ac677047e8cbd4a5ed0f94ee2069d",
+          "reconcile_result": 0,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 0,
+          "sql_count": 3,
+          "sql_seconds": 0.003982601687312126,
+          "target_after_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "target_before_sha256": "2093b0f700a4ead9cb136f52d1e161896997e6d0fb88cfbd7c0d9071fe53dd69",
+          "task_return_none": true,
+          "wall_seconds": 0.007915569469332695,
+          "domain_before_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250",
+          "domain_after_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "immutable_before_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "0cdbcc1f32e214ade2d59256a2459dff39518c02c36beb8b8cb404a7f20fac36"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0026303185150027275
+            }
+          },
+          "phase": "expiry_replay",
+          "phase_pins_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "reconcile_result": 0,
+          "rows_after_count": 106,
+          "rows_before_count": 106,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.0026303185150027275,
+          "target_after_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "target_before_sha256": "fcb9d957309594d263c0385687d50beefc6d665919df77f40d857b085e52da34",
+          "task_return_none": true,
+          "wall_seconds": 0.006019954569637775,
+          "domain_before_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250",
+          "domain_after_sha256": "575aca782e0637839b3bf1932ba4c015cc3631743d1ef6daa50a50ee0e783250"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 10.926373693160713,
+      "cleanup_seconds": 0.003977234475314617,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.0406785337254405,
+      "mode": "mixed",
+      "non_measured_seconds": 10.885695159435272,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "a86706104cbdb87c8a49467d775dc8b73992b818416bf23071119a3165d6619b",
+      "pins_before_sha256": "a86706104cbdb87c8a49467d775dc8b73992b818416bf23071119a3165d6619b",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 8,
+      "rows_before_count": 8,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 9.29171682242304,
+      "status": "passed",
+      "target_count": 3,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 0,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "3d784a1e95e4147b1ef3977e2d8715ca71dd87f6f2a47089a43c5dcbe0b25dac",
+          "actual_changed_rows": 2,
+          "actual_message_ids_sha256": "6759c27630d1f07e69d5eecce962cc47fdcbf35fad15e7fe0f5d6c26c6af75ac",
+          "actual_messages_after": 3,
+          "actual_messages_before": 0,
+          "broker_calls": 3,
+          "broker_publications": 3,
+          "broker_seconds": 0.013176086358726025,
+          "dispatch_calls": 3,
+          "dispatch_order_sha256": "76794a7a1420edb2e49aab464f77922ac2b2d7684b483288fa2b80638d30e3ce",
+          "dispatch_seconds": 0.019008662551641464,
+          "dispatch_success": 3,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "9f5dfc7c497ea2b33edd8424aed16f636408b58b53af47d6ad3ac28969c41ae7",
+          "immutable_before_sha256": "9f5dfc7c497ea2b33edd8424aed16f636408b58b53af47d6ad3ac28969c41ae7",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "7a6bc1db0fc60bce55fc30b5dd58e0bb072fa8a4048f7405a1cd6c4c03b3405e"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "7a6bc1db0fc60bce55fc30b5dd58e0bb072fa8a4048f7405a1cd6c4c03b3405e"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0033863605931401253
+            },
+            "UPDATE": {
+              "count": 3,
+              "seconds": 0.0035641780123114586
+            }
+          },
+          "phase": "mixed_first",
+          "phase_pins_sha256": "a86706104cbdb87c8a49467d775dc8b73992b818416bf23071119a3165d6619b",
+          "reconcile_result": 3,
+          "rows_after_count": 8,
+          "rows_before_count": 8,
+          "selected_rows": 3,
+          "sql_count": 5,
+          "sql_seconds": 0.006950538605451584,
+          "target_after_sha256": "eeb389ea44adfe87b49f8c72e01746fa5e03fcf47809f6e8f9efb9651d6d9ebb",
+          "target_before_sha256": "42db0a2f13e49af4e489f84eec41f449021b82c0a9ccb57dd5cc491c489e21fc",
+          "task_return_none": true,
+          "wall_seconds": 0.027357935905456543,
+          "domain_before_sha256": "d1a9485dee3c00e9dfaec81cda5662450bdf6a4b1f59dbc47ff8e1dea6c933ac",
+          "domain_after_sha256": "d1a9485dee3c00e9dfaec81cda5662450bdf6a4b1f59dbc47ff8e1dea6c933ac"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4e41e49f267df36fbb6cc51e1a5c9734bb4ebb9271314ee9fb7e691d5a4d2060",
+          "actual_messages_after": 4,
+          "actual_messages_before": 3,
+          "broker_calls": 1,
+          "broker_publications": 1,
+          "broker_seconds": 0.002171456813812256,
+          "dispatch_calls": 1,
+          "dispatch_order_sha256": "f2993c0b3bc7ad14d74d77ff28f37c2176b55bcd84a28e53033def4d7affd90b",
+          "dispatch_seconds": 0.0046304939314723015,
+          "dispatch_success": 1,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "eeb389ea44adfe87b49f8c72e01746fa5e03fcf47809f6e8f9efb9651d6d9ebb",
+          "immutable_before_sha256": "eeb389ea44adfe87b49f8c72e01746fa5e03fcf47809f6e8f9efb9651d6d9ebb",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "7a6bc1db0fc60bce55fc30b5dd58e0bb072fa8a4048f7405a1cd6c4c03b3405e"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "7a6bc1db0fc60bce55fc30b5dd58e0bb072fa8a4048f7405a1cd6c4c03b3405e"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0033812690526247025
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0012798579409718513
+            }
+          },
+          "phase": "mixed_running_repeat",
+          "phase_pins_sha256": "799e8abe4466b459afb43e733250f195c1ead4100c0ff9ae575b3a418281d9d9",
+          "reconcile_result": 1,
+          "rows_after_count": 8,
+          "rows_before_count": 8,
+          "selected_rows": 1,
+          "sql_count": 3,
+          "sql_seconds": 0.004661126993596554,
+          "target_after_sha256": "eeb389ea44adfe87b49f8c72e01746fa5e03fcf47809f6e8f9efb9651d6d9ebb",
+          "target_before_sha256": "eeb389ea44adfe87b49f8c72e01746fa5e03fcf47809f6e8f9efb9651d6d9ebb",
+          "task_return_none": true,
+          "wall_seconds": 0.01332059781998396,
+          "domain_before_sha256": "d1a9485dee3c00e9dfaec81cda5662450bdf6a4b1f59dbc47ff8e1dea6c933ac",
+          "domain_after_sha256": "d1a9485dee3c00e9dfaec81cda5662450bdf6a4b1f59dbc47ff8e1dea6c933ac"
+        }
+      ]
+    },
+    {
+      "broker_context_exited": true,
+      "case_seconds": 10.979185321368277,
+      "cleanup_seconds": 0.0014869589358568192,
+      "fixture": "FK-valid synthetic clones; seven-day fixture pins; no admission/TTL claim",
+      "limits": "separate native 100 expiry rows and 100 dispatch IDs",
+      "measured_seconds": 0.035296207293868065,
+      "mode": "failure",
+      "non_measured_seconds": 10.943889114074409,
+      "owned_queue_keys_removed": true,
+      "pins_after_sha256": "91c6b79c7a23297205dc773f9f1b35600668f8c613cc8da6bdc0f8bbfac30bd1",
+      "pins_before_sha256": "91c6b79c7a23297205dc773f9f1b35600668f8c613cc8da6bdc0f8bbfac30bd1",
+      "pins_count": 5,
+      "redis_context_exited": true,
+      "rows_after_count": 7,
+      "rows_before_count": 7,
+      "scope": "BEFORE native Task.run; owned Redis only; no worker/generation/Beat",
+      "setup_seconds": 8.85749787837267,
+      "status": "passed",
+      "target_count": 2,
+      "timing": "N=1 per phase; broker subset of dispatch; SQL overlaps; no p95/throughput",
+      "volume": 2,
+      "phases": [
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_messages_after": 0,
+          "actual_messages_before": 0,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 2,
+          "dispatch_order_sha256": "56511d30761c02bb6afcb795b0f9125154c345a697a54c3bb1003cf38aad173a",
+          "dispatch_seconds": 0.00015544239431619644,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "2f272a177c7d3d44ac3a2670511d986ba1d477163d7695e9ba263f9e054c952f",
+          "immutable_before_sha256": "2f272a177c7d3d44ac3a2670511d986ba1d477163d7695e9ba263f9e054c952f",
+          "injected_failure_type": "ConnectionError",
+          "injected_failures": 2,
+          "media_after": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0036315415054559708
+            }
+          },
+          "phase": "broker_failure",
+          "phase_pins_sha256": "91c6b79c7a23297205dc773f9f1b35600668f8c613cc8da6bdc0f8bbfac30bd1",
+          "reconcile_result": 0,
+          "rows_after_count": 7,
+          "rows_before_count": 7,
+          "selected_rows": 2,
+          "sql_count": 2,
+          "sql_seconds": 0.0036315415054559708,
+          "target_after_sha256": "2f272a177c7d3d44ac3a2670511d986ba1d477163d7695e9ba263f9e054c952f",
+          "target_before_sha256": "2f272a177c7d3d44ac3a2670511d986ba1d477163d7695e9ba263f9e054c952f",
+          "task_return_none": true,
+          "wall_seconds": 0.008917726576328278,
+          "domain_before_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e",
+          "domain_after_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e"
+        },
+        {
+          "actual_changed_ids_sha256": "4c75c8823bbf7e146d65a966197e82c55063a59029185e6d115c84532e4c0cb6",
+          "actual_changed_rows": 2,
+          "actual_message_ids_sha256": "4c75c8823bbf7e146d65a966197e82c55063a59029185e6d115c84532e4c0cb6",
+          "actual_messages_after": 2,
+          "actual_messages_before": 0,
+          "broker_calls": 2,
+          "broker_publications": 2,
+          "broker_seconds": 0.010381676256656647,
+          "dispatch_calls": 2,
+          "dispatch_order_sha256": "56511d30761c02bb6afcb795b0f9125154c345a697a54c3bb1003cf38aad173a",
+          "dispatch_seconds": 0.014745518565177917,
+          "dispatch_success": 2,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "be4b73b5d8535da8b826cee177f7e229742229030bfcb46e9fa2519fac54b564",
+          "immutable_before_sha256": "be4b73b5d8535da8b826cee177f7e229742229030bfcb46e9fa2519fac54b564",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.0030128825455904007
+            },
+            "UPDATE": {
+              "count": 2,
+              "seconds": 0.0027045533061027527
+            }
+          },
+          "phase": "first_dispatch",
+          "phase_pins_sha256": "91c6b79c7a23297205dc773f9f1b35600668f8c613cc8da6bdc0f8bbfac30bd1",
+          "reconcile_result": 2,
+          "rows_after_count": 7,
+          "rows_before_count": 7,
+          "selected_rows": 2,
+          "sql_count": 4,
+          "sql_seconds": 0.005717435851693153,
+          "target_after_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "target_before_sha256": "2f272a177c7d3d44ac3a2670511d986ba1d477163d7695e9ba263f9e054c952f",
+          "task_return_none": true,
+          "wall_seconds": 0.021909930743277073,
+          "domain_before_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e",
+          "domain_after_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e"
+        },
+        {
+          "actual_changed_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "actual_changed_rows": 0,
+          "actual_message_ids_sha256": "4c75c8823bbf7e146d65a966197e82c55063a59029185e6d115c84532e4c0cb6",
+          "actual_messages_after": 2,
+          "actual_messages_before": 2,
+          "broker_calls": 0,
+          "broker_publications": 0,
+          "broker_seconds": 0.0,
+          "dispatch_calls": 0,
+          "dispatch_order_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dispatch_seconds": 0.0,
+          "dispatch_success": 0,
+          "eager_disabled_after_call": true,
+          "eager_disabled_before_call": true,
+          "expired_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "expired_rows": 0,
+          "immutable_after_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "immutable_before_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "injected_failures": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b8c0da424a01e026b13d7a8926182e8f6f72c623a759a39587779c298123de76"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.002021809108555317
+            }
+          },
+          "phase": "queued_immediate_replay",
+          "phase_pins_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "reconcile_result": 0,
+          "rows_after_count": 7,
+          "rows_before_count": 7,
+          "selected_rows": 0,
+          "sql_count": 2,
+          "sql_seconds": 0.002021809108555317,
+          "target_after_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "target_before_sha256": "051df72e4fcf74cd534edd423d28854aba7f50657ec42e82042a6b490a1cd833",
+          "task_return_none": true,
+          "wall_seconds": 0.004468549974262714,
+          "domain_before_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e",
+          "domain_after_sha256": "d1231d61fd99d12b9c0f992806478703fae64a8ade539794e41f698b8a50c49e"
+        }
+      ]
+    }
+  ],
+  "first_invalid_attempt": {
+    "run": "20261026-153459-2516cd3f",
+    "result": "ERROR_interrupted_invalid_fixture",
+    "runner_error": "signal 15",
+    "partial_call_outcomes": {
+      "passed": 1,
+      "failed": 3
+    },
+    "journal": [
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[0]",
+        "when": "setup",
+        "outcome": "passed",
+        "duration": 40.302197225391865
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[0]",
+        "when": "call",
+        "outcome": "passed",
+        "duration": 10.645425407215953
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[0]",
+        "when": "teardown",
+        "outcome": "passed",
+        "duration": 0.6451568314805627
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[1]",
+        "when": "setup",
+        "outcome": "passed",
+        "duration": 0.002322101965546608
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[1]",
+        "when": "call",
+        "outcome": "failed",
+        "duration": 10.176742541603744
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[1]",
+        "when": "teardown",
+        "outcome": "passed",
+        "duration": 0.6915659494698048
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[10]",
+        "when": "setup",
+        "outcome": "passed",
+        "duration": 0.0035462547093629837
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[10]",
+        "when": "call",
+        "outcome": "failed",
+        "duration": 17.908290286548436
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[10]",
+        "when": "teardown",
+        "outcome": "passed",
+        "duration": 0.6464991439133883
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[100]",
+        "when": "setup",
+        "outcome": "passed",
+        "duration": 0.002054832875728607
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[100]",
+        "when": "call",
+        "outcome": "failed",
+        "duration": 92.50590900238603
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[100]",
+        "when": "teardown",
+        "outcome": "passed",
+        "duration": 0.6879385448992252
+      },
+      {
+        "nodeid": "tests/test_owned_job_reconcile_profile.py::test_owned_job_dispatch_volume[101]",
+        "when": "setup",
+        "outcome": "passed",
+        "duration": 0.004699300043284893
+      }
+    ],
+    "junit_complete": false,
+    "accepted_profiles": 0,
+    "reason": "photo_environment sets eagerTrue after original guard; messagesnotinRedis; noacceptedmeasurements",
+    "sources_unchanged": true,
+    "cleanup": {
+      "web-modelos-ci-pg-20261026-153459-2516cd3f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      },
+      "web-modelos-ci-redis-20261026-153459-2516cd3f": {
+        "absent": true,
+        "removal_exit": 0,
+        "inventory_exit": 1
+      }
+    },
+    "telegram": {
+      "delivery": "sent",
+      "result": "ERROR",
+      "name": "CI focused"
+    }
+  },
+  "decision": "No app change or after comparison;7oldscopedwitnesses21samefiles,not26currentPASS/N09full139open8of13"
+}
