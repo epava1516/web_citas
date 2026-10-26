@@ -1,0 +1,38 @@
+{
+  "result": "SOURCE_GROUNDED_OBSERVER_SCOPE_CORRECTION_NOT_FUNCTIONAL_FAILURE",
+  "source_sha256": {
+    ".venv/lib/python3.12/site-packages/django/test/utils.py": "7d09ab12e232166f3b5aeb4981e1115e88d9b53c9235550b82d44a0404560981",
+    ".venv/lib/python3.12/site-packages/django/db/backends/base/base.py": "12080160cdce6705ca5a76234da77ad57d1281ecef382eb4b9cc4317af6a3525",
+    ".venv/lib/python3.12/site-packages/django/db/backends/utils.py": "c05c9055f56cd40c51e3cc9021543e965d6c0bd194782c5d3fe69abd82f496bb",
+    "scripts/http_operation_metrics.py": "746cb287e89f0a8ba364df9b2d042468d138d59e332f065861f9909de35608ae"
+  },
+  "evidence": [
+    "django/db/backends/base/base.py:51,63 queries_limit9000/queries_logdeque(maxlen)",
+    "django/test/utils.py:721-740 slices connection.queries bylen offsets; ring overflow truncates and later returns0",
+    "django/db/backends/utils.py:167-175 debug_transaction logs BEGIN/COMMIT beyond execute_wrapper cursor calls",
+    "scripts/http_operation_metrics.py:measure_request uses independent integercounter inconnection.execute_wrapper, no queries_log"
+  ],
+  "runtime_evidence": {
+    "run": "20261026-004939-72f06ea0",
+    "functional_cases": 3,
+    "result": "PASS",
+    "measured_GETs": 300,
+    "global_operations": 322,
+    "one_to_one_GETs_by_route_status": true,
+    "self_debug_zero_counts": {
+      "favorites": 54,
+      "sitemap": 44,
+      "legal": 0
+    },
+    "first_favorite_zero_population_sample": {
+      "debug_entries": 15,
+      "execute_wrapper_cursor_calls": 11
+    },
+    "sitemap100_example": {
+      "debug_entries": 168,
+      "execute_wrapper_cursor_calls": 2402
+    }
+  },
+  "correction": "Keep raw self debug counters visibly discarded; canonical summarySQL from already-recorded globalobserver, matched in exactcase/route/GET200/order. Keep measuredouter wall/CPU/bytes,source/oraclesunchanged. No sum; all300mustpair andouter>=inner. No rerun, no weakening functional assertions or broad claim.",
+  "unresolved": "No cause allocated per rawSQL statement,debuglog deliberatelynotexported; stable execute counter is the chosen metric,not total transactions/statements."
+}
