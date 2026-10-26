@@ -54,6 +54,7 @@ def current(user, case_id, plan_id, version, review_permission=True):
     )
     if not plan:
         raise PermissionDenied
+    fresh = authorize(user, case, review_permission)
     if (
         case.kind not in {"restriction", "object"}
         or case.status != "reviewing"
@@ -171,6 +172,7 @@ def record(user, case_id, plan_id, key, version, operation, reason, outcome=""):
                 payload_digest=signature,
                 encrypted_reason=seal({"reason": reason}),
             )
+            authorize(user, case)
             body = contents(plan, manifest)
             if (
                 operation == "review"
