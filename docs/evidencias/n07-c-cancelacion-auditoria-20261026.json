@@ -1,0 +1,321 @@
+{
+  "result": "PASS_N07C_CANCEL_AVAILABILITY_ES_EN_NOT_LATENCY_OPTIMIZATION",
+  "run": "20261026-002326-91562ec6",
+  "cases": 2,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "2",
+      "time": "54.192",
+      "timestamp": "2026-10-26T01:23:46.678818+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "freeze_sources": 1758,
+  "documents_verified_separately": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md",
+    "docs/401-n07-a-carrera-reordenacion-retirada-20261025.md",
+    "docs/403-n07-b-prerregistro-publicacion-worker-beat-20261025.md",
+    "docs/404-n07-b-correccion-instrumento-publicacion-20261025.md",
+    "docs/406-n07-c-prerregistro-colas-revision-apelaciones-20261025.md",
+    "docs/407-n07-c-resultado-colas-y-complemento-cancelacion-20261026.md"
+  ],
+  "runner_sources_verified": 1752,
+  "application_change": false,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "rows": [
+    {
+      "case": "test_cancel_availability_preserves_publication_and_old_retry_keeps_new_window[es]",
+      "oracle": {
+        "editorial_snapshot_unchanged": true,
+        "exact_retry_no_extra_event": true,
+        "language": "es",
+        "manual_cancel": true,
+        "new_events": 4,
+        "old_retry_preserves_new_window": true,
+        "public_availability_counts": [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "scope": "Real PG/Client and native guards; eager fixture, no worker/browser/provider or latency gain claim"
+      },
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6677979761734605,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.12849263288080692,
+          "sql_queries": 70,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14121620077639818,
+          "route_name": "home",
+          "sql_execute_seconds": 0.046135068871080875,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.12114313803613186,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.05826202128082514,
+          "sql_queries": 45,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08744112309068441,
+          "route_name": "home",
+          "sql_execute_seconds": 0.013472859747707844,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.037426683120429516,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.021447843872010708,
+          "sql_queries": 13,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2102945502847433,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.10765023343265057,
+          "sql_queries": 69,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15600486285984516,
+          "route_name": "home",
+          "sql_execute_seconds": 0.050657156854867935,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.034277756698429585,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.019948406144976616,
+          "sql_queries": 13,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09392476640641689,
+          "route_name": "home",
+          "sql_execute_seconds": 0.02861818950623274,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.12539627216756344,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.06056011375039816,
+          "sql_queries": 45,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07400996331125498,
+          "route_name": "home",
+          "sql_execute_seconds": 0.017491474747657776,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13725382834672928,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.04030405543744564,
+          "sql_queries": 21,
+          "status": 200
+        }
+      ],
+      "operation_scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_cancel_availability_preserves_publication_and_old_retry_keeps_new_window[en]",
+      "oracle": {
+        "editorial_snapshot_unchanged": true,
+        "exact_retry_no_extra_event": true,
+        "language": "en",
+        "manual_cancel": true,
+        "new_events": 4,
+        "old_retry_preserves_new_window": true,
+        "public_availability_counts": [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "scope": "Real PG/Client and native guards; eager fixture, no worker/browser/provider or latency gain claim"
+      },
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.22029363084584475,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.10149446409195662,
+          "sql_queries": 70,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2167313639074564,
+          "route_name": "home",
+          "sql_execute_seconds": 0.07897146698087454,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.3251370433717966,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.10893199685961008,
+          "sql_queries": 45,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07165674399584532,
+          "route_name": "home",
+          "sql_execute_seconds": 0.02031542733311653,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.040377844125032425,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.0246025575324893,
+          "sql_queries": 13,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2773779947310686,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.14878610149025917,
+          "sql_queries": 69,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13106106873601675,
+          "route_name": "home",
+          "sql_execute_seconds": 0.06497305352240801,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.046516518108546734,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.03173805307596922,
+          "sql_queries": 13,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15639647282660007,
+          "route_name": "home",
+          "sql_execute_seconds": 0.06884267646819353,
+          "sql_queries": 31,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2464529126882553,
+          "route_name": "listing_lifecycle",
+          "sql_execute_seconds": 0.1268851449713111,
+          "sql_queries": 45,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11656008567661047,
+          "route_name": "home",
+          "sql_execute_seconds": 0.02843073010444641,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1088608130812645,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.07118928246200085,
+          "sql_queries": 21,
+          "status": 200
+        }
+      ],
+      "operation_scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    }
+  ],
+  "scope": "Separate two-case synthetic real PostgreSQL regression. Repeated old cancellation key preserves a newer availability window, exact retry no extra event,public counts1/0/1/1/0,editorial snapshot preserved. Eager fixture; no worker/browser/provider/newCSRF/SLA/latencygain. GlobalClient samples include dynamic fixture calls; do not average mutation and retry."
+}

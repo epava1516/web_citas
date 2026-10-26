@@ -1,0 +1,71 @@
+{
+  "result": "PASS_N07_ACCEPTANCE_39_DISPOSITIONS_8_CRITERIA_FINITE_SOURCE_SCOPES",
+  "actions": 39,
+  "groups": 9,
+  "criteria": 8,
+  "original_witnesses": 145,
+  "original_test_files": 22,
+  "new_distinct_runs": [
+    {
+      "reference": "C16",
+      "run": "20261025-233639-833fd457",
+      "cases": 16,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "16",
+          "time": "136.563",
+          "timestamp": "2026-10-26T00:36:58.840462+01:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "post_terminal_non_product_deltas": {
+        ".ai/tasks/desarrollo.md": {
+          "run_sha": "9d122889588f7c472d39a9b220a3cdae649c3b3840fedc919b3e7a8e09bd9be2",
+          "current_sha": "8357e9649b09bd910dda8a2b4c833bc9beedb8810664189eb8181653e9825999"
+        },
+        "AGENTS.md": {
+          "run_sha": "b13a9c70671691ca9e91f0dfa9c73637dc8ad07194011a49b1066c5d1253e19e",
+          "current_sha": "828396b76273fa2d199cd5da8fdf72211e629b1e0f4bb44c886bceb08a923547"
+        }
+      },
+      "sources_unchanged_during_run": true,
+      "cleanup": true,
+      "telegram": "sent"
+    },
+    {
+      "reference": "cancel2",
+      "run": "20261026-002326-91562ec6",
+      "cases": 2,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "54.192",
+          "timestamp": "2026-10-26T01:23:46.678818+01:00",
+          "hostname": "almasrv.thehomelesssherlock.com"
+        }
+      ],
+      "post_terminal_non_product_deltas": {
+        "AGENTS.md": {
+          "run_sha": "99bd37b5b4a78fa3b253ae5d3630f03db656030c421a28cb92fef2427d9abd75",
+          "current_sha": "828396b76273fa2d199cd5da8fdf72211e629b1e0f4bb44c886bceb08a923547"
+        }
+      },
+      "sources_unchanged_during_run": true,
+      "cleanup": true,
+      "telegram": "sent"
+    }
+  ],
+  "dispositions_sha256": "aeabd0e4dcaa7ed1299db4fa9d24aa1e161bfc8598e1486c6b009de92e7b6a64",
+  "reuse_verification_sha256": "dd5ee0b3f0dabbe266bfb2f7ffb2dfbcaef0caebe74685d399bd2ecd1d7d48d3",
+  "invalid_first_cancel_run_preserved": true,
+  "application_changes_this_lot": false,
+  "scope": "N07A product correction already402, B/C references/current cancellation; sharedN03/N05/N06/N08/N09/N10 obligations retained. Not39independent cases or145fresh cases; no temporal optimization claimed. Postterminal instruction/worklog deltas no product/test change; terminal valid runs remain source-stable. New skill catalog absentMCP explicitly recorded, no new migrations/services. Graph/document final reconciliation separate required gate."
+}

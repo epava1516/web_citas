@@ -1,0 +1,4521 @@
+{
+  "result": "PASS_N07C_QUEUE_FORM_AND_DECISION_REFERENCES_NOT_N07_ACCEPTANCE",
+  "run": "20261025-233639-833fd457",
+  "cases": 16,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "16",
+      "time": "136.563",
+      "timestamp": "2026-10-26T00:36:58.840462+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "source_freeze_count": 1756,
+  "runner_source_hashes": 1751,
+  "documents_verified_separately": [
+    "docs/400-n07-a-prerregistro-medios-publicacion-20261025.md",
+    "docs/401-n07-a-carrera-reordenacion-retirada-20261025.md",
+    "docs/403-n07-b-prerregistro-publicacion-worker-beat-20261025.md",
+    "docs/404-n07-b-correccion-instrumento-publicacion-20261025.md",
+    "docs/406-n07-c-prerregistro-colas-revision-apelaciones-20261025.md"
+  ],
+  "application_change": false,
+  "queue_cases": 8,
+  "unchanged_original_cases": 8,
+  "queue_GET_samples": 108,
+  "form_GET_samples": 48,
+  "authority_controls": 62,
+  "global_operation_samples": 383,
+  "original_operation_samples": 61,
+  "global_statuses": {
+    "302": 157,
+    "200": 168,
+    "403": 37,
+    "400": 8,
+    "404": 11,
+    "409": 2
+  },
+  "summary": [
+    {
+      "kind": "moderation",
+      "language": "es",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 44.89933047443628,
+      "median5_ms": 21.97620738297701,
+      "range5_ms": [
+        21.690526977181435,
+        25.11696796864271
+      ],
+      "cpu_median5_ms": 14.122305999997309,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1200
+      ]
+    },
+    {
+      "kind": "moderation",
+      "language": "es",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 30.46049363911152,
+      "median5_ms": 29.22695130109787,
+      "range5_ms": [
+        27.046002447605133,
+        30.760450288653374
+      ],
+      "cpu_median5_ms": 16.823829999999873,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1096
+      ]
+    },
+    {
+      "kind": "moderation",
+      "language": "es",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 230.1840614527464,
+      "median5_ms": 93.92937924712896,
+      "range5_ms": [
+        85.23874823004007,
+        104.9214331433177
+      ],
+      "cpu_median5_ms": 57.858222000000126,
+      "sql_counts": [
+        19
+      ],
+      "bytes": [
+        2706
+      ]
+    },
+    {
+      "kind": "moderation",
+      "language": "en",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 28.40483281761408,
+      "median5_ms": 25.598698295652866,
+      "range5_ms": [
+        21.78949862718582,
+        31.20475821197033
+      ],
+      "cpu_median5_ms": 15.475635999997905,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1148
+      ]
+    },
+    {
+      "kind": "moderation",
+      "language": "en",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 31.38616308569908,
+      "median5_ms": 32.47631248086691,
+      "range5_ms": [
+        31.069915741682053,
+        33.75993389636278
+      ],
+      "cpu_median5_ms": 16.682719000002066,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1037
+      ]
+    },
+    {
+      "kind": "moderation",
+      "language": "en",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 75.301812030375,
+      "median5_ms": 64.77811187505722,
+      "range5_ms": [
+        62.97838408499956,
+        71.2531115859747
+      ],
+      "cpu_median5_ms": 40.36887899999897,
+      "sql_counts": [
+        19
+      ],
+      "bytes": [
+        2606
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "es",
+      "surface": "queue",
+      "state": "before_submit",
+      "samples": 6,
+      "first_ms": 39.56140112131834,
+      "median5_ms": 24.735537357628345,
+      "range5_ms": [
+        21.233116276562214,
+        29.53034546226263
+      ],
+      "cpu_median5_ms": 16.597797999999386,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1092
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "es",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 29.777301475405693,
+      "median5_ms": 28.46729289740324,
+      "range5_ms": [
+        26.727760210633278,
+        38.896601647138596
+      ],
+      "cpu_median5_ms": 18.67594499999825,
+      "sql_counts": [
+        9
+      ],
+      "bytes": [
+        1155
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "es",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 30.4074389860034,
+      "median5_ms": 28.83550338447094,
+      "range5_ms": [
+        23.914381861686707,
+        31.66332934051752
+      ],
+      "cpu_median5_ms": 15.314312000000996,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1092
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "es",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 41.5100809186697,
+      "median5_ms": 41.32277239114046,
+      "range5_ms": [
+        37.64026053249836,
+        47.96905443072319
+      ],
+      "cpu_median5_ms": 22.16848100000135,
+      "sql_counts": [
+        11
+      ],
+      "bytes": [
+        2124
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "en",
+      "surface": "queue",
+      "state": "before_submit",
+      "samples": 6,
+      "first_ms": 46.983566135168076,
+      "median5_ms": 33.295826986432076,
+      "range5_ms": [
+        27.35433168709278,
+        36.35299578309059
+      ],
+      "cpu_median5_ms": 18.25638599999735,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1036
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "en",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 23.153746500611305,
+      "median5_ms": 20.965464413166046,
+      "range5_ms": [
+        20.147860050201416,
+        25.59386007487774
+      ],
+      "cpu_median5_ms": 13.602570999999841,
+      "sql_counts": [
+        9
+      ],
+      "bytes": [
+        1112
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "en",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 19.631393253803253,
+      "median5_ms": 36.66179720312357,
+      "range5_ms": [
+        32.02556446194649,
+        44.09713763743639
+      ],
+      "cpu_median5_ms": 28.17957999999976,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1036
+      ]
+    },
+    {
+      "kind": "appeal",
+      "language": "en",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 36.7729514837265,
+      "median5_ms": 31.9651672616601,
+      "range5_ms": [
+        29.785925522446632,
+        37.09009941667318
+      ],
+      "cpu_median5_ms": 18.077396999998996,
+      "sql_counts": [
+        11
+      ],
+      "bytes": [
+        2051
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "es",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 43.94164867699146,
+      "median5_ms": 44.2852508276701,
+      "range5_ms": [
+        35.44151224195957,
+        54.35388721525669
+      ],
+      "cpu_median5_ms": 24.192392999999868,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1184
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "es",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 37.25624270737171,
+      "median5_ms": 32.324460335075855,
+      "range5_ms": [
+        28.680292889475822,
+        37.13236376643181
+      ],
+      "cpu_median5_ms": 18.672125999998457,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1106
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "es",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 76.5216313302517,
+      "median5_ms": 59.182820841670036,
+      "range5_ms": [
+        46.449385583400726,
+        67.48318951576948
+      ],
+      "cpu_median5_ms": 34.46018799999706,
+      "sql_counts": [
+        11
+      ],
+      "bytes": [
+        2626
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "en",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 46.621532179415226,
+      "median5_ms": 43.919664807617664,
+      "range5_ms": [
+        40.410534478724,
+        51.13677121698856
+      ],
+      "cpu_median5_ms": 22.600685999996983,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1124
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "en",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 36.40652075409889,
+      "median5_ms": 31.843142583966255,
+      "range5_ms": [
+        30.449435114860535,
+        48.83149545639753
+      ],
+      "cpu_median5_ms": 19.665757000005613,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1033
+      ]
+    },
+    {
+      "kind": "match",
+      "language": "en",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 234.93780940771103,
+      "median5_ms": 88.93134631216526,
+      "range5_ms": [
+        84.52215604484081,
+        95.3344451263547
+      ],
+      "cpu_median5_ms": 51.94413999999625,
+      "sql_counts": [
+        11
+      ],
+      "bytes": [
+        2514
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "es",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 38.8958677649498,
+      "median5_ms": 47.284163534641266,
+      "range5_ms": [
+        37.80276421457529,
+        53.200237452983856
+      ],
+      "cpu_median5_ms": 23.143725999993592,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1120
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "es",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 62.72023916244507,
+      "median5_ms": 50.651056692004204,
+      "range5_ms": [
+        41.11778270453215,
+        56.692373007535934
+      ],
+      "cpu_median5_ms": 26.533825999997873,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1090
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "es",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 100.42476654052734,
+      "median5_ms": 68.46904940903187,
+      "range5_ms": [
+        54.34280261397362,
+        78.91878671944141
+      ],
+      "cpu_median5_ms": 33.10157499999633,
+      "sql_counts": [
+        19
+      ],
+      "bytes": [
+        1960
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "en",
+      "surface": "queue",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 39.93430081754923,
+      "median5_ms": 51.94681044667959,
+      "range5_ms": [
+        42.40706656128168,
+        59.62618160992861
+      ],
+      "cpu_median5_ms": 29.124867999996695,
+      "sql_counts": [
+        7,
+        8
+      ],
+      "bytes": [
+        1068
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "en",
+      "surface": "queue",
+      "state": "terminal",
+      "samples": 6,
+      "first_ms": 43.60578581690788,
+      "median5_ms": 45.18543276935816,
+      "range5_ms": [
+        43.294139206409454,
+        53.015715442597866
+      ],
+      "cpu_median5_ms": 23.000289999998813,
+      "sql_counts": [
+        7
+      ],
+      "bytes": [
+        1028
+      ]
+    },
+    {
+      "kind": "photo_appeal",
+      "language": "en",
+      "surface": "review_form",
+      "state": "open",
+      "samples": 6,
+      "first_ms": 71.86343800276518,
+      "median5_ms": 58.65650996565819,
+      "range5_ms": [
+        47.6300111040473,
+        63.61553072929382
+      ],
+      "cpu_median5_ms": 32.02938599999783,
+      "sql_counts": [
+        19
+      ],
+      "bytes": [
+        1890
+      ]
+    }
+  ],
+  "raw_cases": [
+    {
+      "case": "test_listing_review_queue_reference[moderation-es]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.5672644786536694,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.04745262674987316,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09404108487069607,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.0642067976295948,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15287443436682224,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.09465048462152481,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.12577785272151232,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07419667951762676,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1970809092745185,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.12381331529468298,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.9531148811802268,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.25734463706612587,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.23066486604511738,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10292723216116428,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.044781251810491085,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.011529063805937767,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021905732341110706,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.008647553622722626,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021614253520965576,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.008476912043988705,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021757102571427822,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.00875866413116455,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025055520236492157,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.011875311844050884,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021949063055217266,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.00832276325672865,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.23011254891753197,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.02614264190196991,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08514509163796902,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.04188220947980881,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0909888967871666,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.04666048660874367,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10482584219425917,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.0504100676625967,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10465066228061914,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.038085092790424824,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09377448167651892,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.036995068192481995,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.028324239887297153,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.011024396866559982,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0029345061630010605,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013362644240260124,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.004555366933345795,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.39722507633268833,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.19941133819520473,
+          "sql_queries": 85,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030369947664439678,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.013172734528779984,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03068972658365965,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.012485316954553127,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029143204912543297,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.013087209314107895,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027671413496136665,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.011624688282608986,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.026983508840203285,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.01282072626054287,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02989104948937893,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.01412466075271368,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.022142797708511353,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.013465313240885735,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0017432784661650658,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01542105246335268,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.011078954674303532,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013846863061189651,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.007065401412546635,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[moderation-en]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08787295501679182,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.050164857879281044,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06552873458713293,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.041937513276934624,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11590936966240406,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.0676442813128233,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1249724393710494,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.06698961276561022,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15411841683089733,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.08909983839839697,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6444307928904891,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.2872552387416363,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.21572581958025694,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10281024593859911,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0282923374325037,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.010929837822914124,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.023330979980528355,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.008970464579761028,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021722265519201756,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.008605223149061203,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.025532723404467106,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.012181955389678478,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03112922888249159,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.010870179161429405,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03022280801087618,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.010697874240577221,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0751985926181078,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.02882574964314699,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06468946021050215,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.023320939391851425,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06291019916534424,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.026583327911794186,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0689824940636754,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.03206859063357115,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0711865583434701,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.02947708498686552,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06455583684146404,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.02659778669476509,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014343357644975185,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.007890582084655762,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0013988250866532326,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007679116912186146,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.003499681130051613,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.33512449637055397,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.2083386993035674,
+          "sql_queries": 85,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03129693027585745,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.01454935222864151,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.032406214624643326,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.015225876122713089,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030994257889688015,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.015355066396296024,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0313863018527627,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.01547054573893547,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03367018327116966,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.0182507848367095,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03334072697907686,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.017696887254714966,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.019008816219866276,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.010504176840186119,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0013055233284831047,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.009645641781389713,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.005102720111608505,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018920824863016605,
+          "route_name": "moderation_queue",
+          "sql_execute_seconds": 0.010324141010642052,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[appeal-es]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0576139185577631,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.03974571544677019,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05972451902925968,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.042006718926131725,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11212590709328651,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.07310488540679216,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09877532627433538,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.05834130197763443,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10508296731859446,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.06290643755346537,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6333531308919191,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.19488825742155313,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1865364583209157,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10262204986065626,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11020923033356667,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.053164225071668625,
+          "sql_queries": 35,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03943047393113375,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01799844764173031,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.024196130223572254,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.00998313631862402,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02460444997996092,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009565223939716816,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021119932644069195,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008044750429689884,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0267057241871953,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008972366340458393,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029356040060520172,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.00872164499014616,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017135978676378727,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.006936343386769295,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0019046775996685028,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.00873236171901226,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0032562781125307083,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05065934546291828,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.01973544992506504,
+          "sql_queries": 19,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02967782039195299,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0096124904230237,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02837990503758192,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.010023214854300022,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.026646096259355545,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009639192372560501,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02666508127003908,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009331944398581982,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03175125364214182,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.013070886954665184,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03882686607539654,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.023046434856951237,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04142176639288664,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.02050213422626257,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04035916551947594,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.02034145314246416,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.047859592363238335,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.02579129207879305,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04123357776552439,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.020767702721059322,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.041327397339046,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.0208671223372221,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03754440229386091,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.018862917087972164,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01566990278661251,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008261522278189659,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0013429857790470123,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.00789734534919262,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0040586283430457115,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0471301069483161,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.024657714180648327,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03030948992818594,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01521799061447382,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029670117422938347,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.013380523771047592,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03158307075500488,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.015696021728217602,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.028653821907937527,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.014640497975051403,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027292393147945404,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01451125182211399,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0238473080098629,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.010910863988101482,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014602893963456154,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.007466443814337254,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0012515103444457054,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007316173054277897,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0034095225855708122,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015037699602544308,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.00835723988711834,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[appeal-en]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0804446842521429,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.056328351609408855,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.12672272510826588,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.09823889750987291,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17717701755464077,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.12270721700042486,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15019287075847387,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.08684106264263391,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16791055165231228,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.10058358684182167,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.7709601353853941,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.28618459589779377,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.179527604021132,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.09851750824600458,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11472948268055916,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.05157520808279514,
+          "sql_queries": 35,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04682745598256588,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.021551170386373997,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03622390888631344,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.010422509163618088,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03458560351282358,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01553906500339508,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029468190856277943,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.010106014087796211,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03321464918553829,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.014950063079595566,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.027269220910966396,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.011445687152445316,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01799265295267105,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008256899192929268,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0018654055893421173,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.009172456339001656,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0038035018369555473,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04263327829539776,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.019114925526082516,
+          "sql_queries": 19,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.023084032349288464,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009688963182270527,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020833990536630154,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.00841218139976263,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020090285688638687,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0077722445130348206,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020906835794448853,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008585960604250431,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.021627445705235004,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009363294579088688,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0255347341299057,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01023256964981556,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03670058865100145,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.014014134183526039,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02970865834504366,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.011281950399279594,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03167884610593319,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.01280487421900034,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.031934929080307484,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.015024175867438316,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.031897359527647495,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.015391475521028042,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.037021330557763577,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.020474922843277454,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.033870505169034004,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.026827198453247547,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0013357223942875862,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007138065993785858,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0035591833293437958,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.039709421806037426,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.017467250116169453,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.019533238373696804,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.00811055488884449,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03193785063922405,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.010997076518833637,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03798853699117899,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01093197613954544,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0439668158069253,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01708057802170515,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036403656005859375,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.009917691349983215,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03654030151665211,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.019204486161470413,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02047496847808361,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.008874807506799698,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0019342666491866112,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.011900980025529861,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.005414181388914585,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.019848428666591644,
+          "route_name": "appeal_queue",
+          "sql_execute_seconds": 0.01067991741001606,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[match-es]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08540493063628674,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.053737698122859,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09710912685841322,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.06158927269279957,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.22761561628431082,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.14144408237189054,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2021563295274973,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.10553805250674486,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1548645980656147,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.0893087862059474,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.676878971979022,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.2794974250718951,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17603202257305384,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10586844384670258,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2304028756916523,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.1292781848460436,
+          "sql_queries": 86,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04264132399111986,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.022399818524718285,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07029612176120281,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.03929561655968428,
+          "sql_queries": 25,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09150187112390995,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.044338823296129704,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11826396360993385,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.05534221790730953,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10186942014843225,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.04850361030548811,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.3910353034734726,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.19638833217322826,
+          "sql_queries": 170,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2510011466220021,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.1269518630579114,
+          "sql_queries": 82,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.043823025189340115,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.015429646708071232,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03534607030451298,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.013772550038993359,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03683359641581774,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.015044459141790867,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.044156488962471485,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.02168243285268545,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05423333216458559,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.021702689118683338,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0471522556617856,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.02145386580377817,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07635740283876657,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.03893251810222864,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06735444627702236,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.03422238305211067,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05907827150076628,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.027044781483709812,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0644284039735794,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.03029328864067793,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.049240012653172016,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.02410170156508684,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.046376192942261696,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.020078834146261215,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03189467824995518,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.019100943580269814,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0019335011020302773,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.009610304608941078,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.004230322316288948,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2709067761898041,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.16052316781133413,
+          "sql_queries": 61,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.037116630002856255,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01598523836582899,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.032241485081613064,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01476144790649414,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03619006182998419,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01808317471295595,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.028494494035840034,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01105013582855463,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03704816475510597,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.011528956703841686,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03200032003223896,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0153780747205019,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01617351546883583,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.00933435745537281,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.001607052981853485,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.007255537435412407,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.00395833607763052,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017232149839401245,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.010350128635764122,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[match-en]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07340293377637863,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05379026662558317,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11789728235453367,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.08964922465384007,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13592268712818623,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.08626689948141575,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14127750229090452,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07870951108634472,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.15873710345476866,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.07408453896641731,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6800614530220628,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.28886497765779495,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.286553468555212,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.1649517873302102,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.36529693845659494,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.21803735475987196,
+          "sql_queries": 86,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10663278680294752,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.06400220096111298,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14608182944357395,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.08912190422415733,
+          "sql_queries": 25,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.24758560676127672,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.12995444424450397,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2866239184513688,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.15754335839301348,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1909148870036006,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.10448928736150265,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.5360356457531452,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.29552069678902626,
+          "sql_queries": 170,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2624649964272976,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.12162510212510824,
+          "sql_queries": 82,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.046494283713400364,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.02322487346827984,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04356214962899685,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0255083991214633,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.045263513922691345,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.022715866565704346,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04033266380429268,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.019464089535176754,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04384075291454792,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.022424129769206047,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05104528088122606,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.024945813231170177,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.23480363469570875,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.04274526610970497,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09217506181448698,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.04103952646255493,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08531478233635426,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.03621190879493952,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08435562159866095,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.03692344855517149,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08880228828638792,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.04406243097037077,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09520651027560234,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.04613823816180229,
+          "sql_queries": 11,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.046418738551437855,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.03299448546022177,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0017841020599007607,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.010180451907217503,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.004488956183195114,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.22383405826985836,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.13178051821887493,
+          "sql_queries": 61,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.036321962252259254,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.017136970534920692,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03096942976117134,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.012616632506251335,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04875377379357815,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.027399850077927113,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.031765468418598175,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.014034147374331951,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030374253168702126,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.012477114796638489,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03191317804157734,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01181973796337843,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01677769608795643,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.009812389500439167,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0014592204242944717,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006737622432410717,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.0031650513410568237,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018086670897901058,
+          "route_name": "match_queue",
+          "sql_execute_seconds": 0.01197048183530569,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[photo_appeal-es]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09416726604104042,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05625254288315773,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09897641278803349,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.06379180308431387,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17992195580154657,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.10250109992921352,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11281098052859306,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.06046678498387337,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.16958331037312746,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.09329661354422569,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.7703361473977566,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.3391556469723582,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.24238200392574072,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.1366182342171669,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.39112544525414705,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.2092036483809352,
+          "sql_queries": 86,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06376239098608494,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.042422921396791935,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08157534617930651,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.059692819602787495,
+          "sql_queries": 25,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0882258890196681,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.04852646589279175,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1145153921097517,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.06299193855375051,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13284580875188112,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.0763203976675868,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6142181344330311,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.32554766722023487,
+          "sql_queries": 170,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.18478125892579556,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10132100339978933,
+          "sql_queries": 82,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.21895640436559916,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.12554327677935362,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13676580786705017,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.05916005838662386,
+          "sql_queries": 29,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03880256041884422,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.01585963275283575,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03773540165275335,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.015154260210692883,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04720680229365826,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.02642693929374218,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0472419960424304,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.02359008975327015,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05312551651149988,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.03247219789773226,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04711038991808891,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.024358377791941166,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.100259218364954,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.06176252290606499,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07722446043044329,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.038178241811692715,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0683953920379281,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.03679648507386446,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07884745672345161,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.04849431570619345,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06412610784173012,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.03126078750938177,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05422965809702873,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.02391971182078123,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017023165710270405,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.008138559758663177,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.002023572102189064,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0076543958857655525,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.003160182386636734,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13604553788900375,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.08850561827421188,
+          "sql_queries": 29,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06263304315507412,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.03629701305180788,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05056317429989576,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.02562754414975643,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05091515742242336,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.028825538232922554,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.043248082511126995,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.01712779514491558,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05659853294491768,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.03152924124151468,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04103492386639118,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.01822510827332735,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015737363137304783,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.008402617648243904,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0012064017355442047,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.010493328794836998,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.0030278442427515984,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.014683032408356667,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.007955844514071941,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_listing_review_queue_reference[photo_appeal-en]",
+      "classname": "tests.test_listing_review_queue_reference",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08463217690587044,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.05557318776845932,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13690595608204603,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.10473946016281843,
+          "sql_queries": 28,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1645276127383113,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.12162250559777021,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10798411164432764,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.06606843043118715,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1022152854129672,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.05545699875801802,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.6233236091211438,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.24792691878974438,
+          "sql_queries": 119,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.1800593864172697,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.09894463513046503,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.21104456763714552,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.12797082215547562,
+          "sql_queries": 86,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0495509747415781,
+          "route_name": "self_consent",
+          "sql_execute_seconds": 0.03293261304497719,
+          "sql_queries": 17,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07140778936445713,
+          "route_name": "age_check",
+          "sql_execute_seconds": 0.051374015398323536,
+          "sql_queries": 25,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10061381850391626,
+          "route_name": "listing_start",
+          "sql_execute_seconds": 0.06265552807599306,
+          "sql_queries": 42,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09227884095162153,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.04915740340948105,
+          "sql_queries": 41,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0966012692078948,
+          "route_name": "draft_edit",
+          "sql_execute_seconds": 0.0561863062903285,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.5147603554651141,
+          "route_name": "photo_upload",
+          "sql_execute_seconds": 0.31602773908525705,
+          "sql_queries": 170,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17985292803496122,
+          "route_name": "submit_revision",
+          "sql_execute_seconds": 0.10738053359091282,
+          "sql_queries": 82,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2433885931968689,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.16281820461153984,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10144410468637943,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.04583154618740082,
+          "sql_queries": 29,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03983031585812569,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.015766133554279804,
+          "sql_queries": 8,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05184957291930914,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.02073371596634388,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04880245961248875,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.020974612794816494,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05347359459847212,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.023103545419871807,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.059525398537516594,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.03238312155008316,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04233289510011673,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.022080441005527973,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07173674833029509,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.0365060418844223,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0475482577458024,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.018393266946077347,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.058585891500115395,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.02952057495713234,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06352195981889963,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.03173995576798916,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06303987745195627,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.0324234664440155,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05526383314281702,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.02624560985714197,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.016122606582939625,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.009193487465381622,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.001280359923839569,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006960711441934109,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.00280824676156044,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11086810939013958,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.06315833795815706,
+          "sql_queries": 29,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.043524377048015594,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.024185361340641975,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.043949658051133156,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.021614775992929935,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04526461474597454,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.024788024835288525,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.043219574727118015,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.02083536423742771,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04511254467070103,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.025637722574174404,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05293877609074116,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.031187063083052635,
+          "sql_queries": 7,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.018210211768746376,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.010359121486544609,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0011640796437859535,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.006380775943398476,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.002461478114128113,
+          "sql_queries": 4,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.013961171731352806,
+          "route_name": "photo_appeal_queue",
+          "sql_execute_seconds": 0.00802164152264595,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_permission_mfa_self_review_rejection_and_concurrency",
+      "classname": "tests.test_listing_moderation",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.020481891930103302,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.013022040948271751,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0013053575530648232,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03846577275544405,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.024177066050469875,
+          "sql_queries": 8,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.31981789227575064,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.23431121464818716,
+          "sql_queries": 35,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.3350575156509876,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.28734863456338644,
+          "sql_queries": 26,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05302232503890991,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.02962610125541687,
+          "sql_queries": 8,
+          "status": 404
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_approval_exposes_exact_revision_and_only_derivative",
+      "classname": "tests.test_listing_moderation",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.030430827289819717,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.017313380725681782,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.002722509205341339,
+          "route_name": "public_photo",
+          "sql_execute_seconds": 0.0006121555343270302,
+          "sql_queries": 1,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06654391530901194,
+          "route_name": "moderation_photo",
+          "sql_execute_seconds": 0.0449737086892128,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.33474861457943916,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.20739325508475304,
+          "sql_queries": 85,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.081926922313869,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.04821917414665222,
+          "sql_queries": 26,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06997888814657927,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.04201885871589184,
+          "sql_queries": 26,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.11189706064760685,
+          "route_name": "public_photo",
+          "sql_execute_seconds": 0.07217428367584944,
+          "sql_queries": 37,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0011649159714579582,
+          "route_name": "private_photo",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0021478114649653435,
+          "route_name": "unresolved",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0778017733246088,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.040123797953128815,
+          "sql_queries": 25,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.19352335575968027,
+          "route_name": "representation_revoke",
+          "sql_execute_seconds": 0.12454682122915983,
+          "sql_queries": 43,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05478830263018608,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.03996155969798565,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.004937070421874523,
+          "route_name": "public_photo",
+          "sql_execute_seconds": 0.0017769252881407738,
+          "sql_queries": 2,
+          "status": 404
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_appeal_private_idempotent_and_independent_review",
+      "classname": "tests.test_appeals",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.049738544039428234,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.02769893128424883,
+          "sql_queries": 19,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04932370129972696,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.0258579533547163,
+          "sql_queries": 16,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06953716184943914,
+          "route_name": "moderation_photo",
+          "sql_execute_seconds": 0.04599388130009174,
+          "sql_queries": 16,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.029029404744505882,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.01343733724206686,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0012066224589943886,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.02325055282562971,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.011510621756315231,
+          "sql_queries": 11,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0138316685333848,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.007266501896083355,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.12968522123992443,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.0806558234617114,
+          "sql_queries": 39,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09201248176395893,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.05140524823218584,
+          "sql_queries": 25,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.028679050505161285,
+          "route_name": "appeal_submit",
+          "sql_execute_seconds": 0.012913868762552738,
+          "sql_queries": 9,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.039981406182050705,
+          "route_name": "appeal_review",
+          "sql_execute_seconds": 0.020677967928349972,
+          "sql_queries": 16,
+          "status": 409
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_confirmed_conflict_pauses_publication_and_remains_blocking",
+      "classname": "tests.test_match_review",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.27251063380390406,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.17252722196280956,
+          "sql_queries": 65,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07048736326396465,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.04482095967978239,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2213447391986847,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.11930396966636181,
+          "sql_queries": 58,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2660516444593668,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.17623578570783138,
+          "sql_queries": 59,
+          "status": 302
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_exact_not_false_positive_and_permissions_cover_both_people",
+      "classname": "tests.test_match_review",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09725396055728197,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.05503895040601492,
+          "sql_queries": 20,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.019473301246762276,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.012840050272643566,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0133620984852314,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.006509282626211643,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0014640828594565392,
+          "route_name": "match_image",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04421745706349611,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.027042639441788197,
+          "sql_queries": 10,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.01601889356970787,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.008969428949058056,
+          "sql_queries": 6,
+          "status": 403
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_photo_appeal_reopens_pair_without_publication_or_counterpart_data",
+      "classname": "tests.test_photo_appeals",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.09165709558874369,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.057077755220234394,
+          "sql_queries": 18,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.017052684910595417,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.009518295526504517,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.015295039862394333,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.007928949780762196,
+          "sql_queries": 7,
+          "status": 403
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.13123411033302546,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.07087599951773882,
+          "sql_queries": 23,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.26751728635281324,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.16178069915622473,
+          "sql_queries": 69,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.14539952017366886,
+          "route_name": "photo_appeal_review",
+          "sql_execute_seconds": 0.08349625114351511,
+          "sql_queries": 27,
+          "status": 409
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06854684930294752,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.048241076059639454,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.17320268042385578,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.08723691292107105,
+          "sql_queries": 58,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04723292216658592,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.021018192172050476,
+          "sql_queries": 12,
+          "status": 200
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_photo_restriction_notice_is_private_and_has_no_other_account_data",
+      "classname": "tests.test_photo_restrictions",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06884146761149168,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.02944192010909319,
+          "sql_queries": 15,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.07173228450119495,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.03385282680392265,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.05548572540283203,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.02508821990340948,
+          "sql_queries": 15,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.03677813149988651,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.016023890115320683,
+          "sql_queries": 8,
+          "status": 404
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.0014289598912000656,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.0,
+          "sql_queries": 0,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.04941027518361807,
+          "route_name": "photo_restriction",
+          "sql_execute_seconds": 0.028340039774775505,
+          "sql_queries": 8,
+          "status": 404
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    },
+    {
+      "case": "test_distinct_authorized_people_resolves_both_directions_without_suspension",
+      "classname": "tests.test_match_review",
+      "operations": [
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2315435316413641,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.12106655072420835,
+          "sql_queries": 58,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.10875777527689934,
+          "route_name": "match_image",
+          "sql_execute_seconds": 0.07459437381476164,
+          "sql_queries": 19,
+          "status": 200
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.34543266240507364,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.24551424849778414,
+          "sql_queries": 61,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.08338859863579273,
+          "route_name": "match_review",
+          "sql_execute_seconds": 0.04403640702366829,
+          "sql_queries": 20,
+          "status": 400
+        },
+        {
+          "exception_class": null,
+          "method": "POST",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.2863617790862918,
+          "route_name": "moderation_review",
+          "sql_execute_seconds": 0.1526760533452034,
+          "sql_queries": 87,
+          "status": 302
+        },
+        {
+          "exception_class": null,
+          "method": "GET",
+          "observer_error_class": null,
+          "request_seconds_instrumented": 0.06580310687422752,
+          "route_name": "listing_detail",
+          "sql_execute_seconds": 0.038806903176009655,
+          "sql_queries": 26,
+          "status": 200
+        }
+      ],
+      "scope": "Django Client.request call phase only; ordinary setup, assertions, direct services, browser/TCP, async work and load excluded; Client requests from fixtures dynamically requested during call are included. Expected denials remain functional outcomes, not a load error rate."
+    }
+  ],
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "One integrated16case focused run. Sparse0/1/2; actuallang/cache/context/render/authority and current HTTP decisions. Self156GET nested in383globaloperations, not539events; no sumSQLbetweenobservers. Setup/dynamiccall/rawORM/body/CPU/concurrency limits per406; no growth100/p95/TCP/provider/temporaloptimization or all39unit acceptance. Userdraftdocfiles preserved outside stage; one structural indexreference only."
+}
