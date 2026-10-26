@@ -1,0 +1,141 @@
+{
+  "acceptance": "LOCAL_RIGHTS_INSPECTION_AUTHORITY_FIX_ONLY",
+  "run": "20261026-051032-93877df9",
+  "cases": 19,
+  "passed": 19,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 177.341,
+  "frozen_sources": 1763,
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "wait": {
+    "case": "rights_inspection",
+    "status": 403,
+    "actual_wait": true,
+    "permission_revoked": true,
+    "holder_transaction_released": true,
+    "thread_finished": true,
+    "thread_connections_closed": true,
+    "domain_unchanged": true,
+    "minimal_before": {
+      "response_version": 0,
+      "status": "reviewing",
+      "version": 2
+    },
+    "minimal_after": {
+      "response_version": 0,
+      "status": "reviewing",
+      "version": 2
+    },
+    "request_elapsed_seconds_including_wait": 0.15710718743503094
+  },
+  "access_counts_before_after": [
+    1,
+    1
+  ],
+  "negative_cases": [
+    {
+      "change": "review_permission",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "inactive",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "account_erased",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "mfa_disabled",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "mfa_version",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "session_version",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "request_mfa_version",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    },
+    {
+      "change": "request_account_version",
+      "status": 403,
+      "initial_permission_legitimate": true,
+      "legitimate_initial_actor": true,
+      "legitimate_initial_session": true,
+      "natural_permission_cache_retained": true,
+      "domain_unchanged": true
+    }
+  ],
+  "original_cases": [
+    "test_rights_permission_is_separate_mfa_required_and_inspection_audited",
+    "test_rights_only_permission_still_requires_current_mfa",
+    "test_link_is_audited_and_preserves_unverified_scope_dates_and_payload",
+    "test_scope_can_reference_unpublished_data_without_verification",
+    "test_original_agency_editor_cannot_inspect_after_transfer_or_revoke",
+    "test_management_version_change_between_snapshot_and_lock_prevents_read",
+    "test_mobile_link_stays_unverified_and_get_hides_request_data",
+    "test_reviewer_only_reads_clarifications_after_audited_post",
+    "test_older_clarifications_are_accessible_with_audited_cursor",
+    "test_all_outgoing_pages_are_required_and_receipt_has_complete_history"
+  ],
+  "prior_baseline": {
+    "run": "20261026-050131-3251e781",
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 44.683,
+    "status": 200,
+    "access_counts_before_after": [
+      1,
+      2
+    ],
+    "request_seconds_including_wait": 0.21861946117132902,
+    "preserved": true
+  },
+  "scope": "One inspection view correction;N09open139IDs8of13blocksaccepted.8negativesdirectview=RequestFactory,notmiddleware/transport;1actualPGwait separate. Security correctness,notperformance gain. Induced times/cross-run QA selections not causal comparisons."
+}

@@ -20,6 +20,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.accounts import limited
 from apps.core.domain_signing import domain_signing_key
+from apps.core.models import User
 
 from .crypto import seal, unseal
 from .models import RightsAccess, RightsMessage, RightsRequest
@@ -398,12 +399,32 @@ def queue(request):
     )
 
 
+def current_inspection_actor(request, session_version, mfa_version):
+    actor = User.objects.filter(pk=request.user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or request.session.get("account_version") != actor.session_version
+        or request.session.get("mfa_version") != actor.mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @login_required
 @sensitive_post_parameters("purpose")
 @sensitive_variables()
 @require_http_methods(["GET", "POST"])
 def inspect(request, case_id):
-    if not allowed(request):
+    session_version, mfa_version = request.user.session_version, request.user.mfa_version
+    try:
+        request.user = current_inspection_actor(request, session_version, mfa_version)
+    except PermissionDenied:
         return private(
             HttpResponse(
                 ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"), status=403
@@ -442,6 +463,15 @@ def inspect(request, case_id):
                             else "La gestión ha cambiado; recarga"
                         ),
                         status=409,
+                    )
+                )
+            try:
+                request.user = current_inspection_actor(request, session_version, mfa_version)
+            except PermissionDenied:
+                return private(
+                    HttpResponse(
+                        ("Forbidden" if request.LANGUAGE_CODE == "en" else "Acceso denegado"),
+                        status=403,
                     )
                 )
             if not permitted(request.user, case):
