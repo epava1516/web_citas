@@ -1,0 +1,429 @@
+{
+  "acceptance": "LOCAL_FOUR_RIGHTS_OPERATION_AUTHORITY_FIXES_ONLY",
+  "run": "20261026-054641-e95e52a7",
+  "cases": 58,
+  "passed": 58,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "junit_seconds": 529.725,
+  "frozen_sources": 1766,
+  "sources_unchanged": true,
+  "cleanup_verified": true,
+  "telegram_delivery": "sent",
+  "waits": [
+    {
+      "case": "rights_privacy_hold_execute_revocation",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "response_version": 0,
+        "scope_status": "simulated_passed",
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "scope_status": "simulated_passed",
+        "status": "reviewing",
+        "version": 5
+      },
+      "request_elapsed_seconds_including_wait": 0.27826625760644674
+    },
+    {
+      "case": "rights_erasure_inventory_execute_revocation",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "response_version": 0,
+        "scope_status": "simulated_passed",
+        "status": "reviewing",
+        "version": 5
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "scope_status": "simulated_passed",
+        "status": "reviewing",
+        "version": 5
+      },
+      "request_elapsed_seconds_including_wait": 0.23221653420478106
+    },
+    {
+      "case": "rights_verification_start_review_revocation",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 3
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 3
+      },
+      "request_elapsed_seconds_including_wait": 0.20357160735875368
+    },
+    {
+      "case": "rights_verification_result_verify_revocation",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 4
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 4
+      },
+      "request_elapsed_seconds_including_wait": 0.23767142929136753
+    },
+    {
+      "case": "rights_verification_result_proof_lock_revocation",
+      "status": 403,
+      "actual_wait": true,
+      "permission_revoked": true,
+      "holder_transaction_released": true,
+      "thread_finished": true,
+      "thread_connections_closed": true,
+      "domain_unchanged": true,
+      "minimal_before": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 4
+      },
+      "minimal_after": {
+        "response_version": 0,
+        "scope_status": "unverified",
+        "status": "reviewing",
+        "version": 4
+      },
+      "request_elapsed_seconds_including_wait": 0.22959593124687672
+    }
+  ],
+  "negative_cases": [
+    {
+      "operation": "hold",
+      "change": "primary_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "inactive",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "account_erased",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "mfa_disabled",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "mfa_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "session_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "primary_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "inactive",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "account_erased",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "mfa_disabled",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "mfa_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "session_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "primary_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "inactive",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "account_erased",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "mfa_disabled",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "mfa_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "session_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "primary_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "inactive",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "account_erased",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "mfa_disabled",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "mfa_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "session_version",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "review_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "review_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "review_permission",
+      "replay": false,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": false,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "hold",
+      "change": "primary_permission",
+      "replay": true,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": true,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "inventory",
+      "change": "primary_permission",
+      "replay": true,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": true,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "start",
+      "change": "primary_permission",
+      "replay": true,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": true,
+      "denied": true,
+      "domain_unchanged": true
+    },
+    {
+      "operation": "result",
+      "change": "primary_permission",
+      "replay": true,
+      "legitimate_initial_authority": true,
+      "legitimate_replay_reference": true,
+      "denied": true,
+      "domain_unchanged": true
+    }
+  ],
+  "original_case_counts": {
+    "tests.test_privacy_publication_holds": 6,
+    "tests.test_erasure_inventory": 4,
+    "tests.test_rights_verification": 8,
+    "tests.test_rights_account_verification": 4
+  },
+  "baseline": {
+    "run": "20261026-053006-990a74d8",
+    "tests": 4,
+    "failures": 4,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 73.493,
+    "preserved": true
+  },
+  "plan_revision": "57planned version preserved; fifthProofwait added beforeintegration/freezing/execution →58; noQArepeated; fifthwait hasno baseline or fifthconfirmeddefect.",
+  "scope": "Three modules/four operations only.31negatives are direct public services,notmiddleware/transport;5realPOSTwaits distinct. Simulatornotrealidentity/provider;inducedtimesnotnormallatency/performance. N09still139pending8of13acceptedblocks."
+}

@@ -16,6 +16,8 @@ from django.utils import timezone
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
+from apps.core.models import User
+
 from .crypto import seal
 from .models import RightsAccess, RightsProof, RightsProofEvent, RightsRequest
 from .rights import allowed, fingerprint
@@ -134,12 +136,31 @@ def check_actor(user, case):
         raise PermissionDenied("Conflict of interest")
 
 
+def current_verification_actor(user, session_version, mfa_version, *, verify=False):
+    actor = User.objects.filter(pk=user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+        or (verify and not actor.has_perm("safety.verify_rights_scope"))
+    ):
+        raise PermissionDenied("Current rights verification authority required")
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def start(user, case_id, key, version, reason):
     if not enabled():
         raise PermissionDenied("Rights verification adapter unavailable")
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_verification_actor(user, session_version, mfa_version)
     case, person, _ = locked_case(case_id)
+    user = current_verification_actor(user, session_version, mfa_version)
     check_actor(user, case)
     signature = fingerprint(json.dumps({"version": version, "reason": reason}, sort_keys=True))
     previous = RightsProof.objects.filter(key=key).first()
@@ -219,9 +240,12 @@ def simulate_event(proof_id, key, version, outcome, reason):
 def receive_event(user, payload):
     if not enabled():
         raise PermissionDenied("Rights simulator disabled")
+    session_version, mfa_version = user.session_version, user.mfa_version
     data = signing.loads(payload, salt=PROCEDURE, max_age=300)
+    user = current_verification_actor(user, session_version, mfa_version, verify=True)
     initial = RightsProof.objects.get(pk=data["proof"])
     case, person, _ = locked_case(initial.request_id)
+    user = current_verification_actor(user, session_version, mfa_version, verify=True)
     check_actor(user, case)
     if not user.has_perm("safety.verify_rights_scope") or user.pk in {
         initial.initiated_by_id,
@@ -229,6 +253,10 @@ def receive_event(user, payload):
     }:
         raise PermissionDenied("Independent verifier required")
     proof = RightsProof.objects.select_for_update().get(pk=initial.pk)
+    user = current_verification_actor(user, session_version, mfa_version, verify=True)
+    check_actor(user, case)
+    if user.pk in {proof.initiated_by_id, case.assigned_to_id}:
+        raise PermissionDenied("Independent verifier required")
     signature = fingerprint(json.dumps(data, sort_keys=True))
     previous = RightsProofEvent.objects.filter(key=data["key"]).first()
     if previous:

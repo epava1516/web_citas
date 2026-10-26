@@ -14,7 +14,7 @@ from django.shortcuts import render
 from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 from django.views.decorators.http import require_http_methods
 
-from apps.core.models import Agency, AgencyMember, Person
+from apps.core.models import Agency, AgencyMember, Person, User
 from apps.mediafiles.models import Blob, Photo
 
 from .crypto import seal, unseal
@@ -1234,16 +1234,29 @@ def source_manifest(person, case=None, *, capture=None):
     }
 
 
+def current_inventory_actor(user, session_version, mfa_version):
+    actor = User.objects.filter(pk=user.pk).first()
+    if (
+        actor is None
+        or not actor.is_active
+        or actor.account_erased_at is not None
+        or not actor.mfa_enabled
+        or actor.session_version != session_version
+        or actor.mfa_version != mfa_version
+        or not actor.has_perm("safety.review_rights_request")
+        or not actor.has_perm("safety.execute_rights_request")
+    ):
+        raise PermissionDenied
+    return actor
+
+
 @transaction.atomic
 @sensitive_variables()
 def prepare(user, case_id, key, version, purpose):
-    if (
-        not user.mfa_enabled
-        or not user.has_perm("safety.review_rights_request")
-        or not user.has_perm("safety.execute_rights_request")
-    ):
-        raise PermissionDenied
+    session_version, mfa_version = user.session_version, user.mfa_version
+    user = current_inventory_actor(user, session_version, mfa_version)
     case, person, _ = locked_case(case_id, lock_listing=True)
+    user = current_inventory_actor(user, session_version, mfa_version)
     if not permitted(user, case):
         raise PermissionDenied
     if (
