@@ -1,0 +1,231 @@
+{
+  "result": "PASS_CANDIDATE22_LOCAL_RECIPIENT_BOUNDARIES_NOT_WHOLE_N09",
+  "run": "20261026-132335-26da47b4",
+  "original_result": "PASS",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "22",
+      "time": "374.255",
+      "timestamp": "2026-10-26T14:23:56.887812+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1779,
+  "verdict_counts": {
+    "VALID_NATIVE_CONTROL": 4,
+    "DENIED_BEFORE_SELECTED_PRIVATE_BOUNDARY_NO_REPRODUCTION": 4
+  },
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "limits": "4ops2routes/4controls4rolewithdrawals;nativeexacttargetunsealnotallprojections/HTTP/worker/provider. F75E38G18retained;N09full139open8of13.",
+  "baseline": {
+    "run": "20261026-130546-cab2ce39",
+    "original_result": "ERROR",
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "4",
+        "skipped": "0",
+        "tests": "8",
+        "time": "178.931",
+        "timestamp": "2026-10-26T14:06:07.671826+01:00",
+        "hostname": "almasrv.thehomelesssherlock.com"
+      }
+    ],
+    "verdict_counts": {
+      "VALID_NATIVE_CONTROL": 4,
+      "CONFIRMED_NATIVE_PRIVATE_RETURN_EFFECT_AFTER_PERMISSION_REVOCATION": 4
+    }
+  },
+  "graph": {
+    "result": "PASS_SCOPED_N09H445_RECIPIENT_ACCEPTED_GRAPH",
+    "sources": 2082,
+    "nodes": 20258,
+    "relations": 84408,
+    "communities": 981,
+    "graph_sha256": "a62cbf33cf7493d78b9f12ac284e20fba59e2c49da607fba960ecf2bf11f5d85",
+    "scope": "445and17first4;baseline8fourPASSfourFAILaudited/candidate22PASS1779stable3App/N09full139open8of13"
+  },
+  "acceptance_document": "445-n09-h-autoridad-destinatarios-verificada-20261026.md",
+  "case_timings": [
+    {
+      "family": "assessment_inspect",
+      "variant": "valid",
+      "qa_seconds": 18.269790394231677,
+      "status": "success",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "assessment_propose",
+      "variant": "valid",
+      "qa_seconds": 15.509942231699824,
+      "status": "success",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "review_inspect",
+      "variant": "valid",
+      "qa_seconds": 16.81998683512211,
+      "status": "success",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "review_review",
+      "variant": "valid",
+      "qa_seconds": 15.90971044357866,
+      "status": "success",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "assessment_inspect",
+      "variant": "permission",
+      "qa_seconds": 15.54252172075212,
+      "status": "PermissionDenied",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "assessment_propose",
+      "variant": "permission",
+      "qa_seconds": 17.703010492026806,
+      "status": "PermissionDenied",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "review_inspect",
+      "variant": "permission",
+      "qa_seconds": 16.36754581425339,
+      "status": "PermissionDenied",
+      "target_returns_after_event": 0
+    },
+    {
+      "family": "review_review",
+      "variant": "permission",
+      "qa_seconds": 18.020136416889727,
+      "status": "PermissionDenied",
+      "target_returns_after_event": 0
+    }
+  ],
+  "variant_summary": [
+    {
+      "label": "replay:assessment_propose:valid",
+      "status": "success",
+      "actual_wait_claimed": true,
+      "actual_wait": true,
+      "same_completed_pk": true,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 17.229992832057178
+    },
+    {
+      "label": "replay:review_review:valid",
+      "status": "success",
+      "actual_wait_claimed": true,
+      "actual_wait": true,
+      "same_completed_pk": true,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 19.2928517004475
+    },
+    {
+      "label": "replay:assessment_propose:permission",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": true,
+      "actual_wait": true,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 17.792547514662147
+    },
+    {
+      "label": "replay:review_review:permission",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": true,
+      "actual_wait": true,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 17.334969786927104
+    },
+    {
+      "label": "stale:assessment_inspect:session",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": false,
+      "actual_wait": false,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 16.411307741887867
+    },
+    {
+      "label": "stale:review_inspect:mfa",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": false,
+      "actual_wait": false,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 17.056121283210814
+    },
+    {
+      "label": "stale:assessment_inspect:inactive",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": false,
+      "actual_wait": false,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 16.9337686765939
+    },
+    {
+      "label": "stale:review_inspect:mfa_disabled",
+      "status": "PermissionDenied",
+      "actual_wait_claimed": false,
+      "actual_wait": false,
+      "same_completed_pk": null,
+      "target_calls": 0,
+      "target_returns": 0,
+      "qa_seconds": 17.614548577927053
+    }
+  ],
+  "original_cases": [
+    {
+      "name": "test_account_final_rectification_review_and_atomic_close[True]",
+      "classname": "tests.test_account_only_execution",
+      "seconds": "15.791"
+    },
+    {
+      "name": "test_account_final_rectification_review_and_atomic_close[False]",
+      "classname": "tests.test_account_only_execution",
+      "seconds": "16.485"
+    },
+    {
+      "name": "test_native_form_values_and_generic_denial[es]",
+      "classname": "tests.test_rectification_recipients_localization",
+      "seconds": "8.988"
+    },
+    {
+      "name": "test_native_form_values_and_generic_denial[en]",
+      "classname": "tests.test_rectification_recipients_localization",
+      "seconds": "8.770"
+    },
+    {
+      "name": "test_every_candidate_and_gap_needs_reason_and_evidence",
+      "classname": "tests.test_recipient_assessments",
+      "seconds": "0.002"
+    },
+    {
+      "name": "test_communication_requires_matching_recorded_receipt_not_free_text",
+      "classname": "tests.test_recipient_assessments",
+      "seconds": "0.259"
+    }
+  ]
+}

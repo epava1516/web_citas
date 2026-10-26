@@ -1,6 +1,7 @@
 """Motivated proposals per recipient/gap; exceptions require later independent review."""
 
 import json
+from functools import partial
 
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import IntegrityError, transaction
@@ -12,6 +13,7 @@ from .models import (
     RightsRectificationRecipientAssessment,
     RightsRectificationRecipientInventory,
 )
+from .rectification_authority import capture_authority
 from .rectification_recipients import execution_scope_matches, snapshot
 from .rectification_review import permission
 from .rights import fingerprint
@@ -69,8 +71,11 @@ def validate_decisions(data, decisions):
 @transaction.atomic
 @sensitive_variables()
 def propose(user, case_id, inventory_id, key, version, decisions):
+    authority = capture_authority(user, review=True)
     permission(user)
     case, person, _ = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
     inventory = (
@@ -84,6 +89,7 @@ def propose(user, case_id, inventory_id, key, version, decisions):
         )
         .first()
     )
+    check_authority()
     if not inventory:
         raise ValidationError("Recipient inventory unavailable / Inventario no disponible")
     signature = fingerprint(
@@ -99,7 +105,9 @@ def propose(user, case_id, inventory_id, key, version, decisions):
             and previous.operation == "recipients_plan"
             and previous.payload_digest == signature
         ):
-            return RightsRectificationRecipientAssessment.objects.get(action=previous)
+            result = RightsRectificationRecipientAssessment.objects.get(action=previous)
+            check_authority()
+            return result
         raise ValidationError("Conflicting assessment key / Clave incompatible")
     if (
         case.kind != "rectify"
@@ -110,13 +118,17 @@ def propose(user, case_id, inventory_id, key, version, decisions):
         or not complete_response_read(user, case)
         or inventory.action.actor_id != user.pk
         or inventory.action.expected_version != version
-        or not execution_scope_matches(case, person, inventory.execution)
+        or not execution_scope_matches(
+            case, person, inventory.execution, check_authority=check_authority,
+        )
     ):
         raise ValidationError(
             "Inspect current assigned recipient inventory / Consulta el inventario asignado vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    data = snapshot(person, inventory.execution, case)
+    data = snapshot(person, inventory.execution, case, check_authority=check_authority)
+    check_authority()
+    proof = authorized_proof(case, person, "rectify")
     if (
         inventory.proof_id != proof.pk
         or fingerprint(json.dumps(data, sort_keys=True)) != inventory.source_digest
@@ -124,6 +136,7 @@ def propose(user, case_id, inventory_id, key, version, decisions):
         raise ValidationError(
             "Recipient history changed; inspect again / Historial cambiado; consulta de nuevo"
         )
+    check_authority()
     stored = unseal(inventory.encrypted_inventory)
     if fingerprint(json.dumps(stored, sort_keys=True)) != inventory.source_digest:
         raise ValidationError("Inventory integrity mismatch / Inventario incompatible")
@@ -138,6 +151,8 @@ def propose(user, case_id, inventory_id, key, version, decisions):
             "Read recipient assessment fields first / Consulta primero los campos de evaluación"
         )
     validate_decisions(stored, decisions)
+    check_authority()
+    authorized_proof(case, person, "rectify")
     try:
         with transaction.atomic():
             action = RightsAction.objects.create(
@@ -158,9 +173,12 @@ def propose(user, case_id, inventory_id, key, version, decisions):
             )
     except IntegrityError as error:
         raise ValidationError("Conflicting assessment / Evaluación incompatible") from error
+    check_authority()
+    authorized_proof(case, person, "rectify")
     case.version += 1
     case.scope_status = "unverified"
     case.save(update_fields=["version", "scope_status"])
+    check_authority()
     return result
 
 
@@ -169,8 +187,11 @@ def propose(user, case_id, inventory_id, key, version, decisions):
 def inspect(user, case_id, inventory_id, version, purpose):
     import uuid
 
+    authority = capture_authority(user, review=True)
     permission(user)
     case, person, _ = locked_case(case_id, lock_listing=True)
+    check_authority = partial(authority, case)
+    check_authority()
     if not permitted(user, case):
         raise PermissionDenied
     inventory = (
@@ -184,6 +205,7 @@ def inspect(user, case_id, inventory_id, version, purpose):
         )
         .first()
     )
+    check_authority()
     if (
         not inventory
         or case.kind != "rectify"
@@ -194,14 +216,18 @@ def inspect(user, case_id, inventory_id, version, purpose):
         or not complete_response_read(user, case)
         or inventory.action.actor_id != user.pk
         or inventory.action.expected_version != version
-        or not execution_scope_matches(case, person, inventory.execution)
+        or not execution_scope_matches(
+            case, person, inventory.execution, check_authority=check_authority,
+        )
         or not 10 <= len(purpose.strip()) <= 200
     ):
         raise ValidationError(
             "Inspect current assigned recipient inventory / Consulta el inventario asignado vigente"
         )
     proof = authorized_proof(case, person, "rectify")
-    data = snapshot(person, inventory.execution, case)
+    data = snapshot(person, inventory.execution, case, check_authority=check_authority)
+    check_authority()
+    proof = authorized_proof(case, person, "rectify")
     if (
         inventory.proof_id != proof.pk
         or fingerprint(json.dumps(data, sort_keys=True)) != inventory.source_digest
@@ -209,9 +235,12 @@ def inspect(user, case_id, inventory_id, version, purpose):
         raise ValidationError(
             "Recipient history changed; inspect again / Historial cambiado; consulta de nuevo"
         )
+    check_authority()
     stored = unseal(inventory.encrypted_inventory)
     if fingerprint(json.dumps(stored, sort_keys=True)) != inventory.source_digest:
         raise ValidationError("Inventory integrity mismatch / Inventario incompatible")
+    check_authority()
+    authorized_proof(case, person, "rectify")
     RightsAction.objects.create(
         key=uuid.uuid4(),
         request=case,
@@ -221,6 +250,8 @@ def inspect(user, case_id, inventory_id, version, purpose):
         payload_digest=read_stamp(inventory, proof),
         encrypted_reason=seal({"purpose": purpose}),
     )
+    check_authority()
+    authorized_proof(case, person, "rectify")
     return stored
 
 

@@ -1,6 +1,6 @@
-N09G/441 aceptado localmente:18PASS337,893sJUnit/1776huellas/cleanupTGsent/auditoríaPASS.13diagnósticosíntegros:6controlesválidos+7denegacionespreprivado;5originalescierre/concurrencia/localizaciónPASS.Original13/6PASS7FAIL282,230sretenido.1módulo,4operaciones/6fronteras/1ruta;N09open1398/13.
+N09H/445 aceptadolocal22PASS374,255sJUnit/1779huellas/cleanupTGsent/auditoríaPASS.8diagnósticosíntegros4controles4denegacionespreprivado+8variantesreplayepochs+6originalesPASS.Original4PASS4FAIL178,931sretenido;3módulos4ops2rutas. N09open1398/13.
 
-Siguiente: cierre documental/grafo441/17/custodia/GitdeN09G;después destinatarios/ramastardías/purgas/outbox/jobs y conciliación139IDs. F75/E38retenidossinrepetir;N02alfinal/N10N11N15pendientes/N12–14condicionados.Objetivoactivoalpha/noindex.
+Siguiente: cierre documental/grafo44517/custodia/GitdeN09H;después139IDs/otrasramastardías/purgas/outbox/jobs,N10N11N15pendientes. F75E38G18retenidossinrepetir;N02alfinal/N12–14condicionados;objetivoactivoalpha/noindex.
 
 N08A2/411prerregistrado:unúnicocandidatobatchnativo doshandlers,72GETpareadosmismosdatos+controles/nullforeignESEN+10originales=13casosprevistos;sinimplementaciónaceptada.N08abierto7/13.
 

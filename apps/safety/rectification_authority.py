@@ -9,7 +9,7 @@ from .rights_scope import permitted
 
 
 @sensitive_variables()
-def capture_authority(user, *, review=False, respond=False):
+def capture_authority(user, *, review=False, respond=False, recipient_review=False):
     """Keep the caller's original epochs; never acquire an operator row lock."""
     actor_id, session_version, mfa_version = user.pk, user.session_version, user.mfa_version
     permissions = ["safety.review_rights_request", "safety.execute_rights_request"]
@@ -17,6 +17,9 @@ def capture_authority(user, *, review=False, respond=False):
         permissions.append("safety.review_rectification")
     if respond:
         permissions.append("safety.respond_rights_request")
+
+    if recipient_review:
+        permissions.append("safety.review_recipient_assessment")
 
     @sensitive_variables()
     def check(case):
