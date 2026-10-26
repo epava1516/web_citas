@@ -92,6 +92,7 @@ def review(request, candidate_id):
             (audit if request.POST.get("operation") == "inspect" else decision).add_error(
                 None, error
             )
+    allowed(request)
     latest = candidate.decisions.order_by("-review_version").first()
     return private(
         render(
@@ -133,6 +134,7 @@ def image(request, candidate_id, read_id, side):
     blob = Blob.objects.get(
         pk=candidate.uploaded_blob_id if side == "uploaded" else candidate.disposition.blob_id
     )
+    allowed(request)
     try:
         stream = blob.derivative.open("rb")
     except OSError:
@@ -160,6 +162,7 @@ def queue(request):
             permitted_candidates.append(locked(request.user, candidate.pk))
         except (ValidationError, PermissionDenied):
             continue
+    allowed(request)
     return private(
         render(
             request,

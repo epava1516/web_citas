@@ -8,6 +8,7 @@ from django.db import transaction
 from django.db.models import F
 from django.views.decorators.debug import sensitive_variables
 
+from apps.core.models import User
 from apps.listings.history import is_rectification_history
 from apps.listings.models import Revision
 from apps.mediafiles.models import Blob, Photo
@@ -25,8 +26,18 @@ from .rights_scope import permitted
 
 
 def permission(user):
-    if not user.mfa_enabled or not user.has_perm("safety.review_photo_reintroduction"):
+    current = User.objects.filter(pk=user.pk).first()
+    if (
+        current is None
+        or not current.is_active
+        or current.account_erased_at
+        or not current.mfa_enabled
+        or current.session_version != user.session_version
+        or current.mfa_version != user.mfa_version
+        or not current.has_perm("safety.review_photo_reintroduction")
+    ):
         raise PermissionDenied
+    return current
 
 
 def source(candidate):
@@ -121,6 +132,10 @@ def locked(user, candidate_id):
         .filter(pk__in=[candidate.uploaded_blob_id, candidate.disposition.blob_id])
         .order_by("pk")
     )
+    # Discard cached operator permissions after every scope/media lock wait.
+    current = permission(user)
+    if not permitted(current, case):
+        raise PermissionDenied
     photo = Photo.objects.get(pk=candidate.photo_id)
     if (
         not person
