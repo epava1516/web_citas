@@ -1,0 +1,48 @@
+{
+  "result": "PASS_N08A2_ACCEPTED_VARIANT_SOURCE_BRIDGE",
+  "baseline_executable_sources": 1507,
+  "unchanged_baseline_sources": 1498,
+  "accepted_variants": {
+    "apps/core/agencies.py": "879a190ff71ee456f4cc9c58cccea143db5f79608a1c951f5fa4eea270293768",
+    "apps/core/sitemaps.py": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+    "apps/listings/favorites.py": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+    "apps/mediafiles/services.py": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+    "apps/mediafiles/similarity.py": "4feb0b19b28efc7263d95909223cf027c10b00e848c6fcff7f3cabe613da555a",
+    "apps/mediafiles/tasks.py": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+    "apps/mediafiles/views.py": "440d8f9edc4c6405bc7cd2f369c9a241cb4f99dc22927661c5ed123752ebaf95",
+    "apps/safety/rights_portability_export.py": "db214669b78a504c6be47218aee12660bb50c5fb3648f81dd5dbabe61665c70d",
+    "scripts/run_local_ci.py": "646b1a8a61d24cc12756b074643ff3a5f221dcc057015e680e7208e50c3eb750"
+  },
+  "new_variants": {
+    "state": "PROPOSAL_ROOT_REVIEWED_INTEGRATED_FOR_DIAGNOSTIC_NOT_ACCEPTED",
+    "root_review": "Full diff read,imports/dependencycycle/sourcehelpers/PublicationContextidentity/candidatepage24-100/NULLforeignpath reviewed. No sharedhelper/model/config/other handler edits. Roottechnicalacceptance pending paired13testevidence.",
+    "files": [
+      {
+        "file": "apps/listings/favorites.py",
+        "baseline_sha256": "e4fe5cac54dc2507838457b7fd472e32e4756749b8ed28958e08b1d4234f5429",
+        "candidate_sha256": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+        "changed_function": "index",
+        "other_functions_AST_identical": true,
+        "decorators_AST_identical": true
+      },
+      {
+        "file": "apps/core/sitemaps.py",
+        "baseline_sha256": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+        "candidate_sha256": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+        "changed_function": "listings",
+        "other_functions_AST_identical": true,
+        "decorators_AST_identical": true
+      }
+    ],
+    "native_report_schema_checked": true,
+    "performance_acceptance": false
+  },
+  "new_variant_runtime": {
+    "run": "20261026-014812-0d85aaca",
+    "current_cases": 13,
+    "existing_current_cases": 10,
+    "new_current_cases": 3,
+    "pair_audit_sha256": "c7d5f9d6875a918afff5616c01bd920cb4012ec635ce7def8606b11117045475"
+  },
+  "scope": "Prior77originalwitnesses16modules sourceintact; ten relevant originals nowrerunwithin13PASS onnewhandlers, not87newcases. Other67 keep originaloutcomes/limits, otherfunctionsASTidentical; no newglobalacceptance. N08B/full17dispositions pending7/13."
+}

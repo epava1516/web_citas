@@ -11,6 +11,7 @@ from django.views.decorators.http import require_safe
 
 from apps.listings.models import Listing
 from apps.listings.moderation import publicly_visible
+from apps.listings.public_validation import PublicationContext
 from apps.listings.seo import absolute, listing_languages
 
 NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -82,11 +83,18 @@ def listings(request, page):
     if request.GET or page < 1:
         raise Http404
     queryset = candidates()
-    if page > ceil(queryset.count() / PAGE_SIZE):
+    count = queryset.count()
+    if page > ceil(count / PAGE_SIZE):
         raise Http404
+    offset = (page - 1) * PAGE_SIZE
+    selected = queryset[offset : page * PAGE_SIZE]
+    context = (
+        PublicationContext(selected, page_read=True)
+        if min(PAGE_SIZE, count - offset) > 1 else None
+    )
     root = Element("urlset", xmlns=NS)
-    for listing in queryset[(page - 1) * PAGE_SIZE : page * PAGE_SIZE]:
-        if publicly_visible(listing):
+    for listing in context.rows if context is not None else selected:
+        if publicly_visible(listing, context=context):
             versions = [
                 (lang, absolute("listing_detail", lang, args=[listing.pk]))
                 for lang in listing_languages(listing.approved_revision)

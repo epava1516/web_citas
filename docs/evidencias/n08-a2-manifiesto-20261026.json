@@ -1,0 +1,138 @@
+{
+  "result": "N08A2_ACCEPTED_SINGLE_CANDIDATE_EVIDENCE_MANIFEST",
+  "run": "20261026-014812-0d85aaca",
+  "cases": 13,
+  "junit_seconds": 321.638,
+  "target_GETs": 72,
+  "instrumented_new_GETs": 118,
+  "global_Client_operations": 167,
+  "all_six_cost_gates_met": true,
+  "functional_parity_verified": true,
+  "changed_app_handlers": [
+    "apps/listings/favorites.py:index",
+    "apps/core/sitemaps.py:listings"
+  ],
+  "source_scope": {
+    "state": "PROPOSAL_ROOT_REVIEWED_INTEGRATED_FOR_DIAGNOSTIC_NOT_ACCEPTED",
+    "root_review": "Full diff read,imports/dependencycycle/sourcehelpers/PublicationContextidentity/candidatepage24-100/NULLforeignpath reviewed. No sharedhelper/model/config/other handler edits. Roottechnicalacceptance pending paired13testevidence.",
+    "files": [
+      {
+        "file": "apps/listings/favorites.py",
+        "baseline_sha256": "e4fe5cac54dc2507838457b7fd472e32e4756749b8ed28958e08b1d4234f5429",
+        "candidate_sha256": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+        "changed_function": "index",
+        "other_functions_AST_identical": true,
+        "decorators_AST_identical": true
+      },
+      {
+        "file": "apps/core/sitemaps.py",
+        "baseline_sha256": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+        "candidate_sha256": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+        "changed_function": "listings",
+        "other_functions_AST_identical": true,
+        "decorators_AST_identical": true
+      }
+    ],
+    "native_report_schema_checked": true,
+    "performance_acceptance": false
+  },
+  "source_bridge": {
+    "result": "PASS_N08A2_ACCEPTED_VARIANT_SOURCE_BRIDGE",
+    "baseline_executable_sources": 1507,
+    "unchanged_baseline_sources": 1498,
+    "accepted_variants": {
+      "apps/core/agencies.py": "879a190ff71ee456f4cc9c58cccea143db5f79608a1c951f5fa4eea270293768",
+      "apps/core/sitemaps.py": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+      "apps/listings/favorites.py": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+      "apps/mediafiles/services.py": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+      "apps/mediafiles/similarity.py": "4feb0b19b28efc7263d95909223cf027c10b00e848c6fcff7f3cabe613da555a",
+      "apps/mediafiles/tasks.py": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+      "apps/mediafiles/views.py": "440d8f9edc4c6405bc7cd2f369c9a241cb4f99dc22927661c5ed123752ebaf95",
+      "apps/safety/rights_portability_export.py": "db214669b78a504c6be47218aee12660bb50c5fb3648f81dd5dbabe61665c70d",
+      "scripts/run_local_ci.py": "646b1a8a61d24cc12756b074643ff3a5f221dcc057015e680e7208e50c3eb750"
+    },
+    "new_variants": {
+      "state": "PROPOSAL_ROOT_REVIEWED_INTEGRATED_FOR_DIAGNOSTIC_NOT_ACCEPTED",
+      "root_review": "Full diff read,imports/dependencycycle/sourcehelpers/PublicationContextidentity/candidatepage24-100/NULLforeignpath reviewed. No sharedhelper/model/config/other handler edits. Roottechnicalacceptance pending paired13testevidence.",
+      "files": [
+        {
+          "file": "apps/listings/favorites.py",
+          "baseline_sha256": "e4fe5cac54dc2507838457b7fd472e32e4756749b8ed28958e08b1d4234f5429",
+          "candidate_sha256": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+          "changed_function": "index",
+          "other_functions_AST_identical": true,
+          "decorators_AST_identical": true
+        },
+        {
+          "file": "apps/core/sitemaps.py",
+          "baseline_sha256": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+          "candidate_sha256": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+          "changed_function": "listings",
+          "other_functions_AST_identical": true,
+          "decorators_AST_identical": true
+        }
+      ],
+      "native_report_schema_checked": true,
+      "performance_acceptance": false
+    },
+    "new_variant_runtime": {
+      "run": "20261026-014812-0d85aaca",
+      "current_cases": 13,
+      "existing_current_cases": 10,
+      "new_current_cases": 3,
+      "pair_audit_sha256": "c7d5f9d6875a918afff5616c01bd920cb4012ec635ce7def8606b11117045475"
+    },
+    "scope": "Prior77originalwitnesses16modules sourceintact; ten relevant originals nowrerunwithin13PASS onnewhandlers, not87newcases. Other67 keep originaloutcomes/limits, otherfunctionsASTidentical; no newglobalacceptance. N08B/full17dispositions pending7/13."
+  },
+  "graph": {
+    "result": "PASS_SCOPED_N08A2_ACCEPTED_RESULT_GRAPH",
+    "sources": 2028,
+    "nodes": 19515,
+    "relations": 83306,
+    "communities": 934,
+    "graph_sha256": "82b338ede064ff0cf77b0c35b47925bf39cd4569e60148cc09519738a62b4c80",
+    "scope": "412 and17first4 resultsemantics;candidateASTpreserved;13PASS/6targetcostgates andparityverified;singlecandidateacceptedfiniteN08scope,overall7/13N08Bpending;unaffectedsourceentities/edgespreserved"
+  },
+  "archives": {
+    "docs/evidencias/n08-a2-reproduccion-20261026.tar.gz": {
+      "sha256": "8cc39aa860823343ebf1626d79d6f3a44ee172f2348e6fcd59307c2d15540f94",
+      "bytes": 410567
+    },
+    "docs/evidencias/n08-a2-grafo-resultado-20261026.tar.gz": {
+      "sha256": "aa2e7da8a66c39f17fc405c949f48a8d4c776a1942dfddc6937c8f881aa96833",
+      "bytes": 4534180
+    }
+  },
+  "browser_observation": {
+    "executable": "/usr/bin/chromium-browser",
+    "resolved_path": "/usr/lib64/chromium-browser/chromium-browser.sh",
+    "version_stdout": "Chromium 156.0.8078.47 Built from source for Red Hat Enterprise Linux release 9.8 (Plow)",
+    "executable_file_sha256": "567773e597466d15bf9c20540edb2e8929f672b505f4671457f4e09f13c00f7b",
+    "scope": "Observed configured executable/version after actualselected3browser regressions; originaltestsource chooses shutil.which(chromium-browser). No browser performance or whole-runtime binaryimmutability claim."
+  },
+  "documentation_gate": {
+    "result": "PASS",
+    "markdown": 799,
+    "links": 6114
+  },
+  "mandatory_accepted": 7,
+  "N08": "in_progress",
+  "next": "N08B commercial history25/catalogueversions50/unpaginatedchoices andautobump stage;17dispositions stillpending",
+  "native_token_usage": null,
+  "new_Claude_V1_calls": 0,
+  "external_preserved_unstaged": [
+    "AGENTS.md",
+    "docs/340-contrato-recorridos-optimizacion-alpha-20261025.md",
+    "docs/341-roadmap-recorridos-optimizacion-alpha-20261025.md",
+    "docs/README.md",
+    "docs/acuerdos-siguiente-contrato-ui-ux-comercial-20261026.md",
+    "docs/prompt-siguiente-contrato-ui-ux-comercial-20261026.md",
+    "docs/skills-django-codex-20261026.md",
+    "docs/skills-postgresql-codex-20261026.md",
+    "docs/skills-celery-migraciones-codex-20261026.md",
+    "docs/mcp-postgresql-codex-20261026.md",
+    "docs/mcp-django-context7-codex-20261026.md",
+    "docs/evidencias/traslado-maquina-graphify0110.tar.gz"
+  ],
+  "scope": "Real sameDBnativecallbacks/helpers/middleware/source/data pair; firstplus5/sixvariants,no p95/load/SLA/provider/beta/wholeN08claim. RSSwholeprocesshighwaternotperversion; normalizationonlyexplicitCSRF/nonce,cookiesexception; no300GETroutine rerun or QAoverall speedclaim. User lateral changes preserved."
+}

@@ -10,6 +10,7 @@ from apps.safety.purpose_restrictions import blocked_response, restricted
 
 from .models import Favorite, Listing
 from .moderation import publicly_visible
+from .public_validation import PublicationContext
 
 
 @login_required
@@ -27,9 +28,31 @@ def index(request):
         "listing__approved_revision", "listing__person__agency", "listing__person__phone_claim"
     )
     page = Paginator(favorites, 24).get_page(request.GET.get("page"))
-    entries = [
-        {"favorite": favorite, "visible": publicly_visible(favorite.listing)} for favorite in page
-    ]
+    page_favorites = list(page)
+    if len(page_favorites) > 1:
+        context = PublicationContext(
+            Listing.objects.filter(
+                pk__in=[favorite.listing_id for favorite in page_favorites],
+                approved_revision__isnull=False,
+            ),
+            page_read=True,
+        )
+        listings = {listing.pk: listing for listing in context.rows}
+        entries = []
+        for favorite in page_favorites:
+            listing = listings.get(favorite.listing_id)
+            if listing is not None:
+                # Render the same fresh relation instance that was validated.
+                favorite.listing = listing
+            entries.append({
+                "favorite": favorite,
+                "visible": listing is not None and publicly_visible(listing, context=context),
+            })
+    else:
+        entries = [
+            {"favorite": favorite, "visible": publicly_visible(favorite.listing)}
+            for favorite in page_favorites
+        ]
     response = render(request, "listings/favorites.html", {"entries": entries, "page": page})
     response["Cache-Control"] = "private, no-store"
     return response
