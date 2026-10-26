@@ -1,0 +1,1756 @@
+{
+  "result": "PASS_THIRTEEN_FINITE_ALERT_RETENTION_BASELINE_NOT_WHOLE_N09",
+  "run": "20261026-161023-9fa5983d",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "13",
+      "time": "169.955",
+      "timestamp": "2026-10-26T17:10:44.495456+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1782,
+  "phases": 30,
+  "urgent_alerts_inserted": 215,
+  "retention_reviews_inserted": 867,
+  "retention_plans_seen": 219,
+  "retention_failed_observations": 2,
+  "retention_plan_count_updates": 216,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "NativeTask.run/ownedPG/noappchange/worker/Beat/provider/humanreview/erasure. N1instrumented/noafter/p95/SLA;priority1/existingalerts/partialfollowuppins/domainmediaimmutable;actualPGskip2then1then0x2/mixedinvalidfailureagainexpected;N09139open8of13.",
+  "profiles": [
+    {
+      "case_seconds": 8.35268672183156,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "urgent",
+      "measured_seconds": 0.010413410142064095,
+      "mode": "volume",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 8.342273311689496,
+      "setup_seconds": 6.895338895730674,
+      "status": "passed",
+      "target_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 0,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "1e2db7ffd6d3f7336b3e7016cc272f294ff27046e0140591938bce2318b6898a"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "1e2db7ffd6d3f7336b3e7016cc272f294ff27046e0140591938bce2318b6898a"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0023368438705801964
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "report_rows_count": 2,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0023368438705801964,
+          "target_after_count": 1,
+          "target_after_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "target_before_count": 1,
+          "target_before_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "wall_seconds": 0.005537568591535091,
+          "domain_before_sha256": "3487670f617fb1aa72baf0937ab161e6387311c71e78f80c128f44e9cf84b5bc",
+          "domain_after_sha256": "3487670f617fb1aa72baf0937ab161e6387311c71e78f80c128f44e9cf84b5bc"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "1e2db7ffd6d3f7336b3e7016cc272f294ff27046e0140591938bce2318b6898a"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "1e2db7ffd6d3f7336b3e7016cc272f294ff27046e0140591938bce2318b6898a"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0022431351244449615
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "report_rows_count": 2,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0022431351244449615,
+          "target_after_count": 1,
+          "target_after_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "target_before_count": 1,
+          "target_before_sha256": "75003c9347044dc030eadf392bd5bac61fbc6b910933ede703a7108a907e65bf",
+          "wall_seconds": 0.004875841550529003,
+          "domain_before_sha256": "3487670f617fb1aa72baf0937ab161e6387311c71e78f80c128f44e9cf84b5bc",
+          "domain_after_sha256": "3487670f617fb1aa72baf0937ab161e6387311c71e78f80c128f44e9cf84b5bc"
+        }
+      ]
+    },
+    {
+      "case_seconds": 7.56860554497689,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "urgent",
+      "measured_seconds": 0.019161377102136612,
+      "mode": "volume",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 7.5494441678747535,
+      "setup_seconds": 5.894908295944333,
+      "status": "passed",
+      "target_ids_sha256": "d5f98c058e9cd5772b23814cc01457cd07b76175a2596827bd7d07e71a7a382d",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 1,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 1,
+          "inserted_rows": 1,
+          "inserted_sha256": "550d7f22a4c9b9e1358af4583bb3805f1f9ddde7f03c1cda11a984527a0aea26",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "93d8e2742569dd7bf09cbd9f1236cbb25ae0aeafd68907547d7334405bbe2e03"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "93d8e2742569dd7bf09cbd9f1236cbb25ae0aeafd68907547d7334405bbe2e03"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.0015090294182300568
+            },
+            "RELEASE": {
+              "count": 1,
+              "seconds": 0.0007810080423951149
+            },
+            "SAVEPOINT": {
+              "count": 1,
+              "seconds": 0.0007310109212994576
+            },
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.00510664377361536
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "005af251856b715177c456b185baf4c1622ebef39458179ecb4bc193ae995111",
+          "report_rows_count": 3,
+          "result": {
+            "reconciled": 1
+          },
+          "selected_count": 1,
+          "sql_count": 5,
+          "sql_seconds": 0.00812769215553999,
+          "target_after_count": 2,
+          "target_after_sha256": "9090f4b6db79c8722bbd0b767aa33aba82132e4c7d8c81cb7661b9983af87611",
+          "target_before_count": 1,
+          "target_before_sha256": "005af251856b715177c456b185baf4c1622ebef39458179ecb4bc193ae995111",
+          "wall_seconds": 0.0159653564915061,
+          "domain_before_sha256": "d4b926f0ac1f36d2a9e5aad97ac775a7928777acc2cc368259df9cf086c037f3",
+          "domain_after_sha256": "d4b926f0ac1f36d2a9e5aad97ac775a7928777acc2cc368259df9cf086c037f3"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "93d8e2742569dd7bf09cbd9f1236cbb25ae0aeafd68907547d7334405bbe2e03"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "93d8e2742569dd7bf09cbd9f1236cbb25ae0aeafd68907547d7334405bbe2e03"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0013770833611488342
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "9090f4b6db79c8722bbd0b767aa33aba82132e4c7d8c81cb7661b9983af87611",
+          "report_rows_count": 3,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0013770833611488342,
+          "target_after_count": 2,
+          "target_after_sha256": "9090f4b6db79c8722bbd0b767aa33aba82132e4c7d8c81cb7661b9983af87611",
+          "target_before_count": 2,
+          "target_before_sha256": "9090f4b6db79c8722bbd0b767aa33aba82132e4c7d8c81cb7661b9983af87611",
+          "wall_seconds": 0.0031960206106305122,
+          "domain_before_sha256": "d4b926f0ac1f36d2a9e5aad97ac775a7928777acc2cc368259df9cf086c037f3",
+          "domain_after_sha256": "d4b926f0ac1f36d2a9e5aad97ac775a7928777acc2cc368259df9cf086c037f3"
+        }
+      ]
+    },
+    {
+      "case_seconds": 7.237311214208603,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "urgent",
+      "measured_seconds": 0.04643038474023342,
+      "mode": "volume",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 7.1908808294683695,
+      "setup_seconds": 5.77320202998817,
+      "status": "passed",
+      "target_ids_sha256": "2d2097680a276a0a4581d123ff1a5a406d9e43730f17d3499f2e3f8b6cdbcb51",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 10,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 10,
+          "inserted_rows": 10,
+          "inserted_sha256": "6439ec7b3485498a303f45ce5d5f488578436f4c08632339c523628ba7de4239",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "8719a6c25de5a66680bb988f1b306dc6e927dea4b8d97cf8f906636c7ee3e5ca"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "8719a6c25de5a66680bb988f1b306dc6e927dea4b8d97cf8f906636c7ee3e5ca"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 10,
+              "seconds": 0.00791857298463583
+            },
+            "RELEASE": {
+              "count": 10,
+              "seconds": 0.005119176581501961
+            },
+            "SAVEPOINT": {
+              "count": 10,
+              "seconds": 0.005068108439445496
+            },
+            "SELECT": {
+              "count": 11,
+              "seconds": 0.010329563170671463
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "755a96bfe672ab368ec8380fd4cbdf48732c115be922f20e0834ee701555b76b",
+          "report_rows_count": 12,
+          "result": {
+            "reconciled": 10
+          },
+          "selected_count": 10,
+          "sql_count": 41,
+          "sql_seconds": 0.02843542117625475,
+          "target_after_count": 11,
+          "target_after_sha256": "3fe36b432984e8eab7937c0277db6ec891281ff303f7c1459ac095eff5a788b5",
+          "target_before_count": 1,
+          "target_before_sha256": "755a96bfe672ab368ec8380fd4cbdf48732c115be922f20e0834ee701555b76b",
+          "wall_seconds": 0.04304904118180275,
+          "domain_before_sha256": "2c676422fa668c4211238a54e9656fb9ab3ce1c6bf572b6f8824fbb1309b6877",
+          "domain_after_sha256": "2c676422fa668c4211238a54e9656fb9ab3ce1c6bf572b6f8824fbb1309b6877"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "8719a6c25de5a66680bb988f1b306dc6e927dea4b8d97cf8f906636c7ee3e5ca"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "8719a6c25de5a66680bb988f1b306dc6e927dea4b8d97cf8f906636c7ee3e5ca"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0016918377950787544
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "3fe36b432984e8eab7937c0277db6ec891281ff303f7c1459ac095eff5a788b5",
+          "report_rows_count": 12,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0016918377950787544,
+          "target_after_count": 11,
+          "target_after_sha256": "3fe36b432984e8eab7937c0277db6ec891281ff303f7c1459ac095eff5a788b5",
+          "target_before_count": 11,
+          "target_before_sha256": "3fe36b432984e8eab7937c0277db6ec891281ff303f7c1459ac095eff5a788b5",
+          "wall_seconds": 0.0033813435584306717,
+          "domain_before_sha256": "2c676422fa668c4211238a54e9656fb9ab3ce1c6bf572b6f8824fbb1309b6877",
+          "domain_after_sha256": "2c676422fa668c4211238a54e9656fb9ab3ce1c6bf572b6f8824fbb1309b6877"
+        }
+      ]
+    },
+    {
+      "case_seconds": 8.31569738034159,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "urgent",
+      "measured_seconds": 0.3509989008307457,
+      "mode": "volume",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 7.964698479510844,
+      "setup_seconds": 6.059392776340246,
+      "status": "passed",
+      "target_ids_sha256": "5f8f5153e6bbc633eb900d908a2efebbde73fd241b03570f56151face0f3bfd3",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 100,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 100,
+          "inserted_rows": 100,
+          "inserted_sha256": "8c2dc7fa92286e897c0f1e141dcee80b2fc059256cc200b1918997ad390a3220",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "490c491726580d9039894572f9c816ed76515b0869ad2ca2bb22694a591176c6"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "490c491726580d9039894572f9c816ed76515b0869ad2ca2bb22694a591176c6"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 100,
+              "seconds": 0.06844511814415455
+            },
+            "RELEASE": {
+              "count": 100,
+              "seconds": 0.04067714232951403
+            },
+            "SAVEPOINT": {
+              "count": 100,
+              "seconds": 0.040343365631997585
+            },
+            "SELECT": {
+              "count": 101,
+              "seconds": 0.07647461257874966
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "c4f3e41a984711019ba5664004c1b7910838501fc1ee45774db34ae45db6c67f",
+          "report_rows_count": 102,
+          "result": {
+            "reconciled": 100
+          },
+          "selected_count": 100,
+          "sql_count": 401,
+          "sql_seconds": 0.22594023868441582,
+          "target_after_count": 101,
+          "target_after_sha256": "b73e62cfa2c2fd5c7169db79f32b5f7f7d4a07c19e7bbb5d39e627d8861ae13e",
+          "target_before_count": 1,
+          "target_before_sha256": "c4f3e41a984711019ba5664004c1b7910838501fc1ee45774db34ae45db6c67f",
+          "wall_seconds": 0.34590368065983057,
+          "domain_before_sha256": "9c03b7dbde80e24be86a6d37668232dd42e6c7bf59e44a32a7be6a941513bd9e",
+          "domain_after_sha256": "9c03b7dbde80e24be86a6d37668232dd42e6c7bf59e44a32a7be6a941513bd9e"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "490c491726580d9039894572f9c816ed76515b0869ad2ca2bb22694a591176c6"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "490c491726580d9039894572f9c816ed76515b0869ad2ca2bb22694a591176c6"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.002855271100997925
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "b73e62cfa2c2fd5c7169db79f32b5f7f7d4a07c19e7bbb5d39e627d8861ae13e",
+          "report_rows_count": 102,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.002855271100997925,
+          "target_after_count": 101,
+          "target_after_sha256": "b73e62cfa2c2fd5c7169db79f32b5f7f7d4a07c19e7bbb5d39e627d8861ae13e",
+          "target_before_count": 101,
+          "target_before_sha256": "b73e62cfa2c2fd5c7169db79f32b5f7f7d4a07c19e7bbb5d39e627d8861ae13e",
+          "wall_seconds": 0.005095220170915127,
+          "domain_before_sha256": "9c03b7dbde80e24be86a6d37668232dd42e6c7bf59e44a32a7be6a941513bd9e",
+          "domain_after_sha256": "9c03b7dbde80e24be86a6d37668232dd42e6c7bf59e44a32a7be6a941513bd9e"
+        }
+      ]
+    },
+    {
+      "case_seconds": 8.074274118989706,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "urgent",
+      "measured_seconds": 0.5514477016404271,
+      "mode": "volume",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 7.522826417349279,
+      "setup_seconds": 5.346024828962982,
+      "status": "passed",
+      "target_ids_sha256": "f1a7ae587ef7aad124795aca1cf86d4ee20447ad7a81ae0e2378ed29e4a9a8a6",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 101,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 100,
+          "inserted_rows": 100,
+          "inserted_sha256": "8be6d847205226dafd87230f593bd6411be003bf160f938b01078d4d588c5a9e",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 100,
+              "seconds": 0.11174255609512329
+            },
+            "RELEASE": {
+              "count": 100,
+              "seconds": 0.06091547943651676
+            },
+            "SAVEPOINT": {
+              "count": 100,
+              "seconds": 0.05813693255186081
+            },
+            "SELECT": {
+              "count": 101,
+              "seconds": 0.10913913697004318
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "0ce0f34d3999af753e10596983900586e9a0f09a9c9487b7d3ad99d83f6fcf4a",
+          "report_rows_count": 103,
+          "result": {
+            "reconciled": 100
+          },
+          "selected_count": 100,
+          "sql_count": 401,
+          "sql_seconds": 0.33993410505354404,
+          "target_after_count": 101,
+          "target_after_sha256": "60fffb20097a9bf734dee150e6c340d1c8cedb8f6cd39c5ede181be118131bbc",
+          "target_before_count": 1,
+          "target_before_sha256": "0ce0f34d3999af753e10596983900586e9a0f09a9c9487b7d3ad99d83f6fcf4a",
+          "wall_seconds": 0.5355929592624307,
+          "domain_before_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57",
+          "domain_after_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 1,
+          "inserted_rows": 1,
+          "inserted_sha256": "08a3b0c48efd97ce99adbd0eb7bcf91968be3fe6b20baa523ce559edc5cc63b9",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.001083390787243843
+            },
+            "RELEASE": {
+              "count": 1,
+              "seconds": 0.0004547974094748497
+            },
+            "SAVEPOINT": {
+              "count": 1,
+              "seconds": 0.00042992737144231796
+            },
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.004313057288527489
+            }
+          },
+          "phase": "second_batch",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "60fffb20097a9bf734dee150e6c340d1c8cedb8f6cd39c5ede181be118131bbc",
+          "report_rows_count": 103,
+          "result": {
+            "reconciled": 1
+          },
+          "selected_count": 1,
+          "sql_count": 5,
+          "sql_seconds": 0.0062811728566884995,
+          "target_after_count": 102,
+          "target_after_sha256": "5dd91a407602e48a34e01e886049123afadc4a6be9d9783e4d491d5aee6c000f",
+          "target_before_count": 101,
+          "target_before_sha256": "60fffb20097a9bf734dee150e6c340d1c8cedb8f6cd39c5ede181be118131bbc",
+          "wall_seconds": 0.010506663471460342,
+          "domain_before_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57",
+          "domain_after_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "007ced7e4ea5da7c38234977b21c2652edef07fdf3c09e5857b63aa76b40ddf2"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0025767050683498383
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "5dd91a407602e48a34e01e886049123afadc4a6be9d9783e4d491d5aee6c000f",
+          "report_rows_count": 103,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0025767050683498383,
+          "target_after_count": 102,
+          "target_after_sha256": "5dd91a407602e48a34e01e886049123afadc4a6be9d9783e4d491d5aee6c000f",
+          "target_before_count": 102,
+          "target_before_sha256": "5dd91a407602e48a34e01e886049123afadc4a6be9d9783e4d491d5aee6c000f",
+          "wall_seconds": 0.005348078906536102,
+          "domain_before_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57",
+          "domain_after_sha256": "e8d5310b5bbd8e41f0f49fe5eb7a09641ee3b3e95ec763c80eea8a26067d7d57"
+        }
+      ]
+    },
+    {
+      "case_seconds": 9.5343400798738,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 0.019077206030488014,
+      "mode": "volume",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.515262873843312,
+      "setup_seconds": 7.945232902653515,
+      "status": "passed",
+      "target_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 0,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "fa8ef4b3c1ca14fcb96b847ac160ceca2c8db8616a2b5d340f84fb52978b1140"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "fa8ef4b3c1ca14fcb96b847ac160ceca2c8db8616a2b5d340f84fb52978b1140"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0027393586933612823
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "7db456964a9849f0146f661d2decfd1675bf338c5644ab2d09079e35a708a7bf",
+          "plan_immutable_before_sha256": "7db456964a9849f0146f661d2decfd1675bf338c5644ab2d09079e35a708a7bf",
+          "plan_rows_count": 1,
+          "preserved_target_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0027393586933612823,
+          "target_after_count": 4,
+          "target_after_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "target_before_count": 4,
+          "target_before_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "wall_seconds": 0.008337059989571571,
+          "domain_before_sha256": "b55061952f7ee917612d438f5400b53ee65729cfc0ae6e80efec462d1c24dd48",
+          "domain_after_sha256": "b55061952f7ee917612d438f5400b53ee65729cfc0ae6e80efec462d1c24dd48"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "fa8ef4b3c1ca14fcb96b847ac160ceca2c8db8616a2b5d340f84fb52978b1140"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "fa8ef4b3c1ca14fcb96b847ac160ceca2c8db8616a2b5d340f84fb52978b1140"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0047192880883812904
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "7db456964a9849f0146f661d2decfd1675bf338c5644ab2d09079e35a708a7bf",
+          "plan_immutable_before_sha256": "7db456964a9849f0146f661d2decfd1675bf338c5644ab2d09079e35a708a7bf",
+          "plan_rows_count": 1,
+          "preserved_target_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0047192880883812904,
+          "target_after_count": 4,
+          "target_after_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "target_before_count": 4,
+          "target_before_sha256": "b42629fb2f3bcc2eea3377bf425e94b29ab6bc305beff30e70a51b65f159de90",
+          "wall_seconds": 0.010740146040916443,
+          "domain_before_sha256": "b55061952f7ee917612d438f5400b53ee65729cfc0ae6e80efec462d1c24dd48",
+          "domain_after_sha256": "b55061952f7ee917612d438f5400b53ee65729cfc0ae6e80efec462d1c24dd48"
+        }
+      ]
+    },
+    {
+      "case_seconds": 9.113398438319564,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 0.029642232693731785,
+      "mode": "volume",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.083756205625832,
+      "setup_seconds": 7.7486632484942675,
+      "status": "passed",
+      "target_ids_sha256": "54e7c5fdd46ad5479961c49a25b4398aae9f0fceb7d63321fef4855b3a4ce9b4",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 1,
+      "phases": [
+        {
+          "changed_plan_rows": 1,
+          "changed_plan_sha256": "54e7c5fdd46ad5479961c49a25b4398aae9f0fceb7d63321fef4855b3a4ce9b4",
+          "inserted_parent_count": 1,
+          "inserted_rows": 4,
+          "inserted_sha256": "c822d01e6b9e3d8afd3372136624e0b740b1baa9bef0a4b942e8e679ddcb950b",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "438702a5122a6e911bbe062d024fb5816a443a205d97f170606a916706e912b8"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "438702a5122a6e911bbe062d024fb5816a443a205d97f170606a916706e912b8"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 4,
+              "seconds": 0.0027484511956572533
+            },
+            "RELEASE": {
+              "count": 5,
+              "seconds": 0.0016848957166075706
+            },
+            "SAVEPOINT": {
+              "count": 5,
+              "seconds": 0.0020159175619482994
+            },
+            "SELECT": {
+              "count": 5,
+              "seconds": 0.006236937828361988
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0006564892828464508
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "e5fda8e8294cc4b3f95e83d6a26a85f9d7e2c39bf0f0ee468df5becbc8d1635b",
+          "plan_immutable_before_sha256": "e5fda8e8294cc4b3f95e83d6a26a85f9d7e2c39bf0f0ee468df5becbc8d1635b",
+          "plan_rows_count": 2,
+          "preserved_target_sha256": "e16cfb5c2a7741b859a69073be679dd13e3b563983583bc71f60faee3935eae9",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 1,
+            "scheduled": 4
+          },
+          "selected_count": 1,
+          "sql_count": 20,
+          "sql_seconds": 0.013342691585421562,
+          "target_after_count": 8,
+          "target_after_sha256": "6e2c091a17de1e084b115e292e4052a33916646e47548989ae9a7555d46df16e",
+          "target_before_count": 4,
+          "target_before_sha256": "e16cfb5c2a7741b859a69073be679dd13e3b563983583bc71f60faee3935eae9",
+          "wall_seconds": 0.023369119502604008,
+          "domain_before_sha256": "0973f532f4f45d74e597ebeaa6258fb6e214510ea7afd60e2e5e88243a378ba2",
+          "domain_after_sha256": "0973f532f4f45d74e597ebeaa6258fb6e214510ea7afd60e2e5e88243a378ba2"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "438702a5122a6e911bbe062d024fb5816a443a205d97f170606a916706e912b8"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "438702a5122a6e911bbe062d024fb5816a443a205d97f170606a916706e912b8"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0028345761820673943
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "e5fda8e8294cc4b3f95e83d6a26a85f9d7e2c39bf0f0ee468df5becbc8d1635b",
+          "plan_immutable_before_sha256": "e5fda8e8294cc4b3f95e83d6a26a85f9d7e2c39bf0f0ee468df5becbc8d1635b",
+          "plan_rows_count": 2,
+          "preserved_target_sha256": "6e2c091a17de1e084b115e292e4052a33916646e47548989ae9a7555d46df16e",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0028345761820673943,
+          "target_after_count": 8,
+          "target_after_sha256": "6e2c091a17de1e084b115e292e4052a33916646e47548989ae9a7555d46df16e",
+          "target_before_count": 8,
+          "target_before_sha256": "6e2c091a17de1e084b115e292e4052a33916646e47548989ae9a7555d46df16e",
+          "wall_seconds": 0.006273113191127777,
+          "domain_before_sha256": "0973f532f4f45d74e597ebeaa6258fb6e214510ea7afd60e2e5e88243a378ba2",
+          "domain_after_sha256": "0973f532f4f45d74e597ebeaa6258fb6e214510ea7afd60e2e5e88243a378ba2"
+        }
+      ]
+    },
+    {
+      "case_seconds": 10.188006709329784,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 0.25806616246700287,
+      "mode": "volume",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.929940546862781,
+      "setup_seconds": 8.166863391175866,
+      "status": "passed",
+      "target_ids_sha256": "907d822988ec36061f5d8332b340248ccc88d9ba42f1cd744ab070dd9350cf5c",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 10,
+      "phases": [
+        {
+          "changed_plan_rows": 10,
+          "changed_plan_sha256": "17647ceaea6a516b4d89daa17881f287d59981aae8a994d506cf8d77d1d307f8",
+          "inserted_parent_count": 10,
+          "inserted_rows": 40,
+          "inserted_sha256": "1086012865703ce49ba5d6f22c8d4dc6cbb4f89c30aa1235a5f8c325ed75354e",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "c81be3fa0ebc50cbf261cd046df58af161c4da2aefcc1b36f0910789865637bc"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "c81be3fa0ebc50cbf261cd046df58af161c4da2aefcc1b36f0910789865637bc"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 40,
+              "seconds": 0.04098184872418642
+            },
+            "RELEASE": {
+              "count": 50,
+              "seconds": 0.030034796334803104
+            },
+            "SAVEPOINT": {
+              "count": 50,
+              "seconds": 0.030554382130503654
+            },
+            "SELECT": {
+              "count": 41,
+              "seconds": 0.05064638052135706
+            },
+            "UPDATE": {
+              "count": 10,
+              "seconds": 0.009820671752095222
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "97f5f2d39e06f7bfc435be4a43f2a08d19e751f597daf1bd7ed34de8dbcbd00b",
+          "plan_immutable_before_sha256": "97f5f2d39e06f7bfc435be4a43f2a08d19e751f597daf1bd7ed34de8dbcbd00b",
+          "plan_rows_count": 11,
+          "preserved_target_sha256": "bb0a8acbf019182721a64043e676c4e432d4e204f67ca9c42269a90a9bb114f7",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 10,
+            "scheduled": 40
+          },
+          "selected_count": 10,
+          "sql_count": 191,
+          "sql_seconds": 0.16203807946294546,
+          "target_after_count": 44,
+          "target_after_sha256": "7a49c6a728971e597ccd8ef97419f7d96fbe3fb722cfd90cd4be338ffa87d42a",
+          "target_before_count": 4,
+          "target_before_sha256": "bb0a8acbf019182721a64043e676c4e432d4e204f67ca9c42269a90a9bb114f7",
+          "wall_seconds": 0.24880784656852484,
+          "domain_before_sha256": "0a599fc5016a6de5b29af9716f9ce6256c81130734d7b82617b30dd509d2ef1c",
+          "domain_after_sha256": "0a599fc5016a6de5b29af9716f9ce6256c81130734d7b82617b30dd509d2ef1c"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "c81be3fa0ebc50cbf261cd046df58af161c4da2aefcc1b36f0910789865637bc"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "c81be3fa0ebc50cbf261cd046df58af161c4da2aefcc1b36f0910789865637bc"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0035116514191031456
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "97f5f2d39e06f7bfc435be4a43f2a08d19e751f597daf1bd7ed34de8dbcbd00b",
+          "plan_immutable_before_sha256": "97f5f2d39e06f7bfc435be4a43f2a08d19e751f597daf1bd7ed34de8dbcbd00b",
+          "plan_rows_count": 11,
+          "preserved_target_sha256": "7a49c6a728971e597ccd8ef97419f7d96fbe3fb722cfd90cd4be338ffa87d42a",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0035116514191031456,
+          "target_after_count": 44,
+          "target_after_sha256": "7a49c6a728971e597ccd8ef97419f7d96fbe3fb722cfd90cd4be338ffa87d42a",
+          "target_before_count": 44,
+          "target_before_sha256": "7a49c6a728971e597ccd8ef97419f7d96fbe3fb722cfd90cd4be338ffa87d42a",
+          "wall_seconds": 0.009258315898478031,
+          "domain_before_sha256": "0a599fc5016a6de5b29af9716f9ce6256c81130734d7b82617b30dd509d2ef1c",
+          "domain_after_sha256": "0a599fc5016a6de5b29af9716f9ce6256c81130734d7b82617b30dd509d2ef1c"
+        }
+      ]
+    },
+    {
+      "case_seconds": 12.000872285105288,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 2.0819016713649035,
+      "mode": "volume",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.918970613740385,
+      "setup_seconds": 8.520961278118193,
+      "status": "passed",
+      "target_ids_sha256": "00e39448ff5ad8617074f85e0ada9d66c0a1db0fd770c6a7a5e0cb3de9bc6764",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 100,
+      "phases": [
+        {
+          "changed_plan_rows": 100,
+          "changed_plan_sha256": "63f80436ed9ad36d0d308fc58012110f0900f2fe4e6b30399425c43a05702fea",
+          "inserted_parent_count": 100,
+          "inserted_rows": 400,
+          "inserted_sha256": "c0e861ae038539586417684bd5b08a58fe29efa70acbd2eabe2685f83f450437",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "7749293f38e2faa4778b7eeebf58d38f1c1a7e3cf6333f616f0abf3aa1858380"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "7749293f38e2faa4778b7eeebf58d38f1c1a7e3cf6333f616f0abf3aa1858380"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 400,
+              "seconds": 0.349045910872519
+            },
+            "RELEASE": {
+              "count": 500,
+              "seconds": 0.2305415105074644
+            },
+            "SAVEPOINT": {
+              "count": 500,
+              "seconds": 0.2255810759961605
+            },
+            "SELECT": {
+              "count": 401,
+              "seconds": 0.406893708743155
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.08744788635522127
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "4d2046636c337c87c434712e5ae2c4ced0dca0ba202ea15093fd4414c6721051",
+          "plan_immutable_before_sha256": "4d2046636c337c87c434712e5ae2c4ced0dca0ba202ea15093fd4414c6721051",
+          "plan_rows_count": 101,
+          "preserved_target_sha256": "08fd1007d02f3efd89947f0f05ac093beb69e020905004f8e9e49b30a8dfa681",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 100,
+            "scheduled": 400
+          },
+          "selected_count": 100,
+          "sql_count": 1901,
+          "sql_seconds": 1.2995100924745202,
+          "target_after_count": 404,
+          "target_after_sha256": "5188c61617ef07db675e3f0cc3b9a787991d1eb21201f253bc00dc61e4374a3f",
+          "target_before_count": 4,
+          "target_before_sha256": "08fd1007d02f3efd89947f0f05ac093beb69e020905004f8e9e49b30a8dfa681",
+          "wall_seconds": 2.073906480334699,
+          "domain_before_sha256": "afb807b1470b556c116e422d8d15bcb7211c73a65d8fa0fea855a5d6123f55b1",
+          "domain_after_sha256": "afb807b1470b556c116e422d8d15bcb7211c73a65d8fa0fea855a5d6123f55b1"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "7749293f38e2faa4778b7eeebf58d38f1c1a7e3cf6333f616f0abf3aa1858380"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "7749293f38e2faa4778b7eeebf58d38f1c1a7e3cf6333f616f0abf3aa1858380"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0031178565695881844
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "4d2046636c337c87c434712e5ae2c4ced0dca0ba202ea15093fd4414c6721051",
+          "plan_immutable_before_sha256": "4d2046636c337c87c434712e5ae2c4ced0dca0ba202ea15093fd4414c6721051",
+          "plan_rows_count": 101,
+          "preserved_target_sha256": "5188c61617ef07db675e3f0cc3b9a787991d1eb21201f253bc00dc61e4374a3f",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0031178565695881844,
+          "target_after_count": 404,
+          "target_after_sha256": "5188c61617ef07db675e3f0cc3b9a787991d1eb21201f253bc00dc61e4374a3f",
+          "target_before_count": 404,
+          "target_before_sha256": "5188c61617ef07db675e3f0cc3b9a787991d1eb21201f253bc00dc61e4374a3f",
+          "wall_seconds": 0.007995191030204296,
+          "domain_before_sha256": "afb807b1470b556c116e422d8d15bcb7211c73a65d8fa0fea855a5d6123f55b1",
+          "domain_after_sha256": "afb807b1470b556c116e422d8d15bcb7211c73a65d8fa0fea855a5d6123f55b1"
+        }
+      ]
+    },
+    {
+      "case_seconds": 12.130572673864663,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 2.2469390174373984,
+      "mode": "volume",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.883633656427264,
+      "setup_seconds": 7.643563000485301,
+      "status": "passed",
+      "target_ids_sha256": "31a69f5f96578b7954145a87673c0fb069cbdd1b09e7ace4b0e7e292ae51778e",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 101,
+      "phases": [
+        {
+          "changed_plan_rows": 100,
+          "changed_plan_sha256": "a18e650377b801df11a271b325b5411740756e7d84a5ff46a79575030d0f0a47",
+          "inserted_parent_count": 100,
+          "inserted_rows": 400,
+          "inserted_sha256": "242d7ed330df3c14cfb9c7fdbf711525161903dcb4589025cb948de8dada3150",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 400,
+              "seconds": 0.3689906969666481
+            },
+            "RELEASE": {
+              "count": 500,
+              "seconds": 0.233410082757473
+            },
+            "SAVEPOINT": {
+              "count": 500,
+              "seconds": 0.2413889253512025
+            },
+            "SELECT": {
+              "count": 401,
+              "seconds": 0.45483456645160913
+            },
+            "UPDATE": {
+              "count": 100,
+              "seconds": 0.09538359194993973
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_immutable_before_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_rows_count": 102,
+          "preserved_target_sha256": "705c19f37475de43a10b795afb21523ebd552af29c9a6040caf8e4d6d01c2e3c",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 100,
+            "scheduled": 400
+          },
+          "selected_count": 100,
+          "sql_count": 1901,
+          "sql_seconds": 1.3940078634768724,
+          "target_after_count": 404,
+          "target_after_sha256": "6fb138efd52ee6a741f390d225c1aa07d692501a10d3ad1b6773213a07a89f7b",
+          "target_before_count": 4,
+          "target_before_sha256": "705c19f37475de43a10b795afb21523ebd552af29c9a6040caf8e4d6d01c2e3c",
+          "wall_seconds": 2.212658654898405,
+          "domain_before_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54",
+          "domain_after_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54"
+        },
+        {
+          "changed_plan_rows": 1,
+          "changed_plan_sha256": "7ec634743f5ef0ab3f7161652864b89332e17771f57358e9ad8b64f28e691c30",
+          "inserted_parent_count": 1,
+          "inserted_rows": 4,
+          "inserted_sha256": "957660fb406c432d218ec54898f0764f39d54ab784763f6a84e91a526f28464a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 4,
+              "seconds": 0.0029833121225237846
+            },
+            "RELEASE": {
+              "count": 5,
+              "seconds": 0.0013664299622178078
+            },
+            "SAVEPOINT": {
+              "count": 5,
+              "seconds": 0.001567232422530651
+            },
+            "SELECT": {
+              "count": 5,
+              "seconds": 0.005537266843020916
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0005299430340528488
+            }
+          },
+          "phase": "second_batch",
+          "plan_immutable_after_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_immutable_before_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_rows_count": 102,
+          "preserved_target_sha256": "6fb138efd52ee6a741f390d225c1aa07d692501a10d3ad1b6773213a07a89f7b",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 1,
+            "scheduled": 4
+          },
+          "selected_count": 1,
+          "sql_count": 20,
+          "sql_seconds": 0.011984184384346008,
+          "target_after_count": 408,
+          "target_after_sha256": "f13efbbb58d0d69b3c24a281b8bc7148ca820aa018dde25ac157ffa5690fdcc1",
+          "target_before_count": 404,
+          "target_before_sha256": "6fb138efd52ee6a741f390d225c1aa07d692501a10d3ad1b6773213a07a89f7b",
+          "wall_seconds": 0.021504560485482216,
+          "domain_before_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54",
+          "domain_after_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "41d44310d946d47fa973e5661d70e678511b40bcd5b0235f5870ca7931409161"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.005050374194979668
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_immutable_before_sha256": "b1f5d21120147666357f8e0b1802a00f0858120a946a02785b6612fde98ab6af",
+          "plan_rows_count": 102,
+          "preserved_target_sha256": "f13efbbb58d0d69b3c24a281b8bc7148ca820aa018dde25ac157ffa5690fdcc1",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.005050374194979668,
+          "target_after_count": 408,
+          "target_after_sha256": "f13efbbb58d0d69b3c24a281b8bc7148ca820aa018dde25ac157ffa5690fdcc1",
+          "target_before_count": 408,
+          "target_before_sha256": "f13efbbb58d0d69b3c24a281b8bc7148ca820aa018dde25ac157ffa5690fdcc1",
+          "wall_seconds": 0.012775802053511143,
+          "domain_before_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54",
+          "domain_after_sha256": "376f7b2b75207cf895c834249f1d3d6d664126f635f056db8419a036fcc05b54"
+        }
+      ]
+    },
+    {
+      "case_seconds": 8.517762130126357,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "completed_while_holder_active": true,
+      "holder_pid": 125,
+      "holder_released": true,
+      "kind": "urgent",
+      "measured_seconds": 0.044021072797477245,
+      "mode": "skip_locked",
+      "retained_purpose_count": 0,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 8.47374105732888,
+      "setup_seconds": 5.44508121162653,
+      "status": "passed",
+      "target_ids_sha256": "deb72cf830e248e0841314b8eaf0eb838ff0d310da908b8b1db3be0d56775b83",
+      "thread_finished": true,
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 3,
+      "worker_connections_closed": true,
+      "worker_pid": 126,
+      "phases": [
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 2,
+          "inserted_rows": 2,
+          "inserted_sha256": "4920cf00a73372bb2ca7c14c6af497bac026ed97971936e19270ccf947a80a1f",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 2,
+              "seconds": 0.003974174149334431
+            },
+            "RELEASE": {
+              "count": 2,
+              "seconds": 0.0012528672814369202
+            },
+            "SAVEPOINT": {
+              "count": 2,
+              "seconds": 0.0012220516800880432
+            },
+            "SELECT": {
+              "count": 3,
+              "seconds": 0.01001680176705122
+            }
+          },
+          "phase": "while_holder_active",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "07c4adae3c92b3845ffc022e412ca7a429b0d5da615adf41934c9a2385da8faf",
+          "report_rows_count": 5,
+          "result": {
+            "reconciled": 2
+          },
+          "selected_count": 2,
+          "sql_count": 9,
+          "sql_seconds": 0.016465894877910614,
+          "target_after_count": 3,
+          "target_after_sha256": "bb6fc5c607c956cbf0e0a80312e965a9e279d551a12dfbd51c51dac1961ccc9b",
+          "target_before_count": 1,
+          "target_before_sha256": "07c4adae3c92b3845ffc022e412ca7a429b0d5da615adf41934c9a2385da8faf",
+          "wall_seconds": 0.02607767004519701,
+          "domain_before_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250",
+          "domain_after_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 1,
+          "inserted_rows": 1,
+          "inserted_sha256": "cdb99d887f9a0f59449c55c28a5ea32adf03c3d302a0514efd5d4fbc680b1c93",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 1,
+              "seconds": 0.0012712562456727028
+            },
+            "RELEASE": {
+              "count": 1,
+              "seconds": 0.0006114905700087547
+            },
+            "SAVEPOINT": {
+              "count": 1,
+              "seconds": 0.0006525414064526558
+            },
+            "SELECT": {
+              "count": 2,
+              "seconds": 0.005155173130333424
+            }
+          },
+          "phase": "after_release",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "bb6fc5c607c956cbf0e0a80312e965a9e279d551a12dfbd51c51dac1961ccc9b",
+          "report_rows_count": 5,
+          "result": {
+            "reconciled": 1
+          },
+          "selected_count": 1,
+          "sql_count": 5,
+          "sql_seconds": 0.007690461352467537,
+          "target_after_count": 4,
+          "target_after_sha256": "fe4617d574a057a5e0c713a840292ba56f302d2c105346e5da1d4823a6526bfc",
+          "target_before_count": 3,
+          "target_before_sha256": "bb6fc5c607c956cbf0e0a80312e965a9e279d551a12dfbd51c51dac1961ccc9b",
+          "wall_seconds": 0.014319602400064468,
+          "domain_before_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250",
+          "domain_after_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "3740a04f81a3d12a547fbf583b85d09f0becb926b6159b28b9d1397c0340416e"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.001916547305881977
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": null,
+          "plan_immutable_before_sha256": null,
+          "plan_rows_count": 0,
+          "preserved_target_sha256": "fe4617d574a057a5e0c713a840292ba56f302d2c105346e5da1d4823a6526bfc",
+          "report_rows_count": 5,
+          "result": {
+            "reconciled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.001916547305881977,
+          "target_after_count": 4,
+          "target_after_sha256": "fe4617d574a057a5e0c713a840292ba56f302d2c105346e5da1d4823a6526bfc",
+          "target_before_count": 4,
+          "target_before_sha256": "fe4617d574a057a5e0c713a840292ba56f302d2c105346e5da1d4823a6526bfc",
+          "wall_seconds": 0.003623800352215767,
+          "domain_before_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250",
+          "domain_after_sha256": "78b5e056701b29ea790782d3d44d31c254fba287da3e36e12885df137945a250"
+        }
+      ]
+    },
+    {
+      "case_seconds": 10.350294596515596,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "completed_while_holder_active": true,
+      "holder_pid": 128,
+      "holder_released": true,
+      "kind": "retention",
+      "measured_seconds": 0.09350500628352165,
+      "mode": "skip_locked",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 10.256789590232074,
+      "setup_seconds": 7.7537962617352605,
+      "status": "passed",
+      "target_ids_sha256": "525e8891e9950e278e675efc8f6f9b3f145ada13f234e73eac1e557500e356bd",
+      "thread_finished": true,
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 3,
+      "worker_connections_closed": true,
+      "worker_pid": 129,
+      "phases": [
+        {
+          "changed_plan_rows": 2,
+          "changed_plan_sha256": "5c1d9bc8e45d0db1b3430a27e1b058981a55a1cb28542451d56e819106d59fb6",
+          "inserted_parent_count": 2,
+          "inserted_rows": 8,
+          "inserted_sha256": "3fd54bf3f0a1d7e2fbeb66ca41a1eed97303739ee1720c859b42d16bcf12ba8d",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 8,
+              "seconds": 0.008428599685430527
+            },
+            "RELEASE": {
+              "count": 10,
+              "seconds": 0.004629717208445072
+            },
+            "SAVEPOINT": {
+              "count": 10,
+              "seconds": 0.006115094758570194
+            },
+            "SELECT": {
+              "count": 9,
+              "seconds": 0.014634132385253906
+            },
+            "UPDATE": {
+              "count": 2,
+              "seconds": 0.0021270746365189552
+            }
+          },
+          "phase": "while_holder_active",
+          "plan_immutable_after_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_immutable_before_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_rows_count": 4,
+          "preserved_target_sha256": "049a91d48fc96f5e8865573c328d6d202d4a5bf0680fde9b0d5fd6df886b6fe3",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 2,
+            "scheduled": 8
+          },
+          "selected_count": 2,
+          "sql_count": 39,
+          "sql_seconds": 0.035934618674218655,
+          "target_after_count": 12,
+          "target_after_sha256": "035879520ea55377f84bc314efd55673f759a5309dbbeb83801d4d172d44a336",
+          "target_before_count": 4,
+          "target_before_sha256": "049a91d48fc96f5e8865573c328d6d202d4a5bf0680fde9b0d5fd6df886b6fe3",
+          "wall_seconds": 0.06107315234839916,
+          "domain_before_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18",
+          "domain_after_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18"
+        },
+        {
+          "changed_plan_rows": 1,
+          "changed_plan_sha256": "10a1a5e5406b25b462b77727d672ebbef2d70abb8881ff20c19845600b5ede99",
+          "inserted_parent_count": 1,
+          "inserted_rows": 4,
+          "inserted_sha256": "a87556e16af98b27d4a9755cf41a01f6c3534f52aa5e9b25914a4a268206456f",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 4,
+              "seconds": 0.002369365654885769
+            },
+            "RELEASE": {
+              "count": 5,
+              "seconds": 0.0019323639571666718
+            },
+            "SAVEPOINT": {
+              "count": 5,
+              "seconds": 0.0017589284107089043
+            },
+            "SELECT": {
+              "count": 5,
+              "seconds": 0.005557290278375149
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0005477350205183029
+            }
+          },
+          "phase": "after_release",
+          "plan_immutable_after_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_immutable_before_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_rows_count": 4,
+          "preserved_target_sha256": "035879520ea55377f84bc314efd55673f759a5309dbbeb83801d4d172d44a336",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 1,
+            "scheduled": 4
+          },
+          "selected_count": 1,
+          "sql_count": 20,
+          "sql_seconds": 0.012165683321654797,
+          "target_after_count": 16,
+          "target_after_sha256": "69230cc4c596b27fcd6b8dc4cf0a6b14e5c87ceb8dbddba08218652deb7d86e8",
+          "target_before_count": 12,
+          "target_before_sha256": "035879520ea55377f84bc314efd55673f759a5309dbbeb83801d4d172d44a336",
+          "wall_seconds": 0.021633949130773544,
+          "domain_before_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18",
+          "domain_after_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 0,
+          "media_after": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "160a9f8d7a0e9a5df1fbf8ef0b969cec5de60acd62db14122c638b604f8cabb3"
+          },
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.004250427708029747
+            }
+          },
+          "phase": "idempotent_replay",
+          "plan_immutable_after_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_immutable_before_sha256": "fe7b300fa2ef0aa23beea181fdd3ff19d4142aaf0181bc536653caa3e4e0ed13",
+          "plan_rows_count": 4,
+          "preserved_target_sha256": "69230cc4c596b27fcd6b8dc4cf0a6b14e5c87ceb8dbddba08218652deb7d86e8",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 0,
+            "plans": 0,
+            "scheduled": 0
+          },
+          "selected_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.004250427708029747,
+          "target_after_count": 16,
+          "target_after_sha256": "69230cc4c596b27fcd6b8dc4cf0a6b14e5c87ceb8dbddba08218652deb7d86e8",
+          "target_before_count": 16,
+          "target_before_sha256": "69230cc4c596b27fcd6b8dc4cf0a6b14e5c87ceb8dbddba08218652deb7d86e8",
+          "wall_seconds": 0.010797904804348946,
+          "domain_before_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18",
+          "domain_after_sha256": "b3fbe161a45dabdd8c0ee05fb2193156037d14766f50147df7d12dd2bb9c9e18"
+        }
+      ]
+    },
+    {
+      "case_seconds": 9.499733049422503,
+      "cleanup": "pytest transaction database and native fixture teardown; no broker or service started",
+      "kind": "retention",
+      "measured_seconds": 0.05356983281672001,
+      "mode": "mixed",
+      "retained_purpose_count": 4,
+      "scope": "BEFORE native task.run; synthetic authenticated metadata; no worker/human/erasure claim",
+      "setup_and_qa_seconds": 9.446163216605783,
+      "setup_seconds": 8.222814197652042,
+      "status": "passed",
+      "target_ids_sha256": "a54e2f82d0028b484c8fe68615cdd8c1d6f388e548d1674ca4836412c164a49a",
+      "timing": "N=1 per phase; SQL forwarding inclusive; setup/snapshots/assertions outside task wall; no p95/CPU/SLA",
+      "volume": 3,
+      "phases": [
+        {
+          "changed_plan_rows": 1,
+          "changed_plan_sha256": "74d779775f33bcc71c1663d73c4aa911d1519d81f91ffdc909182552ea18c528",
+          "inserted_parent_count": 2,
+          "inserted_rows": 7,
+          "inserted_sha256": "2d16abc462879ace2164f8913d6caa25e495e15b62e236829959b43f73673cce",
+          "invalid_selected_count": 1,
+          "media_after": {
+            "count": 10,
+            "sha256": "b58cc5985f06c0bd198ae7895c5f345afd256a8a0197faabf510903d99479bcb"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b58cc5985f06c0bd198ae7895c5f345afd256a8a0197faabf510903d99479bcb"
+          },
+          "operations": {
+            "INSERT": {
+              "count": 7,
+              "seconds": 0.005188279785215855
+            },
+            "RELEASE": {
+              "count": 10,
+              "seconds": 0.0037331972271203995
+            },
+            "ROLLBACK": {
+              "count": 1,
+              "seconds": 0.0004177941009402275
+            },
+            "SAVEPOINT": {
+              "count": 10,
+              "seconds": 0.0042470404878258705
+            },
+            "SELECT": {
+              "count": 9,
+              "seconds": 0.010172384791076183
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0007312465459108353
+            }
+          },
+          "phase": "first_batch",
+          "plan_immutable_after_sha256": "7b6c31895dc1b53e501b569a30fe8cc33ac454affcae9f492ad82e6552fdad54",
+          "plan_immutable_before_sha256": "7b6c31895dc1b53e501b569a30fe8cc33ac454affcae9f492ad82e6552fdad54",
+          "plan_rows_count": 4,
+          "preserved_target_sha256": "85f299dc83a08e414102a95de5bc86cf971c0e658a1261f920593ab8bdb05233",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 1,
+            "plans": 3,
+            "scheduled": 7
+          },
+          "selected_count": 3,
+          "sql_count": 38,
+          "sql_seconds": 0.02448994293808937,
+          "target_after_count": 12,
+          "target_after_sha256": "444ec44387c7418472b7d81cbf9e8b4876261d41e03f0c9e88ced20435b1d76a",
+          "target_before_count": 5,
+          "target_before_sha256": "85f299dc83a08e414102a95de5bc86cf971c0e658a1261f920593ab8bdb05233",
+          "wall_seconds": 0.04599608667194843,
+          "domain_before_sha256": "502e40f19d193e64b321b2fcaee87e338f3ab72b2ced366883ee3e61d8a2576d",
+          "domain_after_sha256": "502e40f19d193e64b321b2fcaee87e338f3ab72b2ced366883ee3e61d8a2576d"
+        },
+        {
+          "changed_plan_rows": 0,
+          "changed_plan_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "inserted_parent_count": 0,
+          "inserted_rows": 0,
+          "inserted_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "invalid_selected_count": 1,
+          "media_after": {
+            "count": 10,
+            "sha256": "b58cc5985f06c0bd198ae7895c5f345afd256a8a0197faabf510903d99479bcb"
+          },
+          "media_before": {
+            "count": 10,
+            "sha256": "b58cc5985f06c0bd198ae7895c5f345afd256a8a0197faabf510903d99479bcb"
+          },
+          "operations": {
+            "RELEASE": {
+              "count": 1,
+              "seconds": 0.000293574295938015
+            },
+            "ROLLBACK": {
+              "count": 1,
+              "seconds": 0.0002932073548436165
+            },
+            "SAVEPOINT": {
+              "count": 1,
+              "seconds": 0.0006402144208550453
+            },
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.002297116443514824
+            }
+          },
+          "phase": "invalid_retry",
+          "plan_immutable_after_sha256": "7b6c31895dc1b53e501b569a30fe8cc33ac454affcae9f492ad82e6552fdad54",
+          "plan_immutable_before_sha256": "7b6c31895dc1b53e501b569a30fe8cc33ac454affcae9f492ad82e6552fdad54",
+          "plan_rows_count": 4,
+          "preserved_target_sha256": "444ec44387c7418472b7d81cbf9e8b4876261d41e03f0c9e88ced20435b1d76a",
+          "report_rows_count": 0,
+          "result": {
+            "failed": 1,
+            "plans": 1,
+            "scheduled": 0
+          },
+          "selected_count": 1,
+          "sql_count": 4,
+          "sql_seconds": 0.0035241125151515007,
+          "target_after_count": 12,
+          "target_after_sha256": "444ec44387c7418472b7d81cbf9e8b4876261d41e03f0c9e88ced20435b1d76a",
+          "target_before_count": 12,
+          "target_before_sha256": "444ec44387c7418472b7d81cbf9e8b4876261d41e03f0c9e88ced20435b1d76a",
+          "wall_seconds": 0.007573746144771576,
+          "domain_before_sha256": "502e40f19d193e64b321b2fcaee87e338f3ab72b2ced366883ee3e61d8a2576d",
+          "domain_after_sha256": "502e40f19d193e64b321b2fcaee87e338f3ab72b2ced366883ee3e61d8a2576d"
+        }
+      ]
+    }
+  ],
+  "decision": "No appchange/after/p95/SLA;5oldscopedwitnesses23samefiles/3changeddeps,not22globalcurrentPASS;N09full139open8of13"
+}
