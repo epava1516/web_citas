@@ -1,0 +1,178 @@
+{
+  "result": "PASS_N08_ALL17_TECHNICAL_ACCEPTANCE_RECONCILIATION",
+  "technical_acceptance": true,
+  "inventory_actions": 17,
+  "groups": {
+    "G1_favorites": 3,
+    "G2_crawl": 4,
+    "G3_legal": 2,
+    "G4_orders": 2,
+    "G5_catalogue": 4,
+    "G6_autobump": 2
+  },
+  "criteria": [
+    {
+      "id": "C1",
+      "requirement": "All17censused actions/familiesI07I08I19 disposed without renumbering",
+      "evidence": "actions17/groups3+4+2+2+4+2/directsourcehashes/currentcensus443",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C2",
+      "requirement": "Freshpubliceligibility/withdrawal/privateboundaries preserve authority",
+      "evidence": "A2sameinstance/NULLforeign/placeholder/privateoriginals plus Cactualrevocation; N04/N07sharedaccepted",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C3",
+      "requirement": "Counts/order/nativepagination/alternates/legalfiltering preserved",
+      "evidence": "A300/50segments and A2rawXML/parity101/native24/100; Bnative25/50allpages; legal202readonlyrecords",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C4",
+      "requirement": "Syntheticcommercialauthority/idempotency/audit/immutableprice/no real payments",
+      "evidence": "B436Client and native10POST/8audits; sourceexact77originals include26catalogue/11orderraces/7bumpraces; zero realproviderclaim",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C5",
+      "requirement": "Autobumpquotalocks/replay/100boundedscan and actualscheduler stage",
+      "evidence": "Originalfunctional101scan retained; C1actual5SUCCESSroleproofs/two60ticks/noeditorialmutation/revokedgrantabsent",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C6",
+      "requirement": "Preregistered source-equivalentmeasurements, goal411andresources preserved",
+      "evidence": "A2all6targets/lowcostguards/RSS<=1GiB sameDBpairs; B66segments/Cseparatestages currentnotgain; no marginalcandidate",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C7",
+      "requirement": "Originalfail/skip/debugSQLlimits and acceptedsourcechain remain explicit",
+      "evidence": "Originalmixed3PASS1FAIL and oneCcorrective; debugSQLdiscarded;77historicalnotfresh;1507=1498same+9acceptedvariants",
+      "result": "PASS_SCOPED"
+    },
+    {
+      "id": "C8",
+      "requirement": "Ownedruntime/cleanup/Telegram/sourcefreeze and no provider/beta scopeexpansion",
+      "evidence": "4rawruns sourceunchanged/cleanup/sent;C4PIDsremoved/roleprivatecleanup/foreignRedisunchanged; no production",
+      "result": "PASS_SCOPED"
+    }
+  ],
+  "baseline_sources": 1507,
+  "unchanged_baseline_sources": 1498,
+  "accepted_variants": {
+    "apps/core/agencies.py": "879a190ff71ee456f4cc9c58cccea143db5f79608a1c951f5fa4eea270293768",
+    "apps/core/sitemaps.py": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2",
+    "apps/listings/favorites.py": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6",
+    "apps/mediafiles/services.py": "9b526d15f68422ac0b44bb119a484b1cf9d5ffbe20fa74b6ebe231d5f45377db",
+    "apps/mediafiles/similarity.py": "4feb0b19b28efc7263d95909223cf027c10b00e848c6fcff7f3cabe613da555a",
+    "apps/mediafiles/tasks.py": "4aea00f928167a544478af29e0bde4e4b52e42704326916e514b88c56de4e44c",
+    "apps/mediafiles/views.py": "440d8f9edc4c6405bc7cd2f369c9a241cb4f99dc22927661c5ed123752ebaf95",
+    "apps/safety/rights_portability_export.py": "db214669b78a504c6be47218aee12660bb50c5fb3648f81dd5dbabe61665c70d",
+    "scripts/run_local_ci.py": "646b1a8a61d24cc12756b074643ff3a5f221dcc057015e680e7208e50c3eb750"
+  },
+  "handler_AST_proof": [
+    {
+      "source": "apps/listings/favorites.py",
+      "changed_function": "index",
+      "other_functions_AST_equal": true,
+      "decorators_AST_equal": true,
+      "current_sha256": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6"
+    },
+    {
+      "source": "apps/core/sitemaps.py",
+      "changed_function": "listings",
+      "other_functions_AST_equal": true,
+      "decorators_AST_equal": true,
+      "current_sha256": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2"
+    }
+  ],
+  "selected_historical_cases": 77,
+  "historical_modules": 16,
+  "new_explicit_cases": 10,
+  "runtime_checks": [
+    {
+      "run": "20261026-004939-72f06ea0",
+      "recorded_result": "PASS",
+      "actual_testcases": 3,
+      "PASS": 3,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "QA_junit_seconds": 434.775,
+      "source_hashes_sha256": "5cf37db356ea0ec015f322abaab5762c1e1533fd76f1316a10e7984992d65ffe",
+      "raw_junit_sha256": "55a80ad4edb8db0a9179d42fbb87eded2c0d0b4d71c760aaa07f8c21fe773e3a",
+      "result_sha256": "c18ae3d81017a2fdd54a7560bfaf456e9471ebce419dba7e10183cacc0af1f3c",
+      "app_config_template_sources": 631,
+      "current_product_delta": {
+        "apps/core/sitemaps.py": {
+          "frozen": "fc4a10139464e364b07aac5cc4e31a60958d17d841a1d4cf7115ba3f4fb9005e",
+          "current": "122778902b62a492bbce68eb7cfdfa1335a8c6b96ef665d9dd32655eacac7aa2"
+        },
+        "apps/listings/favorites.py": {
+          "frozen": "e4fe5cac54dc2507838457b7fd472e32e4756749b8ed28958e08b1d4234f5429",
+          "current": "2500787b190f4a0aef93b1758493669c7e021ab98f9061424aea978a214c58e6"
+        }
+      },
+      "cleanup_verified": true,
+      "telegram_sent": true
+    },
+    {
+      "run": "20261026-014812-0d85aaca",
+      "recorded_result": "PASS",
+      "actual_testcases": 13,
+      "PASS": 13,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "QA_junit_seconds": 321.638,
+      "source_hashes_sha256": "b8288c964187244c39af0bfcd843df20c2754abbda312bed1845f3c51b9cacf1",
+      "raw_junit_sha256": "8fb5511d497584c6e3d53520de8b5aea0fc3bb39cadd96cf80493a71a14d21ad",
+      "result_sha256": "0e1d96b5cb9da9bda91e7a2842cd0858dab47f407b689f9f5a3271128f78de1d",
+      "app_config_template_sources": 631,
+      "current_product_delta": {},
+      "cleanup_verified": true,
+      "telegram_sent": true
+    },
+    {
+      "run": "20261026-030555-20d5ac97",
+      "recorded_result": "ERROR",
+      "actual_testcases": 4,
+      "PASS": 3,
+      "FAIL": 1,
+      "ERROR": 0,
+      "SKIP": 0,
+      "QA_junit_seconds": 82.271,
+      "source_hashes_sha256": "7cc63a90255c354d59b3cc263d8f3a4084f256f76336f64507516964caedbb45",
+      "raw_junit_sha256": "afe1253c58d1dd7ca985e762ba472bf094d54dfae7f461c18b025909609b54a5",
+      "result_sha256": "46c1d2e29f312571d9cb4537215288f4cb5f9314553695f3bc7f62e8628eecc8",
+      "app_config_template_sources": 631,
+      "current_product_delta": {},
+      "cleanup_verified": true,
+      "telegram_sent": true
+    },
+    {
+      "run": "20261026-031404-bfa5f7d6",
+      "recorded_result": "PASS",
+      "actual_testcases": 1,
+      "PASS": 1,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "QA_junit_seconds": 175.906,
+      "source_hashes_sha256": "289c10beac04b90aa306923665f70ba3518a1d257e80963902360f9e6a843300",
+      "raw_junit_sha256": "03a20b2abf33bd3bf8ac2fdc18e77ed8c319ca7939fd62cf402a4d03f0ad3ecc",
+      "result_sha256": "ced539d92b86c7d79d73dca536092942bf49c904a1f7467166560761bc8d83f2",
+      "app_config_template_sources": 631,
+      "current_product_delta": {},
+      "cleanup_verified": true,
+      "telegram_sent": true
+    }
+  ],
+  "one_integrated_green_suite_claimed": false,
+  "graph_before_acceptance": "09f377c8198a811db4351b100c7772af40423c55480f711118a7ca4d1fb5db86",
+  "goal_complete": false,
+  "scope": "Finite local N08 technical sufficiency, not production capacity/provider/beta or fullcontractdone. Delivery archiving/final semanticgraph/Git pending; N11 integration/N15 inventory stillrequired. Source references in original records remain historical; current hashes separate."
+}

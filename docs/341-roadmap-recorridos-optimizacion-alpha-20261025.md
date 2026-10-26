@@ -1,6 +1,6 @@
 # Roadmap del contrato alfa — recorridos y optimización
 
-Versión1.3 de seguimiento,25deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **7/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377, N03 por393, N04 por396 y N05 por399 y N07 por408 en sus escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
+Versión1.4 de seguimiento,26deoctubrede2026. Vinculante para el alcance del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md), con ejecución autorizada posteriormente por el usuario. N00 aceptado por [343](343-n00-aceptacion-local-20261025.md) y N01 por [355](355-n01-aceptacion-local-20261025.md): **8/13bloques obligatorios aceptados localmente**. N06 aceptado localmente por377, N03 por393, N04 por396 y N05 por399, N07 por408 y N08 por417 en sus escenarios y límites declarados. Esta actualización registra aceptación y criterios354; no modifica alcance ni garantías. N12–N14 son tres bloques condicionados; no se cuentan como PASS por diferirlos. Los antiguos B00–B13/B16 mantienen su aceptación; los nuevos N no reutilizan su numeración ni su porcentaje.
 
 ## Orden y alcance
 
@@ -22,7 +22,7 @@ No se promete fecha antes de N00/N01. Estimar por bloques tras conocer escenario
 | N05 | P1 | Imágenes y experiencia de navegador | N01 | Aceptado localmente por399, sin cambio de aplicación:137IDs y muestreo explícito,4PASS privados/sondeos y6PASS galería/teclado actual156, límites y propietarios compartidos conservados |
 | N06 | P1 | Cuenta, panel, edición y representación | N01 | Aceptado localmente por377:46disposiciones y escenarios A–G verificados; límites/compartidosN10/N03/N07retenidos, sin garantía universal |
 | N07 | P1 | Medios, publicación y ciclo de vida | N01 | Aceptado localmente por408:39disposiciones, carrera reorder corregida402, worker/Beat nativos405, colas/decisiones407 y cancelación2PASS; testigos previos conciliados y dueños compartidos conservados |
-| N08 | P1 | Favoritos, SEO y exposición comercial sintética | N01 | Pendiente |
+| N08 | P1 | Favoritos, SEO y exposición comercial sintética | N01 | Aceptado localmente por417:17disposiciones, optimización pareada412 de favoritos/sitemap, referencia comercial415 y autosubida real416/Beat60; testigos previos y límites conservados |
 | N09 | P1 | Derechos, moderación, avisos y limpieza | N01 | Pendiente |
 | N10 | P1 | Infraestructura y operación administrativa local | N01 | Pendiente |
 | N11 | P0 aceptación | Candidata integrada y conciliación técnica | N02, N03, N04, N05, N06, N07, N08, N09, N10 | Pendiente |

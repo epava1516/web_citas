@@ -1,6 +1,6 @@
-N08A2/412candidatoaceptadolocal:13PASS321,638sQA/72GETobjetivo+46controles=118dentro167Client/paridadexacta/budgets411cumplidos/1755huellas/cleanupTGsent.N08abierto7/13.
+N08/417aceptaciónlocaltécnica8/13:17IDs6grupos8criterios;A2únicocandidatoaceptado/B3válidos/C1PASSrealBeat60/77históricosconciliados.FalloCoriginalpreservado.Archivado/grafofinal/Gitentregaencurso.
 
-Siguiente:N08Bcomercial(historial25/opcionessinpaginar/catálogo-versiones50/autobump60s),corte/grafo/preregantesmedir;contextnativefav563→30SQL/XML2402→18y~89-96%menosmedianaenpares.Norepetir300GETnioptmarginal,MOD09alfinal.
+Siguiente:N09derechos/moderación/avisos/limpieza(I20I21I23I25)trascierreentregaN08;grafo/corte/preregantesmedir.No repetirQAvalidada,MOD09restantealfinal;N12–14condicionados,sinbeta/proveedores.
 
 N08A2/411prerregistrado:unúnicocandidatobatchnativo doshandlers,72GETpareadosmismosdatos+controles/nullforeignESEN+10originales=13casosprevistos;sinimplementaciónaceptada.N08abierto7/13.
 

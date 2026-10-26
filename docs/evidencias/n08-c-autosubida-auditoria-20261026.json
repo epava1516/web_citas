@@ -1,0 +1,441 @@
+{
+  "result": "PASS_N08C_CORRECTED_NATIVE_WORKER_60S_TWO_TICKS_FINITE_REFERENCE",
+  "run": "20261026-031404-bfa5f7d6",
+  "cases": 1,
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "175.906",
+      "timestamp": "2026-10-26T04:14:25.323412+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1760,
+  "global_Client_calls_including_fixtures": 0,
+  "worker": {
+    "beat_exit_code": 0,
+    "cleanup_errors": [],
+    "complete": true,
+    "editorial_after": {
+      "21538c60-154e-4ae8-afa0-fadf6b0db46a": {
+        "approved_revision_id": "698ef209-1f6c-4e09-952a-8b37804c30a0",
+        "expires_at": "2026-11-25T03:15:06.815279+00:00",
+        "lifecycle_version": 2,
+        "published_at": "2026-10-26T03:15:06.815271+00:00",
+        "revision_count": 1,
+        "status": "published"
+      },
+      "cb85b89e-3552-4ef4-b133-bf83d467924c": {
+        "approved_revision_id": "543d3c81-d430-4d52-a76b-2b709ba7f1b0",
+        "expires_at": "2026-11-25T03:15:07.458735+00:00",
+        "lifecycle_version": 2,
+        "published_at": "2026-10-26T03:15:07.458727+00:00",
+        "revision_count": 1,
+        "status": "published"
+      }
+    },
+    "editorial_before": {
+      "21538c60-154e-4ae8-afa0-fadf6b0db46a": {
+        "approved_revision_id": "698ef209-1f6c-4e09-952a-8b37804c30a0",
+        "expires_at": "2026-11-25T03:15:06.815279+00:00",
+        "lifecycle_version": 2,
+        "published_at": "2026-10-26T03:15:06.815271+00:00",
+        "revision_count": 1,
+        "status": "published"
+      },
+      "cb85b89e-3552-4ef4-b133-bf83d467924c": {
+        "approved_revision_id": "543d3c81-d430-4d52-a76b-2b709ba7f1b0",
+        "expires_at": "2026-11-25T03:15:07.458735+00:00",
+        "lifecycle_version": 2,
+        "published_at": "2026-10-26T03:15:07.458727+00:00",
+        "revision_count": 1,
+        "status": "published"
+      }
+    },
+    "events": [
+      {
+        "epoch": 1792984514.8769052,
+        "event": "task_epoch",
+        "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "eager": false,
+        "end_monotonic": 4705124.721625887,
+        "event": "execution",
+        "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+        "pid": 2908073,
+        "result": 1,
+        "role": "worker",
+        "start_monotonic": 4705124.323788349,
+        "state": "SUCCESS",
+        "task": "apps.catalog.tasks.bump_promotions",
+        "thread_cpu": 0.18875242999999997,
+        "wall": 0.3978375382721424
+      },
+      {
+        "end_epoch": 1792984515.275955,
+        "event": "role_proof",
+        "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+        "last_checked_epochs": {
+          "92c7e674-9ff0-4630-a574-a2c0747338e4": null,
+          "db5791d2-1742-43d0-9b24-45be7d6e782c": 1792984514.878685
+        },
+        "pid": 2908073,
+        "sql_role": "capacity_runtime_62012db9ab244dea",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "epoch": 1792984515.3492901,
+        "event": "task_epoch",
+        "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "eager": false,
+        "end_monotonic": 4705125.084956701,
+        "event": "execution",
+        "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+        "pid": 2908073,
+        "result": 0,
+        "role": "worker",
+        "start_monotonic": 4705124.796198463,
+        "state": "SUCCESS",
+        "task": "apps.catalog.tasks.bump_promotions",
+        "thread_cpu": 0.10504281199999999,
+        "wall": 0.2887582378461957
+      },
+      {
+        "end_epoch": 1792984515.640112,
+        "event": "role_proof",
+        "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+        "last_checked_epochs": {
+          "92c7e674-9ff0-4630-a574-a2c0747338e4": null,
+          "db5791d2-1742-43d0-9b24-45be7d6e782c": 1792984515.349846
+        },
+        "pid": 2908073,
+        "sql_role": "capacity_runtime_62012db9ab244dea",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "epoch": 1792984515.7176876,
+        "event": "task_epoch",
+        "id": "a717eb68-7f7b-4e52-a62b-27793d096789",
+        "task": "apps.listings.tasks.refresh_publication_state"
+      },
+      {
+        "cleared": 1,
+        "db_wall": 0.22463107109069824,
+        "dirty_after": 0,
+        "dirty_before": 1,
+        "eager": false,
+        "end_monotonic": 4705125.386938151,
+        "event": "execution",
+        "id": "a717eb68-7f7b-4e52-a62b-27793d096789",
+        "mark_to_clear_seconds": [
+          0.260451078414917
+        ],
+        "pid": 2908073,
+        "result": 1,
+        "role": "worker",
+        "start_monotonic": 4705125.138512996,
+        "state": "SUCCESS",
+        "task": "apps.listings.tasks.refresh_publication_state",
+        "thread_cpu": 0.09365025399999999,
+        "wall": 0.24842515494674444
+      },
+      {
+        "end_epoch": 1792984515.943323,
+        "event": "role_proof",
+        "id": "a717eb68-7f7b-4e52-a62b-27793d096789",
+        "last_checked_epochs": {
+          "92c7e674-9ff0-4630-a574-a2c0747338e4": null,
+          "db5791d2-1742-43d0-9b24-45be7d6e782c": 1792984515.349846
+        },
+        "pid": 2908073,
+        "sql_role": "capacity_runtime_62012db9ab244dea",
+        "task": "apps.listings.tasks.refresh_publication_state"
+      },
+      {
+        "epoch": 1792984577.498263,
+        "event": "task_epoch",
+        "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "eager": false,
+        "end_monotonic": 4705187.178970689,
+        "event": "execution",
+        "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+        "pid": 2908073,
+        "result": 0,
+        "role": "worker",
+        "start_monotonic": 4705186.945089205,
+        "state": "SUCCESS",
+        "task": "apps.catalog.tasks.bump_promotions",
+        "thread_cpu": 0.08535563699999998,
+        "wall": 0.2338814837858081
+      },
+      {
+        "end_epoch": 1792984577.733345,
+        "event": "role_proof",
+        "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+        "last_checked_epochs": {
+          "92c7e674-9ff0-4630-a574-a2c0747338e4": 1792984577.49977,
+          "db5791d2-1742-43d0-9b24-45be7d6e782c": 1792984515.349846
+        },
+        "pid": 2908073,
+        "sql_role": "capacity_runtime_62012db9ab244dea",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "epoch": 1792984637.4606922,
+        "event": "task_epoch",
+        "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "eager": false,
+        "end_monotonic": 4705247.099147732,
+        "event": "execution",
+        "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+        "pid": 2908073,
+        "result": 0,
+        "role": "worker",
+        "start_monotonic": 4705246.907606154,
+        "state": "SUCCESS",
+        "task": "apps.catalog.tasks.bump_promotions",
+        "thread_cpu": 0.06055462999999994,
+        "wall": 0.19154157862067223
+      },
+      {
+        "end_epoch": 1792984637.65355,
+        "event": "role_proof",
+        "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+        "last_checked_epochs": {
+          "92c7e674-9ff0-4630-a574-a2c0747338e4": 1792984637.461126,
+          "db5791d2-1742-43d0-9b24-45be7d6e782c": 1792984515.349846
+        },
+        "pid": 2908073,
+        "sql_role": "capacity_runtime_62012db9ab244dea",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "event": "publish",
+        "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+        "monotonic": 4705186.927644957,
+        "pid": 2908312,
+        "role": "beat",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "event": "publish",
+        "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+        "monotonic": 4705246.899597303,
+        "pid": 2908312,
+        "role": "beat",
+        "task": "apps.catalog.tasks.bump_promotions"
+      }
+    ],
+    "executor_pids": [
+      2908073
+    ],
+    "foreign_keys_preserved": true,
+    "harness_publishes": [
+      {
+        "epoch": 1792984512.0164301,
+        "event": "publish",
+        "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+        "monotonic": 4705121.463360085,
+        "role": "harness",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "epoch": 1792984515.3400433,
+        "event": "publish",
+        "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+        "monotonic": 4705124.786972511,
+        "role": "harness",
+        "task": "apps.catalog.tasks.bump_promotions"
+      },
+      {
+        "epoch": 1792984515.6859334,
+        "event": "publish",
+        "id": "a717eb68-7f7b-4e52-a62b-27793d096789",
+        "monotonic": 4705125.132863579,
+        "role": "harness",
+        "task": "apps.listings.tasks.refresh_publication_state"
+      }
+    ],
+    "measurement_note": "Startup includes prequeued task and worker startup; steady replay and Beat executions separate. Setup/assertions and private postrun role/snapshot proof excluded from observer task wall; observer overhead included.",
+    "namespace_generation": "t9310d929350642139f8770a5bb43200",
+    "phases": {
+      "live_replay": {
+        "execution": {
+          "eager": false,
+          "end_monotonic": 4705125.084956701,
+          "event": "execution",
+          "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+          "pid": 2908073,
+          "result": 0,
+          "role": "worker",
+          "start_monotonic": 4705124.796198463,
+          "state": "SUCCESS",
+          "task": "apps.catalog.tasks.bump_promotions",
+          "thread_cpu": 0.10504281199999999,
+          "wall": 0.2887582378461957
+        },
+        "new_utc_day_window": false,
+        "postrun_db_epoch": 1792984515.640112,
+        "publish": {
+          "epoch": 1792984515.3400433,
+          "event": "publish",
+          "id": "a9677817-bd53-4f77-9c86-4befebd22597",
+          "monotonic": 4705124.786972511,
+          "role": "harness",
+          "task": "apps.catalog.tasks.bump_promotions"
+        },
+        "publish_to_start_seconds": 0.009225952439010143,
+        "quota_one_per_utc_day": true,
+        "task_start_epoch": 1792984515.3492901,
+        "windows_after": [
+          "2026-10-26T00:00:00+00:00"
+        ],
+        "windows_before": [
+          "2026-10-26T00:00:00+00:00"
+        ]
+      },
+      "native_beat": {
+        "first_excluded_by_suspension": true,
+        "last_checked_advanced_each_tick": true,
+        "revoked_before_beat": "2026-10-26T03:15:15.676186+00:00",
+        "second_selected_but_revoked": true,
+        "second_zero_bumps": true,
+        "started_monotonic": 4705125.440980407,
+        "tick_separation_seconds": 59.97195234615356,
+        "ticks": [
+          {
+            "execution": {
+              "eager": false,
+              "end_monotonic": 4705187.178970689,
+              "event": "execution",
+              "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+              "pid": 2908073,
+              "result": 0,
+              "role": "worker",
+              "start_monotonic": 4705186.945089205,
+              "state": "SUCCESS",
+              "task": "apps.catalog.tasks.bump_promotions",
+              "thread_cpu": 0.08535563699999998,
+              "wall": 0.2338814837858081
+            },
+            "publish": {
+              "event": "publish",
+              "id": "88940876-3f75-4fba-b90c-7f1ea631f122",
+              "monotonic": 4705186.927644957,
+              "pid": 2908312,
+              "role": "beat",
+              "task": "apps.catalog.tasks.bump_promotions"
+            },
+            "publish_to_start_seconds": 0.0174442483112216,
+            "second_last_checked_epoch": 1792984577.49977
+          },
+          {
+            "execution": {
+              "eager": false,
+              "end_monotonic": 4705247.099147732,
+              "event": "execution",
+              "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+              "pid": 2908073,
+              "result": 0,
+              "role": "worker",
+              "start_monotonic": 4705246.907606154,
+              "state": "SUCCESS",
+              "task": "apps.catalog.tasks.bump_promotions",
+              "thread_cpu": 0.06055462999999994,
+              "wall": 0.19154157862067223
+            },
+            "publish": {
+              "event": "publish",
+              "id": "5c84c461-e4bc-4824-b2d0-bcd87fbee82b",
+              "monotonic": 4705246.899597303,
+              "pid": 2908312,
+              "role": "beat",
+              "task": "apps.catalog.tasks.bump_promotions"
+            },
+            "publish_to_start_seconds": 0.008008850738406181,
+            "second_last_checked_epoch": 1792984637.461126
+          }
+        ]
+      },
+      "startup": {
+        "execution": {
+          "eager": false,
+          "end_monotonic": 4705124.721625887,
+          "event": "execution",
+          "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+          "pid": 2908073,
+          "result": 1,
+          "role": "worker",
+          "start_monotonic": 4705124.323788349,
+          "state": "SUCCESS",
+          "task": "apps.catalog.tasks.bump_promotions",
+          "thread_cpu": 0.18875242999999997,
+          "wall": 0.3978375382721424
+        },
+        "first_windows": [
+          "2026-10-26T00:00:00+00:00"
+        ],
+        "observed_complete_seconds": 3.3308983938768506,
+        "publish": {
+          "epoch": 1792984512.0164301,
+          "event": "publish",
+          "id": "be63c127-6f9b-4c5d-a963-6bd6212cf53d",
+          "monotonic": 4705121.463360085,
+          "role": "harness",
+          "task": "apps.catalog.tasks.bump_promotions"
+        },
+        "publish_to_start_seconds": 2.8604282634332776,
+        "queued_before_worker": true,
+        "second_future_has_zero_bumps": true,
+        "started_monotonic": 4705121.452607083
+      }
+    },
+    "pid_start_ticks": {
+      "2907996": 470512148,
+      "2908073": 470512313,
+      "2908074": 470512326,
+      "2908312": 470512544
+    },
+    "private_credentials_removed": true,
+    "private_runtime_removed": true,
+    "processes_absent": {
+      "2907996": true,
+      "2908073": true,
+      "2908074": true,
+      "2908312": true
+    },
+    "runtime_role": "capacity_runtime_62012db9ab244dea",
+    "runtime_role_removed": true,
+    "schedule": {
+      "entry": "synthetic-promotion-bumps",
+      "seconds": 60.0,
+      "source": "config/settings.py"
+    },
+    "scope": "Two signed synthetic purchases; restricted prefork2; two unchanged60s Beat ticks. No provider, production capacity or improvement claim.",
+    "unexpected_unscoped_keys": 0,
+    "worker_exit_code": 0
+  },
+  "executions": 5,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "OnlyC1rerun after instrument fixtureassert ordering fix. Native restrictedprefork2 and actualtwoBeat60ticks; startup/replay separate, noSLA/p95/capacity/provider. First3PASS1FAIL and B3valid436Client retained. No newapplicationchange;N08full17audit stillpending/7of13."
+}
