@@ -1,0 +1,328 @@
+{
+  "result": "PASS_SIX_FINITE_LOGICAL_PURGE_BASELINE_NOT_WHOLE_N09",
+  "run": "20261026-134953-f5d248af",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "6",
+      "time": "90.445",
+      "timestamp": "2026-10-26T14:50:13.791881+01:00",
+      "hostname": "almasrv.thehomelesssherlock.com"
+    }
+  ],
+  "frozen_sources": 1778,
+  "cleanup_verified": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "scope": "CopyInformationtask.runonly/N1instrumentedphase/0to101expiredplus2pins/skip3. Nativebase+syntheticretainedmetadata volume. Noappchange/noafter/othermodellatency/HTTPworkerBeatproviderproof.25oldpurgewitnessesseparatereuse,notnewruns/N09full139open8of13.",
+  "application_change": false,
+  "optimization_after": null,
+  "acceptance_document": "447-n09-i-referencia-purgas-logicas-verificada-20261026.md",
+  "graph": {
+    "result": "PASS_SCOPED_N09I447_LOGICAL_PURGE_ACCEPTED_GRAPH",
+    "sources": 2085,
+    "nodes": 20300,
+    "relations": 84534,
+    "communities": 984,
+    "graph_sha256": "1fd121a721384a408260818c2d8f0e0053e1e18aa53611fcbd62885ef995a735",
+    "scope": "447and17first4;6finiteLogicalPurgeBaselinePASS1778stable/25oldscopedwitnesses;noAppChange/N09full139open8of13"
+  },
+  "profiles": [
+    {
+      "expired_count": 0,
+      "skip_locked": false,
+      "case_body_seconds": 7.787348883226514,
+      "pre_measurement_seconds": 7.551596590317786,
+      "measured_purge_seconds": 0.00756660383194685,
+      "non_measured_case_seconds": 7.779782279394567,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.001413244754076004
+            }
+          },
+          "phase": "first_batch",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.001413244754076004,
+          "wall_seconds": 0.003929012455046177
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0013180635869503021
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0013180635869503021,
+          "wall_seconds": 0.003637591376900673
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    },
+    {
+      "expired_count": 1,
+      "skip_locked": false,
+      "case_body_seconds": 7.821942895650864,
+      "pre_measurement_seconds": 7.478019000962377,
+      "measured_purge_seconds": 0.006305568851530552,
+      "non_measured_case_seconds": 7.815637326799333,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0010088663548231125
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0007739495486021042
+            }
+          },
+          "phase": "first_batch",
+          "returned_count": 1,
+          "sql_count": 2,
+          "sql_seconds": 0.0017828159034252167,
+          "wall_seconds": 0.0037674065679311752
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0008409013971686363
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0008409013971686363,
+          "wall_seconds": 0.0025381622835993767
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    },
+    {
+      "expired_count": 10,
+      "skip_locked": false,
+      "case_body_seconds": 8.180772132240236,
+      "pre_measurement_seconds": 7.832444763742387,
+      "measured_purge_seconds": 0.007467938587069511,
+      "non_measured_case_seconds": 8.173304193653166,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.001214892603456974
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0011636614799499512
+            }
+          },
+          "phase": "first_batch",
+          "returned_count": 10,
+          "sql_count": 2,
+          "sql_seconds": 0.002378554083406925,
+          "wall_seconds": 0.004430719651281834
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0011648302897810936
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0011648302897810936,
+          "wall_seconds": 0.0030372189357876778
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    },
+    {
+      "expired_count": 100,
+      "skip_locked": false,
+      "case_body_seconds": 7.855968815274537,
+      "pre_measurement_seconds": 7.498908277601004,
+      "measured_purge_seconds": 0.008181723766028881,
+      "non_measured_case_seconds": 7.847787091508508,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0012248968705534935
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0029084309935569763
+            }
+          },
+          "phase": "first_batch",
+          "returned_count": 100,
+          "sql_count": 2,
+          "sql_seconds": 0.00413332786411047,
+          "wall_seconds": 0.005990685895085335
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0009373435750603676
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0009373435750603676,
+          "wall_seconds": 0.0021910378709435463
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    },
+    {
+      "expired_count": 101,
+      "skip_locked": false,
+      "case_body_seconds": 7.204689898528159,
+      "pre_measurement_seconds": 6.854085462167859,
+      "measured_purge_seconds": 0.015628152526915073,
+      "non_measured_case_seconds": 7.189061746001244,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0015375344082713127
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.003656553104519844
+            }
+          },
+          "phase": "first_batch",
+          "returned_count": 100,
+          "sql_count": 2,
+          "sql_seconds": 0.005194087512791157,
+          "wall_seconds": 0.008176234550774097
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0017268694937229156
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0009959954768419266
+            }
+          },
+          "phase": "second_batch",
+          "returned_count": 1,
+          "sql_count": 2,
+          "sql_seconds": 0.0027228649705648422,
+          "wall_seconds": 0.005015707574784756
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0011137304827570915
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0011137304827570915,
+          "wall_seconds": 0.0024362104013562202
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    },
+    {
+      "expired_count": 3,
+      "skip_locked": true,
+      "case_body_seconds": 7.260710224509239,
+      "pre_measurement_seconds": 6.9473953591659665,
+      "measured_purge_seconds": 0.013479124754667282,
+      "non_measured_case_seconds": 7.247231099754572,
+      "phases": [
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.004855242557823658
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0012934990227222443
+            }
+          },
+          "phase": "skip_locked_first_batch",
+          "returned_count": 2,
+          "sql_count": 2,
+          "sql_seconds": 0.006148741580545902,
+          "wall_seconds": 0.008066481910645962
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0008038002997636795
+            },
+            "UPDATE": {
+              "count": 1,
+              "seconds": 0.0005174018442630768
+            }
+          },
+          "phase": "after_holder_release",
+          "returned_count": 1,
+          "sql_count": 2,
+          "sql_seconds": 0.0013212021440267563,
+          "wall_seconds": 0.0025992775335907936
+        },
+        {
+          "operations": {
+            "SELECT": {
+              "count": 1,
+              "seconds": 0.0012266747653484344
+            }
+          },
+          "phase": "idempotent_replay",
+          "returned_count": 0,
+          "sql_count": 1,
+          "sql_seconds": 0.0012266747653484344,
+          "wall_seconds": 0.0028133653104305267
+        }
+      ],
+      "immutable_hashes_equal": true,
+      "pin_hashes_equal": true
+    }
+  ],
+  "original_purge_witnesses": {
+    "run": "20261024-094540-3a6ec8ac",
+    "selected_pass_cases": 25,
+    "testfiles": 11,
+    "whole_run_result": "ERROR",
+    "migration_identity": 178,
+    "scope": "Specificpurgeconsumeroraclesonly/notcurrentproduceradmission/newtimingsforallmodels/globalPASS"
+  }
+}
