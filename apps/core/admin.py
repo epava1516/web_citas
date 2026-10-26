@@ -1,13 +1,27 @@
-"""Keep Group administration native, with current authority after target waits."""
+"""Keep native Admin login epochs and current Group authority after target waits."""
 
 from django.contrib import admin
 from django.contrib.admin.actions import delete_selected as native_delete_selected
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
+from django.contrib.auth.signals import user_logged_in
 from django.core.exceptions import PermissionDenied
 from django.db import router, transaction
+from django.dispatch import receiver
 
 from .models import User
+
+
+@receiver(user_logged_in, sender=User, dispatch_uid="core.admin.bind_account_epoch")
+def bind_admin_login_epoch(sender, request, user, **kwargs):
+    match = getattr(request, "resolver_match", None)
+    if (
+        getattr(request, "method", None) == "POST"
+        and match
+        and match.namespace == "admin"
+        and match.url_name == "login"
+    ):
+        request.session["account_version"] = user.session_version
 
 
 def current_group_actor(request, permission, database):

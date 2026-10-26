@@ -1,6 +1,6 @@
-N10C481 aceptado localmente en alcance:2PASS56GET/60,098sQA/1793huellas; AdminESEN9SQLchangelist,173modelos8archivos intactos. Once runbooks94fuentes/120PASS2SKIP originales conciliados;2IDsdispatch=1productor/11PASSF reutilizados. N10A16/N10B2preservados; N10abierto77/9de13.
+N10D486 corrección loginAdmin aceptada localmente: password/CSRF epoch1 conserva sesión→MFA; receptorPOSTadmin admite epochoriginal sinrecarga niMFA. Original1PASS1FAIL59,198s retenido; candidata7PASS3FAIL126,993s porRateWindoworáculo y focal4PASS76,644s+6reutilizados=10únicos, no suiteúnica10PASS.1795huellas/173modelos8archivos intactos,cleanupTGsent. N10abierto77/9de13.
 
-Siguiente: diagnosticar POSTloginAdmin nativo con account_version0/1, fuenteLoginView vs AccountGate; sólo pregunta no fallo confirmado. No bajar guardas; después disposiciones77 y N11/N15. N02residualend,N12-N14condicionados,alpha/noindex;15laterales preservados. Retorno ae33175/37ccaaa sólo equivalencia de fuente del corte, no imágenes/switchactual ni autorización de imágenes726.
+Siguiente: matriz trazable77 y aceptaciónN10, despuésN11/N15. N10A16/N10B2/N10C2 y11runbooks120PASS2SKIP originales preservados;no repetirporrutina. GroupAST/middleware/cuentas/MFA/vendor intactos,alcanceforce_login/signin yepochrevocado verificados. Retorno porigualdad37ccaaa/ae33175 ya no cubre el arreglo. N02residualend,N12-N14condicionados,alpha/noindex,15laterales preservados.
 
 N10A/475original1PASS1FAIL55,892sQA/1788huellas:permretiradoenGroupwait aun302/name+1LogEntry;auditoria/cleanupTGERRORsent. CandidataGroupAdminpropio9dcd3b preparada,16casos(2originalesintactos+7wait+7CRUD/self)revisados,sinaceptacion.9/13,N10abierto77.
 
