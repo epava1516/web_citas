@@ -1,0 +1,588 @@
+{
+  "state": "FRESH_N15_GRAPH_VERIFIED_PRE_DIFFERENTIAL_NOT_N15_ACCEPTANCE",
+  "publication": {
+    "result": "PASS_FRESH_CORPUS_GRAPH_CUSTODY_AND_INTEGRITY_NOT_RUNTIME_QA",
+    "utc": "2026-10-27T02:25:42.143668+00:00",
+    "source_files": 2183,
+    "source_manifest_sha256": "902cdc38299d0e3fc08e11a54e93e5a5af8b65dca3ac6a327b676a3baa038cf1",
+    "nodes": 16711,
+    "relations": 75307,
+    "AST_nodes": 11126,
+    "AST_relations_preserved_exactly": 56021,
+    "semantic_chunks_verified": 30,
+    "semantic_files": 731,
+    "communities": 755,
+    "parallel_directed_relations_preserved": true,
+    "dangling_endpoints": 0,
+    "prior_nodes_or_cache_reused": false,
+    "library_AST_synthetic_reference_nodes": 1124,
+    "unresolved_reference_nodes": 200,
+    "old_N11_checkpoint_sha256": "33ab425166999f2088acc47a20e34bfe9c0d10ea998ed91f70d7240c6cd78238",
+    "current_graph_sha256": "61eebf1bcfec0a0490c440a8bc1551be85c397294c8e4b7ba1abe897bbd4b4e0",
+    "native_tokens": null,
+    "whole_goal_complete": false,
+    "next": [
+      "differential338/339",
+      "frontend_handoff",
+      "semantic_document_reconciliation",
+      "acta_and_git",
+      "last_operational_artifacts_purge"
+    ],
+    "limitations": "Fresh defined corpus only; selected document concepts and literal/structural references do not prove all runtime paths, semantics exhaustiveness, production readiness or deferred work completion."
+  },
+  "policy": {
+    "base_head": "d0152061725a2989e597a3fb8fa489f8ab63e9fb",
+    "application_commit": "48dfad61f71ccd378d5e6ccd979c91d4b7908cc7",
+    "build_kind": "fresh_AST_and_native_semantic_no_prior_nodes_or_extraction_cache",
+    "counts": {
+      "code": 1447,
+      "document": 731,
+      "data": 5
+    },
+    "source_files": 2183,
+    "semantic_chunks": 30,
+    "max_chunk_files": 25,
+    "explicit_inclusions": [
+      "templates/core/token.html",
+      "templates/core/token_invalid.html",
+      "AGENTS.md",
+      "static/vendor/HTMX-README.md",
+      ".dockerignore",
+      ".env.example",
+      ".gitattributes",
+      ".gitignore",
+      ".graphifyignore",
+      "Caddyfile",
+      "Caddyfile.production.example",
+      "Dockerfile",
+      "apps/safety/_canonical_kernel.pyx",
+      "scripts/diagnostics/requirements.in",
+      "scripts/diagnostics/requirements.lock",
+      "static/app.css",
+      "uv.lock",
+      "docs/evidencias/inventario-acciones-final-20261025.json",
+      "docs/evidencias/n00-matriz-acciones-prioridades-20261025.json",
+      "docs/evidencias/n11-d-matriz-integrada-acciones-20261027.json",
+      "docs/evidencias/n15-recibos-custodia-20261027.json",
+      "docs/evidencias/n15-capacidades-disponibilidad-20261027.json"
+    ],
+    "sensitive_filter_overrides": [
+      "templates/core/token.html",
+      "templates/core/token_invalid.html"
+    ],
+    "reason": "Inspected templates contain Django forms/CSRF and public copy, no credentials; name-only detection false positives.",
+    "excluded": "git, environments, artifacts, media, generated graph, historical duplicate docs, vendor except HTMX version README, evidence except individually named JSON; binary QA archives not parsed",
+    "tokens_native": null,
+    "old_graph_sha256": "33ab425166999f2088acc47a20e34bfe9c0d10ea998ed91f70d7240c6cd78238",
+    "top_directories": [
+      [
+        "tests",
+        844
+      ],
+      [
+        "docs",
+        588
+      ],
+      [
+        "apps",
+        495
+      ],
+      [
+        "templates",
+        129
+      ],
+      [
+        "scripts",
+        95
+      ]
+    ]
+  },
+  "AST_extraction": {
+    "result": "FRESH_AST_EXTRACTION_FINISHED_NOT_GRAPH_ACCEPTANCE",
+    "seconds": 48.788703992031515,
+    "requested_files": 1447,
+    "nodes": 11126,
+    "edges": 56021,
+    "failed_sources": [],
+    "keys": [
+      "nodes",
+      "edges",
+      "input_tokens",
+      "output_tokens",
+      "failed_sources",
+      "extracted_sources"
+    ],
+    "fresh_cache": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/recorridos-n15-20261027/full-graph/fresh-ast-cache",
+    "old_nodes_used": false,
+    "all_manifest_sources_stable": true
+  },
+  "native_fragments": [
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 1,
+      "assigned_files": 25,
+      "nodes": 59,
+      "edges": 52,
+      "hyperedges": 0,
+      "sha256": "ed78f85e66875725c0665e99e60573ee79f55a2b984a530846a5e60e32c63d3a",
+      "source_proof_sha256": "0ed110f50a30c0504242ed55989bf5e958fadcbfc77897bca04bcdff8a30a2cc",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 2,
+      "assigned_files": 25,
+      "nodes": 100,
+      "edges": 119,
+      "hyperedges": 0,
+      "sha256": "2c5c4606fa79ab542a7c8f7f6ab7cbd1f325de58c7cab406760b059afd5ffd2f",
+      "source_proof_sha256": "fde46aa66be7922af5da47b9cdf750f714c46a994be631728cf1b5d66b86cf60",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 3,
+      "assigned_files": 25,
+      "nodes": 103,
+      "edges": 105,
+      "hyperedges": 1,
+      "sha256": "f3c3b066703e8e21dafa227dec447053d5cc5cf0dd4537ee574aabc86ab51d83",
+      "source_proof_sha256": "7c229d3c802fe663c5b0769f66e8a61ccc6cd7c7935417742a3643b31ba17be6",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 4,
+      "assigned_files": 25,
+      "nodes": 51,
+      "edges": 48,
+      "hyperedges": 0,
+      "sha256": "6e3e6b96f717c45f7492074f7ce00ac014418484416a2e6229d576cdcab2f1dd",
+      "source_proof_sha256": "f0962482cb8061f11b98640b5b5466ad9a0175f2735a03456d6471a733a2e35f",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 5,
+      "assigned_files": 25,
+      "nodes": 100,
+      "edges": 96,
+      "hyperedges": 0,
+      "sha256": "39814045186c4b8b3630a11cc78e3e6e2b6a0186c147fca5bf8e736b20e060d7",
+      "source_proof_sha256": "5466766b356d808bf6a0279a92f80b09334143a8b173fef5eb7db8049cb0d60d",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 6,
+      "assigned_files": 25,
+      "nodes": 83,
+      "edges": 91,
+      "hyperedges": 1,
+      "sha256": "3a3b99678b18f08724b2c0c5eba2683831a875bcf4b3e42c996c4c978cb42079",
+      "source_proof_sha256": "662284cf44c79d98f15830f1d180a4277ffebedd673aa3464c10b2c73d1eaf0b",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 7,
+      "assigned_files": 25,
+      "nodes": 41,
+      "edges": 48,
+      "hyperedges": 0,
+      "sha256": "14b2dd594525648bcd4e77b27f6e227f1367c5e650b75e03d4061eb3a54c6132",
+      "source_proof_sha256": "c24401ce7d1677f39854b476efa5a9608e1ed8bc486ffa797526c7401092075f",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 8,
+      "assigned_files": 25,
+      "nodes": 100,
+      "edges": 81,
+      "hyperedges": 0,
+      "sha256": "ef35dd1ee8dfac37fae379a7cde187e990f7471b3ae32a66f4f4a7a42636232a",
+      "source_proof_sha256": "fb6ea26db28b20499a56e56262af547503259c5821bb96c81ae52af19d1df85b",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 9,
+      "assigned_files": 25,
+      "nodes": 78,
+      "edges": 81,
+      "hyperedges": 1,
+      "sha256": "a9285f3041fd7762f82e221ceae628a2c9bf0ae21b97f1498dfd54460c6d9cad",
+      "source_proof_sha256": "87c3596ffb1580cee88dc49c3f7a0dc318964494a436e69847bb11c934cab9cb",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 10,
+      "assigned_files": 25,
+      "nodes": 46,
+      "edges": 44,
+      "hyperedges": 0,
+      "sha256": "913360810e7038fbff1e85fce8d93b55c2e3d0b51036521fad10ad64feeb7e9f",
+      "source_proof_sha256": "9996887c3f96eaacac38be6f4f69ea7c11ce0029d8c5ac0d9e2b681b4ec35a7e",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 11,
+      "assigned_files": 25,
+      "nodes": 100,
+      "edges": 93,
+      "hyperedges": 0,
+      "sha256": "a3778a0b366f8538883c0ce2951af76a6073c2a6e430eeaf42e4f2793e812dd8",
+      "source_proof_sha256": "114d501597978e012279bc39444574d2d3b5491158cd162570f5a0145d24bc08",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 12,
+      "assigned_files": 25,
+      "nodes": 82,
+      "edges": 150,
+      "hyperedges": 1,
+      "sha256": "c3c3830e6520a903e0da9a802e4249335efb22e0890ed7cfcb661aa36746b118",
+      "source_proof_sha256": "5af1aba7ef3b26c7a6f57015f52e8d8f129ca2ceba705a89c09a6abad1c7f2ee",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 13,
+      "assigned_files": 25,
+      "nodes": 33,
+      "edges": 38,
+      "hyperedges": 0,
+      "sha256": "0ae01792eaec88cbed207e74c8eb416a449f5d235a63be29a07b0a7e42ef1a0a",
+      "source_proof_sha256": "34fe01f4f051838300de206fe925012c30ff52770c2c3ad558f28208c86b6c03",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 14,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 68,
+      "hyperedges": 0,
+      "sha256": "a477856c772c800cb640ff66aafe9ae1585248ab90e960b146efc3ef9b2b8b80",
+      "source_proof_sha256": "f42bd4df7a2561a8a1a9ec669484d91fd4913426fb29ebc0b9fa08db1eaae655",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 15,
+      "assigned_files": 25,
+      "nodes": 82,
+      "edges": 82,
+      "hyperedges": 1,
+      "sha256": "1cdedfe10a5bc245646ad7ae0d6621de188d17f368c5c1ee43f0d3b9f0370f29",
+      "source_proof_sha256": "8846f03c8c98a7d46916ac050cea4e8b470d5bb7c0cccb67f53aa17db74fa25a",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 16,
+      "assigned_files": 25,
+      "nodes": 100,
+      "edges": 75,
+      "hyperedges": 0,
+      "sha256": "0b506462c7811a27c0a9381079b1a40c93719d2980f9edf5502a085a946f4dfc",
+      "source_proof_sha256": "e94b215d0dd5531eb19870e4e679a065e5ebf9a5f7d2f3a0afc2b08c0700abf3",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 17,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 75,
+      "hyperedges": 0,
+      "sha256": "9230f5378a6dddc09243f8d992d4ce585ba7e77c9d64a67cbe58fcba142e0022",
+      "source_proof_sha256": "e8ff7dc55d4ae4be48805680f2c0ba4c0ae099789bc2681838b18f6f9eeacdd6",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 18,
+      "assigned_files": 25,
+      "nodes": 77,
+      "edges": 87,
+      "hyperedges": 1,
+      "sha256": "f00ece12e53a04d64b04ffae3653794e1451cf63a3f06e59939b75ff4e2c8d6b",
+      "source_proof_sha256": "e1ee08c08499d61875738efb2c2dd4815d0efbe8cb9deddb2267258375ec45ce",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 19,
+      "assigned_files": 25,
+      "nodes": 45,
+      "edges": 51,
+      "hyperedges": 0,
+      "sha256": "6639a461f2139dcc3018c1bb4003c0a7fe91466e1ea5bc040b5d114e105302a8",
+      "source_proof_sha256": "88124c9162c710db85de02ad1392e39e8c8dbe531d4bcb8b2775af4b294a0ef5",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 20,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 50,
+      "hyperedges": 0,
+      "sha256": "d2aaa3c9e5522efce40c4b17ef70ce583961575d2a87884ea5d4b5e0bbd70396",
+      "source_proof_sha256": "7233070f30a75c2c545171e95d105b33134608bb189290d18919c05bc315962a",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 21,
+      "assigned_files": 25,
+      "nodes": 88,
+      "edges": 131,
+      "hyperedges": 1,
+      "sha256": "60747c0e437644a2821668d53c34791c1a7bbd7ee38a3cc7e2719823ee2fbe1f",
+      "source_proof_sha256": "6785f4299ff70fa8f4738093746f75deafdc6bd59630c1ffe609f6c60765df0c",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 22,
+      "assigned_files": 25,
+      "nodes": 97,
+      "edges": 72,
+      "hyperedges": 0,
+      "sha256": "572496e2c2e08769df35e7a290b04f37f87218760ea6b61f5a74e0089b3be5ed",
+      "source_proof_sha256": "802747a6ff48367e43f616b993a7215069ad66ae9651bf96ba76650df25e1b7b",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 23,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 52,
+      "hyperedges": 0,
+      "sha256": "c30395ad8376edee5eeef761969cb81e5ad58e4984b469e927e2af6e8fdbb65f",
+      "source_proof_sha256": "a7cba72245510be7e9b3ffb63a3779d3cc3c93982e79d8bd0df2d696df474ea5",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 24,
+      "assigned_files": 25,
+      "nodes": 103,
+      "edges": 78,
+      "hyperedges": 0,
+      "sha256": "954cc9991f6dc3d7d2122f93a693f484a37263e2c8a27e6cb7195e8ce0bfeb33",
+      "source_proof_sha256": "cbf2d4a97a840ebe0e833bd5c9ff6d1f166a0abad4ff3e5133dad1072daab17b",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 25,
+      "assigned_files": 25,
+      "nodes": 30,
+      "edges": 32,
+      "hyperedges": 0,
+      "sha256": "fdd0f023ef94bfbeff77d9981a46d35daf714ec729da401ff15331b5d7bcc8a9",
+      "source_proof_sha256": "a496a52d8f6d3bc0335dfb304abbae8bb1b50eb61453f1a5af3ce30d36eac067",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 26,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 50,
+      "hyperedges": 0,
+      "sha256": "3472fbd712de40c9d5e353c0597cad0ec56a2abbe8371dea411056249067cffa",
+      "source_proof_sha256": "3ccdbb18b8e2904044ae8ef34c07e003b109a4a508757959d76863acf9fb73c6",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 27,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 50,
+      "hyperedges": 0,
+      "sha256": "8af2a0ff7a30a46f63aad3ee768fc9b12ec352c8f913aeaad2cb90f27176eb77",
+      "source_proof_sha256": "dfe80d56f1b458aede1dcde0bb951c567e0fd24de270e72d01e0950c725a71a9",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 28,
+      "assigned_files": 25,
+      "nodes": 75,
+      "edges": 50,
+      "hyperedges": 0,
+      "sha256": "1f44bdc3f79e56d91333727d596d17b03a39b439fa13f899ddbce60b4b592b1d",
+      "source_proof_sha256": "0ab7fd5987487a62a598905d4a0c480b01e80f3506bba0637f9fa6d32d41dc79",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 29,
+      "assigned_files": 25,
+      "nodes": 50,
+      "edges": 25,
+      "hyperedges": 0,
+      "sha256": "d0f97236412ce1d4b7a1a703c66e172feaf2fa0dd601cb008037398a0ef05f9a",
+      "source_proof_sha256": "016e2933e39b7d5f28eae2dd378fd8114c5040383b98199183261c62adb9a11c",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    },
+    {
+      "result": "PASS_LITERAL_SOURCE_SCHEMA_INPUT_NOT_RUNTIME_ACCEPTANCE",
+      "chunk": 30,
+      "assigned_files": 6,
+      "nodes": 18,
+      "edges": 17,
+      "hyperedges": 0,
+      "sha256": "f6b8dd6f2581ffcf2b2353411eb8c226c03a97547b72c435503b9d2e9d9b1e99",
+      "source_proof_sha256": "d57f67e568fbed9502813ca87f6cb5aa120bdfc05e256a201bd295432b48bc1a",
+      "native_tokens": null,
+      "limitations": "Verifies assigned source identity/coverage, literal node quotes/line and edge schema/endpoints; selected conceptual links are static extraction, not runtime proof or exhaustive truth."
+    }
+  ],
+  "native_totals": {
+    "files": 731,
+    "nodes": 2191,
+    "edges": 2091,
+    "hyperedges": 7,
+    "invocations": 30,
+    "including_prior_frontend_research": 31,
+    "input_tokens": null,
+    "output_tokens": null,
+    "V1_new": 0,
+    "V1_historical": 8
+  },
+  "native_ownership": [
+    {
+      "slot": 1,
+      "output_only_no_checkout_baseline_verified": true,
+      "HEAD_unchanged": true,
+      "index_remains_empty": true,
+      "only_assigned_outputs": 16,
+      "no_extra_root_files": true,
+      "historical_evidence_copies_absent": true
+    },
+    {
+      "slot": 2,
+      "output_only_no_checkout_baseline_verified": true,
+      "HEAD_unchanged": true,
+      "index_remains_empty": true,
+      "only_assigned_outputs": 30,
+      "no_extra_root_files": true,
+      "historical_evidence_copies_absent": true
+    },
+    {
+      "slot": 3,
+      "output_only_no_checkout_baseline_verified": true,
+      "HEAD_unchanged": true,
+      "index_remains_empty": true,
+      "only_assigned_outputs": 14,
+      "no_extra_root_files": true,
+      "historical_evidence_copies_absent": true
+    }
+  ],
+  "input_identity_reconciliation": {
+    "original_path": "/tmp/web-modelos-n15-semantic-2-20261027/artifacts/n15-full-semantic/chunk-24.json",
+    "original_sha256": "b86505fe2141952714b529ed516513b4ae357e8ca8e09d95134d88d3603200df",
+    "normalized_path": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts/recorridos-n15-20261027/full-graph/root-normalized-24.json",
+    "normalized_sha256": "954cc9991f6dc3d7d2122f93a693f484a37263e2c8a27e6cb7195e8ce0bfeb33",
+    "old_id": "scripts_diagnostics_requirements_source",
+    "source_file_to_id": {
+      "/home/felidae/proyectos/web_modelos_mod08_vps/scripts/diagnostics/requirements.in": "scripts_diagnostics_requirements_requirements_in_source",
+      "/home/felidae/proyectos/web_modelos_mod08_vps/scripts/diagnostics/requirements.lock": "scripts_diagnostics_requirements_requirements_lock_source"
+    },
+    "node_changes": 2,
+    "edge_endpoint_changes": 8,
+    "reason": "Drop-extension path stem collides for requirements.in/requirements.lock; deterministic source-label entity qualifiers distinguish them. Only identities changed; all content/quotes/source hashes retained. Root correction, original agent proposal unchanged; no application bug or QA rerun."
+  },
+  "instrument_incidents": {
+    "assembly_attempt01": "Internal adapter mapped empty AST source to dot via Path, caught before any output publication. Normalize empty source to None before Path. AST/native extraction inputs untouched; no QA repetition.",
+    "ownership_initial_check": "Empty index from root --no-checkout made git status show staged deletions; actual each worktree contains only .git and assigned artifacts, HEAD unchanged. Audit must verify this declared output-only state, not pretend full checkout cleanliness.",
+    "publication_attempt01": "Verifier removed original confidence_score as well as added scores when comparing raw AST. Graph retained all scores; diagnostic found12324 differences exactly for originally scored edges. Compare removes score only when confidence_score_origin marks it as added. No graph reassembly or AST/semantic/QA repetition."
+  },
+  "report_reconciliation": {
+    "changes": "Correct library report summary derived from simple analysis projection to show raw graph counts/confidences; disclose detected vs selected corpus and working-tree hash freshness; remove automatic no-API-cost promise. No graph/node/relation changed.",
+    "raw_relation_confidences": {
+      "EXTRACTED": 67718,
+      "INFERRED": 7589
+    },
+    "graph_sha256": "61eebf1bcfec0a0490c440a8bc1551be85c397294c8e4b7ba1abe897bbd4b4e0"
+  },
+  "presentation_reconciliation": {
+    "result": "PASS_PRESENTATION_RECONCILED_WITH_RAW_GRAPH",
+    "graph_sha256_unchanged": "61eebf1bcfec0a0490c440a8bc1551be85c397294c8e4b7ba1abe897bbd4b4e0",
+    "changes": [
+      "Surprise links now carry actual raw direction and conservative confidence, not projection default EXTRACTED",
+      "Removed unsupported no-import-cycles claim from relationless projection",
+      "Two concrete questions replace huge automatic community-name enumeration"
+    ],
+    "raw_surprise_confidences": {
+      "INFERRED": 5
+    },
+    "not_runtime_QA": true
+  },
+  "outputs_sha256": {
+    "graph.json": "61eebf1bcfec0a0490c440a8bc1551be85c397294c8e4b7ba1abe897bbd4b4e0",
+    "SOURCE_MANIFEST.json": "902cdc38299d0e3fc08e11a54e93e5a5af8b65dca3ac6a327b676a3baa038cf1",
+    "manifest.json": "478370e8d965c4bd52d7a1df7fad42a6e1778bfdf6a3afcdcdc2472eb4150a7c",
+    "CORPUS_POLICY.json": "d7fd7ecbb81ab55dc602545284c02fdc0f3ef67d01a6a9931c0a9dc8a35c1988",
+    "ANALYSIS.json": "1978cc87b9ed89e4112743bcbfcaac886ecc0c4df8236a51bd1b6ea6838aca0f",
+    "UNRESOLVED_REFERENCES.json": "220f575636730dda9e46ed02e988a1c2285a7124e14170add47f02e4dd853aa4",
+    "GRAPH_REPORT.md": "99825337b45c39f4118537ad0acf681b7621705f9aedaf8dfba383f255604579",
+    "graph.html": "89972acb82654f4868100e46297a00fd303319426751d143939af978a0c814d0",
+    "GRAPH_HEALTH.json": "d5aaf1a5d9c1c4a1fac50662f23152fad05a98a87708ef1d55d25ba86ffde366",
+    "GRAPH_VERIFICATION.json": "280bfe518c05ac3ae8ac6e57bcaf5fc192ce931934f68f1c864226b179873c6c",
+    ".graphify_analysis.json": "1978cc87b9ed89e4112743bcbfcaac886ecc0c4df8236a51bd1b6ea6838aca0f",
+    ".graphify_labels.json": "f7ebd111b0c24a43fb1caa7f924c1fabc1cdb05619428b537cbbbaca6bd34706",
+    "ESTADO_ACTUAL.json": "480f44fcfb91539b13b3305ccfde103ad3d6050ad6d80e9c15c3bc7af715857e",
+    "ESTADO_ACTUAL.md": "a9dbf48c37fc4d2251661502ae2d13d4baeb61dfd7b32710c3c0a1c21058045e",
+    "cost.json": "451309fed297cbc1b7d129fa293dc1895d47632a5ce37a6a8f0c862a90ae0dbd",
+    "PRESENTATION_RECONCILIATION.json": "f29276dfc5682612fb3070a547dd1a76e9e68ff44fff5b759346049dcac710a8"
+  },
+  "raw_local_paths_will_be_historical_after_purge": "artifacts/recorridos-n15-20261027/full-graph",
+  "retained_local_generated_outputs": "graphify-out/",
+  "notes": [
+    "This compact certificate preserves facts/digests, not raw QA or a bulk relocation of artifacts.",
+    "Source manifest is retained in graphify-out; the full graph predates inventory differential and will receive explicit semantic reconciliation of later deliverables.",
+    "Full source cut includes working-tree502; HEAD alone does not prove all hashes.",
+    "Original N00 action IDs and I01-I28 indexed literally; not new per-action runtime PASS."
+  ]
+}

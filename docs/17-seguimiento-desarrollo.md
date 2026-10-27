@@ -1,3 +1,7 @@
+N15: reconstrucción completa desde cero verificada en503: 2.183 fuentes, 16.711 nodos, 75.307 relaciones y 755 comunidades; AST nuevo y30 fragmentos semánticos, sin reutilizar cachés previos. Salidas locales graphify-out y certificado compacto; no es QA runtime ni aceptación N15.
+
+Sigue el diferencial338/339 y censo antes del relevo frontend; después conciliación semántica, acta/Git y purga final de artifacts. 11/13 aceptados; N02/MOD09 aplazado, N12/B14, N13/B15 yN14/B17 condicionados, QA integral hasta estable. Alpha/noindex y deuda viva conservadas.
+
 N15: ajuste de recibos externos verificado en501: 6 PASS, 0 FAIL/ERROR/SKIP; 1.800 huellas estables, limpieza y Telegram confirmados. Insumo estático de frontend revisado (136 fuentes/3.524 citas), aún sin aceptación de runtime. Sigue pendiente grafo completo desde cero antes del diferencial y relevo, acta y purga final; 11/13, alpha/noindex y deuda viva conservadas.
 
 N15auditoríameta499entregadafa7dee3:15textoslateralesrevisadosporseparado,16skills/6MCPexpuestos sin nuevasconexiones. Artefactos sin enlacesMarkdownni referenciasapps/config. Helperactualescribeallí:500candidatereceipt_diropcional6unitariospendientes;default/transporte/veredictos preservados.
