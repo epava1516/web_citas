@@ -3114,3 +3114,6 @@ N15/507: tras grafo del inventarioee2728bf y505, contratos frontend170rutas687re
 
 
 N15/508: grafo frontend publicado4483d564a931f894e9c2d45b4a3848ba9c11151ede8a32633bf755c1b358ba42,2193fuentes18335nodos79311relaciones758comunidades,170ASThandlerlinks687retornos110forms129templates36guardas;444currentIDs/443original y11126ASTnodes56021ASTedges exactamente iguales al checkpoint completo61eebf. Auditor independiente endpoints/comunidades/hiperaristas/huellasoutputs/source manifestPASS, avisossent. Certificado compacto y508 fueraartifacts, ahora pendientes deúltimodeltadocumental. Resumen duradero preparado31KB/45cortes originales/10raíces verificadas/13tablas, nopurga aún. Sin delegación nueva,nativo35/V1nuevo0/hist8/tokensunknown. N15activo11/13, conserva deuda; sigue auditoría/acta/Git/resumen final/purgaúltima.
+
+
+N15 auditoría previa a purga:641productoestables,444IDs/443originales/28familias,10raíces aceptadas SHA y archivosABC/D intactos,45cortes históricos/estados separados,170rutas687retornos fuente. Acta24 preparada coneficacia sujetaaconstancia terminal; resumen31KB/13tablas fueraartifacts revisado, enlaces901Markdown6032PASS antesacta. Últimodeltagrafo documental+gate/Git antespurga; ninguna afirmación de cierreanticipada. NoSQL/migrations/services/QAnew niagentes.

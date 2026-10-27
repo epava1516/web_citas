@@ -1,6 +1,6 @@
-N15: entrega frontend507 publicada en7cca6fc y conciliación semántica508 verificada:170rutas687retornos110formularios36guardas129plantillas,2193fuentes18335nodos79311relaciones758comunidades;444acciones yAST completo conservados. Resumen duradero de31KB preparado fuera deartifacts, con45cortes históricos y13tablas de rendimiento; pendiente de revisión final.
+N15: entrega técnica507 y grafo508 verificados; acta24 y resumen duradero preparados. Auditoría previa a purga:641fuentesestables,444acciones/28familias,443IDs originales conservados,10raíces previas y45cortes históricos conciliados. Estado efectivo del cierre: consultar la constancia terminal del resumen, no inferir ejecución de la purga desde su planificación.
 
-Sigue auditoría de requisitos, conciliación documental terminal, acta/Git y purga íntegraúltima.11/13, N15activo, N02MOD09diferido/N12B14N13B15N14B17condicionados/QAestable;alpha/noindex. No pruebas de producto repetidas ni limpieza final anticipada.
+Corte anterior a última operación:11/13 aceptados previamente yN15 pendiente sólo de conciliación documental terminal/Git y limpieza íntegrafinal. Tras constancia válida serán12/13 yN02residualdiferido, nunca13/13PASS; N12B14/N13B15/N14B17condicionados/QAestable,alpha/noindex.
 
 N15: reconstrucción completa desde cero verificada en503: 2.183 fuentes, 16.711 nodos, 75.307 relaciones y 755 comunidades; AST nuevo y30 fragmentos semánticos, sin reutilizar cachés previos. Salidas locales graphify-out y certificado compacto; no es QA runtime ni aceptación N15.
 

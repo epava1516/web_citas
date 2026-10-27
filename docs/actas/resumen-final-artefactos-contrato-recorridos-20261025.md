@@ -1,9 +1,9 @@
-# Resumen duradero del contrato de recorridos — corte de cierre en preparación
+# Resumen duradero del contrato de recorridos
 
-Contrato340/roadmap341, ejecución del 25 al 27 de octubre de 2026. **No es todavía
-el acta de cierre ni acredita la purga.** Esta versión prepara la conservación
-documental antes de eliminar los brutos de `artifacts`. La constancia terminal
-al final del documento deberá cumplimentarse después de la limpieza real.
+Contrato340/roadmap341, ejecución del 25 al 27 de octubre de 2026. Este corte
+custodia los resultados antes de la última operación. El estado efectivo del
+cierre y la purga lo acredita exclusivamente la constancia terminal al final,
+que sólo se cumplimenta después de la limpieza real; no se anticipa su ejecución.
 
 ## Candidata, entorno y alcance
 
@@ -11,7 +11,7 @@ Worktree `/home/felidae/proyectos/web_modelos_mod08_vps`, rama `master`.
 Último cambio de aplicación: `48dfad61f71ccd378d5e6ccd979c91d4b7908cc7`.
 Regresión integrada N11D sobre esa candidata. Helper de recibos externos:
 `d0152061725a2989e597a3fb8fa489f8ab63e9fb`; inventario actual: `f9a01fb`;
-entrega frontend: `7cca6fc`. El acta final fijará el commit documental terminal.
+entrega frontend: `7cca6fc`. El acta24 y el historial Git identifican el cierre documental; la constancia terminal registra la última operación.
 
 Python de aplicación 3.12.15, Django 5.2.17, PostgreSQL17 y Redis7.4 en recursos
 propios de los runners; htmx2.0.11. No se sustituye ese runtime por Python3.10
