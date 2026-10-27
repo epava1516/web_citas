@@ -1,0 +1,55 @@
+{
+  "result": "PASS_CURRENT_INVENTORY_SOURCE_IDENTITIES_AND_SCOPED_DISPOSITIONS_NOT_RUNTIME_QA",
+  "candidate_sha256": "ab9c30a190d726a0eb32f6397933fc7f7bdc471e97531312cbffba4ce828c2f3",
+  "baseline338_json_sha256": "b958f8a9a257bfb3baac7bcf18952d0b688f7f26b93c9af255796b3065b21f4f",
+  "original111_unchanged": true,
+  "original443_ids_preserved": true,
+  "current444_ids_bijective_to_census": true,
+  "current_counts": {
+    "route": 170,
+    "task": 27,
+    "own_command": 15,
+    "framework_command": 31,
+    "runbook": 11,
+    "admin_pattern": 16,
+    "admin_global_action": 1,
+    "beat": 25,
+    "dispatch": 14,
+    "signal_connection": 2,
+    "template": 129,
+    "javascript": 3
+  },
+  "new_signal_id": "signal_connection:user_logged_in:apps.core.admin.bind_admin_login_epoch",
+  "new_hook_bound_to_existing_N10_login_source": true,
+  "all170handlers_at_actual_source_lines": true,
+  "offline372rows366distinct186ES_match_MCP": true,
+  "commands46_match_MCP": true,
+  "current_source_fingerprints": 422,
+  "direct_original_action_source_drift_since_N11": 0,
+  "review_findings_resolved": [
+    "N15-INV-R1",
+    "N15-INV-R2"
+  ],
+  "new_HTTP_or_DB_or_command_or_task_executions": 0,
+  "whole_functionality_PASS_claimed": false,
+  "N15_accepted": false,
+  "limits": "Static declared census, literal/source identity and prior scoped witness reconciliation only; no new runtime/performance/browser/legal/provider proof. Dynamic and transitive limits remain.",
+  "published_inventory": "docs/evidencias/inventario-acciones-actual-20261027.json",
+  "published_inventory_sha256": "ab9c30a190d726a0eb32f6397933fc7f7bdc471e97531312cbffba4ce828c2f3",
+  "original_human_version": "9a32f5e",
+  "original_338_339_and111_preserved_in_Git": true,
+  "root_review_report_sha256": "83e89eb48ab3efe3ad4875afd58ee591eb851ffb0bc916b4e69992e3113b7005",
+  "metadata_builder_errors": [
+    "authority_sources object schema adapter",
+    "absent Admin module in N00 Git is positive creation evidence, not git-show target"
+  ],
+  "raw_ignored_inputs_historical_after_artifacts_purge": true,
+  "family_primary_and_scoped_relation_sets_verified": true,
+  "original_scope": "Source and identity only; post-publication family reference normalization preserves all444IDs.",
+  "family_relation_reconciliation": {
+    "source_candidate_before": "bef51a37ec842febf68e299e5d65e6208471a90d187935a8ad2398dcb53426b4",
+    "families_with_additional_references": 17,
+    "scope": "Primary allocation separated from per-unit scoped references, including deferredN02; no family-wide PASS."
+  },
+  "metadata_verifier_serialization_incident": "A local expected set shadowed the signal-ID string at serialization; corrected distinct variable, source/data/IDs unaffected."
+}

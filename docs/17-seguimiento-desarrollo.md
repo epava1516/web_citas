@@ -1,3 +1,7 @@
+N15: diferencial338/339 verificado en505: 444 unidades,443 IDs originales preservados y un receptor Admin deN10 añadido; 170rutas/27tareas/46comandos/366patrones, no QA nueva.111 yJSONbase25 intactos. Insumos frontend/formularios/guardas/HTTP preparados, entrega final pendiente.
+
+Sigue conciliación del inventario al grafo antes de relevo frontend, después acta/Git/resumen externo/purga última.11/13, N15activo, deuda vivaN02MOD09end/N12B14N13B15N14B17condicionados/QAestable;alpha/noindex.
+
 N15: reconstrucción completa desde cero verificada en503: 2.183 fuentes, 16.711 nodos, 75.307 relaciones y 755 comunidades; AST nuevo y30 fragmentos semánticos, sin reutilizar cachés previos. Salidas locales graphify-out y certificado compacto; no es QA runtime ni aceptación N15.
 
 Sigue el diferencial338/339 y censo antes del relevo frontend; después conciliación semántica, acta/Git y purga final de artifacts. 11/13 aceptados; N02/MOD09 aplazado, N12/B14, N13/B15 yN14/B17 condicionados, QA integral hasta estable. Alpha/noindex y deuda viva conservadas.

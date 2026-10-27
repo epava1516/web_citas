@@ -1,71 +1,93 @@
-# Diferencial del inventario de recorridos — 25 de octubre de 2026
+# Diferencial del inventario de recorridos — 27 de octubre de 2026
 
-Base preservada: [111](111-inventario-rendimiento-recorridos-beta-20261020.md), SHA256 `380b026c51b5e9647052838bb77a0712e9efff4ccdd857b5df3d4b545d921a95`. Resultado separado: [inventario338](338-inventario-acciones-recorridos-alpha-20261025.md) y [censo completo](evidencias/inventario-acciones-final-20261025.json). Se parte del grafo reconstruido y auditado, no se arrastran sus estados como pruebas de ejecución.
+Resultado actual: [inventario 338](338-inventario-acciones-recorridos-alpha-20261025.md),
+[censo actual](evidencias/inventario-acciones-actual-20261027.json) y
+[verificación](evidencias/inventario-acciones-verificacion-20261027.json).
+Este diferencial corresponde al contrato 340 y sigue al [grafo 503](503-n15-grafo-total-reconstruido-y-verificado-20261027.md).
 
-## Comparación trazable
+La [base 111](111-inventario-rendimiento-recorridos-beta-20261020.md) conserva SHA256
+`380b026c51b5e9647052838bb77a0712e9efff4ccdd857b5df3d4b545d921a95`.
+El [JSON del 25](evidencias/inventario-acciones-final-20261025.json) se mantiene
+intacto, SHA256 `b958f8a9a257bfb3baac7bcf18952d0b688f7f26b93c9af255796b3065b21f4f`.
+La comparación antigua 111→338 se conserva en prior_111_delta y Git `9a32f5e`;
+no se hace pasar por una medida nueva.
 
-El original111 citaba el ensayo20261020-111928-b91538fc. Se recupera su manifiesto de fuentes como testigo fechado; no se finge que111 guardó un listado de todas sus acciones o la hora exacta de su inspección manual. Doce archivos de rutas/tareas son idénticos porSHA: los conjuntos de170 rutas nombradas y27 tareas conservan identidad frente a ese testigo, no sólo cantidades iguales.
+## Antes y después del contrato actual
 
-No se añadieron, retiraron o modificaron declaraciones en esos doce archivos. Esto no significa que formularios, servicios, autoridad, plantillas, datos o rendimiento permanezcan iguales. Las huellas actuales y previas de fuentes relacionadas se conservan en JSON. Cambios de archivo no prueban por sí solos cambio funcional de cada función que contiene.
-
-Los11 comandos anteriores pasan a15: se añaden `operational_snapshot`, `operational_assessment`, `operational_events_report` y `encryption_key_inventory`; `apply_recovery_ledger` cambia y diez se conservan por bytes. No se retira ninguno de ese conjunto. Los cuatro nuevos son acciones de operación dentro de I28, no familias ficticias I29–I32.
-
-Admin, métodos, controles y disparadores no estaban enumerados individualmente en111. Su expansión actual se clasifica como **cobertura añadida al inventario**, no como funcionalidad necesariamente añadida al producto. La misma distinción se aplica a las106 plantillas y los tres scripts propios.
-
-| Unidad | Base | Actual | Diferencia acreditada |
-| --- | ---: | ---: | --- |
-| Familias I01–I28 | 28 | 28 | Identidades conservadas; evidencia y desglose ampliados |
-| Declaraciones URL propias con nombre | 170 | 170 | 0 añadidas/retiradas/modificadas en archivos declarantes comparados |
-| shared_task | 27 | 27 | 0 añadidas/retiradas/modificadas en archivos declarantes comparados |
-| Comandos propios | 11 en testigo fechado | 15 | 4 añadidos,1 modificado,10 conservados,0 retirados |
-| Admin | Pendiente de expansión | 16 patrones canónicos | Desglose nuevo, no incremento demostrado de funcionalidad |
-| Patrones por idiomas y comunes | No censados | 366 totales | 334 aplicación+32Admin; no URLs concretas ni funcionalidades |
-| Beat | No confundido con27 tareas | 25 declaraciones,24/25/0 por modo | Cadencias y modos añadidos al inventario |
-| Controles de formulario | No desglosados | 154 valores asociados a rutas | Valores y condiciones, no154 acciones independientes |
-| Señales y callbacks | Pendientes | 3 tipos de señal y14 lugares async/commit | Unidades distintas; no sumar como trabajos ejecutados |
-
-## Disposición de las 28 familias
-
-| ID | Familia | Diferencia frente a111 | Fuentes relacionadas cambiadas/nuevas |
+| Unidad | Antes 338 | DespuésN15 | Diferencia acreditada |
 | --- | --- | --- | --- |
-| I01 | Listado orgánico | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I02 | Listado promocionado | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I03 | Búsquedas y filtros | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I04 | Paginación | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I05 | Ficha pública | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I06 | Entrega de imágenes | Familia conservada; métodos/dependencias/evidencia conciliados | 4 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I07 | Favoritos | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I08 | SEO y documentos públicos | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I09 | Cuenta y sesión | Familia conservada; métodos/dependencias/evidencia conciliados | 3 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I10 | Seguridad y verificación | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I11 | Panel del anunciante | Familia conservada; métodos/dependencias/evidencia conciliados | 0 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I12 | Edición del perfil | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I13 | Subida de fotografías | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I14 | Procesamiento fotográfico | Familia conservada; métodos/dependencias/evidencia conciliados | 0 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I15 | Gestión de fotografías | Familia conservada; métodos/dependencias/evidencia conciliados | 1 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I16 | Revisión y publicación | Familia conservada; métodos/dependencias/evidencia conciliados | 3 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I17 | Ciclo de vida | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I18 | Agencias y representación | Familia conservada; métodos/dependencias/evidencia conciliados | 0 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I19 | Gestión comercial sintética | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I20 | Denuncias y reclamaciones | Familia conservada; métodos/dependencias/evidencia conciliados | 6 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I21 | Derechos y rectificación | Familia conservada; métodos/dependencias/evidencia conciliados | 22 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I22 | Exportación y portabilidad | Familia conservada; métodos/dependencias/evidencia conciliados; FAILtemporal MOD09 y selecciónTCP dispuestos por separado | 8 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I23 | Avisos y comunicaciones | Familia conservada; métodos/dependencias/evidencia conciliados | 6 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I24 | Publicación en segundo plano | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I25 | Limpieza y recuperación | Familia conservada; métodos/dependencias/evidencia conciliados | 13 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I26 | Navegador y entrega web | Familia conservada; métodos/dependencias/evidencia conciliados | 2 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I27 | Infraestructura transversal | Familia conservada; métodos/dependencias/evidencia conciliados | 12 archivos; detalle SHA en JSON, no equivalencia transitiva |
-| I28 | Operación administrativa | Familia conservada; métodos/dependencias/evidencia conciliados;4 comandos nuevos y expansiónAdmin | 24 archivos; detalle SHA en JSON, no equivalencia transitiva |
+| Familias I01–I28 | 28 | 28 | Identidad conservada |
+| Unidades con ID | 443 | 444 | 443 conservadas;1 alta;0 bajas |
+| Rutas propias nombradas | 170 | 170 | Conjuntos y declaraciones conservados; implementaciones no necesariamente |
+| shared_task | 27 | 27 | Identidades conservadas; servicios transitivos separados |
+| Comandos propios/framework | 15/31 | 15/31 | Mismos 46 registros; no ejecución nueva |
+| Patrones Admin canónicos | 16 | 16 | CurrentGroupAdmin propio añadido; mismas superficies |
+| Patrones distintos ES/EN/comunes | 366 | 366 | 372 filas, seis duplicadas por rutas comunes |
+| Beat / lugares async-commit | 25/14 | 25/14 | Unidades y cadencias distintas de tareas ejecutadas |
+| Inscripciones de señal propias | 1 | 2 | Bucle original 3 eventos + receptor user_logged_in |
+| Plantillas / interactivas / JS | 129/106/3 | 129/106/3 | Fuentes de presentación, no aceptación browser |
+| Valores de controles asociados | 154 | 154 | No 154 acciones ni combinaciones válidas |
 
-## Cambios relevantes y deuda
+No se midió mejora nueva de rendimiento de la aplicación en esta fase documental.
+Los tiempos del antes/después de cada optimización permanecen en los testigos
+aceptados por N11; no se sustituye latencia de app por duración de QA o censo.
+MOD09 mantiene sus objetivos 2 s/5 s y FAIL/diferimiento 367. Los cambios de fuente
+no se traducen automáticamente en ganancias o pérdidas de rendimiento.
 
-El contrato adapta el perfil romántico y preserva historia privada, autoridad fresca, revisión y ciclo de vida. La evidencia actual añade la regresión funcional/capacidad conciliada de B16, variantes explícitas y carga contractual vigente. No se convierte la antigua columna «por conciliar» en un PASS universal: el inventario actual conserva límites por escenario, versión y método.
+## Identidades y alta acreditada
 
-B07/B08/B09 mantienen optimizaciones aceptadas con sus comparaciones; B10 queda resuelto como evaluación/disposición, con deuda MOD09 y detector exacto. B14/B15/B17 se trasladan según336, sin aceptación de proveedores, personalización o apertura. El inventario y su primera cola de medición/optimización son la primera prioridad del siguiente contrato; QA específico sigue aplazado a la primera versión estable/productiva.
+443 IDs originales conservados literalmente, incluso los que incluyen líneas
+históricas. Los 14 despachos se emparejan por archivo/expresión/dispatcher, no se
+renumeran por su nueva posición. Los punteros actuales son localizadores,
+no sustitutos del ID. La inscripción original signal_connection:0 pasa a la
+posición 1 y conserva identidad; los 170 handlers se localizaron en sus líneas
+actuales y cada una de las 444 unidades tiene correspondencia única.
 
-El documento111 y sus propuestas de presupuestos no se modifican. No se eleva un objetivo propuesto a contrato ni se repite una prueba válida para actualizar este registro. Una revisión futura que cambie código, escenarios o exposición deberá actualizar las huellas, la evidencia y este diferencial.
+Alta: `signal_connection:user_logged_in:apps.core.admin.bind_admin_login_epoch`.
+core.admin no existía en N00/`5118a055`; el módulo y receptor se implementaron en N10.
+Sólo POST del login nativo de Admin inicializa account_version a session_version;
+no otorga MFA ni permisos. Fuente SHA actual coincide con el testigo N10 de login,
+con disposición local 491. Inventariarlo ahora no exige repetir ese testigo ni
+convierte sus ramas no medidas en PASS. I09 conserva N06 original y añade N10;
+I28 conserva su relación operativa. No se crean familias I29 ni URL/tareas nuevas.
 
-## Entrega y aceptación documental
+Se separan el registro global delete_selected y el override de Group. Su presencia
+no prueba disponibilidad para cualquier petición. Los límites heredados de Admin
+se acotan a «este inventario no ejecuta CRUD», preservando las pruebas N10 previas.
 
-Se requiere comprobar identidad I01–I28, conjuntos de rutas/tareas, vínculo de cada fila a fuente/familia/evidencia, huellas, referencias de plantillas y límites de Admin/modos. La integración semántica de338/339 y del seguimiento/roadmap se realizará sobre el grafo nuevo, declarando el alcance focal y sin presentarlo como una segunda reconstrucción desde cero. El acta final sólo se emitirá después de esa comprobación. El proyecto sigue en alfa.
+## Fuentes, evidencia y límites
 
+| Comparación de 422 huellas inventariadas | Cantidad |
+| --- | --- |
+| new_inventory_coverage_file_creation_not_implied | 38 |
+| conserved | 344 |
+| modified | 40 |
+
+«Nueva cobertura de inventario» no significa que se haya creado el archivo. El
+módulo Admin sí tiene prueba independiente de ausencia en GitN00. Modificar un
+archivo tampoco prueba que todas sus funciones cambiasen. Las 422 huellas incluyen
+fuentes propias, operativas y framework; no son 422 funcionalidades.
+
+Las fuentes directas de las 443 unidades originales coinciden con las conciliadas
+por N11. Eso permite conservar sus disposiciones y límites, no declarar igualdad
+transitiva o PASS íntegro por función. Las 31 rutas con muestras N11D sólo conservan
+sus ejemplos/casos; los métodos, roles, estados, headers y contenidos no observados
+siguen sin acreditarse por compartir nombre o código HTTP.
+
+La comprobación nueva es estructural: AST, resolver sin conexiones, metadatosMCP,
+huellas, IDs y revisión. Cero nuevas peticiones/consultas de base, CLIhandle o tareas.
+Las omisiones, FAIL, errores de instrumento e INVALID de los testigos anteriores
+no se borran ni se suman como una única batería verde.
+
+## Roadmap y deuda
+
+11/13 bloques obligatorios aceptados por 498; N15 todavía activo. No renombrar
+el cierre local como ausencia de trabajo del proyecto. [Deuda viva](deuda-pendiente-viva.md):
+N02/MOD09 al final del desarrollo, N12/B14 proveedores condicionados, N13/B15
+recomendaciones opcionales con contrato de datos separado y N14/B17 apertura futura;
+QA general hasta primera estable/productiva. Alpha/noindex y no apertura.
+
+El siguiente entregable técnico es el relevo frontend. Después se conciliarán sus
+metadatos y este inventario con el grafo antes del acta. El resumen externo y la
+purga total de artifacts cierran la operación: su estado pendiente en este corte
+no autoriza omitirla ni afirmar ejecución anticipada.
