@@ -387,3 +387,5 @@ Actualización de relevo MOD-07/v1.7: Claude continúa como agente principal con
 - [Aceptación local N04: descubrimiento, etapas y tiempos antes/después](396-n04-aceptacion-local-descubrimiento-20261025.md).
 
 - [Aceptación local N05: imágenes, recursos, sondeos y teclado](399-n05-aceptacion-local-imagenes-navegador-20261025.md).
+- [Acuerdos para el siguiente contrato: UI/UX, oferta comercial y mínimos de SEO y legalidad desde NotebookLM y OpenNotebook local](acuerdos-siguiente-contrato-ui-ux-comercial-20261026.md).
+

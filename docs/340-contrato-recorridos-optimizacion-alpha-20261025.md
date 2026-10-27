@@ -103,3 +103,59 @@ Para cerrar: las28familias y todas las acciones censadas tienen disposición tra
 Orden final N15: auditoría técnica → preservar el grafo y reconstruir una vez desde cero el corpus final definido con AST/semántica y comprobaciones → diferencial del inventario338/339 y su censo, conservando111 e IDs → integración semántica de entregables y verificación documental → acta final y registro Git. Un refresco focal por hito no sustituye esa reconstrucción final. Registrar exclusiones, referencias no resueltas, vistas parciales, herramientas, huellas y consumo disponible; no exigir exhaustividad semántica ficticia. Si una corrección posterior afecta corpus/recorridos, reconciliar antes del acta.
 
 El acta final separará aceptaciones locales, incumplimientos, excepciones y B14/B15/B17 condicionados, y fijará prioridades futuras. El resultado sigue siendo alfa. Abrir beta o producción requerirá otro alcance y autorización expresa.
+
+### Adición acordada el 26 de octubre: entrega para la reescritura del frontend
+
+El relevo incluirá como tarea de preparación del siguiente contrato instalar y verificar las skills oficiales `htmx-guidance`, `htmx-debugging`, `htmx-extension-authoring` y `htmx-upgrade-from-htmx2`, con origen y versión registrados, y comprobar la disponibilidad de UI/UX Pro Max. La disponibilidad y compatibilidad se comprobarán antes de la instalación; cualquier discrepancia quedará explícita. Esta anotación no acredita instalación ni añade su ejecución a N15.
+
+Como último entregable técnico de N15, dentro del diferencial y antes del acta final, incorporar un inventario de la base que recibirá el siguiente frontend. Vincular rutas y métodos a acciones, plantillas, fragmentos y componentes; registrar entradas, autenticación/roles, estados, códigos HTTP, redirecciones, contenido o esquemas y valores admisibles, efectos persistidos y tareas asíncronas. Para cada rama aplicable distinguir resultado esperado, resultado observado y referencia a código/evidencia, con versión/commit y fecha del corte. Los valores dinámicos se describen mediante reglas y ejemplos sintéticos.
+
+Inventariar expresamente los comportamientos que deberán preservarse al sustituir las pantallas: permisos, CSRF, consentimientos, validación y errores, moderación, retirada/revocación, sondeos y finalización de tareas, accesibilidad y reglas comerciales. Conciliar altas, cambios y bajas con el inventario final; diferenciar rutas HTTP de procesos internos. Registrar pendientes, exclusiones y cobertura representativa: inventariar no equivale a verificar todas las ramas ni autoriza una batería global adicional sin selección fundada.
+
+La versión final de esta entrega debe entrar en la conciliación semántica y documental del grafo antes del acta; si cambia el corpus después de la reconstrucción, reconciliarlo conforme al orden final anterior.
+
+Registrar como dirección del siguiente contrato la reescritura integral del frontend con Django Templates y htmx4, sobre el backend existente y con UI/UX Pro Max. El frontend actual sirve como referencia funcional y de garantías, no como obligación de conservar su diseño. La futura implementación incluirá compatibilidad y migración desde la versión htmx realmente presente, contratos de rutas y ajustes de backend justificados por los nuevos recorridos. Librerías auxiliares, framework de estilos y funciones adicionales quedan por evaluar; no se aprueban automáticamente. Este contrato entrega la base y el relevo, no ejecuta la reescritura ni la migración. Véanse los [acuerdos del siguiente contrato](acuerdos-siguiente-contrato-ui-ux-comercial-20261026.md) y su [prompt de preparación](prompt-siguiente-contrato-ui-ux-comercial-20261026.md).
+
+### Adición expresa del usuario del 26 de octubre: limpieza final obligatoria de artifacts
+
+Por instrucción expresa del usuario, la limpieza completa del contenido de
+`/home/felidae/proyectos/web_modelos_mod08_vps/artifacts` será la **última acción
+operativa obligatoria de N15 y del contrato**, después de las verificaciones,
+el grafo, los inventarios, el acta y el registro Git final. Es una obligación
+irrevocable para la ejecución ordinaria: no podrá omitirse, sustituirse por una
+limpieza parcial ni diferirse por decisión del agente. Sólo una nueva instrucción
+expresa del usuario puede modificarla. El contrato no se declarará cerrado antes
+de completar y registrar esta limpieza.
+
+Antes del borrado, guardar fuera de `artifacts`, en
+`docs/actas/resumen-final-artefactos-contrato-recorridos-20261025.md`, un resumen
+compacto y duradero: candidata y commits, versiones y dependencias, escenarios y
+datos sintéticos, comandos y configuración necesarios para reproducir las
+pruebas, resultados PASS/FAIL/ERROR/SKIP separados, tablas de rendimiento,
+limitaciones, excepciones y deuda pendiente. Incluir una síntesis de los fallos
+históricos relevantes y referencias a los entregables que permanecen fuera de
+la carpeta. No trasladar ni duplicar los artefactos brutos para eludir la limpieza;
+el resumen no incorpora secretos, credenciales ni datos de sujetos.
+
+Comprobar previamente que han terminado los procesos del contrato y que ninguno
+lee o escribe en la carpeta; resolver las dependencias de sus entregables finales
+para que éstos sigan siendo utilizables sin `artifacts`. Una referencia histórica
+al resultado bruto borrado quedará identificada como tal, sin fingir que el
+archivo permanece disponible. Si quedan procesos o dependencias activas, resolverlos
+antes de borrar: esta condición protege el trabajo y no elimina la obligación.
+
+La autorización comprende eliminar todo el contenido de esa carpeta, incluidos
+archivos ocultos, resultados QA, instantáneas, registros y exportaciones; puede
+conservarse el directorio vacío para empezar a generar desde cero. No se extiende
+a `docs/evidencias`, fuentes, Git, datos de aplicación, volúmenes, servicios ni
+otros worktrees. El usuario acepta perder el histórico bruto local: repetir una
+prueba producirá evidencia nueva, no recuperará la ejecución histórica exacta.
+
+Medir ocupación y espacio libre antes y después y registrar en el resumen la
+fecha, ruta exacta, resultado, espacio recuperado y comprobación de carpeta vacía.
+Preparar y cerrar los avisos Telegram y sus recibos fuera de `artifacts`, sin que
+la propia notificación vuelva a poblarla. Tras el borrado no ejecutar nuevas
+pruebas ni regenerar artefactos dentro de este contrato; incorporar únicamente la
+constancia documental final y su registro Git. La integración documental del
+grafo debe describir esta obligación sin afirmar de antemano que fue ejecutada;
+la constancia terminal del resumen acredita su cumplimiento efectivo.

@@ -157,6 +157,19 @@ Mantener matriz de operador/textos, responsables/cobertura, proveedores/custodia
 
 ### N15 — Inventario diferencial, grafo y acta final
 
+**Última acción obligatoria e irrevocable por instrucción expresa del usuario del
+26 de octubre:** vaciar por completo `artifacts` del worktree activo al terminar
+N15, después del resto de entregables y verificaciones, conforme a la adición de
+la sección8 del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md).
+Antes, conservar sólo el resumen compacto de cierre fuera de esa carpeta,
+comprobar ausencia de procesos y dependencias activas y preparar los avisos para
+que no la repueblen. Registrar espacio antes/después y carpeta vacía; el histórico
+bruto se elimina con aceptación expresa de su pérdida. Sin limpieza efectiva no
+hay cierre contractual. No ejecutar ahora ni alterar la cola técnica vigente;
+no requiere repetir QA válido. Sólo el usuario puede revocar esta obligación.
+
+Adición del usuario del26deoctubre: el último entregable técnico, antes del acta y conciliado con el grafo final, incluye el inventario de relevo del frontend descrito en la sección8 del [contrato340](340-contrato-recorridos-optimizacion-alpha-20261025.md): rutas/métodos, respuestas por estado/rol, plantillas/fragmentos, efectos y garantías que deben preservarse, con esperado/observado, evidencia, versión y pendientes explícitos. No confundir inventario con cobertura runtime exhaustiva. Registrar como siguiente dirección la reescritura del frontend con Django Templates, htmx4 y UI/UX Pro Max sobre el backend existente; implementación y migración pertenecen al siguiente contrato.
+
 Familias: I01, I02, I03, I04, I05, I06, I07, I08, I09, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22, I23, I24, I25, I26, I27, I28.
 
 Conciliar estado de N12–N14; auditar entrega técnica, preservar grafo y reconstruir corpus final desde cero una vez. Actualizar diferencialmente338/339+censo manteniendo111 e IDs, integrar semántica y comprobar enlaces antes del acta y registroGit.
