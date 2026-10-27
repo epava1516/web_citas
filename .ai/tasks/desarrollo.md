@@ -3117,3 +3117,6 @@ N15/508: grafo frontend publicado4483d564a931f894e9c2d45b4a3848ba9c11151ede8a326
 
 
 N15 auditoría previa a purga:641productoestables,444IDs/443originales/28familias,10raíces aceptadas SHA y archivosABC/D intactos,45cortes históricos/estados separados,170rutas687retornos fuente. Acta24 preparada coneficacia sujetaaconstancia terminal; resumen31KB/13tablas fueraartifacts revisado, enlaces901Markdown6032PASS antesacta. Últimodeltagrafo documental+gate/Git antespurga; ninguna afirmación de cierreanticipada. NoSQL/migrations/services/QAnew niagentes.
+
+
+Constancia terminalN15 2026-10-27T05:13:15.697681+00:00: acta36b08d5 enviada antespurga; operaciónfinal completa sobreúnicoartifactsactivo,0entradastrasTelegramexternosent,gananciadisponible32846393344bytes(30.59GiB),raíz83→68%.67contenedores sinmontajesrelacionados/lsofroot sinreferenciasniadvertencias conportalesFUSEajenos exceptuados. Resumen/constancia/acta24efectivos,12/13aceptadosN02residualdiferido,N12–N14condicionados,QAestable/alpha/noindex. Despuéssóloconstanciadocumental yGit,noQA/regeneración. Graph6546956c2198fuentes18816nodos79822rels759communities retenido; V1nuevo0/hist8/native35tokensunknown.

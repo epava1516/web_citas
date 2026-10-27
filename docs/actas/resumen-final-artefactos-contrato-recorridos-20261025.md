@@ -397,3 +397,39 @@ No alcanza fuentes, Git, docs/evidencias, datos, volúmenes, servicios ni otros 
 Registrar aquí UTC, ocupación y libre antes/después, bytes recuperados y carpeta
 vacía tras ejecutar; avisos y recibos fuera de artifacts. Después sólo constancia
 documental y Git, sin nuevas pruebas ni regeneración de artefactos.
+
+
+## Constancia terminal ejecutada
+
+Última operación obligatoria completada entre **2026-10-27T05:13:08.622954+00:00** y **2026-10-27T05:13:15.697681+00:00**.
+Ruta exacta: `/home/felidae/proyectos/web_modelos_mod08_vps/artifacts`. Se vació todo su contenido, incluidos ocultos, conservando
+el directorio: **0 entradas después del aviso terminal**.
+
+| Medida | Antes | Después |
+| --- | ---: | ---: |
+| Raíz ocupada | 83 % | 68 % |
+| Espacio disponible | 36539703296 bytes (34.03 GiB) | 69386096640 bytes (64.62 GiB) |
+
+Ganancia neta disponible observada: **32846393344 bytes (30.59 GiB)**.
+Ocupación de artifacts antes: 32841580544 bytes según du; el cambio de espacio
+libre es una observación del filesystem compartido, no una suma de directorios.
+Sin referencias abiertas al destino ni comandos del contrato activos. Se
+inspeccionaron 67 contenedores: cero montajes
+relacionados y cero montajes anidados. lsof terminó sin salidas ni advertencias
+tras exceptuar sólo stat de los portales FUSE externos1001/1002, ajenos al destino.
+No se detuvieron servicios ni se borraron fuentes, Git, docs/evidencias, datos,
+volúmenes u otros worktrees.
+
+Acta previa y Git enviados: `36b08d5f93035ec7631c20e4cbe2067148419ded`. Grafo documental previo a la purga:
+`6546956c2eafc5a9a353e8df606d76686be3dc624d2976b1c7570f4ed63a8729`,2198fuentes/18816nodos/79822relaciones/759comunidades.
+Su verificación retenida está en `graphify-out/FINAL_CLOSEOUT_VERIFICATION.json`,
+SHA256`d6feccbab3a2e8e43f38dc19b15a4ff0a7874a13d212d5da0e31919bff333d9f`. Este anexo terminal es el delta
+documental expresamente previsto por340: no se regenera el grafo después de purgar.
+
+Avisos inicial y terminal Telegram confirmados con delivery=sent y recibos fuera
+de artifacts. [Constancia estructurada y recibos](../evidencias/n15-cierre-notificaciones-20261027/constancia-terminal.json).
+**N15 cerrado localmente:12/13 obligatorios aceptados y N02 residual diferido
+por el usuario; N12–N14 condicionados, sin PASS. Alpha/noindex.** El acta24
+adquiere eficacia conforme a su condición terminal. Tras el borrado sólo se
+incorporan esta constancia documental y su registro Git; no se repiten pruebas
+ni se regeneran artefactos.

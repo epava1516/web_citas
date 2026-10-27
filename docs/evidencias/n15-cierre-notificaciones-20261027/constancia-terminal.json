@@ -1,0 +1,61 @@
+{
+  "result": "COMPLETE_FINAL_CONTRACT_OPERATION",
+  "path": "/home/felidae/proyectos/web_modelos_mod08_vps/artifacts",
+  "before": {
+    "utc": "2026-10-27T05:13:08.622954+00:00",
+    "used_bytes": 176855977984,
+    "available_bytes": 36539703296,
+    "used_percent": 83
+  },
+  "after": {
+    "utc": "2026-10-27T05:13:15.697681+00:00",
+    "used_bytes": 144009584640,
+    "available_bytes": 69386096640,
+    "used_percent": 68
+  },
+  "available_bytes_gain_observed": 32846393344,
+  "artifact_allocated_bytes_before": 32841580544,
+  "top_level_entries_before": 229,
+  "entries_after_terminal_notice": 0,
+  "hidden_entries_included": true,
+  "acta_commit_before_purge": "36b08d5f93035ec7631c20e4cbe2067148419ded",
+  "graph_sha256_pre_purge": "6546956c2eafc5a9a353e8df606d76686be3dc624d2976b1c7570f4ed63a8729",
+  "retained_graph_gate_sha256": "d6feccbab3a2e8e43f38dc19b15a4ff0a7874a13d212d5da0e31919bff333d9f",
+  "process_gate": {
+    "active_contract_commands": 0,
+    "lsof_returncode": 1,
+    "open_target_references": 0,
+    "stderr_empty": true,
+    "unrelated_stat_exemptions": [
+      "/run/user/1001/doc",
+      "/run/user/1002/doc"
+    ]
+  },
+  "mount_gate": {
+    "containers_inspected": 67,
+    "related_container_mounts": 0,
+    "nested_host_mounts": 0
+  },
+  "telegram_start": {
+    "delivery": "sent",
+    "result": "INICIO: comprobar procesos y montajes y vaciar íntegramente artifacts conforme al contrato. Fuentes, Git, evidencias originales, datos y servicios quedan fuera del borrado.",
+    "name": "N15 última operación: limpieza completa"
+  },
+  "telegram_terminal": {
+    "delivery": "sent",
+    "result": "FIN: artifacts vacío; espacio libre observado +30.59GiB, raíz68%. Fuentes y entregas retenidas. Registrando constancia terminal; alpha/noindex.",
+    "name": "N15 última operación: limpieza completa"
+  },
+  "receipt_directory": "docs/evidencias/n15-cierre-notificaciones-20261027",
+  "N15_closed_local": true,
+  "mandatory_accepted": 12,
+  "mandatory_total": 13,
+  "N02": "user_deferred_residual_not_PASS",
+  "conditioned_not_PASS": [
+    "N12/B14",
+    "N13/B15",
+    "N14/B17"
+  ],
+  "alpha_noindex": true,
+  "post_purge_policy": "Only terminal documentary constancy and Git. No tests or artifact regeneration."
+}

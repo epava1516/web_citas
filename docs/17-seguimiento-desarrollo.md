@@ -1,3 +1,5 @@
+Constancia terminal N15 — 2026-10-27T05:13:15.697681+00:00: última limpieza completa, artifacts vacío tras Telegram externo confirmado; +30.59GiB libres observados, raíz68%. Acta24 efectiva:12/13aceptados locales yN02residualdiferido; N12–N14condicionados,alpha/noindex. Ver [resumen y constancia](actas/resumen-final-artefactos-contrato-recorridos-20261025.md). Sólo constancia/Git después de purga; cortes anteriores conservados debajo.
+
 N15: entrega técnica507 y grafo508 verificados; acta24 y resumen duradero preparados. Auditoría previa a purga:641fuentesestables,444acciones/28familias,443IDs originales conservados,10raíces previas y45cortes históricos conciliados. Estado efectivo del cierre: consultar la constancia terminal del resumen, no inferir ejecución de la purga desde su planificación.
 
 Corte anterior a última operación:11/13 aceptados previamente yN15 pendiente sólo de conciliación documental terminal/Git y limpieza íntegrafinal. Tras constancia válida serán12/13 yN02residualdiferido, nunca13/13PASS; N12B14/N13B15/N14B17condicionados/QAestable,alpha/noindex.

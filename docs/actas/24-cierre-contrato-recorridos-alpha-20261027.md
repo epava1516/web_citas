@@ -83,3 +83,8 @@ ya estén instaladas. La reescritura, migración y decisiones de librerías auxi
 no forman parte del cierre actual. Trasladar toda deuda y conservar alpha/noindex.
 
 La [auditoría técnica previa a la purga](../evidencias/n15-auditoria-previa-purga-20261027.json) conserva los requisitos contrastados y los pasos operativos pendientes. La comprobación del grafo documental terminal se conserva fuera de artifacts en `graphify-out/FINAL_CLOSEOUT_VERIFICATION.json`; la constancia terminal del resumen identifica su huella efectiva.
+
+
+## Constancia terminal de eficacia
+
+La última operación quedó completada el 2026-10-27T05:13:15.697681+00:00: artifacts vacío incluso después del aviso Telegram externo confirmado; ganancia disponible observada de 32846393344 bytes (30.59 GiB). La constancia estructurada enlazada desde el resumen acredita procesos/montajes, mediciones y avisos. Se cumple la condición inicial de esta acta: **N15 aceptado localmente,12/13 obligatorios y N02 residual diferido por el usuario; condicionados sin PASS y alpha/noindex**. Esta anotación es sólo constancia terminal; no se ejecutaron nuevas pruebas ni se regeneraron artefactos después del borrado.
