@@ -1,0 +1,54 @@
+{
+  "result": "PASS_SCOPED_SIX_NOTIFICATION_UNITS_TERMINAL_CUSTODY",
+  "run": "20261027-012424-b41beb6b",
+  "base_head": "fa7dee354374cc616787c3230fdbd97ed758f4ea",
+  "counts": {
+    "PASS": 6,
+    "FAIL": 0,
+    "ERROR": 0,
+    "SKIP": 0
+  },
+  "junit_seconds": 0.297,
+  "pytest_process_seconds": 2.074338011443615,
+  "default_source_files_stable": 1800,
+  "extra_sources_stable": {
+    "scripts/test_notifications.py": "c49fecfa50a3f70f9e35b308c09c852c294bc9c392d709511d25409030ab793e",
+    "tests/test_test_notifications.py": "5aa91f00d20ab0d7407c081482d6c8e2313b28580ed5afcb0d9057eeb32e0cfb",
+    "scripts/run_notified.py": "3f064172ede319d93fcb36b8e7e94be265a7bde29294c2e251db98a5db61467b",
+    "scripts/run_local_ci.py": "646b1a8a61d24cc12756b074643ff3a5f221dcc057015e680e7208e50c3eb750",
+    "uv.lock": "563cc6a2d4de19be8155999ad3da7990c6f152eaf2fafffa2411df1435a7dce5",
+    "pyproject.toml": "8e84c6b60f2c2733b70e1edc1afdce455334a1a40600abe4b1846666f727b9ea"
+  },
+  "preregistration_stable": {
+    "docs/500-n15-prerregistro-recibos-fuera-de-artifacts-20261027.md": "b5abe8a48db5cd3df2c8cbfa9f01ae4301f398c0c94f3b55389848eaa9e52442"
+  },
+  "pre_runtime_image_identity": {
+    "run": "20261027-012424-b41beb6b",
+    "matched_actual_runner_pid_and_start_ticks": true,
+    "container_image_ids": {
+      "web-modelos-ci-pg-20261027-012424-b41beb6b": "sha256:ab20e934b27ba3ff927c1b4c9ff8cf6c32f315f743efe68dd3441182a87fb085",
+      "web-modelos-ci-redis-20261027-012424-b41beb6b": "sha256:f84b0c4678011602b9b98c227a4dcd5468bf8b088b02fdd4165cb7758bad8058"
+    },
+    "all_observed": true,
+    "match_prelaunch_freeze": true
+  },
+  "cleanup_verified_current": true,
+  "runner_terminal": true,
+  "telegram": {
+    "delivery": "sent",
+    "result": "PASS",
+    "name": "CI focused"
+  },
+  "junit_sha256": "5b0e80c6ee126b06a0ffd07bef3495a59ef3387488eb393b8c59107ec50c8ed3",
+  "case_names": [
+    "test_notification_uses_openclaw_without_exposing_credentials",
+    "test_failed_delivery_keeps_test_result_and_redacts_provider_diagnostics",
+    "test_worker_and_runner_do_not_duplicate_pytest_notification",
+    "test_explicit_receipt_directory_never_creates_default_artifacts[False]",
+    "test_explicit_receipt_directory_never_creates_default_artifacts[True]",
+    "test_failed_explicit_receipt_write_never_falls_back_to_artifacts"
+  ],
+  "limits": "Unit bodies use synthetic filesystem and mocked transport, no real gateway/provider or PostgreSQL integration claim; official runner notification is real and independently sent. No whole-contract acceptance.",
+  "audit_script_sha256": "d895f568e8b3ea2104e18b54198125b32d7309469accb51c19fdb0c24a90372d",
+  "audit_scope": "Root inspected actual JUnit/result/source freeze/runtime images/current cleanup; no test repetition."
+}

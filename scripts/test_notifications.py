@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 
 
-def notify(name, result, *, counts=None, seconds=None, run_id=None):
+def notify(name, result, *, counts=None, seconds=None, run_id=None, receipt_dir=None):
     config_path = Path.home() / ".config/web_modelos/test-notifications.json"
     receipt = {"delivery": "failed", "result": str(result), "name": str(name)}
     try:
@@ -33,7 +33,8 @@ def notify(name, result, *, counts=None, seconds=None, run_id=None):
     except Exception as error:
         # Never log command stderr: provider diagnostics may contain credentials.
         receipt["error_type"] = type(error).__name__
-    output = Path(__file__).resolve().parents[1] / "artifacts/test-notifications"
+    output = (Path(receipt_dir) if receipt_dir is not None
+              else Path(__file__).resolve().parents[1] / "artifacts/test-notifications")
     try:
         output.mkdir(parents=True, exist_ok=True)
         (output / f"{time.time_ns()}-{os.getpid()}.json").write_text(json.dumps(receipt) + "\n")

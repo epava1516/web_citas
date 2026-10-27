@@ -1,3 +1,9 @@
+N15: ajuste de recibos externos verificado en501: 6 PASS, 0 FAIL/ERROR/SKIP; 1.800 huellas estables, limpieza y Telegram confirmados. Insumo estático de frontend revisado (136 fuentes/3.524 citas), aún sin aceptación de runtime. Sigue pendiente grafo completo desde cero antes del diferencial y relevo, acta y purga final; 11/13, alpha/noindex y deuda viva conservadas.
+
+N15auditoríameta499entregadafa7dee3:15textoslateralesrevisadosporseparado,16skills/6MCPexpuestos sin nuevasconexiones. Artefactos sin enlacesMarkdownni referenciasapps/config. Helperactualescribeallí:500candidatereceipt_diropcional6unitariospendientes;default/transporte/veredictos preservados.
+
+N11aceptado498/11de13. N15fullgraphdesdecero aúnpendiente antesdiff111/338/339,relevofrontend,actaGit ypurgaúltima. DeudavivaN02MOD09end/N12B14N13B15N14B17condicionados/QAglobalestable. Alpha/noindex;Darchivepreexistingfueraentrega,goalactivo.
+
 N11aceptadolocalmente498:11/13,443disposiciones/28familias(420conpropietarioaceptado+23N02solo/deferidas). D44PASS196,539sQA/1800+329stable,253muestras31rutas+1unresolved404;C30PASSseparado,45cortesoriginalesleídos;negativos/INVALID/129SKIPpreservados.
 
 ActivoN15:revisarlateralessincambiosmezclados,auditoríafinal,grafo completo desdecero antes diferencial111/338/339 yrelevofrontend,acta/Git,purgaartifactsúltimaacción. DeudavivaN02MOD09end/N12B14N13B15N14B17condicionados/QAglobalestable. Alpha/noindex,16lateralespreservados;goalcompletonocerrado.
