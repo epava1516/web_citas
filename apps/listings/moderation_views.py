@@ -137,6 +137,8 @@ def review_photo(request, photo_id):
         Agency.objects.select_for_update().get(pk=initial_person.agency_id)
     person = Person.objects.select_for_update().get(pk=initial_person.pk)
     revision = Revision.objects.select_for_update().get(pk=photo.revision_id)
+    if not reviewer_allowed(request):
+        return HttpResponse("Forbidden", status=403)
     if (
         person.agency_id != initial_person.agency_id
         or revision.manager_version != person.manager_version

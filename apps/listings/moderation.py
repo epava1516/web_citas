@@ -5,9 +5,10 @@ from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
 
-from apps.core.models import Agency, AgencyMember, Person
+from apps.core.models import Agency, AgencyMember, Person, User
 from apps.mediafiles.models import Match
 
+from .appeal_authority import reviewer_allowed as fresh_reviewer_allowed
 from .history import is_rectification_history, ordinary_matches
 from .models import Listing, ModerationDecision, Revision
 from .profile_contract import CURRENT_CONTRACT
@@ -15,11 +16,22 @@ from .submissions import validate_submission
 
 
 def reviewer_allowed(request):
-    return bool(
-        request.user.has_perm("listings.review_listing")
-        and request.user.mfa_enabled
-        and request.session.get("mfa_version") == request.user.mfa_version
-    )
+    return fresh_reviewer_allowed(request)
+
+
+def require_current_reviewer(user):
+    current = User.objects.filter(pk=user.pk).first()
+    if (
+        current is None
+        or not current.is_active
+        or current.account_erased_at
+        or not current.mfa_enabled
+        or current.session_version != user.session_version
+        or current.mfa_version != user.mfa_version
+        or not current.has_perm("listings.review_listing")
+    ):
+        raise PermissionDenied("Moderator permission and MFA required")
+    return current
 
 
 def conflict_of_interest(user, person):
@@ -51,14 +63,14 @@ def unresolved_matches(revision):
 
 @transaction.atomic
 def decide(user, revision_id, version, outcome, reason):
-    if not user.has_perm("listings.review_listing") or not user.mfa_enabled:
-        raise PermissionDenied("Moderator permission and MFA required")
+    require_current_reviewer(user)
     initial = Revision.objects.select_related("listing__person").get(pk=revision_id)
     if initial.listing.person.agency_id:
         Agency.objects.select_for_update().get(pk=initial.listing.person.agency_id)
     person = Person.objects.select_for_update().get(pk=initial.listing.person_id)
     listing = Listing.objects.select_for_update().get(pk=initial.listing_id)
     revision = Revision.objects.select_for_update().get(pk=revision_id)
+    require_current_reviewer(user)
     if conflict_of_interest(user, person):
         raise PermissionDenied("Cannot review your own listing")
     if (
@@ -72,6 +84,7 @@ def decide(user, revision_id, version, outcome, reason):
         raise ValidationError("Review changed; reload / Revisión cambiada; recarga")
     if outcome not in {"approved", "rejected"} or not reason.strip() or len(reason) > 1000:
         raise ValidationError("Invalid decision / Decisión inválida")
+    superseded_revisions = []
     if outcome == "approved":
         if revision.submission.approved_base_id != listing.approved_revision_id:
             raise ValidationError(
@@ -82,6 +95,12 @@ def decide(user, revision_id, version, outcome, reason):
             raise ValidationError(
                 "Coincidencias pendientes de resolución / Unresolved photo matches"
             )
+        superseded_revisions = list(
+            listing.revisions.select_for_update().filter(status="pending")
+            .exclude(pk=revision.pk).order_by("pk")
+        )
+        # These pending revisions can also block; re-read authority before any write.
+        require_current_reviewer(user)
         revision.photos.filter(removed_at__isnull=True).update(approved=True)
         listing.approved_revision = revision
         listing.status = "published"
@@ -99,9 +118,7 @@ def decide(user, revision_id, version, outcome, reason):
                 "lifecycle_version",
             ]
         )
-        for superseded in (
-            listing.revisions.select_for_update().filter(status="pending").exclude(pk=revision.pk)
-        ):
+        for superseded in superseded_revisions:
             superseded.status = "obsolete"
             superseded.save(update_fields=["status", "updated_at"])
             ModerationDecision.objects.create(

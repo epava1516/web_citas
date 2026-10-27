@@ -1,3 +1,11 @@
+N11C495verificado30PASS205,811sQA/1800stable,23PGwaits:18denegaciones403sin efectos/bytes y5controlesválidos. Cuatroappfuentescorrigenmoderacion/imagenespostlocks;oráculoMatchPublicationStateexacto. A1PASS3FAIL yBINVALIDpreservados;noN11completo,10/13.
+
+SigueN11conciliar443acciones/28familias,puentes/exclusiones/regresióncomúnpertinente;N15fullgraphantesdiff/frontend/purgaúltima. Deuda-pendiente-viva:N02MOD09end,N12B14N13B15N14B17condicionados,QAglobalpospuestoestable. Alpha/noindex,16lateralespreservados.
+
+N11Aoriginal1PASS3FAIL66,291sQA/1798stable:dosPOSTrevocadosaun302yefectos,controlMatchoracleincompleto. N11Bimagenescasos3PASS3FAILobservados,runnerINVALIDporAGENTSlateralcambiado;noaceptacionQA. Appcandidata4archivos conguardasfrescas postlocks,494preparado,30casospendientes.
+
+N10aceptado491/10de13. SigueN11candidata/regresion/matriz443x28 yN15fullgraphantesdiff/frontend/purgaúltima. Leer deuda-pendiente-viva: N02MOD09end;N12B14,N13B15,N14B17condicionados;QAglobalpospuestoestable. Alpha/noindex,lateralespreservados.
+
 N10 aceptado localmente:77/77 disposiciones verificadas,10/13 bloques obligatorios; acta491 y retorno F490 real1PASS57,716sQA/1797stable,3fases12workers6HTTP200,173modelos8archivos/migraciones intactos. No aceptación por registro; producto0dcf89f estable.
 
 SiguienteN11: candidata integrada y conciliación requisito/acción/candidata/prueba/resultado/límite, congelación y regresión común pertinente sin repetir testigos válidos. N15 grafo completo antes de diferencias/inventario frontend y purgaartifacts últimaacción. N02residualend,N12-N14condicionados,alpha/noindex,15lateralespreservados.

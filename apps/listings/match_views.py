@@ -147,6 +147,8 @@ def image(request, match_id, side):
         _, people, _, _, _ = locked_pair(match_id)
     except ValidationError:
         return HttpResponse("Photo unavailable", status=404)
+    if not reviewer_allowed(request):
+        return HttpResponse("Forbidden", status=403)
     if any(conflict_of_interest(request.user, person) for person in people):
         return HttpResponse("Forbidden", status=403)
     photo = Photo.objects.select_related("blob").get(pk=getattr(match, side).pk)

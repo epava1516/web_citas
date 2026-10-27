@@ -9,7 +9,7 @@ from apps.mediafiles.models import Match, MatchResolution, Photo, PhotoRestricti
 
 from .history import is_rectification_history
 from .models import Listing
-from .moderation import conflict_of_interest
+from .moderation import conflict_of_interest, require_current_reviewer
 
 
 def locked_pair(match_id):
@@ -72,9 +72,9 @@ def locked_pair(match_id):
 
 @transaction.atomic
 def resolve(user, match_id, version, outcome, reason, evidence_reference):
-    if not user.has_perm("listings.review_listing") or not user.mfa_enabled:
-        raise PermissionDenied("Moderator permission and MFA required")
+    require_current_reviewer(user)
     initial, people, listings, matches, current = locked_pair(match_id)
+    require_current_reviewer(user)
     if any(conflict_of_interest(user, person) for person in people):
         raise PermissionDenied("Cannot review a conflict involving your own profile")
     if (
